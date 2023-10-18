@@ -2,15 +2,19 @@
 
 class CheckId
 {
-    public $inputId;
+    /* public $inputId;
     public $errorId;
-    public $data;
+    public $data; */
 
-    public function __construct($data, int $inputId, string $errorId)
+    public function __construct(
+        private $data, 
+        private int $inputId, 
+        private string $errorId
+        )
     {
-        $this->data = $data;
+        /* $this->data = $data;
         $this->errorId = $errorId;
-        $this->inputId = $inputId;
+        $this->inputId = $inputId; */
     }
 
     public function checkIds(): bool

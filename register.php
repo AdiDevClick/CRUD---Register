@@ -31,8 +31,8 @@ if(session_status() === PHP_SESSION_NONE) {
             <h1>S'enregistrer</h1>
             <div class="form">
                 <form action="submit_register.php" method="post">
-                    <label for="title" class="label">Votre prénom et nom :</label>
-                    <input name="title" type="text" id="title" placeholder="Votre titre..." class="input">
+                    <label for="nom" class="label">Votre prénom et nom :</label>
+                    <input name="nom" type="text" id="nom" placeholder="Votre nom et prénom..." class="input">
 
                     <label for="email" class="label">Votre email :</label>
                     <input name="email" type="email" id="email" placeholder="Votre email..." class="input">
@@ -40,13 +40,13 @@ if(session_status() === PHP_SESSION_NONE) {
                     <label for="password" class="label">Votre mot de passe :</label>
                     <input name="password" type="password" id="password" placeholder="*****" class="input">
 
-                    <label for="confirm-password" class="label">Confirmez vptre mot de passe :</label>
+                    <label for="confirm-password" class="label">Confirmez votre mot de passe :</label>
                     <input name="confirm-password" type="confirm-password" id="confirm-password" placeholder="*****" class="input">
 
                     <label for="age" class="label">Votre âge :</label>
-                    <input name="int" type="age" id="age" placeholder="Votre âge..." class="input">
+                    <input name="age" type="number" id="age" placeholder="Votre âge..." class="input">
 
-                    <button type="submit" name="submit" class="btn">S'enregistrer</button>
+                    <button type="submit" class="btn">S'enregistrer</button>
                 </form>
             </div>    
         </div>

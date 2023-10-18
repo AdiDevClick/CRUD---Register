@@ -9,27 +9,53 @@ if(session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-include_once("../includes/class-autoloader.inc.php");
-include_once('../config/mysql.php');
-include_once("../config/user.php");
-include_once("../includes/variables.inc.php");
+include_once("includes/class-autoloader.inc.php");
+include_once('config/mysql.php');
+//include_once("config/user.php");
+include_once("includes/variables.inc.php");
 
-$data = $_SERVER['REQUEST_METHOD'] === 'POST';
-$submit = $_POST['submit'];
-$title = $_POST['title'];
-$recipe = $_POST['recipe'];
-$errorName = 'Titre';
-$errorRecipe = 'Recette';
 
-$checkInput = new checkInputs(
-    $name,
-    $password,
+
+
+
+
+$password = '';
+$username = '';
+
+$data = $_SERVER['REQUEST_METHOD'] == 'POST';
+$getData = $_POST;
+$nom = $_POST['nom'];
+$email = $_POST['email'];
+$password = $_POST['password'];
+$age = $_POST['age'];
+$errorName = '';
+$errorRecipe = '';
+
+$valid = new Validate($data);
+
+
+$checkInput = new CheckInput(
     $data,
-    $submit,
-    $errorName,
-    $errorRecipe
+    $getData
 );
 
+try {
+    if ($checkInput->checkInputs()) 
+    echo 'okay';
+    {    
+        $sqlQuery = 'INSERT INTO users(full_name, email, password, age) 
+                    VALUES (:full_name, :email, :password, :age)';
+        $insertUsers = $db->prepare($sqlQuery);
+        $insertUsers->execute([
+            'full_name' => $nom,
+            'email' => $email,
+            'password' => $password,
+            'age' => $age
+        ]);
+    }
+} catch (Error $e) {
+    die('Erreur : ' . $e->getMessage() . ' Quelque chose ne va pas...') ;
+}
 /* try {
     if ($check = $checkInput->checkInputs())
     {
@@ -41,26 +67,6 @@ $checkInput = new checkInputs(
 // On affiche chaque recette une à une
 
 
-try {
-    if ($check = $checkInput->checkInputs()) {
-
-        $sqlQuery = 'INSERT INTO recipes(title, recipe, author, is_enabled) 
-                VALUES (:title, :recipe, :author, :is_enabled)';
-
-        $insertRecipe = $db->prepare($sqlQuery);
-
-        $insertRecipe->execute([
-            'title' => $title,
-            'recipe' => $recipe,
-            'author' => $loggedUser['email'],
-            'is_enabled' => 1,
-        ]);
-    }
-} catch (Error $e) {
-    die('Erreur : ' . $e->getMessage() . ' Quelque chose ne va pas...') ;
-}
-
-
 /* if (
     !isset($_POST['title'])
     || !isset($_POST['recipe'])
@@ -69,12 +75,6 @@ try {
     echo 'Il faut un titre et une recette pour soumettre le formulaire.';
     return;
 } */
-
-foreach ($users as $user) {
-    ?>
-    <p><?php echo $user['email'] ?> </p>
-<?php
-}
 
 ?>   
 
@@ -88,7 +88,7 @@ foreach ($users as $user) {
 <body>
     <!-- Le Header -->
 
-    <?php include_once('../includes/header.inc.php')?>
+    <?php include_once('includes/header.inc.php')?>
 
 <!-- Fin du Header -->
 
@@ -100,10 +100,10 @@ foreach ($users as $user) {
             <div class="card">
                 <div class="card-body">
                     <h5>Rappel de vos informations :</h5>
-                    <p><b>Votre nom</b> : <?php echo strip_tags($title) ?></p>
-                    <p><b>Votre email</b> : <?php echo strip_tags($title) ?></p>
-                    <p><b>Votre âge</b> : <?php echo strip_tags($recipe) ?></p>
-                    <p><b>Crée par </b> : <?php echo strip_tags($loggedUser['email']) ?></p>
+                    <p><b>Votre nom</b> : <?php echo strip_tags($nom) ?></p>
+                    <p><b>Votre email</b> : <?php echo strip_tags($email) ?></p>
+                    <p><b>Votre âge</b> : <?php echo strip_tags($age) ?></p>
+                    <p><b>Votre password </b> : <?php echo strip_tags($password) ?></p>
                 </div>
             </div>  
         </div>
@@ -113,7 +113,7 @@ foreach ($users as $user) {
     
     <!-- Le Footer -->
 
-    <?php include_once('../includes/footer.inc.php'); ?>
+    <?php include_once('includes/footer.inc.php'); ?>
 
     <!--  Fin du Footer -->
 </body>

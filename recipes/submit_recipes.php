@@ -14,7 +14,7 @@ include_once('../config/mysql.php');
 include_once("../config/user.php");
 include_once("../includes/variables.inc.php");
 
-$data = $_SERVER['REQUEST_METHOD'] === 'POST';
+$data = $_SERVER['REQUEST_METHOD'] == 'POST';
 $submit = $_POST['submit'];
 $title = $_POST['title'];
 $recipe = $_POST['recipe'];
@@ -25,7 +25,6 @@ $checkInput = new checkInputs(
     $title,
     $recipe,
     $data,
-    $submit,
     $errorName,
     $errorRecipe
 );

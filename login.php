@@ -21,7 +21,6 @@ $password = '';
 $username = '';
 
 $data = $_SERVER['REQUEST_METHOD'] == 'POST';
-$submit = $_POST['submit'];
 $password = $valid->test_input($_POST['password']);
 $username = $valid->test_input($_POST['username']);
 $errorUsername = "Nom d'utilisateur";
@@ -31,7 +30,6 @@ $checkInput = new CheckInputs(
     $username,
     $password,
     $data,
-    $submit,
     $errorUsername,
     $errorPassword
 );

@@ -2,11 +2,12 @@
 
 class Validate
 {
-    public $data;
+    //public $data;
 
-    public function __construct($data)
-    {
-        $this->data = $data;
+    public function __construct(
+        private $data
+    ) {
+        //$this->data = $data;
     }
 
     public function test_input($data)
@@ -17,13 +18,13 @@ class Validate
         return $data;
     }
 
-    public function checkMessage($message)
+    /* private function checkMessage($message)
     {
         $message = '';
         if (isset($this->data)) {
             $message = self::test_input($message);
         }
         return $message;
-    }
+    } */
 
 }
