@@ -41,9 +41,8 @@ $checkInput = new CheckInputs(
 
 
 
-if (isset($data) && isset($_POST["submit"]) ){
-    
-    $getData = $_POST;
+if (isset($data) && isset($_POST["submit"]) )
+{    
     $submit = $_POST['submit'];
     
     $valid = new Validate('');
@@ -62,7 +61,7 @@ if (isset($data) && isset($_POST["submit"]) ){
         $errorUsername,
         $errorPassword
     );
-    
+
     ($checkInput->checkInputs()); 
 
 
