@@ -15,31 +15,57 @@ include_once("config/mysql.php");
 //include_once("config/user.php");
 //display_erreurLogin();
 include_once('includes/variables.inc.php');
-$valid = new Validate($data);
 
-$password = '';
+$data = $_SERVER['REQUEST_METHOD'] == 'POST'; 
+
+/* $password = '';
 $username = '';
+$errorUsername = '';
+$errorPassword = '';
+$valid = new Validate($password);
 
-$data = $_SERVER['REQUEST_METHOD'] == 'POST';
-$submit = $_POST['submit'];
-$password = $valid->test_input($_POST['password']);
-$username = $valid->test_input($_POST['username']);
-$errorUsername = "Nom d'utilisateur";
-$errorPassword = 'Mot de passe';
+
+
+
+
 
 $checkInput = new CheckInputs(
-    $username,
-    $password,
     $data,
     $submit,
+    $username,
+    $password,    
     $errorUsername,
     $errorPassword
-);
+); */
 
 
 
 
-if ($checkInput->checkInputs()) {
+if (isset($data) && isset($_POST["submit"]) ){
+    
+    $getData = $_POST;
+    $submit = $_POST['submit'];
+    
+    $valid = new Validate('');
+
+    $password = $valid->test_input($_POST['password']);
+    $username = $valid->test_input($_POST['username']);
+    $errorUsername = "Nom d'utilisateur";
+    $errorPassword = 'Mot de passe';
+    
+
+    $checkInput = new CheckInputs(
+        $data,
+        $submit,
+        $username,
+        $password,    
+        $errorUsername,
+        $errorPassword
+    );
+    
+    ($checkInput->checkInputs()); 
+
+
 
     //if (isset($_POST['password']) && isset($_POST['username']))
     //{
@@ -120,7 +146,7 @@ if (isset($_COOKIE['LOGGED_USER']) || isset($_SESSION['LOGGED_USER'])) {
         <label for="password"> Votre mot de passe :</label>
         <input type="password" id="password" name="password" placeholder="****">
 
-        <button type="submit" class="bTn" id="btn" value="submit" name="submit"> S'identifier</button>
+        <button type="submit" class="bTn" id="btn" name="submit"> S'identifier</button>
 </form>
 <!-- 
     Si l'utilisateur est bien loggé, on affiche le message de succès

@@ -5,12 +5,12 @@ class Validate
     //public $data;
 
     public function __construct(
-        private $data
+        private string $data
     ) {
         //$this->data = $data;
     }
 
-    public function test_input($data)
+    public function test_input($data) : string
     {
         $data = trim($data);
         $data = stripslashes($data);

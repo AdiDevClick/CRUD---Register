@@ -8,13 +8,13 @@ class CheckInputs extends Validate
       private $errorName1;
       private $errorName2; */
 
-    public function __construct(
-        private  string $input1 = 'none',
-        private  string $input2 = 'none',
-        private $data,
+    public function __construct(        
+        private $data ,
         private $submit,
-        private  string $errorName1 = 'none',
-        private  string $errorName2 = 'none'
+        private  string $input1,
+        private  string $input2,
+        private  string $errorName1,
+        private  string $errorName2 
     ) {
         /*  $this->input1 = $input1;
          $this->input2 = $input2;
@@ -75,8 +75,6 @@ class CheckInputs extends Validate
                 return $message; */
 
             default:
-                $this->input1 = '';
-                $this->input2 = '';
                 echo 'ok';
                 return $status = true;
                 //break;
