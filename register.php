@@ -46,7 +46,7 @@ if(session_status() === PHP_SESSION_NONE) {
                     <label for="age" class="label">Votre âge :</label>
                     <input name="age" type="number" id="age" placeholder="Votre âge..." class="input">
 
-                    <button type="submit" class="btn">S'enregistrer</button>
+                    <button type="submit" name="submit" class="btn">S'enregistrer</button>
                 </form>
             </div>    
         </div>

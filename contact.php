@@ -39,7 +39,7 @@ if(session_status() === PHP_SESSION_NONE) {
         <label for="file"> Votre fichier</label>
         <input type="file" id="file" name="file"/>
         
-        <button type="submit" class="bTn" value="submit">Envoyez</button>
+        <button type="submit" class="bTn" name="submit">Envoyez</button>
     </form>
 
     <!-- Fin du Main -->

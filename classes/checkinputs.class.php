@@ -12,6 +12,7 @@ class CheckInputs extends Validate
         private  string $input1 = 'none',
         private  string $input2 = 'none',
         private $data,
+        private $submit,
         private  string $errorName1 = 'none',
         private  string $errorName2 = 'none'
     ) {
@@ -22,14 +23,14 @@ class CheckInputs extends Validate
          $this->errorName2 = $errorName2; */
     }
 
-    public function checkInputs()
+    public function checkInputs() : bool
     {
         //$errorMessage = "";
         //$value1 = self::test_input($this->input1);
         //$value2 = self::test_input($this->input2);
-        $status = true;
+        $status = '';
         $message = '';
-        switch (isset($this->data)) {
+        switch (isset($this->data) && isset($this->submit)) {
 
 
             case (empty($this->input1) && empty($this->input2)):
@@ -41,8 +42,9 @@ class CheckInputs extends Validate
                 //echo $errorMessage;
                 //self::test_input($this->input1) && self::test_input($this->input2);
                 echo"Vous n'avez pas saisit de " . $this->errorName1 . " ni de " . $this->errorName2;
-                //return $status = false;
-                break;
+                return $status = false;
+                //$status = false;
+                //break;
             case (!isset($this->input1) || empty($this->input1)):
                 /* $errorMessage = sprintf(
                     "Vous n'avez pas saisit de : %s",
@@ -50,8 +52,8 @@ class CheckInputs extends Validate
                 ); */
                 //self::test_input($this->input1);
                 echo"Vous n'avez pas saisit de " . $this->errorName1 ;
-                //return $status = false;
-                break;
+                return $status = false;
+                //break;
             case (!isset($this->input2) || empty($this->input2)):
                 /* $errorMessage = sprintf(
                     "Vous n'avez pas saisit de : %s",
@@ -59,9 +61,9 @@ class CheckInputs extends Validate
                 ); */
                 //self::test_input($this->input2);
                 echo"Vous n'avez pas saisit de " . $this->errorName2;
-                //return $status = false;
-                break;
-            case (isset($this->input2)):
+                return $status = false;
+                //break;
+           /*  case (isset($this->input2)):
                 $message = $this->test_input($this->input2);
                 echo $message;
                 //return $message;
@@ -70,15 +72,16 @@ class CheckInputs extends Validate
             case (isset($this->input1)):
                 $message = $this->test_input($this->input1);
                 echo $message;
-                return $message;
+                return $message; */
 
             default:
                 $this->input1 = '';
                 $this->input2 = '';
                 echo 'ok';
-                break;
+                return $status = true;
+                //break;
         }
-        //return $status;
+        return $status;
     }
     //return
 

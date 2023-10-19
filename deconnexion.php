@@ -13,6 +13,7 @@ if(session_status() === PHP_SESSION_NONE) {
 include_once('config/user.php');
 
 if((session_status() === PHP_SESSION_ACTIVE) && isset($loggedUser)) {
+    session_unset();
     session_destroy();
     header_remove('$_COOKIE');
     setcookie(
