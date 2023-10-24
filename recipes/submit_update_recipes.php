@@ -15,7 +15,6 @@ include_once("../config/user.php");
 include_once("../includes/variables.inc.php");
 
 $data = $_SERVER['REQUEST_METHOD'] === 'POST';
-$submit = $_POST['submit'];
 $title = $_POST['title'];
 $recipe = $_POST['recipe'];
 $errorName = 'Titre';
@@ -23,10 +22,9 @@ $errorRecipe = 'Recette';
 $id = $_POST['id'];
 
 $checkInput = new checkInputs(
-    $title,
-    $recipe,
     $data,
-    $submit,
+    $title,
+    $recipe,    
     $errorName,
     $errorRecipe
 );
@@ -87,6 +85,8 @@ try {
 
 <!--  Le Main -->
 
+    <!-- Success message -->
+
     <section class="container">
         <div class="form-flex">
             <h1>La modification de votre recette à bien été partagée !</h1>
@@ -100,6 +100,8 @@ try {
             </div>  
         </div>
     </section>
+
+    <!-- End of success message -->
 
     <!-- Fin du Main -->
     

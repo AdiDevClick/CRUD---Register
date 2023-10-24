@@ -8,13 +8,12 @@ class CheckInputs extends Validate
       private $errorName1;
       private $errorName2; */
 
-    public function __construct(        
-        private $data ,
-        private $submit,
-        private  string $input1,
-        private  string $input2,
+    public function __construct(
+        private $data,
+        private  string $input1 = '',
+        private  string $input2 = '',
         private  string $errorName1,
-        private  string $errorName2 
+        private  string $errorName2
     ) {
         /*  $this->input1 = $input1;
          $this->input2 = $input2;
@@ -23,14 +22,14 @@ class CheckInputs extends Validate
          $this->errorName2 = $errorName2; */
     }
 
-    public function checkInputs() : bool
+    public function checkInputss(): bool
     {
         //$errorMessage = "";
         //$value1 = self::test_input($this->input1);
         //$value2 = self::test_input($this->input2);
         $status = '';
         $message = '';
-        switch (isset($this->data) && isset($this->submit)) {
+        switch (isset($this->data)) {
 
 
             case (empty($this->input1) && empty($this->input2)):
@@ -63,20 +62,20 @@ class CheckInputs extends Validate
                 echo"Vous n'avez pas saisit de " . $this->errorName2;
                 return $status = false;
                 //break;
-           /*  case (isset($this->input2)):
-                $message = $this->test_input($this->input2);
-                echo $message;
-                //return $message;
-                //break;
-                // no break
-            case (isset($this->input1)):
-                $message = $this->test_input($this->input1);
-                echo $message;
-                return $message; */
+                /*  case (isset($this->input2)):
+                     $message = $this->test_input($this->input2);
+                     echo $message;
+                     //return $message;
+                     //break;
+                     // no break
+                 case (isset($this->input1)):
+                     $message = $this->test_input($this->input1);
+                     echo $message;
+                     return $message; */
 
-            default:
-                echo 'ok';
-                return $status = true;
+                /* default:
+                    echo 'ok';
+                    return $status = true; */
                 //break;
         }
         return $status;

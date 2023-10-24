@@ -15,16 +15,15 @@ include_once("../config/user.php");
 include_once("../includes/variables.inc.php");
 
 $data = $_SERVER['REQUEST_METHOD'] == 'POST';
-$submit = $_POST['submit'];
 $title = $_POST['title'];
 $recipe = $_POST['recipe'];
 $errorName = 'Titre';
 $errorRecipe = 'Recette';
 
 $checkInput = new checkInputs(
-    $title,
-    $recipe,
     $data,
+    $title,
+    $recipe,    
     $errorName,
     $errorRecipe
 );

@@ -12,6 +12,11 @@ $usersStatement = $db->prepare($sqlUsersQuery);
 $usersStatement->execute();
 $users = $usersStatement->fetchAll();
 
+$sqlUsersQuery = 'SELECT * FROM `comments`';
+$commentsStatement = $db->prepare($sqlUsersQuery);
+$commentsStatement->execute();
+$comments = $commentsStatement->fetchAll();
+
 // On affiche chaque recette une à une
 /* foreach ($recipes as $recipe) {
 ?>

@@ -145,17 +145,21 @@ echo 'Bonjour ! Nous sommes le ' . $day . '/' . $month . '/' . $year . 'et il es
     <?php include_once('login.php')?>
     <div class="container">
         <h1>Site de recettes !</h1>
-    
+    <?php require_once("includes/class-autoloader.inc.php"); ?>
 
     
     <!-- Si l'utilisateur est bien connecté il peut voir les recettes -->  
-    <?php if (isset($loggedUser)):?>    
-        <?php foreach ($recipes as $recipe) : ?>
-            <?php echo display_recipe($recipe, $users); ?>
+    <?php if (isset($loggedUser)):?> 
+        <?php require_once("includes/class-autoloader.inc.php"); ?>
+        <?php $recipes = new LoginView('', '', '', ''); ?>
+        <!-- <?php //$recipes = new LoginView() ?> -->
+        <?php foreach ($recipes->displayRecipes() as $recipe) : ?>
+            <?php echo display_recipe($recipe); ?>
                 <article class="article">
+                <h3><a href="./recipes/read.php?id=<?php echo($recipe['recipe_id']); ?>"><?php echo($recipe['title']); ?></a></h3>
                     <h3><?php echo $recipe['title']; ?></h3>
                     <div><?php echo $recipe['recipe']; ?></div>                         
-                    <i><?php echo displayAuthor($recipe["author"], $users); ?></i>                    
+                    <i><?php echo displayAuthor($recipe["author"]) ?></i>                    
                     <?php if (isset($loggedUser) && $recipe['author'] === $loggedUser['email']) : ?>
                         <ul class="list-group">
                             <li class="list-group-item"><a class="link-warning" href="./recipes/update_recipes.php?id=<?php echo($recipe['recipe_id']) ?>">Editer l'article</a></li>

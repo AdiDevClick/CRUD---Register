@@ -19,10 +19,16 @@ $rootUrl = (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HT
                 <li><a href="#">About</a></li>
                 <li><a href="#">Services</a></li>
                 <li><a href="<?php echo($rootUrl). 'recettes/contact.php' ?>">Contact</a></li>
-                <li><a href="<?php echo($rootUrl). 'recettes/recipes/create_recipes.php' ?>">Créer une recette</a></li>
-                <li><a href="<?php echo($rootUrl). 'recettes/login.php' ?>">Se connecter</a></li>
-                <li><a href="<?php echo($rootUrl). 'recettes/deconnexion.php' ?>">Se déconnecter</a></li>
-                <li><a href="<?php echo($rootUrl). 'recettes/register.php' ?>">S'enregistrer</a></li>
+                <?php if(!isset($_SESSION['LOGGED_USER'])) : ?>
+                    <li><a href="<?php echo($rootUrl). 'recettes/login.php' ?>">Se connecter</a></li>  
+                    <li><a href="<?php echo($rootUrl). 'recettes/register.php' ?>">S'enregistrer</a></li>   
+                <?php endif ?>    
+                
+                <?php if(isset($_SESSION['LOGGED_USER'])) : ?>
+                    <li><a href="<?php echo($rootUrl). 'recettes/recipes/create_recipes.php' ?>">Créer une recette</a></li>
+                    <li><a href="<?php echo($rootUrl). 'recettes/deconnexion.php' ?>">Se déconnecter</a></li>
+                    <li><a href="<?php echo($rootUrl). 'recettes/comments/comments.php' ?>">Commentaires</a></li>
+                <?php endif ?>
             </ul>
             <a href="#" class="action_btn">Get Started</a>
             <div class="toggle_btn">

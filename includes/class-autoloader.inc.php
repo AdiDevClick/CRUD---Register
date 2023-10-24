@@ -14,3 +14,7 @@ function myAutoLoader($className)
     $extension = ".class.php";
     require_once $path . $className . $extension;
 }
+
+// get the current URL :
+/* $url = explode("/", parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));
+$url = array_pop($url); */

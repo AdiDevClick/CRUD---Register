@@ -1,6 +1,4 @@
-<?php declare(strict_types=1) ?>
-
-<?php
+<?php declare(strict_types=1);
 
 /* if(session_status() !== PHP_SESSION_ACTIVE) {
     session_start();
@@ -33,44 +31,91 @@ $checkInput = new CheckInputs(
     $errorPassword
 ); */
 
-echo "test ";
-if (($data)) {
-    echo "test 2";
+if ($data) {
     $username = '';
     $password = '';
 
-
     require_once("includes/class-autoloader.inc.php");
-    // We grab the data
-    $password = $_POST['password'];
-    $username = $_POST['username'];
-    $getData = $_POST; 
 
-    // We instanciate the datas using the LoginController
-    $login = new LoginView($password, $username, $data, $getData);
-    $login->displayLogin();
-    echo "test 2";
-    /* $getData = $_POST;
+    $getData = $_POST;
     $checkInput = new CheckInput(
         $getData
     );
+
+    $username = $checkInput->test_input($_POST['username']);
     $password = $checkInput->test_input($_POST['password']);
-    $username = $checkInput->test_input($_POST['username']); */
+    $errorUsername = "Nom d'utilisateur";
+    $errorPassword = 'Mot de passe';
 
 
-    
-    /*$errorUsername = "Nom d'utilisateur";
-    $errorPassword = 'Mot de passe';*/
+    /*  $checkInput = new CheckInputs(
+         $data,
+         $username,
+         $password,
+         $errorUsername,
+         $errorPassword
+     ); */
+
+
 
     //$checkInput->checkInputs();
 
-    //$login = new Logincontroller($password, $username);
-    /* $login = new Logincontroller($password, $username, $data, $getData);
-    $login->index(); */
-    
+
+    $users = new Login();
+    //if (isset($_POST['password']) && isset($_POST['username']))
+    //{
+    //checkLoginInputs($username, $password, $login);
+
+
+
+    //checkPassword($password, $user['password']
+    foreach ($users->getUsers() as $user) {
+        /*  echo $user['password'] . '<br>'. PHP_EOL;
+        //if (password_verify($password, $user['password'])) {
+        if ($users->checkPassword($password, $user)) {
+                echo 'they are the same' .'<br>' . PHP_EOL;
+            } else {
+                echo 'they are not' .'<br>' . PHP_EOL;
+            } */
+        if ($user['email'] === $username &&
+        //$user->checkPassword($password)  )
+        password_verify($password, $user['password'])) {
+            //
+            $loggedUser = [
+            'email' => $user['email'],
+            //'username' => $user['full_name'],
+            ];
+            header('Location: index.php');
+
+
+            /****
+             * Création d'un cookie qui expire dans 1 an
+             */
+            session_start();
+            setcookie(
+                'LOGGED_USER',
+                $user['email'],
+                [
+                    'expires' => time() + 365 * 24 * 3600,
+                    'secure' => true,
+                    'httponly' => true,
+                ]
+            );
+            $_SESSION['USER_ID'] = $user['user_id'];
+            $_SESSION['LOGGED_USER'] = $user['full_name'];
+
+
+
+        } else {
+            $errorMessage = sprintf(
+                'Les informations envoyées ne permettent pas de vous identifier : (%s/%s)',
+                $username,
+                $password
+            );
+        }
+
+    }
 }
-
-
 if (isset($_COOKIE['LOGGED_USER']) || isset($_SESSION['LOGGED_USER'])) {
     $loggedUser = [
         'email' => $_COOKIE['LOGGED_USER'] ?? $_SESSION['LOGGED_USER'],
