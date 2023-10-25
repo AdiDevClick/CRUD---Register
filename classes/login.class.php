@@ -52,9 +52,15 @@ class Login extends Mysql
             //exit();
         }
         if ($recipesStatement->rowCount() == 0) {
-            $recipesStatement = null;
-            throw new Error((string)header("Location: ".Functions::getUrl()."?error=recipe-not-found")); 
-            //header("Location : ".getUrl(). "?error=recipe-not-found");
+            //$recipesStatement = null;
+            $newRecipe = '';
+            Echo "Il n'existe aucune recette à ce jour. Soyez le premier à partager la votre !";
+            $newRecipe = '<div class="">';
+            $newRecipe .= '<p><a href="recipes/create_recipes.php">Cliquez ici</a> pour créer votre recette !</p>';
+            echo $newRecipe;
+
+            //throw new Error((string)header("Location: ".Functions::getUrl()."?error=recipe-not-found")); 
+            //header("Location : ".Functions::getUrl(). "?error=recipe-not-found");
             //exit();
         }
         $recipes = $recipesStatement->fetchAll();
@@ -62,8 +68,8 @@ class Login extends Mysql
     }
 
     /**********
-     * Vérifier le pw (Obsolète)
-                                              ***********/
+     * Vérifier le pw 
+     ****                                      ***********/
     protected function getPwd(string $pwd, string $email): bool
     {
         $sqlUsersQuery =

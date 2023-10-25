@@ -7,7 +7,7 @@ class Recipe extends Mysql
      * Summary of setRecipes
      * @param string $title
      * @param string $recipe
-     * @throws \Error
+     * @throws Error
      * @return array
      */
     protected function setRecipes(string $title, string $recipe, string $loggedUser): void
@@ -21,7 +21,7 @@ class Recipe extends Mysql
         if (!$insertRecipe->execute([
             'title' => $title,
             'recipe' => $recipe,
-            'author' => $loggedUser['email'],
+            'author' => $loggedUser,
             'is_enabled' => 1,
         ])) {
             $insertRecipe = null;
@@ -49,10 +49,11 @@ class Recipe extends Mysql
         }
         if ($recipesStatement->rowCount() == 0) {
             $recipesStatement = null;
+            Echo "Il n'existe aucune recette à ce jour. Soyez le premier à partager la votre !";
             throw new Error((string)header("Location: ".Functions::getUrl()."?error=recipe-not-found"));
-            //header("Location : ".getUrl(). "?error=recipe-not-found");
+            //header("Location :" .Functions::getUrl(). "?error=recipe-not-found");
             //exit();
-        }
+        }  
         $recipes = $recipesStatement->fetchAll();
         return $recipes;
     }

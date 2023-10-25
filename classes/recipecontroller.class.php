@@ -10,20 +10,24 @@ class Recipecontroller extends Recipe
     protected function insertRecipes()
     {
         try {
-            if  ($this->emailTaken() || !$this->pwMatch() || !isset($this->getData)) {
-                //if  (!$this->pwMatch()) {
-                throw new Error("Erreur : On n'a pas pu check les inputs") ;
+            $loggedUser = LoginController::checkLoggedStatus();
+            if  (!isset($loggedUser)) {
+                throw new Error("Erreur : Veuillez vous identifier avant de partager une recette.") ;
             } else {
                 $checkInput = new CheckInput(
                     $this->getData
                 );
+                
+                $title = $checkInput->test_input($this->getData["title"]);
+                $recipe = $checkInput->test_input($this->getData["recipe"]);
                 $checkInput->checkInputs();
+
                 //$this->insertUser($this->nom, $this->email, $this->password, $this->age);
-                $this->setRecipes($this->getData['title'], $this->getData['recipe'], $this->getRecipes()['email']);
-                $registeredUser = [
-                            'email' => $this->getData['email'],
+                $this->setRecipes($title, $recipe, $loggedUser['email']);
+                /* $registeredRecipe = [
+                            'email' => $this->getData['title'],
                             //'username' => $user['full_name'],
-                            ];
+                            ]; */
                 /* setcookie(
                             'REGISTERED_USER',
                             $this->getData['email'],
@@ -34,9 +38,9 @@ class Recipecontroller extends Recipe
                             ]
                 );  */
                 //session_start();
-                $_SESSION['REGISTERED_USER'] = $registeredUser;
+                //$_SESSION['REGISTERED_RECIPE'] = $registeredRecipe;
                 //header("Location: ".Functions::getUrl()."?error=none") ; */
-                return $registeredUser;
+                //return $registeredRecipe;
             }
             /* if ($this->emailTaken()) {
                 $registeredUser = [
@@ -65,7 +69,7 @@ class Recipecontroller extends Recipe
          }
          return $resultCheck;
      } */
-
+/* 
     private function emailTaken(): bool
     {
         $resultCheck = '' ;
@@ -89,5 +93,5 @@ class Recipecontroller extends Recipe
         }
         return $resultCheck;
     }
-
+ */
 }
