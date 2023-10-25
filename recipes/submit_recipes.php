@@ -39,16 +39,14 @@ $errorRecipe = 'Recette'; */
 
 if ($data && isset($_POST['submit'])) {
     try {
-        require_once("includes/class-autoloader.inc.php");
+        require_once("../includes/class-autoloader.inc.php");
         $getData = [
         'title' => $_POST['title'],
         'recipe' => $_POST['recipe']
         ];
-        $setRecipe = new RecipeView();
-        $setRecipe->insertRecipes($title, $recipe, $loggedUser);
-        header('refresh:10, index.php?error=none');
-
-
+        $setRecipe = new RecipeView($getData);
+        $setRecipe->insertRecipe($getData);
+        header('refresh:10, ../index.php?error=none');
     } catch (Error $e) {
         die('Erreur : ' . $e->getMessage() . ' Quelque chose ne va pas dans l\'insertion...') ;
     }
@@ -63,12 +61,6 @@ if ($data && isset($_POST['submit'])) {
     echo 'Il faut un titre et une recette pour soumettre le formulaire.';
     return;
 } */
-
-foreach ($recipes as $recipee) {
-    ?>
-    <p><?php echo $recipee['title'] ?> </p>
-<?php
-}
 
 ?>   
 

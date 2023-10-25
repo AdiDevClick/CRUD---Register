@@ -120,6 +120,23 @@ class LoginController extends Login
         $result = $this->getUsers($email);
         return $result;    
     } 
+
+/***
+ * Check for a set cookie and return the user
+ */
+    public static function checkLoggedStatus(): array 
+    {   
+        if(isset($_COOKIE['LOGGED_USER']) || isset($_SESSION['LOGGED_USER'])) {
+            $loggedUser = [
+            'email' => $_COOKIE['LOGGED_USER'] ?? $_SESSION['LOGGED_USER'],
+        ];
+        } else {
+            throw new Exception('Veuillez vous identifier pour ajouter une recette');
+        } 
+        return $loggedUser; 
+    } 
+
+
     /* protected function login(string $pwd, string $email)
     {
         foreach ($this->getUsers($email) as $user) {

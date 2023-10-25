@@ -26,6 +26,11 @@ if(session_status() === PHP_SESSION_NONE) {
     <!-- Fin du Header -->
 
     <!--  Le Main -->
+    <!-- Inserting success message if so -->
+    <?php if (isset($_SESSION[]))?>
+    <!-- end of inserting success message -->
+
+
     <section class="container">
         <div class="form-flex">
             <h1>Partagez votre recette !</h1>

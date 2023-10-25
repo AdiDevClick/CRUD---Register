@@ -8,6 +8,9 @@ class CheckInput extends Validate
         //
     }
 
+/***
+ * Check each inputs - space is not allowed in Username 
+ */
     public function checkInputs()
     {
         //$errorMessage = "";
@@ -28,15 +31,22 @@ class CheckInput extends Validate
                     if (isset($this->getData['email']) && (!filter_var($this->getData['email'], FILTER_VALIDATE_EMAIL)) /* && !preg_match("[a-z0-9A-Z._-]+@[a-z0-9A-Z._-]+.[a-zA-Z]",$this->getData['email']) */) {
                         throw new Error((string)header("Location: ".Functions::getUrl()."?error=email-invalid"));
                     }
-                    if (!preg_match("/^[a-zA-Z0-9]*$/", $this->getData['username'])) {
+                    //if (isset($this->getData['username']) && !preg_match("/^[a-zA-Z0-9]*$/", $this->getData['username'])) { // No space allowed
+                    if (isset($this->getData['username']) && !preg_match("/^[a-zA-Z0-9]/", $this->getData['username'])) { // With space allowed   
                         throw new Error((string)header("Location: ".Functions::getUrl()."?error=invalid-input"));                   
                         //throw new Error ('Votre ' . $key . ' est vide ! <br>');
                         //return $result;
                         //die('Nous ne pouvons continuer...');
-                        //$sanitizedKey = $this->test_input($key);
-
+                    }
+                    if (isset($this->getData['title']) && !preg_match("(^[a-zA-Z0-9]*\z)", $this->getData['title'])) { // With space allowed
+                        throw new Error((string)header("Location: ".Functions::getUrl()."?error=invalid-title-input"));
                         //return $e;
                         //return $result = false;
+                    } 
+                    if (isset($this->getData['recipe']) && !preg_match("(^[a-zA-Z0-9]+\\z)", $this->getData['recipe'])) { // With space allowed
+                        throw new Error((string)header("Location: ".Functions::getUrl()."?error=invalid-recipe-input"));
+                        //return $e;
+                        //return $result = false;                    
                     } else {
                         //$result = [(throw new Error((string)header("Location: $url?error=$key-vide")))];
                         //return $errors;
