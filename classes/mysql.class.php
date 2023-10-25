@@ -10,8 +10,6 @@ class Mysql
     protected static function connect() 
     {
         try {
-            
-            // Souvent on identifie cet objet par la variable $conn ou $db
             $db = new PDO(
                 sprintf('mysql:host=%s;dbname=%s;post=%s', self::$MYSQL_HOST,  self::$MYSQL_DB,  self::$MYSQL_PORT),
                 self::$MYSQL_USER,
@@ -19,7 +17,6 @@ class Mysql
             );
             $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             return $db;
-
         } catch (Error $e) {
             // En cas d'erreur, on affiche un message et on arrête le script
             die('Erreur : '. $e->getMessage());

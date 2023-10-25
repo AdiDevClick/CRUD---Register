@@ -17,7 +17,7 @@ $rootUrl = (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HT
             <ul class="links">
                 <li><a href="<?php echo($rootUrl). 'recettes/index.php' ?>">Home</a></li>
                 <li><a href="#">About</a></li>
-                <li><a href="#">Services</a></li>
+                <li><a href="#">Ma ToDo list</a></li>
                 <li><a href="<?php echo($rootUrl). 'recettes/contact.php' ?>">Contact</a></li>
                 <?php if(!isset($_SESSION['LOGGED_USER'])) : ?>
                     <li><a href="<?php echo($rootUrl). 'recettes/login.php' ?>">Se connecter</a></li>  

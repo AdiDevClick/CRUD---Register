@@ -2,11 +2,14 @@
 
 class LoginController extends Login
 {
-    public function __construct(
+    /* public function __construct(
         private string $password, 
         private string $username,
         private $data,
         private $getData)
+        { */
+    public function __construct(
+        private $getDatas)
         {
             //
     } 
@@ -17,7 +20,7 @@ class LoginController extends Login
      */
     protected function index(): void
     {
-        if (!$this->data && isset($this->getData)) {
+        if (!isset($this->getDatas)) {
             throw new Error("Nous ne pouvons pas tester vos identifiants...". 
             header("Location: ".Functions::getUrl(). "?error=missing-ids"));
             /* $this->username = '';
@@ -45,10 +48,10 @@ class LoginController extends Login
             //$this->login($this->password, $this->username);
         } else {
             $checkInput = new CheckInput(
-                $this->getData
+                $this->getDatas
             );
-            $password = $checkInput->test_input($this->password);
-            $username = $checkInput->test_input($this->username);
+            $password = $checkInput->test_input($this->getDatas["password"]);
+            $username = $checkInput->test_input($this->getDatas["username"]);
             $checkInput->checkInputs();
 
             $this->login($password, $username);

@@ -24,6 +24,12 @@ class CheckInput extends Validate
                         //$e = throw new Error((string)header("Location: $url?error=$key-vide"));
                         throw new Error((string)header("Location: ".Functions::getUrl()."?error=$key-vide"));
                         //header("Location: ".Functions::getUrl()."?error=$key-vide");
+                    }
+                    if (isset($this->getData['email']) && (!filter_var($this->getData['email'], FILTER_VALIDATE_EMAIL)) /* && !preg_match("[a-z0-9A-Z._-]+@[a-z0-9A-Z._-]+.[a-zA-Z]",$this->getData['email']) */) {
+                        throw new Error((string)header("Location: ".Functions::getUrl()."?error=email-invalid"));
+                    }
+                    if (!preg_match("/^[a-zA-Z0-9]*$/", $this->getData['username'])) {
+                        throw new Error((string)header("Location: ".Functions::getUrl()."?error=invalid-input"));                   
                         //throw new Error ('Votre ' . $key . ' est vide ! <br>');
                         //return $result;
                         //die('Nous ne pouvons continuer...');
@@ -41,7 +47,7 @@ class CheckInput extends Validate
                         $result = true;
                     }
                 } catch (Error $e) {
-                    die('Erreur : '. $e->getMessage() ." Veuillez replir les champs s'il vous plait... <br>");
+                    die('Erreur : '. $e->getMessage() ." Veuillez remplir les champs s'il vous plait... <br>");
                 }
             }
         }

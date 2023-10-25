@@ -34,7 +34,7 @@ $checkInput = new CheckInputs(
 ); */
 
 echo "test ";
-if (($data)) {
+if ($data && isset($_POST["submit"])) {
     echo "test 2";
     $username = '';
     $password = '';
@@ -42,12 +42,19 @@ if (($data)) {
 
     require_once("includes/class-autoloader.inc.php");
     // We grab the data
-    $password = $_POST['password'];
+
+    $getDatas = [
+        'password' => $_POST['password'],
+        'username' => $_POST['username'],      
+    ];
+    
+    /* $password = $_POST['password'];
     $username = $_POST['username'];
-    $getData = $_POST; 
+    $getData = $_POST;  */
 
     // We instanciate the datas using the LoginController
-    $login = new LoginView($password, $username, $data, $getData);
+    $login = new LoginView($getDatas);
+    //$login = new LoginView($password, $username, $data, $getData);
     $login->displayLogin();
     echo "test 2";
     /* $getData = $_POST;
@@ -112,7 +119,7 @@ if (isset($_COOKIE['LOGGED_USER']) || isset($_SESSION['LOGGED_USER'])) {
         <label for="password"> Votre mot de passe :</label>
         <input type="password" id="password" name="password" placeholder="****">
 
-        <button type="submit" class="bTn" id="btn"> S'identifier</button>
+        <button type="submit" name="submit" class="bTn" id="btn"> S'identifier</button>
 </form>
 <!-- 
     Si l'utilisateur est bien loggé, on affiche le message de succès

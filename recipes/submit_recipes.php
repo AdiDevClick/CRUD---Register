@@ -1,5 +1,6 @@
+<?php declare(strict_types=1) ?>
+
 <?php
-declare(strict_types=1);
 
 if(session_status() !== PHP_SESSION_ACTIVE) {
     session_start();
@@ -9,24 +10,22 @@ if(session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-include_once("../includes/class-autoloader.inc.php");
+/* include_once("../includes/class-autoloader.inc.php");
 include_once('../config/mysql.php');
 include_once("../config/user.php");
-include_once("../includes/variables.inc.php");
+include_once("../includes/variables.inc.php"); */
+
+
 
 $data = $_SERVER['REQUEST_METHOD'] == 'POST';
-$title = $_POST['title'];
+/* $title = $_POST['title'];
 $recipe = $_POST['recipe'];
 $errorName = 'Titre';
-$errorRecipe = 'Recette';
+$errorRecipe = 'Recette'; */
 
-$checkInput = new checkInputs(
-    $data,
-    $title,
-    $recipe,    
-    $errorName,
-    $errorRecipe
-);
+/* $checkInput = new checkInputs(
+    $getData
+); */
 
 /* try {
     if ($check = $checkInput->checkInputs())
@@ -38,24 +37,21 @@ $checkInput = new checkInputs(
 } */
 // On affiche chaque recette une à une
 
+if ($data && isset($_POST['submit'])) {
+    try {
+        require_once("includes/class-autoloader.inc.php");
+        $getData = [
+        'title' => $_POST['title'],
+        'recipe' => $_POST['recipe']
+        ];
+        $setRecipe = new RecipeView();
+        $setRecipe->insertRecipes($title, $recipe, $loggedUser);
+        header('refresh:10, index.php?error=none');
 
-try {
-    if ($check = $checkInput->checkInputs()) {
 
-        $sqlQuery = 'INSERT INTO recipes(title, recipe, author, is_enabled) 
-                VALUES (:title, :recipe, :author, :is_enabled)';
-
-        $insertRecipe = $db->prepare($sqlQuery);
-
-        $insertRecipe->execute([
-            'title' => $title,
-            'recipe' => $recipe,
-            'author' => $loggedUser['email'],
-            'is_enabled' => 1,
-        ]);
+    } catch (Error $e) {
+        die('Erreur : ' . $e->getMessage() . ' Quelque chose ne va pas dans l\'insertion...') ;
     }
-} catch (Error $e) {
-    die('Erreur : ' . $e->getMessage() . ' Quelque chose ne va pas...') ;
 }
 
 
@@ -91,20 +87,21 @@ foreach ($recipes as $recipee) {
 <!-- Fin du Header -->
 
 <!--  Le Main -->
-
-    <section class="container">
+<!-- Success message of setRecipes -->
+    <!-- <section class="container">
         <div class="form-flex">
             <h1>Votre recette à bien été partagée !</h1>
             <div class="card">
                 <div class="card-body">
                     <h5>Rappel de vos informations :</h5>
-                    <p><b>Titre de votre recette</b> : <?php echo strip_tags($title) ?></p>
-                    <p><b>Votre recette</b> : <?php echo strip_tags($recipe) ?></p>
-                    <p><b>Crée par </b> : <?php echo strip_tags($loggedUser['email']) ?></p>
+                    <p><b>Titre de votre recette</b> : <?php //echo strip_tags($title)?></p>
+                    <p><b>Votre recette</b> : <?php //echo strip_tags($recipe)?></p>
+                    <p><b>Crée par </b> : <?php //echo strip_tags($loggedUser['email'])?></p>
                 </div>
             </div>  
         </div>
-    </section>
+    </section> -->
+<!-- End of Success message of setRecipes -->
 
     <!-- Fin du Main -->
     

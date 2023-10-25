@@ -151,7 +151,7 @@ echo 'Bonjour ! Nous sommes le ' . $day . '/' . $month . '/' . $year . 'et il es
     <!-- Si l'utilisateur est bien connecté il peut voir les recettes -->  
     <?php if (isset($loggedUser)):?> 
         <?php require_once("includes/class-autoloader.inc.php"); ?>
-        <?php $recipes = new LoginView('', '', '', ''); ?>
+        <?php $recipes = new LoginView([]); ?>
         <!-- <?php //$recipes = new LoginView() ?> -->
         <?php foreach ($recipes->displayRecipes() as $recipe) : ?>
             <?php echo display_recipe($recipe); ?>
