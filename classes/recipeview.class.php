@@ -7,7 +7,7 @@ class RecipeView extends RecipeController
         return $this->insertRecipes();
     }
 
-    public function displayShareSuccess(array $getDatas, string $loggedUser): void
+    public function displayShareSuccess(array $getDatas, array $loggedUser): void
     {
         $successMessage = '';
         //if (isset($_SESSION['REGISTERED_USER'])) {

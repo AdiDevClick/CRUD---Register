@@ -24,7 +24,13 @@ class Recipecontroller extends Recipe
 
                 //$this->insertUser($this->nom, $this->email, $this->password, $this->age);
                 $this->setRecipes($title, $recipe, $loggedUser['email']);
-                /* $registeredRecipe = [
+                $registeredRecipe = [
+                    'email' => $loggedUser['email']
+                ];
+                $_SESSION['REGISTERED_RECIPE'] = $registeredRecipe;
+                //header("Location: ".Functions::getUrl()."?error=none") ; */
+                return $registeredRecipe;   
+                    /* $registeredRecipe = [
                             'email' => $this->getData['title'],
                             //'username' => $user['full_name'],
                             ]; */
@@ -55,7 +61,7 @@ class Recipecontroller extends Recipe
 
             //$db = null;
         } catch (Error $e) {
-            die('Erreur : '. $e->getMessage() . ' , Insertion dans la DB impossible') ;
+            die('Erreur : '. $e->getMessage() . ' , Insertion de la recette dans la DB impossible') ;
         }
     }
 

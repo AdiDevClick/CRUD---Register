@@ -8,9 +8,9 @@ class CheckInput extends Validate
         //
     }
 
-/***
- * Check each inputs - space is not allowed in Username 
- */
+    /***
+     * Check each inputs - space is not allowed in Username
+     */
     public function checkInputs()
     {
         //$errorMessage = "";
@@ -32,21 +32,21 @@ class CheckInput extends Validate
                         throw new Error((string)header("Location: ".Functions::getUrl()."?error=email-invalid"));
                     }
                     //if (isset($this->getData['username']) && !preg_match("/^[a-zA-Z0-9]*$/", $this->getData['username'])) { // No space allowed
-                    if (isset($this->getData['username']) && !preg_match("/^[a-zA-Z0-9]/", $this->getData['username'])) { // With space allowed   
-                        throw new Error((string)header("Location: ".Functions::getUrl()."?error=invalid-input"));                   
+                    if (isset($this->getData['username']) && !preg_match("/^[a-zA-Z0-9]/", $this->getData['username'])) { // With space allowed
+                        throw new Error((string)header("Location: ".Functions::getUrl()."?error=invalid-input"));
                         //throw new Error ('Votre ' . $key . ' est vide ! <br>');
                         //return $result;
                         //die('Nous ne pouvons continuer...');
                     }
-                    if (isset($this->getData['title']) && !preg_match("(^[a-zA-Z0-9]*\z)", $this->getData['title'])) { // With space allowed
+                    if (isset($this->getData['title']) && !preg_match("(^[\w\s,.?!]+$)", $this->getData['title'])) { // With space allowed
                         throw new Error((string)header("Location: ".Functions::getUrl()."?error=invalid-title-input"));
                         //return $e;
                         //return $result = false;
-                    } 
-                    if (isset($this->getData['recipe']) && !preg_match("(^[a-zA-Z0-9]+\\z)", $this->getData['recipe'])) { // With space allowed
+                    }
+                    if (isset($this->getData['recipe']) && !preg_match("(^[\w\s,.:?!]+$)", $this->getData['recipe'])) { // With space allowed "/^[a-zA-Z0-9]*\z/"
                         throw new Error((string)header("Location: ".Functions::getUrl()."?error=invalid-recipe-input"));
                         //return $e;
-                        //return $result = false;                    
+                        //return $result = false;
                     } else {
                         //$result = [(throw new Error((string)header("Location: $url?error=$key-vide")))];
                         //return $errors;

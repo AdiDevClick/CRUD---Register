@@ -2,6 +2,7 @@
 
 <?php
 
+require_once("includes/class-autoloader.inc.php");
 /* if(session_status() !== PHP_SESSION_ACTIVE) {
     session_start();
 }
@@ -33,14 +34,12 @@ $checkInput = new CheckInputs(
     $errorPassword
 ); */
 
-echo "test ";
 if ($data && isset($_POST["submit"])) {
-    echo "test 2";
     $username = '';
     $password = '';
 
 
-    require_once("includes/class-autoloader.inc.php");
+    
     // We grab the data
 
     $getDatas = [
@@ -56,7 +55,6 @@ if ($data && isset($_POST["submit"])) {
     $login = new LoginView($getDatas);
     //$login = new LoginView($password, $username, $data, $getData);
     $login->displayLogin();
-    echo "test 2";
     /* $getData = $_POST;
     $checkInput = new CheckInput(
         $getData
@@ -74,31 +72,15 @@ if ($data && isset($_POST["submit"])) {
     //$login = new Logincontroller($password, $username);
     /* $login = new Logincontroller($password, $username, $data, $getData);
     $login->index(); */
+
     
 }
-
-
-if (isset($_COOKIE['LOGGED_USER']) || isset($_SESSION['LOGGED_USER'])) {
+$loggedUser = LoginController::checkLoggedStatus();
+/* if (isset($_COOKIE['LOGGED_USER']) || isset($_SESSION['LOGGED_USER'])) {
     $loggedUser = [
         'email' => $_COOKIE['LOGGED_USER'] ?? $_SESSION['LOGGED_USER'],
     ];
-}
-
-
-/* function checkLoginInputs($username, $password, $login)
-{
-    $status = true;
-    switch ($login) {
-        case (!isset($username) || empty($username)):
-            echo"Vous n'avez pas saisit d'username";
-            return false;
-        case (!isset($password) || empty($password)):
-            echo"Vous n'avez pas saisit de mot de passe";
-            return false;
-    }
-    return $status;
 } */
-
 
 ?>
 
@@ -112,7 +94,7 @@ if (isset($_COOKIE['LOGGED_USER']) || isset($_SESSION['LOGGED_USER'])) {
         <div class="alert-error">
             <?php echo $errorMessage; ?>    
         </div>
-    <?php endif; ?>
+    <?php endif ?>
         <label for="username">Votre identifiant :</label>
         <input type="text" id="username" name="username" placeholder="exemple@exemple.com"/>
 

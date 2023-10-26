@@ -49,7 +49,7 @@ class Recipe extends Mysql
         }
         if ($recipesStatement->rowCount() == 0) {
             $recipesStatement = null;
-            Echo "Il n'existe aucune recette à ce jour. Soyez le premier à partager la votre !";
+            Echo strip_tags("Il n'existe aucune recette à ce jour. Soyez le premier à partager la votre !");
             throw new Error((string)header("Location: ".Functions::getUrl()."?error=recipe-not-found"));
             //header("Location :" .Functions::getUrl(). "?error=recipe-not-found");
             //exit();

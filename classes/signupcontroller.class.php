@@ -14,62 +14,62 @@ class SignupController extends Signup
 
     protected function signupUsers()
     {
-    try {
-        if  ($this->emailTaken() || !$this->pwMatch() || !isset($this->getData)) {
-            //if  (!$this->pwMatch()) {
-            throw new Error("Erreur : On n'a pas pu check les inputs") ;
-        } else {
-        $checkInput = new CheckInput(
-            $this->getData
-        );
-        $checkInput->checkInputs();
-        //$this->insertUser($this->nom, $this->email, $this->password, $this->age);
-        $this->insertUser($this->getData['username'], $this->getData['email'], $this->getData['password'], $this->getData['age']);
-        $registeredUser = [
-                    'email' => $this->getData['email'],
-                    //'username' => $user['full_name'],
-                    ];
-        /* setcookie(
-                    'REGISTERED_USER',
-                    $this->getData['email'],
-                    [   
-                        'expires' => time() + 0 * 0 * 10,
-                        'secure' => true,
-                        'httponly' => true,
-                    ]
-        );  */
-        //session_start();
-        $_SESSION['REGISTERED_USER'] = $registeredUser;
-        //header("Location: ".Functions::getUrl()."?error=none") ; */
-        return $registeredUser;            
-        }    
-        /* if ($this->emailTaken()) {
-            $registeredUser = [
-            'email' => $this->getData['email'],
-            //'username' => $user['full_name'],
-            ];
+        try {
+            if  ($this->emailTaken() || !$this->pwMatch() || !isset($this->getData)) {
+                //if  (!$this->pwMatch()) {
+                throw new Error("Erreur : On n'a pas pu check les inputs") ;
+            } else {
+                $checkInput = new CheckInput(
+                    $this->getData
+                );
+                $checkInput->checkInputs();
+                //$this->insertUser($this->nom, $this->email, $this->password, $this->age);
+                $this->insertUser($this->getData['username'], $this->getData['email'], $this->getData['password'], $this->getData['age']);
+                $registeredUser = [
+                            'email' => $this->getData['email'],
+                            //'username' => $user['full_name'],
+                            ];
+                /* setcookie(
+                            'REGISTERED_USER',
+                            $this->getData['email'],
+                            [
+                                'expires' => time() + 0 * 0 * 10,
+                                'secure' => true,
+                                'httponly' => true,
+                            ]
+                );  */
+                //session_start();
+                $_SESSION['REGISTERED_USER'] = $registeredUser;
+                //header("Location: ".Functions::getUrl()."?error=none") ; */
+                return $registeredUser;
+            }
+            /* if ($this->emailTaken()) {
+                $registeredUser = [
+                'email' => $this->getData['email'],
+                //'username' => $user['full_name'],
+                ];
 
-            //header('Location: index.php');
-            //session_start();
-            
-        } */
-        
+                //header('Location: index.php');
+                //session_start();
+
+            } */
+
             //$db = null;
-    } catch (Error $e) {
-        die('Erreur : '. $e->getMessage() . ' , Insertion dans la DB impossible') ;
-    }
-}
-
-   /*  private function emailTaken(): bool
-    {
-        $resultCheck = '' ;
-        if (!$this->checkUser($this->email, $this->nom)) {
-            $resultCheck = false;
-        } else {
-            $resultCheck = true;
+        } catch (Error $e) {
+            die('Erreur : '. $e->getMessage() . ' , Insertion de l\'utilisateur dans la DB impossible') ;
         }
-        return $resultCheck;
-    } */
+    }
+
+    /*  private function emailTaken(): bool
+     {
+         $resultCheck = '' ;
+         if (!$this->checkUser($this->email, $this->nom)) {
+             $resultCheck = false;
+         } else {
+             $resultCheck = true;
+         }
+         return $resultCheck;
+     } */
 
     private function emailTaken(): bool
     {

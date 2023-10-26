@@ -27,11 +27,19 @@ if(session_status() === PHP_SESSION_NONE) {
 
     <!--  Le Main -->
     <!-- Inserting success message if so -->
-    <?php if (isset($_SESSION[]))?>
+<?php //if (isset($_SESSION['REGISTERED_RECIPE'])):?>
+    <?php //require_once('signup_success.php')?>
+    <?php //$signup->displayShareSuccess($getDatas) ?>
+    <?php //unset($_SESSION['REGISTERED_RECIPE']) ?>
+<?php //endif ?>
     <!-- end of inserting success message -->
 
 
-    <section class="container">
+<?php //require_once('../includes/class-autoloader.inc.php')?>
+<?php //$loggedUser = LoginController::checkLoggedStatus() ?>
+    <?php //if (isset($loggedUser)): ?>
+        <?php include_once('../recipes/submit_recipes.php')?>
+    <!-- <section class="container">
         <div class="form-flex">
             <h1>Partagez votre recette !</h1>
             <div class="form">
@@ -46,7 +54,13 @@ if(session_status() === PHP_SESSION_NONE) {
                 </form>
             </div>    
         </div>
-    </section>
+    </section> -->
+    <?php //else : ?>
+        <?php //header('Location: ../register.php')?>
+    <?php //endif ?>
+
+    <!--  -->
+    <!--  -->
 
     <!-- Fin du Main -->
     

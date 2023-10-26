@@ -9,7 +9,7 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 if(session_status() === PHP_SESSION_NONE) {
     session_start();
 }
-
+require_once("includes/class-autoloader.inc.php");
 //include_once("includes/class-autoloader.inc.php");
 //include_once('config/mysql.php');
 //include_once("config/user.php");
@@ -18,7 +18,7 @@ if(session_status() === PHP_SESSION_NONE) {
 $data = $_SERVER['REQUEST_METHOD'] == 'POST';
 
 if (($data && isset($_POST['submit']))) {
-    require_once("includes/class-autoloader.inc.php");
+    
     $getDatas = [
         'username' => $_POST['username'],
         'email' => $_POST['email'],
@@ -55,17 +55,6 @@ if (($data && isset($_POST['submit']))) {
                 'age' => $age
             ]); */
 
-    //if ($checkInput->checkInputs()) {
-    //try {
-
-    /*  $signup = new SignupController(
-         $nom,
-         $email,
-         $password,
-         $pwdRepeat,
-         $age,
-         $getData
-     ); */
     $signup = new SignupView(
         $getDatas
     );
@@ -76,17 +65,17 @@ if (($data && isset($_POST['submit']))) {
     //header('refresh:5, '.Functions::getUrl().'?error=none');
 }
 
-if (isset($_COOKIE['REGISTERED_USER']) || isset($_SESSION['REGISTERED_USER'])) {
+/* if (isset($_COOKIE['REGISTERED_USER']) || isset($_SESSION['REGISTERED_USER'])) {
     $registeredUser = [
         'email' => $_COOKIE['REGISTERED_USER'] ?? $_SESSION['REGISTERED_USER'],
     ];
-    echo 'cookie okay';
-}
+} */
 // On affiche chaque recette une à une
 
 ?>
 
 <!-- Register form for non registered visitor -->
+<?php $registeredUser = LoginController::checkLoggedStatus() ?>
 <?php if (!isset($_SESSION['LOGGED_USER']) && !isset($_SESSION['REGISTERED_USER'])): ?>
       <form action="register.php" method="post">
     <?php if (isset($e)):?>

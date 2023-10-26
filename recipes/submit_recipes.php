@@ -1,7 +1,7 @@
 <?php declare(strict_types=1) ?>
 
 <?php
-
+require_once('../includes/class-autoloader.inc.php');
 if(session_status() !== PHP_SESSION_ACTIVE) {
     session_start();
 }
@@ -38,22 +38,66 @@ $errorRecipe = 'Recette'; */
 // On affiche chaque recette une à une
 
 if ($data && isset($_POST['submit'])) {
-    try {
-        require_once("../includes/class-autoloader.inc.php");
-        $getData = [
-        'title' => $_POST['title'],
-        'recipe' => $_POST['recipe']
-        ];
-        $setRecipe = new RecipeView($getData);
-        $setRecipe->insertRecipe($getData);
-        header('refresh:10, ../index.php?error=none');
-    } catch (Error $e) {
-        die('Erreur : ' . $e->getMessage() . ' Quelque chose ne va pas dans l\'insertion...') ;
-    }
+    //try {
+    //require_once("../includes/class-autoloader.inc.php");
+    $getDatas = [
+    'title' => $_POST['title'],
+    'recipe' => $_POST['recipe']
+    ];
+    $setRecipe = new RecipeView($getDatas);
+    $setRecipe->insertRecipe();
+
+    header('refresh:10, ../index.php?error=none');
+    //} catch (Error $e) {
+    //die('Erreur : ' . $e->getMessage() . ' Quelque chose ne va pas dans l\'insertion...') ;
+    //}
 }
 
+/* if (isset($_COOKIE['REGISTERED_RECIPE']) || isset($_SESSION['REGISTERED_RECIPE'])) {
+    $registeredRecipe = [
+        'email' => $_COOKIE['REGISTERED_RECIPE'] ?? $_SESSION['REGISTERED_RECIPE'],
+    ];
+} */
 
-/* if (
+?>
+
+
+    <!-- end of inserting success message -->
+
+<?php //$loggedUser = LoginController::checkLoggedStatus()?>
+    <?php //if (isset($loggedUser) && !isset($registeredRecipe)):?>
+        <?php //echo $loggedUser[$registeredRecipe]?>
+<?php $loggedUser = LoginController::checkLoggedStatus() ?>
+    <?php if (isset($loggedUser['email']) && !isset($loggedUser['recipe'])): ?>
+        <?php echo $loggedUser['email']?>
+        <section class="container">
+        <div class="form-flex">
+            <h1>Partagez votre recette !</h1>
+            <div class="form">
+                <form action="create_recipes.php" method="post">
+                    <label for="title" class="label">Titre de la recette :</label>
+                    <input name="title" type="text" id="title" placeholder="Votre titre..." class="input">
+
+                    <label for="recipe" class="label">Votre recette :</label>
+                    <textarea name="recipe" id="recipe" cols="60" rows="10" placeholder="Renseignez votre recette..."></textarea>
+
+                    <button type="submit" name="submit" class="btn">Envoyer</button>
+                </form>
+            </div>    
+        </div>
+    </section>
+    
+    <?php //endif?>
+
+<?php elseif (isset($loggedUser['recipe'])):?>
+    <?php //require_once('signup_success.php')?>
+    <?php $setRecipe->displayShareSuccess($getDatas, $loggedUser) ?>
+    <?php echo $loggedUser['recipe']?>
+    <?php unset($_loggedUser['recipe']) ?>
+    <?php else : ?>
+        <?php header('Location: ../register.php')?>
+<?php endif ?>
+<?php /* if (
     !isset($_POST['title'])
     || !isset($_POST['recipe'])
     )
@@ -64,17 +108,17 @@ if ($data && isset($_POST['submit'])) {
 
 ?>   
 
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>We Love Food - Partage de recttes</title>
 </head>
-<body>
+<body> -->
     <!-- Le Header -->
 
-    <?php include_once('../includes/header.inc.php')?>
+    <?php //include_once('../includes/header.inc.php')?>
 
 <!-- Fin du Header -->
 
@@ -99,7 +143,7 @@ if ($data && isset($_POST['submit'])) {
     
     <!-- Le Footer -->
 
-    <?php include_once('../includes/footer.inc.php'); ?>
+    <?php //include_once('../includes/footer.inc.php');?>
 
     <!--  Fin du Footer -->
 </body>
