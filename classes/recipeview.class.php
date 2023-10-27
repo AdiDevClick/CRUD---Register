@@ -7,6 +7,11 @@ class RecipeView extends RecipeController
         return $this->insertRecipes();
     }
 
+    public function deleteRecipe()
+    {
+        return $this->deleteRecipes();
+    }
+
     public function displayShareSuccess(array $getDatas, array $loggedUser): void
     {
         $successMessage = '';

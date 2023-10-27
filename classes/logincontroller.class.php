@@ -124,48 +124,68 @@ class LoginController extends Login
     /***
      * Check for a set cookie and return the user
      */
-    public static function checkLoggedStatus()
-    {
-        $userState = '';
-        $state='';
-            switch (isset($_COOKIE) || isset($_SESSION)) {
-                
-                case 'REGISTERED_RECIPE':
-                    if(isset($_COOKIE['REGISTERED_RECIPE']) || isset($_SESSION['REGISTERED_RECIPE'])) {
-                        $userState = [
-                        'recipe' => $_COOKIE['REGISTERED_RECIPE'] ?? $_SESSION['REGISTERED_RECIPE']
-                                        ];
-                        $state = 'REGISTERED_RECIPE';
-                        echo 'on a la recipe';
-                    return $userState; 
-                    
-                    }
-                case 'LOGGED_USER':
-                    if(isset($_COOKIE['LOGGED_USER']) || isset($_SESSION['LOGGED_USER'])) {
-                        $userState = [
-                        'email' => $_COOKIE['LOGGED_USER'] ?? $_SESSION['LOGGED_USER']
-                                        ];
-                        $state = 'LOGGED_USER';
-                        echo 'on a le logged';
-                    break;
-                    }    
-                case 'REGISTERED_USER':
-                    if(isset($_COOKIE['REGISTERED_USER']) || isset($_SESSION['REGISTERED_USER'])) {
-                        $userState = [
-                        'user' => $_COOKIE['REGISTERED_USER'] ?? $_SESSION['REGISTERED_USER']
-                                        ];
-                        $state = 'REGISTERED_USER';
-                        echo "on a l'user";
-                    break;
-                    }
-                default :
-                break;
-            } 
-    }
-
     /* public static function checkLoggedStatus()
     {
+        $userState = '';
+        $state = '';
+        switch (isset($_COOKIE[$state]) || isset($_SESSION[$state])) {
+
+            case $state = 'REGISTERED_RECIPE':
+                if(isset($_COOKIE['REGISTERED_RECIPE']) || isset($_SESSION['REGISTERED_RECIPE'])) {
+                    $userState = [
+                    'recipe' => $_COOKIE['REGISTERED_RECIPE'] ?? $_SESSION['REGISTERED_RECIPE']
+                                    ];
+                    echo 'on a la recipe';
+                    return $userState;
+
+                }
+                // no break
+            case $state = 'LOGGED_USER':
+                if(isset($_COOKIE['LOGGED_USER']) || isset($_SESSION['LOGGED_USER'])) {
+                    $userState = [
+                    'email' => $_COOKIE['LOGGED_USER'] ?? $_SESSION['LOGGED_USER']
+                                    ];
+                    $state = 'LOGGED_USER';
+                    echo 'on a le logged';
+                    return $userState;
+                }
+                // no break
+            case $state = 'REGISTERED_USER':
+                if(isset($_COOKIE['REGISTERED_USER']) || isset($_SESSION['REGISTERED_USER'])) {
+                    $userState = [
+                    'user' => $_COOKIE['REGISTERED_USER'] ?? $_SESSION['REGISTERED_USER']
+                                    ];
+                    $state = 'REGISTERED_USER';
+                    echo "on a l'user";
+                    return $userState;
+                }
+                // no break
+            default:
+                echo "default state";
+                break;
+        }
+    } */
+
+    /* public static function status()
+    {
+        $states = [
+            'REGISTERED_USER' => ($_COOKIE['REGISTERED_USER'] ?? $_SESSION['REGISTERED_USER']),
+            'REGISTERED_RECIPE' => ($_COOKIE['REGISTERED_RECIPE'] ?? $_SESSION['REGISTERED_RECIPE']),
+            'LOGGED_USER' => ($_COOKIE['LOGGED_USER'] ?? $_SESSION['LOGGED_USER'])
+        ];
+        foreach ($states as $state => $param) {
+            if (isset($_COOKIE[$state]) || isset($_SESSION[$state])) {
+                echo $param;
+                return $param;
+            }
+        }
+    } */
+
+
+    public static function checkLoggedStatus()
+    {
         try {
+            $loggedUser= [];
             if(isset($_COOKIE['LOGGED_USER']) || isset($_SESSION['LOGGED_USER'])) {
                 $loggedUser = [
                 'email' => $_COOKIE['LOGGED_USER'] ?? $_SESSION['LOGGED_USER'],
@@ -173,16 +193,16 @@ class LoginController extends Login
                 return $loggedUser;
             }
             if (isset($_COOKIE['REGISTERED_RECIPE']) || isset($_SESSION['REGISTERED_RECIPE'])) {
-                $registeredRecipe = [
+                $loggedUser = [
                     'email' => $_COOKIE['REGISTERED_RECIPE'] ?? $_SESSION['REGISTERED_RECIPE'],
                 ];
-                return $registeredRecipe;
+                return $loggedUser;
             }
             if (isset($_COOKIE['REGISTERED_USER']) || isset($_SESSION['REGISTERED_USER'])) {
-                $registeredUser = [
+                $loggedUser = [
                     'email' => $_COOKIE['REGISTERED_USER'] ?? $_SESSION['REGISTERED_USER'],
                 ];
-                return $registeredUser;
+                return $loggedUser;
             } else {
                 //throw new Error("Veuillez vous identifier pour ajouter une recette" . header('Location:'.Functions::getUrl().'?error=no-loggedin'));
                 //throw new Error("Veuillez vous identifier pour ajouter une recette");
@@ -191,7 +211,7 @@ class LoginController extends Login
         } catch (Error $e) {
             die("Erreur : ". $e->getMessage() . header('refresh:5,../index.php?error=not-loggedin'));
         }
-    } */
+    }
 }
 
 /* protected function login(string $pwd, string $email)

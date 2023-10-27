@@ -9,14 +9,14 @@ if(session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-include_once("../includes/class-autoloader.inc.php");
-include_once('../config/mysql.php');
-include_once('../includes/variables.inc.php');
+//include_once("../includes/class-autoloader.inc.php");
+//include_once('../config/mysql.php');
+//include_once('../includes/variables.inc.php');
 
 
-$data = $_SERVER['REQUEST_METHOD'] === 'POST';
+/* $data = $_SERVER['REQUEST_METHOD'] === 'POST';
 $inputId = $_GET['id'];
-$errorId = 'ID';
+$errorId = 'ID'; */
 
 /* if (!isset($getData['id']) && is_numeric($getData['id']))
 {
@@ -24,7 +24,7 @@ $errorId = 'ID';
     return;
 } */
 
-$checkId = new CheckId($data, (int)$inputId, $errorId);
+/* $checkId = new CheckId($data, (int)$inputId, $errorId);
 
 
 try {
@@ -38,7 +38,7 @@ try {
     }
 } catch (Error $e) {
     die('Erreur : '. $e->getMessage());
-}
+} */
 
 ?>
 
@@ -60,21 +60,23 @@ try {
     <!-- Fin du Header -->
 
     <!--  Le Main -->
-    <section class="container">
+
+    <?php include_once('../recipes/submit_delete_recipes.php')?>
+    <!-- <section class="container">
         <div class="form-flex">
-            <h1>Suppression de la recette : <?php echo $recipe['title'] ?> ?</h1>
+            <h1>Suppression de la recette : <?php //echo $recipe['title']?> ?</h1>
             <div class="form">
                 <form action="submit_delete_recipes.php" method="post">
                     <div class="visually-hidden">
                         <label for="id" class="label">Identifiant de la recette</label>
-                        <input type="hidden" class="input" name="id" id="id" value="<?php echo($inputId)?>"/>
+                        <input type="hidden" class="input" name="id" id="id" value="<?php //echo($inputId)?>"/>
                     </div>
 
                     <button type="submit" class="btn btn-alert">Supprimer définitivement</button>
                 </form>
             </div>    
         </div>
-    </section>
+    </section> -->
 
     <!-- Fin du Main -->
     

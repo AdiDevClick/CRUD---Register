@@ -64,12 +64,11 @@ if ($data && isset($_POST['submit'])) {
 
     <!-- end of inserting success message -->
 
-<?php //$loggedUser = LoginController::checkLoggedStatus()?>
-    <?php //if (isset($loggedUser) && !isset($registeredRecipe)):?>
-        <?php //echo $loggedUser[$registeredRecipe]?>
-<?php $loggedUser = LoginController::checkLoggedStatus() ?>
-    <?php if (isset($loggedUser['email']) && !isset($loggedUser['recipe'])): ?>
-        <?php echo $loggedUser['email']?>
+<?php $loggedUser = LoginController::checkLoggedStatus()?>
+    <?php //if (isset($loggedUser['email']) && !isset($loggedUser['recipe'])):?>
+        
+        <?php if (isset($loggedUser['email'])  && !isset($_SESSION['REGISTERED_RECIPE'])): ?> 
+            <?php //(isset($loggedUserState)):?>
         <section class="container">
         <div class="form-flex">
             <h1>Partagez votre recette !</h1>
@@ -89,11 +88,10 @@ if ($data && isset($_POST['submit'])) {
     
     <?php //endif?>
 
-<?php elseif (isset($loggedUser['recipe'])):?>
+<?php elseif (isset($_SESSION['REGISTERED_RECIPE'])):?>
     <?php //require_once('signup_success.php')?>
     <?php $setRecipe->displayShareSuccess($getDatas, $loggedUser) ?>
-    <?php echo $loggedUser['recipe']?>
-    <?php unset($_loggedUser['recipe']) ?>
+    <?php unset($_SESSION['REGISTERED_RECIPE']) ?>
     <?php else : ?>
         <?php header('Location: ../register.php')?>
 <?php endif ?>
