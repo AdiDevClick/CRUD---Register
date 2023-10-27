@@ -10,10 +10,6 @@ if(session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 require_once("includes/class-autoloader.inc.php");
-//include_once("includes/class-autoloader.inc.php");
-//include_once('config/mysql.php');
-//include_once("config/user.php");
-//include_once("includes/variables.inc.php");
 
 $data = $_SERVER['REQUEST_METHOD'] == 'POST';
 

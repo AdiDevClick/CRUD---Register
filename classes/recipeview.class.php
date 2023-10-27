@@ -12,6 +12,9 @@ class RecipeView extends RecipeController
         return $this->deleteRecipes();
     }
 
+    public function checkId() {
+        return $this->checkIds();
+    }
     public function displayShareSuccess(array $getDatas, array $loggedUser): void
     {
         $successMessage = '';

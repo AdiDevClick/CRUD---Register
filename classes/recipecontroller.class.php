@@ -67,23 +67,25 @@ class Recipecontroller extends Recipe
 
     protected function deleteRecipes()
     {
-        //$checkId = $this->deleteRecipeId($this->getData);
 
-        //try {
-            //$this->getData->checkIds();
-            $this->getData->checkIds();
-            echo 'etape 1';
-            $this->getRecipeId($this->getData);               
-            echo 'etape 2';
-            $this->deleteRecipeId($this->getData);
-            echo 'etape 3';
+        try {
+            //if ($checkId->checkIds()) {
+                $this->getRecipeId($this->getData);
+                $deletingRecipe = [
+                    'id' => $this->getData
+                ];
+                $_SESSION['DELETING_RECIPE'] = $deletingRecipe;
             //}
-        /* } catch (Error $e) {
+            if (isset($deletingRecipe)) {
+                $this->deleteRecipeId($this->getData);
+                unset($deletingRecipe);
+            }
+        } catch (Error $e) {
             die('Erreur : ' . $e->getMessage() . "Nous n'avons pas pu supprimer cette recette");
-        } */
+        }
     }
 
-    public function checkIds(): bool
+    protected function checkIds(): bool
     {
         //$errorMessage = "";
         $status = true;
@@ -95,45 +97,8 @@ class Recipecontroller extends Recipe
         $status = false;
         throw new Error("Vous n'avez pas sélectionné la bonne recette") ;
         } else {
-            echo "c'est ok pour l'id" ;
+            //echo "c'est ok pour l'id" ;
         }
         return $status;
     }
 }
-
-    /*  private function emailTaken(): bool
-     {
-         $resultCheck = '' ;
-         if (!$this->checkUser($this->email, $this->nom)) {
-             $resultCheck = false;
-         } else {
-             $resultCheck = true;
-         }
-         return $resultCheck;
-     } */
-/* 
-    private function emailTaken(): bool
-    {
-        $resultCheck = '' ;
-        if (!$this->checkUser($this->getData['email'], $this->getData['username'])) {
-            $resultCheck = true;
-        } else {
-            $resultCheck = false;
-        }
-        return $resultCheck;
-    }
-
-    private function pwMatch(): bool
-    {
-        $resultCheck = '' ;
-        if ($this->getData['password'] != $this->getData['pwdRepeat']) {
-            $resultCheck = false;
-            throw new Error("Erreur : Les mots de passes ne sont pas identiques" .
-                header("Location: ".Functions::getUrl()."?error=pwd-doesnt-match")) ;
-        } else {
-            $resultCheck = true;
-        }
-        return $resultCheck;
-    }
- */
-

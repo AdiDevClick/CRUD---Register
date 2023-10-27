@@ -57,7 +57,7 @@ class Recipe extends Mysql
         return $recipes;
     }
 
-    public function getRecipeId(int $recipeId): int
+    public function getRecipeId(int $recipeId)
     {
         $sqlRecipe = 'SELECT * FROM recipes WHERE recipe_id = :id;';
         $getRecipesIdStatement = $this->connect()->prepare($sqlRecipe);
@@ -75,16 +75,18 @@ class Recipe extends Mysql
             //exit();
         }
         $recipe = $getRecipesIdStatement->fetch(PDO::FETCH_ASSOC);
+        echo 'okay !';
         return $recipe;
     }
 
-    public function deleteRecipeId(int $recipeId): void
+    public function deleteRecipeId(int $recipeId)
     {
-        $sqlQuery = 'DELETE FROM recipes WHERE recipe_id = :id';
+        $sqlQuery = 'DELETE FROM recipes WHERE recipe_id = :id;';
         $deteRecipeStatement = $this->connect()->prepare($sqlQuery);
         if (!$deteRecipeStatement->execute([
             'id' => $recipeId
         ])) {
+            echo "c'est pas delete !";
             $deteRecipeStatement = null;
             throw new Error((string)header("Location: ".Functions::getUrl()."?error=stmt-failed"));
         }
@@ -95,7 +97,32 @@ class Recipe extends Mysql
             //header("Location :" .Functions::getUrl(). "?error=recipe-not-found");
             //exit();
         }
-        header('Location: ../index.php');
+        echo "c'est delete !";
+        //header('Location: ../index.php');
+    }
+
+    public function updateRecipes(string $title, string $recipe, string $id)
+    {
+        $sqlQuery = 'UPDATE recipes SET title = :title, recipe = :recipe WHERE recipe_id = :id;';
+
+        $updateRecipeStatement = $this->connect()->prepare($sqlQuery);
+
+        if (!$updateRecipeStatement->execute([
+            'title' => $title,
+            'recipe' => $recipe,
+            'id' => $id,
+        ])) {
+            echo "c'est pas update!";
+            $updateRecipeStatement = null;
+            throw new Error((string)header("Location: ".Functions::getUrl()."?error=stmt-failed"));
+        }
+        if ($updateRecipeStatement->rowCount() == 0) {
+            $updateRecipeStatement = null;
+            echo strip_tags("Cette recette ne peut pas être mise à jour, elle n'existe pas.");
+            throw new Error((string)header("Location: ".Functions::getUrl()."?error=uprecipeid-not-found"));
+            //header("Location :" .Functions::getUrl(). "?error=recipe-not-found");
+            //exit();
+        }
     }
 }
 /* if (!isset($getData['id']) && is_numeric($getData['id']))
