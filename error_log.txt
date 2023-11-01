@@ -1,0 +1,4 @@
+Errors : [8] session_start(): Ignoring session_start() because a session is already active - C:\xampp\htdocs\Recettes\classes\logincontroller.class.php:87
+Errors : [2] Undefined array key "LOGGED_USER" - C:\xampp\htdocs\Recettes\classes\logincontroller.class.php:196
+Errors : [8] session_start(): Ignoring session_start() because a session is already active - C:\xampp\htdocs\Recettes\classes\logincontroller.class.php:87
+Errors : [2] Undefined array key "LOGGED_USER" - C:\xampp\htdocs\Recettes\classes\logincontroller.class.php:196

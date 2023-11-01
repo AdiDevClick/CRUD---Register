@@ -69,9 +69,10 @@ class LoginController extends Login
 
                 $loggedUser = [
                 'email' => $this->getUsers($email)[0]['email'],
-                 //'username' => $user['full_name'],
+                'username' => $this->getUsers($email)[0]['full_name'],
+                'user_id' => $this->getUsers($email)[0]['user_id']
                 ];
-
+                
                 header('Location: index.php');
                 //session_start();
                 setcookie(
@@ -83,8 +84,12 @@ class LoginController extends Login
                         'httponly' => true,
                     ]
                 );
+                session_start();
                 $_SESSION['USER_ID'] = $this->getUsers($email)[0]['user_id'];
-                $_SESSION['LOGGED_USER'] = $this->getUsers($email)[0]['full_name'];
+                $_SESSION['LOGGED_USER'] = [
+                    $this->getUsers($email)[0]['full_name'],
+                    $this->getUsers($email)[0]['user_id']
+                ];
 
                 return $loggedUser;
             } else {
@@ -182,13 +187,18 @@ class LoginController extends Login
     } */
 
 
+    /**
+     * Appends an array inside $loggedUser like this : $loggedUser['user'][1]
+     * Used in Comment page mainly to retrieve the user ID 
+     */
     public static function checkLoggedStatus()
     {
         try {
             $loggedUser= [];
             if(isset($_COOKIE['LOGGED_USER']) || isset($_SESSION['LOGGED_USER'])) {
                 $loggedUser = [
-                'email' => $_COOKIE['LOGGED_USER'] ?? $_SESSION['LOGGED_USER'],
+                'email' => $_COOKIE['LOGGED_USER'],
+                'user' => $_SESSION['LOGGED_USER']
                         ];
                 return $loggedUser;
             }

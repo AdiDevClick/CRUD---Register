@@ -38,13 +38,16 @@ class CheckInput extends Validate
                         //return $result;
                         //die('Nous ne pouvons continuer...');
                     }
-                    if (isset($this->getData['title']) && !preg_match("(^[\w\s,.?!]+$)", $this->getData['title'])) { // With space allowed
+                    if (isset($this->getData['title']) && !preg_match("(^[\w\s,.:_?'!éèêëàâäôöûüç-]+$)", $this->getData['title'])) { // With space allowed
                         throw new Error((string)header("Location: ".Functions::getUrl()."?error=invalid-title-input"));
                         //return $e;
                         //return $result = false;
                     }
-                    if (isset($this->getData['recipe']) && !preg_match("(^[\w\s,.:?!]+$)", $this->getData['recipe'])) { // With space allowed "/^[a-zA-Z0-9]*\z/"
+                    if (isset($this->getData['recipe']) && !preg_match("(^[\w\s,.:_?'!éèêëàâäôöûüç-]+$)", $this->getData['recipe'])) { // With space allowed "/^[a-zA-Z0-9]*\z/"
                         throw new Error((string)header("Location: ".Functions::getUrl()."?error=invalid-recipe-input"));
+                    }
+                    if (isset($this->getData['comment']) && !preg_match("(^[\w\s,.:_?'!éèêëàâäôöûüç-]+$)", $this->getData['comment'])) { // With space allowed "/^[a-zA-Z0-9]*\z/"
+                        throw new Error((string)header("Location: ".Functions::getUrl()."?error=invalid-comment-input"));
                         //return $e;
                         //return $result = false;
                     } else {

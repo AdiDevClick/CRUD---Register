@@ -38,7 +38,7 @@ class Recipe extends Mysql
      */
     protected function getRecipes(): array
     {
-        $sqlRecipesQuery = 'SELECT * FROM `recipes`';
+        $sqlRecipesQuery = 'SELECT * FROM `recipes`;';
         $recipesStatement = $this->connect()->prepare($sqlRecipesQuery);
         if (!$recipesStatement->execute()) {
             $recipesStatement = null;
@@ -57,12 +57,12 @@ class Recipe extends Mysql
         return $recipes;
     }
 
-    public function getRecipeId(int $recipeId)
+    protected function getRecipesId(int $recipeId)
     {
-        $sqlRecipe = 'SELECT * FROM recipes WHERE recipe_id = :id;';
+        $sqlRecipe = 'SELECT title, recipe_id FROM recipes WHERE recipe_id = :id;';
         $getRecipesIdStatement = $this->connect()->prepare($sqlRecipe);
         if (!$getRecipesIdStatement->execute([
-            'id' => $recipeId
+            'id' => $recipeId,
         ])) {
             $getRecipesIdStatement = null;
             throw new Error((string)header("Location: ".Functions::getUrl()."?error=stmt-failed"));
@@ -75,11 +75,52 @@ class Recipe extends Mysql
             //exit();
         }
         $recipe = $getRecipesIdStatement->fetch(PDO::FETCH_ASSOC);
-        echo 'okay !';
         return $recipe;
     }
 
-    public function deleteRecipeId(int $recipeId)
+    protected function getRecipesInfosById(int $recipeId)
+    {
+        $sqlRecipe = 'SELECT title, recipe_id, recipe FROM recipes WHERE recipe_id = :recipe_id;';
+        $getRecipesIdStatement = $this->connect()->prepare($sqlRecipe);
+        if (!$getRecipesIdStatement->execute([
+            'recipe_id' => $recipeId,
+        ])) {
+            $getRecipesIdStatement = null;
+            throw new Error((string)header("Location: ".Functions::getUrl()."?error=stmt-failed"));
+        }
+        /* if ($getRecipesIdStatement->rowCount() == 0) {
+            $getRecipesIdStatement = null;
+            echo strip_tags("Cette recette n'existe pas.");
+            throw new Error((string)header("Location: ".Functions::getUrl()."?error=recipeid-not-found"));
+            //header("Location :" .Functions::getUrl(). "?error=recipe-not-found");
+            //exit();
+        } */
+        $recipe = $getRecipesIdStatement->fetch(PDO::FETCH_ASSOC);
+        return $recipe;
+    }
+
+    protected function getRecipesTitles($recipes)
+    {
+        $sqlRecipe = 'SELECT * FROM recipes WHERE title = :title;';
+        $getRecipesIdStatement = $this->connect()->prepare($sqlRecipe);
+        if (!$getRecipesIdStatement->execute([
+            'title' => $recipes
+        ])) {
+            $getRecipesIdStatement = null;
+            throw new Error((string)header("Location: ".Functions::getUrl()."?error=stmt-failed"));
+        }
+        if ($getRecipesIdStatement->rowCount() == 0) {
+            $getRecipesIdStatement = null;
+            echo strip_tags("Cette recette n'existe pas.");
+            throw new Error((string)header("Location: ".Functions::getUrl()."?error=recipetitle-not-found"));
+            //header("Location :" .Functions::getUrl(). "?error=recipe-not-found");
+            //exit();
+        }
+        $recipe = $getRecipesIdStatement->fetch(PDO::FETCH_ASSOC);
+        return $recipe;
+    }
+
+    protected function deleteRecipeId(int $recipeId)
     {
         $sqlQuery = 'DELETE FROM recipes WHERE recipe_id = :id;';
         $deteRecipeStatement = $this->connect()->prepare($sqlQuery);
@@ -97,22 +138,20 @@ class Recipe extends Mysql
             //header("Location :" .Functions::getUrl(). "?error=recipe-not-found");
             //exit();
         }
-        echo "c'est delete !";
         //header('Location: ../index.php');
     }
 
-    public function updateRecipes(string $title, string $recipe, string $id)
+    protected function updateRecipes(string $title, string $recipe, $id)
     {
-        $sqlQuery = 'UPDATE recipes SET title = :title, recipe = :recipe WHERE recipe_id = :id;';
+        $sqlQuery = 'UPDATE recipes SET title = :title, recipe = :recipe WHERE recipe_id = :recipe_id;';
 
         $updateRecipeStatement = $this->connect()->prepare($sqlQuery);
 
         if (!$updateRecipeStatement->execute([
             'title' => $title,
             'recipe' => $recipe,
-            'id' => $id,
+            'recipe_id' => $id,
         ])) {
-            echo "c'est pas update!";
             $updateRecipeStatement = null;
             throw new Error((string)header("Location: ".Functions::getUrl()."?error=stmt-failed"));
         }
@@ -120,6 +159,76 @@ class Recipe extends Mysql
             $updateRecipeStatement = null;
             echo strip_tags("Cette recette ne peut pas être mise à jour, elle n'existe pas.");
             throw new Error((string)header("Location: ".Functions::getUrl()."?error=uprecipeid-not-found"));
+            //header("Location :" .Functions::getUrl(). "?error=recipe-not-found");
+            //exit();
+        }
+    }
+
+    public function getRecipesWithCommentsById($recipeId)
+    {
+        $sqlRecipe = 
+        'SELECT *, DATE_FORMAT(c.created_at, "%d/%m/%Y") as comment_date 
+        FROM recipes r 
+        LEFT JOIN comments c             
+        ON r.recipe_id = c.recipe_id 
+        WHERE r.recipe_id = :recipe_id;';
+        $retrieveRecipeWithCommentsStatement = $this->connect()->prepare($sqlRecipe);
+        if (!$retrieveRecipeWithCommentsStatement->execute([
+            'recipe_id' => $recipeId,
+        ])) {
+            $retrieveRecipeWithCommentsStatement = null;
+            throw new Error((string)header("Location: ".Functions::getUrl()."?error=stmt-failed"));
+        }
+        if ($retrieveRecipeWithCommentsStatement->rowCount() == 0) {
+            $retrieveRecipeWithCommentsStatement = null;
+            echo strip_tags("Cette recette n'existe pas.");
+            throw new Error((string)header("Location: ".Functions::getUrl()."?error=recipeid-not-found"));
+            //header("Location :" .Functions::getUrl(). "?error=recipe-not-found");
+            //exit();
+        }
+        $recipe = $retrieveRecipeWithCommentsStatement->fetchAll(PDO::FETCH_ASSOC);
+        return $recipe;
+    }
+
+    public function getAverageRatingCommentsById($recipeId)
+    {
+        $sqlRecipe = 
+        'SELECT ROUND(AVG(c.review),1) as rating 
+        FROM recipes r 
+        LEFT JOIN comments c 
+            ON r.recipe_id = c.recipe_id 
+        WHERE r.recipe_id = :id;';
+        $averageRatingStatment = $this->connect()->prepare($sqlRecipe);
+        if (!$averageRatingStatment->execute([
+            'id' => $recipeId,
+        ])) {
+            $averageRatingStatment = null;
+            throw new Error((string)header("Location: ".Functions::getUrl()."?error=stmt-failed"));
+        }
+        if ($averageRatingStatment->rowCount() == 0) {
+            $averageRatingStatment = null;
+            echo strip_tags("Cette recette n'existe pas.");
+            throw new Error((string)header("Location: ".Functions::getUrl()."?error=recipeid-not-found"));
+            //header("Location :" .Functions::getUrl(). "?error=recipe-not-found");
+            //exit();
+        }
+        $recipe = $averageRatingStatment->fetch(PDO::FETCH_ASSOC);
+        return $recipe;
+    }
+
+    protected function insertComments($comment, $recipeId, $userId)
+    {
+        $sqlRecipe = 'INSERT INTO comments(comment, recipe_id, user_id) VALUES (:comment, :recipe_id, :user_id);';
+        $insertCommentsStatment = $this->connect()->prepare($sqlRecipe);
+        if (!$insertCommentsStatment->execute([
+            'comment' => $comment,
+            'recipe_id' => $recipeId,
+            'user_id' => $userId
+            //'user_id' => retrieve_id_from_user_mail($loggedUser['email'], $users),
+        ])) {
+            $insertCommentsStatment = null;
+            throw new Error((string)header("Location: ".Functions::getUrl()."?error=stmt-failed"));
+        
             //header("Location :" .Functions::getUrl(). "?error=recipe-not-found");
             //exit();
         }

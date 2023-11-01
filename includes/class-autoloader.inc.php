@@ -6,7 +6,9 @@ function myAutoLoader($className)
 {
     $url = $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
 
-    if (strpos($url, 'includes') !== false || strpos($url, 'recipes') !== false) {
+    if (strpos($url, 'includes') !== false || 
+        strpos($url, 'recipes') !== false || 
+        strpos($url, 'comments') !== false) {
         $path = '../classes/';
     } else {
         $path = 'classes/';

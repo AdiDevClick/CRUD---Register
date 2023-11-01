@@ -1,10 +1,17 @@
 <?php
-session_start();
 
-include_once('../config/mysql.php');
-include_once('../config/user.php');
-include_once('../includes/variables.inc.php');
-include_once('../includes/functions.inc.php');
+if(session_status() !== PHP_SESSION_ACTIVE) {
+    session_start();
+}
+
+if(session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+include_once("../includes/class-autoloader.inc.php");
+//include_once('../config/user.php');
+//include_once('../includes/variables.inc.php');
+//include_once('../includes/functions.inc.php');
 
 $postData = $_POST;
 
@@ -17,22 +24,42 @@ if (
 	echo('Le commentaire est invalide.');
     return;
 }
-
+$loggedUser = LoginController::checkLoggedStatus();
 if (!isset($loggedUser)) {
     echo('Vous devez être authentifié pour soumettre un commentaire');
     return;
 }
+/* echo $loggedUser ['user'][1] . 'test';
+
+foreach($postData as $recipes => $value) {
+    echo($recipes .' => '. $value . '<br>');
+} */
 
 $comment = $postData['comment'];
 $recipeId = $postData['recipe_id'];
 
-$insertRecipe = $db->prepare('INSERT INTO comments(comment, recipe_id, user_id) VALUES (:comment, :recipe_id, :user_id)');
+    $getDatas = [
+        'comment' => $postData['comment'],
+        'recipeId' => $postData['recipe_id'],
+    ];
+    $insertComment = new RecipeView(
+        $getDatas
+    );
+    //$insertCcomment->insertComments($comment, $recipeId, $loggedUser['user'][1]);
+    //$insertCcomment->insertComments($getDatas['comment'], $getDatas['recipeId'], $loggedUser['user'][1]);
+    $insertComment->insertComment($getDatas);
+
+    header('refresh:10, ../index.php?error=none');
+    //header('refresh:5, '.Functions::getUrl().'?error=none');
+
+
+/* $insertRecipe = $db->prepare('INSERT INTO comments(comment, recipe_id, user_id) VALUES (:comment, :recipe_id, :user_id)');
 $insertRecipe->execute([
     'comment' => $comment,
     'recipe_id' => $recipeId,
     'user_id' => retrieve_id_from_user_mail($loggedUser['email'], $users),
 ]);
-
+ */
 ?>
 
 <!DOCTYPE html>
@@ -50,16 +77,14 @@ $insertRecipe->execute([
 <body class="d-flex flex-column min-vh-100">
     <div class="container">
 
-    <?php include_once($rootPath.'/recettes/includes/header.inc.php'); ?>
-        <h1>Commentaire ajouté avec succès !</h1>
-        
-        <div class="card">
-            
+    <?php include_once('../includes/header.inc.php') ?>
+        <h1>Commentaire ajouté avec succès !</h1>        
+        <div class="card">            
             <div class="card-body">
                 <p class="card-text"><b>Votre commentaire</b> : <?php echo strip_tags($comment); ?></p>
             </div>
         </div>
     </div>
-    <?php include_once($rootPath.'/recettes/includes/footer.inc.php'); ?>
+    <?php include_once('../includes/footer.inc.php') ?>
 </body>
 </html>

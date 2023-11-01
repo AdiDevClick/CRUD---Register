@@ -119,7 +119,9 @@ $year = date("Y");
 $hour = date("H");
 $minut = date("i");
 $seconds = date("s");
-echo 'Bonjour ! Nous sommes le ' . $day . '/' . $month . '/' . $year . 'et il est ' . $hour. ' h ' . $minut .  ' et ' .  $seconds . ' secondes';
+
+echo 'Bonjour ! Nous sommes le ' . $day . '/' . $month . '/' . $year . ' et il est ' . $hour. ' h ' . $minut .  ' et ' .  $seconds . ' secondes';
+
 ?>
 
 
@@ -128,6 +130,10 @@ echo 'Bonjour ! Nous sommes le ' . $day . '/' . $month . '/' . $year . 'et il es
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" 
+        rel="stylesheet"
+    >
     <title>Affichage de recettes</title>
 <!--     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
  -->    <!-- <link rel="stylesheet" href="css/reset.css"> -->
@@ -145,18 +151,18 @@ echo 'Bonjour ! Nous sommes le ' . $day . '/' . $month . '/' . $year . 'et il es
     <?php include_once('login.php')?>
     <div class="container">
         <h1>Site de recettes !</h1>
-    <?php require_once("includes/class-autoloader.inc.php"); ?>
+    <?php //require_once("includes/class-autoloader.inc.php");?>
 
     
     <!-- Si l'utilisateur est bien connecté il peut voir les recettes -->  
     <?php if (isset($loggedUser)):?> 
         <?php require_once("includes/class-autoloader.inc.php"); ?>
         <?php $recipes = new LoginView([]); ?>
-        <!-- <?php //$recipes = new LoginView() ?> -->
+        <!-- <?php //$recipes = new LoginView()?> -->
         <?php foreach ($recipes->displayRecipes() as $recipe) : ?>
             <?php echo display_recipe($recipe); ?>
                 <article class="article">
-                <h3><a href="./recipes/read.php?id=<?php echo($recipe['recipe_id']); ?>"><?php echo($recipe['title']); ?></a></h3>
+                <h3><a href="./recipes/read.php?id=<?php echo($recipe['recipe_id']) ?>"><?php echo($recipe['title']) ?></a></h3>
                     <h3><?php echo $recipe['title']; ?></h3>
                     <div><?php echo $recipe['recipe']; ?></div>                         
                     <i><?php echo displayAuthor($recipe["author"]) ?></i>                    
@@ -164,9 +170,11 @@ echo 'Bonjour ! Nous sommes le ' . $day . '/' . $month . '/' . $year . 'et il es
                         <ul class="list-group">
                             <li class="list-group-item"><a class="link-warning" href="./recipes/update_recipes.php?id=<?php echo($recipe['recipe_id']) ?>">Editer l'article</a></li>
                             <li class="list-group-item"><a class="link-danger" href="./recipes/delete_recipes.php?id=<?php echo($recipe['recipe_id']) ?>">Supprimer l'article</a></li>
-                        </ul>
+                        </ul>                        
                     <?php endif ?>
+                    <hr />
                 </article>
+                
         <?php endforeach ?>
         
     </div>

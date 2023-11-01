@@ -1,42 +1,73 @@
+<?php declare(strict_types=1)?>
+
 <?php
-session_start();
 
-include_once('../config/mysql.php');
-include_once('../config/user.php');
-include_once('../includes/variables.inc.php');
-
-$getData = $_GET;
-if (!isset($getData['id']) && is_numeric($getData['id'])) {
-    echo('La recette n\'existe pas');
-    return;
+if(session_status() !== PHP_SESSION_ACTIVE) {
+    session_start();
 }
 
-$recipeId = $getData['id'];
+if(session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
-$retrieveRecipeWithCommentsStatement = $db->prepare('SELECT *, DATE_FORMAT(c.created_at, "%d/%m/%Y") as comment_date FROM recipes r LEFT JOIN comments c on r.recipe_id = c.recipe_id WHERE r.recipe_id = :id');
-$retrieveRecipeWithCommentsStatement->execute([
-    'id' => $recipeId,
-]);
+include_once("../includes/class-autoloader.inc.php");
+//include_once('../includes/functions.inc.php');
 
-$recipeWithComments = $retrieveRecipeWithCommentsStatement->fetchAll(PDO::FETCH_ASSOC);
+/***
+ * Grabing URL ID from index page and fetching rows datas
+ */
+if(isset($_GET['id']) && is_numeric($_GET['id'])) {
+    $getDatas = $_GET['id'];
+    //$idDatas = new RecipeView($getDatas);
+    $checkId = new RecipeView($getDatas);
+    //$idDatas->checkId();
+    //$getInfos = $idDatas->getRecipeInfoById();
+    $averageRating = $checkId->getAverageRatingCommentsById($getDatas);
+    $getInfos = $checkId->getRecipesWithCommentsById($getDatas);
 
-$averageRatingStatment = $db->prepare('SELECT ROUND(AVG(c.review),1) as rating FROM recipes r LEFT JOIN comments c on r.recipe_id = c.recipe_id WHERE r.recipe_id = :id');
-$averageRatingStatment->execute([
-    'id' => $recipeId,
-]);
+// Inserting infos into the recipe array 
+    $recipe = [
+    'recipe_id' => $getInfos[0]['recipe_id'],
+    'title' => $getInfos[0]['title'],
+    'recipe' => $getInfos[0]['recipe'],
+    'author' => $getInfos[0]['author'],
+    'comments' => [],
+    'rating' => $averageRating['rating']
+];
 
-$averageRating = $averageRatingStatment->fetch(PDO::FETCH_ASSOC);
+// Append comments array into the recipe array
+foreach($getInfos as $comment) {
+    if (!is_null($comment['comment_id'])) {
+        $recipe['comments'][] = [
+            'comment_id' => $comment['comment_id'],
+            'comment' => $comment['comment'],
+            'user_id' => $comment['user_id'],
+            'created_at' => $comment['comment_date'],
+        ];
+        //echo $recipe['comments']['user_id'];
+    }
+}
 
-$recipe = [
+    
+/* foreach($getInfos[0] as $recipes => $value) {
+    echo($recipes .' => '. $value . '<br>');
+} */
+
+} else {
+    header('Location: ../index.php?error=noId');
+}
+
+/* $recipe = [
     'recipe_id' => $recipeWithComments[0]['recipe_id'],
     'title' => $recipeWithComments[0]['title'],
     'recipe' => $recipeWithComments[0]['recipe'],
     'author' => $recipeWithComments[0]['author'],
     'comments' => [],
     'rating' => $averageRating['rating'],
-];
+]; */
 
-foreach($recipeWithComments as $comment) {
+
+/* foreach($recipeWithComments as $comment) {
     if (!is_null($comment['comment_id'])) {
         $recipe['comments'][] = [
             'comment_id' => $comment['comment_id'],
@@ -45,7 +76,8 @@ foreach($recipeWithComments as $comment) {
             'created_at' => $comment['comment_date'],
         ];
     }
-}
+} */
+
 
 
 ?>
@@ -77,24 +109,29 @@ foreach($recipeWithComments as $comment) {
             </aside>
         </div>
 
-        <?php if(count($recipe['comments']) >= 0): ?>
+        <?php //$checkId->displayComments($recipe, $getInfos) ?>
+        <?php if(count($recipe['comments']) > 0): ?>
         <hr />
         <h2>Commentaires</h2>
         <div class="row">
+        <?php $loggedUser = LoginController::checkLoggedStatus()?>
             <?php foreach($recipe['comments'] as $comment): ?>
                 <div class="comment">
-                    <p><?php echo($comment['created_at']) ?></p>
-                    <p><?php echo($comment['comment']) ?></p>
-                    <i>(<?php echo(display_user($comment['user_id'], $users)) ?>)</i>
+                    <p><?php echo strip_tags($comment['created_at']) ?></p>
+                    <p><?php echo strip_tags($comment['comment']) ?></p>
+                    <i>(<?php echo strip_tags($checkId->display_user($comment['user_id'])) ?>)</i>
                 </div>
             <?php endforeach ?>
         </div>
         <?php endif ?>
         <hr />
+        <?php $loggedUser = LoginController::checkLoggedStatus()?>
         <?php if (isset($loggedUser)): ?>
             <?php include_once('../comments/comments.php'); ?>
-        <?php endif; ?>
+            <?php //$checkId->displayCommentForm($recipe) ?>
+            <?php //$checkId->displayCommentSuccess() ?>
+        <?php endif ?>
     </div>
-    <?php include_once($rootPath.'/recettes/includes/footer.inc.php'); ?>
+    <?php include_once('../includes/footer.inc.php'); ?>
 </body>
 </html>

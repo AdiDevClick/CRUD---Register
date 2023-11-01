@@ -1,4 +1,4 @@
-<?php declare(strict_types=1) ?>
+<?php declare(strict_types=1)?>
 
 <?php
 require_once('../includes/class-autoloader.inc.php');
@@ -62,7 +62,7 @@ if ($data && isset($_POST['submit'])) {
 ?>
 
 
-    <!-- end of inserting success message -->
+    
 
 <?php $loggedUser = LoginController::checkLoggedStatus()?>
     <?php //if (isset($loggedUser['email']) && !isset($loggedUser['recipe'])):?>
@@ -87,6 +87,7 @@ if ($data && isset($_POST['submit'])) {
     </section>
     
     <?php //endif?>
+<!-- start of success message --> 
 
 <?php elseif (isset($_SESSION['REGISTERED_RECIPE'])):?>
     <?php //require_once('signup_success.php')?>
@@ -95,7 +96,10 @@ if ($data && isset($_POST['submit'])) {
     <?php else : ?>
         <?php header('Location: ../register.php')?>
 <?php endif ?>
-<?php /* if (
+
+<!-- end of success message --> 
+<?php 
+/* if (
     !isset($_POST['title'])
     || !isset($_POST['recipe'])
     )

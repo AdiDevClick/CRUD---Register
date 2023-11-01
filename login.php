@@ -78,10 +78,11 @@ if ($data && isset($_POST["submit"])) {
 $loggedUser = LoginController::checkLoggedStatus();
 /* if (isset($_COOKIE['LOGGED_USER']) || isset($_SESSION['LOGGED_USER'])) {
     $loggedUser = [
-        'email' => $_COOKIE['LOGGED_USER'] ?? $_SESSION['LOGGED_USER'],
+        'email' => $_COOKIE['LOGGED_USER'],
+        'user_id' => $_SESSION['LOGGED_USER'],
     ];
 } */
-
+//echo $loggedUser['user'][1];
 ?>
 
 <!-- 

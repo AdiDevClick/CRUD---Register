@@ -1,4 +1,4 @@
-<?php //declare(strict_types=1)?>
+<?php declare(strict_types=1)?>
 
 <?php
 
@@ -14,7 +14,7 @@ require_once("includes/class-autoloader.inc.php");
 $data = $_SERVER['REQUEST_METHOD'] == 'POST';
 
 if (($data && isset($_POST['submit']))) {
-    
+
     $getDatas = [
         'username' => $_POST['username'],
         'email' => $_POST['email'],
@@ -22,40 +22,10 @@ if (($data && isset($_POST['submit']))) {
         'pwdRepeat' => $_POST['pwdRepeat'],
         'age' => $_POST['age'],
     ];
-    /* foreach ($getDatas as $key => $value) {
-        echo $getDatas . $key . $value;
-    } */
-    //$getData = $_POST;
-
-    /* $checkInput = new CheckInput($getData);
-
-    $nom = $checkInput->test_input($_POST['username']);
-    $email = $checkInput->test_input($_POST['email']);
-    $password = $checkInput->test_input($_POST['password']);
-    $pwdRepeat = $checkInput->test_input($_POST['pwdRepeat']);
-    $age = $checkInput->test_input($_POST['age']);
-
-
-    $sqlQuery = 'INSERT INTO users (full_name, email, password, age) VALUES (:full_name, :email, :password, :age);';
-            $insertUsers = Mysql::connect()->prepare($sqlQuery);
-            $options = [
-                'cost' => 12
-            ];
-
-            $hashedPwd = password_hash($password, PASSWORD_DEFAULT, $options);
-
-            $insertUsers->execute([
-                'full_name' => $nom,
-                'email' => $email,
-                'password' => $hashedPwd,
-                'age' => $age
-            ]); */
-
     $signup = new SignupView(
         $getDatas
     );
     $signup->setUsers();
-
 
     header('refresh:10, index.php?error=none');
     //header('refresh:5, '.Functions::getUrl().'?error=none');
@@ -71,6 +41,7 @@ if (($data && isset($_POST['submit']))) {
 ?>
 
 <!-- Register form for non registered visitor -->
+
 <?php $registeredUser = LoginController::checkLoggedStatus() ?>
 <?php if (!isset($_SESSION['LOGGED_USER']) && !isset($_SESSION['REGISTERED_USER'])): ?>
       <form action="register.php" method="post">
@@ -96,19 +67,16 @@ if (($data && isset($_POST['submit']))) {
 
         <button type="submit" name="submit" class="btn">S'enregistrer</button>
     </form>
-    <?php //endif ?> 
+    <?php //endif?> 
 
 <!-- End of the form for non registered visitor -->
 
-<!--  Display form success message  -->
+<!--  Display success message  -->
 
 <?php elseif (isset($_SESSION['REGISTERED_USER'])):?>
     <?php //require_once('signup_success.php')?>
     <?php $signup->displaySignupSuccess($getDatas) ?>
     <?php unset($_SESSION['REGISTERED_USER']) ?>
 <?php endif ?>
-
-<!-- 
-
     
-<-- End of display form success message  -->
+<!-- End of display success message  -->
