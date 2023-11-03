@@ -1,5 +1,13 @@
 <?php
 
+if(session_status() !== PHP_SESSION_ACTIVE) {
+    session_start();
+}
+
+if(session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
 //include_once("variables.inc.php");
 $rootPath = $_SERVER['DOCUMENT_ROOT'];
 $rootUrl = (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . '/';

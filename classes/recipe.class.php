@@ -190,6 +190,9 @@ class Recipe extends Mysql
         return $recipe;
     }
 
+    /***
+     * Fetching reviews and rounding them by average
+     */
     public function getAverageRatingCommentsById($recipeId)
     {
         $sqlRecipe = 
@@ -216,6 +219,9 @@ class Recipe extends Mysql
         return $recipe;
     }
 
+    /***
+     * Insert comments 
+     */
     protected function insertComments($comment, $recipeId, $userId)
     {
         $sqlRecipe = 'INSERT INTO comments(comment, recipe_id, user_id) VALUES (:comment, :recipe_id, :user_id);';

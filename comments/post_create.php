@@ -1,17 +1,6 @@
 <?php
 
-if(session_status() !== PHP_SESSION_ACTIVE) {
-    session_start();
-}
-
-if(session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
-
 include_once("../includes/class-autoloader.inc.php");
-//include_once('../config/user.php');
-//include_once('../includes/variables.inc.php');
-//include_once('../includes/functions.inc.php');
 
 $postData = $_POST;
 
@@ -35,8 +24,8 @@ foreach($postData as $recipes => $value) {
     echo($recipes .' => '. $value . '<br>');
 } */
 
-$comment = $postData['comment'];
-$recipeId = $postData['recipe_id'];
+/* $comment = $postData['comment'];
+$recipeId = $postData['recipe_id']; */
 
     $getDatas = [
         'comment' => $postData['comment'],
@@ -50,6 +39,8 @@ $recipeId = $postData['recipe_id'];
     $insertComment->insertComment($getDatas);
 
     header('refresh:10, ../index.php?error=none');
+
+    unset($_SESSION['REGISTERED_COMMENT']);
     //header('refresh:5, '.Functions::getUrl().'?error=none');
 
 
@@ -81,7 +72,7 @@ $insertRecipe->execute([
         <h1>Commentaire ajouté avec succès !</h1>        
         <div class="card">            
             <div class="card-body">
-                <p class="card-text"><b>Votre commentaire</b> : <?php echo strip_tags($comment); ?></p>
+                <p class="card-text"><b>Votre commentaire</b> : <?php echo strip_tags($getDatas['comment']); ?></p>
             </div>
         </div>
     </div>

@@ -12,6 +12,17 @@ class RecipeView extends RecipeController
         return $this->setComments($getDatas);
     }
 
+    public function fetchAverageRatingCommentsById($getDatas)
+    {
+        return $this->getAverageRatingCommentsById($getDatas);
+    }
+
+    public function fetchRecipesWithCommentsById($getDatas)
+    {
+        return $this->getRecipesWithCommentsById($getDatas);
+    }
+
+
     public function deleteRecipe()
     {
         return $this->deleteRecipes();

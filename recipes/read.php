@@ -2,14 +2,6 @@
 
 <?php
 
-if(session_status() !== PHP_SESSION_ACTIVE) {
-    session_start();
-}
-
-if(session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
-
 include_once("../includes/class-autoloader.inc.php");
 //include_once('../includes/functions.inc.php');
 
@@ -22,7 +14,7 @@ if(isset($_GET['id']) && is_numeric($_GET['id'])) {
     $checkId = new RecipeView($getDatas);
     //$idDatas->checkId();
     //$getInfos = $idDatas->getRecipeInfoById();
-    $averageRating = $checkId->getAverageRatingCommentsById($getDatas);
+    $averageRating = $checkId->fetchAverageRatingCommentsById($getDatas);
     $getInfos = $checkId->getRecipesWithCommentsById($getDatas);
 
 // Inserting infos into the recipe array 
@@ -56,28 +48,6 @@ foreach($getInfos as $comment) {
 } else {
     header('Location: ../index.php?error=noId');
 }
-
-/* $recipe = [
-    'recipe_id' => $recipeWithComments[0]['recipe_id'],
-    'title' => $recipeWithComments[0]['title'],
-    'recipe' => $recipeWithComments[0]['recipe'],
-    'author' => $recipeWithComments[0]['author'],
-    'comments' => [],
-    'rating' => $averageRating['rating'],
-]; */
-
-
-/* foreach($recipeWithComments as $comment) {
-    if (!is_null($comment['comment_id'])) {
-        $recipe['comments'][] = [
-            'comment_id' => $comment['comment_id'],
-            'comment' => $comment['comment'],
-            'user_id' => (int) $comment['user_id'],
-            'created_at' => $comment['comment_date'],
-        ];
-    }
-} */
-
 
 
 ?>
@@ -113,8 +83,7 @@ foreach($getInfos as $comment) {
         <?php if(count($recipe['comments']) > 0): ?>
         <hr />
         <h2>Commentaires</h2>
-        <div class="row">
-        <?php $loggedUser = LoginController::checkLoggedStatus()?>
+        <div class="row">>
             <?php foreach($recipe['comments'] as $comment): ?>
                 <div class="comment">
                     <p><?php echo strip_tags($comment['created_at']) ?></p>
@@ -127,7 +96,7 @@ foreach($getInfos as $comment) {
         <hr />
         <?php $loggedUser = LoginController::checkLoggedStatus()?>
         <?php if (isset($loggedUser)): ?>
-            <?php include_once('../comments/comments.php'); ?>
+            <?php include_once('../comments/comments.php') ?>
             <?php //$checkId->displayCommentForm($recipe) ?>
             <?php //$checkId->displayCommentSuccess() ?>
         <?php endif ?>
