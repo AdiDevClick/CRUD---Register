@@ -19,7 +19,7 @@ $data = $_SERVER['REQUEST_METHOD'] == 'POST';
 /* if ($data) {
     $getDatas = $GET['id'];
         /* 'id' => $GET['id'],
-        ]; 
+        ];
     $checkId = new CheckId($data, (int)$getDatas, 'ID');
     //$check = $checkId->checkIds();
     //$setRecipe = new RecipeView($getDatas);
@@ -33,8 +33,8 @@ echo $getDatas;
 
 if ($data) {
     $getDatas = (int) $_POST['id'];
-    $checkId = new Recipecontroller($getDatas);
-    
+    $checkId = new RecipeController($getDatas);
+
     try {
         if ($checkId->checkId()) {
 
@@ -52,7 +52,7 @@ if ($data) {
         $deteRecipeStatement = $db->prepare($sqlQuery);
         $deteRecipeStatement->execute([
             'id' => $inputId,
-        ]); 
+        ]);
         $setRecipe = new RecipeView($getDatas);
         $setRecipe->getRecipeId((int)$getDatas);
         header('Location: ../index.php');
@@ -67,7 +67,7 @@ $url = '/recettes/submit_contact.php'; */
 ?>
 <!-- <section class="container">
         <div class="form-flex">
-            <h1>Suppression de la recette : <?php //echo $recipe['title'] ?> ?</h1>
+            <h1>Suppression de la recette : <?php //echo $recipe['title']?> ?</h1>
             <div class="form">
                 <form action="delete_recipes.php" method="post">
                     <div class="visually-hidden">

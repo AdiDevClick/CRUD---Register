@@ -66,8 +66,10 @@ class RecipeView extends RecipeController
     }
     public function displayShareSuccess(array $getDatas, array $loggedUser): void
     {
+        //$title = "Clic'Répare - Partagé avec succès";
         $successMessage = '';
         //if (isset($_SESSION['REGISTERED_USER'])) {
+        //ob_start();
         $successMessage = '<section class="container">';
         $successMessage .= '<div class="form-flex">';
         $successMessage .= '<h1>Votre recette à bien été partagée !</h1>';
@@ -76,41 +78,57 @@ class RecipeView extends RecipeController
         $successMessage .= '<h5>Rappel de vos informations :</h5>';
         $successMessage .= '<p><b>Titre de votre recette</b> : ' . strip_tags($getDatas['title']) . '</p>';
         $successMessage .= '<p><b>Votre recette</b> : ' . strip_tags($getDatas['recipe']) . '</p>';
-        $successMessage .= '<p><b>Crée par </b> : ' . strip_tags($loggedUser['email']) . '</p>';
+        $successMessage .= '<p><b>Crée par </b> : ' . strip_tags($loggedUser['email']['email']) . '</p>';
+        $successMessage .= "<p>Vous serez redirigé vers la page d'accueil dans 10 secondes</p>";
         $successMessage .= '</div>';
         $successMessage .= '</div>';
         $successMessage .= '</div>';
         $successMessage .= '</section>';
         echo $successMessage;
+        // foreach ($loggedUser as $user) {
+        //     echo ($user) ;
+        //     }
+        // print_r ($loggedUser);
+
+
+        //$content = ob_get_clean();
+        //require('../templates/layout.php');
+        //exit();
     }
 
     public function displayUpdateSuccess(array $getDatas, array $loggedUser): void
     {
         $successMessage = '';
         //if (isset($_SESSION['REGISTERED_USER'])) {
+        //ob_start();
         $successMessage = '<section class="container">';
-        $successMessage .= '<div class="form-flex">';
-        $successMessage .= '<h1>La modification de votre recette à bien été partagée !</h1>';
-        $successMessage .= '<div class="card">';
-        $successMessage .= '<div class="card-body">';
-        $successMessage .= '<h5>Rappel de vos informations :</h5>';
-        $successMessage .= '<p><b>Titre de votre recette</b> : ' . strip_tags($getDatas['title']) . '</p>';
-        $successMessage .= '<p><b>Votre recette</b> : ' . strip_tags($getDatas['recipe']) . '</p>';
-        $successMessage .= '<p><b>Crée par </b> : ' . strip_tags($loggedUser['email']) . '</p>';
-        $successMessage .= '</div>';
-        $successMessage .= '</div>';
-        $successMessage .= '</div>';
+        $successMessage .=  '<div class="form-flex">';
+        $successMessage .=      '<h1>La modification de votre recette à bien été prise en compte !</h1>';
+        $successMessage .=          '<div class="card">';
+        $successMessage .=              '<div class="card-body">';
+        $successMessage .=                  '<h5>Rappel de vos informations :</h5>';
+        $successMessage .=                  '<p><b>Titre de votre recette</b> : ' . strip_tags($getDatas['title']) . '</p>';
+        $successMessage .=                  '<p><b>Votre recette</b> : ' . strip_tags($getDatas['recipe']) . '</p>';
+        $successMessage .=                  '<p><b>Crée par </b> : ' . strip_tags($loggedUser['email'][0]) . '</p>';
+        $successMessage .=                  "<p>Vous serez redirigé vers la page d'accueil dans 10 secondes</p>";
+        $successMessage .=              '</div>';
+        $successMessage .=          '</div>';
+        $successMessage .=      '</div>';
         $successMessage .= '</section>';
         echo $successMessage;
+        //$content = ob_get_clean();
+        //require('../templates/layout.php');
+        //exit();
     }
     public function displayCommentSuccess(): void
     {
         $getData = [
             'comment' => $_POST['comment'],
-            'recipeId' => $_POST['recipe_id'] 
+            'recipeId' => $_POST['recipe_id']
         ];
 
         $this->setComments($getData);
+        ob_start();
         //$recipeId = $postData['recipe_id'];
         $successMessage = '';
         //if (isset($_SESSION['REGISTERED_USER'])) {
@@ -121,21 +139,25 @@ class RecipeView extends RecipeController
         $successMessage .= '<div class="card-body">';
         $successMessage .= '<h5>Rappel de vos informations :</h5>';
         $successMessage .= '<p class="card-text"><b>Votre commentaire</b> : ' . strip_tags($getData['comment']) . '</p>';
+        $successMessage .= "<p>Vous serez redirigé vers la page d'accueil dans 10 secondes</p>";
         $successMessage .= '</div>';
         $successMessage .= '</div>';
         $successMessage .= '</div>';
         $successMessage .= '</section>';
         echo $successMessage;
+        $content = ob_get_clean();
+        require('../templates/layout.php');
+        exit();
     }
     public function displayCommentForm($recipe)
-    {   
+    {
         /* $getData = [
             'comment' => $_POST['comment'],
-            'recipeId' => $_POST['recipe_id'] 
+            'recipeId' => $_POST['recipe_id']
         ];
 
         $this->setComments($getData); */
-        
+
         $formMessage = '';
         //if (isset($_SESSION['REGISTERED_USER'])) {
         $formMessage  = '<form action=" '.htmlentities($_SERVER['PHP_SELF']).' " method="POST">';
@@ -151,7 +173,7 @@ class RecipeView extends RecipeController
         echo $formMessage;
     }
     private function displayComments($recipe, $getInfos)
-    {   
+    {
         $loggedUser = LoginController::checkLoggedStatus();
         $comments = '';
         if(count($recipe['comments']) > 0) {
@@ -166,20 +188,19 @@ class RecipeView extends RecipeController
                 $comments .= '<i>( '.$comment['user_id'].' )</i>';
                 $comments .= '<p> </div>';
             }
-        $comments .= '<p> </div>';
+            $comments .= '<p> </div>';
         }
         echo $comments;
     }
 
     public function display_user($userId)
     {
-    $users = $this->getUsersById();
-    foreach($users as $user) {
-        if ($user['user_id'] === $userId) {        
-            return $user['full_name'] . '(' . $user['age'] . ' ans)';
-            }     
+        $users = $this->getUsersById();
+        foreach($users as $user) {
+            if ($user['user_id'] === $userId) {
+                return $user['full_name'] . '(' . $user['age'] . ' ans)';
+            }
         }
-        return 'Annonyme'; 
+        return 'Annonyme';
     }
 }
-

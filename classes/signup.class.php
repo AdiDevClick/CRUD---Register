@@ -15,13 +15,15 @@ class Signup extends Mysql
         'email' => $email,
         'full_name' => $username])) {
             $stmt = null;
-            throw new Error((string)header("Location: ".Functions::getUrl()."?error=stmtfailed"));
+            //throw new Error((string)header("Location: ".Functions::getUrl()."?error=stmtfailed"));
+            throw new Error("stmt Failed");
             //exit();
         }
         if ($stmt ->rowCount() > 0) {
             $resultCheck = false;
             $stmt = null;
-            throw new Error((string)header("Location: ".Functions::getUrl()."?error=user-already-exists"));
+            //throw new Error((string)header("Location: ".Functions::getUrl()."?error=user-already-exists"));
+            throw new Error("Cet utilisateur existe déjà");
         } else {
             $resultCheck = true;
         }
@@ -54,7 +56,8 @@ class Signup extends Mysql
                 'age' => $age
             ])) {
                 $insertUsers = null;
-                throw new Error((string)header("Location: ".Functions::getUrl()."?error=stmtfailed"));
+                //throw new Error((string)header("Location: ".Functions::getUrl()."?error=stmtfailed"));
+                throw new Error("stmt Failed");
                 //header('Location : ../register.php?error=stmtfailed');
                 //exit();
             }

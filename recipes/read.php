@@ -1,6 +1,16 @@
 <?php declare(strict_types=1)?>
 
+
+
 <?php
+
+if(session_status() !== PHP_SESSION_ACTIVE) {
+    session_start();
+}
+
+if(session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
 include_once("../includes/class-autoloader.inc.php");
 //include_once('../includes/functions.inc.php');
@@ -15,9 +25,9 @@ if(isset($_GET['id']) && is_numeric($_GET['id'])) {
     //$idDatas->checkId();
     //$getInfos = $idDatas->getRecipeInfoById();
     $averageRating = $checkId->fetchAverageRatingCommentsById($getDatas);
-    $getInfos = $checkId->getRecipesWithCommentsById($getDatas);
+    $getInfos = $checkId->fetchRecipesWithCommentsById($getDatas);
 
-// Inserting infos into the recipe array 
+    // Inserting infos into the recipe array
     $recipe = [
     'recipe_id' => $getInfos[0]['recipe_id'],
     'title' => $getInfos[0]['title'],
@@ -27,23 +37,24 @@ if(isset($_GET['id']) && is_numeric($_GET['id'])) {
     'rating' => $averageRating['rating']
 ];
 
-// Append comments array into the recipe array
-foreach($getInfos as $comment) {
-    if (!is_null($comment['comment_id'])) {
-        $recipe['comments'][] = [
-            'comment_id' => $comment['comment_id'],
-            'comment' => $comment['comment'],
-            'user_id' => $comment['user_id'],
-            'created_at' => $comment['comment_date'],
-        ];
-        //echo $recipe['comments']['user_id'];
+    // Append comments array into the recipe array
+    foreach($getInfos as $comment) {
+        if (!is_null($comment['comment_id'])) {
+            $recipe['comments'][] = [
+                'comment_id' => $comment['comment_id'],
+                'comment' => $comment['comment'],
+                'user_id' => $comment['user_id'],
+                'created_at' => $comment['comment_date'],
+            ];
+            //echo $recipe['comments']['user_id'];
+        }
     }
-}
 
-    
-/* foreach($getInfos[0] as $recipes => $value) {
-    echo($recipes .' => '. $value . '<br>');
-} */
+    /* $loggedUser = LoginController::checkLoggedStatus();
+    print_r  ($loggedUser); */
+    /* foreach($getInfos[0] as $recipes => $value) {
+        echo($recipes .' => '. $value . '<br>');
+    } */
 
 } else {
     header('Location: ../index.php?error=noId');
@@ -79,7 +90,7 @@ foreach($getInfos as $comment) {
             </aside>
         </div>
 
-        <?php //$checkId->displayComments($recipe, $getInfos) ?>
+        <?php //$checkId->displayComments($recipe, $getInfos)?>
         <?php if(count($recipe['comments']) > 0): ?>
         <hr />
         <h2>Commentaires</h2>
@@ -97,8 +108,8 @@ foreach($getInfos as $comment) {
         <?php $loggedUser = LoginController::checkLoggedStatus()?>
         <?php if (isset($loggedUser)): ?>
             <?php include_once('../comments/comments.php') ?>
-            <?php //$checkId->displayCommentForm($recipe) ?>
-            <?php //$checkId->displayCommentSuccess() ?>
+            <?php //$checkId->displayCommentForm($recipe)?>
+            <?php //$checkId->displayCommentSuccess()?>
         <?php endif ?>
     </div>
     <?php include_once('../includes/footer.inc.php'); ?>

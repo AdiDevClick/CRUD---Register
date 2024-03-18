@@ -10,23 +10,8 @@ if(session_status() === PHP_SESSION_NONE) {
 
 ?>
 
-
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Site de recettes - Formulaire de Contact </title>
-
-</head>
-<body>
-    <!-- Le Header -->
-
-    <?php include_once('includes/header.inc.php')?>
-
-    <!-- Fin du Header -->
-
+<?php $title = "Clic'Répare - Contact?"?>
+    <?php ob_start()?>
     <!--  Le Main -->
     <h1> Contactez-nous </h1>
     <form action="submit_contact.php" method="post" enctype="multipart/form-data">
@@ -41,14 +26,6 @@ if(session_status() === PHP_SESSION_NONE) {
         
         <button type="submit" class="bTn" name="submit">Envoyez</button>
     </form>
-
     <!-- Fin du Main -->
-    
-    <!-- Le Footer -->
-
-    <?php include_once('includes/footer.inc.php'); ?>
-
-    <!--  Fin du Footer -->
-</body>
-</body>
-</html>
+    <?php $content = ob_get_clean()?>
+    <?php require('templates/layout.php')?>

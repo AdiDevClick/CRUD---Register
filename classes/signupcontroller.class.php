@@ -8,7 +8,7 @@ class SignupController extends Signup
         private $password,
         private $pwdRepeat,
         private $age, */
-        private $getData
+        protected $getData
     ) {
     }
 
@@ -87,8 +87,9 @@ class SignupController extends Signup
         $resultCheck = '' ;
         if ($this->getData['password'] != $this->getData['pwdRepeat']) {
             $resultCheck = false;
-            throw new Error("Erreur : Les mots de passes ne sont pas identiques" .
-                header("Location: ".Functions::getUrl()."?error=pwd-doesnt-match")) ;
+            throw new Error("Erreur : Les mots de passes ne sont pas identiques");
+            //throw new Error("Erreur : Les mots de passes ne sont pas identiques" .
+            //header("Location: ".Functions::getUrl()."?error=pwd-doesnt-match")) ;
         } else {
             $resultCheck = true;
         }

@@ -1,4 +1,4 @@
-<?php 
+<?php declare(strict_types=1);
 
 if(session_status() !== PHP_SESSION_ACTIVE) {
     session_start();
@@ -9,6 +9,7 @@ if(session_status() === PHP_SESSION_NONE) {
 }
 
 include_once('includes/functions.inc.php');
+
 function display_mailReception($email, $message)
 {
     $mail_content = '';
@@ -105,20 +106,11 @@ if (isset($_FILES['file']) && $_FILES['file']['error'] == 0) {
         echo("Déjà envoyé..");
     }
 }
-
-
-
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>We Love Food - Contactez-nous</title>
-</head>
-<body>
-    
+<?php $title = "We Love Food - Contactez-nous"?>
+<?php ob_start()?>
+
 <h1> Nous avons bien reçu votre message</h1>
 
 <div class="card">
@@ -129,3 +121,6 @@ if (isset($_FILES['file']) && $_FILES['file']['error'] == 0) {
 
     </div>
 </div> 
+
+<?php $content = ob_get_clean()?>
+<?php require('templates/layout.php')?>

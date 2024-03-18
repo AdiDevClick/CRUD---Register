@@ -4,10 +4,9 @@ class Login extends Mysql
 {
     /**
      * Summary of getUsers
-     * @param mixed $email
-     * @return array
+     *
      */
-    protected function getUsers(string $email) : array
+    protected function getUsers(string $email): array
     {
         $sqlUsersQuery =
         'SELECT * FROM `users`
@@ -21,19 +20,21 @@ class Login extends Mysql
             'full_name' => $email
         ])) {
             $usersStatement = null;
-            throw new Error((string)header("Location: ".Functions::getUrl()."?error=stmt-failed"));
+            //throw new Error((string)header("Location: ".Functions::getUrl()."?error=stmt-failed"));
+            throw new Error("stmt failed");
             //header("Location : ".$url->getThisUrl(). "?error=user-not-found");
         }
-        if ($usersStatement->rowCount() == 0) {
+        /* if ($usersStatement->rowCount() == 0) {
             $usersStatement = null;
-            throw new Error((string)header("Location: ".Functions::getUrl()."?error=user-not-found"));
-            //header("Location : ".$url->getThisUrl()."?error=user-not-found");
+            //throw new Error((string)header("Location: ".Functions::getUrl()."?error=user-not-found"));
+            //header("Location : ".Functions::getUrl()."?error=user-not-found");
+            throw new Error("L'utilisateur n'a pas été trouvé");
             //exit();
-        } //else {
+        } */ //else {
         $users = $usersStatement->fetchAll(PDO::FETCH_ASSOC);
-            /* $usersStatement = null;
-            header("Location : ".Functions::getUrl(). "?error=stmt-failed");
-            exit(); */       
+        /* $usersStatement = null;
+        header("Location : ".Functions::getUrl(). "?error=stmt-failed");
+        exit(); */
         return $users;
     }
 
@@ -41,25 +42,26 @@ class Login extends Mysql
      * Summary of getRecipes
      * @return array
      */
-    protected function getRecipes() : array
+    protected function getRecipes(): array
     {
         $sqlRecipesQuery = 'SELECT * FROM `recipes`';
         $recipesStatement = $this->connect()->prepare($sqlRecipesQuery);
         if (!$recipesStatement->execute()) {
             $recipesStatement = null;
-            throw new Error((string)header("Location: ".Functions::getUrl()."?error=stmt-failed"));
+            //throw new Error((string)header("Location: ".Functions::getUrl()."?error=stmt-failed"));
+            throw new Error("stmt-failed");
             //header("Location : ".getUrl(). "?error=stmt-failed");
             //exit();
         }
         if ($recipesStatement->rowCount() == 0) {
             //$recipesStatement = null;
             $newRecipe = '';
-            Echo "Il n'existe aucune recette à ce jour. Soyez le premier à partager la votre !";
+            echo "Il n'existe aucune recette à ce jour. Soyez le premier à partager la votre !";
             $newRecipe = '<div class="">';
             $newRecipe .= '<p><a href="recipes/create_recipes.php">Cliquez ici</a> pour créer votre recette !</p>';
             echo $newRecipe;
 
-            //throw new Error((string)header("Location: ".Functions::getUrl()."?error=recipe-not-found")); 
+            //throw new Error((string)header("Location: ".Functions::getUrl()."?error=recipe-not-found"));
             //header("Location : ".Functions::getUrl(). "?error=recipe-not-found");
             //exit();
         }
@@ -68,7 +70,7 @@ class Login extends Mysql
     }
 
     /**********
-     * Vérifier le pw 
+     * Vérifier le pw
      ****                                      ***********/
     protected function getPwd(string $pwd, string $email): bool
     {
@@ -81,13 +83,15 @@ class Login extends Mysql
             'email' => $email
         ])) {
             $pwdStatement = null;
-            throw new Error((string)header("Location: ".Functions::getUrl()."?error=stmt-failed"));
+            //throw new Error((string)header("Location: ".Functions::getUrl()."?error=stmt-failed"));
+            throw new Error("stmt-failed");
             //header("Location : ".Functions::getUrl(). "?error=stmt-failed");
             //exit();
         }
         if ($pwdStatement->rowCount() == 0) {
             $pwdStatement = null;
-            throw new Error((string)header("Location: ".Functions::getUrl()."?error=user-not-found"));
+            //throw new Error((string)header("Location: ".Functions::getUrl()."?error=user-not-found"));
+            throw new Error("L'utilisateur n'a pas été trouvé");
             //exit();
         }
         $hashedPwd = $pwdStatement->fetchAll(PDO::FETCH_ASSOC);
@@ -120,7 +124,7 @@ class Login extends Mysql
                             'httponly' => true,
                         ]
                     );
-                    
+
                     $_SESSION['USER_ID'] = $user['user_id'];
                     $_SESSION['LOGGED_USER'] = $user['full_name'];
 
@@ -188,10 +192,10 @@ class Login extends Mysql
         }
     } */
 
-    /*  public function getPassword() {
-        $sqlUsersQuery = 'SELECT password FROM `users`';
-        $usersStatement = $this->connect()->prepare($sqlUsersQuery);
-        $usersStatement->execute();
-        $password = $usersStatement->fetchAll(PDO::FETCH_ASSOC);
-        return $password;
-    }*/
+/*  public function getPassword() {
+    $sqlUsersQuery = 'SELECT password FROM `users`';
+    $usersStatement = $this->connect()->prepare($sqlUsersQuery);
+    $usersStatement->execute();
+    $password = $usersStatement->fetchAll(PDO::FETCH_ASSOC);
+    return $password;
+}*/

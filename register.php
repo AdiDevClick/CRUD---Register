@@ -1,5 +1,3 @@
-<?php declare(strict_types=1) ?>
-
 <?php
 
 if(session_status() !== PHP_SESSION_ACTIVE) {
@@ -59,49 +57,50 @@ $errorRecipe = ''; */
         try {
             $signup = new SignupController($nom, $email, $password, $pwdRepeat, $age);
             $signup->insertUser($nom, $email, $password, $age); */
-            //include_once('config/mysql.php');
-            //require_once("includes/variables.inc.php");
-            /* $db = new Mysql();
-            $sqlQuery = 'INSERT INTO users(full_name, email, password, age)
-                        VALUES (:full_name, :email, :password, :age)';
-            $insertUsers = $db->connect()->prepare($sqlQuery);
-            $insertUsers->execute([
-                'full_name' => $nom,
-                'email' => $email,
-                'password' => $password,
-                'age' => $age
-            ]);  */
+//include_once('config/mysql.php');
+//require_once("includes/variables.inc.php");
+/* $db = new Mysql();
+$sqlQuery = 'INSERT INTO users(full_name, email, password, age)
+            VALUES (:full_name, :email, :password, :age)';
+$insertUsers = $db->connect()->prepare($sqlQuery);
+$insertUsers->execute([
+    'full_name' => $nom,
+    'email' => $email,
+    'password' => $password,
+    'age' => $age
+]);  */
 
-            //$db = null;
-            //$signup = null;
-            //header('Location: index.php');
-            //die();
+//$db = null;
+//$signup = null;
+//header('Location: index.php');
+//die();
 
-      /*   } catch (Error $e) {
-            die('Erreur : ' . $e->getMessage() . ' Quelque chose ne va pas dans la connexion DB...') ;
-        }
+/*   } catch (Error $e) {
+      die('Erreur : ' . $e->getMessage() . ' Quelque chose ne va pas dans la connexion DB...') ;
+  }
     } else {
-        echo 'Ca va pas....';
-        header('Location: register.php');
-        die();
+  echo 'Ca va pas....';
+  header('Location: register.php');
+  die();
     }
 } */
-
 ?>
-
-
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>We Love Food - S'enregistrer</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    <title>We Love Food - S'enregistrer</title>    
+    <?php $title = "Clic'Répare - S'enregistrer"?>
 </head>
-<body>
+<body> -->
     <!-- Le Header -->
-
-    <?php include_once('includes/header.inc.php')?>
-
+    <!-- <header>
+        <?php //require('includes/header.inc.php')?>
+    </header> -->
     <!-- Fin du Header -->
 
     <!--  Le Main -->
@@ -134,14 +133,21 @@ $errorRecipe = ''; */
     <!-- Fin du Main -->
 
     <!-- If register went well  -->
-    <?php include_once('submit_register.php')?>
+    <?php ob_start()?>
+    <?php require('submit_register.php')?>
+    
+	<?php //header('Location: index.php')?>
+    <?php //ob_get_contents()?>
+	<?php $content = ob_get_clean()?>
 
     <!-- End of the success -->
 
     <!-- Le Footer -->
 
-    <?php include_once('includes/footer.inc.php') ?>
+    <?php //require('includes/footer.inc.php')?>
+
+    <?php require('templates/layout.php')?>
 
     <!--  Fin du Footer -->
-</body>
-</html>
+<!-- </body>
+</html> -->

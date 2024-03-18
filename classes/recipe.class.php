@@ -24,7 +24,8 @@ class Recipe extends Mysql
             'is_enabled' => 1,
         ])) {
             $insertRecipe = null;
-            throw new Error((string)header("Location: ".Functions::getUrl()."?error=stmt-failed"));
+            //throw new Error((string)header("Location: ".Functions::getUrl()."?error=stmt-failed"));
+            throw new Error("stmt Failed");
             //header("Location : ".$url->getThisUrl(). "?error=user-not-found");
         }
         /* $usersStatement = null;
@@ -42,14 +43,16 @@ class Recipe extends Mysql
         $recipesStatement = $this->connect()->prepare($sqlRecipesQuery);
         if (!$recipesStatement->execute()) {
             $recipesStatement = null;
-            throw new Error((string)header("Location: ".Functions::getUrl()."?error=stmt-failed"));
+            //throw new Error((string)header("Location: ".Functions::getUrl()."?error=stmt-failed"));
+            throw new Error("stmt Failed");
             //header("Location : ".getUrl(). "?error=stmt-failed");
             //exit();
         }
         if ($recipesStatement->rowCount() == 0) {
             $recipesStatement = null;
-            echo strip_tags("Il n'existe aucune recette à ce jour. Soyez le premier à partager la votre !");
-            throw new Error((string)header("Location: ".Functions::getUrl()."?error=recipe-not-found"));
+            //echo strip_tags("Il n'existe aucune recette à ce jour. Soyez le premier à partager la votre !");
+            //throw new Error((string)header("Location: ".Functions::getUrl()."?error=recipe-not-found"));
+            throw new Error("Il n'existe aucune recette à ce jour. Soyez le premier à partager la votre !");
             //header("Location :" .Functions::getUrl(). "?error=recipe-not-found");
             //exit();
         }
@@ -65,12 +68,14 @@ class Recipe extends Mysql
             'id' => $recipeId,
         ])) {
             $getRecipesIdStatement = null;
-            throw new Error((string)header("Location: ".Functions::getUrl()."?error=stmt-failed"));
+            //throw new Error((string)header("Location: ".Functions::getUrl()."?error=stmt-failed"));
+            throw new Error("stmt Failed");
         }
         if ($getRecipesIdStatement->rowCount() == 0) {
             $getRecipesIdStatement = null;
-            echo strip_tags("Cette recette n'existe pas.");
-            throw new Error((string)header("Location: ".Functions::getUrl()."?error=recipeid-not-found"));
+            //echo strip_tags("Cette recette n'existe pas.");
+            //throw new Error((string)header("Location: ".Functions::getUrl()."?error=recipeid-not-found"));
+            throw new Error("Cette recette n'existe pas");
             //header("Location :" .Functions::getUrl(). "?error=recipe-not-found");
             //exit();
         }
@@ -86,7 +91,8 @@ class Recipe extends Mysql
             'recipe_id' => $recipeId,
         ])) {
             $getRecipesIdStatement = null;
-            throw new Error((string)header("Location: ".Functions::getUrl()."?error=stmt-failed"));
+            //throw new Error((string)header("Location: ".Functions::getUrl()."?error=stmt-failed"));
+            throw new Error("stmt Failed");
         }
         /* if ($getRecipesIdStatement->rowCount() == 0) {
             $getRecipesIdStatement = null;
@@ -107,12 +113,14 @@ class Recipe extends Mysql
             'title' => $recipes
         ])) {
             $getRecipesIdStatement = null;
-            throw new Error((string)header("Location: ".Functions::getUrl()."?error=stmt-failed"));
+            //throw new Error((string)header("Location: ".Functions::getUrl()."?error=stmt-failed"));
+            throw new Error("stmt Failed");
         }
         if ($getRecipesIdStatement->rowCount() == 0) {
             $getRecipesIdStatement = null;
-            echo strip_tags("Cette recette n'existe pas.");
-            throw new Error((string)header("Location: ".Functions::getUrl()."?error=recipetitle-not-found"));
+            //echo strip_tags("Cette recette n'existe pas.");
+            //throw new Error((string)header("Location: ".Functions::getUrl()."?error=recipetitle-not-found"));
+            throw new Error("Le titre de cette recette n'existe pas");
             //header("Location :" .Functions::getUrl(). "?error=recipe-not-found");
             //exit();
         }
@@ -127,14 +135,16 @@ class Recipe extends Mysql
         if (!$deteRecipeStatement->execute([
             'id' => $recipeId
         ])) {
-            echo "c'est pas delete !";
+            //echo "c'est pas delete !";
             $deteRecipeStatement = null;
-            throw new Error((string)header("Location: ".Functions::getUrl()."?error=stmt-failed"));
+            //throw new Error((string)header("Location: ".Functions::getUrl()."?error=stmt-failed"));
+            throw new Error("stmt Failed");
         }
         if ($deteRecipeStatement->rowCount() == 0) {
             $deteRecipeStatement = null;
-            echo strip_tags("Cette recette ne peut pas être supprimée, elle n'existe pas.");
-            throw new Error((string)header("Location: ".Functions::getUrl()."?error=delrecipeid-not-found"));
+            //echo strip_tags("Cette recette ne peut pas être supprimée, elle n'existe pas.");
+            //throw new Error((string)header("Location: ".Functions::getUrl()."?error=delrecipeid-not-found"));
+            throw new Error("Cette recette ne peut pas être supprimée, elle n'existe pas.");
             //header("Location :" .Functions::getUrl(). "?error=recipe-not-found");
             //exit();
         }
@@ -153,12 +163,14 @@ class Recipe extends Mysql
             'recipe_id' => $id,
         ])) {
             $updateRecipeStatement = null;
-            throw new Error((string)header("Location: ".Functions::getUrl()."?error=stmt-failed"));
+            //throw new Error((string)header("Location: ".Functions::getUrl()."?error=stmt-failed"));
+            throw new Error("stmt Failed");
         }
         if ($updateRecipeStatement->rowCount() == 0) {
             $updateRecipeStatement = null;
-            echo strip_tags("Cette recette ne peut pas être mise à jour, elle n'existe pas.");
-            throw new Error((string)header("Location: ".Functions::getUrl()."?error=uprecipeid-not-found"));
+            //echo strip_tags("Cette recette ne peut pas être mise à jour, elle n'existe pas.");
+            //throw new Error((string)header("Location: ".Functions::getUrl()."?error=uprecipeid-not-found"));
+            throw new Error("Cette recette ne peut pas être mise à jour, elle n'existe pas.");
             //header("Location :" .Functions::getUrl(). "?error=recipe-not-found");
             //exit();
         }
@@ -166,23 +178,25 @@ class Recipe extends Mysql
 
     public function getRecipesWithCommentsById($recipeId)
     {
-        $sqlRecipe = 
+        $sqlRecipe =
         'SELECT *, DATE_FORMAT(c.created_at, "%d/%m/%Y") as comment_date 
         FROM recipes r 
-        LEFT JOIN comments c             
-        ON r.recipe_id = c.recipe_id 
+        LEFT JOIN comments c
+        ON r.recipe_id = c.recipe_id
         WHERE r.recipe_id = :recipe_id;';
         $retrieveRecipeWithCommentsStatement = $this->connect()->prepare($sqlRecipe);
         if (!$retrieveRecipeWithCommentsStatement->execute([
             'recipe_id' => $recipeId,
         ])) {
             $retrieveRecipeWithCommentsStatement = null;
-            throw new Error((string)header("Location: ".Functions::getUrl()."?error=stmt-failed"));
+            //throw new Error((string)header("Location: ".Functions::getUrl()."?error=stmt-failed"));
+            throw new Error("stmt Failed");
         }
         if ($retrieveRecipeWithCommentsStatement->rowCount() == 0) {
             $retrieveRecipeWithCommentsStatement = null;
-            echo strip_tags("Cette recette n'existe pas.");
-            throw new Error((string)header("Location: ".Functions::getUrl()."?error=recipeid-not-found"));
+            //echo strip_tags("Cette recette n'existe pas.");
+            //throw new Error((string)header("Location: ".Functions::getUrl()."?error=recipeid-not-found"));
+            throw new Error("Cette recette n'existe pas");
             //header("Location :" .Functions::getUrl(). "?error=recipe-not-found");
             //exit();
         }
@@ -195,7 +209,7 @@ class Recipe extends Mysql
      */
     public function getAverageRatingCommentsById($recipeId)
     {
-        $sqlRecipe = 
+        $sqlRecipe =
         'SELECT ROUND(AVG(c.review),1) as rating 
         FROM recipes r 
         LEFT JOIN comments c 
@@ -206,12 +220,14 @@ class Recipe extends Mysql
             'id' => $recipeId,
         ])) {
             $averageRatingStatment = null;
-            throw new Error((string)header("Location: ".Functions::getUrl()."?error=stmt-failed"));
+            //throw new Error((string)header("Location: ".Functions::getUrl()."?error=stmt-failed"));
+            throw new Error("stmt Failed");
         }
         if ($averageRatingStatment->rowCount() == 0) {
             $averageRatingStatment = null;
-            echo strip_tags("Cette recette n'existe pas.");
-            throw new Error((string)header("Location: ".Functions::getUrl()."?error=recipeid-not-found"));
+            //echo strip_tags("Cette recette n'existe pas.");
+            //throw new Error((string)header("Location: ".Functions::getUrl()."?error=recipeid-not-found"));
+            throw new Error("Cette recette n'existe pas.");
             //header("Location :" .Functions::getUrl(). "?error=recipe-not-found");
             //exit();
         }
@@ -220,7 +236,7 @@ class Recipe extends Mysql
     }
 
     /***
-     * Insert comments 
+     * Insert comments
      */
     protected function insertComments($comment, $recipeId, $userId)
     {
@@ -233,8 +249,9 @@ class Recipe extends Mysql
             //'user_id' => retrieve_id_from_user_mail($loggedUser['email'], $users),
         ])) {
             $insertCommentsStatment = null;
-            throw new Error((string)header("Location: ".Functions::getUrl()."?error=stmt-failed"));
-        
+            //throw new Error((string)header("Location: ".Functions::getUrl()."?error=stmt-failed"));
+            throw new Error("stmt Failed");
+
             //header("Location :" .Functions::getUrl(). "?error=recipe-not-found");
             //exit();
         }

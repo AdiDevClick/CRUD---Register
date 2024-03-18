@@ -19,11 +19,11 @@ class CheckInput extends Validate
         if (isset($this->getData)) {
             /* $url = explode("/", parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));
             $url = array_pop($url); */
-            foreach ($this->getData as $key => $value) {
+            foreach ($this -> getData as $key => $value) {
                 $result = false;
                 try {
                     if (empty($value) || !isset($key)) {
-                        $result = false;
+                        //$result = false;
                         //$e = throw new Error((string)header("Location: $url?error=$key-vide"));
                         throw new Error((string)header("Location: ".Functions::getUrl()."?error=$key-vide"));
                         //header("Location: ".Functions::getUrl()."?error=$key-vide");

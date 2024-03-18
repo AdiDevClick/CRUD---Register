@@ -1,6 +1,4 @@
-<?php declare(strict_types=1)?>
-
-<?php
+<?php declare(strict_types=1);
 
 if(session_status() !== PHP_SESSION_ACTIVE) {
     session_start();
@@ -9,6 +7,7 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 if(session_status() === PHP_SESSION_NONE) {
     session_start();
 }
+//ob_start();
 require_once("includes/class-autoloader.inc.php");
 
 $data = $_SERVER['REQUEST_METHOD'] == 'POST';
@@ -26,8 +25,13 @@ if (($data && isset($_POST['submit']))) {
         $getDatas
     );
     $signup->setUsers();
+    //ob_start();
 
-    header('refresh:10, index.php?error=none');
+    header('refresh:10, index.php?register=success');
+    session_destroy();
+    //$content = ob_end_flush();
+    //header('refresh:10, index.php');
+    //exit();
     //header('refresh:5, '.Functions::getUrl().'?error=none');
 }
 
@@ -37,17 +41,17 @@ if (($data && isset($_POST['submit']))) {
     ];
 } */
 // On affiche chaque recette une à une
-
+//$content = ob_get_clean();
 ?>
 
 <!-- Register form for non registered visitor -->
-
-<?php $registeredUser = LoginController::checkLoggedStatus() ?>
+<?php //ob_start()?>
+<?php //$registeredUser = LoginController::checkLoggedStatus()?>
 <?php if (!isset($_SESSION['LOGGED_USER']) && !isset($_SESSION['REGISTERED_USER'])): ?>
-      <form action="register.php" method="post">
+    <form action="submit_register.php" method="post">
     <?php if (isset($e)):?>
         <div class="alert-error"> 
-            <?php echo $e ?>    
+            <?php //echo $e?>    
         </div>
         <?php endif ?>        
         <label for="username" class="label">Votre prénom et nom :</label>
@@ -68,15 +72,26 @@ if (($data && isset($_POST['submit']))) {
         <button type="submit" name="submit" class="btn">S'enregistrer</button>
     </form>
     <?php //endif?> 
-
+    <?php //session_destroy()?>
+    <?php //$content = ob_get_clean()?>
+    <?php //$content = ob_end_flush()?>
 <!-- End of the form for non registered visitor -->
 
 <!--  Display success message  -->
-
+<?php //ob_start()?>
+<?php //$content = ob_get_contents()?>
 <?php elseif (isset($_SESSION['REGISTERED_USER'])):?>
     <?php //require_once('signup_success.php')?>
     <?php $signup->displaySignupSuccess($getDatas) ?>
     <?php unset($_SESSION['REGISTERED_USER']) ?>
+        <?php else:?>
+            <?php session_destroy()?>
+            <?php header('Location, index.php')?>
+            <?php exit()?> 
+
 <?php endif ?>
-    
+
+<?php //$content = ob_end_flush()?>
+<?php //$content = ob_get_clean()?>
 <!-- End of display success message  -->
+<?php //require('templates/layout.php')?>

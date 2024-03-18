@@ -5,7 +5,7 @@ class Validate
     //public $data;
 
     /* public function __construct(
-        private bool $data,        
+        private bool $data,
         private $getData,
     ) {
         //$this->data = $data;
@@ -15,10 +15,10 @@ class Validate
     {
         if(is_null($getData) || is_array($getData)) {
             $getData = '';
-        }        
+        }
         $getData = trim($getData);
         $getData = stripslashes($getData);
-        $getData = htmlspecialchars($getData);        
+        $getData = htmlspecialchars($getData);
         return $getData;
     }
 
