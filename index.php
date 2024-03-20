@@ -18,7 +18,7 @@ $hour = date("H");
 $minut = date("i");
 $seconds = date("s");
 
-echo 'Bonjour ! Nous sommes le ' . $day . '/' . $month . '/' . $year . ' et il est ' . $hour. ' h ' . $minut .  ' et ' .  $seconds . ' secondes';
+//echo 'Bonjour ! Nous sommes le ' . $day . '/' . $month . '/' . $year . ' et il est ' . $hour. ' h ' . $minut .  ' et ' .  $seconds . ' secondes';
 //print_r($_COOKIE);
 ?>
 <?php //$css = 'rel="stylesheet" href="css/index.css"'?>

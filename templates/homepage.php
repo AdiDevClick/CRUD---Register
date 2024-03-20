@@ -19,6 +19,7 @@ $hour = date("H");
 $minut = date("i");
 $seconds = date("s");
 
+// echo 'test'
 echo 'Bonjour ! Nous sommes le ' . $day . '/' . $month . '/' . $year . ' et il est ' . $hour. ' h ' . $minut .  ' et ' .  $seconds . ' secondes';
 
 ?>

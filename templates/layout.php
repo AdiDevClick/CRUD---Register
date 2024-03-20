@@ -30,7 +30,7 @@
 <?php $rootUrl = (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . '/'?>
 
 <header>
-    <section class="nav">
+    <nav class="nav">
         <div class="dropdown-menu-background">
             <div class="dropdown-menu">
                     <li><a class="" href="<?php echo($rootUrl). 'recettes/index.php' ?>">Home</a></li>
@@ -90,18 +90,18 @@
                     <i></i>
                     <i></i>
                 </div>
-        </section>
+            </section>
         </div>
         <!-- </div class="dropdown-menu-background"> -->
-    </section>
+        </nav>
 
 </header>
     <!-- End Header Content -->
-
+    <main>
     <!-- Start Body Content -->
     <?= $content ?? ''?>
     <!-- End Body Content -->
-
+    </main>
     <!-- footer.php -->
     <footer class="">
         <div class="">

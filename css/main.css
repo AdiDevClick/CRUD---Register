@@ -101,6 +101,7 @@ from the local website :
 /* BODY */
 
 body {
+    /* margin-top: 60px; */
     height: 2rem;
     background-color: #000;
     background-size: cover;
@@ -124,6 +125,7 @@ h1 {
 /* HEADER */
 header {
     position: relative;
+    padding-bottom: 60px;
     /* padding: 0 2rem; */
 }
 
@@ -286,4 +288,9 @@ header {
     .navbar {
         justify-content: space-between;
     }
+}
+
+/* MAIN */
+main {
+    /* margin-top: 60px; */
 }
