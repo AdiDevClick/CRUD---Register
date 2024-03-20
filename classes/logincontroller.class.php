@@ -82,11 +82,12 @@ class LoginController extends Login
                     'expires' => time() + 365 * 24 * 3600,
                     'secure' => true,
                     'httponly' => true,
+                    'samesite' => 'Strict'
                 ];
                 setcookie('EMAIL', $this->getUsers($email)[0]['email'], $arrCookiesOptions);
                 // setcookie('EMAIL', $this->getUsers($email)[0]['email'], $arrCookiesOptions);
                 // setcookie('LOGGED_USER[0]', $this->getUsers($email)[0]['email'], $arrCookiesOptions);
-                setcookie('USERID', $this->getUsers($email)[0]['user_id'], $arrCookiesOptions);
+                setcookie('USER_ID', $this->getUsers($email)[0]['user_id'], $arrCookiesOptions);
                 // setcookie('LOGGED_USER[1]', $this->getUsers($email)[0]['user_id'], $arrCookiesOptions);
                 setcookie('FULLNAME', $this->getUsers($email)[0]['full_name'], $arrCookiesOptions);
                 // setcookie('LOGGED_USER[2]', $this->getUsers($email)[0]['full_name'], $arrCookiesOptions);
@@ -100,6 +101,7 @@ class LoginController extends Login
                 //     ]
                 // );
                 //session_start();
+                $_SESSION['USER_NAME'] = $this->getUsers($email)[0]['full_name'];
                 $_SESSION['USER_ID'] = $this->getUsers($email)[0]['user_id'];
                 $_SESSION['LOGGED_USER'] = [
                     $this->getUsers($email)[0]['full_name'],
@@ -215,21 +217,40 @@ class LoginController extends Login
             //     ];
             //     //return $loggedUser;
             // }
+
+
+            // if(isset($_COOKIE['EMAIL'])) {
+            //     // $this->postDatas = $_COOKIE['LOGGED_USER'];
+            //     // print($_COOKIE['EMAIL']);
+            //     // echo'voici le cookie => '. $_COOKIE['EMAIL'] . '<==';
+            //     $loggedUser['email'] = $_COOKIE['EMAIL'];
+            //     // return $loggedUser;
+            // } 
+            // if(isset($_COOKIE['FULLNAME'])) {
+            //     // $this->postDatas = $_COOKIE['LOGGED_USER'];
+            //     // print($_COOKIE['EMAIL']);
+            //     // echo'voici le cookie => '. $_COOKIE['EMAIL'] . '<==';
+            //     $loggedUser['name'] = $_COOKIE['FULLNAME'];
+            //     // return $loggedUser;
+            // } 
+            // if(isset($_SESSION['LOGGED_USER'])) {
+            //     // echo'voici le session user => '. $_SESSION['LOGGED_USER'][0] . '<==';
+            //     $loggedUser['user'] = $_SESSION['LOGGED_USER'];
+            //     // echo('registered');
+            //     // return $loggedUser;
+            // } 
+
+
             if(isset($_COOKIE['EMAIL'])) {
-                // $this->postDatas = $_COOKIE['LOGGED_USER'];
-                // print($_COOKIE['EMAIL']);
-                // echo'voici le cookie => '. $_COOKIE['EMAIL'] . '<==';
                 $loggedUser['email'] = $_COOKIE['EMAIL'];
-                // return $loggedUser;
-            } 
-            if(isset($_COOKIE['FULLNAME'])) {
-                // $this->postDatas = $_COOKIE['LOGGED_USER'];
-                // print($_COOKIE['EMAIL']);
-                // echo'voici le cookie => '. $_COOKIE['EMAIL'] . '<==';
+            }
+            if (isset($_COOKIE['FULLNAME'])) {
                 $loggedUser['name'] = $_COOKIE['FULLNAME'];
-                // return $loggedUser;
-            } 
-            if(isset($_SESSION['LOGGED_USER'])) {
+            }
+            if (isset($_COOKIE['USER_ID'])) {
+                $loggedUser['userId'] = $_COOKIE['USER_ID'];
+            }
+            if  (isset($_SESSION['LOGGED_USER'])) {
                 // echo'voici le session user => '. $_SESSION['LOGGED_USER'][0] . '<==';
                 $loggedUser['user'] = $_SESSION['LOGGED_USER'];
                 // echo('registered');
@@ -255,6 +276,7 @@ class LoginController extends Login
                 //echo strip_tags('Veuillez vous identifier');
             }
             // echo ($loggedUser);
+            // print_r($loggedUser);
         } catch (Error $errorMessage) {
             die("Erreur : ". $errorMessage->getMessage() . header('refresh:5,../index.php?error=not-loggedin'));
         }

@@ -65,7 +65,7 @@ foreach ($loggedUser as $user) {
 <?php //if (!isset($loggedUser['email']) || !isset($loggedUser['user'])): ?> 
 <?php if (!isset($loggedUser['email'])): ?> 
 <?php //if (!isset($loggedUser[0]['user_id'][0])):?> 
-<?php echo('pourquoi ca saffiche => ' . $loggedUser['user'])?> 
+<?php //echo('pourquoi ca saffiche => ' . $loggedUser['user'])?> 
     <?php //echo("<br> cookie show 2 : cookie email : " . $loggedUser["email"] . "<br>". "cookie non enregistré : " .  $_COOKIE['LOGGED_USER'] . "<br>". "session non enregistrée : " .  $_SESSION['LOGGED_USER'] . "<br>". "session enregistrée : " . $loggedUser["user"] . "<br> user non enregistré :". $_SESSION['USER_ID'] . "<br> user id enregistré :" . $loggedUser["user"][0] . ' Ceci est un logged')?>
     <div class="form-index">
         <form action="login.php" method="post">

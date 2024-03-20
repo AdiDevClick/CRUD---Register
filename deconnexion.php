@@ -7,7 +7,11 @@ if(session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-include_once('config/user.php');
+include_once("includes/class-autoloader.inc.php");
+
+// include_once('config/user.php');
+$loggedUser = LoginController::checkLoggedStatus();
+
 
 if (isset($_SERVER['HTTP_COOKIE'])) {
     $cookies = explode(';', $_SERVER['HTTP_COOKIE']);
@@ -21,7 +25,7 @@ if (isset($_SERVER['HTTP_COOKIE'])) {
     throw new Error("Erreur dans la suppression du cookie");
 }
 
-header('Location: index.php');
+header('Location: index.php?success=disconnected');
 
 
 // if((session_status() === PHP_SESSION_ACTIVE) && isset($loggedUser['email'])) {

@@ -6,6 +6,7 @@
 
 .toggle_btn {
     width: 100%;
+    /* z-index: 1; */
     /* height: 2.4rem; */
     /* top: 35%; Pas besoin de top  */
     /* left: 50%; */
@@ -113,27 +114,33 @@ i + i {
 } */
 
 .open i:nth-child(1) {
-    animation: ease .7s top forwards;
+    /* animation: ease .7s top forwards; */
+    animation: ease .3s top forwards;
 }
 
 i:nth-child(1) {
-    animation: ease .7s top-2 forwards;
+    /* animation: ease .7s top-2 forwards; */
+    animation: ease .3s top-2 forwards;
 }
 
 .open i:nth-child(2) {
-    animation: ease .7s scaled forwards;
+    /* animation: ease .7s scaled forwards; */
+    animation: ease .5s scaled forwards;
 }
 
 i:nth-child(2) {
-    animation: ease .7s scaled-2 forwards;
+    /* animation: ease .7s scaled-2 forwards; */
+    animation: ease .3s scaled-2 forwards;
 }
 
 .open i:nth-child(3) {
-    animation: ease .7s bottom forwards;
+    /* animation: ease .7s bottom forwards; */
+    animation: ease .3s bottom forwards;
 }
 
 i:nth-child(3) {
-    animation: ease .7s bottom-2 forwards;
+    /* animation: ease .7s bottom-2 forwards; */
+    animation: ease .5s bottom-2 forwards;
 }
 
 @keyframes top {
