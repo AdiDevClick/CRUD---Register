@@ -134,6 +134,25 @@ input[type=password], select {
     margin: 20px 10px;
 }
 
+.form-contact {
+    display: flex;
+    gap: 2rem;  
+    height: 100px;
+    grid-template-columns: repeat(6, 3fr);
+    /* grid-template-rows: 100px; */
+    /* grid-column: 3; */
+    /* justify-content: center;   */
+    /* align-items: center; */
+    /* margin: 20px 10px; */
+}
+
+.form-contact form {
+    /* display: inline-grid; */
+    grid-column: 2 / 4;
+    height: 50px;
+    
+}
+
 @media(prefers-reduced-motion) {
     .form-hidden {
         transition: none;

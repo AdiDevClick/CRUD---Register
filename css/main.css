@@ -120,12 +120,14 @@ a:hover {
 
 h1 {
     font-size: 6rem;
+    max-height: 100%;
+    margin-bottom: 100px;
 }
 
 /* HEADER */
 header {
     position: relative;
-    padding-bottom: 60px;
+    padding-bottom: 100px;
     /* padding: 0 2rem; */
 }
 
@@ -293,4 +295,9 @@ header {
 /* MAIN */
 main {
     /* margin-top: 60px; */
+    /* display: flex; */
+    margin: 20px;
+    min-height: 100vh;
+    max-width: 100%;
+    /* justify-content: center; */
 }

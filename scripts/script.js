@@ -14,10 +14,10 @@ const leftSideMenuBackground = document.querySelector('.leftside-menu-background
 
 const openMenu = function (e) {
     e.preventDefault()
-    dropDownMenu.classList.add('open')
-    dropDownMenuBackground.classList.add('open')
-    toggleBtn.classList.add('open')
-    navbar.classList.add('open')
+    // dropDownMenu.classList.add('open')
+    // dropDownMenuBackground.classList.add('open')
+    // toggleBtn.classList.add('open')
+    // navbar.classList.add('open')
     // menu.addEventListener('click', closeMenu, {once: true})
 
 
@@ -115,13 +115,14 @@ const ifOpened = function(e) {
 //     // if (!link && !toggleBtn.classList.contains('open')) nav.addEventListener('click', openMenu)
 //     if (!link ) nav.addEventListener('click', openMenu)
 // })
-toggleBtnBox.addEventListener('click', openMenu)
-// toggleBtnBox.addEventListener('click', e => {
-//     dropDownMenu.classList.toggle('open')
-//     dropDownMenuBackground.classList.toggle('open')
-//     toggleBtn.classList.toggle('open')
-//     openMenu(e)
-// })
+// toggleBtnBox.addEventListener('click', openMenu)
+toggleBtnBox.addEventListener('click', e => {
+    dropDownMenu.classList.toggle('open')
+    dropDownMenuBackground.classList.toggle('open')
+    toggleBtn.classList.toggle('open')
+    navbar.classList.toggle('open')
+    openMenu(e)
+})
 // if (navbar.classList.contains('open')) {
 // navbar.addEventListener('click', ifOpened)
 // }
