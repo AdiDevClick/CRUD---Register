@@ -8625,3 +8625,5 @@ Errors : [2] Undefined variable $rootUrl - C:\xampp\htdocs\recettes\templates\la
 Errors : [2] Undefined variable $rootUrl - C:\xampp\htdocs\recettes\templates\layout.php:67
 Errors : [2] Undefined variable $rootUrl - C:\xampp\htdocs\recettes\templates\layout.php:72
 Errors : [2] Undefined variable $rootUrl - C:\xampp\htdocs\recettes\templates\layout.php:85
+Errors : [2] Undefined array key "name" - C:\xampp\htdocs\Recettes\login.php:99
+Errors : [2] Undefined array key "name" - C:\xampp\htdocs\Recettes\login.php:99

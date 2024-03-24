@@ -2,6 +2,7 @@
 label {
     font-size: 1.4rem;
     color: var(--navbar-color);
+    /* margin-left: 5px; */
 }
 
 .bTn {
@@ -83,6 +84,7 @@ input[type=text], [type=email] {
 }
 
 input[type=text], [type=email], textarea, select, button {
+    margin: 10px;
     padding: 10px;
     border-radius: 10px;
 }
@@ -107,10 +109,10 @@ input[type=password], select {
     /*margin: 8px 200px 0 200px;*/
     display: inline-block;
     border: 1px solid #ccc;
-    border-radius: 4px;
-    padding: 10px;
+    /* border-radius: 4px; */
+    /* padding: 10px; */
     border-radius: 10px;
-    box-sizing: border-box;
+    /* box-sizing: border-box; */
 }
 
 .form-hidden {
@@ -128,21 +130,23 @@ input[type=password], select {
 
 .form {
     display: inline-flex;
-    gap: 2rem;  
-    justify-content: center;  
+    gap: 1.5rem;
+    /* justify-content: center; */
     align-items: center;
-    margin: 20px 10px;
+    /* margin: 20px 10px; */
 }
 
 .form-contact {
     display: flex;
-    gap: 2rem;  
+    gap: 2rem;
     height: 100px;
-    grid-template-columns: repeat(6, 3fr);
+    padding: 20px;
+    justify-content: center;
+    /* grid-template-columns: repeat(6, 3fr); */
     /* grid-template-rows: 100px; */
     /* grid-column: 3; */
     /* justify-content: center;   */
-    /* align-items: center; */
+    align-items: center;
     /* margin: 20px 10px; */
 }
 

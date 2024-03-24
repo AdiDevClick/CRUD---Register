@@ -47,7 +47,7 @@ from the local website :
     display: flex;
     align-items: center;
     justify-content: center;
-    min-height: 80vh;  
+    min-height: 80vh;
     /* z-index: 50; */
     /* box-sizing: inherit;  */
 }
@@ -102,9 +102,17 @@ from the local website :
 
 body {
     /* margin-top: 60px; */
-    height: 2rem;
-    background-color: #000;
-    background-size: cover;
+    /* margin: 15px auto; */
+    /* height: 2rem; */
+    /* width: auto; */
+    /* background-color: #141616; */
+    /* background: linear-gradient(95deg, rgb(72, 86, 90) 0%, rgb(35, 49, 49) 43%, rgb(0, 0, 0) 100%) center center no-repeat; */
+    /* background: rgb(0,0,0); */
+    /* background: linear-gradient(95deg, rgba(0,0,0,1) 2%, rgba(35,49,49,1) 100%, rgba(72,86,90,1) 100%); */
+    /* background: rgb(33,36,37); */
+    /* background: linear-gradient(95deg, rgba(33,36,37,1) 0%, rgba(35,49,49,1) 49%, rgba(0,0,0,1) 100%); */
+    background: linear-gradient(95deg, rgba(33,36,37,1) 0%, rgba(11,13,13,1) 90%, rgba(0,0,0,1) 100%);
+    /* background-size: 100vh; */
 }
 
 a {
@@ -137,6 +145,7 @@ header {
     position: fixed;
     /* max-width: 1200px; */
     margin: 0 auto;
+    /* padding: 0 2rem 0 0; */
     padding: 2rem;
     display: flex;
     z-index: 1000;
@@ -207,15 +216,16 @@ header {
 
 .dropdown-menu {
     display: none;
-    position: absolute; 
-    z-index: 1000; 
-    height: 0px; 
-    max-height: 0px;  
+    position: absolute;
+    z-index: 1000;
+    height: 0px;
+    max-height: 0px;
     right: 2rem;
     top: 60px;
-    width: 300px;    
+    width: 300px;
     background: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
     border-radius: 10px;
     overflow: hidden;
     transition: max-height 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -223,9 +233,11 @@ header {
 }
 
 .dropdown-menu.open {
+    overflow: hidden;
     height: 270px;
-    max-height: 350px;
-    position: fixed;    
+    /* min-height: 270px; */
+    max-height: 400px;
+    position: fixed;
     top: 80px;
     z-index: 1000;
 }
@@ -243,6 +255,19 @@ header {
     /* z-index: 1; */
     display: flex;
     justify-content: center;
+}
+
+/* FOOTER */
+footer {
+    /* width: auto; */
+    display: flex;
+    background: red;
+    /* justify-content: center; */
+}
+
+.footer p {
+    /* width: calc(100% - 15px); */
+    /* color: red; */
 }
 
 /* RESPONSIVE DESIGN */
@@ -267,10 +292,12 @@ header {
     .dropdown-menu-background.open {
         /* display: block; */
         visibility: visible;
+        inset: 0px 0px 0px 0px;
     }
 
     .navbar {
         justify-content: space-between;
+        padding-right: 5%;
     }
 
     .navbar .logo {
@@ -285,10 +312,19 @@ header {
         overflow: scroll;
         right : 1rem;
         width: unset;
+        /* padding-right: 5%; */
+        /* height: 100%; */
+    }
+
+    .dropdown-menu-background.open {
+        /* display: block; */
+        inset: 0px 0px 0px 0px;
+        visibility: visible;
     }
 
     .navbar {
         justify-content: space-between;
+        padding-right: 10%;
     }
 }
 
@@ -296,8 +332,15 @@ header {
 main {
     /* margin-top: 60px; */
     /* display: flex; */
-    margin: 20px;
+    /* margin: 20px; */
     min-height: 100vh;
     max-width: 100%;
     /* justify-content: center; */
+}
+
+/* WRAPPER */
+.wrapper {
+    /* padding: 0 2rem 0 0; */
+    margin: 20px;
+    max-width: 100%;
 }

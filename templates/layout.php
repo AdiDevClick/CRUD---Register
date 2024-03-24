@@ -29,84 +29,83 @@
 <?php $rootPath = $_SERVER['DOCUMENT_ROOT']?>
 <?php $rootUrl = (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . '/'?>
 
-<header>
-    <nav class="nav">
-        <div class="dropdown-menu-background">
-            <div class="dropdown-menu">
+    <header>
+        <nav class="wrapper">
+            <div class="dropdown-menu-background">
+                <div class="dropdown-menu">
+                        <li><a class="" href="<?php echo($rootUrl). 'recettes/index.php' ?>">Home</a></li>
+                        <li><a class="" href="#">About</a></li>
+                        <li><a class="" href="<?php echo($rootUrl). 'recettes/planning/planningType.php' ?>">Planning</a></li>
+                        <li><a class="" href="<?php echo($rootUrl). 'recettes/todo.html' ?>">Ma ToDo list</a></li>
+                        <li><a class="" href="<?php echo($rootUrl). 'recettes/carousel.html' ?>">Carousel Exemple</a></li>
+                        <li><a class="" href="<?php echo($rootUrl). 'recettes/contact.php' ?>">Contact</a></li>
+                    <?php //$setLoggedStatus?>
+                    <?php //if(!isset($_SESSION['LOGGED_USER'])): ?>
+                    <?php if(!isset($_COOKIE['EMAIL'])): ?>
+                    <?php //if(!isset($loggedUser['email'][0])):?>
+                        <li><a class="" href="<?php echo($rootUrl). 'recettes/login.php' ?>">Se connecter</a></li>
+                        <li><a class="action_btn" href="<?php echo($rootUrl). 'recettes/register.php' ?>">S'enregistrer</a></li>
+                    <?php endif?>
+                    <?php if(isset($_COOKIE['EMAIL'])): ?>
+                    <?php //if(isset($_SESSION['LOGGED_USER'])): ?>
+                    <?php //if(isset($loggedUser['email'][0])):?>
+                        <li><a class="" href="<?php echo($rootUrl). 'recettes/recipes/create_recipes.php' ?>">Créer une recette</a></li>
+                        <li><a class="" href="<?php echo($rootUrl). 'recettes/deconnexion.php' ?>">Se déconnecter</a></li>
+                    <?php endif?>
+                </div>
+            </div class="dropdown-menu-background">
+        
+            <div class="navbar">
+                <div class="logo"><a href="<?php echo($rootUrl). 'recettes/index.php' ?>">Adi Dev Click </a></div>
+                <ul class="links">
                     <li><a class="" href="<?php echo($rootUrl). 'recettes/index.php' ?>">Home</a></li>
                     <li><a class="" href="#">About</a></li>
                     <li><a class="" href="<?php echo($rootUrl). 'recettes/planning/planningType.php' ?>">Planning</a></li>
-                    <li><a class="" href="<?php echo($rootUrl). 'recettes/todo.html' ?>">Ma ToDo list</a></li>
                     <li><a class="" href="<?php echo($rootUrl). 'recettes/carousel.html' ?>">Carousel Exemple</a></li>
+                    <li><a class="" href="<?php echo($rootUrl). 'recettes/todo.html' ?>">Ma ToDo list</a></li>
                     <li><a class="" href="<?php echo($rootUrl). 'recettes/contact.php' ?>">Contact</a></li>
-                <?php //$setLoggedStatus?>
-                <?php //if(!isset($_SESSION['LOGGED_USER'])): ?>
+                    <?php //$setLoggedStatus?>
+                    <?php if(!isset($_COOKIE['EMAIL'])): ?>
+                    <?php //if(!isset($_SESSION['LOGGED_USER'])): ?>
+                    <?php //if(!isset($loggedUser['email'][0])):?>
+                        <li><a class="" href="<?php echo($rootUrl). 'recettes/login.php' ?>">Se connecter</a></li>  
+                        <!-- <li><a class="" href="<?php //echo($rootUrl). 'recettes/register.php'?>">S'enregistrer</a></li> -->
+                    <?php endif?>
+                    <?php if(isset($_COOKIE['EMAIL'])): ?>
+                    <?php //if(isset($_SESSION['LOGGED_USER'])): ?>
+                    <?php //if(isset($loggedUser['email'][0])):?>
+                        <li><a class="" href="<?php echo($rootUrl). 'recettes/recipes/create_recipes.php' ?>">Créer une recette</a></li>
+                        <li><a class="" href="<?php echo($rootUrl). 'recettes/deconnexion.php' ?>">Se déconnecter</a></li>
+                    <?php endif?>
+                </ul>
                 <?php if(!isset($_COOKIE['EMAIL'])): ?>
+                <?php //if(!isset($_SESSION['LOGGED_USER'])): ?>
                 <?php //if(!isset($loggedUser['email'][0])):?>
-                    <li><a class="" href="<?php echo($rootUrl). 'recettes/login.php' ?>">Se connecter</a></li>
-                    <li><a class="action_btn" href="<?php echo($rootUrl). 'recettes/register.php' ?>">S'enregistrer</a></li>
+                    <a href="<?php echo($rootUrl). 'recettes/register.php' ?>" class="action_btn">S'enregistrer</a>
                 <?php endif?>
-                <?php if(isset($_COOKIE['EMAIL'])): ?>
-                <?php //if(isset($_SESSION['LOGGED_USER'])): ?>
-                <?php //if(isset($loggedUser['email'][0])):?>
-                    <li><a class="" href="<?php echo($rootUrl). 'recettes/recipes/create_recipes.php' ?>">Créer une recette</a></li>
-                    <li><a class="" href="<?php echo($rootUrl). 'recettes/deconnexion.php' ?>">Se déconnecter</a></li>
-                <?php endif?>
+                <section class="toggle_btn-box">
+                    <div class="toggle_btn">
+                        <!-- <i class="fa-solid fa-bars"></i> -->
+                        <i></i>
+                        <i></i>
+                        <i></i>
+                    </div>
+                </section>
             </div>
-        </div class="dropdown-menu-background">
-        
-        <div class="navbar">
-            <div class="logo"><a href="<?php echo($rootUrl). 'recettes/index.php' ?>">Adi Dev Click </a></div>
-            <ul class="links">
-                <li><a class="" href="<?php echo($rootUrl). 'recettes/index.php' ?>">Home</a></li>
-                <li><a class="" href="#">About</a></li>
-                <li><a class="" href="<?php echo($rootUrl). 'recettes/planning/planningType.php' ?>">Planning</a></li>
-                <li><a class="" href="<?php echo($rootUrl). 'recettes/carousel.html' ?>">Carousel Exemple</a></li>
-                <li><a class="" href="<?php echo($rootUrl). 'recettes/todo.html' ?>">Ma ToDo list</a></li>
-                <li><a class="" href="<?php echo($rootUrl). 'recettes/contact.php' ?>">Contact</a></li>
-                <?php //$setLoggedStatus?>
-                <?php if(!isset($_COOKIE['EMAIL'])): ?>
-                <?php //if(!isset($_SESSION['LOGGED_USER'])): ?>
-                <?php //if(!isset($loggedUser['email'][0])):?>
-                    <li><a class="" href="<?php echo($rootUrl). 'recettes/login.php' ?>">Se connecter</a></li>  
-                    <!-- <li><a class="" href="<?php //echo($rootUrl). 'recettes/register.php'?>">S'enregistrer</a></li> -->
-                <?php endif?>
-                <?php if(isset($_COOKIE['EMAIL'])): ?>
-                <?php //if(isset($_SESSION['LOGGED_USER'])): ?>
-                <?php //if(isset($loggedUser['email'][0])):?>
-                    <li><a class="" href="<?php echo($rootUrl). 'recettes/recipes/create_recipes.php' ?>">Créer une recette</a></li>
-                    <li><a class="" href="<?php echo($rootUrl). 'recettes/deconnexion.php' ?>">Se déconnecter</a></li>
-                <?php endif?>
-            </ul>
-            <?php if(!isset($_COOKIE['EMAIL'])): ?>
-            <?php //if(!isset($_SESSION['LOGGED_USER'])): ?>
-            <?php //if(!isset($loggedUser['email'][0])):?>
-                <a href="<?php echo($rootUrl). 'recettes/register.php' ?>" class="action_btn">S'enregistrer</a>
-            <?php endif?>
-            <section class="toggle_btn-box">
-                <div class="toggle_btn">
-                    <!-- <i class="fa-solid fa-bars"></i> -->
-                    <i></i>
-                    <i></i>
-                    <i></i>
-                </div>
-            </section>
-        </div>
         <!-- </div class="dropdown-menu-background"> -->
         </nav>
 
-</header>
+    </header>
     <!-- End Header Content -->
-    <main>
-    <!-- Start Body Content -->
-    <?= $content ?? ''?>
-    <!-- End Body Content -->
+    <main class="wrapper">
+    <!-- Start Main Content -->
+        <?= $content ?? ''?>
+    <!-- End Main Content -->
     </main>
     <!-- footer.php -->
-    <footer class="">
+    <footer class="wrapper">
         <div class="">
-            © 2023 Copyright:
-            <a class="" href="https://github.com/AdiDevClick/">Adi Dev Click</a>
+            <p>© 2023 Copyright <a class="" href="https://github.com/AdiDevClick/">Adi Dev Click</a></p>
         </div>
     </footer>
     <!-- end of footer -->
