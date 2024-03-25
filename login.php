@@ -62,7 +62,7 @@ foreach ($loggedUser as $user) {
 
 <?php //$loggedUser = LoginController::checkLoggedStatus()?>
 <?php //include_once('index.php')?>
-<?php //if (!isset($loggedUser['email']) || !isset($loggedUser['user'])): ?> 
+<?php //if (!isset($loggedUser['email']) || !isset($loggedUser['user'])):?> 
 <?php if (!isset($loggedUser['email'])): ?> 
 <?php //if (!isset($loggedUser[0]['user_id'][0])):?> 
 <?php //echo('pourquoi ca saffiche => ' . $loggedUser['user'])?> 
@@ -87,9 +87,9 @@ foreach ($loggedUser as $user) {
             <div class="form form-hidden">
                 <button type="submit" name="submit" class="btn" id="btn"> S'identifier</button>
             </div>
-        </form>        
-    </div>      
-<a href="reset-password.php">Mot de passe oublié ?</a>
+        </form>
+    </div>
+<a class="pw_reset" href="reset-password.php">Mot de passe oublié ?</a>
 <!-- 
     Si l'utilisateur est bien loggé, on affiche le message de succès
 -->

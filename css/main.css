@@ -127,9 +127,21 @@ a:hover {
 }
 
 h1 {
+    display: flex;
     font-size: 6rem;
     max-height: 100%;
     margin-bottom: 100px;
+    padding: 2rem;
+    justify-content: center;
+    /* margin-left: 120px; */
+    margin: 0 auto;
+}
+
+.pw_reset {
+    /* justify-content: center; */
+    padding-right: 50%;
+    margin: 5%;
+    /* padding-left: 5%; */
 }
 
 /* HEADER */
@@ -147,10 +159,15 @@ header {
     margin: 0 auto;
     /* padding: 0 2rem 0 0; */
     padding: 2rem;
+    padding-right: 60px;
     display: flex;
     z-index: 1000;
     align-items: center;
     justify-content: space-around;
+}
+
+.navbar .logo {
+
 }
 
 .navbar .logo a {
@@ -168,6 +185,8 @@ header {
     gap: 2rem;
     cursor: pointer;
 }
+
+
 
 /* @keyframes slidein {
     0% { left: 0;}
@@ -303,6 +322,13 @@ footer {
     .navbar .logo {
         margin: 20px;
     }
+
+    .pw_reset {
+        /* justify-content: center; */
+        padding-right: unset;
+        margin: unset;
+        /* padding-left: 5%; */
+    }
 }
 
 @media (max-width: 576px) {
@@ -326,6 +352,13 @@ footer {
         justify-content: space-between;
         padding-right: 10%;
     }
+
+    .pw_reset {
+        /* justify-content: center; */
+        padding-right: unset;
+        margin: unset;
+        /* padding-left: 5%; */
+    }
 }
 
 /* MAIN */
@@ -341,6 +374,11 @@ main {
 /* WRAPPER */
 .wrapper {
     /* padding: 0 2rem 0 0; */
+    /* padding: 2rem; */
+    /* display: flex; */
     margin: 20px;
-    max-width: 100%;
+    /* min-height: 200px; */
+    /* overflow: hidden; */
+    /* padding: 20px; */
+    /* max-width: 100%; */
 }

@@ -5,10 +5,17 @@ label {
     /* margin-left: 5px; */
 }
 
-.bTn {
+.btn {
+    display: flex;
     font-size: 1.4rem;
     cursor: pointer;
+    max-width: fit-content;
 }
+
+/* .bTn {
+    font-size: 1.4rem;
+    cursor: pointer;
+} */
 
 .btn:hover {
     color: var(--background-color);
@@ -27,6 +34,7 @@ label {
 
 /* BUTTONS */
 .button {
+    /* display: flex; */
     width: 100%;
     position: relative;
     background-color: rgb(199, 189, 177);
@@ -42,6 +50,7 @@ label {
     overflow: hidden;
     cursor: pointer;
 }
+
 #start {
     width: auto;
 }
@@ -87,6 +96,21 @@ input[type=text], [type=email], textarea, select, button {
     margin: 10px;
     padding: 10px;
     border-radius: 10px;
+    color: #eeeeee;
+}
+
+textarea {
+    /* justify-content: center; */
+    display: flex;
+    align-items: center;
+    max-width: 450px;
+    /* width: 500px; */
+    min-height: 50px;
+    min-width: 200px;
+    resize: both;
+    /* border-color: #ccc;
+    border-radius: 10px; */
+    border: 1px solid #ccc;
 }
 
 select {
@@ -131,31 +155,68 @@ input[type=password], select {
 .form {
     display: inline-flex;
     gap: 1.5rem;
-    /* justify-content: center; */
+    justify-content: center;
     align-items: center;
-    /* margin: 20px 10px; */
+    min-height: 100px;
+    /* margin: 10px;
+    padding: 10px; */
+    /* margin: 0 auto; */
+
+    /* grid: minmax(400px, min-content) / repeat(auto-fill, 400px); */
+
 }
 
 .form-contact {
-    display: flex;
+    margin-top: 100px;
+    max-width: 900px;
+
+    /* display: inline-flex; */
+    display: grid;
+    /* grid-template-columns: 2 auto; */
+    /* grid-column: 2; */
     gap: 2rem;
-    height: 100px;
-    padding: 20px;
-    justify-content: center;
-    /* grid-template-columns: repeat(6, 3fr); */
+    /* height: 100px; */
+    /* grid-auto-flow: row; */
+    /* padding: 20px; */
+    grid: minmax(50px, min-content) / repeat(auto-fill, 400px);
+    /* justify-content: center; */
+    /* grid-template-columns: repeat(2, 3fr); */
     /* grid-template-rows: 100px; */
     /* grid-column: 3; */
-    /* justify-content: center;   */
+    justify-content: space-evenly;
+    /* justify-content: center; */
+    /* position: ; */
     align-items: center;
     /* margin: 20px 10px; */
 }
 
-.form-contact form {
-    /* display: inline-grid; */
-    grid-column: 2 / 4;
+.contact {
+    display: flex;
+    justify-content: center;
+    /* max-width: 900px; */
+}
+
+@media (max-width: 576px) {
+    .form-content {
+        /* justify-content: center; */
+    }
+
+    .form {
+        justify-content: unset;
+    }
+}
+
+form {
+    min-width: 350px;
+    /* display: grid;
+    grid: minmax(400px, min-content) / repeat(auto-fill, 400px); */
+}
+
+/* .form-contact form {
+    /* display: inline-grid;
     height: 50px;
     
-}
+} */
 
 @media(prefers-reduced-motion) {
     .form-hidden {
@@ -167,7 +228,6 @@ input[type=password], select {
     display: flex;
     justify-content: center;
     align-content: center;
-    
 }
 
 .form:nth-child(1) {
