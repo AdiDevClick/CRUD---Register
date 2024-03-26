@@ -1,4 +1,6 @@
 let menu
+let lastKnownScrollPosition = 0
+let ticking = false
 const toggleBtnIcon = document.querySelector('.toggle_btn i')
 const toggleBtn = document.querySelector('.toggle_btn')
 const toggleBtnBox = document.querySelector('.toggle_btn-box')
@@ -123,6 +125,27 @@ toggleBtnBox.addEventListener('click', e => {
     navbar.classList.toggle('open')
     openMenu(e)
 })
+
+const onScrollEnd = function(e) {
+    navbar.style.opacity = 1
+}
+
+const onScroll = function(e) {
+    lastKnownScrollPosition = window.scrollY
+    if (!ticking) {
+        window.requestAnimationFrame(() => {
+            doSomething(lastKnownScrollPosition)
+            ticking = false
+          })
+            navbar.style.opacity = 0
+            ticking = true
+        document.addEventListener('scrollend', onScrollEnd)    
+    }
+    
+    
+}
+
+document.addEventListener('scroll', onScroll)
 // if (navbar.classList.contains('open')) {
 // navbar.addEventListener('click', ifOpened)
 // }
