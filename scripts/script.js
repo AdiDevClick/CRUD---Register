@@ -154,11 +154,11 @@ window.onscroll = function() {
 }
 
 function scrolling() {
+    toggleBtnBox.style.visibility = 'visible'
     if (document.documentElement.scrollTop === screenTop) {
         navbar.classList.remove('fadeOut')
         navbar.removeAttribute('style')
         navbar.classList.add('slideUp')
-        toggleBtnBox.style.visibility = 'visible'
     } else {
         navbar.classList.remove('slideUp')
         navbar.classList.add('fadeOut')
