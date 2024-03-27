@@ -12,6 +12,11 @@ label {
     max-width: fit-content;
 }
 
+.form-contact .btn {
+    margin-left: 0;
+    padding-left: 0;
+}
+
 /* .bTn {
     font-size: 1.4rem;
     cursor: pointer;
@@ -155,12 +160,13 @@ input[type=password], select {
 .form {
     display: inline-flex;
     gap: 1.5rem;
-    justify-content: center;
+    /* justify-content: center; */
     align-items: center;
-    min-height: 100px;
+    min-height: 50px;
     /* margin: 10px;
     padding: 10px; */
     /* margin: 0 auto; */
+    /* position: left; */
 
     /* grid: minmax(400px, min-content) / repeat(auto-fill, 400px); */
 
@@ -168,8 +174,9 @@ input[type=password], select {
 
 .form-contact {
     margin-top: 100px;
-    max-width: 900px;
-
+    max-width: 1000px;
+    /* min-width: 800px; */
+    padding-left: 8%;
     /* display: inline-flex; */
     display: grid;
     /* grid-template-columns: 2 auto; */
@@ -183,17 +190,31 @@ input[type=password], select {
     /* grid-template-columns: repeat(2, 3fr); */
     /* grid-template-rows: 100px; */
     /* grid-column: 3; */
-    justify-content: space-evenly;
+    /* justify-content: space-evenly; */
     /* justify-content: center; */
     /* position: ; */
-    align-items: center;
+    /* align-items: center; */
     /* margin: 20px 10px; */
 }
 
 .contact {
     display: flex;
     justify-content: center;
+    /* justify-content: left; */
+    align-items: center;
     /* max-width: 900px; */
+}
+
+@media (max-width: 907px) {
+    .form-contact {
+        justify-content: center;
+    }
+}
+
+@media (min-width: 576px) {
+    .form-contact {
+        padding-left: 5%;
+    }
 }
 
 @media (max-width: 576px) {
@@ -205,6 +226,26 @@ input[type=password], select {
         justify-content: unset;
     }
 }
+
+/* @media (max-width: 776px) {
+    #btn {
+        margin: unset;
+        padding: unset;
+    }
+} */
+
+@media (max-width: 425px) {
+    #btn {
+        margin: 0 auto;
+        padding: 0;
+    }
+
+    .form-contact {
+        justify-content: unset;
+    }
+}
+
+
 
 form {
     min-width: 350px;
@@ -228,6 +269,7 @@ form {
     display: flex;
     justify-content: center;
     align-content: center;
+    margin-left: 20px;
 }
 
 .form:nth-child(1) {

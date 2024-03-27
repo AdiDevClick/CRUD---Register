@@ -32,7 +32,9 @@ if(session_status() === PHP_SESSION_NONE) {
             <input type="file" id="file" name="file"/>
             </div>
             
-            <button type="submit" class="btn form-hidden" name="submit">Envoyez</button>
+            <div class="form form-hidden">
+                <button type="submit" class="btn" name="submit">Envoyez</button>
+            </div>
         </form>
     </div>
     

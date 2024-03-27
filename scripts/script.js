@@ -136,16 +136,36 @@ const onScroll = function(e) {
         window.requestAnimationFrame(() => {
             doSomething(lastKnownScrollPosition)
             ticking = false
-          })
-            navbar.style.opacity = 0
-            ticking = true
-        document.addEventListener('scrollend', onScrollEnd)    
+        })
+        navbar.style.opacity = 0
+        ticking = true
+        document.addEventListener('scrollend', onScrollEnd)
     }
-    
-    
 }
 
-document.addEventListener('scroll', onScroll)
+// window.addEventListener('scroll', onScroll)
+const hiddenVisibility = function(e) {
+    if (navbar.classList.contains('fadeOut')) navbar.style.visibility = 'hidden'
+    navbar.removeEventListener('animationend', hiddenVisibility)
+}
+
+window.onscroll = function() {
+    scrolling()
+}
+
+function scrolling() {
+    if (document.documentElement.scrollTop === screenTop) {
+        navbar.classList.remove('fadeOut')
+        navbar.removeAttribute('style')
+        navbar.classList.add('slideUp')
+        toggleBtnBox.style.visibility = 'visible'
+    } else {
+        navbar.classList.remove('slideUp')
+        navbar.classList.add('fadeOut')
+        navbar.addEventListener('animationend', hiddenVisibility)
+    }
+}
+
 // if (navbar.classList.contains('open')) {
 // navbar.addEventListener('click', ifOpened)
 // }

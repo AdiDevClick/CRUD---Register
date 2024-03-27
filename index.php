@@ -37,7 +37,8 @@ $seconds = date("s");
 <!-- Insertion du login form pour les non-connectés -->
 
     <section class="container">
-        <div class="form-index form-hidden">
+        <div class="form-hidden">
+        <!-- <div class="form-index form-hidden"> -->
             <h1>Site de recettes !</h1>
         </div>
         
