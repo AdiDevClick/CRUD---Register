@@ -1,5 +1,7 @@
 <?php
 
+require("templates/toaster_template.html");
+
 class LoginController extends Login
 {
     /* public function __construct(
@@ -9,7 +11,7 @@ class LoginController extends Login
         private $getData)
         { */
     // public array $postDatas;
-    
+
     public function __construct(
         private $getDatas
     ) {
@@ -21,6 +23,7 @@ class LoginController extends Login
      */
     protected function index(): void
     {
+
         if (!isset($this->getDatas)) {
             throw new Error("Nous ne pouvons pas tester vos identifiants...");
             //throw new Error("Nous ne pouvons pas tester vos identifiants...".
@@ -62,6 +65,37 @@ class LoginController extends Login
 
     protected function login(string $pwd, string $email)
     {
+
+        // $script = <<< JS
+        // include_once("templates/toaster_template.html");
+        // // require_once("scripts/toaster.js");
+        // import { alertMessage } from "./scripts/toaster.js"
+        // function() {
+        //     const alert = alertMessage($errorMessage)
+        //     const alertContainer = document.querySelector('.toast-container')
+        //     alertContainer.insertAdjacentElement(
+        //         'beforeend',
+        //         alert
+        //     )
+        //     console.log('object3')
+        // }
+        // JS;
+        // $script2 = <<< JS
+        
+        //     // import { alertMessage } from "./scripts/toaster.js"
+
+        //     console.log('object4')
+        //     const form = document.querySelector('form')
+        //     form.addEventListener('submit', e => {
+        //         e.preventDefault()
+        //         console.log('object2')
+        //         // $script
+        //         // this.#onSubmit(e.currentTarget)
+        //         form.removeEventListener('submit', e)
+        //     })
+        
+        // JS;
+
         try {
             //$users = $this->getUsers($email);
             if ($this->getPwd($pwd, $email) &&
@@ -116,13 +150,18 @@ class LoginController extends Login
                     $email,
                     $pwd
                 );
-                //throw new Error($errorMessage.header("Location: ".Functions::getUrl()."?error=pwd-or-id-does-not-match"));
+                // throw new Error($errorMessage.header("Location: ".Functions::getUrl()."?error=pwd-or-id-does-not-match"));
                 throw new Error($errorMessage);
                 //echo $errorMessage;
                 //header("Location: ".Functions::getUrl()."?error=pwd-does-not-match");
             }
         } catch (Error $errorMessage) {
+            // echo $errorMessage->getMessage();
+            // exit($errorMessage->getMessage());
+            // exit($errorMessage);
+            // $script2;
             die('Erreur de login : '. $errorMessage->getMessage());
+            
         }
     }
 
@@ -225,20 +264,20 @@ class LoginController extends Login
             //     // echo'voici le cookie => '. $_COOKIE['EMAIL'] . '<==';
             //     $loggedUser['email'] = $_COOKIE['EMAIL'];
             //     // return $loggedUser;
-            // } 
+            // }
             // if(isset($_COOKIE['FULLNAME'])) {
             //     // $this->postDatas = $_COOKIE['LOGGED_USER'];
             //     // print($_COOKIE['EMAIL']);
             //     // echo'voici le cookie => '. $_COOKIE['EMAIL'] . '<==';
             //     $loggedUser['name'] = $_COOKIE['FULLNAME'];
             //     // return $loggedUser;
-            // } 
+            // }
             // if(isset($_SESSION['LOGGED_USER'])) {
             //     // echo'voici le session user => '. $_SESSION['LOGGED_USER'][0] . '<==';
             //     $loggedUser['user'] = $_SESSION['LOGGED_USER'];
             //     // echo('registered');
             //     // return $loggedUser;
-            // } 
+            // }
 
 
             if(isset($_COOKIE['EMAIL'])) {
@@ -255,7 +294,7 @@ class LoginController extends Login
                 $loggedUser['user'] = $_SESSION['LOGGED_USER'];
                 // echo('registered');
                 // return $loggedUser;
-            } 
+            }
             if (isset($_COOKIE['REGISTERED_RECIPE']) || isset($_SESSION['REGISTERED_RECIPE'])) {
                 $loggedUser = [
                     'email' => $_COOKIE['REGISTERED_RECIPE'] ?? $_SESSION['REGISTERED_RECIPE'],

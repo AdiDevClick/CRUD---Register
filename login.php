@@ -10,10 +10,12 @@ if(session_status() === PHP_SESSION_NONE) {
 
 
 include_once("includes/class-autoloader.inc.php");
+// include_once("templates/toaster_template.html");
+
 
 
 //ob_start();
-$data = $_SERVER['REQUEST_METHOD'] == 'POST';
+$data = $_SERVER['REQUEST_METHOD'] === 'POST';
 
 if ($data && isset($_POST["submit"])) {
     $username = '';
@@ -68,7 +70,7 @@ foreach ($loggedUser as $user) {
 <?php //echo('pourquoi ca saffiche => ' . $loggedUser['user'])?> 
     <?php //echo("<br> cookie show 2 : cookie email : " . $loggedUser["email"] . "<br>". "cookie non enregistré : " .  $_COOKIE['LOGGED_USER'] . "<br>". "session non enregistrée : " .  $_SESSION['LOGGED_USER'] . "<br>". "session enregistrée : " . $loggedUser["user"] . "<br> user non enregistré :". $_SESSION['USER_ID'] . "<br> user id enregistré :" . $loggedUser["user"][0] . ' Ceci est un logged')?>
     <div class="form-index">
-        <form action="login.php" method="post">
+        <form action="index.php" method="post">
             <!-- Si il y a erreur on affiche le message -->
             <?php if (isset($errorMessage)): ?>
                 <div class="alert-error">
@@ -121,6 +123,7 @@ foreach ($loggedUser as $user) {
 <?php //ob_get_clean()?>
 
 <?php //require('templates/layout.php')?>
+<!-- <?php //require("templates/toaster_template.html")?> -->
 
 <!-- $content = ob_get_clean();
 require('templates/layout.php')

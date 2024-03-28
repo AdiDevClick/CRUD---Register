@@ -11,6 +11,7 @@ if(session_status() === PHP_SESSION_NONE) {
 include_once('includes/functions.inc.php');
 include_once('logs/customErrorHandlers.php');
 
+
 $day = date("d");
 $month = date("m");
 $year = date("Y");
@@ -31,7 +32,6 @@ $seconds = date("s");
         <div class="type-writter">
             <p>Une recette <span>Love</span></p>
         </div>
-        
     </section>
     
 <!-- Insertion du login form pour les non-connectés -->
@@ -44,7 +44,6 @@ $seconds = date("s");
         
     <?php //require_once("includes/class-autoloader.inc.php");?>
 
-    
 <?php //ob_start()?>
 <?php require('login.php')?>
 <?php //ob_get_status()?>
@@ -71,7 +70,7 @@ $seconds = date("s");
                     <hr />
                 </article>
         <?php endforeach ?>
-        </section>
+    </section>
     <?php else: ?>
         <?php session_unset()?>
     <?php endif ?>
