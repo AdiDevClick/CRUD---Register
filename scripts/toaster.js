@@ -119,11 +119,33 @@ function createElement(tagName = 'div', attributes = {}) {
     return element
 }
 
-const form = document.querySelector('form')
-form.addEventListener('submit', e => {
-    e.preventDefault()
-    console.log('object2')
-    // $script
-    // this.#onSubmit(e.currentTarget)
-    form.removeEventListener('submit', e)
-})
+// const form = document.querySelector('form')
+// form.addEventListener('submit', e => {
+//     e.preventDefault()
+//     console.log('object2')
+//     // $script
+//     // this.#onSubmit(e.currentTarget)
+//     form.removeEventListener('submit', e)
+// })
+
+const queryString = window.location.search
+const urlParams = new URLSearchParams(queryString)
+
+const error = urlParams.get('error')
+console.log(error);
+if (error === 'invalid-input') console.log('object')
+
+const success = urlParams.get('success')
+console.log(success);
+if (success === 'disconnected') console.log('disconnect ok')
+
+
+const login = urlParams.get('login')
+console.log(login);
+if (login === 'success') console.log('login ok')
+
+
+console.log(urlParams.has('email-invalid'));
+console.log(urlParams.has('invalid-input')); // fonctionne pas
+console.log(urlParams.has('error'));
+//false

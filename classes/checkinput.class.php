@@ -21,7 +21,7 @@ class CheckInput extends Validate
             $url = array_pop($url); */
             foreach ($this -> getDatas as $key => $value) {
                 $result = false;
-                // try {
+                try {
                     if (empty($value) || !isset($key)) {
                         //$result = false;
                         //$e = throw new Error((string)header("Location: $url?error=$key-vide"));
@@ -59,9 +59,9 @@ class CheckInput extends Validate
                         //header("Location: $url?error=$key-vide");
                         $result = true;
                     }
-                // } catch (Error $e) {
-                    // die('Erreur : '. $e->getMessage() ." Veuillez remplir les champs s'il vous plait... <br>");
-                // }
+                } catch (Error $e) {
+                    exit('Erreur : '. $e->getMessage() ." Veuillez remplir les champs s'il vous plait... <br>");
+                }
             }
         }
         return $result;
