@@ -43,14 +43,13 @@
  * @returns {HTMLElement}
  */
 // function alertMessage(message, type = 'Erreur') {
-export function alertMessage(message, type = 'Erreur') {
+function alertMessage(message, type = 'Erreur') {
     let toasterDivContainer = document.querySelector('.toast-container')
     
     const alert = document.querySelector('#alert-layout').content.firstElementChild.cloneNode(true)
     const progress = alert.querySelector('.progress')
     const closeIcon = alert.querySelector('.toggle_btn-box')
     if (!toasterDivContainer) {
-        console.log('object')
         toasterDivContainer = createElement('div', {
             class: 'toast-container',
             role: 'alert'
@@ -84,6 +83,7 @@ export function alertMessage(message, type = 'Erreur') {
             e.preventDefault()
             alert.classList.remove('active')
             alert.classList.add('close')
+            
             wait(300)
                 .then(() => progress.classList.remove('active'))
             closeIcon.dispatchEvent(new CustomEvent('delete'))
@@ -128,24 +128,51 @@ function createElement(tagName = 'div', attributes = {}) {
 //     form.removeEventListener('submit', e)
 // })
 
+let message
+let type
+let errAlert = false
+let alertToaster
+
 const queryString = window.location.search
 const urlParams = new URLSearchParams(queryString)
 
 const error = urlParams.get('error')
-console.log(error);
-if (error === 'invalid-input') console.log('object')
+if (error === 'invalid-input') {
+    errAlert = true
+    message = 'Veuillez modifier votre identifiant'
+}
+// error === 'invalid-input' ? message = 'Veuillez modifier votre identifiant' : errAlert = false
 
 const success = urlParams.get('success')
-console.log(success);
-if (success === 'disconnected') console.log('disconnect ok')
+if (success === 'disconnected') {
+    errAlert = true
+    type = 'Success'
+    message = 'Vous avez été déconnecté avec succès'
+}
+// success === 'disconnected' ? message = 'Vous avez été déconnecté avec succès' : errAlert = false
 
 
 const login = urlParams.get('login')
-console.log(login);
-if (login === 'success') console.log('login ok')
+if (login === 'success') {
+    errAlert = true
+    type = 'Success'
+    message = 'Vous êtes connecté avec succès'
+}
+// login === 'success' ? message = 'Vous êtes connecté avec succès' : errAlert = false
 
 
-console.log(urlParams.has('email-invalid'));
+console.log(urlParams.has('email-invalid')); // fonctionne pas
 console.log(urlParams.has('invalid-input')); // fonctionne pas
 console.log(urlParams.has('error'));
 //false
+
+if (errAlert) {
+    alertToaster = alertMessage(message, type)
+    errAlert = false
+    type = ''
+}
+const alertContainer = document.querySelector('.toast-container')
+alertContainer.insertAdjacentElement(
+    'beforeend',
+    alertToaster
+)

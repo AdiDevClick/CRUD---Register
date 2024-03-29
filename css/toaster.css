@@ -100,12 +100,22 @@
 }
 
 .toast .toggle_btn-box {
+    width: 7rem;
     position: absolute;
     top: 10px;
     right: 1px;
     /* padding: 5px; */
     cursor: pointer;
     opacity: 0.7;
+    display: block;
+}
+
+.toast .toggle_btn {
+    display: block;
+}
+
+.toast .toggle_btn i{
+    background-color: #2b2727; 
 }
 
 .toast .toggle_btn-box:hover {
@@ -126,10 +136,10 @@
 }
 
 .toast.close {
-    animation: fadeOut 0.5s both;
+    animation: fade 0.5s both;
 }
 
-@keyframes fadeOut {
+@keyframes fade {
     from {
         opacity: 1;
     }
@@ -167,5 +177,35 @@
 
 .toast.active ~ button {
     pointer-events: none;
+}
+
+.toast .open i:nth-child(1) {
+    animation: ease .7s top forwards;
+    /* animation: ease .3s top forwards; */
+}
+
+.toast i:nth-child(1) {
+    animation: ease .7s top-2 forwards;
+    /* animation: ease .3s top-2 forwards; */
+}
+
+.toast .open i:nth-child(2) {
+    animation: ease .7s scaled forwards;
+    /* animation: ease .5s scaled forwards; */
+}
+
+.toast i:nth-child(2) {
+    animation: ease .7s scaled-2 forwards;
+    /* animation: ease .3s scaled-2 forwards; */
+}
+
+.toast .open i:nth-child(3) {
+    animation: ease .7s bottom forwards;
+    /* animation: ease .3s bottom forwards; */
+}
+
+.toast i:nth-child(3) {
+    animation: ease .7s bottom-2 forwards;
+    /* animation: ease .5s bottom-2 forwards; */
 }
 /* End of TOAST */

@@ -18,7 +18,7 @@
     <?= $css ?? '' ?>
     />
     <script src="scripts/script.js" defer></script>
-    <script type="module" src="scripts/toaster.js" defer></script>
+    <script src="scripts/toaster.js" defer></script>
     <script <?= $script ?? '' ?>></script>
     <script <?= $script2 ?? '' ?>></script>
     <title>

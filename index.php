@@ -62,6 +62,7 @@ $seconds = date("s");
                     <div><?php echo $recipe['recipe']; ?></div>
                     <i><?php echo displayAuthor($recipe["author"]) ?></i>
                     <?php if (isset($loggedUser) && $recipe['author'] === $loggedUser['email'][0]) : ?>
+                    <!-- <?php //if (isset($loggedUser) && $recipe['author'] === $loggedUser['email'][0]) : ?> -->
                         <ul class="list-group">
                             <li class="list-group-item"><a class="link-warning" href="./recipes/update_recipes.php?id=<?php echo($recipe['recipe_id']) ?>">Editer l'article</a></li>
                             <li class="list-group-item"><a class="link-danger" href="./recipes/delete_recipes.php?id=<?php echo($recipe['recipe_id']) ?>">Supprimer l'article</a></li>
