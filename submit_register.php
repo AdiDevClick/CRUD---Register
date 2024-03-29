@@ -51,9 +51,9 @@ if (($data && isset($_POST['submit']))) {
     <form action="submit_register.php" method="post">
     <?php if (isset($e)):?>
         <div class="alert-error"> 
-            <?php //echo $e?>    
+            <?php //echo $e?>
         </div>
-        <?php endif ?>        
+        <?php endif ?>
         <label for="username" class="label">Votre prénom et nom :</label>
         <input name="username" class="input" type="text" id="username" placeholder="Votre nom et prénom..."/>
 
@@ -87,8 +87,7 @@ if (($data && isset($_POST['submit']))) {
         <?php else:?>
             <?php session_destroy()?>
             <?php header('Location, index.php')?>
-            <?php exit()?> 
-
+            <?php exit()?>
 <?php endif ?>
 
 <?php //$content = ob_end_flush()?>

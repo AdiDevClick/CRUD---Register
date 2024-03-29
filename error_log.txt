@@ -77,3 +77,94 @@ Errors : [2] Undefined array key "email" - C:\xampp\htdocs\Recettes\index.php:64
 Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\index.php:64
 Errors : [2] Undefined array key "email" - C:\xampp\htdocs\Recettes\index.php:64
 Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\index.php:64
+Errors : [2] Array to string conversion - C:\xampp\htdocs\Recettes\classes\CheckInput.class.php:80
+Errors : [2] Undefined property: CheckInput::$Error: votre password est vide in C:\xampp\htdocs\Recettes\classes\CheckInput.class.php:28
+Stack trace:
+#0 C:\xampp\htdocs\Recettes\classes\LoginController.class.php(60): CheckInput->checkInputs()
+#1 C:\xampp\htdocs\Recettes\classes\LoginView.class.php(29): LoginController->index()
+#2 C:\xampp\htdocs\Recettes\login.php(31): LoginView->displayLogin()
+#3 C:\xampp\htdocs\Recettes\index.php(48): require('C:\\xampp\\htdocs...')
+#4 {main} - C:\xampp\htdocs\Recettes\classes\CheckInput.class.php:76
+Errors : [2] foreach() argument must be of type array|object, null given - C:\xampp\htdocs\Recettes\classes\CheckInput.class.php:76
+Errors : [2] Undefined property: CheckInput::$Error: votre username est vide in C:\xampp\htdocs\Recettes\classes\CheckInput.class.php:28
+Stack trace:
+#0 C:\xampp\htdocs\Recettes\classes\LoginController.class.php(60): CheckInput->checkInputs()
+#1 C:\xampp\htdocs\Recettes\classes\LoginView.class.php(29): LoginController->index()
+#2 C:\xampp\htdocs\Recettes\login.php(31): LoginView->displayLogin()
+#3 C:\xampp\htdocs\Recettes\index.php(48): require('C:\\xampp\\htdocs...')
+#4 {main} - C:\xampp\htdocs\Recettes\classes\CheckInput.class.php:76
+Errors : [2] foreach() argument must be of type array|object, null given - C:\xampp\htdocs\Recettes\classes\CheckInput.class.php:76
+Errors : [2] Undefined property: CheckInput::$Error: Votre identifiant est invalide in C:\xampp\htdocs\Recettes\classes\CheckInput.class.php:44
+Stack trace:
+#0 C:\xampp\htdocs\Recettes\classes\LoginController.class.php(60): CheckInput->checkInputs()
+#1 C:\xampp\htdocs\Recettes\classes\LoginView.class.php(29): LoginController->index()
+#2 C:\xampp\htdocs\Recettes\login.php(31): LoginView->displayLogin()
+#3 C:\xampp\htdocs\Recettes\index.php(48): require('C:\\xampp\\htdocs...')
+#4 {main} - C:\xampp\htdocs\Recettes\classes\CheckInput.class.php:76
+Errors : [2] foreach() argument must be of type array|object, null given - C:\xampp\htdocs\Recettes\classes\CheckInput.class.php:76
+Errors : [2] Undefined property: CheckInput::$Error: votre username est vide in C:\xampp\htdocs\Recettes\classes\CheckInput.class.php:28
+Stack trace:
+#0 C:\xampp\htdocs\Recettes\classes\LoginController.class.php(60): CheckInput->checkInputs()
+#1 C:\xampp\htdocs\Recettes\classes\LoginView.class.php(29): LoginController->index()
+#2 C:\xampp\htdocs\Recettes\login.php(31): LoginView->displayLogin()
+#3 C:\xampp\htdocs\Recettes\index.php(48): require('C:\\xampp\\htdocs...')
+#4 {main} - C:\xampp\htdocs\Recettes\classes\CheckInput.class.php:76
+Errors : [2] foreach() argument must be of type array|object, null given - C:\xampp\htdocs\Recettes\classes\CheckInput.class.php:76
+Errors : [8] Accessing static property CheckInput::$errorsArray as non static - C:\xampp\htdocs\Recettes\classes\CheckInput.class.php:29
+Errors : [8192] Creation of dynamic property CheckInput::$errorsArray is deprecated - C:\xampp\htdocs\Recettes\classes\CheckInput.class.php:29
+Errors : [8] Accessing static property CheckInput::$errorsArray as non static - C:\xampp\htdocs\Recettes\classes\CheckInput.class.php:29
+Errors : [8192] Creation of dynamic property CheckInput::$errorsArray is deprecated - C:\xampp\htdocs\Recettes\classes\CheckInput.class.php:29
+Errors : [8] Accessing static property CheckInput::$errorsArray as non static - C:\xampp\htdocs\Recettes\classes\CheckInput.class.php:29
+Errors : [8192] Creation of dynamic property CheckInput::$errorsArray is deprecated - C:\xampp\htdocs\Recettes\classes\CheckInput.class.php:29
+Errors : [8] Accessing static property CheckInput::$errorsArray as non static - C:\xampp\htdocs\Recettes\classes\CheckInput.class.php:29
+Errors : [8192] Creation of dynamic property CheckInput::$errorsArray is deprecated - C:\xampp\htdocs\Recettes\classes\CheckInput.class.php:29
+Errors : [2] Undefined variable $value - C:\xampp\htdocs\Recettes\login.php:81
+Errors : [8] Accessing static property CheckInput::$errorsArray as non static - C:\xampp\htdocs\Recettes\classes\CheckInput.class.php:29
+Errors : [8192] Creation of dynamic property CheckInput::$errorsArray is deprecated - C:\xampp\htdocs\Recettes\classes\CheckInput.class.php:29
+Errors : [8] Accessing static property CheckInput::$errorsArray as non static - C:\xampp\htdocs\Recettes\classes\CheckInput.class.php:29
+Errors : [8192] Creation of dynamic property CheckInput::$errorsArray is deprecated - C:\xampp\htdocs\Recettes\classes\CheckInput.class.php:29
+Errors : [8] Accessing static property CheckInput::$errorsArray as non static - C:\xampp\htdocs\Recettes\classes\CheckInput.class.php:29
+Errors : [8192] Creation of dynamic property CheckInput::$errorsArray is deprecated - C:\xampp\htdocs\Recettes\classes\CheckInput.class.php:29
+Errors : [8] Accessing static property CheckInput::$errorsArray as non static - C:\xampp\htdocs\Recettes\classes\CheckInput.class.php:29
+Errors : [8192] Creation of dynamic property CheckInput::$errorsArray is deprecated - C:\xampp\htdocs\Recettes\classes\CheckInput.class.php:29
+Errors : [8] Accessing static property CheckInput::$errorsArray as non static - C:\xampp\htdocs\Recettes\classes\CheckInput.class.php:29
+Errors : [8192] Creation of dynamic property CheckInput::$errorsArray is deprecated - C:\xampp\htdocs\Recettes\classes\CheckInput.class.php:29
+Errors : [8] Accessing static property CheckInput::$errorsArray as non static - C:\xampp\htdocs\Recettes\classes\CheckInput.class.php:29
+Errors : [8192] Creation of dynamic property CheckInput::$errorsArray is deprecated - C:\xampp\htdocs\Recettes\classes\CheckInput.class.php:29
+Errors : [8] Accessing static property CheckInput::$errorsArray as non static - C:\xampp\htdocs\Recettes\classes\CheckInput.class.php:29
+Errors : [8192] Creation of dynamic property CheckInput::$errorsArray is deprecated - C:\xampp\htdocs\Recettes\classes\CheckInput.class.php:29
+Errors : [8] Accessing static property CheckInput::$errorsArray as non static - C:\xampp\htdocs\Recettes\classes\CheckInput.class.php:29
+Errors : [8192] Creation of dynamic property CheckInput::$errorsArray is deprecated - C:\xampp\htdocs\Recettes\classes\CheckInput.class.php:29
+Errors : [8] Accessing static property CheckInput::$errorsArray as non static - C:\xampp\htdocs\Recettes\classes\CheckInput.class.php:29
+Errors : [8192] Creation of dynamic property CheckInput::$errorsArray is deprecated - C:\xampp\htdocs\Recettes\classes\CheckInput.class.php:29
+Errors : [8] Accessing static property CheckInput::$errorsArray as non static - C:\xampp\htdocs\Recettes\classes\CheckInput.class.php:29
+Errors : [8192] Creation of dynamic property CheckInput::$errorsArray is deprecated - C:\xampp\htdocs\Recettes\classes\CheckInput.class.php:29
+Errors : [8] Accessing static property CheckInput::$errorsArray as non static - C:\xampp\htdocs\Recettes\classes\CheckInput.class.php:45
+Errors : [8192] Creation of dynamic property CheckInput::$errorsArray is deprecated - C:\xampp\htdocs\Recettes\classes\CheckInput.class.php:45
+Errors : [8] Accessing static property CheckInput::$errorsArray as non static - C:\xampp\htdocs\Recettes\classes\CheckInput.class.php:45
+Errors : [8192] Creation of dynamic property CheckInput::$errorsArray is deprecated - C:\xampp\htdocs\Recettes\classes\CheckInput.class.php:45
+Errors : [8] Accessing static property CheckInput::$errorsArray as non static - C:\xampp\htdocs\Recettes\classes\CheckInput.class.php:45
+Errors : [8192] Creation of dynamic property CheckInput::$errorsArray is deprecated - C:\xampp\htdocs\Recettes\classes\CheckInput.class.php:45
+Errors : [8] Accessing static property CheckInput::$errorsArray as non static - C:\xampp\htdocs\Recettes\classes\CheckInput.class.php:45
+Errors : [8192] Creation of dynamic property CheckInput::$errorsArray is deprecated - C:\xampp\htdocs\Recettes\classes\CheckInput.class.php:45
+Errors : [8] Accessing static property CheckInput::$errorsArray as non static - C:\xampp\htdocs\Recettes\classes\CheckInput.class.php:45
+Errors : [8192] Creation of dynamic property CheckInput::$errorsArray is deprecated - C:\xampp\htdocs\Recettes\classes\CheckInput.class.php:45
+Errors : [8] Accessing static property CheckInput::$errorsArray as non static - C:\xampp\htdocs\Recettes\classes\CheckInput.class.php:29
+Errors : [8192] Creation of dynamic property CheckInput::$errorsArray is deprecated - C:\xampp\htdocs\Recettes\classes\CheckInput.class.php:29
+Errors : [8] Accessing static property CheckInput::$errorsArray as non static - C:\xampp\htdocs\Recettes\classes\CheckInput.class.php:83
+Errors : [2] Undefined property: CheckInput::$errorsArray - C:\xampp\htdocs\Recettes\classes\CheckInput.class.php:83
+Errors : [8] Accessing static property CheckInput::$errorsArray as non static - C:\xampp\htdocs\Recettes\classes\CheckInput.class.php:83
+Errors : [2] Undefined property: CheckInput::$errorsArray - C:\xampp\htdocs\Recettes\classes\CheckInput.class.php:83
+Errors : [2] Array to string conversion - C:\xampp\htdocs\Recettes\login.php:83
+Errors : [2] Array to string conversion - C:\xampp\htdocs\Recettes\login.php:83
+Errors : [2] Array to string conversion - C:\xampp\htdocs\Recettes\login.php:83
+Errors : [2] Array to string conversion - C:\xampp\htdocs\Recettes\login.php:84
+Errors : [2] Array to string conversion - C:\xampp\htdocs\Recettes\login.php:84
+Errors : [2] Array to string conversion - C:\xampp\htdocs\Recettes\login.php:84
+Errors : [2] Array to string conversion - C:\xampp\htdocs\Recettes\login.php:84
+Errors : [2] Undefined variable $errorMessage - C:\xampp\htdocs\Recettes\login.php:84
+Errors : [2] Undefined variable $errorMessage - C:\xampp\htdocs\Recettes\login.php:84
+Errors : [2] Undefined variable $errorMessage - C:\xampp\htdocs\Recettes\login.php:85
+Errors : [2] Undefined variable $errorMessage - C:\xampp\htdocs\Recettes\login.php:85
+Errors : [2] Undefined variable $errorMessage - C:\xampp\htdocs\Recettes\login.php:85
+Errors : [2] Undefined variable $errorMessage - C:\xampp\htdocs\Recettes\login.php:85

@@ -45,6 +45,14 @@ if ($data && isset($_POST["submit"])) {
 //     ];
 // }
 $loggedUser = LoginController::checkLoggedStatus();
+$errorMessages = CheckInput::getErrorsArray();
+print_r($errorMessages);
+foreach ($errorMessages as $key => $value) {
+    echo $key;
+    $errorMessage[$key] = $value;
+    echo $value;
+    $errorMessage = $errorMessages[$key];
+}
 // echo 'utilisateur cookie => ' . $loggedUser['user'] .'';
 // echo 'utilisateur cookie => ' . $loggedUser;
 foreach ($loggedUser as $user) {
@@ -72,7 +80,7 @@ foreach ($loggedUser as $user) {
     <div class="form-index">
         <form action="index.php" method="post">
             <!-- Si il y a erreur on affiche le message -->
-            <?php if (isset($errorMessage)): ?>
+            <?php if (isset($errorMessages)): ?>
                 <div class="alert-error">
                     <?php echo $errorMessage; ?> 
                     <?php //exit()?>   

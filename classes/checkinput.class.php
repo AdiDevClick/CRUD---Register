@@ -2,6 +2,7 @@
 
 class CheckInput extends Validate
 {
+    private static array $errorsArray = [];
     public function __construct(
         private  $getDatas
     ) {
@@ -24,22 +25,34 @@ class CheckInput extends Validate
                 try {
                     if (empty($value) || !isset($key)) {
                         //$result = false;
+                        $e = throw new Error("Votre $key est vide");
+                        array_push(self::$errorsArray, "votre $key est vide");
+                        // array_push($this->errorsArray, new Error("votre $key est vide"));
                         //$e = throw new Error((string)header("Location: $url?error=$key-vide"));
-                        throw new Error((string)header("Location: ".Functions::getUrl()."?error=$key-vide"));
+                        // throw new Error((string)header("Location: ".Functions::getUrl()."?error=$key-vide"));
                         //header("Location: ".Functions::getUrl()."?error=$key-vide");
                     }
                     if (isset($this->getDatas['email']) && (!filter_var($this->getDatas['email'], FILTER_VALIDATE_EMAIL)) /* && !preg_match("[a-z0-9A-Z._-]+@[a-z0-9A-Z._-]+.[a-zA-Z]",$this->getDatas['email']) */) {
-                        throw new Error((string)header("Location: ".Functions::getUrl()."?error=email-invalid"));
+                        $e = throw new Error("Veuillez saisir un email valide");
+                        array_push(self::$errorsArray, "Veuillez saisir un email valide");
+                        // array_push($this->errorsArray, new Error("Veuillez saisir un email valide"));
+
+                        // throw new Error((string)header("Location: ".Functions::getUrl()."?error=email-invalid"));
                     }
                     //if (isset($this->getDatas['username']) && !preg_match("/^[a-zA-Z0-9]*$/", $this->getDatas['username'])) { // No space allowed
                     if (isset($this->getDatas['username']) && !preg_match("/^[a-zA-Z0-9]/", $this->getDatas['username'])) { // With space allowed
-                        throw new Error((string)header("Location: ".Functions::getUrl()."?error=invalid-input"));
+                        $e = throw new Error('Votre identifiant est invalide');
+                        array_push(self::$errorsArray, 'Votre identifiant est invalide');
+                        // array_push($this->errorsArray, new Error('Votre identifiant est invalide'));
+                        // throw new Error((string)header("Location: ".Functions::getUrl()."?error=invalid-input"));
                         //throw new Error ('Votre ' . $key . ' est vide ! <br>');
                         //return $result;
                         //die('Nous ne pouvons continuer...');
                     }
                     if (isset($this->getDatas['title']) && !preg_match("(^[\w\s,.:_?'!éèêëàâäôöûüç-]+$)", $this->getDatas['title'])) { // With space allowed
-                        throw new Error((string)header("Location: ".Functions::getUrl()."?error=invalid-title-input"));
+                        $e = throw new Error('Ce titre est invalide');
+                        array_push($this->errorsArray, new Error('Ce titre est invalide'));
+                        // throw new Error((string)header("Location: ".Functions::getUrl()."?error=invalid-title-input"));
                         //return $e;
                         //return $result = false;
                     }
@@ -60,10 +73,20 @@ class CheckInput extends Validate
                         $result = true;
                     }
                 } catch (Error $e) {
-                    exit('Erreur : '. $e->getMessage() ." Veuillez remplir les champs s'il vous plait... <br>");
+                    // foreach ($this->errorsArray as $key => $value) {
+                    //     echo "".$key."".$value."";
+                    // }
+                    echo('Erreur : '. $e->getMessage() ." Veuillez remplir les champs s'il vous plait... <br>");
                 }
             }
         }
+        print_r(self::$errorsArray);
         return $result;
+    }
+
+    public static function getErrorsArray()
+    {
+        print_r(self::$errorsArray);
+        return self::$errorsArray;
     }
 }

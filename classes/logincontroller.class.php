@@ -160,7 +160,8 @@ class LoginController extends Login
             // exit($errorMessage->getMessage());
             // exit($errorMessage);
             // $script2;
-            die('Erreur de login : '. $errorMessage->getMessage());
+            // die('Erreur de login : '. $errorMessage->getMessage());
+            echo('Erreur de login : '. $errorMessage->getMessage());
             
         }
     }
