@@ -86,21 +86,24 @@ button:hover {
 }
 
 /* INPUTS */
-input[type=text], [type=email] {
+input[type=text], input[type=email] {
     width: 200px;
     color: #eeeeee;
     padding: 12px 20px;
     /*margin: 8px 200px 0 200px;*/
     display: inline-block;
     border: 1px solid #ccc;
+    border-inline: #ccc;
     border-radius: 10px;
     box-sizing: border-box;
 }
 
-input[type=text], [type=email], textarea, select, button {
+input[type=text], input[type=email], textarea, select, button {
+/* input[type=text], [type=email], textarea, select, button { */
     margin: 10px;
     padding: 10px;
     border-radius: 10px;
+    border-inline: #ccc;
     color: #eeeeee;
 }
 
@@ -133,15 +136,35 @@ select:hover {
 }
 
 input[type=password], select {
+/* input[type=password] { */
     /*width: 100%;*/
     padding: 12px 20px;
     /*margin: 8px 200px 0 200px;*/
     display: inline-block;
     border: 1px solid #ccc;
+    border-inline: #ccc;
     /* border-radius: 4px; */
-    /* padding: 10px; */
+    padding: 10px;
     border-radius: 10px;
     /* box-sizing: border-box; */
+}
+
+input:focus,
+textarea:focus {
+    border: 2px solid #7aa8dd;
+}
+
+input[type=password].input_error,
+input[type=text].input_error,
+input[type=email].input_error,
+textarea .input_error {
+    height: 100%;
+    border-bottom: 2px solid red;
+    border-inline: red;
+}
+
+input.input_error::placeholder {
+    color: rgb(247, 116, 116);
 }
 
 .form-hidden {

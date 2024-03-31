@@ -172,7 +172,9 @@ if (errAlert) {
     type = ''
 }
 const alertContainer = document.querySelector('.toast-container')
-alertContainer.insertAdjacentElement(
-    'beforeend',
-    alertToaster
-)
+if (alertContainer) {
+    alertContainer.insertAdjacentElement(
+        'beforeend',
+        alertToaster
+    )
+}

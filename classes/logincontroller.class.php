@@ -57,15 +57,27 @@ class LoginController extends Login
             );
             $password = $checkInput->test_input($this->getDatas["password"]);
             $username = $checkInput->test_input($this->getDatas["username"]);
+            // $validInputs = $checkInput->checkInputs();
             $checkInput->checkInputs();
-
-            $this->login($password, $username);
+            
+            if (empty($checkInput->getErrorsArray())) {
+                die("ok");
+                $this->login($password, $username);
+                echo("ok");
+            } else {
+                // $checkInput->getErrorsArray();
+                echo('je suis pas ok');
+                $checkInput->getErrorsArray();
+                // die('test');
+            }
         }
     }
 
     protected function login(string $pwd, string $email)
     {
 
+        if (empty(CheckInput::getErrorsArray())) {
+            die('je peux continuer');
         // $script = <<< JS
         // include_once("templates/toaster_template.html");
         // // require_once("scripts/toaster.js");
@@ -81,7 +93,7 @@ class LoginController extends Login
         // }
         // JS;
         // $script2 = <<< JS
-        
+
         //     // import { alertMessage } from "./scripts/toaster.js"
 
         //     console.log('object4')
@@ -93,76 +105,77 @@ class LoginController extends Login
         //         // this.#onSubmit(e.currentTarget)
         //         form.removeEventListener('submit', e)
         //     })
-        
+
         // JS;
 
-        try {
-            //$users = $this->getUsers($email);
-            if ($this->getPwd($pwd, $email) &&
-            (($this->getUsers($email)[0]['email'] === $email) ||
-                ($this->getUsers($email)[0]['full_name'] === $email))) {
-                //password_verify($pwd, $users[0]['password'])) {
+            try {
+                //$users = $this->getUsers($email);
+                if ($this->getPwd($pwd, $email) &&
+                (($this->getUsers($email)[0]['email'] === $email) ||
+                    ($this->getUsers($email)[0]['full_name'] === $email))) {
+                    //password_verify($pwd, $users[0]['password'])) {
 
-                // $loggedUser = [
-                // 'email' => $this->getUsers($email)[0]['email'],
-                // 'username' => $this->getUsers($email)[0]['full_name'],
-                // 'user_id' => $this->getUsers($email)[0]['user_id']
-                // ];
+                    // $loggedUser = [
+                    // 'email' => $this->getUsers($email)[0]['email'],
+                    // 'username' => $this->getUsers($email)[0]['full_name'],
+                    // 'user_id' => $this->getUsers($email)[0]['user_id']
+                    // ];
 
-                //header('Location: index.php');
-                session_start();
+                    //header('Location: index.php');
+                    session_start();
 
-                $arrCookiesOptions = [
-                    'expires' => time() + 365 * 24 * 3600,
-                    'secure' => true,
-                    'httponly' => true,
-                    'samesite' => 'Strict'
-                ];
-                setcookie('EMAIL', $this->getUsers($email)[0]['email'], $arrCookiesOptions);
-                // setcookie('EMAIL', $this->getUsers($email)[0]['email'], $arrCookiesOptions);
-                // setcookie('LOGGED_USER[0]', $this->getUsers($email)[0]['email'], $arrCookiesOptions);
-                setcookie('USER_ID', $this->getUsers($email)[0]['user_id'], $arrCookiesOptions);
-                // setcookie('LOGGED_USER[1]', $this->getUsers($email)[0]['user_id'], $arrCookiesOptions);
-                setcookie('FULLNAME', $this->getUsers($email)[0]['full_name'], $arrCookiesOptions);
-                // setcookie('LOGGED_USER[2]', $this->getUsers($email)[0]['full_name'], $arrCookiesOptions);
-                // setcookie(
-                //     'LOGGED_USER',
-                //     $this->getUsers($email)[0]['email'],
-                //     [
-                //         'expires' => time() + 365 * 24 * 3600,
-                //         'secure' => true,
-                //         'httponly' => true,
-                //     ]
-                // );
-                //session_start();
-                $_SESSION['USER_NAME'] = $this->getUsers($email)[0]['full_name'];
-                $_SESSION['USER_ID'] = $this->getUsers($email)[0]['user_id'];
-                $_SESSION['LOGGED_USER'] = [
-                    $this->getUsers($email)[0]['full_name'],
-                    $this->getUsers($email)[0]['user_id'],
-                    $this->getUsers($email)[0]['email']
-                ];
+                    $arrCookiesOptions = [
+                        'expires' => time() + 365 * 24 * 3600,
+                        'secure' => true,
+                        'httponly' => true,
+                        'samesite' => 'Strict'
+                    ];
+                    setcookie('EMAIL', $this->getUsers($email)[0]['email'], $arrCookiesOptions);
+                    // setcookie('EMAIL', $this->getUsers($email)[0]['email'], $arrCookiesOptions);
+                    // setcookie('LOGGED_USER[0]', $this->getUsers($email)[0]['email'], $arrCookiesOptions);
+                    setcookie('USER_ID', $this->getUsers($email)[0]['user_id'], $arrCookiesOptions);
+                    // setcookie('LOGGED_USER[1]', $this->getUsers($email)[0]['user_id'], $arrCookiesOptions);
+                    setcookie('FULLNAME', $this->getUsers($email)[0]['full_name'], $arrCookiesOptions);
+                    // setcookie('LOGGED_USER[2]', $this->getUsers($email)[0]['full_name'], $arrCookiesOptions);
+                    // setcookie(
+                    //     'LOGGED_USER',
+                    //     $this->getUsers($email)[0]['email'],
+                    //     [
+                    //         'expires' => time() + 365 * 24 * 3600,
+                    //         'secure' => true,
+                    //         'httponly' => true,
+                    //     ]
+                    // );
+                    //session_start();
+                    $_SESSION['USER_NAME'] = $this->getUsers($email)[0]['full_name'];
+                    $_SESSION['USER_ID'] = $this->getUsers($email)[0]['user_id'];
+                    $_SESSION['LOGGED_USER'] = [
+                        $this->getUsers($email)[0]['full_name'],
+                        $this->getUsers($email)[0]['user_id'],
+                        $this->getUsers($email)[0]['email']
+                    ];
 
-                // return $loggedUser;
-            } else {
-                $errorMessage = sprintf(
-                    'Les informations envoyées ne permettent pas de vous identifier : (%s/%s)',
-                    $email,
-                    $pwd
-                );
-                // throw new Error($errorMessage.header("Location: ".Functions::getUrl()."?error=pwd-or-id-does-not-match"));
-                throw new Error($errorMessage);
-                //echo $errorMessage;
-                //header("Location: ".Functions::getUrl()."?error=pwd-does-not-match");
+                    // return $loggedUser;
+                } else {
+                    $errorMessage = sprintf(
+                        'Les informations envoyées ne permettent pas de vous identifier : (%s/%s)',
+                        $email,
+                        $pwd
+                    );
+                    // throw new Error($errorMessage.header("Location: ".Functions::getUrl()."?error=pwd-or-id-does-not-match"));
+                    throw new Error($errorMessage);
+                    //echo $errorMessage;
+                    //header("Location: ".Functions::getUrl()."?error=pwd-does-not-match");
+                }
+            } catch (Error $errorMessage) {
+                // echo $errorMessage->getMessage();
+                // exit($errorMessage->getMessage());
+                // exit($errorMessage);
+                // $script2;
+                // die('Erreur de login : '. $errorMessage->getMessage());
+                echo('Erreur de login : '. $errorMessage->getMessage());
+
             }
-        } catch (Error $errorMessage) {
-            // echo $errorMessage->getMessage();
-            // exit($errorMessage->getMessage());
-            // exit($errorMessage);
-            // $script2;
-            // die('Erreur de login : '. $errorMessage->getMessage());
-            echo('Erreur de login : '. $errorMessage->getMessage());
-            
         }
     }
 

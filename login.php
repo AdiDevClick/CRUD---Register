@@ -17,6 +17,13 @@ include_once("includes/class-autoloader.inc.php");
 //ob_start();
 $data = $_SERVER['REQUEST_METHOD'] === 'POST';
 
+
+if (isset($errorMessages) && !empty($errorMessages)) {
+    echo('je suis dans le premier error check =>   <br>');
+    print_r($errorMessages);
+    echo('<br>');
+}
+
 if ($data && isset($_POST["submit"])) {
     $username = '';
     $password = '';
@@ -29,9 +36,23 @@ if ($data && isset($_POST["submit"])) {
     $login = new LoginView($getDatas);
     //$login = new LoginView($password, $username, $data, $getData);
     $login->displayLogin();
+    $errorMessages = CheckInput::getErrorsArray();
     //throw new Error("C'est ok pour le login");
     //header('Location: index.php');
-    header('Location: index.php?login=success');
+    if (count($errorMessages) > 0) {
+        echo('je veux success mais cest pas bon =>  <br>');
+        // print_r($errorMessages);
+        echo('<br>');
+        // die('je veux success mais cest pas bon <br>');
+    } else {
+        echo('success, on continue =>  <br>');
+        print_r($errorMessages);
+        echo('<br>');
+        header('Location: index.php?login=success');
+
+        // die("c'est ok je peux success <br>");
+    }
+    
     //header('refresh:1, index.php?error=none');
     //exit();
 }
@@ -45,14 +66,18 @@ if ($data && isset($_POST["submit"])) {
 //     ];
 // }
 $loggedUser = LoginController::checkLoggedStatus();
-$errorMessages = CheckInput::getErrorsArray();
-print_r($errorMessages);
-foreach ($errorMessages as $key => $value) {
-    echo $key;
-    $errorMessage[$key] = $value;
-    echo $value;
-    $errorMessage = $errorMessages[$key];
-}
+// $errorMessage = '';
+// $errorPassword = '';
+// $errorUsername = '';
+// $errorMessages = CheckInput::getErrorsArray();
+// print_r($errorMessages);
+// foreach ($errorMessages as $key => $value) {
+//     echo 'la clé => ' . $key . '<br>';
+//     $errorMessage[$key] = $value;
+//     echo 'la value => ' .$value . '<br>';
+//     $errorMessage = $errorMessages[$key];
+//     echo 'message derreur =>'. $errorMessage . '<br>';
+// }
 // echo 'utilisateur cookie => ' . $loggedUser['user'] .'';
 // echo 'utilisateur cookie => ' . $loggedUser;
 foreach ($loggedUser as $user) {
@@ -80,19 +105,44 @@ foreach ($loggedUser as $user) {
     <div class="form-index">
         <form action="index.php" method="post">
             <!-- Si il y a erreur on affiche le message -->
-            <?php if (isset($errorMessages)): ?>
-                <div class="alert-error">
-                    <?php echo $errorMessage; ?> 
-                    <?php //exit()?>   
-                </div>
+            <?php if (!empty($errorMessages)): ?>
+                <?php foreach ($errorMessages as $key => $value): ?>
+                    <?php if (str_contains($value, 'password')): ?>
+                        <?php $errorPassword = $value ?>
+                    <?php elseif (str_contains($value, 'username')): ?>
+                        <?php $errorUsername = $value ?>
+                    <?php else : ?>
+                        <?php $errorMessage = $value ?>
+                    <?php endif?>
+                    
+                    <?php $errorMessage = $value ?>
+                    <?php //$errorMessage = "placeholder=$value" ?>
+                    <div class="alert-error">
+                        <?php echo $errorMessage ?> 
+                        <?php //echo CheckInput::getErrorMessage() . '<br>'; ?> 
+                        <?php //echo $errorMessage . 'test'; ?> 
+                        <?php //exit()?>
+                    </div>
+                <?php endforeach ?>
             <?php endif ?>
+
             <div class="form form-hidden">
                 <label for="username">Votre identifiant :</label>
-                <input type="text" id="username" name="username" placeholder="exemple@exemple.com"/>
-            </div>
+                <?php //if (!empty($errorMessages)) : ?>
+                <?php if ($errorUsername) : ?>
+                    <input class="input_error" type="text" id="username" name="username" placeholder="<?php echo strip_tags($errorUsername)?>" autocomplete="username"/>
+                <?php else: ?>
+                    <input type="text" id="username" name="username" placeholder="exemple@exemple.com" autocomplete="username"/>
+                <?php endif ?>
+                </div>
             <div class="form form-hidden">
                 <label for="password"> Votre mot de passe :</label>
-                <input type="password" id="password" name="password" placeholder="****">
+                <?php if ($errorPassword) : ?>
+                <?php //if (empty($errorMessages)) : ?>
+                    <input class="input_error" type="password" id="password" name="password" placeholder="<?php echo strip_tags($errorPassword) ?>" autocomplete="current-password">
+                <?php else: ?>
+                    <input type="password" id="password" name="password" placeholder="****" autocomplete="current-password">
+                <?php endif ?>
             </div>
             <div class="form form-hidden">
                 <button type="submit" name="submit" class="btn" id="btn"> S'identifier</button>

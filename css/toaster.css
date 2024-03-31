@@ -1,6 +1,7 @@
 /** TOAST */
 .toast-container {
-    position: absolute;
+    /* position: absolute; original */
+    position: fixed;
     /* justify-content: center; */
     /* align-items: center; */
     z-index: 9999;
