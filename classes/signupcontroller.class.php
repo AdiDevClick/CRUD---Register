@@ -1,5 +1,7 @@
 <?php
 
+require_once("templates/toaster_template.html");
+
 class SignupController extends Signup
 {
     public function __construct(
@@ -23,8 +25,17 @@ class SignupController extends Signup
                     $this->getData
                 );
                 $checkInput->checkInputs();
+
+                if (empty($checkInput->getErrorsArray())) {
+                    $this->insertUser($this->getData['username'], $this->getData['email'], $this->getData['password'], $this->getData['age']);
+                } else {
+                    // $checkInput->getErrorsArray();
+                    $checkInput->getErrorsArray();
+                    return;
+                    // die('test');
+                }
                 //$this->insertUser($this->nom, $this->email, $this->password, $this->age);
-                $this->insertUser($this->getData['username'], $this->getData['email'], $this->getData['password'], $this->getData['age']);
+                // $this->insertUser($this->getData['username'], $this->getData['email'], $this->getData['password'], $this->getData['age']);
                 $registeredUser = [
                             'email' => $this->getData['email'],
                             //'username' => $user['full_name'],

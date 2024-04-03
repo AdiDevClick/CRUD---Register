@@ -25,9 +25,9 @@ $seconds = date("s");
 <?php //$css = 'rel="stylesheet" href="css/index.css"'?>
 <?php $script = 'src="scripts/typeWriter.js" defer' ?>
 <?php $script2 = 'src="scripts/fadeInScroller.js" defer' ?>
-<?php $title = "Affichage de recettes"?>
+<?php $title = "Affichage de recettes" ?>
 
-<?php ob_start()?>
+<?php ob_start() ?>
     <section class="hero">
         <div class="type-writter">
             <p>Une recette <span>Love</span></p>
@@ -39,7 +39,7 @@ $seconds = date("s");
     <section class="container">
         <div class="form-hidden">
         <!-- <div class="form-index form-hidden"> -->
-            <h1>Site de recettes !</h1>
+            <h1>Profitez de nos recettes !</h1>
         </div>
         
     <?php //require_once("includes/class-autoloader.inc.php");?>

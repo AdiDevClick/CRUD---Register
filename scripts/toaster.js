@@ -135,6 +135,8 @@ let alertToaster
 
 const queryString = window.location.search
 const urlParams = new URLSearchParams(queryString)
+// const url = new URL
+// console.log(url)
 
 const error = urlParams.get('error')
 if (error === 'invalid-input') {
@@ -160,6 +162,18 @@ if (login === 'success') {
 }
 // login === 'success' ? message = 'Vous êtes connecté avec succès' : errAlert = false
 
+const register = urlParams.get('register')
+if (register === 'success') {
+    errAlert = true
+    type = 'Success'
+    message = 'Votre compte a été enregistré avec succès'
+}
+
+if (register === 'failed') {
+    errAlert = true
+    type = 'Erreur'
+    message = 'Problème dans la création de votre compte, veuillez vérifier que tous les champs soient correctement remplis'
+}
 
 console.log(urlParams.has('email-invalid')); // fonctionne pas
 console.log(urlParams.has('invalid-input')); // fonctionne pas

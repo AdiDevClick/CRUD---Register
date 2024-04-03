@@ -16,17 +16,20 @@ include_once("includes/class-autoloader.inc.php");
 
 //ob_start();
 $data = $_SERVER['REQUEST_METHOD'] === 'POST';
+$err = [];
+$loggedUser = [];
 
+// if (isset($errorMessages) && !empty($errorMessages)) {
+//     echo('je suis dans le premier error check =>   <br>');
+//     print_r($errorMessages);
+//     echo('<br>');
+// }
+// $loggedUser = LoginController::checkLoggedStatus();
 
-if (isset($errorMessages) && !empty($errorMessages)) {
-    echo('je suis dans le premier error check =>   <br>');
-    print_r($errorMessages);
-    echo('<br>');
-}
 
 if ($data && isset($_POST["submit"])) {
-    $username = '';
-    $password = '';
+    // $username = '';
+    // $password = '';
     // We grab the data
     $getDatas = [
         'password' => $_POST['password'],
@@ -36,28 +39,44 @@ if ($data && isset($_POST["submit"])) {
     $login = new LoginView($getDatas);
     //$login = new LoginView($password, $username, $data, $getData);
     $login->displayLogin();
-    $errorMessages = CheckInput::getErrorsArray();
+    // $errorMessages = CheckInput::getErrorsArray();
+    $err = CheckInput::getErrorMessages();
+    // echo 'test' . $err;
+    // print_r($err);
     //throw new Error("C'est ok pour le login");
     //header('Location: index.php');
-    if (count($errorMessages) > 0) {
-        echo('je veux success mais cest pas bon =>  <br>');
-        // print_r($errorMessages);
-        echo('<br>');
-        // die('je veux success mais cest pas bon <br>');
-    } else {
-        echo('success, on continue =>  <br>');
-        print_r($errorMessages);
-        echo('<br>');
-        header('Location: index.php?login=success');
+    // $loggedUser = LoginController::checkLoggedStatus();
 
+    if (count($err) > 0) {
+        // print_r($errorMessages);
+        session_destroy();
+        // die('je veux success mais cest pas bon <br>');
+    
+        // } else {
+    //     // $loggedUser = LoginController::checkLoggedStatus();
+    //     if (isset($loggedUser['email'])) {
+    //         header('Location: index.php?login=success');
+    //     } else {
+    //         echo 'erreur';
+    //         $loggedUser = LoginController::checkLoggedStatus();
+    //         header('Location: index.php?login=success');
+    //         // session_destroy();
+    //     }
         // die("c'est ok je peux success <br>");
     }
-    
+    if (!isset($loggedUser['user'])) { 
+        $loggedUser = LoginController::checkLoggedStatus();
+    }
+    if (isset($loggedUser['user'])) {
+        header('Location: index.php?login=success');
+    }
     //header('refresh:1, index.php?error=none');
     //exit();
 }
 
-// $loggedUser = LoginController::checkLoggedStatus();
+$loggedUser = LoginController::checkLoggedStatus();
+// print_r($loggedUser) ;
+// echo 'deuxieme print';
 // echo("cookie email : " . $loggedUser["email"] . "<br>". "cookie non enregistré : " .  $_COOKIE['LOGGED_USER'] . "<br>". "session non enregistrée : " .  $_SESSION['LOGGED_USER'] . "<br>". "session enregistrée : " . $loggedUser["user"] . "user enregistré :" . $_SESSION['USER_ID'] .  ' Ceci est un logged');
 // if (isset($_COOKIE['LOGGED_USER']) || isset($_SESSION['LOGGED_USER'])) {
 //     $loggedUser = [
@@ -65,7 +84,6 @@ if ($data && isset($_POST["submit"])) {
 //         'user_id' => $_SESSION['LOGGED_USER'],
 //     ];
 // }
-$loggedUser = LoginController::checkLoggedStatus();
 // $errorMessage = '';
 // $errorPassword = '';
 // $errorUsername = '';
@@ -105,46 +123,55 @@ foreach ($loggedUser as $user) {
     <div class="form-index">
         <form action="index.php" method="post">
             <!-- Si il y a erreur on affiche le message -->
-            <?php if (!empty($errorMessages)): ?>
-                <?php foreach ($errorMessages as $key => $value): ?>
-                    <?php if (str_contains($value, 'password')): ?>
-                        <?php $errorPassword = $value ?>
-                    <?php elseif (str_contains($value, 'username')): ?>
-                        <?php $errorUsername = $value ?>
-                    <?php else : ?>
-                        <?php $errorMessage = $value ?>
-                    <?php endif?>
+            <?php //if (!empty($errorMessages)):?>
+            <?php //if ($err && !empty($err)):?>
+                <?php //foreach ($errorMessages as $key => $value):?>
+                    <?php //if (str_contains($value, 'password')):?>
+                        <?php //$errorPassword = $value?>
+                    <?php //elseif (str_contains($value, 'username')):?>
+                        <?php //$errorUsername = $value?>
+                    <?php //else :?>
+                        <?php //$errorMessage = $value?>
+                    <?php //endif?>
                     
-                    <?php $errorMessage = $value ?>
-                    <?php //$errorMessage = "placeholder=$value" ?>
+                    <?php //$errorMessage = $value?>
+                    <?php //$errorMessage = "placeholder=$value"?>
                     <div class="alert-error">
-                        <?php echo $errorMessage ?> 
-                        <?php //echo CheckInput::getErrorMessage() . '<br>'; ?> 
-                        <?php //echo $errorMessage . 'test'; ?> 
+                        <?php //echo $errorMessage?> 
+                        <?php //echo CheckInput::getErrorMessage() . '<br>';?> 
+                        <?php //echo $errorMessage . 'test';?> 
                         <?php //exit()?>
                     </div>
-                <?php endforeach ?>
-            <?php endif ?>
-
-            <div class="form form-hidden">
+                <?php //endforeach?>
+            <?php //endif?>
+            <!-- Username -->
+            <div class="splash-login form-hidden">
                 <label for="username">Votre identifiant :</label>
-                <?php //if (!empty($errorMessages)) : ?>
-                <?php if ($errorUsername) : ?>
-                    <input class="input_error" type="text" id="username" name="username" placeholder="<?php echo strip_tags($errorUsername)?>" autocomplete="username"/>
+                <?php //if (!empty($errorMessages)) :?>
+                <?php if (array_key_exists('errorUsername', $err)) : ?>
+                <?php //if ($err['errorUsername']) :?>
+                <?php //if ($errorUsername) :?>
+                    <input class="input_error" type="text" id="username" name="username" placeholder="<?php echo strip_tags($err['errorUsername'])?>" autocomplete="username"/>
+                    <!-- <input class="input_error" type="text" id="username" name="username" placeholder="<?php //echo strip_tags($errorUsername)?>" autocomplete="username"/> -->
                 <?php else: ?>
                     <input type="text" id="username" name="username" placeholder="exemple@exemple.com" autocomplete="username"/>
                 <?php endif ?>
-                </div>
-            <div class="form form-hidden">
+            </div>
+            <!-- Password -->
+            <div class="splash-login form-hidden">
                 <label for="password"> Votre mot de passe :</label>
-                <?php if ($errorPassword) : ?>
-                <?php //if (empty($errorMessages)) : ?>
-                    <input class="input_error" type="password" id="password" name="password" placeholder="<?php echo strip_tags($errorPassword) ?>" autocomplete="current-password">
+                <?php //if ($errorPassword) :?>
+                <?php if (array_key_exists('errorPassword', $err)) : ?>
+                <?php //if ($err['errorPassword']) :?>
+                <?php //if (empty($errorMessages)) :?>
+                    <input class="input_error" type="password" id="password" name="password" placeholder="<?php echo strip_tags($err['errorPassword']) ?>" autocomplete="current-password">
+                    <!-- <input class="input_error" type="password" id="password" name="password" placeholder="<?php //echo strip_tags($errorPassword)?>" autocomplete="current-password"> -->
                 <?php else: ?>
                     <input type="password" id="password" name="password" placeholder="****" autocomplete="current-password">
                 <?php endif ?>
             </div>
-            <div class="form form-hidden">
+            <!-- Submit -->
+            <div class="splash-login form-hidden">
                 <button type="submit" name="submit" class="btn" id="btn"> S'identifier</button>
             </div>
         </form>

@@ -1,7 +1,33 @@
+<?php
+require_once(dirname(__DIR__) . DIRECTORY_SEPARATOR . "classes" . DIRECTORY_SEPARATOR ."Functions.class.php");
+// $url = $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+// $url = explode("/", parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));
+// $url = array_pop($url);
+
+$url = Functions::getUrl();
+// $rootPath = $_SERVER['DOCUMENT_ROOT'];
+$rootUrl = Functions::getRootUrl();
+// $rootUrl = (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . '/';
+if ($rootUrl === 'https://adi.ezaya.fr/') {
+    $clicServer = 'ClicRepare';
+} else {
+    $clicServer = 'recettes';
+}
+
+if ($url === 'about.php' || 'planningType.php' || 'todo.html' || 'carousel.html' || 'contact.php' || 'index.php') {
+    $active = strip_tags('class="active"');
+} else {
+    null;
+}
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="Cache-control" content="public">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/reset.css">
     <!-- <link
@@ -27,24 +53,50 @@
 </head>
 <body>
     <!-- Start Header Content -->
-<?php $rootPath = $_SERVER['DOCUMENT_ROOT']?>
-<?php $rootUrl = (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . '/'?>
-<?php if ($rootUrl === 'https://adi.ezaya.fr/') {
-    $clicServer = 'ClicRepare';
-} else {
-    $clicServer = 'recettes';
-} ?>
-
     <header>
         <nav class="wrapper">
             <div class="dropdown-menu-background">
                 <div class="dropdown-menu">
-                        <li><a class="" href="<?php echo($rootUrl). $clicServer.'/index.php' ?>">Home</a></li>
-                        <li><a class="" href="#">About</a></li>
-                        <li><a class="" href="<?php echo($rootUrl). $clicServer.'/planning/planningType.php' ?>">Planning</a></li>
-                        <li><a class="" href="<?php echo($rootUrl). $clicServer.'/todo.html' ?>">Ma ToDo list</a></li>
-                        <li><a class="" href="<?php echo($rootUrl). $clicServer.'/carousel.html' ?>">Carousel Exemple</a></li>
-                        <li><a class="" href="<?php echo($rootUrl). $clicServer.'/contact.php' ?>">Contact</a></li>
+                        <li><a
+                        <?php if ($url === 'index.php') {
+                            echo strip_tags('class="active"');
+                        } else {
+                            null;
+                        }?>
+                        href="<?php echo($rootUrl). $clicServer.'/index.php' ?>">Accueil</a></li>
+                        <li><a
+                        <?php if ($url === 'about.php') {
+                            echo strip_tags('class="active"');
+                        } else {
+                            null;
+                        }?>
+                        href="#">About</a></li>
+                        <li><a
+                        <?php if ($url === 'planningType.php') {
+                            echo strip_tags('class="active"');
+                        } else {
+                            null;
+                        }?>
+                        href="<?php echo($rootUrl). $clicServer.'/planning/planningType.php' ?>">Planning</a></li>
+                        <li><a
+                        <?php if ($url === 'todo.html') {
+                            echo strip_tags('class="active"');
+                        } else {
+                            null;
+                        }?>
+                        href="<?php echo($rootUrl). $clicServer.'/todo.html' ?>">Ma ToDo list</a></li>
+                        <li><a
+                        <?php if ($url === 'carousel.html') {
+                            echo strip_tags('class="active"');
+                        } else {
+                            null;
+                        }?>
+                        href="<?php echo($rootUrl). $clicServer.'/carousel.html' ?>">Carousel Exemple</a></li>
+                        <li><a
+                        <?php if ($url === 'contact.php') {
+                            echo strip_tags('class="active"');
+                        }?>
+                        href="<?php echo($rootUrl). $clicServer.'/contact.php' ?>">Contact</a></li>
                     <?php //$setLoggedStatus?>
                     <?php //if(!isset($_SESSION['LOGGED_USER'])):?>
                     <?php if(!isset($_COOKIE['EMAIL'])): ?>
@@ -62,14 +114,50 @@
             </div class="dropdown-menu-background">
         
             <div class="navbar">
-                <div class="logo"><a href="<?php echo($rootUrl). $clicServer.'/index.php' ?>">Adi Dev Click </a></div>
+                <div class="logo"><a href="<?php echo strip_tags($rootUrl). $clicServer.'/index.php' ?>">Adi Dev Click </a></div>
                 <ul class="links">
-                    <li><a class="" href="<?php echo($rootUrl). $clicServer.'/index.php' ?>">Home</a></li>
-                    <li><a class="" href="#">About</a></li>
-                    <li><a class="" href="<?php echo($rootUrl). $clicServer.'/planning/planningType.php' ?>">Planning</a></li>
-                    <li><a class="" href="<?php echo($rootUrl). $clicServer.'/carousel.html' ?>">Carousel Exemple</a></li>
-                    <li><a class="" href="<?php echo($rootUrl). $clicServer.'/todo.html' ?>">Ma ToDo list</a></li>
-                    <li><a class="" href="<?php echo($rootUrl). $clicServer.'/contact.php' ?>">Contact</a></li>
+                    <li><a
+                    <?php if ($url === 'index.php') {
+                        echo strip_tags('class="active"');
+                    } else {
+                        null;
+                    }?>
+                    href="<?php echo($rootUrl). $clicServer.'/index.php' ?>">Accueil</a></li>
+                    <li><a
+                    <?php if ($url === 'about.php') {
+                        echo strip_tags('class="active"');
+                    } else {
+                        null;
+                    } ?>
+                    href="#">About</a></li>
+                    <li><a
+                    <?php if ($url === 'planningType.php') {
+                        echo strip_tags('class="active"');
+                    } else {
+                        null;
+                    } ?>
+                    href="<?php echo($rootUrl). $clicServer.'/planning/planningType.php' ?>">Planning</a></li>
+                    <li><a
+                    <?php if ($url === 'carousel.html') {
+                        echo strip_tags('class="active"');
+                    } else {
+                        null;
+                    } ?>
+                    href="<?php echo($rootUrl). $clicServer.'/carousel.html' ?>">Carousel Exemple</a></li>
+                    <li><a
+                    <?php if ($url === 'todo.html') {
+                        echo strip_tags('class="active"');
+                    } else {
+                        null;
+                    } ?>
+                    href="<?php echo($rootUrl). $clicServer.'/todo.html' ?>">Ma ToDo list</a></li>
+                    <li><a
+                    <?php if ($url === 'contact.php') {
+                        echo strip_tags('class="active"');
+                    } else {
+                        null;
+                    } ?>
+                    href="<?php echo($rootUrl). $clicServer.'/contact.php' ?>">Contact</a></li>
                     <?php //$setLoggedStatus?>
                     <?php if(!isset($_COOKIE['EMAIL'])): ?>
                     <?php //if(!isset($_SESSION['LOGGED_USER'])):?>

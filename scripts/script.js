@@ -146,6 +146,7 @@ const onScroll = function(e) {
 // window.addEventListener('scroll', onScroll)
 const hiddenVisibility = function(e) {
     if (navbar.classList.contains('fadeOut')) navbar.style.visibility = 'hidden'
+    // if ()
     navbar.removeEventListener('animationend', hiddenVisibility)
 }
 
@@ -155,7 +156,7 @@ window.onscroll = function() {
 
 function scrolling() {
     lastKnownScrollPosition = window.scrollY
-    toggleBtnBox.style.visibility = 'visible'
+    // toggleBtnBox.style.visibility = 'visible'
     // if (window. === screenTop) {
     // if (window.scrolling === scrollTopMax) {
     if (document.documentElement.scrollTop === 0) {
@@ -164,10 +165,11 @@ function scrolling() {
         navbar.removeAttribute('style')
         navbar.classList.add('slideUp')
     } else {
+        navbar.addEventListener('animationend', hiddenVisibility)
         navbar.classList.remove('slideUp')
         navbar.classList.add('fadeOut')
-        navbar.addEventListener('animationend', hiddenVisibility)
     }
+    // navbar.classList.add('fadeOut')
 }
 
 // if (navbar.classList.contains('open')) {

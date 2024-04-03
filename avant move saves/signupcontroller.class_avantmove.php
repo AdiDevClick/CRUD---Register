@@ -23,8 +23,19 @@ class SignupController extends Signup
                     $this->getData
                 );
                 $checkInput->checkInputs();
+
+                if (empty($checkInput->getErrorsArray())) {
+                    die("ok");
+                    $this->insertUser($this->getData['username'], $this->getData['email'], $this->getData['password'], $this->getData['age']);
+                    echo("ok");
+                } else {
+                    // $checkInput->getErrorsArray();
+                    echo('je suis pas ok');
+                    $checkInput->getErrorsArray();
+                    // die('test');
+                }
                 //$this->insertUser($this->nom, $this->email, $this->password, $this->age);
-                $this->insertUser($this->getData['username'], $this->getData['email'], $this->getData['password'], $this->getData['age']);
+                // $this->insertUser($this->getData['username'], $this->getData['email'], $this->getData['password'], $this->getData['age']);
                 $registeredUser = [
                             'email' => $this->getData['email'],
                             //'username' => $user['full_name'],

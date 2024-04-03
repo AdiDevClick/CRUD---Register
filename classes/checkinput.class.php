@@ -123,6 +123,25 @@ class CheckInput extends Validate
         // return $result;
     }
 
+    public static function getErrorMessages() {
+        if (!empty(self::$errorsArray)) {
+            // $errorMessage = [];
+            foreach (self::$errorsArray as $key => $value) {
+                if (str_contains($value, 'password')) self::$errorsArray['errorPassword'] = $value;
+                // if (str_contains($value, 'password')) $errorMessage['errorPassword'] = $value;
+                elseif (str_contains($value, 'username')) self::$errorsArray['errorUsername'] = $value;
+                elseif (str_contains($value, 'email')) self::$errorsArray['errorEmail'] = $value;
+                elseif (str_contains($value, 'pwdRepeat')) self::$errorsArray['errorPwdRepeat'] = 'Veuillez confirmer votre mot de passe';
+                elseif (str_contains($value, 'age')) self::$errorsArray['age'] = 'Votre âge...';
+                // elseif (str_contains($value, 'username')) $errorMessage['errorUsername'] = $value;
+                else self::$errorsArray['message'] = $value;
+                // else $errorMessage = $value;
+            }
+            // return self::$errorsArray;
+        }
+        return self::$errorsArray;
+    }
+
     public static function getErrorsArray()
     {
         // echo('error dans le static => ');

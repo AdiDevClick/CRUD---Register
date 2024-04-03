@@ -1,6 +1,6 @@
 <?php
 
-require("templates/toaster_template.html");
+require_once("templates/toaster_template.html");
 
 class LoginController extends Login
 {
@@ -59,16 +59,14 @@ class LoginController extends Login
             $username = $checkInput->test_input($this->getDatas["username"]);
             // $validInputs = $checkInput->checkInputs();
             $checkInput->checkInputs();
-            
+
             if (empty($checkInput->getErrorsArray())) {
-                die("ok");
                 $this->login($password, $username);
-                echo("ok");
             } else {
                 // $checkInput->getErrorsArray();
-                echo('je suis pas ok');
                 $checkInput->getErrorsArray();
                 // die('test');
+                return;
             }
         }
     }
@@ -77,36 +75,36 @@ class LoginController extends Login
     {
 
         if (empty(CheckInput::getErrorsArray())) {
-            die('je peux continuer');
-        // $script = <<< JS
-        // include_once("templates/toaster_template.html");
-        // // require_once("scripts/toaster.js");
-        // import { alertMessage } from "./scripts/toaster.js"
-        // function() {
-        //     const alert = alertMessage($errorMessage)
-        //     const alertContainer = document.querySelector('.toast-container')
-        //     alertContainer.insertAdjacentElement(
-        //         'beforeend',
-        //         alert
-        //     )
-        //     console.log('object3')
-        // }
-        // JS;
-        // $script2 = <<< JS
+            // die('je peux continuer');
+            // $script = <<< JS
+            // include_once("templates/toaster_template.html");
+            // // require_once("scripts/toaster.js");
+            // import { alertMessage } from "./scripts/toaster.js"
+            // function() {
+            //     const alert = alertMessage($errorMessage)
+            //     const alertContainer = document.querySelector('.toast-container')
+            //     alertContainer.insertAdjacentElement(
+            //         'beforeend',
+            //         alert
+            //     )
+            //     console.log('object3')
+            // }
+            // JS;
+            // $script2 = <<< JS
 
-        //     // import { alertMessage } from "./scripts/toaster.js"
+            //     // import { alertMessage } from "./scripts/toaster.js"
 
-        //     console.log('object4')
-        //     const form = document.querySelector('form')
-        //     form.addEventListener('submit', e => {
-        //         e.preventDefault()
-        //         console.log('object2')
-        //         // $script
-        //         // this.#onSubmit(e.currentTarget)
-        //         form.removeEventListener('submit', e)
-        //     })
+            //     console.log('object4')
+            //     const form = document.querySelector('form')
+            //     form.addEventListener('submit', e => {
+            //         e.preventDefault()
+            //         console.log('object2')
+            //         // $script
+            //         // this.#onSubmit(e.currentTarget)
+            //         form.removeEventListener('submit', e)
+            //     })
 
-        // JS;
+            // JS;
 
             try {
                 //$users = $this->getUsers($email);

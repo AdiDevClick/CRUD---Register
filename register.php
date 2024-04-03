@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 if(session_status() !== PHP_SESSION_ACTIVE) {
     session_start();
@@ -9,6 +9,7 @@ if(session_status() === PHP_SESSION_NONE) {
 }
 
 //include_once("includes/class-autoloader.inc.php");
+include_once('logs/customErrorHandlers.php');
 //include_once('config/mysql.php');
 //include_once("config/user.php");
 //include_once("includes/variables.inc.php");
@@ -94,7 +95,8 @@ $insertUsers->execute([
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     
     <title>We Love Food - S'enregistrer</title>    
-    <?php $title = "Clic'Répare - S'enregistrer"?>
+    <?php $script = 'src="scripts/fadeInScroller.js" defer' ?>
+    <?php $title = "Clic'Répare - S'enregistrer" ?>
 </head>
 <body> -->
     <!-- Le Header -->
@@ -135,10 +137,11 @@ $insertUsers->execute([
     <!-- If register went well  -->
     <?php ob_start()?>
     <?php require('submit_register.php')?>
+    <?php require_once("templates/toaster_template.html")?>
     
 	<?php //header('Location: index.php')?>
     <?php //ob_get_contents()?>
-	<?php $content = ob_get_clean()?>
+	<?php $content = ob_get_clean() ?>
 
     <!-- End of the success -->
 
