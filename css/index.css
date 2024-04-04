@@ -180,8 +180,18 @@ textarea .input_error {
     border-inline: red;
 }
 
+
 input.input_error::placeholder {
+    /* display: inline-flex; */
+    /* text-align: center; */
+    /* justify-content: center; */
     color: rgb(247, 116, 116);
+}
+
+.alert-error {
+    text-align: center;
+    color: #fd6b00;
+    border: red 1px solid;
 }
 
 .form-hidden {
@@ -320,6 +330,10 @@ input.input_error::placeholder {
     /* .form-contact {
         justify-content: center;
     } */
+    main {
+        padding-top: 10%;
+        padding-bottom: 10%;
+    }
     
     .contact-grid {
         grid: minmax(50px, min-content) / repeat(auto-fill, 450px);

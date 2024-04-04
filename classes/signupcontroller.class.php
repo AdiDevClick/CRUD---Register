@@ -10,26 +10,25 @@ class SignupController extends Signup
         private $password,
         private $pwdRepeat,
         private $age, */
-        protected $getData
+        protected $getDatas
     ) {
     }
 
     protected function signupUsers()
     {
         try {
-            if  ($this->emailTaken() || !$this->pwMatch() || !isset($this->getData)) {
+            if  ($this->emailTaken() || !$this->pwMatch() || !isset($this->getDatas)) {
                 //if  (!$this->pwMatch()) {
-                throw new Error("Erreur : On n'a pas pu check les inputs") ;
+                throw new Error("SGNTKN : On n'a pas pu check les inputs") ;
             } else {
                 $checkInput = new CheckInput(
-                    $this->getData
+                    $this->getDatas
                 );
                 $checkInput->checkInputs();
 
                 if (empty($checkInput->getErrorsArray())) {
-                    $this->insertUser($this->getData['username'], $this->getData['email'], $this->getData['password'], $this->getData['age']);
+                    $this->insertUser($this->getDatas['username'], $this->getDatas['email'], $this->getDatas['password'], $this->getDatas['age']);
                 } else {
-                    // $checkInput->getErrorsArray();
                     $checkInput->getErrorsArray();
                     return;
                     // die('test');
@@ -37,7 +36,7 @@ class SignupController extends Signup
                 //$this->insertUser($this->nom, $this->email, $this->password, $this->age);
                 // $this->insertUser($this->getData['username'], $this->getData['email'], $this->getData['password'], $this->getData['age']);
                 $registeredUser = [
-                            'email' => $this->getData['email'],
+                            'email' => $this->getDatas['email'],
                             //'username' => $user['full_name'],
                             ];
                 /* setcookie(
@@ -67,7 +66,12 @@ class SignupController extends Signup
 
             //$db = null;
         } catch (Error $e) {
-            die('Erreur : '. $e->getMessage() . ' , Insertion de l\'utilisateur dans la DB impossible') ;
+            CheckInput::insertErrorMessageInArray($e->getMessage());
+            // $errormsg = CheckInput::getErrorsArray();
+            // print_r($errormsg);
+            // header("Location: ".Functions::getUrl()."?error=user-taken");
+            return;
+            // die('Erreur : '. $e->getMessage() . ' , Insertion de l\'utilisateur dans la DB impossible') ;
         }
     }
 
@@ -85,7 +89,7 @@ class SignupController extends Signup
     private function emailTaken(): bool
     {
         $resultCheck = '' ;
-        if (!$this->checkUser($this->getData['email'], $this->getData['username'])) {
+        if (!$this->checkUser($this->getDatas['email'], $this->getDatas['username'])) {
             $resultCheck = true;
         } else {
             $resultCheck = false;
@@ -96,9 +100,9 @@ class SignupController extends Signup
     private function pwMatch(): bool
     {
         $resultCheck = '' ;
-        if ($this->getData['password'] != $this->getData['pwdRepeat']) {
+        if ($this->getDatas['password'] != $this->getDatas['pwdRepeat']) {
             $resultCheck = false;
-            throw new Error("Erreur : Les mots de passes ne sont pas identiques");
+            throw new Error("SGNPWM : Les mots de passes ne sont pas identiques");
             //throw new Error("Erreur : Les mots de passes ne sont pas identiques" .
             //header("Location: ".Functions::getUrl()."?error=pwd-doesnt-match")) ;
         } else {

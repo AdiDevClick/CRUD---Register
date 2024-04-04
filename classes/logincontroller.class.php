@@ -109,7 +109,7 @@ class LoginController extends Login
             try {
                 //$users = $this->getUsers($email);
                 if ($this->getPwd($pwd, $email) &&
-                (($this->getUsers($email)[0]['email'] === $email) ||
+                    (($this->getUsers($email)[0]['email'] === $email) ||
                     ($this->getUsers($email)[0]['full_name'] === $email))) {
                     //password_verify($pwd, $users[0]['password'])) {
 
@@ -171,8 +171,9 @@ class LoginController extends Login
                 // exit($errorMessage);
                 // $script2;
                 // die('Erreur de login : '. $errorMessage->getMessage());
+                CheckInput::insertErrorMessageInArray($errorMessage->getMessage());
                 echo('Erreur de login : '. $errorMessage->getMessage());
-
+                print_r(CheckInput::getErrorsArray());
             }
         }
     }

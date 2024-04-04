@@ -82,11 +82,13 @@ $loggedUser = LoginController::checkLoggedStatus();
                     <!-- <form action="register.php" method="post"> -->
                     <form class="form-contact" action="register.php" method="post">
                     <!-- <form action="submit_register.php" method="post"> -->
-                    <?php //if (!empty($err)):?>
-                        <!-- <div class="alert-error">  -->
-                            <?php //print_r($err)?>
-                        <!-- </div> -->
-                        <?php // endif?>
+                    <?php if (!empty($err) && isset($err['userTaken']) && isset($getDatas['username']) ?? isset($err['emailTaken']) && isset($getDatas['email'])):?>
+                        <?php print_r($getDatas)?>
+                        <?php $message = $err['userTaken'] ?? $err['emailTaken'] ?>  
+                        <div> 
+                            <p class="alert-error"><?php echo strip_tags($message)?></p>
+                        </div>
+                    <?php endif ?>
 
                         <!-- Username -->
                         <div class="form form-hidden">

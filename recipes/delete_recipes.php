@@ -13,7 +13,7 @@ if(session_status() === PHP_SESSION_NONE) {
 
 include_once("../includes/class-autoloader.inc.php");
 
-$serverData = $_SERVER['REQUEST_METHOD'] == 'POST';
+$serverData = $_SERVER['REQUEST_METHOD'] === 'POST';
 //if ($getDatas = isset($_GET)){
 
 /***

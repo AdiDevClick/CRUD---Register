@@ -461,6 +461,8 @@ footer {
 
 /* RESPONSIVE DESIGN */
 @media (max-width: 992px) {
+    
+
     .navbar .links, 
     .navbar .action_btn {
         display: none;
@@ -615,3 +617,26 @@ main {
     height: 100%;
     aspect-ratio: 16 / 9;
 }
+
+/* PLACEHOLDERS */
+::placeholder {
+    text-align: center;
+}
+
+/* or, for legacy browsers */
+
+::-webkit-input-placeholder {
+    text-align: center;
+ }
+ 
+ :-moz-placeholder { /* Firefox 18- */
+    text-align: center;  
+ }
+ 
+ ::-moz-placeholder {  /* Firefox 19+ */
+    text-align: center;  
+ }
+ 
+ :-ms-input-placeholder {  
+    text-align: center; 
+ }

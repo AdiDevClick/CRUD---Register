@@ -21,7 +21,7 @@ class Login extends Mysql
         ])) {
             $usersStatement = null;
             //throw new Error((string)header("Location: ".Functions::getUrl()."?error=stmt-failed"));
-            throw new Error("stmt failed");
+            throw new Error("STMTLGNGETUSR - Failed");
             //header("Location : ".$url->getThisUrl(). "?error=user-not-found");
         }
         /* if ($usersStatement->rowCount() == 0) {
@@ -49,7 +49,7 @@ class Login extends Mysql
         if (!$recipesStatement->execute()) {
             $recipesStatement = null;
             //throw new Error((string)header("Location: ".Functions::getUrl()."?error=stmt-failed"));
-            throw new Error("stmt-failed");
+            throw new Error("STMTLGNGETRCP - Failed");
             //header("Location : ".getUrl(). "?error=stmt-failed");
             //exit();
         }
@@ -84,14 +84,14 @@ class Login extends Mysql
         ])) {
             $pwdStatement = null;
             //throw new Error((string)header("Location: ".Functions::getUrl()."?error=stmt-failed"));
-            throw new Error("stmt-failed");
+            throw new Error("STMTLGNGETPW - Failed");
             //header("Location : ".Functions::getUrl(). "?error=stmt-failed");
             //exit();
         }
         if ($pwdStatement->rowCount() == 0) {
             $pwdStatement = null;
             //throw new Error((string)header("Location: ".Functions::getUrl()."?error=user-not-found"));
-            throw new Error("L'utilisateur n'a pas été trouvé");
+            throw new Error("STMTLGNGETPWCNT - L'utilisateur n'a pas été trouvé");
             //exit();
         }
         $hashedPwd = $pwdStatement->fetchAll(PDO::FETCH_ASSOC);

@@ -16,19 +16,20 @@ class Signup extends Mysql
         'full_name' => $username])) {
             $stmt = null;
             //throw new Error((string)header("Location: ".Functions::getUrl()."?error=stmtfailed"));
-            throw new Error("stmt Failed");
+            throw new Error("STMTSGNEXEDBCH - Failed");
             //exit();
         }
         if ($stmt ->rowCount() > 0) {
             $resultCheck = false;
             $stmt = null;
             //throw new Error((string)header("Location: ".Functions::getUrl()."?error=user-already-exists"));
-            throw new Error("Cet utilisateur existe déjà");
+            throw new Error("STMTSGNDBCHCNT - Cet utilisateur existe déjà");
         } else {
             $resultCheck = true;
         }
         return $resultCheck;
     }
+
     protected function insertUser(string $nom, string $email, string $password, int $age)
     {
         try {
@@ -57,13 +58,14 @@ class Signup extends Mysql
             ])) {
                 $insertUsers = null;
                 //throw new Error((string)header("Location: ".Functions::getUrl()."?error=stmtfailed"));
-                throw new Error("stmt Failed");
+                throw new Error("STMTSGNINSRTUSR - Failed");
                 //header('Location : ../register.php?error=stmtfailed');
                 //exit();
             }
             $insertUsers = null;
         } catch (Error $e) {
-            die('Erreur : ' . $e->getMessage() . ' Quelque chose ne va pas...') ;
+            CheckInput::insertErrorMessageInArray($e->getMessage());
+            // die('Erreur : ' . $e->getMessage() . ' Quelque chose ne va pas...') ;
         }
     }
 

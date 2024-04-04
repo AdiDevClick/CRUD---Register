@@ -2,9 +2,11 @@
 
 class CheckInput extends Validate
 {
+
+    // private static array $datas = $this->getDatas;
     private static array $errorsArray = [];
     public function __construct(
-        private  $getDatas
+        private $getDatas,
     ) {
         //
     }
@@ -20,7 +22,7 @@ class CheckInput extends Validate
         if (isset($this->getDatas)) {
             /* $url = explode("/", parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));
             $url = array_pop($url); */
-            foreach ($this -> getDatas as $key => $value) {
+            foreach ($this->getDatas as $key => $value) {
                 $result = false;
                 // try {
                     if (empty($value) || !isset($key)) {
@@ -125,7 +127,7 @@ class CheckInput extends Validate
 
     public static function getErrorMessages() {
         if (!empty(self::$errorsArray)) {
-            // $errorMessage = [];
+            $datas = isset($this->getDatas);
             foreach (self::$errorsArray as $key => $value) {
                 if (str_contains($value, 'password')) self::$errorsArray['errorPassword'] = $value;
                 // if (str_contains($value, 'password')) $errorMessage['errorPassword'] = $value;
@@ -133,6 +135,9 @@ class CheckInput extends Validate
                 elseif (str_contains($value, 'email')) self::$errorsArray['errorEmail'] = $value;
                 elseif (str_contains($value, 'pwdRepeat')) self::$errorsArray['errorPwdRepeat'] = 'Veuillez confirmer votre mot de passe';
                 elseif (str_contains($value, 'age')) self::$errorsArray['age'] = 'Votre âge...';
+                elseif (str_contains($value, 'STMTSGNDBCHCNT') && $datas['username']) self::$errorsArray['userTaken'] = "Ce nom d'utilisateur est déjà pris"; //getInputDatas()['username']) self::$errorsArray['userTaken'] = "Ce nom d'utilisateur est déjà pris";
+                elseif (str_contains($value, 'STMTSGNDBCHCNT') && $datas['email']) self::$errorsArray['emailTaken'] = "Cet email est déjà pris";
+
                 // elseif (str_contains($value, 'username')) $errorMessage['errorUsername'] = $value;
                 else self::$errorsArray['message'] = $value;
                 // else $errorMessage = $value;
@@ -140,6 +145,11 @@ class CheckInput extends Validate
             // return self::$errorsArray;
         }
         return self::$errorsArray;
+    }
+
+    protected function getInputDatas() : Array
+    {
+        return $this->getDatas;
     }
 
     public static function getErrorsArray()
@@ -152,7 +162,13 @@ class CheckInput extends Validate
         // return $this->errorsArray;
     }
 
-    public static function getErrorMessage()
+    public static function insertErrorMessageInArray(string $message)
+    {
+        array_push(self::$errorsArray, $message);
+    }
+    
+
+    public static function showErrorMessage()
     {
         // $errorMessage = '';
         foreach (self::$errorsArray as $key => $value) {

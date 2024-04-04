@@ -12,7 +12,7 @@ class RecipeController extends Recipe
         try {
             $loggedUser = LoginController::checkLoggedStatus();
             if  (!isset($loggedUser)) {
-                throw new Error("Erreur : Veuillez vous identifier avant de partager une recette.") ;
+                throw new Error("LGGDUSROFF  : Veuillez vous identifier avant de partager une recette.") ;
             } else {
                 $checkInput = new CheckInput(
                     $this->getData
@@ -260,15 +260,15 @@ class RecipeController extends Recipe
                 /* $title = $checkInput->test_input($title);
                 $recipe = $checkInput->test_input($recipe);
                 $checkInput->checkInputs(); */
+                if (empty(CheckInput::getErrorsArray())) {
+                    $this->getAverageRatingCommentsById($id);
 
-                $this->getAverageRatingCommentsById($id);
-
-                $recipeId = [
-                    'averageRating' => $this->getData
-                    //'updatedRecipeInfos' => $id
-                ];
-                $_SESSION['RATING'] = $recipeId;
-
+                    $recipeId = [
+                        'averageRating' => $this->getData
+                        //'updatedRecipeInfos' => $id
+                    ];
+                    $_SESSION['RATING'] = $recipeId;
+                }
                 //return $this->updateRecipes($this->getData, $this->getData, $this->getData);
                 //return $this->updateRecipes($title, $recipe, $id);
                 //return $recipeId;
@@ -276,6 +276,9 @@ class RecipeController extends Recipe
             }
             //unset($recipeId);
         } catch (Error $e) {
+            CheckInput::insertErrorMessageInArray($e->getMessage());
+
+            // array_push(CheckInput::getErrorsArray($e->getMessage()), );
             die('Erreur : ' . $e->getMessage() . "Nous n'avons pas pu mettre à jour cette recette");
         }
     }
@@ -290,17 +293,18 @@ class RecipeController extends Recipe
                 $this->input2
             ); */
             $status = false;
-            throw new Error("Vous n'avez pas sélectionné la bonne recette") ;
+            throw new Error("RCPDATACHK - Vous n'avez pas sélectionné la bonne recette") ;
         } else {
             //echo "c'est ok pour l'id" ;
         }
         return $status;
     }
+
     protected function setComments($getData)
     {
         $loggedUser = LoginController::checkLoggedStatus();
         if  (!isset($loggedUser)) {
-            throw new Error("Erreur : Veuillez vous identifier avant de partager une recette.") ;
+            throw new Error("RCPLGGDUSROFF - Veuillez vous identifier avant de partager une recette.") ;
         } else {
             $checkInput = new CheckInput(
                 $this->getData
@@ -312,13 +316,15 @@ class RecipeController extends Recipe
 
             $checkInput->checkInputs();
 
-            $this->insertComments($message, $recipeId, $loggedUser['user'][1]);
-            $registeredComment = [
-                'email' => $loggedUser['email']
-            ];
-            $_SESSION['REGISTERED_COMMENT'] = $registeredComment;
-            //header("Location: ".Functions::getUrl()."?error=none") ; */
-            return $registeredComment;
+            if (empty(CheckInput::getErrorsArray())) {
+                $this->insertComments($message, $recipeId, $loggedUser['user'][1]);
+                $registeredComment = [
+                    'email' => $loggedUser['email']
+                ];
+                $_SESSION['REGISTERED_COMMENT'] = $registeredComment;
+                //header("Location: ".Functions::getUrl()."?error=none") ; */
+                return $registeredComment;
+            }
         }
     }
 
@@ -333,13 +339,13 @@ class RecipeController extends Recipe
         if (!$usersStatement->execute()) {
             $usersStatement = null;
             //throw new Error((string)header("Location: ".Functions::getUrl()."?error=stmt-failed"));
-            throw new Error("stmt Failed");
+            throw new Error("STMTRCPGETUSR - Failed");
             //header("Location : ".$url->getThisUrl(). "?error=user-not-found");
         }
         if ($usersStatement->rowCount() == 0) {
             $usersStatement = null;
             //throw new Error((string)header("Location: ".Functions::getUrl()."?error=user-not-found"));
-            throw new Error("L'utilisateur n'a pas été trouvé");
+            throw new Error("STMTRCPGETPWCNT - L'utilisateur n'a pas été trouvé");
             //header("Location : ".$url->getThisUrl()."?error=user-not-found");
             //exit();
         } //else {
