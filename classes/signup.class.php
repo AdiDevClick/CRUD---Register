@@ -7,23 +7,29 @@ class Signup extends Mysql
     {
         $resultCheck = '';
         $stmt = $this->connect()->prepare(
-            'SELECT full_name FROM users 
+            'SELECT full_name, email FROM users 
             WHERE full_name = :full_name OR email = :email;'
         );
 
         if (!$stmt->execute([
         'email' => $email,
-        'full_name' => $username])) {
+        'full_name' => strtolower($username)])) {
             $stmt = null;
             //throw new Error((string)header("Location: ".Functions::getUrl()."?error=stmtfailed"));
             throw new Error("STMTSGNEXEDBCH - Failed");
             //exit();
         }
+        $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
         if ($stmt ->rowCount() > 0) {
             $resultCheck = false;
             $stmt = null;
-            //throw new Error((string)header("Location: ".Functions::getUrl()."?error=user-already-exists"));
-            throw new Error("STMTSGNDBCHCNT - Cet utilisateur existe déjà");
+            
+            if ($users[0]["full_name"] === strtolower($username)) {
+                throw new Error("STMTSGNDBCHCNT - Cet utilisateur existe déjà");
+            } elseif ($users[0]["email"] === $email) {
+                throw new Error("STMTSGNDBCHCNTEM - Cet email existe déjà");
+                //throw new Error((string)header("Location: ".Functions::getUrl()."?error=user-already-exists"));
+            }
         } else {
             $resultCheck = true;
         }
@@ -51,7 +57,7 @@ class Signup extends Mysql
                  'age' => $age
              ]); */
             if (!$insertUsers->execute([
-                'full_name' => $nom,
+                'full_name' => strtolower($nom),
                 'email' => $email,
                 'password' => $hashedPwd,
                 'age' => $age

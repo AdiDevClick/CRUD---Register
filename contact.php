@@ -1,12 +1,6 @@
 <?php
 
-if(session_status() !== PHP_SESSION_ACTIVE) {
-    session_start();
-}
-
-if(session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
+if(session_status() !== PHP_SESSION_ACTIVE || session_status() === PHP_SESSION_NONE) session_start();
 
 ?>
 <?php $script = 'src="scripts/fadeInScroller.js" defer' ?>

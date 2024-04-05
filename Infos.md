@@ -31,6 +31,7 @@ Logged User => LGGDUSR
 
 Codes erreur :
 "STMTSGNDBCHCNT - Cet utilisateur existe déjà"
+"STMTSGNDBCHCNTEM - Cet email existe déjà"
 "STMTSGNEXEDBCH - Failed"
 "STMTSGNINSRTUSR - Failed"
 "SGNTKN : On n'a pas pu check les inputs"

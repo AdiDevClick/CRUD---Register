@@ -40,7 +40,7 @@ if ($data && isset($_POST["submit"])) {
     //$login = new LoginView($password, $username, $data, $getData);
     $login->displayLogin();
     // $errorMessages = CheckInput::getErrorsArray();
-    $err = CheckInput::getErrorMessages();
+    $err = CheckInput::getErrorMessages($getDatas);
     // echo 'test' . $err;
     // print_r($err);
     //throw new Error("C'est ok pour le login");
@@ -124,26 +124,26 @@ foreach ($loggedUser as $user) {
         <form action="index.php" method="post">
             <!-- Si il y a erreur on affiche le message -->
             <?php //if (!empty($errorMessages)):?>
-            <?php //if ($err && !empty($err)):?>
+            <?php if (!empty($err) && (isset($err['userError']) || isset($err['userTaken']))):?>
                 <?php //foreach ($errorMessages as $key => $value):?>
                     <?php //if (str_contains($value, 'password')):?>
                         <?php //$errorPassword = $value?>
                     <?php //elseif (str_contains($value, 'username')):?>
-                        <?php //$errorUsername = $value?>
+                        <?php $errorMessage = $err['userError'] ?? $err['emailTaken'] ?>
                     <?php //else :?>
                         <?php //$errorMessage = $value?>
                     <?php //endif?>
                     
                     <?php //$errorMessage = $value?>
                     <?php //$errorMessage = "placeholder=$value"?>
-                    <div class="alert-error">
+                    <div>
                         <?php //echo $errorMessage?> 
                         <?php //echo CheckInput::getErrorMessage() . '<br>';?> 
-                        <?php //echo $errorMessage . 'test';?> 
+                        <p class="alert-error"><?php echo strip_tags($errorMessage) ?></p>
                         <?php //exit()?>
                     </div>
                 <?php //endforeach?>
-            <?php //endif?>
+            <?php endif?>
             <!-- Username -->
             <div class="splash-login form-hidden">
                 <label for="username">Votre identifiant :</label>
@@ -183,7 +183,7 @@ foreach ($loggedUser as $user) {
 <?php else: ?>
     <?php //require_once('login.php')?>
     <div class="alert-success">
-        Bonjour <?php echo strip_tags($loggedUser['name']) ?> et bienvenue sur le site !
+        Bonjour <?php echo strip_tags(ucfirst($loggedUser['name'])) ?> et bienvenue sur le site !
     </div>
 <?php endif ?>
 

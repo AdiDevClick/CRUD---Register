@@ -3,12 +3,17 @@
 class CheckInput extends Validate
 {
 
-    // private static array $datas = $this->getDatas;
+    // private static array $datas = $data;
+    // protected $data;
+    private static array $messages = [];
     private static array $errorsArray = [];
     public function __construct(
         private $getDatas,
     ) {
-        //
+        // global $messages;
+        self::$messages = $this->getDatas;
+        // $this->checkInputs();
+        // print_r(self::$messages);
     }
 
     /***
@@ -125,31 +130,40 @@ class CheckInput extends Validate
         // return $result;
     }
 
-    public static function getErrorMessages() {
+    public static function getErrorMessages(Array $getDatas) : Array
+    {
+
+        // $datas = new CheckInput(self::$messages);
+        // print_r(self::getInputDatas());
         if (!empty(self::$errorsArray)) {
-            $datas = isset($this->getDatas);
+            // $datas = isset($this->getDatas);
             foreach (self::$errorsArray as $key => $value) {
                 if (str_contains($value, 'password')) self::$errorsArray['errorPassword'] = $value;
                 // if (str_contains($value, 'password')) $errorMessage['errorPassword'] = $value;
                 elseif (str_contains($value, 'username')) self::$errorsArray['errorUsername'] = $value;
-                elseif (str_contains($value, 'email')) self::$errorsArray['errorEmail'] = $value;
                 elseif (str_contains($value, 'pwdRepeat')) self::$errorsArray['errorPwdRepeat'] = 'Veuillez confirmer votre mot de passe';
                 elseif (str_contains($value, 'age')) self::$errorsArray['age'] = 'Votre âge...';
-                elseif (str_contains($value, 'STMTSGNDBCHCNT') && $datas['username']) self::$errorsArray['userTaken'] = "Ce nom d'utilisateur est déjà pris"; //getInputDatas()['username']) self::$errorsArray['userTaken'] = "Ce nom d'utilisateur est déjà pris";
-                elseif (str_contains($value, 'STMTSGNDBCHCNT') && $datas['email']) self::$errorsArray['emailTaken'] = "Cet email est déjà pris";
-
+                elseif (str_contains($value, 'STMTSGNDBCHCNTEM')) self::$errorsArray['emailTaken'] = "Cet email est déjà pris";
+                elseif (str_contains($value, 'STMTSGNDBCHCNT')) self::$errorsArray['userTaken'] = "Ce nom d'utilisateur est déjà pris"; //getInputDatas()['username']) self::$errorsArray['userTaken'] = "Ce nom d'utilisateur est déjà pris";
+                elseif (str_contains($value, 'STMTLGNGETPWCNT')) self::$errorsArray['userError'] = "Nom d'utilisateur ou Mot de passe incorrect"; //getInputDatas()['username']) self::$errorsArray['userTaken'] = "Ce nom d'utilisateur est déjà pris";
                 // elseif (str_contains($value, 'username')) $errorMessage['errorUsername'] = $value;
+                elseif (str_contains($value, 'email')) self::$errorsArray['errorEmail'] = $value;
                 else self::$errorsArray['message'] = $value;
                 // else $errorMessage = $value;
             }
             // return self::$errorsArray;
         }
         return self::$errorsArray;
-    }
+    } 
 
     protected function getInputDatas() : Array
     {
         return $this->getDatas;
+    }
+
+    public static function getErrorMessage() : Array
+    {
+        return self::$messages;
     }
 
     public static function getErrorsArray()

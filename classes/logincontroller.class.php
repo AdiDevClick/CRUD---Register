@@ -1,6 +1,6 @@
 <?php
 
-require_once("templates/toaster_template.html");
+// require_once("templates/toaster_template.html");
 
 class LoginController extends Login
 {
@@ -120,7 +120,7 @@ class LoginController extends Login
                     // ];
 
                     //header('Location: index.php');
-                    session_start();
+                    if(session_status() !== PHP_SESSION_ACTIVE || session_status() === PHP_SESSION_NONE) session_start();
 
                     $arrCookiesOptions = [
                         'expires' => time() + 365 * 24 * 3600,

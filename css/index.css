@@ -94,6 +94,10 @@ button:hover {
 }
 
 /* INPUTS */
+input {
+    text-align: center;
+}
+
 input[type=text], input[type=email] {
     width: 200px;
     max-width: 100%;
@@ -191,7 +195,10 @@ input.input_error::placeholder {
 .alert-error {
     text-align: center;
     color: #fd6b00;
-    border: red 1px solid;
+    /* border: red 1px solid; */
+    max-width: 100%;
+    margin: 15px auto;
+    transition: opacity 3s 1s;
 }
 
 .form-hidden {
@@ -274,6 +281,9 @@ input.input_error::placeholder {
 
 .container {
     margin-bottom: 50px;
+    max-width: 100%;
+    min-height: 50px;
+    overflow: hidden;
 }
 
 .contact {

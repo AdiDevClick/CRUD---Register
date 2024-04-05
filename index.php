@@ -1,12 +1,10 @@
 <?php declare(strict_types=1);
 
-if(session_status() !== PHP_SESSION_ACTIVE) {
-    session_start();
-}
+if(session_status() !== PHP_SESSION_ACTIVE || session_status() === PHP_SESSION_NONE) session_start();
 
-if(session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
+// if(session_status() === PHP_SESSION_NONE) {
+//     session_start();
+// }
 
 include_once('includes/functions.inc.php');
 include_once('logs/customErrorHandlers.php');
@@ -61,7 +59,8 @@ $seconds = date("s");
                     <h3><?php echo $recipe['title']; ?></h3>
                     <div><?php echo $recipe['recipe']; ?></div>
                     <i><?php echo displayAuthor($recipe["author"]) ?></i>
-                    <?php if (isset($loggedUser) && $recipe['author'] === $loggedUser['email'][0]) : ?>
+                    <?php //print_r($loggedUser)?>
+                    <?php if (isset($loggedUser['email']) && $recipe['author'] === $loggedUser['email']) : ?>
                     <!-- <?php //if (isset($loggedUser) && $recipe['author'] === $loggedUser['email'][0]) : ?> -->
                         <ul class="list-group">
                             <li class="list-group-item"><a class="link-warning" href="./recipes/update_recipes.php?id=<?php echo($recipe['recipe_id']) ?>">Editer l'article</a></li>

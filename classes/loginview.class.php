@@ -1,6 +1,6 @@
 <?php
 
-class LoginView extends Logincontroller
+class LoginView extends LoginController
 {
     /* public function showUsers($pwd, $email)
     {
