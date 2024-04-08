@@ -2,10 +2,12 @@
 
 if(session_status() !== PHP_SESSION_ACTIVE || session_status() === PHP_SESSION_NONE) session_start();
 
+
+$script = 'src="scripts/fadeInScroller.js" defer';
+$title = "Clic'Répare - Contact?";
+
+ob_start()
 ?>
-<?php $script = 'src="scripts/fadeInScroller.js" defer' ?>
-<?php $title = "Clic'Répare - Contact?"?>
-    <?php ob_start()?>
     <!--  Le Main -->
     <!-- <h1> Contactez-nous </h1> -->
     <section class="contact-section">
@@ -45,6 +47,7 @@ if(session_status() !== PHP_SESSION_ACTIVE || session_status() === PHP_SESSION_N
         
     </section>
     
-    <!-- Fin du Main -->
-    <?php $content = ob_get_clean()?>
-    <?php require('templates/layout.php')?>
+<!-- Fin du Main -->
+<?php $content = ob_get_clean();
+require('templates/layout.php')
+?>

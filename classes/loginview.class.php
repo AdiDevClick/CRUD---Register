@@ -28,4 +28,8 @@ class LoginView extends LoginController
     {
         return $this->index();
     }
+    public function setCookie($datas)
+    {
+        return $this->setCookies($datas);
+    }
 }

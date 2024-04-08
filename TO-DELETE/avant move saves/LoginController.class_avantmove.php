@@ -72,8 +72,7 @@ class LoginController extends Login
                 'user_id' => $this->getUsers($email)[0]['user_id']
                 ]; */
 
-                header('Location: index.php');
-                //session_start();
+                session_start();
                 setcookie(
                     'LOGGED_USER',
                     $this->getUsers($email)[0]['email'],
@@ -90,6 +89,7 @@ class LoginController extends Login
                     $this->getUsers($email)[0]['user_id'],
                     $this->getUsers($email)[0]['email']
                 ];
+                // header('Location: index.php');
 
                 //return $loggedUser;
             } else {
@@ -100,6 +100,7 @@ class LoginController extends Login
                 );
                 throw new Error($errorMessage .
                 header("Location: ".Functions::getUrl()."?error=pwd-or-id-does-not-match"));
+                
                 //throw new Error($errorMessage);
                 //echo $errorMessage;
                 //header("Location: ".Functions::getUrl()."?error=pwd-does-not-match");

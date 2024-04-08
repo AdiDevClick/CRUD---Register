@@ -1,0 +1,11 @@
+Errors : [2] Undefined array key "pw" - C:\xampp\htdocs\Recettes\classes\CheckInput.class.php:229
+Errors : [2] Undefined array key "password" - C:\xampp\htdocs\Recettes\submit_register.php:24
+Errors : [2] Undefined array key "pw" - C:\xampp\htdocs\Recettes\classes\CheckInput.class.php:229
+Errors : [2] Undefined array key "password" - C:\xampp\htdocs\Recettes\submit_register.php:24
+Errors : [2] Undefined array key "pw" - C:\xampp\htdocs\Recettes\classes\CheckInput.class.php:229
+Errors : [2] Undefined array key "password" - C:\xampp\htdocs\Recettes\submit_register.php:24
+Errors : [2] Undefined array key "password" - C:\xampp\htdocs\Recettes\submit_register.php:24
+Errors : [2] Undefined array key "password" - C:\xampp\htdocs\Recettes\submit_register.php:24
+Errors : [2] Undefined array key "pw" - C:\xampp\htdocs\Recettes\classes\CheckInput.class.php:229
+Errors : [2] Undefined array key "errorPassword" - C:\xampp\htdocs\Recettes\classes\CheckInput.class.php:229
+Errors : [2] Undefined array key "errorPassword" - C:\xampp\htdocs\Recettes\classes\CheckInput.class.php:229

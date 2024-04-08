@@ -70,7 +70,7 @@ class SignupController extends Signup
             // $errormsg = CheckInput::getErrorsArray();
             // print_r($errormsg);
             // header("Location: ".Functions::getUrl()."?error=user-taken");
-            return;
+            // return;
             // die('Erreur : '. $e->getMessage() . ' , Insertion de l\'utilisateur dans la DB impossible') ;
         }
     }
@@ -100,8 +100,9 @@ class SignupController extends Signup
     private function pwMatch(): bool
     {
         $resultCheck = '' ;
-        if ($this->getDatas['password'] != $this->getDatas['pwdRepeat']) {
+        if ($this->getDatas['password'] !== $this->getDatas['pwdRepeat']) {
             $resultCheck = false;
+            // CheckInput::insertErrorMessageInArray('Votre identifiant est invalide');
             throw new Error("SGNPWM : Les mots de passes ne sont pas identiques");
             //throw new Error("Erreur : Les mots de passes ne sont pas identiques" .
             //header("Location: ".Functions::getUrl()."?error=pwd-doesnt-match")) ;

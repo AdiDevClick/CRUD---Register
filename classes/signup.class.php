@@ -5,6 +5,7 @@ class Signup extends Mysql
     // On vérifie que l'input ne correspond pas à une table de la DB déjà prise
     protected function checkUser(string $email, string $username): bool
     {
+        $loweredUsername = strtolower($username);
         $resultCheck = '';
         $stmt = $this->connect()->prepare(
             'SELECT full_name, email FROM users 
@@ -13,7 +14,7 @@ class Signup extends Mysql
 
         if (!$stmt->execute([
         'email' => $email,
-        'full_name' => strtolower($username)])) {
+        'full_name' => $loweredUsername])) {
             $stmt = null;
             //throw new Error((string)header("Location: ".Functions::getUrl()."?error=stmtfailed"));
             throw new Error("STMTSGNEXEDBCH - Failed");
@@ -24,7 +25,7 @@ class Signup extends Mysql
             $resultCheck = false;
             $stmt = null;
             
-            if ($users[0]["full_name"] === strtolower($username)) {
+            if ($users[0]["full_name"] === $loweredUsername) {
                 throw new Error("STMTSGNDBCHCNT - Cet utilisateur existe déjà");
             } elseif ($users[0]["email"] === $email) {
                 throw new Error("STMTSGNDBCHCNTEM - Cet email existe déjà");

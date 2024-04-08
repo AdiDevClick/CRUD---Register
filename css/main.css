@@ -12,6 +12,10 @@
     --site-color-01: #a39191;
     --site-color-01-hover: #555252;
     --background-color: orange;
+    --input-focus: #7aa8dd;
+    /* --input-focus-gradient: linear-gradient(#7aa8dd, #94b2d4); */
+    --input-focus-gradient: linear-gradient(318deg, #71C4FFFF 0%, #A100FF00 100%),radial-gradient(75% 75% at 50% 50%, #00FFFFFF 0%, #073AFFFF 81%);
+    --input-background-color: #cccccc80;
     /* REM CONFIG */
     font-size: 62.5%;
 }
@@ -623,20 +627,24 @@ main {
     text-align: center;
 }
 
+:focus::placeholder {
+    visibility: hidden;
+}
+
 /* or, for legacy browsers */
 
 ::-webkit-input-placeholder {
     text-align: center;
- }
- 
- :-moz-placeholder { /* Firefox 18- */
-    text-align: center;  
- }
- 
- ::-moz-placeholder {  /* Firefox 19+ */
-    text-align: center;  
- }
- 
- :-ms-input-placeholder {  
-    text-align: center; 
- }
+}
+
+:-moz-placeholder { /* Firefox 18- */
+    text-align: center;
+}
+
+::-moz-placeholder {  /* Firefox 19+ */
+    text-align: center;
+}
+
+:-ms-input-placeholder {
+    text-align: center;
+}

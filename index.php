@@ -1,6 +1,8 @@
 <?php declare(strict_types=1);
 
-if(session_status() !== PHP_SESSION_ACTIVE || session_status() === PHP_SESSION_NONE) session_start();
+if(session_status() !== PHP_SESSION_ACTIVE || session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
 // if(session_status() === PHP_SESSION_NONE) {
 //     session_start();
@@ -8,7 +10,7 @@ if(session_status() !== PHP_SESSION_ACTIVE || session_status() === PHP_SESSION_N
 
 include_once('includes/functions.inc.php');
 include_once('logs/customErrorHandlers.php');
-
+require_once("includes/class-autoloader.inc.php");
 
 $day = date("d");
 $month = date("m");
@@ -17,15 +19,20 @@ $hour = date("H");
 $minut = date("i");
 $seconds = date("s");
 
+
 //echo 'Bonjour ! Nous sommes le ' . $day . '/' . $month . '/' . $year . ' et il est ' . $hour. ' h ' . $minut .  ' et ' .  $seconds . ' secondes';
 //print_r($_COOKIE);
-?>
-<?php //$css = 'rel="stylesheet" href="css/index.css"'?>
-<?php $script = 'src="scripts/typeWriter.js" defer' ?>
-<?php $script2 = 'src="scripts/fadeInScroller.js" defer' ?>
-<?php $title = "Affichage de recettes" ?>
 
-<?php ob_start() ?>
+//$css = 'rel="stylesheet" href="css/index.css"';
+$script = 'src="scripts/typeWriter.js" defer';
+$script2 = 'src="scripts/fadeInScroller.js" defer';
+$title = "Affichage de recettes";
+
+ob_start()
+
+?>
+
+<!-- Héro Section -->
     <section class="hero">
         <div class="type-writter">
             <p>Une recette <span>Love</span></p>
@@ -33,23 +40,19 @@ $seconds = date("s");
     </section>
     
 <!-- Insertion du login form pour les non-connectés -->
-
     <section class="container">
         <div class="form-hidden">
         <!-- <div class="form-index form-hidden"> -->
             <h1>Profitez de nos recettes !</h1>
         </div>
         
-    <?php //require_once("includes/class-autoloader.inc.php");?>
+<!-- Insertion du login form pour les non-connectés -->
+<?php require_once('login.php')?>
+<!-- Fin du Form -->
 
-<?php //ob_start()?>
-<?php require('login.php')?>
-<?php //ob_get_status()?>
-<?php //ob_get_contents()?>
-<!-- 
-    Si l'utilisateur est bien connecté il peut voir les recettes
---> 
-    <?php if (isset($loggedUser['user']) || isset($loggedUser['email'])):?> 
+<!-- Si l'utilisateur est bien connecté il peut voir les recettes -->
+    <?php if (isset($loggedUser['user']) || isset($loggedUser['email'])): ?>
+        <?php header_remove('Location: index.php?login=success') ?>
         <?php require_once("includes/class-autoloader.inc.php"); ?>
         <?php $recipes = new LoginView([]); ?>
         <?php foreach ($recipes->displayRecipes() as $recipe) : ?>
@@ -61,7 +64,7 @@ $seconds = date("s");
                     <i><?php echo displayAuthor($recipe["author"]) ?></i>
                     <?php //print_r($loggedUser)?>
                     <?php if (isset($loggedUser['email']) && $recipe['author'] === $loggedUser['email']) : ?>
-                    <!-- <?php //if (isset($loggedUser) && $recipe['author'] === $loggedUser['email'][0]) : ?> -->
+                    <!-- <?php //if (isset($loggedUser) && $recipe['author'] === $loggedUser['email'][0]) :?> -->
                         <ul class="list-group">
                             <li class="list-group-item"><a class="link-warning" href="./recipes/update_recipes.php?id=<?php echo($recipe['recipe_id']) ?>">Editer l'article</a></li>
                             <li class="list-group-item"><a class="link-danger" href="./recipes/delete_recipes.php?id=<?php echo($recipe['recipe_id']) ?>">Supprimer l'article</a></li>
@@ -74,5 +77,8 @@ $seconds = date("s");
     <?php else: ?>
         <?php session_unset()?>
     <?php endif ?>
-<?php $content = ob_get_clean()?>
-<?php require('templates/layout.php')?>
+
+<?php
+$content = ob_get_clean();
+require('templates/layout.php')
+?>

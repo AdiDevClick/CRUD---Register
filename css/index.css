@@ -10,8 +10,8 @@ label {
     font-size: 1.4rem;
     cursor: pointer;
     max-width: fit-content;
-    /* transition: opacity 1.3s all; */
-    background-color: #3b3b3b3b;
+    /* background-color: #3b3b3b3b; */
+    background-color: var(--background-color);
 }
 
 .form-contact .btn {
@@ -30,7 +30,9 @@ label {
 
 .btn:hover {
     color: var(--background-color);
-    transition: opacity 1.3s all;
+    /* transition: opacity 1.3s all; */
+    /* background-color: var(--input-background-color); */
+    transition: all 0.3s ease;
 }
 
 /* .form-hidden {
@@ -94,48 +96,37 @@ button:hover {
 }
 
 /* INPUTS */
-input {
-    text-align: center;
-}
 
 input[type=text], input[type=email] {
-    width: 200px;
+    /* width: 180px; */
     max-width: 100%;
     color: #eeeeee;
     padding: 12px 20px;
-    /*margin: 8px 200px 0 200px;*/
     display: inline-block;
-    border: 1px solid #ccc;
-    border-inline: #ccc;
     border-radius: 10px;
     box-sizing: border-box;
-    /* overflow: hidden; */
 }
 
 input[type=text], input[type=number], input[type=password], input[type=email], textarea, select, button {
 /* input[type=text], [type=email], textarea, select, button { */
     margin: 10px;
     padding: 10px;
+    /* width: 180px; */
     max-width: 100%;
     border-radius: 10px;
-    border-inline: #ccc;
+    /* border-inline: #ccc; */
     color: #eeeeee;
     /* overflow: hidden; */
     /* width: 100%; */
 }
 
 textarea {
-    /* justify-content: center; */
     display: flex;
     align-items: center;
     max-width: 450px;
-    /* width: 500px; */
     min-height: 50px;
-    /* min-width: 200px; */
     min-width: 100%;
     resize: both;
-    /* border-color: #ccc;
-    border-radius: 10px; */
     border: 1px solid #ccc;
 }
 
@@ -155,23 +146,20 @@ select:hover {
 
 input[type=password], select, input[type=number] {
 /* input[type=password] { */
-    /*width: 100%;*/
     padding: 12px 20px;
-    /*margin: 8px 200px 0 200px;*/
     display: inline-block;
-    border: 1px solid #ccc;
-    border-inline: #ccc;
-    /* border-radius: 4px; */
     padding: 10px;
     border-radius: 10px;
     max-width: 100%;
-    /* width: 100%; */
-    /* box-sizing: border-box; */
 }
 
 input:focus,
-textarea:focus {
-    border: 2px solid #7aa8dd;
+textarea:focus, input:hover, textarea:hover {
+    border: 1px solid var(--input-focus);
+    background-color: var(--input-background-color);
+    /* transition: all 0.2s ease; */
+    /* transition: border 0.5s cubic-bezier(0.075, 0.82, 0.165, 1), background-color 0.3s step-end; */
+    transition: all 0.3s cubic-bezier(0.215, 0.610, 0.355, 1);
 }
 
 input[type=password].input_error,
@@ -180,18 +168,38 @@ input[type=email].input_error,
 input[type=number].input_error,
 textarea .input_error {
     /* height: 100%; */
-    border-bottom: 2px solid red;
+    border-bottom: 1px solid red;
     border-inline: red;
+    /* transition: all 0.2s ease; */
 }
 
+input::placeholder:focus {
+    visibility: hidden;
+}
 
 input.input_error::placeholder {
-    /* display: inline-flex; */
-    /* text-align: center; */
-    /* justify-content: center; */
     color: rgb(247, 116, 116);
 }
 
+input.input_error:focus, input.input_error:hover {
+    border-bottom: 1px solid var(--input-focus);
+    border-inline: unset;
+}
+
+input.input_error:not(:placeholder-shown) {
+    border-bottom: 1px solid var(--input-focus);
+    /* border-inline: unset; */
+}
+
+input {
+    text-align: center;
+    border: 1px solid #ccc;
+    width: 180px;
+    border-inline: #ccc;
+    background-color: #ffffff1a;
+}
+
+/* INPUT ERRORS */
 .alert-error {
     text-align: center;
     color: #fd6b00;
@@ -201,6 +209,7 @@ input.input_error::placeholder {
     transition: opacity 3s 1s;
 }
 
+/* FORM PROPERTIES */
 .form-hidden {
     opacity: 0;
     filter: blur(5px);
@@ -308,7 +317,8 @@ input.input_error::placeholder {
     justify-items: right;
     /* justify-content: left; */
     /* padding-left: 8%; */
-    grid: minmax(50px, min-content) / repeat(auto-fill, 650px);
+    /* grid: minmax(50px, min-content) / repeat(auto-fill, minmax(400px, 650px)); */
+    grid-template-columns: repeat(4, auto);
 
     align-items: center;
     align-content: center;
@@ -332,7 +342,7 @@ input.input_error::placeholder {
 
     
     .contact-grid {
-        grid: minmax(50px, min-content) / repeat(auto-fill, 400px);
+        /* grid: minmax(50px, min-content) / repeat(auto-fill, 400px); */ /*a remettre*/
     }
 }
 
@@ -346,8 +356,14 @@ input.input_error::placeholder {
     }
     
     .contact-grid {
-        grid: minmax(50px, min-content) / repeat(auto-fill, 450px);
+        /* grid: minmax(50px, min-content) / repeat(auto-fill, 450px); */ /*a remettre*/
         /* grid-template-columns: auto; */
+    }
+}
+
+@media (max-width: 876px) {
+    input {
+        width: unset;
     }
 }
 
@@ -361,23 +377,41 @@ input.input_error::placeholder {
 @media (max-width: 576px) {
     .form-contact {
         gap: 0;
+        input {
+            width: 400px;
+            border-inline: 1px solid;
+        }
+        margin-top: 5%;
         /* justify-content: center; */
     }
 
     .contact-grid {
         /* padding-left: 5%; */
-        grid-template-columns: auto;
+        display: flex;
+        flex-direction: column-reverse;
+        img {
+            /* display: none; */
+            height: 100%;
+            position: absolute;
+            right: 0;
+            top: 0;
+            opacity: 0.1;
+        }
+        /* grid-template-columns: auto; */
     }
 
     .form {
-        align-items: stretch;
+        /* align-items: stretch; */
         flex-direction: column;
+        gap: 0.5rem;
         /* justify-content: unset; */
 
     }
 
     .card {
         width: 90%;
+        margin-top: 10%;
+        background-color: unset;
     }
 }
 

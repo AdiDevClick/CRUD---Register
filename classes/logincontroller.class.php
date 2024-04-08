@@ -26,31 +26,6 @@ class LoginController extends Login
 
         if (!isset($this->getDatas)) {
             throw new Error("Nous ne pouvons pas tester vos identifiants...");
-            //throw new Error("Nous ne pouvons pas tester vos identifiants...".
-            //header("Location: ".Functions::getUrl(). "?error=missing-ids"));
-            /* $this->username = '';
-            $this->password = ''; */
-
-            //require_once("includes/class-autoloader.inc.php");
-
-            //$getData = $_POST;
-
-            /* $checkInput = new CheckInput(
-                $getData
-            ); */
-            //require_once("includes/class-autoloader.inc.php");
-
-
-            /* $this->password = $checkInput->test_input($getData['password']);
-            $this->username = $checkInput->test_input($getData['username']); */
-
-
-
-            /* $errorUsername = "Nom d'utilisateur";
-            $errorPassword = 'Mot de passe'; */
-
-
-            //$this->login($this->password, $this->username);
         } else {
             $checkInput = new CheckInput(
                 $this->getDatas
@@ -62,12 +37,8 @@ class LoginController extends Login
 
             if (empty($checkInput->getErrorsArray())) {
                 $this->login($password, $username);
-            } else {
-                // $checkInput->getErrorsArray();
-                $checkInput->getErrorsArray();
-                // die('test');
-                return;
             }
+            return;
         }
     }
 
@@ -75,6 +46,10 @@ class LoginController extends Login
     {
 
         if (empty(CheckInput::getErrorsArray())) {
+            $userEmail = $this->getUsers($email)[0]['email'];
+            $username = $this->getUsers($email)[0]['full_name'];
+            $userID = $this->getUsers($email)[0]['user_id'];
+
             // die('je peux continuer');
             // $script = <<< JS
             // include_once("templates/toaster_template.html");
@@ -109,8 +84,10 @@ class LoginController extends Login
             try {
                 //$users = $this->getUsers($email);
                 if ($this->getPwd($pwd, $email) &&
-                    (($this->getUsers($email)[0]['email'] === $email) ||
-                    ($this->getUsers($email)[0]['full_name'] === $email))) {
+                    (($userEmail === $email) ||
+                    ($username === strtolower($email)))) {
+                    // (($this->getUsers($email)[0]['email'] === $email) ||
+                    // ($this->getUsers($email)[0]['full_name'] === $email))) {
                     //password_verify($pwd, $users[0]['password'])) {
 
                     // $loggedUser = [
@@ -122,18 +99,17 @@ class LoginController extends Login
                     //header('Location: index.php');
                     if(session_status() !== PHP_SESSION_ACTIVE || session_status() === PHP_SESSION_NONE) session_start();
 
-                    $arrCookiesOptions = [
-                        'expires' => time() + 365 * 24 * 3600,
-                        'secure' => true,
-                        'httponly' => true,
-                        'samesite' => 'Strict'
-                    ];
-                    setcookie('EMAIL', $this->getUsers($email)[0]['email'], $arrCookiesOptions);
+                    $this->setCookies($userEmail, $username, $userID);
+
+                    // $arrCookiesOptions = [
+                    //     'expires' => time() + 365 * 24 * 3600,
+                    //     'secure' => true,
+                    //     'httponly' => true,
+                    //     'samesite' => 'Strict'
+                    // ];
                     // setcookie('EMAIL', $this->getUsers($email)[0]['email'], $arrCookiesOptions);
                     // setcookie('LOGGED_USER[0]', $this->getUsers($email)[0]['email'], $arrCookiesOptions);
-                    setcookie('USER_ID', $this->getUsers($email)[0]['user_id'], $arrCookiesOptions);
                     // setcookie('LOGGED_USER[1]', $this->getUsers($email)[0]['user_id'], $arrCookiesOptions);
-                    setcookie('FULLNAME', $this->getUsers($email)[0]['full_name'], $arrCookiesOptions);
                     // setcookie('LOGGED_USER[2]', $this->getUsers($email)[0]['full_name'], $arrCookiesOptions);
                     // setcookie(
                     //     'LOGGED_USER',
@@ -152,6 +128,11 @@ class LoginController extends Login
                         $this->getUsers($email)[0]['user_id'],
                         $this->getUsers($email)[0]['email']
                     ];
+
+                    // setcookie('FULLNAME', $this->getUsers($email)[0]['full_name'], $arrCookiesOptions);
+                    // setcookie('USER_ID', $this->getUsers($email)[0]['user_id'], $arrCookiesOptions);
+                    // setcookie('EMAIL', $this->getUsers($email)[0]['email'], $arrCookiesOptions);
+
 
                     // return $loggedUser;
                 } else {
@@ -172,10 +153,22 @@ class LoginController extends Login
                 // $script2;
                 // die('Erreur de login : '. $errorMessage->getMessage());
                 CheckInput::insertErrorMessageInArray($errorMessage->getMessage());
-                echo('Erreur de login : '. $errorMessage->getMessage());
+                // echo('Erreur de login : '. $errorMessage->getMessage());
                 print_r(CheckInput::getErrorsArray());
             }
         }
+    }
+
+    protected function setCookies($email, $username, $userID) {
+        $arrCookiesOptions = [
+            'expires' => time() + 365 * 24 * 3600,
+            'secure' => true,
+            'httponly' => true,
+            'samesite' => 'Strict'
+        ];
+        setcookie('FULLNAME', $username, $arrCookiesOptions);
+        setcookie('USER_ID', $userID, $arrCookiesOptions);
+        setcookie('EMAIL', $email, $arrCookiesOptions);
     }
 
     protected function showUsers($pwd, $email)

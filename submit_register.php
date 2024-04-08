@@ -29,7 +29,7 @@ if (($data && isset($_POST['submit']))) {
     $signup->setUsers();
     // $errorMessages = CheckInput::getErrorsArray();
     // print_r($errorMessages);
-    $err = CheckInput::getErrorMessages($getDatas);
+    $err = CheckInput::getErrorMessages();
     // print_r($err) .  ' <==  array test ';
     //ob_start();
     if (count($err) > 0) {
@@ -39,7 +39,8 @@ if (($data && isset($_POST['submit']))) {
         // die('je veux success mais cest pas bon <br>');
     } else {
         // print_r($errorMessages);
-        header('refresh:10, index.php?register=success');
+        // header('refresh:10, index.php?register=success');
+        header('Location: index.php?register=success');
         session_destroy();
     }
     //$content = ob_end_flush();
@@ -48,7 +49,7 @@ if (($data && isset($_POST['submit']))) {
     //header('refresh:5, '.Functions::getUrl().'?error=none');
 }
 $loggedUser = LoginController::checkLoggedStatus();
-
+$errorMessage = CheckInput::showErrorMessage();
 // $errorMessage = '';
 // $errorPassword = '';
 // $errorUsername = '';
@@ -82,34 +83,40 @@ $loggedUser = LoginController::checkLoggedStatus();
                     <!-- <form action="register.php" method="post"> -->
                     <form class="form-contact" action="register.php" method="post">
                     <!-- <form action="submit_register.php" method="post"> -->
-                    <?php if (!empty($err) && (isset($err['emailTaken']) ?: isset($err['userTaken']))): ?>
-                        <?php print_r($getDatas)?>
-                        <?php print_r($err)?>
-                        <?php //print_r($getDatas)?>
-                        <?php $errorMessage = $err['userTaken'] ?? $err['emailTaken'] ?>
+                    <?php if (!empty($err)) : ?>
                         <div>
                             <p class="alert-error"><?php echo(strip_tags($errorMessage)) ?></p>
                         </div>
                     <?php endif ?>
+                    <?php //if (!empty($err) && (isset($err['emailTaken']) ?: isset($err['userTaken']))):?>
+                        <?php //print_r($getDatas)?>
+                        <?php //print_r($err)?>
+                        <?php //print_r($getDatas)?>
+                        <?php //$errorMessage = $err['userTaken'] ?? $err['emailTaken']?>
+                        <?php //elseif (condition) :?>
+                        <!-- <div>
+                            <p class="alert-error"><?php //echo(strip_tags($errorMessage))?></p>
+                        </div> -->
+                    <?php //endif?>
 
                         <!-- Username -->
                         <div class="form form-hidden">
-                            <label for="username" class="label">Votre prénom et nom :</label>
-                            <?php if (array_key_exists('errorUsername', $err)) : ?>
+                            <label for="username" class="label">Votre nom d'utilisateur :</label>
+                            <?php if (!empty($getDatas['username']) || array_key_exists('errorUsername', $err) || array_key_exists('userTaken', $err)) : ?>
                         <?php //print_r($err['errorUsername']) . '<= array'?>
                         <?php //if ($errorMessages) :?>
                         <?php //if ($err['errorUsername']) :?>
-                                <input class="input_error" type="text" id="username" name="username" placeholder="<?php echo strip_tags($err['errorUsername'])?>" autocomplete="username">
+                                <input class="input_error" type="text" id="username" name="username" placeholder="<?php echo strip_tags($err['errorUsername'] ?? 'Votre nom d\'utilisateur...') ?>" autocomplete="username" value="<?php echo strip_tags($getDatas['username'])?>" >
                             <?php else: ?>
-                                <input name="username" class="input" type="text" id="username" placeholder="Votre nom et prénom..."  autocomplete="username"/>
+                                <input name="username" class="input" type="text" id="username" placeholder="Votre nom d'utilisateur..."  autocomplete="username"/>
                             <?php endif ?>
                         </div>
 
                         <!-- Email -->
                         <div class="form form-hidden">
                             <label for="email" class="label">Votre email :</label>
-                            <?php if (array_key_exists('errorEmail', $err)) : ?>
-                                <input class="input_error" name="email" type="email" id="email" placeholder="<?php echo strip_tags($err['errorEmail'])?>"/>
+                            <?php if (!empty($getDatas['email']) || array_key_exists('errorEmail', $err) || array_key_exists('emailTaken', $err)) : ?>
+                                <input class="input_error" name="email" type="email" id="email" placeholder="<?php echo strip_tags($err['errorEmail'] ?? "Votre email...")?>" value="<?php echo strip_tags($getDatas['email']) ?>"/>
                             <?php else: ?>
                                 <input name="email" class="input" type="email" id="email" placeholder="Votre email..." autocomplete="email"/>
                             <?php endif ?>
@@ -119,7 +126,8 @@ $loggedUser = LoginController::checkLoggedStatus();
                         <div class="form form-hidden">
                             <label for="password" class="label">Votre mot de passe :</label>
                             <?php if (array_key_exists('errorPassword', $err)) : ?>
-                                <input class="input_error" name="password" type="password" id="password" placeholder="<?php echo strip_tags($err['errorPassword'])?>" autocomplete="new-password"/>
+                                <?php print_r(CheckInput::showInputError('password')) ?>
+                                <!-- <input class="input_error" name="password" type="password" id="password" placeholder="<?php //echo strip_tags($err['errorPassword'] ?: "*****")?>" autocomplete="new-password"/> -->
                             <?php else: ?>
                                 <input name="password" class="input" type="password" id="password" placeholder="*****" autocomplete="new-password"/>
                             <?php endif ?>
@@ -129,7 +137,7 @@ $loggedUser = LoginController::checkLoggedStatus();
                         <div class="form form-hidden">
                             <label for="pwdRepeat" class="label">Confirmez votre mot de passe :</label>
                             <?php if (array_key_exists('errorPwdRepeat', $err)) : ?>
-                                <input class="input_error" name="pwdRepeat" type="password" id="pwdRepeat" placeholder="<?php echo strip_tags($err['errorPwdRepeat'])?>" autocomplete="new-password"/>
+                                <input class="input_error" name="pwdRepeat" type="password" id="pwdRepeat" placeholder="<?php echo strip_tags($err['errorPwdRepeat'] ?: "*****") ?>" autocomplete="new-password"/>
                             <?php else: ?>
                                 <input name="pwdRepeat" class="input" type="password" id="pwdRepeat" placeholder="*****" autocomplete="new-password"/>
                             <?php endif ?>
@@ -138,7 +146,9 @@ $loggedUser = LoginController::checkLoggedStatus();
                         <!-- Age -->
                         <div class="form form-hidden">
                             <label for="age" class="label">Votre âge :</label>
+                            <?php //if (!empty($getDatas['age']) || array_key_exists('age', $err)) :?>
                             <?php if (array_key_exists('age', $err)) : ?>
+                                <!-- <input class="input_error" name="age" type="number" id="age" placeholder="<?php //echo strip_tags($err['age'])?>" autocomplete="off" /> -->
                                 <input class="input_error" name="age" type="number" id="age" placeholder="<?php echo strip_tags($err['age'])?>" autocomplete="off"/>
                             <?php else: ?>
                                 <input name="age" type="number" class="input" id="age" placeholder="Votre âge..." autocomplete="off"/>
