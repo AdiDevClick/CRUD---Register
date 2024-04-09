@@ -8,8 +8,6 @@ $data = $_SERVER['REQUEST_METHOD'] === 'POST';
 $err = [];
 $loggedUser = [];
 
-session_destroy();
-
 if ($data && isset($_POST["submit"])) {
     // We grab the data
     $getDatas = [
@@ -22,7 +20,8 @@ if ($data && isset($_POST["submit"])) {
     $err = CheckInput::getErrorMessages();
 
     if (count($err) > 0) {
-        session_unset();
+        // session_unset();
+        session_destroy();
     }
 
     if (!isset($loggedUser['user'])) {
@@ -34,7 +33,8 @@ if ($data && isset($_POST["submit"])) {
     }
 }
 
-$loggedUser = LoginController::checkLoggedStatus()
+$loggedUser = LoginController::checkLoggedStatus();
+print_r($loggedUser);
 
 ?>
 

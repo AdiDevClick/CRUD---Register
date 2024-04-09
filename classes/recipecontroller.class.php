@@ -22,11 +22,12 @@ class RecipeController extends Recipe
                 $recipe = $checkInput->test_input($this->getData["recipe"]);
                 $checkInput->checkInputs();
                 // echo $loggedUser['email'][0];
-
+                // echo 'array dans le recipectroller'; 
+                // print_r($loggedUser);
                 //$this->insertUser($this->nom, $this->email, $this->password, $this->age);
-                $this->setRecipes($title, $recipe, $loggedUser['email'][0]);
+                $this->setRecipes($title, $recipe, $loggedUser['email']);
                 $registeredRecipe = [
-                    'email' => $loggedUser['email'][0]
+                    'email' => $loggedUser['email']
                 ];
                 $_SESSION['REGISTERED_RECIPE'] = $registeredRecipe;
                 //header("Location: ".Functions::getUrl()."?error=none") ; */
@@ -317,6 +318,7 @@ class RecipeController extends Recipe
             $checkInput->checkInputs();
 
             if (empty(CheckInput::getErrorsArray())) {
+                //print_r($loggedUser);
                 $this->insertComments($message, $recipeId, $loggedUser['user'][1]);
                 $registeredComment = [
                     'email' => $loggedUser['email']

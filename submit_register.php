@@ -60,6 +60,7 @@ $errorMessage = CheckInput::showErrorMessage();
 } */
 // On affiche chaque recette une à une
 //$content = ob_get_clean();
+print_r($loggedUser);
 ?>
 
 <!-- Register form for non registered visitor -->

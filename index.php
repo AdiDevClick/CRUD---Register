@@ -52,7 +52,7 @@ ob_start()
 
 <!-- Si l'utilisateur est bien connecté il peut voir les recettes -->
     <?php if (isset($loggedUser['user']) || isset($loggedUser['email'])): ?>
-        <?php header_remove('Location: index.php?login=success') ?>
+        <?php //header_remove('Location: index.php?login=success') ?>
         <?php require_once("includes/class-autoloader.inc.php"); ?>
         <?php $recipes = new LoginView([]); ?>
         <?php foreach ($recipes->displayRecipes() as $recipe) : ?>
@@ -62,7 +62,8 @@ ob_start()
                     <h3><?php echo $recipe['title']; ?></h3>
                     <div><?php echo $recipe['recipe']; ?></div>
                     <i><?php echo displayAuthor($recipe["author"]) ?></i>
-                    <?php //print_r($loggedUser)?>
+                    <?php print_r($loggedUser)?>
+                    <?php print_r($recipe)?>
                     <?php if (isset($loggedUser['email']) && $recipe['author'] === $loggedUser['email']) : ?>
                     <!-- <?php //if (isset($loggedUser) && $recipe['author'] === $loggedUser['email'][0]) :?> -->
                         <ul class="list-group">

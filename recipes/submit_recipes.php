@@ -37,9 +37,12 @@ if ($data && isset($_POST['submit'])) {
 
 //$content = ob_get_clean();
 //$content = ob_end_flush();
+
+//ob_start()
+$loggedUser = LoginController::checkLoggedStatus();
+echo ' le array dans submit recipe';
+print_r($loggedUser)
 ?>
-<?php //ob_start()?>
-<?php $loggedUser = LoginController::checkLoggedStatus()?>
     <?php //if (isset($loggedUser['email']) && !isset($loggedUser['recipe'])):?>
         <?php if (isset($loggedUser['email'])  && !isset($_SESSION['REGISTERED_RECIPE'])): ?> 
             <?php //(isset($loggedUserState)):?>

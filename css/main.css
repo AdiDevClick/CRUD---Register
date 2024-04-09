@@ -627,24 +627,20 @@ main {
     text-align: center;
 }
 
-:focus::placeholder {
+input:hover::placeholder, input::placeholder:hover {
     visibility: hidden;
+    color: rgba(0, 128, 0, 0);
 }
 
-/* or, for legacy browsers */
-
-::-webkit-input-placeholder {
-    text-align: center;
+input::placeholder:focus, input:focus::placeholder, input.input_error:focus::placeholder {
+    visibility: hidden;
+    color: rgba(0, 128, 0, 0);
 }
 
-:-moz-placeholder { /* Firefox 18- */
+/* or, for legacy browsers && moz 18 & 19+*/
+:-moz-placeholder , ::-moz-placeholder, :-ms-input-placeholder, ::-webkit-input-placeholder {
     text-align: center;
 }
-
-::-moz-placeholder {  /* Firefox 19+ */
-    text-align: center;
-}
-
-:-ms-input-placeholder {
-    text-align: center;
+:hover::-moz-placeholder, .input_error:hover::-moz-placeholder {  /* Firefox 19+ */
+    color: rgba(0, 128, 0, 0);
 }

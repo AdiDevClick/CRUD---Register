@@ -1,8 +1,27 @@
-const observer = new IntersectionObserver((entries) => {
+const loaded = document.querySelector('.form-loaded')
+
+const options = {
+  root: null,
+  rootMargin: '0px',
+}
+
+const intersectHandler = function(entries, observer) {
     entries.forEach((entry) => {
-        entry.isIntersecting ? entry.target.classList.add('form-show') : entry.target.classList.remove('form-show')
+        if (entry.isIntersecting) {
+            entry.target.classList.add('form-show')
+            observer.unobserve(entry.target)
+        }
     })
-})
+}
+
+// const observer = new IntersectionObserver((entries) => {
+//     entries.forEach((entry) => {
+//         if (entry.isIntersecting) {
+//             entry.target.classList.add('form-show')
+//             observer.unobserve(entry.target)
+//         }
+//     })
+// })
 // const observer = new IntersectionObserver((entries) => {
 //     entries.forEach((entry) => {
 //         if (entry.isIntersecting) {
@@ -12,6 +31,11 @@ const observer = new IntersectionObserver((entries) => {
 //         }
 //     })
 // })
+document.documentElement.classList.add('form-loaded')
 
-const hiddenElements = document.querySelectorAll('.form-hidden')
-hiddenElements.forEach((el) => observer.observe(el))
+
+window.addEventListener("DOMContentLoaded", function () {
+    const observer = new IntersectionObserver(intersectHandler, options)
+    const hiddenElements = document.querySelectorAll('.form-hidden')
+    hiddenElements.forEach((el) => observer.observe(el))
+})

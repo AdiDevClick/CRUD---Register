@@ -1,11 +1,216 @@
-Errors : [2] Undefined array key "pw" - C:\xampp\htdocs\Recettes\classes\CheckInput.class.php:229
-Errors : [2] Undefined array key "password" - C:\xampp\htdocs\Recettes\submit_register.php:24
-Errors : [2] Undefined array key "pw" - C:\xampp\htdocs\Recettes\classes\CheckInput.class.php:229
-Errors : [2] Undefined array key "password" - C:\xampp\htdocs\Recettes\submit_register.php:24
-Errors : [2] Undefined array key "pw" - C:\xampp\htdocs\Recettes\classes\CheckInput.class.php:229
-Errors : [2] Undefined array key "password" - C:\xampp\htdocs\Recettes\submit_register.php:24
-Errors : [2] Undefined array key "password" - C:\xampp\htdocs\Recettes\submit_register.php:24
-Errors : [2] Undefined array key "password" - C:\xampp\htdocs\Recettes\submit_register.php:24
-Errors : [2] Undefined array key "pw" - C:\xampp\htdocs\Recettes\classes\CheckInput.class.php:229
-Errors : [2] Undefined array key "errorPassword" - C:\xampp\htdocs\Recettes\classes\CheckInput.class.php:229
-Errors : [2] Undefined array key "errorPassword" - C:\xampp\htdocs\Recettes\classes\CheckInput.class.php:229
+Errors : [2] Header to delete may not contain colon. - C:\xampp\htdocs\recettes\index.php:55
+Errors : [2] Header to delete may not contain colon. - C:\xampp\htdocs\recettes\index.php:55
+Errors : [2] Header to delete may not contain colon. - C:\xampp\htdocs\recettes\index.php:55
+Errors : [2] Undefined array key "user_id" - C:\xampp\htdocs\recettes\classes\logincontroller.class.php:51
+Errors : [2] Undefined array key "user_id" - C:\xampp\htdocs\recettes\classes\logincontroller.class.php:51
+Errors : [8192] setcookie(): Passing null to parameter #2 ($value) of type string is deprecated - C:\xampp\htdocs\recettes\classes\logincontroller.class.php:170
+Errors : [2] Undefined array key "user_id" - C:\xampp\htdocs\recettes\classes\logincontroller.class.php:125
+Errors : [2] Undefined array key "user_id" - C:\xampp\htdocs\recettes\classes\logincontroller.class.php:128
+Errors : [2] Header to delete may not contain colon. - C:\xampp\htdocs\recettes\index.php:55
+Errors : [2] Header to delete may not contain colon. - C:\xampp\htdocs\recettes\index.php:55
+Errors : [2] Header to delete may not contain colon. - C:\xampp\htdocs\recettes\index.php:55
+Errors : [2] Header to delete may not contain colon. - C:\xampp\htdocs\recettes\index.php:55
+Errors : [2] Undefined array key "user_id" - C:\xampp\htdocs\recettes\classes\logincontroller.class.php:51
+Errors : [8192] setcookie(): Passing null to parameter #2 ($value) of type string is deprecated - C:\xampp\htdocs\recettes\classes\logincontroller.class.php:170
+Errors : [2] Undefined array key "user_id" - C:\xampp\htdocs\recettes\classes\logincontroller.class.php:125
+Errors : [2] Undefined array key "user_id" - C:\xampp\htdocs\recettes\classes\logincontroller.class.php:128
+Errors : [2] Header to delete may not contain colon. - C:\xampp\htdocs\recettes\index.php:55
+Errors : [2] Header to delete may not contain colon. - C:\xampp\htdocs\recettes\index.php:55
+Errors : [2] Header to delete may not contain colon. - C:\xampp\htdocs\recettes\index.php:55
+Errors : [2] Header to delete may not contain colon. - C:\xampp\htdocs\recettes\index.php:55
+Errors : [2] Header to delete may not contain colon. - C:\xampp\htdocs\recettes\index.php:55
+Errors : [2] Header to delete may not contain colon. - C:\xampp\htdocs\recettes\index.php:55
+Errors : [2] Undefined array key "user_id" - C:\xampp\htdocs\recettes\classes\logincontroller.class.php:51
+Errors : [8192] setcookie(): Passing null to parameter #2 ($value) of type string is deprecated - C:\xampp\htdocs\recettes\classes\logincontroller.class.php:170
+Errors : [2] Undefined array key "user_id" - C:\xampp\htdocs\recettes\classes\logincontroller.class.php:125
+Errors : [2] Undefined array key "user_id" - C:\xampp\htdocs\recettes\classes\logincontroller.class.php:128
+Errors : [2] Header to delete may not contain colon. - C:\xampp\htdocs\recettes\index.php:55
+Errors : [2] Header to delete may not contain colon. - C:\xampp\htdocs\recettes\index.php:55
+Errors : [2] Header to delete may not contain colon. - C:\xampp\htdocs\recettes\index.php:55
+Errors : [2] Header to delete may not contain colon. - C:\xampp\htdocs\recettes\index.php:55
+Errors : [2] Undefined array key "user_id" - C:\xampp\htdocs\recettes\classes\logincontroller.class.php:51
+Errors : [8192] setcookie(): Passing null to parameter #2 ($value) of type string is deprecated - C:\xampp\htdocs\recettes\classes\logincontroller.class.php:170
+Errors : [2] Undefined array key "user_id" - C:\xampp\htdocs\recettes\classes\logincontroller.class.php:125
+Errors : [2] Undefined array key "user_id" - C:\xampp\htdocs\recettes\classes\logincontroller.class.php:128
+Errors : [2] Header to delete may not contain colon. - C:\xampp\htdocs\recettes\index.php:55
+Errors : [2] Header to delete may not contain colon. - C:\xampp\htdocs\recettes\index.php:55
+Errors : [2] Header to delete may not contain colon. - C:\xampp\htdocs\recettes\index.php:55
+Errors : [2] Header to delete may not contain colon. - C:\xampp\htdocs\recettes\index.php:55
+Errors : [2] Header to delete may not contain colon. - C:\xampp\htdocs\recettes\index.php:55
+Errors : [2] Header to delete may not contain colon. - C:\xampp\htdocs\recettes\index.php:55
+Errors : [2] Header to delete may not contain colon. - C:\xampp\htdocs\recettes\index.php:55
+Errors : [2] Header to delete may not contain colon. - C:\xampp\htdocs\recettes\index.php:55
+Errors : [2] Header to delete may not contain colon. - C:\xampp\htdocs\recettes\index.php:55
+Errors : [2] Header to delete may not contain colon. - C:\xampp\htdocs\recettes\index.php:55
+Errors : [2] Header to delete may not contain colon. - C:\xampp\htdocs\recettes\index.php:55
+Errors : [2] Header to delete may not contain colon. - C:\xampp\htdocs\recettes\index.php:55
+Errors : [2] Header to delete may not contain colon. - C:\xampp\htdocs\recettes\index.php:55
+Errors : [2] Header to delete may not contain colon. - C:\xampp\htdocs\recettes\index.php:55
+Errors : [2] Header to delete may not contain colon. - C:\xampp\htdocs\recettes\index.php:55
+Errors : [2] Header to delete may not contain colon. - C:\xampp\htdocs\recettes\index.php:55
+Errors : [2] Header to delete may not contain colon. - C:\xampp\htdocs\recettes\index.php:55
+Errors : [2] Header to delete may not contain colon. - C:\xampp\htdocs\recettes\index.php:55
+Errors : [2] Header to delete may not contain colon. - C:\xampp\htdocs\recettes\index.php:55
+Errors : [2] Header to delete may not contain colon. - C:\xampp\htdocs\recettes\index.php:55
+Errors : [2] Header to delete may not contain colon. - C:\xampp\htdocs\recettes\index.php:55
+Errors : [2] Header to delete may not contain colon. - C:\xampp\htdocs\recettes\index.php:55
+Errors : [2] Header to delete may not contain colon. - C:\xampp\htdocs\recettes\index.php:55
+Errors : [2] Header to delete may not contain colon. - C:\xampp\htdocs\recettes\index.php:55
+Errors : [2] Header to delete may not contain colon. - C:\xampp\htdocs\recettes\index.php:55
+Errors : [2] Undefined array key "user_id" - C:\xampp\htdocs\recettes\classes\logincontroller.class.php:51
+Errors : [8192] setcookie(): Passing null to parameter #2 ($value) of type string is deprecated - C:\xampp\htdocs\recettes\classes\logincontroller.class.php:170
+Errors : [2] Undefined array key "user_id" - C:\xampp\htdocs\recettes\classes\logincontroller.class.php:125
+Errors : [2] Undefined array key "user_id" - C:\xampp\htdocs\recettes\classes\logincontroller.class.php:128
+Errors : [2] Header to delete may not contain colon. - C:\xampp\htdocs\recettes\index.php:55
+Errors : [2] Header to delete may not contain colon. - C:\xampp\htdocs\recettes\index.php:55
+Errors : [2] Header to delete may not contain colon. - C:\xampp\htdocs\recettes\index.php:55
+Errors : [2] Header to delete may not contain colon. - C:\xampp\htdocs\recettes\index.php:55
+Errors : [2] Undefined array key "user_id" - C:\xampp\htdocs\recettes\classes\logincontroller.class.php:51
+Errors : [8192] setcookie(): Passing null to parameter #2 ($value) of type string is deprecated - C:\xampp\htdocs\recettes\classes\logincontroller.class.php:170
+Errors : [2] Undefined array key "user_id" - C:\xampp\htdocs\recettes\classes\logincontroller.class.php:125
+Errors : [2] Undefined array key "user_id" - C:\xampp\htdocs\recettes\classes\logincontroller.class.php:128
+Errors : [2] Header to delete may not contain colon. - C:\xampp\htdocs\recettes\index.php:55
+Errors : [2] Header to delete may not contain colon. - C:\xampp\htdocs\recettes\index.php:55
+Errors : [2] Header to delete may not contain colon. - C:\xampp\htdocs\recettes\index.php:55
+Errors : [2] Header to delete may not contain colon. - C:\xampp\htdocs\recettes\index.php:55
+Errors : [2] Undefined array key "user_id" - C:\xampp\htdocs\recettes\classes\logincontroller.class.php:51
+Errors : [8192] setcookie(): Passing null to parameter #2 ($value) of type string is deprecated - C:\xampp\htdocs\recettes\classes\logincontroller.class.php:170
+Errors : [2] Undefined array key "user_id" - C:\xampp\htdocs\recettes\classes\logincontroller.class.php:125
+Errors : [2] Undefined array key "user_id" - C:\xampp\htdocs\recettes\classes\logincontroller.class.php:128
+Errors : [2] Header to delete may not contain colon. - C:\xampp\htdocs\recettes\index.php:55
+Errors : [2] Header to delete may not contain colon. - C:\xampp\htdocs\recettes\index.php:55
+Errors : [2] Header to delete may not contain colon. - C:\xampp\htdocs\recettes\index.php:55
+Errors : [2] Undefined array key "user_id" - C:\xampp\htdocs\recettes\classes\logincontroller.class.php:51
+Errors : [8192] setcookie(): Passing null to parameter #2 ($value) of type string is deprecated - C:\xampp\htdocs\recettes\classes\logincontroller.class.php:170
+Errors : [2] Undefined array key "user_id" - C:\xampp\htdocs\recettes\classes\logincontroller.class.php:125
+Errors : [2] Undefined array key "user_id" - C:\xampp\htdocs\recettes\classes\logincontroller.class.php:128
+Errors : [2] Header to delete may not contain colon. - C:\xampp\htdocs\recettes\index.php:55
+Errors : [2] Header to delete may not contain colon. - C:\xampp\htdocs\recettes\index.php:55
+Errors : [2] Undefined array key "user_id" - C:\xampp\htdocs\recettes\classes\logincontroller.class.php:51
+Errors : [8192] setcookie(): Passing null to parameter #2 ($value) of type string is deprecated - C:\xampp\htdocs\recettes\classes\logincontroller.class.php:170
+Errors : [2] Undefined array key "user_id" - C:\xampp\htdocs\recettes\classes\logincontroller.class.php:125
+Errors : [2] Undefined array key "user_id" - C:\xampp\htdocs\recettes\classes\logincontroller.class.php:128
+Errors : [2] Header to delete may not contain colon. - C:\xampp\htdocs\recettes\index.php:55
+Errors : [2] Header to delete may not contain colon. - C:\xampp\htdocs\recettes\index.php:55
+Errors : [2] Undefined array key "user_id" - C:\xampp\htdocs\recettes\classes\logincontroller.class.php:51
+Errors : [8192] setcookie(): Passing null to parameter #2 ($value) of type string is deprecated - C:\xampp\htdocs\recettes\classes\logincontroller.class.php:170
+Errors : [2] Undefined array key "user_id" - C:\xampp\htdocs\recettes\classes\logincontroller.class.php:125
+Errors : [2] Undefined array key "user_id" - C:\xampp\htdocs\recettes\classes\logincontroller.class.php:128
+Errors : [2] Header to delete may not contain colon. - C:\xampp\htdocs\recettes\index.php:55
+Errors : [2] Header to delete may not contain colon. - C:\xampp\htdocs\recettes\index.php:55
+Errors : [2] Header to delete may not contain colon. - C:\xampp\htdocs\recettes\index.php:55
+Errors : [2] Header to delete may not contain colon. - C:\xampp\htdocs\recettes\index.php:55
+Errors : [2] Header to delete may not contain colon. - C:\xampp\htdocs\recettes\index.php:55
+Errors : [2] Header to delete may not contain colon. - C:\xampp\htdocs\recettes\index.php:55
+Errors : [2] Header to delete may not contain colon. - C:\xampp\htdocs\recettes\index.php:55
+Errors : [2] Header to delete may not contain colon. - C:\xampp\htdocs\recettes\index.php:55
+Errors : [2] Header to delete may not contain colon. - C:\xampp\htdocs\recettes\index.php:55
+Errors : [2] Header to delete may not contain colon. - C:\xampp\htdocs\recettes\index.php:55
+Errors : [2] Header to delete may not contain colon. - C:\xampp\htdocs\recettes\index.php:55
+Errors : [2] Header to delete may not contain colon. - C:\xampp\htdocs\recettes\index.php:55
+Errors : [2] Header to delete may not contain colon. - C:\xampp\htdocs\recettes\index.php:55
+Errors : [2] Header to delete may not contain colon. - C:\xampp\htdocs\recettes\index.php:55
+Errors : [2] Header to delete may not contain colon. - C:\xampp\htdocs\recettes\index.php:55
+Errors : [2] Header to delete may not contain colon. - C:\xampp\htdocs\recettes\index.php:55
+Errors : [2] Array to string conversion - C:\xampp\htdocs\recettes\index.php:65
+Errors : [2] Array to string conversion - C:\xampp\htdocs\recettes\index.php:65
+Errors : [2] Array to string conversion - C:\xampp\htdocs\recettes\index.php:65
+Errors : [2] Array to string conversion - C:\xampp\htdocs\recettes\index.php:65
+Errors : [2] Array to string conversion - C:\xampp\htdocs\recettes\index.php:65
+Errors : [2] Array to string conversion - C:\xampp\htdocs\recettes\index.php:65
+Errors : [2] Array to string conversion - C:\xampp\htdocs\recettes\index.php:65
+Errors : [2] Array to string conversion - C:\xampp\htdocs\recettes\index.php:65
+Errors : [2] Array to string conversion - C:\xampp\htdocs\recettes\index.php:65
+Errors : [2] Array to string conversion - C:\xampp\htdocs\recettes\index.php:65
+Errors : [2] Array to string conversion - C:\xampp\htdocs\recettes\index.php:65
+Errors : [2] Array to string conversion - C:\xampp\htdocs\recettes\index.php:65
+Errors : [2] Array to string conversion - C:\xampp\htdocs\recettes\index.php:65
+Errors : [2] Array to string conversion - C:\xampp\htdocs\recettes\index.php:65
+Errors : [2] Array to string conversion - C:\xampp\htdocs\recettes\index.php:65
+Errors : [2] Array to string conversion - C:\xampp\htdocs\recettes\index.php:65
+Errors : [2] Array to string conversion - C:\xampp\htdocs\recettes\index.php:65
+Errors : [2] Array to string conversion - C:\xampp\htdocs\recettes\index.php:65
+Errors : [2] Array to string conversion - C:\xampp\htdocs\recettes\index.php:65
+Errors : [2] Array to string conversion - C:\xampp\htdocs\recettes\index.php:65
+Errors : [2] Array to string conversion - C:\xampp\htdocs\recettes\index.php:65
+Errors : [2] Array to string conversion - C:\xampp\htdocs\recettes\index.php:65
+Errors : [2] Array to string conversion - C:\xampp\htdocs\recettes\index.php:65
+Errors : [2] Array to string conversion - C:\xampp\htdocs\recettes\index.php:65
+Errors : [2] Array to string conversion - C:\xampp\htdocs\recettes\index.php:65
+Errors : [2] Array to string conversion - C:\xampp\htdocs\recettes\index.php:65
+Errors : [2] Array to string conversion - C:\xampp\htdocs\recettes\index.php:65
+Errors : [2] Array to string conversion - C:\xampp\htdocs\recettes\index.php:65
+Errors : [2] Array to string conversion - C:\xampp\htdocs\recettes\index.php:65
+Errors : [2] Array to string conversion - C:\xampp\htdocs\recettes\index.php:65
+Errors : [2] Array to string conversion - C:\xampp\htdocs\recettes\index.php:65
+Errors : [2] Array to string conversion - C:\xampp\htdocs\recettes\index.php:65
+Errors : [2] Array to string conversion - C:\xampp\htdocs\recettes\index.php:65
+Errors : [2] Array to string conversion - C:\xampp\htdocs\recettes\index.php:65
+Errors : [2] Array to string conversion - C:\xampp\htdocs\recettes\index.php:65
+Errors : [2] Array to string conversion - C:\xampp\htdocs\recettes\index.php:65
+Errors : [2] Array to string conversion - C:\xampp\htdocs\recettes\index.php:65
+Errors : [2] Array to string conversion - C:\xampp\htdocs\recettes\index.php:65
+Errors : [2] Array to string conversion - C:\xampp\htdocs\recettes\index.php:65
+Errors : [2] Array to string conversion - C:\xampp\htdocs\recettes\index.php:65
+Errors : [2] Array to string conversion - C:\xampp\htdocs\recettes\index.php:65
+Errors : [2] Array to string conversion - C:\xampp\htdocs\recettes\index.php:65
+Errors : [2] Array to string conversion - C:\xampp\htdocs\recettes\index.php:65
+Errors : [2] Array to string conversion - C:\xampp\htdocs\recettes\index.php:65
+Errors : [2] Array to string conversion - C:\xampp\htdocs\recettes\index.php:65
+Errors : [2] Array to string conversion - C:\xampp\htdocs\recettes\index.php:65
+Errors : [2] Array to string conversion - C:\xampp\htdocs\recettes\index.php:65
+Errors : [2] Array to string conversion - C:\xampp\htdocs\recettes\index.php:65
+Errors : [2] Array to string conversion - C:\xampp\htdocs\recettes\index.php:65
+Errors : [2] Array to string conversion - C:\xampp\htdocs\recettes\index.php:65
+Errors : [2] Array to string conversion - C:\xampp\htdocs\recettes\index.php:65
+Errors : [2] Array to string conversion - C:\xampp\htdocs\recettes\index.php:65
+Errors : [2] Array to string conversion - C:\xampp\htdocs\recettes\index.php:65
+Errors : [2] Array to string conversion - C:\xampp\htdocs\recettes\index.php:65
+Errors : [2] Array to string conversion - C:\xampp\htdocs\recettes\index.php:65
+Errors : [2] Array to string conversion - C:\xampp\htdocs\recettes\index.php:65
+Errors : [2] Array to string conversion - C:\xampp\htdocs\recettes\index.php:65
+Errors : [2] Array to string conversion - C:\xampp\htdocs\recettes\index.php:65
+Errors : [2] Array to string conversion - C:\xampp\htdocs\recettes\index.php:65
+Errors : [2] Array to string conversion - C:\xampp\htdocs\recettes\index.php:65
+Errors : [2] Array to string conversion - C:\xampp\htdocs\recettes\index.php:65
+Errors : [2] Array to string conversion - C:\xampp\htdocs\recettes\index.php:65
+Errors : [2] Array to string conversion - C:\xampp\htdocs\recettes\index.php:65
+Errors : [2] Array to string conversion - C:\xampp\htdocs\recettes\index.php:65
+Errors : [2] Array to string conversion - C:\xampp\htdocs\recettes\index.php:65
+Errors : [2] Array to string conversion - C:\xampp\htdocs\recettes\index.php:65
+Errors : [2] Array to string conversion - C:\xampp\htdocs\recettes\index.php:65
+Errors : [2] Array to string conversion - C:\xampp\htdocs\recettes\index.php:65
+Errors : [2] Array to string conversion - C:\xampp\htdocs\recettes\index.php:65
+Errors : [2] Array to string conversion - C:\xampp\htdocs\recettes\index.php:65
+Errors : [2] Array to string conversion - C:\xampp\htdocs\recettes\index.php:65
+Errors : [2] Array to string conversion - C:\xampp\htdocs\recettes\index.php:65
+Errors : [2] Array to string conversion - C:\xampp\htdocs\recettes\index.php:65
+Errors : [2] Array to string conversion - C:\xampp\htdocs\recettes\index.php:65
+Errors : [2] Array to string conversion - C:\xampp\htdocs\recettes\index.php:65
+Errors : [2] Array to string conversion - C:\xampp\htdocs\recettes\index.php:65
+Errors : [2] Array to string conversion - C:\xampp\htdocs\recettes\index.php:65
+Errors : [2] Array to string conversion - C:\xampp\htdocs\recettes\index.php:65
+Errors : [2] Array to string conversion - C:\xampp\htdocs\recettes\index.php:65
+Errors : [2] Array to string conversion - C:\xampp\htdocs\recettes\index.php:65
+Errors : [2] Array to string conversion - C:\xampp\htdocs\recettes\index.php:65
+Errors : [2] Array to string conversion - C:\xampp\htdocs\recettes\index.php:65
+Errors : [2] Array to string conversion - C:\xampp\htdocs\recettes\index.php:65
+Errors : [2] Array to string conversion - C:\xampp\htdocs\recettes\index.php:65
+Errors : [2] Array to string conversion - C:\xampp\htdocs\recettes\index.php:65
+Errors : [2] Array to string conversion - C:\xampp\htdocs\recettes\index.php:65
+Errors : [2] Array to string conversion - C:\xampp\htdocs\recettes\index.php:65
+Errors : [2] Array to string conversion - C:\xampp\htdocs\recettes\index.php:65
+Errors : [2] Array to string conversion - C:\xampp\htdocs\recettes\index.php:65
+Errors : [2] Array to string conversion - C:\xampp\htdocs\recettes\index.php:65
+Errors : [2] Array to string conversion - C:\xampp\htdocs\recettes\index.php:65
+Errors : [2] Array to string conversion - C:\xampp\htdocs\recettes\index.php:65
+Errors : [2] Array to string conversion - C:\xampp\htdocs\recettes\index.php:65
+Errors : [2] Array to string conversion - C:\xampp\htdocs\recettes\index.php:65
+Errors : [2] Array to string conversion - C:\xampp\htdocs\recettes\index.php:65
+Errors : [2] Array to string conversion - C:\xampp\htdocs\recettes\index.php:65
+Errors : [2] Array to string conversion - C:\xampp\htdocs\recettes\index.php:65
+Errors : [2] Array to string conversion - C:\xampp\htdocs\recettes\index.php:65
+Errors : [2] Array to string conversion - C:\xampp\htdocs\recettes\index.php:65
+Errors : [2] Array to string conversion - C:\xampp\htdocs\recettes\index.php:65
+Errors : [2] Array to string conversion - C:\xampp\htdocs\recettes\index.php:65
+Errors : [2] Array to string conversion - C:\xampp\htdocs\recettes\index.php:65

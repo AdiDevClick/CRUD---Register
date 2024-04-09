@@ -133,8 +133,8 @@ let type
 let errAlert = false
 let alertToaster
 
-const queryString = window.location.search
-const urlParams = new URLSearchParams(queryString)
+const queryString = window.location
+const urlParams = new URLSearchParams(queryString.search)
 // const url = new URL
 // console.log(url)
 
@@ -142,6 +142,7 @@ const error = urlParams.get('error')
 if (error === 'invalid-input') {
     errAlert = true
     message = 'Veuillez modifier votre identifiant'
+    resetURL('index.php', 'error')
 }
 // error === 'invalid-input' ? message = 'Veuillez modifier votre identifiant' : errAlert = false
 
@@ -150,6 +151,7 @@ if (success === 'disconnected') {
     errAlert = true
     type = 'Success'
     message = 'Vous avez été déconnecté avec succès'
+    resetURL('index.php', 'success')
 }
 // success === 'disconnected' ? message = 'Vous avez été déconnecté avec succès' : errAlert = false
 
@@ -159,6 +161,7 @@ if (login === 'success') {
     errAlert = true
     type = 'Success'
     message = 'Vous êtes connecté avec succès'
+    resetURL('index.php', 'login')
 }
 // login === 'success' ? message = 'Vous êtes connecté avec succès' : errAlert = false
 
@@ -167,12 +170,14 @@ if (register === 'success') {
     errAlert = true
     type = 'Success'
     message = 'Votre compte a été enregistré avec succès'
+    resetURL('index.php', 'register')
 }
 
 if (register === 'failed') {
     errAlert = true
     type = 'Erreur'
     message = 'Problème dans la création de votre compte, veuillez vérifier que tous les champs soient correctement remplis'
+    resetURL('register.php', 'failed')
 }
 
 console.log(urlParams.has('email-invalid')); // fonctionne pas
@@ -191,4 +196,16 @@ if (alertContainer) {
         'beforeend',
         alertToaster
     )
+}
+
+/**
+ * Remove and replace the URL Parameter from the history
+ * delete the success/failed param in case of a browser return)
+ * @param {string} page 
+ * @param {string} paramName 
+ * @returns 
+ */
+function resetURL(page, paramName) {
+    urlParams.delete(paramName)
+    return window.history.replaceState({}, document.title, "/recettes/" + page);
 }
