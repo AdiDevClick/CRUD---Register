@@ -24,11 +24,14 @@ class Signup extends Mysql
         if ($stmt ->rowCount() > 0) {
             $resultCheck = false;
             $stmt = null;
-            
+
             if ($users[0]["full_name"] === $loweredUsername) {
-                throw new Error("STMTSGNDBCHCNT - Cet utilisateur existe déjà");
-            } elseif ($users[0]["email"] === $email) {
-                throw new Error("STMTSGNDBCHCNTEM - Cet email existe déjà");
+                CheckInput::insertErrorMessageInArray('STMTSGNDBCHCNT - Cet utilisateur existe déjà');
+                // throw new Error("STMTSGNDBCHCNT - Cet utilisateur existe déjà");
+            }
+            if ($users[0]["email"] === $email) {
+                CheckInput::insertErrorMessageInArray('STMTSGNDBCHCNTEM - Cet email existe déjà');
+                // throw new Error("STMTSGNDBCHCNTEM - Cet email existe déjà");
                 //throw new Error((string)header("Location: ".Functions::getUrl()."?error=user-already-exists"));
             }
         } else {

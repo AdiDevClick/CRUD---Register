@@ -173,10 +173,9 @@ textarea .input_error {
     /* transition: all 0.2s ease; */
 }
 
-/* input::placeholder:focus, input:focus::placeholder, input:focus::-moz-placeholder, input:focus:-moz-placeholder {
+input::placeholder:focus {
     visibility: hidden;
-    color: rgba(0, 128, 0, 0);
-} */
+}
 
 input.input_error::placeholder {
     color: rgb(247, 116, 116);
@@ -218,7 +217,7 @@ input {
     transition: all 1s;
 }
 
-.form-show, .form-hidden:has(.input_error) {
+.form-show {
     opacity: 1;
     filter: blur(0);
     transform: translateX(0);

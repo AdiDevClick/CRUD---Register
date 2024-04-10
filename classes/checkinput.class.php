@@ -163,12 +163,12 @@ class CheckInput extends Validate
                 // elseif (str_contains($value, 'username')) $errorMessage['errorUsername'] = $value;
                 elseif (str_contains($value, 'email')) {
                     self::$errorsArray['errorEmail'] = $value;
+                } elseif (str_contains($value, 'LGNGETPW')) {
+                    self::$errorsArray['userError'] = "Nom d'utilisateur ou Mot de passe incorrect";
                 } else {
                     self::$errorsArray['message'] = $value;
                 }
-                // else $errorMessage = $value;
             }
-            // return self::$errorsArray;
         }
         return self::$errorsArray;
     }
@@ -186,14 +186,14 @@ class CheckInput extends Validate
         }
     }
 
+    /**
+     * Accède à l'array d'erreur global
+     *
+     * @return array
+     */
     public static function getErrorsArray()
     {
-        // echo('error dans le static => ');
-        // print_r(self::$errorsArray);
-        // print_r($this->errorsArray);
-        // return false;
         return self::$errorsArray;
-        // return $this->errorsArray;
     }
 
     public static function insertErrorMessageInArray(string $message)
@@ -202,19 +202,27 @@ class CheckInput extends Validate
     }
 
 
-    public static function showErrorMessage()
+    /**
+     * Retourne un message d'erreur en fonction de l'erreur
+     *
+     * @return string
+     */
+    public static function showErrorMessage(): string
     {
         $errorMessage = '';
         foreach (self::$errorsArray as $key => $value) {
-            print_r($key . PHP_EOL .' => ' . $value . '<br>');
-            if ($key == 'emailTaken') {
+            // print_r($key . PHP_EOL .' => ' . $value . '<br>');
+            if ($key === 'emailTaken' && isset(self::$errorsArray ['userTaken']) || $key === 'userTaken' && isset(self::$errorsArray ['emailTaken'])) {
+                $errorMessage = 'Cet utilisateur et email sont déjà pris';
+            } elseif ($key === 'emailTaken') {
                 $errorMessage = $value;
-                print_r($key);
-            } elseif ($key == 'userTaken') {
+                // print_r($key);
+            } elseif ($key === 'userTaken') {
                 $errorMessage = $value;
-                print_r($errorMessage);
-            } elseif ($key == 'pwMatch') {
+                // print_r($errorMessage);
+            } elseif ($key === 'pwMatch') {
                 $errorMessage = $value;
+                // print_r($errorMessage);
             } elseif (str_contains($value, 'vide')) {
                 $errorMessage = 'Un ou plusieurs champs sont vides';
             }
@@ -222,9 +230,31 @@ class CheckInput extends Validate
         return $errorMessage;
     }
 
-    public static function showInputError(string $name)
+    /**
+     * Crer une input avec une classe d'erreur
+     *
+     * @param string $name
+     * @param string $type
+     * @param string $error la clé de l'erreur définie dans l'array global
+     * @param string|null $id
+     * @param string|null $autoComplete permet de définir l'auto complete d'accessibilité
+     * @return string
+     */
+    public static function showInputError(string $name, string $type, string $error, string $id = null, string $autoComplete = null): string
     {
-        $errorMessage = '<input class="input_error" name="'.$name.'" type="'.$name.'" id="'.$name.'" placeholder="'. strip_tags(self::$errorsArray['errorPassword'] ?? "*****") .'" autocomplete="new-password"/>';
+        // $error === 'pwMatch' ? $error = '*****' : null;
+        // $message = strip_tags(self::$errorsArray[$error]);
+        $message = ($error === 'pwMatch') ? $error = 'Votre mot de passe...' : strip_tags(self::$errorsArray[$error]);
+
+        $errorMessage = '
+        <input 
+            class="input_error" 
+            name="'.$name.'" 
+            type="'.($type ?? $name).'" 
+            id="'.($id ?? $name).'" 
+            placeholder="'. ($message ?: $name) .'" 
+            autocomplete="'.$autoComplete.'"
+        />';
         return $errorMessage;
     }
 }

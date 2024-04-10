@@ -1,6 +1,6 @@
 <?php
 
-require_once("templates/toaster_template.html");
+// require_once("templates/toaster_template.html");
 
 class SignupController extends Signup
 {
@@ -17,14 +17,20 @@ class SignupController extends Signup
     protected function signupUsers()
     {
         try {
+            $checkInput = new CheckInput(
+                $this->getDatas
+            );
+            $checkInput->checkInputs();
             if  ($this->emailTaken() || !$this->pwMatch() || !isset($this->getDatas)) {
                 //if  (!$this->pwMatch()) {
-                throw new Error("SGNTKN : On n'a pas pu check les inputs") ;
+                CheckInput::insertErrorMessageInArray("SGNTKN : On n'a pas pu check les inputs");
+                // throw new Error("SGNTKN : On n'a pas pu check les inputs") ;
+                return;
             } else {
-                $checkInput = new CheckInput(
-                    $this->getDatas
-                );
-                $checkInput->checkInputs();
+                // $checkInput = new CheckInput(
+                //     $this->getDatas
+                // );
+                // $checkInput->checkInputs();
 
                 if (empty($checkInput->getErrorsArray())) {
                     $this->insertUser($this->getDatas['username'], $this->getDatas['email'], $this->getDatas['password'], $this->getDatas['age']);
@@ -102,8 +108,9 @@ class SignupController extends Signup
         $resultCheck = '' ;
         if ($this->getDatas['password'] !== $this->getDatas['pwdRepeat']) {
             $resultCheck = false;
-            // CheckInput::insertErrorMessageInArray('Votre identifiant est invalide');
-            throw new Error("SGNPWM : Les mots de passes ne sont pas identiques");
+            CheckInput::insertErrorMessageInArray('SGNPWM : Les mots de passes ne sont pas identiques');
+            // new Error("SGNPWM : Les mots de passes ne sont pas identiques");
+            // throw new Error("SGNPWM : Les mots de passes ne sont pas identiques");
             //throw new Error("Erreur : Les mots de passes ne sont pas identiques" .
             //header("Location: ".Functions::getUrl()."?error=pwd-doesnt-match")) ;
         } else {

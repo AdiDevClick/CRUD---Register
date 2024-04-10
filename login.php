@@ -1,6 +1,8 @@
 <?php declare(strict_types=1);
 
-if(session_status() !== PHP_SESSION_ACTIVE || session_status() === PHP_SESSION_NONE) session_start();
+if(session_status() !== PHP_SESSION_ACTIVE || session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
 include_once("includes/class-autoloader.inc.php");
 
@@ -34,7 +36,6 @@ if ($data && isset($_POST["submit"])) {
 }
 
 $loggedUser = LoginController::checkLoggedStatus();
-print_r($loggedUser);
 
 ?>
 
@@ -51,8 +52,8 @@ print_r($loggedUser);
             <!-- Username -->
             <div class="splash-login form-hidden">
                 <label for="username">Votre identifiant :</label>
-                <?php if (array_key_exists('errorUsername', $err)) : ?>
-                    <input class="input_error" type="text" id="username" name="username" placeholder="<?php echo strip_tags($err['errorUsername'])?>" autocomplete="username"/>
+                <?php if (!empty($getDatas['username']) || array_key_exists('errorUsername', $err)) : ?>
+                    <input class="input_error" type="text" id="username" name="username" placeholder="<?php echo strip_tags($err['errorUsername'] ?? 'Votre identifiant...') ?>" autocomplete="username" value="<?php echo strip_tags($getDatas['username']) ?>"/>
                 <?php else: ?>
                     <input type="text" id="username" name="username" placeholder="exemple@exemple.com" autocomplete="username"/>
                 <?php endif ?>
@@ -60,8 +61,8 @@ print_r($loggedUser);
             <!-- Password -->
             <div class="splash-login form-hidden">
                 <label for="password"> Votre mot de passe :</label>
-                <?php if (array_key_exists('errorPassword', $err)) : ?>
-                    <input class="input_error" type="password" id="password" name="password" placeholder="<?php echo strip_tags($err['errorPassword']) ?>" autocomplete="current-password">
+                <?php if (array_key_exists('errorPassword', $err) || array_key_exists('userError', $err)) : ?>
+                    <input class="input_error" type="password" id="password" name="password" placeholder="<?php echo strip_tags($err['errorPassword'] ?? '') ?>" autocomplete="current-password">
                 <?php else: ?>
                     <input type="password" id="password" name="password" placeholder="****" autocomplete="current-password">
                 <?php endif ?>

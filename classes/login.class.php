@@ -90,6 +90,8 @@ class Login extends Mysql
         }
         if ($pwdStatement->rowCount() == 0) {
             $pwdStatement = null;
+            // CheckInput::insertErrorMessageInArray("STMTLGNGETPWCNT - L'utilisateur n'a pas été trouvé");
+
             //throw new Error((string)header("Location: ".Functions::getUrl()."?error=user-not-found"));
             throw new Error("STMTLGNGETPWCNT - L'utilisateur n'a pas été trouvé");
             //exit();

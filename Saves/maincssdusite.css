@@ -52,7 +52,7 @@ from the local website :
     display: flex;
     align-items: center;
     justify-content: center;
-    min-height: 75vh;
+    min-height: 80vh;
     /* z-index: 50; */
     /* box-sizing: inherit;  */
 }
@@ -185,7 +185,7 @@ header {
     margin: 15px auto;
     /* padding: 0 2rem 0 0; */
     padding: 2rem;
-    padding-right: 60px; /* devrait etre deactivated */
+    padding-right: 60px;
     display: flex;
     z-index: 1000;
     align-items: center;
@@ -504,10 +504,6 @@ footer {
         margin: 20px;
     }
 
-    .contact-grid {
-        margin: 15px;
-    }
-
     .pw_reset {
         /* justify-content: center; */
         padding-right: unset;
@@ -562,12 +558,12 @@ main {
     /* padding: 0 2rem 0 0; */
     /* padding: 2rem; */
     /* display: flex; */
-    margin: 0 auto; /* devrait etre deactivated */
+    margin: 0 auto;
     align-content: space-around;
     /* min-height: 200px; */
     /* overflow: hidden; */
     /* padding: 20px; */
-    width: calc(100% - 20px); /* devrait etre deactivated */
+    width: calc(100% - 20px);
     max-width: 100%;
 }
 
@@ -631,21 +627,24 @@ main {
     text-align: center;
 }
 
-.input_error:hover::placeholder {
-    /* visibility: hidden; */
-    color: rgba(0, 128, 0, 0);
-    transition: all 0.3s ease-in-out;
-}
-
-input:focus::placeholder, input.input_error:focus::placeholder {
+:focus::placeholder {
     visibility: hidden;
-    color: rgba(0, 128, 0, 0);
 }
 
-/* or, for legacy browsers && moz 18 & 19+*/
-:-moz-placeholder , ::-moz-placeholder, :-ms-input-placeholder, ::-webkit-input-placeholder {
+/* or, for legacy browsers */
+
+::-webkit-input-placeholder {
     text-align: center;
 }
-:hover::-moz-placeholder, .input_error:hover::-moz-placeholder {  /* Firefox 19+ */
-    color: rgba(0, 128, 0, 0);
+
+:-moz-placeholder { /* Firefox 18- */
+    text-align: center;
+}
+
+::-moz-placeholder {  /* Firefox 19+ */
+    text-align: center;
+}
+
+:-ms-input-placeholder {
+    text-align: center;
 }

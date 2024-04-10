@@ -60,7 +60,7 @@ $errorMessage = CheckInput::showErrorMessage();
 } */
 // On affiche chaque recette une à une
 //$content = ob_get_clean();
-print_r($loggedUser);
+// print_r($loggedUser);
 ?>
 
 <!-- Register form for non registered visitor -->
@@ -126,8 +126,8 @@ print_r($loggedUser);
                         <!-- Password -->
                         <div class="form form-hidden">
                             <label for="password" class="label">Votre mot de passe :</label>
-                            <?php if (array_key_exists('errorPassword', $err)) : ?>
-                                <?php print_r(CheckInput::showInputError('password')) ?>
+                            <?php if (array_key_exists('errorPassword', $err) || array_key_exists('pwMatch', $err)) : ?>
+                                <?php echo CheckInput::showInputError('password', 'password', array_key_exists('errorPassword', $err) ? 'errorPassword' : 'pwMatch', 'password', 'new-password') ?>
                                 <!-- <input class="input_error" name="password" type="password" id="password" placeholder="<?php //echo strip_tags($err['errorPassword'] ?: "*****")?>" autocomplete="new-password"/> -->
                             <?php else: ?>
                                 <input name="password" class="input" type="password" id="password" placeholder="*****" autocomplete="new-password"/>
@@ -137,8 +137,9 @@ print_r($loggedUser);
                         <!-- Password Repeat -->
                         <div class="form form-hidden">
                             <label for="pwdRepeat" class="label">Confirmez votre mot de passe :</label>
-                            <?php if (array_key_exists('errorPwdRepeat', $err)) : ?>
-                                <input class="input_error" name="pwdRepeat" type="password" id="pwdRepeat" placeholder="<?php echo strip_tags($err['errorPwdRepeat'] ?: "*****") ?>" autocomplete="new-password"/>
+                            <?php if (array_key_exists('errorPwdRepeat', $err) || array_key_exists('pwMatch', $err)) : ?>
+                                <?php echo CheckInput::showInputError('pwdRepeat', 'password', array_key_exists('errorPwdRepeat', $err) ? 'errorPwdRepeat' : 'pwMatch', 'pwdRepeat', 'new-password') ?>
+                                <!-- <input class="input_error" name="pwdRepeat" type="password" id="pwdRepeat" placeholder="<?php //echo strip_tags($err['errorPwdRepeat'] ?: "*****")?>" autocomplete="new-password"/> -->
                             <?php else: ?>
                                 <input name="pwdRepeat" class="input" type="password" id="pwdRepeat" placeholder="*****" autocomplete="new-password"/>
                             <?php endif ?>

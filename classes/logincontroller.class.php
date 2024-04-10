@@ -4,14 +4,6 @@
 
 class LoginController extends Login
 {
-    /* public function __construct(
-        private string $password,
-        private string $username,
-        private $data,
-        private $getData)
-        { */
-    // public array $postDatas;
-
     public function __construct(
         private $getDatas
     ) {
@@ -19,7 +11,10 @@ class LoginController extends Login
     }
 
     /**
-     * Summary of index
+     * Vérifie les données reçues et les assainit avant de pouvoir les envoyer
+     * à la fonction main (->login)
+     *
+     * @return void
      */
     protected function index(): void
     {
@@ -34,7 +29,6 @@ class LoginController extends Login
             $username = $checkInput->test_input($this->getDatas["username"]);
             // $validInputs = $checkInput->checkInputs();
             $checkInput->checkInputs();
-
             if (empty($checkInput->getErrorsArray())) {
                 $this->login($password, $username);
             }
@@ -42,15 +36,23 @@ class LoginController extends Login
         }
     }
 
+    /**
+     * Main fonction -
+     * Vérifie les données de la DB et crer
+     * les cookies et données sessions nécéssaires -
+     * Renvoie une exception qui sera catch et envoyée dans l'array d'erreur global
+     *
+     * @param string $pwd
+     * @param string $email
+     * @return void
+     */
     protected function login(string $pwd, string $email)
     {
-
         if (empty(CheckInput::getErrorsArray())) {
             $userEmail = $this->getUsers($email)[0]['email'];
             $username = $this->getUsers($email)[0]['full_name'];
             $userID = $this->getUsers($email)[0]['user_id'];
 
-            // die('je peux continuer');
             // $script = <<< JS
             // include_once("templates/toaster_template.html");
             // // require_once("scripts/toaster.js");
@@ -82,7 +84,6 @@ class LoginController extends Login
             // JS;
 
             try {
-                //$users = $this->getUsers($email);
                 if ($this->getPwd($pwd, $email) &&
                     (($userEmail === $email) ||
                     ($username === strtolower($email)))) {
@@ -90,37 +91,12 @@ class LoginController extends Login
                     // ($this->getUsers($email)[0]['full_name'] === $email))) {
                     //password_verify($pwd, $users[0]['password'])) {
 
-                    // $loggedUser = [
-                    // 'email' => $this->getUsers($email)[0]['email'],
-                    // 'username' => $this->getUsers($email)[0]['full_name'],
-                    // 'user_id' => $this->getUsers($email)[0]['user_id']
-                    // ];
-
-                    //header('Location: index.php');
-                    if(session_status() !== PHP_SESSION_ACTIVE || session_status() === PHP_SESSION_NONE) session_start();
+                    if(session_status() !== PHP_SESSION_ACTIVE || session_status() === PHP_SESSION_NONE) {
+                        session_start();
+                    }
 
                     $this->setCookies($userEmail, $username, $userID);
 
-                    // $arrCookiesOptions = [
-                    //     'expires' => time() + 365 * 24 * 3600,
-                    //     'secure' => true,
-                    //     'httponly' => true,
-                    //     'samesite' => 'Strict'
-                    // ];
-                    // setcookie('EMAIL', $this->getUsers($email)[0]['email'], $arrCookiesOptions);
-                    // setcookie('LOGGED_USER[0]', $this->getUsers($email)[0]['email'], $arrCookiesOptions);
-                    // setcookie('LOGGED_USER[1]', $this->getUsers($email)[0]['user_id'], $arrCookiesOptions);
-                    // setcookie('LOGGED_USER[2]', $this->getUsers($email)[0]['full_name'], $arrCookiesOptions);
-                    // setcookie(
-                    //     'LOGGED_USER',
-                    //     $this->getUsers($email)[0]['email'],
-                    //     [
-                    //         'expires' => time() + 365 * 24 * 3600,
-                    //         'secure' => true,
-                    //         'httponly' => true,
-                    //     ]
-                    // );
-                    //session_start();
                     $_SESSION['USER_NAME'] = $this->getUsers($email)[0]['full_name'];
                     $_SESSION['USER_ID'] = $this->getUsers($email)[0]['user_id'];
                     $_SESSION['LOGGED_USER'] = [
@@ -128,38 +104,34 @@ class LoginController extends Login
                         $this->getUsers($email)[0]['user_id'],
                         $this->getUsers($email)[0]['email']
                     ];
-
-                    // setcookie('FULLNAME', $this->getUsers($email)[0]['full_name'], $arrCookiesOptions);
-                    // setcookie('USER_ID', $this->getUsers($email)[0]['user_id'], $arrCookiesOptions);
-                    // setcookie('EMAIL', $this->getUsers($email)[0]['email'], $arrCookiesOptions);
-
-
-                    // return $loggedUser;
                 } else {
-                    $errorMessage = sprintf(
-                        'Les informations envoyées ne permettent pas de vous identifier : (%s/%s)',
-                        $email,
-                        $pwd
-                    );
+                    // $errorMessage = sprintf(
+                    //     'Les informations envoyées ne permettent pas de vous identifier : (%s/%s)',
+                    //     $email,
+                    //     $pwd
+                    // );
+                    throw new Error("LGNGETPW - Mot de passe et/ou Login incorrects");
                     // throw new Error($errorMessage.header("Location: ".Functions::getUrl()."?error=pwd-or-id-does-not-match"));
-                    throw new Error($errorMessage);
-                    //echo $errorMessage;
+                    // throw new Error($errorMessage);
                     //header("Location: ".Functions::getUrl()."?error=pwd-does-not-match");
                 }
             } catch (Error $errorMessage) {
-                // echo $errorMessage->getMessage();
-                // exit($errorMessage->getMessage());
-                // exit($errorMessage);
-                // $script2;
-                // die('Erreur de login : '. $errorMessage->getMessage());
                 CheckInput::insertErrorMessageInArray($errorMessage->getMessage());
-                // echo('Erreur de login : '. $errorMessage->getMessage());
-                print_r(CheckInput::getErrorsArray());
             }
         }
     }
 
-    protected function setCookies($email, $username, $userID) {
+    /**
+     * Crer les cookies nécessaires au fonctionnement du site
+     * Date d'expiration : 1 an à compté de la création
+     *
+     * @param string $email
+     * @param string $username
+     * @param int $userID
+     * @return void
+     */
+    protected function setCookies(string $email, string $username, int $userID)
+    {
         $arrCookiesOptions = [
             'expires' => time() + 365 * 24 * 3600,
             'secure' => true,
@@ -248,8 +220,14 @@ class LoginController extends Login
 
 
     /**
-     * Appends an array inside $loggedUser like this : $loggedUser['user'][1]
-     * Used in Comment page mainly to retrieve the user ID
+     * Permet de créer un array contenant
+     * toutes les informations des cookies -
+     * Les données de sessions seront multidimentionnelles -
+     * Les cookies sont essentiels pour le fonctionnement du site
+     * Les données sessions ne sont là que pour vérification
+     * mais ne sont pas utilisées pleinement
+     *
+     * @return array
      */
     public static function checkLoggedStatus()
     {
@@ -298,20 +276,16 @@ class LoginController extends Login
             if  (isset($_SESSION['LOGGED_USER'])) {
                 // echo'voici le session user => '. $_SESSION['LOGGED_USER'][0] . '<==';
                 $loggedUser['user'] = $_SESSION['LOGGED_USER'];
-                // echo('registered');
-                // return $loggedUser;
             }
             if (isset($_COOKIE['REGISTERED_RECIPE']) || isset($_SESSION['REGISTERED_RECIPE'])) {
                 $loggedUser = [
                     'email' => $_COOKIE['REGISTERED_RECIPE'] ?? $_SESSION['REGISTERED_RECIPE'],
                 ];
-                //return $loggedUser;
             }
             if (isset($_COOKIE['REGISTERED_USER']) || isset($_SESSION['REGISTERED_USER'])) {
                 $loggedUser = [
                     'email' => $_COOKIE['REGISTERED_USER'] ?? $_SESSION['REGISTERED_USER'],
                 ];
-                //return $loggedUser;
             } else {
                 //throw new Error("Veuillez vous identifier pour ajouter une recette" . header('Location:'.Functions::getUrl().'?error=no-loggedin'));
                 //throw new Error("Veuillez vous identifier pour ajouter une recette");
