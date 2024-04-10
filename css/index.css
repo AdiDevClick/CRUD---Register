@@ -315,7 +315,7 @@ input {
     /* justify-items: center; */
 
     /* justify-content: right; */
-    justify-items: right;
+    /* justify-items: right; */
     /* justify-content: left; */
     /* padding-left: 8%; */
     /* grid: minmax(50px, min-content) / repeat(auto-fill, minmax(400px, 650px)); */
@@ -326,6 +326,10 @@ input {
     /* float: right!important; */
 
     /* max-width: 900px; */
+}
+
+.contact-img {
+    max-width: calc(100vw - 50vw);
 }
 
 #register-btn {
@@ -393,7 +397,7 @@ input {
         img {
             /* display: none; */
             height: 100%;
-            position: absolute;
+            position: fixed;
             right: 0;
             top: 0;
             opacity: 0.1;

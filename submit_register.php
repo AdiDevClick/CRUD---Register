@@ -1,13 +1,7 @@
 <?php declare(strict_types=1);
 
-if(session_status() !== PHP_SESSION_ACTIVE) {
-    session_start();
-}
+if(session_status() !== PHP_SESSION_ACTIVE || session_status() === PHP_SESSION_NONE) session_start();
 
-if(session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
-//ob_start();
 require_once("includes/class-autoloader.inc.php");
 // require_once("templates/toaster_template.html");
 
@@ -71,7 +65,7 @@ $errorMessage = CheckInput::showErrorMessage();
 <?php if (!isset($_SESSION['LOGGED_USER']) || !isset($_SESSION['REGISTERED_USER'])): ?>
     <section class="contact-section">
         <div class="contact-grid">
-            <div class="img">
+            <div class="contact-img">
                 <img src="https://booking.webestica.com/assets/images/element/signin.svg" alt="" srcset="">
             </div>
             <div class="card">

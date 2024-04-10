@@ -110,6 +110,7 @@ body {
     /* margin: 15px auto; */
     /* height: 2rem; */
     /* width: auto; */
+    padding-top: 60px;
     /* background-color: #141616; */
     /* background: linear-gradient(95deg, rgb(72, 86, 90) 0%, rgb(35, 49, 49) 43%, rgb(0, 0, 0) 100%) center center no-repeat; */
     /* background: rgb(0,0,0); */
@@ -583,9 +584,11 @@ main {
     /* padding-left: 10px; */
     border-radius: 10px;
     max-width: 100%;
-    padding: 5px;
+    /* padding: 5px; */ /* original */
+    padding: 10px;
     margin: 0 auto;
     overflow: hidden;
+    margin-top: 10%;
     /* border-bottom-right-radius: 10px;
     border-bottom-left-radius: 10px;
     border-top-left-radius: 10px;
