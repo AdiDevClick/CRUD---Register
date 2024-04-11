@@ -1,12 +1,6 @@
-<?php declare(strict_types=1)?>
+<?php declare(strict_types=1);
 
-<?php
-
-if(session_status() !== PHP_SESSION_ACTIVE) {
-    session_start();
-}
-
-if(session_status() === PHP_SESSION_NONE) {
+if(session_status() !== PHP_SESSION_ACTIVE || session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
@@ -51,11 +45,12 @@ header('refresh:10, ../index.php?error=none');
 
 unset($_SESSION['REGISTERED_COMMENT']);
 //header('refresh:5, '.Functions::getUrl().'?error=none');
+
+$title = "Site de Recettes - Création de commentaire";
+// <body class="d-flex flex-column min-vh-100">
+//   <div class="container"> -->
+ob_start()
 ?>
-<?php $title = "Site de Recettes - Création de commentaire"?>
-<!-- <body class="d-flex flex-column min-vh-100">
-    <div class="container"> -->
-    <?php ob_start()?>
     <?php //include_once('../includes/header.inc.php')?>
         <h1>Commentaire ajouté avec succès !</h1>
         <div class="card">
@@ -65,5 +60,7 @@ unset($_SESSION['REGISTERED_COMMENT']);
             </div>
         </div>
     <!-- </div> -->
-    <?php $content = ob_get_clean()?>
-    <?php require('../templates/layout.php') ?>
+<?php
+$content = ob_get_clean();
+require('../templates/layout.php')
+?>

@@ -2,7 +2,6 @@
 label {
     font-size: 1.4rem;
     color: var(--navbar-color);
-    /* margin-left: 5px; */
 }
 
 .btn {
@@ -16,17 +15,7 @@ label {
 
 .form-contact .btn {
     margin-left: 0;
-    /* background-color: rgb(59, 59, 59, .1); */
-    /* padding-left: 0; */
-    /* background-color: var(--background-color); */
-    /* background-color: rgb(199, 189, 177); */
-    /* transition: opacity 1.3s all; */
 }
-
-/* .bTn {
-    font-size: 1.4rem;
-    cursor: pointer;
-} */
 
 .btn:hover {
     color: var(--background-color);
@@ -34,17 +23,6 @@ label {
     /* background-color: var(--input-background-color); */
     transition: all 0.3s ease;
 }
-
-/* .form-hidden {
-    opacity: 0;
-    display: grid;
-    place-items: center;
-    align-content: center;
-    min-height: 100vh;
-    filter: blur(5px);
-    transform: translateX(-100%);
-    transition: all 1s;
-} */
 
 /* BUTTONS */
 .button {
@@ -96,7 +74,6 @@ button:hover {
 }
 
 /* INPUTS */
-
 input[type=text], input[type=email] {
     /* width: 180px; */
     max-width: 100%;
@@ -108,16 +85,11 @@ input[type=text], input[type=email] {
 }
 
 input[type=text], input[type=number], input[type=password], input[type=email], textarea, select, button {
-/* input[type=text], [type=email], textarea, select, button { */
     margin: 10px;
     padding: 10px;
-    /* width: 180px; */
     max-width: 100%;
     border-radius: 10px;
-    /* border-inline: #ccc; */
     color: #eeeeee;
-    /* overflow: hidden; */
-    /* width: 100%; */
 }
 
 textarea {
@@ -145,7 +117,6 @@ select:hover {
 }
 
 input[type=password], select, input[type=number] {
-/* input[type=password] { */
     padding: 12px 20px;
     display: inline-block;
     padding: 10px;
@@ -167,16 +138,10 @@ input[type=text].input_error,
 input[type=email].input_error,
 input[type=number].input_error,
 textarea .input_error {
-    /* height: 100%; */
     border-bottom: 1px solid red;
     border-inline: red;
     /* transition: all 0.2s ease; */
 }
-
-/* input::placeholder:focus, input:focus::placeholder, input:focus::-moz-placeholder, input:focus:-moz-placeholder {
-    visibility: hidden;
-    color: rgba(0, 128, 0, 0);
-} */
 
 input.input_error::placeholder {
     color: rgb(247, 116, 116);
@@ -189,7 +154,6 @@ input.input_error:focus, input.input_error:hover {
 
 input.input_error:not(:placeholder-shown) {
     border-bottom: 1px solid var(--input-focus);
-    /* border-inline: unset; */
 }
 
 input {
@@ -198,6 +162,9 @@ input {
     width: 180px;
     border-inline: #ccc;
     background-color: #ffffff1a;
+    @media (max-width: 876px) {
+        width: unset;
+    }
 }
 
 /* INPUT ERRORS */
@@ -209,8 +176,16 @@ input {
     margin: 15px auto;
     transition: opacity 3s 1s;
 }
+/* END OF INPUTS*/
 
 /* FORM PROPERTIES */
+form {
+    max-width: 100%;
+    @media (max-width: 976px) {
+        min-width: 50px;
+    }
+}
+
 .form-hidden {
     opacity: 0;
     filter: blur(5px);
@@ -225,12 +200,8 @@ input {
 }
 
 .form {
-    /* display: inline-flex; */
     display: flex;
-
-    /* display: inline-grid; */
-    gap: 1.5rem;
-    /* justify-content: center; */
+    gap: 1.3rem;
     justify-content: space-between;
     overflow: hidden;
     align-items: center;
@@ -241,12 +212,18 @@ input {
     flex-direction: row;
     flex-wrap: nowrap;
     /* margin: 10px; */
-    padding: 5px;
+    /* padding: 5px; */ /* original */
     /* margin: 0 auto; */
     /* position: left; */
 
     /* grid: minmax(400px, min-content) / repeat(auto-fill, 400px); */
-
+    @media (max-width: 976px) {
+        min-width: 50px;
+    }
+    @media (max-width: 576px) {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
 }
 
 .splash-login {
@@ -259,34 +236,27 @@ input {
 }
 
 .form-contact {
-    /* margin-top: 100px; */
     margin-top: 20px;
-    max-width: 1000px;
-    /* min-width: 800px; */
-    /* padding-left: 8%; */
-    /* display: inline-flex; */
+    /* max-width: 1000px; */
     display: grid;
-    padding: 5px;
+    padding: 12px;
     margin: 0 auto;
-    /* grid-template-columns: 2 auto; */
-    /* grid-column: 2; */
-    gap: 2rem;
+    gap: 1.5rem;
     max-width: 100%;
     width: 100%;
     min-height: 50px;
-    /* height: 100px; */
-    /* grid-auto-flow: row; */
-    /* padding: 20px; */
     /* grid: minmax(50px, min-content) / repeat(auto-fill, 400px); */
-    /* justify-content: center; */
-    /* grid-template-columns: repeat(2, 3fr); */
-    /* grid-template-rows: 100px; */
-    /* grid-column: 3; */
-    /* justify-content: space-evenly; */
-    /* justify-content: center; */
-    /* position: ; */
-    /* align-items: center; */
-    /* margin: 20px 10px; */
+    @media (max-width: 576px) {
+        gap: 0;
+        input {
+            width: 400px;
+            border-inline: 1px solid;
+        }
+        margin-top: 5%;
+    }
+    @media (max-width: 425px) {
+        justify-content: unset;
+    }
 }
 
 .container {
@@ -299,165 +269,57 @@ input {
 .contact {
     display: grid;
     justify-content: center;
-    /* justify-content: left; */
     align-items: center;
     max-width: 100%;
     width: 100%;
     min-height: 50px;
-    /* float: right!important; */
-
     /* max-width: 900px; */
 }
 
 .contact-grid {
     display: grid;
     justify-content: center;
-    /* justify-items: center; */
-
-    /* justify-content: right; */
-    /* justify-items: right; */
-    /* justify-content: left; */
-    /* padding-left: 8%; */
     /* grid: minmax(50px, min-content) / repeat(auto-fill, minmax(400px, 650px)); */
-    grid-template-columns: repeat(4, auto);
+    grid-template-columns: repeat(2, auto);
 
     align-items: center;
     align-content: center;
-    /* float: right!important; */
-
-    /* max-width: 900px; */
-}
-
-.contact-img {
-    max-width: calc(100vw - 50vw);
-}
-
-#register-btn {
-    flex-direction: row;
-    justify-content: center;
-}
-
-@media (max-width: 976px) {
-    /* .form-contact {
-        justify-content: center;
-    } */
-    form {
-        min-width: 50px;
+    @media (max-width: 992px) {
+        margin: 15px;
     }
-
-    
-    .contact-grid {
-        /* grid: minmax(50px, min-content) / repeat(auto-fill, 400px); */ /*a remettre*/
-    }
-}
-
-@media (max-width: 1270px) {
-    /* .form-contact {
-        justify-content: center;
-    } */
-    main {
-        padding-top: 10%;
-        padding-bottom: 10%;
-    }
-    
-    .contact-grid {
-        /* grid: minmax(50px, min-content) / repeat(auto-fill, 450px); */ /*a remettre*/
-        /* grid-template-columns: auto; */
-    }
-}
-
-@media (max-width: 876px) {
-    input {
-        width: unset;
-    }
-}
-
-/* @media (min-width: 576px) {
-    .contact-grid {
-        padding-left: 5%;
-        grid-template-columns: auto;
-    }
-} */
-
-@media (max-width: 576px) {
-    .form-contact {
-        gap: 0;
-        input {
-            width: 400px;
-            border-inline: 1px solid;
-        }
-        margin-top: 5%;
-        /* justify-content: center; */
-    }
-
-    .contact-grid {
-        /* padding-left: 5%; */
+    @media (max-width: 576px) {
+        margin: 0 auto;
         display: flex;
         flex-direction: column-reverse;
         img {
-            /* display: none; */
             height: 100%;
             position: fixed;
             right: 0;
             top: 0;
             opacity: 0.1;
         }
-        /* grid-template-columns: auto; */
-    }
-
-    .form {
-        /* align-items: stretch; */
-        flex-direction: column;
-        gap: 0.5rem;
-        /* justify-content: unset; */
-
-    }
-
-    .card {
-        width: 90%;
-        margin-top: 10%;
-        background-color: unset;
     }
 }
 
-/* @media (max-width: 776px) {
-    #btn {
-        margin: unset;
-        padding: unset;
+.contact-img {
+    max-width: calc(100vw - 70vw);
+    @media (max-width: 992px) {
+        max-width: calc(100vw - 50vw);
     }
-} */
+}
+/* END OF FORMS*/
+
+#register-btn {
+    flex-direction: row;
+    justify-content: center;
+}
 
 @media (max-width: 425px) {
     #btn {
         margin: 0 auto;
         padding: 0;
     }
-
-    .form-contact {
-        justify-content: unset;
-    }
 }
-
-
-
-form {
-    /* display: flex; */
-    /* min-width: 350px; */
-    /* flex-wrap: wrap; */
-    /* overflow: hidden; */
-    max-width: 100%;
-    /* width: 100%; */
-    /* min-height: 50px; */
-    /* min-width: 350px; */
-    /* display: grid;
-    grid: minmax(400px, min-content) / repeat(auto-fill, 400px); */
-}
-
-/* .form-contact form {
-    /* display: inline-grid;
-    height: 50px;
-    
-} */
 
 @media(prefers-reduced-motion) {
     .form-hidden {

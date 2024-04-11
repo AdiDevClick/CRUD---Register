@@ -1,12 +1,6 @@
-<?php declare(strict_types=1)?>
+<?php declare(strict_types=1);
 
-<?php
-
-if(session_status() !== PHP_SESSION_ACTIVE) {
-    session_start();
-}
-
-if(session_status() === PHP_SESSION_NONE) {
+if(session_status() !== PHP_SESSION_ACTIVE || session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
@@ -58,7 +52,7 @@ if (
     !is_numeric($postData['recipe_id'])
     )
 {
-	echo('Le commentaire est invalide.');
+    echo('Le commentaire est invalide.');
     return;
 }
 $loggedUser = LoginController::checkLoggedStatus();
@@ -73,7 +67,7 @@ $recipeId = $postData['recipe_id']; */
 ?>
 
 <form action="<?php echo($rootUrl . 'recettes/comments/post_create.php'); ?>" method="POST">
-<!--<form action="<?php //echo($rootUrl . 'recettes/recipes/read.php'); ?>" method="POST"> -->
+<!--<form action="<?php //echo($rootUrl . 'recettes/recipes/read.php');?>" method="POST"> -->
     <div class="mb-3 visually-hidden">
         <input class="form-control" type="text" name="recipe_id" value="<?php echo($getDatas); ?>" />
     </div>

@@ -1,15 +1,13 @@
 <?php
-ob_start();
-if(session_status() !== PHP_SESSION_ACTIVE) {
+
+if(session_status() !== PHP_SESSION_ACTIVE || session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-if(session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
+$Title = "We Love Food - Mise à jour de votre recette";
+ob_start()
+
 ?>
-    <?php $Title = "We Love Food - Mise à jour de votre recette"?>
-
     <!-- Fin du Header -->
 
     <!--  Le Main -->

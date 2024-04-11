@@ -35,7 +35,7 @@ if ($data && isset($_POST['submit'])) {
         //$checkId->updateRecipeInfoById($getDatas['title'], $getDatas['recipe'], $getDatas['recipe_id']);
         $checkId->updateRecipeInfoById();
         //header('refresh:10, ../index.php?update=success');
-        header('refresh:10, ../index.php');
+        header('refresh:10, ../index.php?success=recipe-updated');
         //header('Location: ../index.php?update=success');
     } else {
         //header('Location: ../index.php?update=error');
@@ -46,10 +46,9 @@ if ($data && isset($_POST['submit'])) {
     }*/
 }
 
-
+$loggedUser = LoginController::checkLoggedStatus()
 ?>
-<?php $loggedUser = LoginController::checkLoggedStatus()?>
-    <?php if ((isset($loggedUser['email']) || isset($_SESSION['LOGGED_USER'])) && !isset($_SESSION['UPDATED_RECIPE'])):?>
+<?php if ((isset($loggedUser['email']) || isset($_SESSION['LOGGED_USER'])) && !isset($_SESSION['UPDATED_RECIPE'])):?>
     <section class="container">
         <div class="form-flex">
             <h1>Mettre à jour : <?php echo strip_tags($getInfos['title'])?></h1>
@@ -69,8 +68,6 @@ if ($data && isset($_POST['submit'])) {
             </div>
         </div>
     </section>
-
-
 <?php elseif (isset($_SESSION['UPDATED_RECIPE'])):?>
     <?php $checkId->displayUpdateSuccess($getDatas, $loggedUser)?>
     <?php unset($_SESSION['UPDATED_RECIPE'])?>

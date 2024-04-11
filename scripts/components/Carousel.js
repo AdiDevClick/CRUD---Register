@@ -223,7 +223,7 @@ export class Carousel
     /**
      * Permet de remettre à défaut les options de la loadingBar
      * au cas où elles auraient été reverse après une intersection
-     * @returns 
+     * @returns
      */
     #animate() {
         if (this.#loadingBar && this.#reverseAnimation && this.#intersect || this.#status === 'inverseComplete') {

@@ -44,7 +44,7 @@ class CheckInput extends Validate
                     // throw new Error((string)header("Location: ".Functions::getUrl()."?error=$key-vide"));
                     //header("Location: ".Functions::getUrl()."?error=$key-vide");
                 }
-                if (isset($this->getDatas['email']) && (!filter_var($this->getDatas['email'], FILTER_VALIDATE_EMAIL)) /* && !preg_match("[a-z0-9A-Z._-]+@[a-z0-9A-Z._-]+.[a-zA-Z]",$this->getDatas['email']) */) {
+                if (isset($this->getDatas['email']) && (!filter_var($this->getDatas['email'], FILTER_VALIDATE_EMAIL)) && !preg_match("[a-z0-9A-Z._-]+@[a-z0-9A-Z._-]+.[a-zA-Z]", $this->getDatas['email'])) {
                     // array_push($this->errorsArray, "Veuillez saisir un email valide");
                     array_push(self::$errorsArray, "Veuillez saisir un email valide");
 
@@ -223,6 +223,8 @@ class CheckInput extends Validate
             } elseif ($key === 'pwMatch') {
                 $errorMessage = $value;
                 // print_r($errorMessage);
+            } elseif ($key === 'errorEmail') {
+                $errorMessage = 'Cet email est invalide';
             } elseif (str_contains($value, 'vide')) {
                 $errorMessage = 'Un ou plusieurs champs sont vides';
             }

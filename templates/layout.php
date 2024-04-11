@@ -47,7 +47,7 @@ if ($url === 'about.php' || 'planningType.php' || 'todo.html' || 'carousel.html'
     <?= $css ?? '' ?>
     />
     <script src="scripts/script.js" defer></script>
-    <script src="scripts/toaster.js" defer></script>
+    <script type="module" src="scripts/toaster.js" defer></script>
     <script <?= $script ?? '' ?>></script>
     <script <?= $script2 ?? '' ?>></script>
     <title>
@@ -56,8 +56,8 @@ if ($url === 'about.php' || 'planningType.php' || 'todo.html' || 'carousel.html'
 </head>
 <body>
     <!-- Start Header Content -->
-    <header>
-        <nav class="wrapper">
+    <header class="header-main wrapper">
+        <nav>
             <div class="dropdown-menu-background">
                 <div class="dropdown-menu">
                         <li><a

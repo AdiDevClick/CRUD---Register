@@ -1,14 +1,8 @@
 <?php declare(strict_types=1)?>
 
-
-
 <?php
 
-if(session_status() !== PHP_SESSION_ACTIVE) {
-    session_start();
-}
-
-if(session_status() === PHP_SESSION_NONE) {
+if(session_status() !== PHP_SESSION_ACTIVE || session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 

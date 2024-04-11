@@ -319,7 +319,7 @@ class RecipeController extends Recipe
 
             if (empty(CheckInput::getErrorsArray())) {
                 //print_r($loggedUser);
-                $this->insertComments($message, $recipeId, $loggedUser['user'][1]);
+                $this->insertComments($message, $recipeId, $loggedUser['userId']);
                 $registeredComment = [
                     'email' => $loggedUser['email']
                 ];

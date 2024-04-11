@@ -1,3 +1,5 @@
+import { CarouselTouchPlugin } from "./components/CarouselTouchPlugin.js"
+
 /**
  * Crer une alerte en fonction d'un template HTML  id "#alert-layout" 
  */
@@ -77,6 +79,7 @@ function alertMessage(message, type = 'Erreur') {
             .then(() => {
                 progress.classList.remove('active')
                 alert.remove()
+                toasterDivContainer.remove()
             })
         
         closeIcon.addEventListener('click', e => {
@@ -89,6 +92,7 @@ function alertMessage(message, type = 'Erreur') {
             closeIcon.dispatchEvent(new CustomEvent('delete'))
             alert.addEventListener('animationend', () => {
                 alert.remove()
+                toasterDivContainer.remove()
             })
             
         }, {once: true})
@@ -153,6 +157,20 @@ if (success === 'disconnected') {
     message = 'Vous avez été déconnecté avec succès'
     resetURL('index.php', 'success')
 }
+
+if (success === 'recipe-shared') {
+    errAlert = true
+    type = 'Success'
+    message = 'Votre recette vient d\'être partagée, elle semble excellente !'
+    resetURL('index.php', 'success')
+}
+
+if (success === 'recipe-updated') {
+    errAlert = true
+    type = 'Success'
+    message = 'Votre recette a bien été mise à jour!'
+    resetURL('index.php', 'success')
+}
 // success === 'disconnected' ? message = 'Vous avez été déconnecté avec succès' : errAlert = false
 
 
@@ -169,7 +187,7 @@ const register = urlParams.get('register')
 if (register === 'success') {
     errAlert = true
     type = 'Success'
-    message = 'Votre compte a été enregistré avec succès'
+    message = 'Votre compte a été enregistré avec succès, vous pouvez maintenant vous connecter'
     resetURL('index.php', 'register')
 }
 
@@ -196,6 +214,10 @@ if (alertContainer) {
         'beforeend',
         alertToaster
     )
+    document.querySelectorAll('.toast-container').forEach(toaster => {
+        new CarouselTouchPlugin(toaster)
+        console.log('toast')
+    })
 }
 
 /**
@@ -207,5 +229,5 @@ if (alertContainer) {
  */
 function resetURL(page, paramName) {
     urlParams.delete(paramName)
-    return window.history.replaceState({}, document.title, "/recettes/" + page);
+    return window.history.replaceState({}, document.title, page);
 }
