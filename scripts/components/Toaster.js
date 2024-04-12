@@ -1,4 +1,5 @@
-import { createElement, wait } from "../functions/dom.js"
+import { fetchTemplate } from "../functions/api.js"
+import { createElement, wait, alertMessage } from "../functions/dom.js"
 
 
 // document.querySelectorAll('.toast').forEach(toaster => {
@@ -15,35 +16,69 @@ export class Toaster {
     #progressBar
     #closeBtn
     #elements
-    #template
+    #template = []
     #dataEndpoint
+    #test
 
-    constructor(message, type = 'Erreur', element) {
-        this.#toasterContainer = element
+    constructor(message, type = 'Erreur') {
+        // this.#toasterContainer = element
         this.#message = message
         this.#type = type
         if (!this.#toasterContainer) {
-            this.#toasterContainer = this.#createNewToasterContainer()
-            this.#fetchTemplate('./templates/toaster_template.html')
+            this.#createNewToasterContainer()
+            this.#toasterContainer = document.querySelector('.toast-container')
+            // this.#fetchTemplate(this.#searchURL())
+            // this.#fetchTemplate('../templates/toaster_template.html')
         }
-        this.#template = document.querySelector(this.#toasterContainer.dataset.template)
-        this.#alert = this.#template.content.firstElementChild.cloneNode(true)
+        
         // this.#alert = document.querySelector('#alert-layout').content.firstElementChild.cloneNode(true)
         // this.#progressBar = alert.querySelector('.progress')
-        this.#progressBar = this.#alert.querySelector(this.#toasterContainer.dataset.progressBar)
-        this.#closeBtn = this.#alert.querySelector(this.#toasterContainer.dataset.closeBtn)
+        this.#dataEndpoint = this.#toasterContainer.dataset.endpoint
+        
+        // this.#getFetchedTemplate()
+        // this.#template = this.#getFetchedTemplate()
+        // this.#template = fetchTemplate(this.#dataEndpoint, this.#toasterContainer.dataset.template)
+        // this.#getFetchedTemplate()
+        // this.#getFetchedTemplate().then((t) => console.log(t))
+        // this.#template = this.#getFetchedTemplate()
         this.#elements = JSON.parse(this.#toasterContainer.dataset.elements)
-
+        this.#template = document.querySelector(this.#toasterContainer.dataset.template)
+        
+        this.#alert = this.#template.content.firstElementChild.cloneNode(true)
+        this.#progressBar = this.#alert.querySelector(this.#toasterContainer.dataset.progressbar)
+        this.#closeBtn = this.#alert.querySelector(this.#toasterContainer.dataset.closebtn)
+        
         this.#showAlert()
         this.#appendAlert()
 
-        this.#alert.addEventListener('animationend', () => {
-            this.#removeAlert()
+        this.#alert.addEventListener('animationend', e => {
+            this.#removeAlert(e)
         })
 
         this.#closeBtn.addEventListener('click', e => {
-            this.#closingAnimation()
+            this.#closingAnimation(e)
         }, {once: true})
+    }
+
+    async #getFetchedTemplate() {
+        const template = await fetchTemplate(this.#dataEndpoint, this.#toasterContainer.dataset.template)
+            // .then((response) => {
+            //     return this.#alert.push(response)
+            // })
+        document.body.append(template)
+        console.log(template)
+        console.log(template.content.firstElementChild.cloneNode(true))
+        this.#template.push(template.content.firstElementChild.cloneNode(true))
+        // this.#alert = template
+    }
+
+    get temp() {
+        return 
+    }
+
+    #searchURL() {
+        const url = new URL('toaster_template.html')
+        return url
     }
 
     #createNewToasterContainer() {
@@ -51,10 +86,10 @@ export class Toaster {
             class: 'toast-container',
             role: 'alert',
             'data-template': '#alert-layout',
-            'data-progressBar': '.progress',
+            'data-progressbar': '.progress',
             'data-elements': '{"title": ".text-1", "body": ".text-2"}',
-            'data-closeBtn': '.toggle_btn-box',
-            'data-endpoint': '../templates/toaster_template.html'
+            'data-closebtn': '.toggle_btn-box',
+            'data-endpoint': './templates/toaster_template.html'
         })
         document.body.append(toasterDivContainer)
     }
@@ -118,7 +153,8 @@ export class Toaster {
     }
 
     async #fetchTemplate(url) {
-        const loadedTemplate = this.#template
+        const target = this.#toasterContainer.dataset.template
+        const loadedTemplate = document.querySelector(target)
         try {
             if (!loadedTemplate) {
                 const response = await fetch(url)
@@ -132,9 +168,11 @@ export class Toaster {
                 if (!htmlElement) {
                     throw new Error(`L'élement ${target} n'existe pas à l'adresse : ${url}`)
                 }
+                this.#template = htmlElement
                 document.body.append(htmlElement)
                 return htmlElement
             }
+            this.#template = loadedTemplate
             return loadedTemplate
         } catch (error) {
             const alert = alertMessage(error.message)

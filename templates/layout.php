@@ -5,7 +5,6 @@ require_once(dirname(__DIR__) . DIRECTORY_SEPARATOR . "classes" . DIRECTORY_SEPA
 // $url = explode("/", parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));
 // $url = array_pop($url);
 
-require_once(dirname(__DIR__) . DIRECTORY_SEPARATOR . "templates" . DIRECTORY_SEPARATOR . "toaster_template.html");
 
 $url = Functions::getUrl();
 // $rootPath = $_SERVER['DOCUMENT_ROOT'];
@@ -207,4 +206,7 @@ if ($url === 'about.php' || 'planningType.php' || 'todo.html' || 'carousel.html'
     </footer>
     <!-- end of footer -->
 </body>
+
 </html>
+
+<?php require_once(dirname(__DIR__) . DIRECTORY_SEPARATOR . "templates" . DIRECTORY_SEPARATOR . "toaster_template.html") ?>
