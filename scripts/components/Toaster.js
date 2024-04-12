@@ -138,13 +138,14 @@ export class Toaster {
         // })
     }
 
-    #closingAnimation() {
+    async #closingAnimation(e) {
         e.preventDefault()
         this.#alert.classList.remove('active')
         this.#alert.classList.add('close')
         
-        wait(300)
-            .then(() => progress.classList.remove('active'))
+        await wait(300)
+            // .then(() => progress.classList.remove('active'))
+        progress.classList.remove('active')
         // closeIcon.dispatchEvent(new CustomEvent('delete'))
         this.#alert.addEventListener('animationend', () => {
             this.#alert.remove()
