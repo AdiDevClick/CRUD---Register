@@ -1,4 +1,5 @@
-import { CarouselTouchPlugin } from "./components/CarouselTouchPlugin.js"
+import { ToasterTouch } from "./components/ToasterTouch.js"
+import { Toaster } from "./components/Toaster.js"
 
 /**
  * Crer une alerte en fonction d'un template HTML  id "#alert-layout" 
@@ -203,21 +204,25 @@ console.log(urlParams.has('invalid-input')); // fonctionne pas
 console.log(urlParams.has('error'));
 //false
 
+/** ORIGINAL TOASTER TRIGGER */
+// if (errAlert) {
+//     alertToaster = alertMessage(message, type)
+//     errAlert = false
+//     type = ''
+// }
+// const alertContainer = document.querySelector('.toast-container')
+// if (alertContainer) {
+//     alertContainer.insertAdjacentElement(
+//         'beforeend',
+//         alertToaster
+//     )
+//     document.querySelectorAll('.toast-container').forEach(toaster => {
+//         new ToasterTouch(toaster)
+//     })
+// }
+
 if (errAlert) {
-    alertToaster = alertMessage(message, type)
-    errAlert = false
-    type = ''
-}
-const alertContainer = document.querySelector('.toast-container')
-if (alertContainer) {
-    alertContainer.insertAdjacentElement(
-        'beforeend',
-        alertToaster
-    )
-    document.querySelectorAll('.toast-container').forEach(toaster => {
-        new CarouselTouchPlugin(toaster)
-        console.log('toast')
-    })
+    new Toaster(message, type)
 }
 
 /**
