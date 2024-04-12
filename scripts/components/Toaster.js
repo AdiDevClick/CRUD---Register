@@ -119,19 +119,19 @@ export class Toaster {
         this.#alert.querySelector('.text-2').innerText = this.#message
     }
 
-    #removeAlert() {
-        // wait(5000)
+    async #removeAlert() {
+        await wait(5000)
         //     .then(() => alert.classList.remove('active'))
-        
+        this.#alert.classList.remove('active')
 
-        // wait(5300)
+        await wait(5300)
         //     .then(() => {
         //         progress.classList.remove('active')
         //         alert.remove()
         //         toasterDivContainer.remove()
         //     })
         // this.#alert.addEventListener('animationend', () => {
-            this.#alert.classList.remove('active')
+            // this.#alert.classList.remove('active')
             this.#progressBar.classList.remove('active')
             this.#alert.remove()
             this.#toasterContainer.remove()
