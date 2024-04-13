@@ -1,5 +1,6 @@
 import { fetchTemplate } from "../functions/api.js"
 import { createElement, wait, alertMessage } from "../functions/dom.js"
+import { ToasterTouchPlugin } from "./ToasterTouchPlugin.js"
 
 
 // document.querySelectorAll('.toast').forEach(toaster => {
@@ -9,7 +10,7 @@ import { createElement, wait, alertMessage } from "../functions/dom.js"
 
 export class Toaster {
 
-    #toasterContainer
+    // #toasterContainer
     #message
     #type
     #alert
@@ -24,29 +25,31 @@ export class Toaster {
         // this.#toasterContainer = element
         this.#message = message
         this.#type = type
-        if (!this.#toasterContainer) {
+        if (!this.toasterContainer) {
             this.#createNewToasterContainer()
-            this.#toasterContainer = document.querySelector('.toast-container')
+            this.toasterContainer = document.querySelector('.toast-container')
             // this.#fetchTemplate(this.#searchURL())
             // this.#fetchTemplate('../templates/toaster_template.html')
         }
         
         // this.#alert = document.querySelector('#alert-layout').content.firstElementChild.cloneNode(true)
         // this.#progressBar = alert.querySelector('.progress')
-        this.#dataEndpoint = this.#toasterContainer.dataset.endpoint
         
-        // this.#getFetchedTemplate()
-        // this.#template = this.#getFetchedTemplate()
-        // this.#template = fetchTemplate(this.#dataEndpoint, this.#toasterContainer.dataset.template)
-        // this.#getFetchedTemplate()
-        // this.#getFetchedTemplate().then((t) => console.log(t))
-        // this.#template = this.#getFetchedTemplate()
-        this.#elements = JSON.parse(this.#toasterContainer.dataset.elements)
-        this.#template = document.querySelector(this.#toasterContainer.dataset.template)
+        // this.fetchedTemplate = this.#getFetchedTemplate()
+        //     .then((r) => {
+        //         document.body.append(r)
+        // })
+        // document.body.append(this.fetchedTemplate)
+        this.#dataEndpoint = this.toasterContainer.dataset.endpoint
+        
+        // if (this.#getFetchedTemplate()) {
+        // console.log('tes')
+        this.#elements = JSON.parse(this.toasterContainer.dataset.elements)
+        this.#template = document.querySelector(this.toasterContainer.dataset.template)
         
         this.#alert = this.#template.content.firstElementChild.cloneNode(true)
-        this.#progressBar = this.#alert.querySelector(this.#toasterContainer.dataset.progressbar)
-        this.#closeBtn = this.#alert.querySelector(this.#toasterContainer.dataset.closebtn)
+        this.#progressBar = this.#alert.querySelector(this.toasterContainer.dataset.progressbar)
+        this.#closeBtn = this.#alert.querySelector(this.toasterContainer.dataset.closebtn)
         
         this.#showAlert()
         this.#appendAlert()
@@ -54,26 +57,39 @@ export class Toaster {
         this.#alert.addEventListener('animationend', e => {
             this.#removeAlert(e)
         })
-
+    
         this.#closeBtn.addEventListener('click', e => {
             this.#closingAnimation(e)
         }, {once: true})
+        // }
+        // this.#template = fetchTemplate(this.#dataEndpoint, this.#toasterContainer.dataset.template)
+        // this.#getFetchedTemplate()
+        // this.fetchedTemplate = this.fetchedTemplate.finally((r) => r)
+        // console.log(this.fetchedTemplate)
+        // this.#getFetchedTemplate().then((t) => console.log(t))
+        // this.#template = this.#getFetchedTemplate()
+        // window.addEventListener('DOMContentLoaded', () => {
+            
+
+            
+        // })
+        new ToasterTouchPlugin(this)
+        
+
+        
     }
 
     async #getFetchedTemplate() {
-        const template = await fetchTemplate(this.#dataEndpoint, this.#toasterContainer.dataset.template)
+        let response
+        const template = await fetchTemplate(this.#dataEndpoint, this.toasterContainer.dataset.template)
             // .then((response) => {
-            //     return this.#alert.push(response)
+            //     return true
             // })
         document.body.append(template)
-        console.log(template)
-        console.log(template.content.firstElementChild.cloneNode(true))
-        this.#template.push(template.content.firstElementChild.cloneNode(true))
+        // this.#template.push(template.content.firstElementChild.cloneNode(true))
         // this.#alert = template
-    }
-
-    get temp() {
-        return 
+        console.log('test')
+        return true
     }
 
     #searchURL() {
@@ -95,8 +111,8 @@ export class Toaster {
     }
 
     #appendAlert() {
-        if (this.#toasterContainer) {
-            this.#toasterContainer.insertAdjacentElement(
+        if (this.toasterContainer) {
+            this.toasterContainer.insertAdjacentElement(
                 'beforeend',
                 this.#alert
             )
@@ -132,10 +148,9 @@ export class Toaster {
         //     })
         // this.#alert.addEventListener('animationend', () => {
             // this.#alert.classList.remove('active')
-            this.#progressBar.classList.remove('active')
-            this.#alert.remove()
-            this.#toasterContainer.remove()
-        // })
+        this.#progressBar.classList.remove('active')
+        this.#alert.remove()
+        this.toasterContainer.remove()
     }
 
     async #closingAnimation(e) {
@@ -145,16 +160,16 @@ export class Toaster {
         
         await wait(300)
             // .then(() => progress.classList.remove('active'))
-        progress.classList.remove('active')
+        this.#progressBar.classList.remove('active')
         // closeIcon.dispatchEvent(new CustomEvent('delete'))
         this.#alert.addEventListener('animationend', () => {
             this.#alert.remove()
-            this.#toasterContainer.remove()
+            this.toasterContainer.remove()
         })
     }
 
     async #fetchTemplate(url) {
-        const target = this.#toasterContainer.dataset.template
+        const target = this.toasterContainer.dataset.template
         const loadedTemplate = document.querySelector(target)
         try {
             if (!loadedTemplate) {
