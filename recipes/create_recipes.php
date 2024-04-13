@@ -1,15 +1,16 @@
-<?php
+<?php declare(strict_types=1);
+
+if(session_status() !== PHP_SESSION_ACTIVE || session_status() === PHP_SESSION_NONE) session_start();
+
+//include_once("includes/class-autoloader.inc.php");
+include_once('../logs/customErrorHandlers.php');
+
+$script = 'src="scripts/fadeInScroller.js" defer';
+$title = "Clic'Répare - Partagez votre recette";
+
 ob_start();
-if(session_status() !== PHP_SESSION_ACTIVE) {
-    session_start();
-}
-if(session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
-?>
-    <?php //ob_start()?>
-    <?php $title = "Clic'Répare - Partagez votre recette"?>
-    <?php require('../recipes/submit_recipes.php')?>
-    <?php //header('refresh:10, ../index.php?error=none')?>
-    <?php $content = ob_get_clean()?>
-    <?php require('../templates/layout.php')?>
+
+require_once('../recipes/submit_recipes.php');
+
+$content = ob_get_clean();
+require('../templates/layout.php');

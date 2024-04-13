@@ -9,8 +9,10 @@ if(session_status() === PHP_SESSION_NONE) {
 } */
 //ob_start();
 
-include_once('../includes/class-autoloader.inc.php');
 
+include_once('../includes/class-autoloader.inc.php');
+$rootUrl = Functions::getRootUrl();
+echo $rootUrl;
 $data = $_SERVER['REQUEST_METHOD'] == 'POST';
 // On affiche chaque recette une à une
 if ($data && isset($_POST['submit'])) {

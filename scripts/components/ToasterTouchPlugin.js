@@ -93,6 +93,10 @@ export class ToasterTouchPlugin {
             if (Math.abs(this.lastTranslate.x / this.toasterWidth) > 0.20) {
                 if (this.lastTranslate.x < 0 || this.lastTranslate.x > 0) {
                     this.alert.classList.add('close')
+                    this.alert.addEventListener('animationend', () => {
+                        // this.alert.remove()
+                        this.toaster.toasterContainer.remove()
+                    })
                 }
             }
         }
