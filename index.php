@@ -8,9 +8,12 @@ if(session_status() !== PHP_SESSION_ACTIVE || session_status() === PHP_SESSION_N
 //     session_start();
 // }
 
-include_once('includes/functions.inc.php');
-include_once('logs/customErrorHandlers.php');
-require_once("includes/class-autoloader.inc.php");
+// include_once('includes/functions.inc.php');
+// include_once('logs/customErrorHandlers.php');
+// require_once("includes/class-autoloader.inc.php");
+require_once(__DIR__ . "/includes/class-autoloader.inc.php");
+require_once(__DIR__ . "/logs/customErrorHandlers.php");
+require_once(__DIR__ . "/includes/functions.inc.php");
 
 $day = date("d");
 $month = date("m");
@@ -52,7 +55,7 @@ ob_start()
 
 <!-- Si l'utilisateur est bien connecté il peut voir les recettes -->
     <?php if (isset($loggedUser['user']) || isset($loggedUser['email'])): ?>
-        <?php //header_remove('Location: index.php?login=success') ?>
+        <?php //header_remove('Location: index.php?login=success')?>
         <?php require_once("includes/class-autoloader.inc.php"); ?>
         <?php $recipes = new LoginView([]); ?>
         <?php foreach ($recipes->displayRecipes() as $recipe) : ?>

@@ -18,10 +18,7 @@ if ($rootUrl === 'https://adi.ezaya.fr/') {
 
 if ($url === 'about.php' || 'planningType.php' || 'todo.html' || 'carousel.html' || 'contact.php' || 'index.php') {
     $active = strip_tags('class="active"');
-} else {
-    null;
 }
-
 
 ?>
 
@@ -45,8 +42,8 @@ if ($url === 'about.php' || 'planningType.php' || 'todo.html' || 'carousel.html'
     <link 
     <?= $css ?? '' ?>
     />
-    <script src="scripts/script.js" defer></script>
-    <script type="module" src="scripts/toaster.js" defer></script>
+    <script src="<?php echo($rootUrl). $clicServer?>/scripts/script.js" defer></script>
+    <script type="module" src="<?php echo($rootUrl). $clicServer?>/scripts/toaster.js" defer></script>
     <script <?= $script ?? '' ?>></script>
     <script <?= $script2 ?? '' ?>></script>
     <title>
@@ -109,7 +106,9 @@ if ($url === 'about.php' || 'planningType.php' || 'todo.html' || 'carousel.html'
                     <?php if(isset($_COOKIE['EMAIL'])): ?>
                     <?php //if(isset($_SESSION['LOGGED_USER'])):?>
                     <?php //if(isset($loggedUser['email'][0])):?>
-                        <li><a class="" href="<?php echo($rootUrl). $clicServer.'/recipes/create_recipes.php' ?>">Créer une recette</a></li>
+                        <li><a <?php if ($url === 'create_recipes.php') {
+                            echo strip_tags('class="active"');
+                        }?> class="" href="<?php echo($rootUrl). $clicServer.'/recipes/create_recipes.php' ?>">Créer une recette</a></li>
                         <li><a class="" href="<?php echo($rootUrl). $clicServer.'/deconnexion.php' ?>">Se déconnecter</a></li>
                     <?php endif?>
                 </div>
@@ -170,7 +169,9 @@ if ($url === 'about.php' || 'planningType.php' || 'todo.html' || 'carousel.html'
                     <?php if(isset($_COOKIE['EMAIL'])): ?>
                     <?php //if(isset($_SESSION['LOGGED_USER'])):?>
                     <?php //if(isset($loggedUser['email'][0])):?>
-                        <li><a class="" href="<?php echo($rootUrl). $clicServer.'/recipes/create_recipes.php' ?>">Créer une recette</a></li>
+                        <li><a <?php if ($url === 'create_recipes.php') {
+                            echo strip_tags('class="active"');
+                        }?> class="" href="<?php echo($rootUrl). $clicServer.'/recipes/create_recipes.php' ?>">Créer une recette</a></li>
                         <li><a class="" href="<?php echo($rootUrl). $clicServer.'/deconnexion.php' ?>">Se déconnecter</a></li>
                     <?php endif?>
                 </ul>

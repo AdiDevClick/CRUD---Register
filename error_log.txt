@@ -1,0 +1,2 @@
+Errors : [2] require_once(C:\xampp\htdocs\Recettesincludes/class-autoloader.inc.php): Failed to open stream: No such file or directory - C:\xampp\htdocs\Recettes\submit_register.php:7
+Errors : [2] require_once(C:\xampp\htdocs\Recettesincludes/class-autoloader.inc.php): Failed to open stream: No such file or directory - C:\xampp\htdocs\Recettes\login.php:7

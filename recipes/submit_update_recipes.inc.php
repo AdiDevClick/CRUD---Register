@@ -1,8 +1,7 @@
-<?php declare(strict_types=1)?>
+<?php declare(strict_types=1);
 
-<?php
-
-include_once("../includes/class-autoloader.inc.php");
+// include_once("../includes/class-autoloader.inc.php");
+require_once(__DIR__ . '../includes/class-autoloader.inc.php');
 
 $data = $_SERVER['REQUEST_METHOD'] == 'POST';
 
@@ -72,6 +71,6 @@ $loggedUser = LoginController::checkLoggedStatus()
     <?php $checkId->displayUpdateSuccess($getDatas, $loggedUser)?>
     <?php unset($_SESSION['UPDATED_RECIPE'])?>
     <?php else :?>
-        <?php header('Location: ../register.php')?>
+        <?php header('Location: ../register.php?failed=update-recipe')?>
         <?php exit()?>
-<?php endif ?> 
+<?php endif ?>

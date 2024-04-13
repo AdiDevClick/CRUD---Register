@@ -79,7 +79,7 @@ print_r($loggedUser)
     <?php //header('refresh:10, ../index.php?error=none')?>
     <?php else:?>
         <?php session_destroy()?>
-        <?php header('Location: ../register.php')?>
+        <?php header('Location: ../register.php?failed=recipe-creation')?>
         <?php exit()?>
 <?php endif?>
 <!-- end of success message --> 

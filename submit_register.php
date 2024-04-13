@@ -1,8 +1,10 @@
 <?php declare(strict_types=1);
 
-if(session_status() !== PHP_SESSION_ACTIVE || session_status() === PHP_SESSION_NONE) session_start();
+if(session_status() !== PHP_SESSION_ACTIVE || session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
-require_once("includes/class-autoloader.inc.php");
+require_once(__DIR__ . "/includes/class-autoloader.inc.php");
 // require_once("templates/toaster_template.html");
 
 
@@ -76,7 +78,7 @@ $errorMessage = CheckInput::showErrorMessage();
                 <p class="contact-section">Déjà membre ? <a href="<?php echo strip_tags(Functions::getRootUrl()). 'recettes'.'/index.php'?>">Se connecter</a></p>
                 <div class="contact">
                     <!-- <form action="register.php" method="post"> -->
-                    <form class="form-contact" action="register.php" method="post">
+                    <form class="form-contact js-form" action="register.php" method="post">
                     <!-- <form action="submit_register.php" method="post"> -->
                     <?php if (!empty($err)) : ?>
                         <div>

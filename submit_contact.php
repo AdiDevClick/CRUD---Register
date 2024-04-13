@@ -1,14 +1,11 @@
 <?php declare(strict_types=1);
 
-if(session_status() !== PHP_SESSION_ACTIVE) {
+if(session_status() !== PHP_SESSION_ACTIVE || session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-if(session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
-
-include_once('includes/functions.inc.php');
+// include_once('includes/functions.inc.php');
+require_once(__DIR__ . "includes/functions.inc.php");
 
 function display_mailReception($email, $message)
 {

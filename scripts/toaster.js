@@ -73,6 +73,23 @@ if (register === 'failed') {
     resetURL('register.php', 'failed', urlParams)
 }
 
+// const updated = urlParams.get('updated')
+const failed = urlParams.get('failed')
+if (failed === 'recipe-creation') {
+    errAlert = true
+    type = 'Erreur'
+    message = 'Veuillez vous enregistrer ou vous identifier avant de pouvoir partager une recette'
+    resetURL('register.php', 'failed', urlParams)
+}
+
+// const updateRecipe = urlParams.get('failed')
+if (failed === 'update-recipe') {
+    errAlert = true
+    type = 'Erreur'
+    message = 'Veuillez vous enregistrer ou vous identifier avant de pouvoir modifier cette recette'
+    resetURL('register.php', 'failed', urlParams)
+}
+
 if (errAlert) {
     new Toaster(message, type)
 }

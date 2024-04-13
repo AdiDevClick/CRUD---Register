@@ -10,44 +10,50 @@ import { ToasterTouchPlugin } from "./ToasterTouchPlugin.js"
 
 export class Toaster {
 
-    // #toasterContainer
+    /** @type {string} */
     #message
+    /** @type {string} */
     #type
+    /** @type {HTMLDivElement} */
     #alert
+    /** @type {HTMLElement} */
     #progressBar
+    /** @type {HTMLButtonElement} */
     #closeBtn
     #elements
-    #template = []
+    /** @type {HTMLTemplateElement} */
+    #template
     #dataEndpoint
-    #test
 
+    /**
+     * Construit une alerte en prenant en compte un message et un type d'erreur
+     * 'Success' ou bien 'Erreur'
+     * le type 'Erreur' est créé de base si non spécifié
+     * 
+     * Dans sa version actuelle, l'alerte a besoin de chercher le template d'alerte
+     * Il faudra donc l'inclure quelque part dans le DOM au préalable
+     * 
+     * La fonction désactivée '#fetchTemplate()' permet de créer dynamiquement sur le DOM ce template
+     * Mais le constructeur peine à y accéder
+     * @param {string} message 
+     * @param {string} type 
+     */
     constructor(message, type = 'Erreur') {
-        // this.#toasterContainer = element
         this.#message = message
         this.#type = type
         if (!this.toasterContainer) {
             this.#createNewToasterContainer()
             this.toasterContainer = document.querySelector('.toast-container')
-            // this.#fetchTemplate(this.#searchURL())
+            // this.#fetchTemplate(this.#dataEndpoint)
             // this.#fetchTemplate('../templates/toaster_template.html')
         }
         
-        // this.#alert = document.querySelector('#alert-layout').content.firstElementChild.cloneNode(true)
-        // this.#progressBar = alert.querySelector('.progress')
-        
-        // this.fetchedTemplate = this.#getFetchedTemplate()
-        //     .then((r) => {
-        //         document.body.append(r)
-        // })
-        // document.body.append(this.fetchedTemplate)
         this.#dataEndpoint = this.toasterContainer.dataset.endpoint
-        
-        // if (this.#getFetchedTemplate()) {
-        // console.log('tes')
         this.#elements = JSON.parse(this.toasterContainer.dataset.elements)
         this.#template = document.querySelector(this.toasterContainer.dataset.template)
         
         this.#alert = this.#template.content.firstElementChild.cloneNode(true)
+        
         this.#progressBar = this.#alert.querySelector(this.toasterContainer.dataset.progressbar)
         this.#closeBtn = this.#alert.querySelector(this.toasterContainer.dataset.closebtn)
         
@@ -61,42 +67,20 @@ export class Toaster {
         this.#closeBtn.addEventListener('click', e => {
             this.#closingAnimation(e)
         }, {once: true})
-        // }
-        // this.#template = fetchTemplate(this.#dataEndpoint, this.#toasterContainer.dataset.template)
-        // this.#getFetchedTemplate()
-        // this.fetchedTemplate = this.fetchedTemplate.finally((r) => r)
-        // console.log(this.fetchedTemplate)
-        // this.#getFetchedTemplate().then((t) => console.log(t))
-        // this.#template = this.#getFetchedTemplate()
-        // window.addEventListener('DOMContentLoaded', () => {
-            
 
-            
-        // })
         new ToasterTouchPlugin(this)
-        
-
-        
     }
 
-    async #getFetchedTemplate() {
-        let response
-        const template = await fetchTemplate(this.#dataEndpoint, this.toasterContainer.dataset.template)
-            // .then((response) => {
-            //     return true
-            // })
-        document.body.append(template)
-        // this.#template.push(template.content.firstElementChild.cloneNode(true))
-        // this.#alert = template
-        console.log('test')
-        return true
-    }
+    // async #getFetchedTemplate() {
+    //     const template = await fetchTemplate(this.#dataEndpoint, this.toasterContainer.dataset.template)
+    //     document.body.append(template)
+    //     return template
+    // }
 
-    #searchURL() {
-        const url = new URL('toaster_template.html')
-        return url
-    }
-
+    /**
+     * Permet de créer une div sur le DOM comprenant des dataset
+     * pour target les élements nécessaires à l'alerte
+     */
     #createNewToasterContainer() {
         const toasterDivContainer = createElement('div', {
             class: 'toast-container',
@@ -110,6 +94,12 @@ export class Toaster {
         document.body.append(toasterDivContainer)
     }
 
+    /**
+     * Insère l'alerte au conteneur préalablement créé
+     * Cette alerte sera toujours fixée en haut à droite de l'écran
+     * Si le conteneur n'existe pas, le script sera bloqué
+     * @returns 
+     */
     #appendAlert() {
         if (this.toasterContainer) {
             this.toasterContainer.insertAdjacentElement(
@@ -121,6 +111,10 @@ export class Toaster {
         }
     }
 
+    /**
+     * Permet de switch entre une alerte "success" ou bien "Erreur"
+     * L'alerte d'Erreur est parametrée par défaut
+     */
     #showAlert() {
         this.#alert.classList.add('active')
         this.#closeBtn.classList.add('open')
@@ -135,68 +129,65 @@ export class Toaster {
         this.#alert.querySelector('.text-2').innerText = this.#message
     }
 
-    async #removeAlert() {
+    /**
+     * Supprime l'alerte et son conteneur après 5s -
+     * Une animation sera jouée en fin de délai
+     */
+    async #removeAlert(e) {
         await wait(5000)
-        //     .then(() => alert.classList.remove('active'))
         this.#alert.classList.remove('active')
-
         await wait(5300)
-        //     .then(() => {
-        //         progress.classList.remove('active')
-        //         alert.remove()
-        //         toasterDivContainer.remove()
-        //     })
-        // this.#alert.addEventListener('animationend', () => {
-            // this.#alert.classList.remove('active')
         this.#progressBar.classList.remove('active')
         this.#alert.remove()
         this.toasterContainer.remove()
     }
 
+    /**
+     * Joue une animation puis ferme et supprime l'alerte -
+     * Sera appliquée en cas de clic sur le bouton de fermeture
+     * @param {EventInit} e 
+     */
     async #closingAnimation(e) {
         e.preventDefault()
         this.#alert.classList.remove('active')
         this.#alert.classList.add('close')
-        
         await wait(300)
-            // .then(() => progress.classList.remove('active'))
         this.#progressBar.classList.remove('active')
-        // closeIcon.dispatchEvent(new CustomEvent('delete'))
         this.#alert.addEventListener('animationend', () => {
             this.#alert.remove()
             this.toasterContainer.remove()
         })
     }
 
-    async #fetchTemplate(url) {
-        const target = this.toasterContainer.dataset.template
-        const loadedTemplate = document.querySelector(target)
-        try {
-            if (!loadedTemplate) {
-                const response = await fetch(url)
-                if (!response.ok) {
-                    throw new Error(`HTTP Error! Status: ${response.status}`)
-                }
-                const htmlElement = document
-                    .createRange()
-                    .createContextualFragment(await response.text())
-                    .querySelector(target)
-                if (!htmlElement) {
-                    throw new Error(`L'élement ${target} n'existe pas à l'adresse : ${url}`)
-                }
-                this.#template = htmlElement
-                document.body.append(htmlElement)
-                return htmlElement
-            }
-            this.#template = loadedTemplate
-            return loadedTemplate
-        } catch (error) {
-            const alert = alertMessage(error.message)
-            const container = document.querySelector('.toast-container')
-            container.insertAdjacentElement(
-                'beforeend',
-                alert
-            )
-        }
-    }
+    // async #fetchTemplate(url) {
+    //     const target = this.toasterContainer.dataset.template
+    //     const loadedTemplate = document.querySelector(target)
+    //     try {
+    //         if (!loadedTemplate) {
+    //             const response = await fetch(url)
+    //             if (!response.ok) {
+    //                 throw new Error(`HTTP Error! Status: ${response.status}`)
+    //             }
+    //             const htmlElement = document
+    //                 .createRange()
+    //                 .createContextualFragment(await response.text())
+    //                 .querySelector(target)
+    //             if (!htmlElement) {
+    //                 throw new Error(`L'élement ${target} n'existe pas à l'adresse : ${url}`)
+    //             }
+    //             this.#template = htmlElement
+    //             document.body.append(htmlElement)
+    //             return htmlElement
+    //         }
+    //         this.#template = loadedTemplate
+    //         return loadedTemplate
+    //     } catch (error) {
+    //         const alert = alertMessage(error.message)
+    //         const container = document.querySelector('.toast-container')
+    //         container.insertAdjacentElement(
+    //             'beforeend',
+    //             alert
+    //         )
+    //     }
+    // }
 }
