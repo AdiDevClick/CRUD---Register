@@ -10,11 +10,11 @@ export class ToasterTouchPlugin {
         this.alert = toaster.toasterContainer.querySelector('.toast')
 
         toaster.toasterContainer.addEventListener('dragstart', e => e.preventDefault())
-        toaster.toasterContainer.addEventListener('mousedown', this.startDrag.bind(this), {passive: false})
-        toaster.toasterContainer.addEventListener('touchstart', this.startDrag.bind(this))
+        toaster.toasterContainer.addEventListener('mousedown', this.startDrag.bind(this), {passive: true})
+        toaster.toasterContainer.addEventListener('touchstart', this.startDrag.bind(this), {passive: true})
 
         window.addEventListener('mousemove', this.drag.bind(this))
-        window.addEventListener('touchmove', this.drag.bind(this), {passive: false})
+        window.addEventListener('touchmove', this.drag.bind(this))
         
         window.addEventListener('touchend', this.endDrag.bind(this))
         window.addEventListener('mouseup', this.endDrag.bind(this))

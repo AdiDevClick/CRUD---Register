@@ -18,12 +18,27 @@ class Functions
         return $rootUrl;
     }
 
+    public static function actualServer($rootUrl) : string
+    {
+        // $rootUrl = Functions::getRootUrl();
+        // $rootUrl = (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . '/';
+        if ($rootUrl === 'https://adi.ezaya.fr/') {
+            return 'ClicRepare';
+        } else {
+            return 'recettes';
+        }
+    }
+
     public function getThisUrl()
     {
         echo $this->getUrl();
     }
     public function getThisRootUrl()
     {
-        echo $this->getRootUrl();
+        return $this->getRootUrl();
+    }
+    public function getThisActualServer($rootUrl) : string
+    {
+        return $this->actualServer($rootUrl);
     }
 }

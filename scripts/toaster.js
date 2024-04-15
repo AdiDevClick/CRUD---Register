@@ -1,14 +1,7 @@
 import { Toaster } from "./components/Toaster.js"
 import { resetURL } from "./functions/url.js"
 
-// const form = document.querySelector('form')
-// form.addEventListener('submit', e => {
-//     e.preventDefault()
-//     console.log('object2')
-//     // $script
-//     // this.#onSubmit(e.currentTarget)
-//     form.removeEventListener('submit', e)
-// })
+
 
 let message
 let type

@@ -32,9 +32,13 @@ class Login extends Mysql
             //exit();
         } */ //else {
         $users = $usersStatement->fetchAll(PDO::FETCH_ASSOC);
+        // header($_SERVER["SERVER_PROTOCOL"] . " 404 Not Found");
+        // http_response_code(404);
+        // header("HTTP/1.1 404 Not Found");
         /* $usersStatement = null;
         header("Location : ".Functions::getUrl(). "?error=stmt-failed");
         exit(); */
+        echo json_encode($users);
         return $users;
     }
 
@@ -98,6 +102,7 @@ class Login extends Mysql
         }
         $hashedPwd = $pwdStatement->fetchAll(PDO::FETCH_ASSOC);
         $checkedPwd = password_verify($pwd, $hashedPwd[0]['password']);
+        echo json_encode($pwdStatement);
         return $checkedPwd;
     }
 

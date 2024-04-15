@@ -1,16 +1,16 @@
 <?php declare(strict_types=1);
 
-/* if(session_status() !== PHP_SESSION_ACTIVE) {
+if(session_status() !== PHP_SESSION_ACTIVE || session_status() === PHP_SESSION_NONE) {
     session_start();
 }
-
-if(session_status() === PHP_SESSION_NONE) {
-    session_start();
-} */
 //ob_start();
 
 
-include_once('../includes/class-autoloader.inc.php');
+include_once("../includes/class-autoloader.inc.php");
+include_once('../logs/customErrorHandlers.php');
+// require_once(__DIR__ . './' . "includes/class-autoloader.inc.php");
+// require_once(__DIR__ . "/logs/customErrorHandlers.php");
+
 $rootUrl = Functions::getRootUrl();
 echo $rootUrl;
 $data = $_SERVER['REQUEST_METHOD'] == 'POST';
