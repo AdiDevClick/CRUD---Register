@@ -21,6 +21,9 @@ export class ErrorHandler {
     #name
     #age
     #inputs  = []
+    #status = false
+    #pwError = []
+    #emptyError = []
 
     /**
      * @param {HTMLFormElement} form 
@@ -66,6 +69,7 @@ export class ErrorHandler {
                 // if (input === this.#password || this.#pwdRepeat) this.#isExactPassword()
                 this.#isExactPassword(e.currentTarget)
                 // return this.#alert
+                this.#resetInputs(input)
             })
         })
 
@@ -102,29 +106,87 @@ export class ErrorHandler {
         console.log(input.value)
         // this.#inputs.forEach(input => {
         if (input.value.toString().trim() === '') {
+            // this.#status = true
+            // this.#emptyError.push(input)
+            this.#error.push(input)
             this.#alert.innerText = 'Un ou plusieurs champs sont vides'
             input.classList.add('input_error')
+            // this.#error = this.#error.filter(t => t === input)
+            // this.#emptyError = this.#emptyError.filter(t => t === input)
+
+            // console.log(this.#error)
         } else {
-            this.#alert.innerText = ''
-            input.classList.remove('input_error')
+            console.log(this.#error)
+            // Pass the removeValue function into the filter function to return the specified value
+            // const x = this.#error.filter(this.#removeValue(input))
+
+            // this.#error = this.#error.splice(...this.#error, t => t === input)
+            console.log("jai reduit dans le empty")
+            // console.log(x)
+            // this.#error = this.#error.filter(t => t !== input)
+
+            // this.#error.splice(input)
+            // console.log(this.#error)
+            // this.#status = false
+            // this.#alert.innerText = 't'
+            // input.classList.remove('input_error')
         }
-        console.log(this.#alert.innerText)
+        // return this.#status
     }
+
+    
+    #removeValue(input, value, index, arr) {
+        // If the value at the current array index matches the specified value (2)
+        if (value === input) {
+        // Removes the value from the original array
+            arr.splice(index, 1)
+            return true
+        }
+        return false
+    }
+
+
 
     #isExactPassword(input) {
         // if (input !== this.#password || this.#pwdRepeat) return
         if (this.#password.value  !== this.#pwdRepeat.value  ) {
-            console.log('test')
+            // this.#status = true
+            this.#error.push(input)
+            // this.#pwError.push(input)
             this.#password.classList.add("input_error")
             this.#pwdRepeat.classList.add("input_error")
             this.#alert.innerText = 'Vos mots de passes de non pas identiques'
-            console.log(this.#alert.innerText)
+            // console.log(this.#alert.innerText)
+            // console.log(this.#error)
+            // this.#pwError = this.#pwError.filter(t => t === input)
         } else {
-            console.log('test2')
-            this.#password.classList.remove("input_error")
-            this.#pwdRepeat.classList.remove("input_error")
-            this.#alert.innerText = ''
-            console.log(this.#alert.innerText)
+            // this.#error.splice(input)
+            console.log(this.#error.filter(t => t !== input))
+            // this.#error = this.#error.filter(t => t !== input)
+            // this.#pwError = this.#pwError.filter(t => t === input)
+            // this.#error = this.#error.splice(...this.#error, t => t === input)
+            console.log("jai reduit dans le password")
+            console.log(this.#error)
+
+            // console.log(this.#error)
+            // this.#status = false
+            // console.log('test2')
+            // this.#password.classList.remove("input_error")
+            // this.#pwdRepeat.classList.remove("input_error")
+            // this.#alert.innerText = 'e'
+            // console.log(this.#alert.innerText)
+        }
+        // return this.#status
+    }
+
+    #resetInputs(input) {
+        if (this.#error.length === 0) {
+        // if (this.#pwError.length === 0 && this.#emptyError.length === 0) {
+            // console.log(this.#error)
+            // this.#status = false
+            this.#error = [b]
+            this.#alert.innerText = 't'
+            input.classList.remove('input_error')
         }
     }
 

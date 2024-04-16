@@ -38,7 +38,7 @@ class Login extends Mysql
         /* $usersStatement = null;
         header("Location : ".Functions::getUrl(). "?error=stmt-failed");
         exit(); */
-        echo json_encode($users);
+        // echo json_encode(['status' => 1]);
         return $users;
     }
 
@@ -102,7 +102,7 @@ class Login extends Mysql
         }
         $hashedPwd = $pwdStatement->fetchAll(PDO::FETCH_ASSOC);
         $checkedPwd = password_verify($pwd, $hashedPwd[0]['password']);
-        echo json_encode($pwdStatement);
+        echo json_encode($checkedPwd);
         return $checkedPwd;
     }
 
