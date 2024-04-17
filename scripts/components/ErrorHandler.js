@@ -26,6 +26,7 @@ export class ErrorHandler {
     #emptyError = []
     #deletedErrors
     #pwStatus = true
+    #isEmpty = false
 
     /**
      * @param {HTMLFormElement} form 
@@ -111,36 +112,40 @@ export class ErrorHandler {
         // this.input = input
         // this.#inputs.forEach(input => {
         if (input.value.toString().trim() === '') {
-            // this.#status = true
+            this.#isEmpty = true
+            this.#error.push(input)
             // this.#emptyError.push(input)
             // if (this.#error.filter(t => t !== input)) {
             //     return
             // } else {
-            this.#error.push(input)
+            // this.#error = this.#error.filter(t => t === input)
             this.#alert.innerText = 'Un ou plusieurs champs sont vides'
             input.classList.add('input_error')
             // }
-            
             // this.#error = this.#error.filter(t => t === input)
             // this.#emptyError = this.#emptyError.filter(t => t === input)
-            console.log(this.#error)
         } else {
-
-            console.log('mes inputs sont remplies')
+            this.#isEmpty = false
+            // if (this.#error.length === 0) this.#isEmpty = false
+        }
+        if (!this.#isEmpty && this.#pwStatus ) {
+            // console.log('mes inputs sont remplies')
             // Pass the removeValue function into the filter function to return the specified value
             // const x = this.#error.filter(this.#removeValue(input))
             // this.#deletedErrors = this.#error.splice(input, 1)
             // this.#error = this.#error.splice(...this.#error, t => t === input)
-            if (!this.#isExactPassword(input)) return
             // console.log(x)
-            if (input.value.toString().trim() !== '') {
-                this.input = input
+            // if (input.value.toString().trim() !== '') {
+                // this.#alert.innerText = ''
+                this.#isExactPassword(input)
+                // this.input = input
                 // this.#error = this.#error.filter(this.#removeValue.bind(this))
-                this.#error = this.#error.filter(i => i !== input)
+                // this.#error = this.#error.filter(i => i !== input)
                 // const x = this.#error.findIndex(idx => idx === input)
                 // this.#error.splice(x, 1)
                 console.log(this.#error)
-            }
+                // this.#pwStatus = true
+            // }
             // const x = this.#error.findIndex(idx => idx === input.value.toString().trim() !== '')
             // console.log(x)
             // // this.input.classList.remove('input_error')
@@ -161,6 +166,9 @@ export class ErrorHandler {
             console.log('jai donc delete cette input')
             // this.#alert.innerText = 't'
             // input.classList.remove('input_error')
+        }
+        if (!this.#isEmpty && this.#pwStatus) {
+            this.#error = this.#error.filter(t => t !== input)
         }
     }
 
@@ -186,23 +194,24 @@ export class ErrorHandler {
     #isExactPassword(input) {
         // if (input !== this.#password || this.#pwdRepeat) return
         if (this.#password.value !== this.#pwdRepeat.value && this.#pwStatus) {
-            this.#error.push(input)
-            this.#pwStatus = false
             // this.#error.push(input)
+            this.#pwStatus = false
             this.#password.classList.add("input_error")
             this.#pwdRepeat.classList.add("input_error")
             this.#alert.innerText = 'Vos mots de passes de non pas identiques'
+            // return false
         } else {
-            this.input = input
-            if (this.#password.value === this.#pwdRepeat.value && this.#alert.innerText === 'Vos mots de passes de non pas identiques') {
-                console.log(this.#error)
-                this.#alert.innerText = ''
-
+            // this.input = input
+            // if (this.#password.value === this.#pwdRepeat.value) {
+                // console.log(this.#error)
+                this.#pwStatus = true
+                // this.#alert.innerText = ''
+                // return true
                 // this.#error = this.#error.filter(this.#removeValue.bind(this))
                 // this.#error = this.#error.filter(pw => pw !== input)
             // this.#password.classList.remove("input_error")
             // this.#pwdRepeat.classList.remove("input_error")
-            }
+            // }
         }
         // } else {
 
@@ -213,9 +222,11 @@ export class ErrorHandler {
 
     #resetInputs(input) {
         console.log(this.#error)
-        if (this.#error.length === 0) {
+        if (!this.#isEmpty && this.#pwStatus && this.#error.length === 0) {
+        // if (this.#error.length === 0) {
         // if (this.#pwError.length === 0 && this.#emptyError.length === 0) {
             // console.log(this.#error)
+
             console.log('array empty')
             // this.#status = false
             this.#alert.innerText = 't'
