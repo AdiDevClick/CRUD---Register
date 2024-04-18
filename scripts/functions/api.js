@@ -48,8 +48,8 @@ export async function fetchTemplate(url, targt) {
             if (!htmlElement) {
                 throw new Error(`L'élement ${target} n'existe pas à l'adresse : ${url}`)
             }
-            // return document.body.append(htmlElement)
-            return await htmlElement
+            // document.body.append(htmlElement)
+            return htmlElement
         }
         return loadedTemplate
     } catch (error) {

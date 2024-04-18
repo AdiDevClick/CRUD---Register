@@ -1,20 +1,21 @@
 <?php
 
 require_once(dirname(__DIR__) . DIRECTORY_SEPARATOR . "classes" . DIRECTORY_SEPARATOR ."Functions.class.php");
+require_once(dirname(__DIR__) . DIRECTORY_SEPARATOR . "includes" . DIRECTORY_SEPARATOR ."variables.inc.php");
 // $url = $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
 // $url = explode("/", parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));
 // $url = array_pop($url);
 
 
-$url = Functions::getUrl();
+// $url = Functions::getUrl();
 // $rootPath = $_SERVER['DOCUMENT_ROOT'];
-$rootUrl = Functions::getRootUrl();
-// $rootUrl = (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . '/';
-if ($rootUrl === 'https://adi.ezaya.fr/') {
-    $clicServer = 'ClicRepare';
-} else {
-    $clicServer = 'recettes';
-}
+// $rootUrl = Functions::getRootUrl();
+// // $rootUrl = (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . '/';
+// if ($rootUrl === 'https://adi.ezaya.fr/') {
+//     $clicServer = 'ClicRepare';
+// } else {
+//     $clicServer = 'recettes';
+// }
 
 if ($url === 'about.php' || 'planningType.php' || 'todo.html' || 'carousel.html' || 'contact.php' || 'index.php') {
     $active = strip_tags('class="active"');
@@ -43,7 +44,7 @@ if ($url === 'about.php' || 'planningType.php' || 'todo.html' || 'carousel.html'
     <?= $css ?? '' ?>
     />
     <script src="<?php echo($rootUrl). $clicServer?>/scripts/script.js" defer></script>
-    <script type="module" src="<?php echo($rootUrl). $clicServer?>/scripts/toaster.js" defer></script>
+    <script type="module" src="<?php echo($rootUrl). $clicServer?>/scripts/toaster.js" async></script>
     <script <?= $script ?? '' ?>></script>
     <script <?= $script2 ?? '' ?>></script>
     <title>

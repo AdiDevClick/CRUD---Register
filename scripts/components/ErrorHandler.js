@@ -1,4 +1,5 @@
 import { alertMessage, createElement } from "../functions/dom.js"
+// import { createElement } from "../functions/dom.js"
 
 export class ErrorHandler {
 
@@ -13,6 +14,7 @@ export class ErrorHandler {
     #formAge
     #formPassword
     #formPwdRepeat
+    // #alert
     #alert = document.querySelector('.alert-error')
     #data
     #password
@@ -42,9 +44,9 @@ export class ErrorHandler {
             this.#alert = createElement('p', {
                 class: 'alert-error'
             })
-            // const alert = alertMessage(error.message)
+            // this.#alert = alertMessage(error.message)
             this.#form.insertAdjacentElement(
-                'beforebegin',
+                'afterbegin',
                 this.#alert
             )
         }
@@ -155,15 +157,17 @@ export class ErrorHandler {
             this.#formButton.disabled = false
         } catch (error) {
             const alert = alertMessage(error.message)
+            // const alert = alertMessage(error.message)
             this.#form.insertAdjacentElement(
                 'beforeend',
                 alert
             )
             // this.#formButton.disabled = false
-            alert.addEventListener('close', () => {
-                // this.#formButton.disabled = false
-                // alert.removeEventListener('close', (e))
-            }, {once: true})
+            // alert.addEventListener('close', () => {
+            //     // this.#formButton.disabled = false
+            //     // alert.removeEventListener('close', (e))
+            // }, {once: true})
+            // console.log(error)
         }
     }
 
@@ -195,7 +199,7 @@ export class ErrorHandler {
         if (!inputRegex.test(this.#formEmail)) {
             const message = 'Votre email est invalide'
             this.#email.classList.add("input_error")
-            // email.setAttribute('placeholder', message)
+            this.#email.setAttribute('placeholder', 'monEmail@mail.com')
             this.#error.push(message)
         } else {
             // this.#error = this.#error.filter((t) => t !== message)
@@ -226,7 +230,8 @@ export class ErrorHandler {
         if (this.#error.length >= 1) {
             for (const error of this.#error) {
                 this.#error = this.#error.filter((t) => t !== error)
-                this.#alert.innerText = error
+                error === 'Votre email est invalide' ? this.#alert.innerText = error : this.#alert.innerText = 'Un ou plusieurs champs sont vides'
+                
                 // this.#alert.innerText = 'Un ou plusieurs champs sont vides'
         //         const errorElement = alertMessage(error)
         //         this.#form.insertAdjacentElement(

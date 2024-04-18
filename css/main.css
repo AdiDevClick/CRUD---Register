@@ -199,7 +199,7 @@ header {
     }
     @media (max-width: 576px) {
         justify-content: space-between;
-        padding-right: 10%;
+        /* padding-right: 10%; */ /* original */
     }
 }
 
@@ -503,8 +503,9 @@ main {
     overflow: hidden;
     /* margin-top: 10%; */
     @media (max-width: 576px) {
-        width: 90%;
-        margin-top: 10%;
+        /* width: 90%; */ /* original */
+        /* margin-top: 10%;  */ /* original */
+        margin-top: 15%;
         background-color: unset;
     }
 }

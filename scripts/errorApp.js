@@ -9,5 +9,6 @@ const forms = document.querySelectorAll('form')
 //     form.removeEventListener('submit', e)
 // })
 forms.forEach(form => {
+    // debugger
     new ErrorHandler(form)
 })

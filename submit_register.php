@@ -5,8 +5,8 @@ if(session_status() !== PHP_SESSION_ACTIVE || session_status() === PHP_SESSION_N
 }
 
 require_once(__DIR__ . "/includes/class-autoloader.inc.php");
+require_once(__DIR__ . "/includes/variables.inc.php");
 // require_once("templates/toaster_template.html");
-
 
 $data = $_SERVER['REQUEST_METHOD'] === 'POST';
 $err = [];
@@ -23,45 +23,20 @@ if (($data && isset($_POST['submit']))) {
     ];
     $signup = new SignupView($getDatas);
     $signup->setUsers();
-    // $errorMessages = CheckInput::getErrorsArray();
-    // print_r($errorMessages);
     $err = CheckInput::getErrorMessages();
-    // print_r($err) .  ' <==  array test ';
-    //ob_start();
     if (count($err) > 0) {
-        // print_r($errorMessages);
         session_destroy();
-        // header('Location: register.php?register=failed');
-        // die('je veux success mais cest pas bon <br>');
     } else {
-        // print_r($errorMessages);
-        // header('refresh:10, index.php?register=success');
         header('Location: index.php?register=success');
         session_destroy();
     }
-    //$content = ob_end_flush();
-    //header('refresh:10, index.php');
-    //exit();
-    //header('refresh:5, '.Functions::getUrl().'?error=none');
 }
 $loggedUser = LoginController::checkLoggedStatus();
-$errorMessage = CheckInput::showErrorMessage();
-// $errorMessage = '';
-// $errorPassword = '';
-// $errorUsername = '';
-/* if (isset($_COOKIE['REGISTERED_USER']) || isset($_SESSION['REGISTERED_USER'])) {
-    $registeredUser = [
-        'email' => $_COOKIE['REGISTERED_USER'] ?? $_SESSION['REGISTERED_USER'],
-    ];
-} */
-// On affiche chaque recette une à une
-//$content = ob_get_clean();
-// print_r($loggedUser);
+$errorMessage = CheckInput::showErrorMessage()
+
 ?>
 
 <!-- Register form for non registered visitor -->
-<?php //ob_start()?>
-<?php //$registeredUser = LoginController::checkLoggedStatus()?>
 <?php //if (!isset($loggedUser['email'])):?> 
 
 <?php if (!isset($_SESSION['LOGGED_USER']) || !isset($_SESSION['REGISTERED_USER'])): ?>
@@ -75,27 +50,16 @@ $errorMessage = CheckInput::showErrorMessage();
                 <div class="card-header">
                     <h3 class="contact-section"> S'enregistrer </h3>
                 </div>
-                <p class="contact-section">Déjà membre ? <a href="<?php echo strip_tags(Functions::getRootUrl()). 'recettes'.'/index.php'?>">Se connecter</a></p>
+                <p class="contact-section">Déjà membre ? <a href="<?php echo strip_tags($rootUrl). $clicServer.'/index.php'?>">Se connecter</a></p>
                 <div class="contact">
                     <!-- <form action="register.php" method="post"> -->
                     <form class="form-contact js-form" action="register.php" method="post">
                     <!-- <form action="submit_register.php" method="post"> -->
-                    <?php if (!empty($err)) : ?>
-                        <div>
-                            <p class="alert-error"><?php echo(strip_tags($errorMessage)) ?></p>
-                        </div>
-                    <?php endif ?>
-                    <?php //if (!empty($err) && (isset($err['emailTaken']) ?: isset($err['userTaken']))):?>
-                        <?php //print_r($getDatas)?>
-                        <?php //print_r($err)?>
-                        <?php //print_r($getDatas)?>
-                        <?php //$errorMessage = $err['userTaken'] ?? $err['emailTaken']?>
-                        <?php //elseif (condition) :?>
-                        <!-- <div>
-                            <p class="alert-error"><?php //echo(strip_tags($errorMessage))?></p>
-                        </div> -->
-                    <?php //endif?>
-
+                        <?php if (!empty($err)) : ?>
+                            <div>
+                                <p class="alert-error"><?php echo(strip_tags($errorMessage)) ?></p>
+                            </div>
+                        <?php endif ?>
                         <!-- Username -->
                         <div class="form form-hidden">
                             <label for="username" class="label">Votre nom d'utilisateur :</label>
@@ -162,10 +126,6 @@ $errorMessage = CheckInput::showErrorMessage();
             </div>
         </div>
     </section>
-    <?php //endif?> 
-    <?php //session_destroy()?>
-    <?php //$content = ob_get_clean()?>
-    <?php //$content = ob_end_flush()?>
 <!-- End of the form for non registered visitor -->
 
 <!--  Display success message  -->
@@ -182,7 +142,3 @@ $errorMessage = CheckInput::showErrorMessage();
             <?php //exit()?>
 <!-- End of display success message  -->
 <?php endif ?>
-
-<?php //$content = ob_end_flush()?>
-<?php //$content = ob_get_clean()?>
-<?php //require('templates/layout.php')?>
