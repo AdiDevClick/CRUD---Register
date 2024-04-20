@@ -44,7 +44,7 @@ if ($url === 'about.php' || 'planningType.php' || 'todo.html' || 'carousel.html'
     <?= $css ?? '' ?>
     />
     <script src="<?php echo($rootUrl). $clicServer?>/scripts/script.js" defer></script>
-    <script type="module" src="<?php echo($rootUrl). $clicServer?>/scripts/toaster.js" async></script>
+    <script type="module" src="<?php echo($rootUrl). $clicServer?>/scripts/toaster.js" defer></script>
     <script <?= $script ?? '' ?>></script>
     <script <?= $script2 ?? '' ?>></script>
     <title>

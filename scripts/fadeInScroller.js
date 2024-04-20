@@ -1,8 +1,8 @@
 const loaded = document.querySelector('.form-loaded')
 
 const options = {
-  root: null,
-  rootMargin: '0px',
+    root: null,
+    rootMargin: '0px',
 }
 
 const intersectHandler = function(entries, observer) {

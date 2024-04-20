@@ -81,19 +81,19 @@ if (failed === 'update-recipe') {
     resetURL('register.php', 'failed', urlParams)
 }
 
-// if (errAlert) {
-//     new Toaster(message, type)
+if (errAlert) {
+    new Toaster(message, type)
+}
+
+// const onReady = function() {
+//     if (errAlert) {
+//         new Toaster(message, type)
+//     }
 // }
 
-const onReady = function() {
-    if (errAlert) {
-        new Toaster(message, type)
-    }
-}
-
-if (window.readyState !== 'loading') {
-    // if (errAlert) {
-        onReady()
-    // }
-}
-window.addEventListener('DOMContentLoaded', onReady)
+// if (window.readyState !== 'loading') {
+//     // if (errAlert) {
+//         onReady()
+//     // }
+// }
+// window.addEventListener('DOMContentLoaded', onReady)

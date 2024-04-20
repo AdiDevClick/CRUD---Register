@@ -40,8 +40,9 @@ $loggedUser = LoginController::checkLoggedStatus();
 ?>
 
 <?php if (!isset($loggedUser['email'])): ?> 
-    <div class="form-index">
-        <form class="js-form" action="index.php" method="post">
+    <div class="contact">
+        <form class="form-contact form-index js-form" action="index.php" method="post">
+        <!-- <form class="form-contact js-form" action="index.php" method="post"> -->
             <!-- Si il y a erreur on affiche le message -->
             <?php if (!empty($err) && (isset($err['userError']) || isset($err['userTaken']))):?>
                     <?php $errorMessage = $err['userError'] ?? $err['emailTaken'] ?>
@@ -50,8 +51,9 @@ $loggedUser = LoginController::checkLoggedStatus();
                     </div>
             <?php endif?>
             <!-- Username -->
-            <div class="splash-login form-hidden">
-                <label for="username">Votre identifiant :</label>
+            <div class="form splash-login form-hidden">
+            <!-- <div class="form splash-login form-hidden"> -->
+                <label for="username">Votre identifiant</label>
                 <?php if (!empty($getDatas['username']) || array_key_exists('errorUsername', $err)) : ?>
                     <input class="input_error" type="text" id="username" name="username" placeholder="<?php echo strip_tags($err['errorUsername'] ?? 'Votre identifiant...') ?>" autocomplete="username" value="<?php echo strip_tags($getDatas['username']) ?>"/>
                 <?php else: ?>
@@ -59,8 +61,9 @@ $loggedUser = LoginController::checkLoggedStatus();
                 <?php endif ?>
             </div>
             <!-- Password -->
-            <div class="splash-login form-hidden">
-                <label for="password"> Votre mot de passe :</label>
+            <div class="form splash-login form-hidden">
+            <!-- <div class="form splash-login form-hidden"> -->
+                <label for="password"> Votre mot de passe</label>
                 <?php if (array_key_exists('errorPassword', $err) || array_key_exists('userError', $err)) : ?>
                     <input class="input_error" type="password" id="password" name="password" placeholder="<?php echo strip_tags($err['errorPassword'] ?? '') ?>" autocomplete="current-password">
                 <?php else: ?>
@@ -68,12 +71,17 @@ $loggedUser = LoginController::checkLoggedStatus();
                 <?php endif ?>
             </div>
             <!-- Submit -->
-            <div class="splash-login form-hidden">
-                <button type="submit" name="submit" class="btn" id="btn"> S'identifier</button>
+            <div class="form splash-login form-hidden">
+            <!-- <div class="form splash-login form-hidden"> -->
+                <button type="submit" name="submit" class="btn" id="btn">S'identifier</button>
+            </div>
+            <!-- Password Recovery link -->
+            <div class="form splash-login pw_reset">
+            <!-- <div class="pw_reset"> -->
+                <a href="reset-password.php">Mot de passe oublié ?</a>
             </div>
         </form>
     </div>
-<a class="pw_reset" href="reset-password.php">Mot de passe oublié ?</a>
 <!-- 
     Si l'utilisateur est bien loggé, on affiche le message de succès
 -->

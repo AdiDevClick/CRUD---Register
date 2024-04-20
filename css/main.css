@@ -158,16 +158,21 @@ h1 {
 }
 
 .pw_reset {
-    padding-right: 50%;
-    margin: 5%;
+    /* padding-right: 50%; */
+    /* margin: 30px 15px; */
+    /* margin: 5%; */
     @media (max-width: 992px) {
-        padding-right: unset;
-        margin: unset;
+        /* padding-right: unset; */
+        /* margin: unset; */
     }
     @media (max-width: 576px) {
         padding-right: unset;
-        margin: unset;
+        /* margin: unset; */
+        margin: 20px auto;
     }
+}
+.pw_reset:hover {
+    padding-left: 2px;
 }
 /* END OF TEXT/TITLES & PARAGRAPH */
 
