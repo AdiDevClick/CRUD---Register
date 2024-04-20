@@ -9,12 +9,16 @@ label {
     font-size: 1.4rem;
     cursor: pointer;
     max-width: fit-content;
+    justify-content: center;
     /* background-color: #3b3b3b3b; */
     background-color: var(--background-color);
 }
 
 .form-contact .btn {
     margin-left: 0;
+    width: 100%;
+    max-width: unset;
+    padding: 10px;
 }
 
 .btn:hover {
@@ -90,6 +94,9 @@ input[type=text], input[type=number], input[type=password], input[type=email], t
     max-width: 100%;
     border-radius: 10px;
     color: #eeeeee;
+    @media screen and (max-width: 576px) {
+        margin: 10px auto;
+    }
 }
 
 textarea {
@@ -158,11 +165,12 @@ input.input_error:not(:placeholder-shown) {
 
 input {
     text-align: center;
-    border: 1px solid #ccc;
+    /* border: 1px solid #ccc; */
+    border: 1px solid var(--border-color);
     width: 180px;
     border-inline: #ccc;
     background-color: #ffffff1a;
-    @media (max-width: 876px) {
+    @media screen and (max-width: 876px) {
         width: unset;
     }
 }
@@ -203,6 +211,19 @@ form {
     transform: translateX(0);
 }
 
+.form-logo {
+    filter: drop-shadow(16px 16px 20px rgb(255, 254, 254)) invert(70%);
+    display: flex;
+    width: 30%;
+    @media screen and (max-width: 576px) {
+        img {
+            opacity: 1;
+        }
+    }
+    /* flex-direction: column;
+    align-items: flex-end; */
+}
+
 .form {
     display: flex;
     gap: 1.3rem;
@@ -221,12 +242,14 @@ form {
     /* position: left; */
 
     /* grid: minmax(400px, min-content) / repeat(auto-fill, 400px); */
-    @media (max-width: 976px) {
+    @media screen and (max-width: 976px) {
         min-width: 50px;
     }
-    @media (max-width: 576px) {
+    @media screen and (max-width: 576px) {
         flex-direction: column;
         gap: 0.5rem;
+        padding: 5px;
+        align-items: baseline;
     }
 }
 
@@ -241,24 +264,24 @@ form {
 
 .form-contact {
     margin-top: 20px;
-    /* max-width: 1000px; */
     display: grid;
     padding: 12px;
+    padding-top: 0;
     margin: 0 auto;
-    gap: 1.5rem;
+    gap: 1.2rem;
     max-width: 100%;
     width: 100%;
     min-height: 50px;
     /* grid: minmax(50px, min-content) / repeat(auto-fill, 400px); */
-    @media (max-width: 576px) {
+    @media screen and (max-width: 576px) {
         gap: 0;
         input {
             width: 400px;
-            border-inline: 1px solid;
+            border-inline: 1px solid var(--border-color);
         }
         margin-top: 5%;
     }
-    @media (max-width: 425px) {
+    @media screen and (max-width: 425px) {
         justify-content: unset;
     }
 }
@@ -288,10 +311,10 @@ form {
 
     align-items: center;
     align-content: center;
-    @media (max-width: 992px) {
+    @media screen and (max-width: 992px) {
         margin: 15px;
     }
-    @media (max-width: 576px) {
+    @media screen and (max-width: 576px) {
         margin: 0 auto;
         display: flex;
         flex-direction: column-reverse;
@@ -302,6 +325,10 @@ form {
             top: 0;
             opacity: 0.1;
             z-index: -1;
+        }
+        .form-logo img {
+            opacity: 1;
+            position: unset;
         }
     }
 }
@@ -314,10 +341,10 @@ form {
 
     align-items: center;
     align-content: center;
-    @media (max-width: 992px) {
+    @media screen and (max-width: 992px) {
         margin: 15px;
     }
-    @media (max-width: 576px) {
+    @media screen and (max-width: 576px) {
         margin: 0 auto;
         display: flex;
         flex-direction: column-reverse;
@@ -345,7 +372,7 @@ form {
     justify-content: center;
 }
 
-@media (max-width: 425px) {
+@media screen and (max-width: 425px) {
     #btn {
         margin: 0 auto;
         /* padding: 0; */

@@ -46,11 +46,18 @@ $errorMessage = CheckInput::showErrorMessage()
                 <img src="https://booking.webestica.com/assets/images/element/signin.svg" alt="" srcset="">
             </div>
             <div class="card">
-            <!-- Form Title -->
-                <div class="card-header">
-                    <h3 class="contact-section"> S'enregistrer </h3>
+                <!-- Header Section -->
+                <div class="card-header-section">
+                    <!-- Logo -->
+                    <div class="form-logo">
+                        <img src="img/logoicon.svg" alt="Logo du site web" srcset="">
+                    </div>
+                    <!-- Form Title -->
+                    <div class="card-header">
+                        <h3 class="contact-section"> S'enregistrer </h3>
+                        <p class="contact-section">Déjà membre ? <a href="<?php echo strip_tags($rootUrl). $clicServer.'/index.php'?>">Se connecter</a></p>
+                    </div>
                 </div>
-                <p class="contact-section">Déjà membre ? <a href="<?php echo strip_tags($rootUrl). $clicServer.'/index.php'?>">Se connecter</a></p>
                 <div class="contact">
                     <!-- <form action="register.php" method="post"> -->
                     <form class="form-contact js-form" action="register.php" method="post">
@@ -62,7 +69,7 @@ $errorMessage = CheckInput::showErrorMessage()
                         <?php endif ?>
                         <!-- Username -->
                         <div class="form form-hidden">
-                            <label for="username" class="label">Votre nom d'utilisateur :</label>
+                            <label for="username" class="label">Votre nom d'utilisateur </label>
                             <?php if (!empty($getDatas['username']) || array_key_exists('errorUsername', $err) || array_key_exists('userTaken', $err)) : ?>
                         <?php //print_r($err['errorUsername']) . '<= array'?>
                         <?php //if ($errorMessages) :?>
@@ -75,7 +82,7 @@ $errorMessage = CheckInput::showErrorMessage()
 
                         <!-- Email -->
                         <div class="form form-hidden">
-                            <label for="email" class="label">Votre email :</label>
+                            <label for="email" class="label">Votre email </label>
                             <?php if (!empty($getDatas['email']) || array_key_exists('errorEmail', $err) || array_key_exists('emailTaken', $err)) : ?>
                                 <input class="input_error" name="email" type="email" id="email" placeholder="<?php echo strip_tags($err['errorEmail'] ?? "Votre email...")?>" value="<?php echo strip_tags($getDatas['email']) ?>"/>
                             <?php else: ?>
@@ -85,7 +92,7 @@ $errorMessage = CheckInput::showErrorMessage()
                         
                         <!-- Password -->
                         <div class="form form-hidden">
-                            <label for="password" class="label">Votre mot de passe :</label>
+                            <label for="password" class="label">Votre mot de passe </label>
                             <?php if (array_key_exists('errorPassword', $err) || array_key_exists('pwMatch', $err)) : ?>
                                 <?php echo CheckInput::showInputError('password', 'password', array_key_exists('errorPassword', $err) ? 'errorPassword' : 'pwMatch', 'password', 'new-password') ?>
                                 <!-- <input class="input_error" name="password" type="password" id="password" placeholder="<?php //echo strip_tags($err['errorPassword'] ?: "*****")?>" autocomplete="new-password"/> -->
@@ -96,7 +103,7 @@ $errorMessage = CheckInput::showErrorMessage()
 
                         <!-- Password Repeat -->
                         <div class="form form-hidden">
-                            <label for="pwdRepeat" class="label">Confirmez votre mot de passe :</label>
+                            <label for="pwdRepeat" class="label">Confirmez votre mot de passe </label>
                             <?php if (array_key_exists('errorPwdRepeat', $err) || array_key_exists('pwMatch', $err)) : ?>
                                 <?php echo CheckInput::showInputError('pwdRepeat', 'password', array_key_exists('errorPwdRepeat', $err) ? 'errorPwdRepeat' : 'pwMatch', 'pwdRepeat', 'new-password') ?>
                                 <!-- <input class="input_error" name="pwdRepeat" type="password" id="pwdRepeat" placeholder="<?php //echo strip_tags($err['errorPwdRepeat'] ?: "*****")?>" autocomplete="new-password"/> -->
@@ -107,7 +114,7 @@ $errorMessage = CheckInput::showErrorMessage()
 
                         <!-- Age -->
                         <div class="form form-hidden">
-                            <label for="age" class="label">Votre âge :</label>
+                            <label for="age" class="label">Votre âge </label>
                             <?php //if (!empty($getDatas['age']) || array_key_exists('age', $err)) :?>
                             <?php if (array_key_exists('age', $err)) : ?>
                                 <!-- <input class="input_error" name="age" type="number" id="age" placeholder="<?php //echo strip_tags($err['age'])?>" autocomplete="off" /> -->

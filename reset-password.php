@@ -1,12 +1,12 @@
-<?php 
-    $title = "We Love Food - Réinitialisation de mot de passe";
-    ob_start()
+<?php
+$title = "We Love Food - Réinitialisation de mot de passe";
+ob_start()
 ?>
 <main>
     <section class="wrapper-main">
         <div class="contact-grid">
             <div class="contact-img">
-                <img src="https://booking.webestica.com/assets/images/element/signin.svg" alt="" srcset="">
+                <img src="https://booking.webestica.com/assets/images/element/forgot-pass.svg" alt="" srcset="">
             </div>
             <div class="card">
                 <!-- <div class="section-default"> -->
@@ -35,14 +35,14 @@
                             echo '<p class="signupsuccess">Veuillez vérifier votre boîte mail, un email vous a été envoyé avec les instructions pour réinitialiser votre mot de passe </p>';
                         }
                     }
-                ?>
+?>
                 <!-- </div> -->
             </div>
         </div>
     </section>
 </main>
 
-<?php 
+<?php
     $content = ob_get_clean();
-    require("templates/layout.php")
+require("templates/layout.php")
 ?>

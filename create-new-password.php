@@ -6,10 +6,10 @@ $validator = $_GET['validator'];
 if (empty($selector) || empty($validator)) {
     throw new Error((string)header("Location: ".Functions::getUrl()."?error=validator-not-found"));
 }
-?>
 
-<?php $title = "Clic'Répare - Nouveau mot de passe"?>
-    <?php ob_start()?>
+$title = "Clic'Répare - Nouveau mot de passe";
+ob_start()
+?>
     <main>
         <div class="wrapper-main">
             <section class="section-default">
@@ -25,5 +25,7 @@ if (empty($selector) || empty($validator)) {
             </section>
         </div>
     </main>
-    <?php $content = ob_get_clean()?>
-    <?php require("templates/layout.php")?>
+<?php
+    $content = ob_get_clean();
+require("templates/layout.php")
+?>

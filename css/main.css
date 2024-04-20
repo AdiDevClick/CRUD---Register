@@ -12,6 +12,7 @@
     --site-color-01: #a39191;
     --site-color-01-hover: #555252;
     --background-color: orange;
+    --border-color: #a391913b;
     --input-focus: #7aa8dd;
     /* --input-focus-gradient: linear-gradient(#7aa8dd, #94b2d4); */
     --input-focus-gradient: linear-gradient(318deg, #71C4FFFF 0%, #A100FF00 100%),radial-gradient(75% 75% at 50% 50%, #00FFFFFF 0%, #073AFFFF 81%);
@@ -490,23 +491,37 @@ main {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: rgba(54, 54, 54, .2);
+    /* background-color: rgba(54, 54, 54, .2); */
     background-color: rgba(243, 243, 243, 0.05);
     border-radius: 5px;
-    border-inline: 2px solid var(--site-color-01);
-    border-top: 1px solid var(--site-color-01);
-    border-bottom: 1px solid var(--site-color-01);
+    /* border-inline-start: 1px solid var(--site-color-01); */
+    border-inline-start: 1px solid var(--border-color);
+    /* border-inline: 2px solid var(--site-color-01); */
+    /* border-top: 1px solid var(--site-color-01); */
+    /* border-bottom: 1px solid var(--site-color-01); */
     max-width: 100%;
     /* padding: 5px; */ /* original */
     padding: 10px;
+    padding-top: 20px;
     margin: 0 auto;
     overflow: hidden;
     /* margin-top: 10%; */
-    @media (max-width: 576px) {
+    @media scrend and (max-width: 576px) {
         /* width: 90%; */ /* original */
         /* margin-top: 10%;  */ /* original */
         margin-top: 15%;
         background-color: unset;
+    }
+}
+
+.card-header-section {
+    display: flex;
+    /* align-items: center; */
+    width: 100%;
+    justify-content: space-around;
+    @media scrend and (max-width: 576px) {
+        display: block;
+        width: unset;
     }
 }
 
@@ -515,18 +530,26 @@ main {
     justify-content: center;
     font-size: xx-large;
     font-weight: bold;
+    flex-direction: column;
+    @media screen and (max-width: 976px) {
+        padding-left: 5px;
+    }
 }
 /* END OF CARDS */
 
 .contact-section {
     justify-content: center;
     padding-top: 5px;
-    margin-top: 5px;
+    @media screen and (max-width: 576px) {
+        margin-top: 5px;
+    }
+    /* margin-top: 5px; */ /* original */
     /* max-height: calc(100vh - 60px); */
 }
 
 .contact-section p {
-    margin: 15px auto 15px;
+    /* margin: 15px auto 15px; */ /* original */
+    /* margin: 15px 15px 5px; */
 }
 
 .contact-section a {
