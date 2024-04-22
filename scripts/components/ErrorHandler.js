@@ -50,11 +50,11 @@ export class ErrorHandler {
                 this.#alert
             )
         }
+        if (this.#email.classList.contains('form__field')) this.#email.setAttribute('placeholder', '')
 
         this.#inputs = [this.#password, this.#age, this.#pwdRepeat, this.#email, this.#name]
-
         this.#inputs.forEach(input => {
-            input.addEventListener('input', e => {
+            input?.addEventListener('input', e => {
                 this.#formButton.disabled
                 this.#isEmptyInputs(e.currentTarget)
                 this.#isExactPassword(e.currentTarget)
@@ -97,6 +97,7 @@ export class ErrorHandler {
 
         this.#form.addEventListener('submit', e => {
             this.#onSubmit(e)
+            // e.currentTarget.reset()
         })
     }
 
@@ -128,7 +129,7 @@ export class ErrorHandler {
     // }
 
     #isExactPassword(input) {
-        if (this.#password.value !== this.#pwdRepeat.value) {
+        if (this.#password?.value !== this.#pwdRepeat?.value) {
             this.#pwStatus = false
         } else {
                 this.#pwStatus = true
@@ -153,11 +154,10 @@ export class ErrorHandler {
                 this.#formButton.disabled = true
                 return
             }
-            // form.reset()
+            // form.currentTarget.reset()
             this.#formButton.disabled = false
         } catch (error) {
             const alert = alertMessage(error.message)
-            // const alert = alertMessage(error.message)
             this.#form.insertAdjacentElement(
                 'beforeend',
                 alert
@@ -180,48 +180,64 @@ export class ErrorHandler {
         let inputRegex = new RegExp("[a-z0-9A-Z._-]+@[a-z0-9A-Z_-]+\\.[a-zA-Z]+")
         
         this.#data = new FormData(this.#form)
-        this.#formName = this.#data.get('username').toString().trim()
-        this.#formEmail = this.#data.get('email').toString().trim()
-        this.#formPassword = this.#data.get('password').toString().trim()
-        this.#formPwdRepeat = this.#data.get('pwdRepeat').toString().trim()
-        this.#formAge = this.#data.get('age').toString().trim()
+        this.#formName = this.#data.get('username')?.toString().trim()
+        this.#formEmail = this.#data.get('email')?.toString().trim()
+        this.#formPassword = this.#data.get('password')?.toString().trim()
+        this.#formPwdRepeat = this.#data.get('pwdRepeat')?.toString().trim()
+        this.#formAge = this.#data.get('age')?.toString().trim()
 
         if (this.#formName === '') {
+            // console.log("object 2")
             const message = 'Veuillez renseigner votre Nom d\'Utilisateur'
             this.#name.classList.add("input_error")
             // name.setAttribute('placeholder', message)
             this.#error.push(message)
         } else {
+            /* debbug area */
+            // console.log("object formName vide")
             // this.#error = this.#error.filter((t) => t !== message)
         //     name.classList.remove("input_error")
         //     name.setAttribute('placeholder', 'Votre pseudo...')
         }
         if (!inputRegex.test(this.#formEmail)) {
+            // console.log("object 3")
             const message = 'Votre email est invalide'
             this.#email.classList.add("input_error")
-            this.#email.setAttribute('placeholder', 'monEmail@mail.com')
+            if (!this.#email.classList.contains('form__field')) {
+                this.#email.setAttribute('placeholder', 'monEmail@mail.com')
+            } else {
+                this.#email.setAttribute('placeholder', '')
+            }
             this.#error.push(message)
         } else {
+            /* debbug area */
+            // console.log("object  email regext pas ok")
             // this.#error = this.#error.filter((t) => t !== message)
         //     email.classList.remove("input_error")
         //     email.setAttribute('placeholder', 'Votre email...')
         }
         if (this.#formPassword  !== this.#formPwdRepeat || this.#formPassword === '' || this.#formPwdRepeat === '') {
+            // console.log("object 4")
             const message = 'Vos mots de passes ne sont pas identiques'
             this.#password.classList.add("input_error")
             this.#pwdRepeat.classList.add("input_error")
             this.#error.push(message)
             
         } else {
+            /* debbug area */
+            // console.log("object pw pas same")
             // this.#error = this.#error.filter((t) => t !== message)
         //     password.classList.remove("input_error")
         //     pwdRepeat.classList.remove("input_error")
         }
         if (this.#formAge <= 0 || null) {
+            // console.log("object 5")
             const message = 'Veuillez renseigner votre âge'
             this.#age.classList.add("input_error")
             this.#error.push(message)
         } else {
+            /* debbug area */
+            // console.log("object age pas ok")
             // this.#error = this.#error.filter((t) => t !== message)
             
         //     age.classList.remove("input_error")

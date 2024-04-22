@@ -1,24 +1,24 @@
-<?php
+<?php declare(strict_types=1);
 
-//declare(strict_types=1);
+include_once("includes/class-autoloader.inc.php");
+// include_once("../includes/class-autoloader.inc.php");
 
-/* if(session_status() !== PHP_SESSION_ACTIVE) {
-    session_start();
-}
-
-if(session_status() === PHP_SESSION_NONE) {
-    session_start();
-} */
-
-include_once("../includes/class-autoloader.inc.php");
-
-$data = $_SERVER['REQUEST_METHOD'] == 'POST';
-/*  if ($data) {
-    echo 'étape 4';
-} */
+$data = $_SERVER['REQUEST_METHOD'] === 'POST';
+$err = [];
 
 if ($data && isset($_POST['submit'])) {
     $userEmail = $_POST['email'];
+    $getDatas = [
+        'email' => $_POST['email'],
+    ];
+    $email = new CheckInput($getDatas);
+    $email->checkInputs();
+    $err = CheckInput::getErrorMessages();
+    if (count($err) > 0) {
+        return;
+        // session_destroy();
+    }
+
     $expires = date('U') + 1800;
     $selector = bin2hex(random_bytes(8));
     $token = random_bytes(32);
@@ -49,8 +49,11 @@ if ($data && isset($_POST['submit'])) {
 
     mail($to, $subject, $message, $headers);
 
-    header('Location: ../reset-password.php?reset=success');
+    // header('Location: ../reset-password.php?reset=success');
+    header('Location: reset-password.php?reset=success');
 
 } else {
-    header('Location: ../index.php');
+    // header('Location: index.php');
+    // header('Location: ../index.php');
+    return;
 }

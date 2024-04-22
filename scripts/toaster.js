@@ -38,7 +38,13 @@ if (success === 'recipe-updated') {
     resetURL('index.php', 'success', urlParams)
 }
 // success === 'disconnected' ? message = 'Vous avez été déconnecté avec succès' : errAlert = false
-
+const reset = urlParams.get('reset')
+if (reset === 'success') {
+    errAlert = true
+    type = 'Success'
+    message = 'Un email a été envoyé à l\'adresse que vous avez saisie'
+    resetURL('index.php', 'reset', urlParams)
+}
 
 const login = urlParams.get('login')
 if (login === 'success') {

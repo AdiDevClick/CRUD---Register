@@ -125,6 +125,7 @@ a, p {
     text-decoration: none;
     color: var(--navbar-color);
     font-size: 1.5rem;
+    font-weight: 400;
 }
 
 a:hover:not(.action_btn), a.active {
@@ -511,11 +512,14 @@ main {
     margin: 0 auto;
     overflow: hidden;
     /* margin-top: 10%; */
-    @media scrend and (max-width: 576px) {
+    @media screen and (max-width: 576px) {
         /* width: 90%; */ /* original */
         /* margin-top: 10%;  */ /* original */
         margin-top: 15%;
-        background-color: unset;
+        /* background-color: unset; */
+    }
+    @media screen and (min-width: 996px) {
+        margin-left: 20px;
     }
 }
 
@@ -524,10 +528,11 @@ main {
     /* align-items: center; */
     width: 100%;
     justify-content: space-around;
-    @media scrend and (max-width: 576px) {
+    justify-content: center;
+    /* @media screen and (max-width: 576px) {
         display: block;
         width: unset;
-    }
+    } */
 }
 
 .card-header {
@@ -572,6 +577,8 @@ main {
 /* PLACEHOLDERS */
 ::placeholder {
     text-align: center;
+    font-weight: 400;
+    font-size: small;
 }
 
 .input_error:hover::placeholder {
@@ -581,7 +588,7 @@ main {
 }
 
 input:focus::placeholder, input.input_error:focus::placeholder {
-    visibility: hidden;
+    /* visibility: hidden; */
     color: rgba(0, 128, 0, 0);
 }
 
@@ -593,3 +600,4 @@ input:focus::placeholder, input.input_error:focus::placeholder {
     color: rgba(0, 128, 0, 0);
 }
 /* END OF PLACEHOLDERS */
+

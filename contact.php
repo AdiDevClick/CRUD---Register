@@ -53,7 +53,6 @@ ob_start()
                 </div>
             </div>
         </div>
-        
     </section>
     
 <!-- Fin du Main -->
