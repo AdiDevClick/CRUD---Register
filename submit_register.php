@@ -25,6 +25,7 @@ if (($data && isset($_POST['submit']))) {
     $signup->setUsers();
     $err = CheckInput::getErrorMessages();
     if (count($err) > 0) {
+        print_r($err);
         session_destroy();
     } else {
         header('Location: index.php?register=success');
@@ -32,8 +33,8 @@ if (($data && isset($_POST['submit']))) {
     }
 }
 $loggedUser = LoginController::checkLoggedStatus();
-$errorMessage = CheckInput::showErrorMessage()
-
+$errorMessage = CheckInput::showErrorMessage();
+echo 'voici le message => ' . $errorMessage
 ?>
 
 <!-- Register form for non registered visitor -->
@@ -63,6 +64,7 @@ $errorMessage = CheckInput::showErrorMessage()
                     <form class="form-contact js-form" action="register.php" method="post">
                     <!-- <form action="submit_register.php" method="post"> -->
                         <?php if (!empty($err)) : ?>
+                            <?php echo 'test' ?>
                             <div>
                                 <p class="alert-error"><?php echo(strip_tags($errorMessage)) ?></p>
                             </div>
@@ -70,7 +72,7 @@ $errorMessage = CheckInput::showErrorMessage()
                         <!-- Username -->
                         <div class="form form-hidden">
                             <label for="username" class="label">Votre nom d'utilisateur </label>
-                            <?php if (!empty($getDatas['username']) || array_key_exists('errorUsername', $err) || array_key_exists('userTaken', $err)) : ?>
+                            <?php if (!empty($getDatas['username']) || array_key_exists('errorUsername', $err) || array_key_exists('userTaken', $err) || array_key_exists('invalidID', $err)) : ?>
                         <?php //print_r($err['errorUsername']) . '<= array'?>
                         <?php //if ($errorMessages) :?>
                         <?php //if ($err['errorUsername']) :?>

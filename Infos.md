@@ -27,7 +27,8 @@ Get User DB data => GET
 Logged User => LGGDUSR
 	Not Logged => OFF
 
-	
+Recipe Creation => RCPCREATE
+
 
 Codes erreur :
 "STMTSGNDBCHCNT - Cet utilisateur existe déjà"

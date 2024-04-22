@@ -1,0 +1,76 @@
+Errors : [2] Undefined array key "recipe" - C:\xampp\htdocs\Recettes\classes\RecipeController.class.php:22
+Errors : [2] Undefined array key "recipe" - C:\xampp\htdocs\Recettes\classes\RecipeController.class.php:22
+Errors : [2] Undefined array key "recipe" - C:\xampp\htdocs\Recettes\classes\RecipeView.class.php:80
+Errors : [8192] strip_tags(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Recettes\classes\RecipeView.class.php:80
+Errors : [2] Undefined array key "recipe" - C:\xampp\htdocs\Recettes\classes\CheckInput.class.php:87
+Errors : [8192] preg_match(): Passing null to parameter #2 ($subject) of type string is deprecated - C:\xampp\htdocs\Recettes\classes\CheckInput.class.php:87
+Errors : [2] Undefined array key "recipe" - C:\xampp\htdocs\Recettes\classes\CheckInput.class.php:92
+Errors : [8192] preg_match(): Passing null to parameter #2 ($subject) of type string is deprecated - C:\xampp\htdocs\Recettes\classes\CheckInput.class.php:92
+Errors : [2] Undefined array key "recipe" - C:\xampp\htdocs\Recettes\classes\CheckInput.class.php:97
+Errors : [8192] preg_match(): Passing null to parameter #2 ($subject) of type string is deprecated - C:\xampp\htdocs\Recettes\classes\CheckInput.class.php:97
+Errors : [2] Undefined array key "recipe" - C:\xampp\htdocs\Recettes\classes\CheckInput.class.php:87
+Errors : [8192] preg_match(): Passing null to parameter #2 ($subject) of type string is deprecated - C:\xampp\htdocs\Recettes\classes\CheckInput.class.php:87
+Errors : [2] Undefined array key "recipe" - C:\xampp\htdocs\Recettes\classes\CheckInput.class.php:92
+Errors : [8192] preg_match(): Passing null to parameter #2 ($subject) of type string is deprecated - C:\xampp\htdocs\Recettes\classes\CheckInput.class.php:92
+Errors : [2] Undefined array key "recipe" - C:\xampp\htdocs\Recettes\classes\CheckInput.class.php:97
+Errors : [8192] preg_match(): Passing null to parameter #2 ($subject) of type string is deprecated - C:\xampp\htdocs\Recettes\classes\CheckInput.class.php:97
+Errors : [2] Undefined array key "recipe" - C:\xampp\htdocs\Recettes\classes\CheckInput.class.php:87
+Errors : [8192] preg_match(): Passing null to parameter #2 ($subject) of type string is deprecated - C:\xampp\htdocs\Recettes\classes\CheckInput.class.php:87
+Errors : [2] Undefined array key "recipe" - C:\xampp\htdocs\Recettes\classes\CheckInput.class.php:92
+Errors : [8192] preg_match(): Passing null to parameter #2 ($subject) of type string is deprecated - C:\xampp\htdocs\Recettes\classes\CheckInput.class.php:92
+Errors : [2] Undefined array key "recipe" - C:\xampp\htdocs\Recettes\classes\CheckInput.class.php:97
+Errors : [8192] preg_match(): Passing null to parameter #2 ($subject) of type string is deprecated - C:\xampp\htdocs\Recettes\classes\CheckInput.class.php:97
+Errors : [2] Undefined array key "recipe" - C:\xampp\htdocs\Recettes\classes\CheckInput.class.php:87
+Errors : [8192] preg_match(): Passing null to parameter #2 ($subject) of type string is deprecated - C:\xampp\htdocs\Recettes\classes\CheckInput.class.php:87
+Errors : [2] Undefined array key "recipe" - C:\xampp\htdocs\Recettes\classes\CheckInput.class.php:92
+Errors : [8192] preg_match(): Passing null to parameter #2 ($subject) of type string is deprecated - C:\xampp\htdocs\Recettes\classes\CheckInput.class.php:92
+Errors : [2] Undefined array key "recipe" - C:\xampp\htdocs\Recettes\classes\CheckInput.class.php:97
+Errors : [8192] preg_match(): Passing null to parameter #2 ($subject) of type string is deprecated - C:\xampp\htdocs\Recettes\classes\CheckInput.class.php:97
+Errors : [2] Undefined array key "recipe" - C:\xampp\htdocs\Recettes\classes\CheckInput.class.php:87
+Errors : [8192] preg_match(): Passing null to parameter #2 ($subject) of type string is deprecated - C:\xampp\htdocs\Recettes\classes\CheckInput.class.php:87
+Errors : [2] Undefined array key "recipe" - C:\xampp\htdocs\Recettes\classes\CheckInput.class.php:92
+Errors : [8192] preg_match(): Passing null to parameter #2 ($subject) of type string is deprecated - C:\xampp\htdocs\Recettes\classes\CheckInput.class.php:92
+Errors : [2] Undefined array key "recipe" - C:\xampp\htdocs\Recettes\classes\CheckInput.class.php:97
+Errors : [8192] preg_match(): Passing null to parameter #2 ($subject) of type string is deprecated - C:\xampp\htdocs\Recettes\classes\CheckInput.class.php:97
+Errors : [2] Undefined array key "recipe" - C:\xampp\htdocs\Recettes\classes\CheckInput.class.php:87
+Errors : [8192] preg_match(): Passing null to parameter #2 ($subject) of type string is deprecated - C:\xampp\htdocs\Recettes\classes\CheckInput.class.php:87
+Errors : [2] Undefined array key "recipe" - C:\xampp\htdocs\Recettes\classes\CheckInput.class.php:92
+Errors : [8192] preg_match(): Passing null to parameter #2 ($subject) of type string is deprecated - C:\xampp\htdocs\Recettes\classes\CheckInput.class.php:92
+Errors : [2] Undefined array key "recipe" - C:\xampp\htdocs\Recettes\classes\CheckInput.class.php:97
+Errors : [8192] preg_match(): Passing null to parameter #2 ($subject) of type string is deprecated - C:\xampp\htdocs\Recettes\classes\CheckInput.class.php:97
+Errors : [2] Undefined array key "recipe" - C:\xampp\htdocs\Recettes\classes\CheckInput.class.php:87
+Errors : [8192] preg_match(): Passing null to parameter #2 ($subject) of type string is deprecated - C:\xampp\htdocs\Recettes\classes\CheckInput.class.php:87
+Errors : [2] Undefined array key "recipe" - C:\xampp\htdocs\Recettes\classes\CheckInput.class.php:92
+Errors : [8192] preg_match(): Passing null to parameter #2 ($subject) of type string is deprecated - C:\xampp\htdocs\Recettes\classes\CheckInput.class.php:92
+Errors : [2] Undefined array key "recipe" - C:\xampp\htdocs\Recettes\classes\CheckInput.class.php:97
+Errors : [8192] preg_match(): Passing null to parameter #2 ($subject) of type string is deprecated - C:\xampp\htdocs\Recettes\classes\CheckInput.class.php:97
+Errors : [2] Undefined array key "recipe" - C:\xampp\htdocs\Recettes\classes\CheckInput.class.php:87
+Errors : [8192] preg_match(): Passing null to parameter #2 ($subject) of type string is deprecated - C:\xampp\htdocs\Recettes\classes\CheckInput.class.php:87
+Errors : [2] Undefined array key "recipe" - C:\xampp\htdocs\Recettes\classes\CheckInput.class.php:92
+Errors : [8192] preg_match(): Passing null to parameter #2 ($subject) of type string is deprecated - C:\xampp\htdocs\Recettes\classes\CheckInput.class.php:92
+Errors : [2] Undefined array key "recipe" - C:\xampp\htdocs\Recettes\classes\CheckInput.class.php:97
+Errors : [8192] preg_match(): Passing null to parameter #2 ($subject) of type string is deprecated - C:\xampp\htdocs\Recettes\classes\CheckInput.class.php:97
+Errors : [2] Undefined array key "recipe" - C:\xampp\htdocs\Recettes\classes\CheckInput.class.php:87
+Errors : [8192] preg_match(): Passing null to parameter #2 ($subject) of type string is deprecated - C:\xampp\htdocs\Recettes\classes\CheckInput.class.php:87
+Errors : [2] Undefined array key "recipe" - C:\xampp\htdocs\Recettes\classes\CheckInput.class.php:92
+Errors : [8192] preg_match(): Passing null to parameter #2 ($subject) of type string is deprecated - C:\xampp\htdocs\Recettes\classes\CheckInput.class.php:92
+Errors : [2] Undefined array key "recipe" - C:\xampp\htdocs\Recettes\classes\CheckInput.class.php:97
+Errors : [8192] preg_match(): Passing null to parameter #2 ($subject) of type string is deprecated - C:\xampp\htdocs\Recettes\classes\CheckInput.class.php:97
+Errors : [2] Undefined array key "recipe" - C:\xampp\htdocs\Recettes\classes\CheckInput.class.php:87
+Errors : [8192] preg_match(): Passing null to parameter #2 ($subject) of type string is deprecated - C:\xampp\htdocs\Recettes\classes\CheckInput.class.php:87
+Errors : [2] Undefined array key "recipe" - C:\xampp\htdocs\Recettes\classes\CheckInput.class.php:92
+Errors : [8192] preg_match(): Passing null to parameter #2 ($subject) of type string is deprecated - C:\xampp\htdocs\Recettes\classes\CheckInput.class.php:92
+Errors : [2] Undefined array key "recipe" - C:\xampp\htdocs\Recettes\classes\CheckInput.class.php:97
+Errors : [8192] preg_match(): Passing null to parameter #2 ($subject) of type string is deprecated - C:\xampp\htdocs\Recettes\classes\CheckInput.class.php:97
+Errors : [2] Undefined array key "recipe" - C:\xampp\htdocs\Recettes\classes\CheckInput.class.php:87
+Errors : [8192] preg_match(): Passing null to parameter #2 ($subject) of type string is deprecated - C:\xampp\htdocs\Recettes\classes\CheckInput.class.php:87
+Errors : [2] Undefined array key "recipe" - C:\xampp\htdocs\Recettes\classes\CheckInput.class.php:92
+Errors : [8192] preg_match(): Passing null to parameter #2 ($subject) of type string is deprecated - C:\xampp\htdocs\Recettes\classes\CheckInput.class.php:92
+Errors : [2] Undefined array key "recipe" - C:\xampp\htdocs\Recettes\classes\CheckInput.class.php:97
+Errors : [8192] preg_match(): Passing null to parameter #2 ($subject) of type string is deprecated - C:\xampp\htdocs\Recettes\classes\CheckInput.class.php:97
+Errors : [2] Undefined array key "recipe" - C:\xampp\htdocs\Recettes\classes\CheckInput.class.php:87
+Errors : [8192] preg_match(): Passing null to parameter #2 ($subject) of type string is deprecated - C:\xampp\htdocs\Recettes\classes\CheckInput.class.php:87
+Errors : [2] Undefined array key "recipe" - C:\xampp\htdocs\Recettes\classes\CheckInput.class.php:92
+Errors : [8192] preg_match(): Passing null to parameter #2 ($subject) of type string is deprecated - C:\xampp\htdocs\Recettes\classes\CheckInput.class.php:92
+Errors : [2] Undefined array key "recipe" - C:\xampp\htdocs\Recettes\classes\CheckInput.class.php:97
+Errors : [8192] preg_match(): Passing null to parameter #2 ($subject) of type string is deprecated - C:\xampp\htdocs\Recettes\classes\CheckInput.class.php:97

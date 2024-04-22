@@ -19,16 +19,28 @@ class RecipeController extends Recipe
                 );
 
                 $title = $checkInput->test_input($this->getData["title"]);
-                $recipe = $checkInput->test_input($this->getData["recipe"]);
+                $step_1 = $checkInput->test_input($this->getData["step_1"]);
+                $step_2 = $checkInput->test_input($this->getData["step_2"]);
+                $step_3 = $checkInput->test_input($this->getData["step_3"]);
+                
                 $checkInput->checkInputs();
                 // echo $loggedUser['email'][0];
                 // echo 'array dans le recipectroller'; 
                 // print_r($loggedUser);
                 //$this->insertUser($this->nom, $this->email, $this->password, $this->age);
-                $this->setRecipes($title, $recipe, $loggedUser['email']);
+                if (empty($checkInput->getErrorsArray())) {
+                    // die('test');
+                    $this->setRecipes($title, $step_1, $step_2, $step_3, $loggedUser['email']);
+                    // $this->insertUser($this->getDatas['username'], $this->getDatas['email'], $this->getDatas['password'], $this->getDatas['age']);
+                } else {
+                    $checkInput->getErrorsArray();
+                    return;
+                }
+
                 $registeredRecipe = [
                     'email' => $loggedUser['email']
                 ];
+                
                 $_SESSION['REGISTERED_RECIPE'] = $registeredRecipe;
                 //header("Location: ".Functions::getUrl()."?error=none") ; */
                 return $registeredRecipe;

@@ -29,6 +29,7 @@ export class ErrorHandler {
     #deletedErrors
     #pwStatus = true
     #isEmpty = false
+    #spaceNotAllowed = false
 
     /**
      * @param {HTMLFormElement} form 
@@ -65,6 +66,9 @@ export class ErrorHandler {
                     this.#alert.innerText = 'Vos mots de passes de non pas identiques'
                     this.#password.classList.add("input_error")
                     this.#pwdRepeat.classList.add("input_error")
+                } else if (this.#spaceNotAllowed) {
+                    this.#alert.innerText = 'Veuillez ne pas utiliser d\'espace'
+                    this.#name.classList.add("input_error")
                 } else {
                     this.#alert.innerText = ''
                     this.#formButton.disabled = false
@@ -101,9 +105,24 @@ export class ErrorHandler {
         })
     }
 
+    #isInvalidInput(inputs) {
+        console.log(inputs.currentTarget.value.toString().trim())
+        const input = inputs.currentTarget
+        if (input === this.#name && input.value.toString().trim().includes(' ')) {
+            this.#spaceNotAllowed = true
+            this.#error.push(input)
+        } else {
+            // this.#error = this.#error.filter(t => t !== input)
+            // this.#resetInputs(input)
+        }
+    }
+
     #isEmptyInputs(input) {
         if (input.value.toString().trim() === '') {
             this.#isEmpty = true
+            this.#error.push(input)
+        } else if (input.value.toString().trim().includes(' ')) {
+            this.#spaceNotAllowed = true
             this.#error.push(input)
         } else {
             this.#error = this.#error.filter(t => t !== input)
@@ -139,8 +158,15 @@ export class ErrorHandler {
     }
 
     #resetInputs(input) {
+        console.log(this.#error)
         if (this.#isEmpty && this.#error.length === 0) {
+            console.log('object2')
             this.#isEmpty = false
+            input.classList.remove('input_error')
+        }
+        if (this.#spaceNotAllowed && this.#error.length === 0) {
+            console.log('object')
+            this.#spaceNotAllowed = false
             input.classList.remove('input_error')
         }
     }

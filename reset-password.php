@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 require_once(__DIR__ . "/includes/class-autoloader.inc.php");
 require_once(__DIR__ . "/logs/customErrorHandlers.php");
