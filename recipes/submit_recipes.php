@@ -72,25 +72,25 @@ echo 'voici le message => ' . $errorMessage
                 <!-- <h1>Partagez votre recette !</h1> -->
                 <div class="form-recipe">
                     <form action="create_recipes.php" method="post">
-                        <label for="title" class="label">Titre de votre recette :</label>
+                        <label for="title" class="label">Titre de votre recette</label>
                         <input class="form" name="title" type="text" id="title" placeholder="Votre titre..." class="input">
 
-                        <label for="step_1" class="label">Votre première étape :</label>
+                        <label for="step_1" class="label">Votre première étape</label>
                         <textarea class="" name="step_1" id="step_1" cols="60" rows="3" placeholder="Renseignez votre première étape..."></textarea>
                         
-                        <label for="step_2" class="label">Votre deuxième étape :</label>
+                        <label for="step_2" class="label">Votre deuxième étape</label>
                         <textarea name="step_2" id="step_2" cols="60" rows="3" placeholder="Renseignez  votre deuxième étape..."></textarea>
                         
-                        <label for="step_3" class="label">Votre troisième étape :</label>
+                        <label for="step_3" class="label">Votre troisième étape</label>
                         <textarea name="step_3" id="step_3" cols="60" rows="3" placeholder="Renseignez  votre troisième étape..."></textarea>
                         
-                        <label for="step_4" class="label">Votre quatrième étape :</label>
+                        <label for="step_4" class="label">Votre quatrième étape</label>
                         <textarea name="step_4" id="step_4" cols="60" rows="3" placeholder="Renseignez  votre quatrième étape..."></textarea>
                         
-                        <label for="step_5" class="label">Votre cinquième étape :</label>
+                        <label for="step_5" class="label">Votre cinquième étape</label>
                         <textarea name="step_5" id="step_5" cols="60" rows="3" placeholder="Renseignez  votre cinquième étape..."></textarea>
                         
-                        <label for="step_6" class="label">Votre sixième étape :</label>
+                        <label for="step_6" class="label">Votre sixième étape</label>
                         <textarea name="step_6" id="step_6" cols="60" rows="3" placeholder="Renseignez  votre sixième étape..."></textarea>
 
                         <button type="submit" name="submit" class="btn">Partagez votre recette</button>
