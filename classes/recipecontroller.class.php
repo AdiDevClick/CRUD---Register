@@ -22,6 +22,9 @@ class RecipeController extends Recipe
                 $step_1 = $checkInput->test_input($this->getData["step_1"]);
                 $step_2 = $checkInput->test_input($this->getData["step_2"]);
                 $step_3 = $checkInput->test_input($this->getData["step_3"]);
+                $step_4 = $checkInput->test_input($this->getData["step_4"]);
+                $step_5 = $checkInput->test_input($this->getData["step_5"]);
+                $step_6 = $checkInput->test_input($this->getData["step_6"]);
                 
                 $checkInput->checkInputs();
                 // echo $loggedUser['email'][0];
@@ -30,7 +33,7 @@ class RecipeController extends Recipe
                 //$this->insertUser($this->nom, $this->email, $this->password, $this->age);
                 if (empty($checkInput->getErrorsArray())) {
                     // die('test');
-                    $this->setRecipes($title, $step_1, $step_2, $step_3, $loggedUser['email']);
+                    $this->setRecipes($title, $step_1, $step_2, $step_3, $step_4, $step_5, $step_6, $loggedUser['email']);
                     // $this->insertUser($this->getDatas['username'], $this->getDatas['email'], $this->getDatas['password'], $this->getDatas['age']);
                 } else {
                     $checkInput->getErrorsArray();

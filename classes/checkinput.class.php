@@ -84,18 +84,33 @@ class CheckInput extends Validate
                     
                     // throw new Error((string)header("Location: ".Functions::getUrl()."?error=invalid-recipe-input"));
                 }
-                if (isset($this->getDatas['step_1']) && !preg_match("(^[\w\s,.:_?'!éèêëàâäôöûüç-]+$)", $this->getDatas['recipe'])) { // With space allowed "/^[a-zA-Z0-9]*\z/"
+                if (isset($this->getDatas['step_1']) && !preg_match("(^[\w\s,.:_?'!éèêëàâäôöûüç-]+$)", $this->getDatas['step_1'])) { // With space allowed "/^[a-zA-Z0-9]*\z/"
                     array_push(self::$errorsArray, 'invalidRecipeStep1 - La première étape de cette recette est invalide');
                     
                     // throw new Error((string)header("Location: ".Functions::getUrl()."?error=invalid-recipe-input"));
                 }
-                if (isset($this->getDatas['step_2']) && !preg_match("(^[\w\s,.:_?'!éèêëàâäôöûüç-]+$)", $this->getDatas['recipe'])) { // With space allowed "/^[a-zA-Z0-9]*\z/"
+                if (isset($this->getDatas['step_2']) && !preg_match("(^[\w\s,.:_?'!éèêëàâäôöûüç-]+$)", $this->getDatas['step_2'])) { // With space allowed "/^[a-zA-Z0-9]*\z/"
                     array_push(self::$errorsArray, 'invalidRecipeStep2 - La deuxième étape de cette recette est invalide');
                     
                     // throw new Error((string)header("Location: ".Functions::getUrl()."?error=invalid-recipe-input"));
                 }
-                if (isset($this->getDatas['step_3']) && !preg_match("(^[\w\s,.:_?'!éèêëàâäôöûüç-]+$)", $this->getDatas['recipe'])) { // With space allowed "/^[a-zA-Z0-9]*\z/"
+                if (isset($this->getDatas['step_3']) && !preg_match("(^[\w\s,.:_?'!éèêëàâäôöûüç-]+$)", $this->getDatas['step_3'])) { // With space allowed "/^[a-zA-Z0-9]*\z/"
                     array_push(self::$errorsArray, 'invalidRecipeStep3 - La troisième étape de cette recette est invalide');
+                    
+                    // throw new Error((string)header("Location: ".Functions::getUrl()."?error=invalid-recipe-input"));
+                }
+                if (isset($this->getDatas['step_4']) && !preg_match("(^[\w\s,.:_?'!éèêëàâäôöûüç-]+$)", $this->getDatas['step_4'])) { // With space allowed "/^[a-zA-Z0-9]*\z/"
+                    array_push(self::$errorsArray, 'invalidRecipeStep4 - La quatrième étape de cette recette est invalide');
+                    
+                    // throw new Error((string)header("Location: ".Functions::getUrl()."?error=invalid-recipe-input"));
+                }
+                if (isset($this->getDatas['step_5']) && !preg_match("(^[\w\s,.:_?'!éèêëàâäôöûüç-]+$)", $this->getDatas['step_5'])) { // With space allowed "/^[a-zA-Z0-9]*\z/"
+                    array_push(self::$errorsArray, 'invalidRecipeStep5 - La cinquième étape de cette recette est invalide');
+                    
+                    // throw new Error((string)header("Location: ".Functions::getUrl()."?error=invalid-recipe-input"));
+                }
+                if (isset($this->getDatas['step_6']) && !preg_match("(^[\w\s,.:_?'!éèêëàâäôöûüç-]+$)", $this->getDatas['step_6'])) { // With space allowed "/^[a-zA-Z0-9]*\z/"
+                    array_push(self::$errorsArray, 'invalidRecipeStep6 - La sixième étape de cette recette est invalide');
                     
                     // throw new Error((string)header("Location: ".Functions::getUrl()."?error=invalid-recipe-input"));
                 }
@@ -191,6 +206,8 @@ class CheckInput extends Validate
                     self::$errorsArray['errorEmail'] = $value;
                 } elseif (str_contains($value, 'LGNGETPW')) {
                     self::$errorsArray['userError'] = "Nom d'utilisateur ou Mot de passe incorrect";
+                } elseif (str_contains($value, 'invalidRecipeStep')) {
+                    self::$errorsArray['invalidRecipeSteps'] = $value;
                 } else {
                     self::$errorsArray['message'] = $value;
                 }
@@ -257,6 +274,8 @@ class CheckInput extends Validate
                 $errorMessage = 'Votre identifiant est invalide';
             } elseif ($key === 'invalidTitle') {
                 $errorMessage = 'Le titre de votre recette est invalide';
+            } elseif ($key === 'invalidRecipeSteps') {
+                $errorMessage = $value;
             }
         }
         return $errorMessage;

@@ -9,11 +9,11 @@ class Recipe extends Mysql
      * @throws Error
      * @return array
      */
-    protected function setRecipes(string $title, string $step_1, string $step_2 , string $step_3, string $loggedUser): void
+    protected function setRecipes(string $title, string $step_1, string $step_2 , string $step_3, string $step_4, string $step_5, string $step_6, string $loggedUser): void
     {
         $sqlQuery =
-        'INSERT INTO recipes(title, step_1, step_2, step_3, author, is_enabled) 
-        VALUES (:title, :step_1, :step_2, :step_3, :author, :is_enabled);';
+        'INSERT INTO recipes(title, step_1, step_2, step_3, step_4, step_5, step_6, author, is_enabled) 
+        VALUES (:title, :step_1, :step_2, :step_3, :step_4, :step_5, :step_6, :author, :is_enabled);';
 
         $insertRecipe = $this->connect()->prepare($sqlQuery);
 
@@ -22,6 +22,9 @@ class Recipe extends Mysql
             'step_1' => $step_1,
             'step_2' => $step_2,
             'step_3' => $step_3,
+            'step_4' => $step_4,
+            'step_5' => $step_5,
+            'step_6' => $step_6,
             'author' => $loggedUser,
             'is_enabled' => 1,
         ])) {
