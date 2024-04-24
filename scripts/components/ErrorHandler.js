@@ -158,14 +158,14 @@ export class ErrorHandler {
     }
 
     #resetInputs(input) {
-        console.log(this.#error)
+        // console.log(this.#error)
         if (this.#isEmpty && this.#error.length === 0) {
-            console.log('object2')
+            // console.log('object2')
             this.#isEmpty = false
             input.classList.remove('input_error')
         }
         if (this.#spaceNotAllowed && this.#error.length === 0) {
-            console.log('object')
+            // console.log('object')
             this.#spaceNotAllowed = false
             input.classList.remove('input_error')
         }
@@ -227,7 +227,8 @@ export class ErrorHandler {
         }
         if (!inputRegex.test(this.#formEmail)) {
             // console.log("object 3")
-            const message = 'Votre email est invalide'
+            const message = `Votre email est invalide 
+            exemple valide : monEmail@mail.com`
             this.#email.classList.add("input_error")
             if (!this.#email.classList.contains('form__field')) {
                 this.#email.setAttribute('placeholder', 'monEmail@mail.com')
@@ -272,7 +273,7 @@ export class ErrorHandler {
         if (this.#error.length >= 1) {
             for (const error of this.#error) {
                 this.#error = this.#error.filter((t) => t !== error)
-                error === 'Votre email est invalide' ? this.#alert.innerText = error : this.#alert.innerText = 'Un ou plusieurs champs sont vides'
+                error.includes('Votre email est invalide') ? this.#alert.innerText = error : this.#alert.innerText = 'Un ou plusieurs champs sont vides'
                 
                 // this.#alert.innerText = 'Un ou plusieurs champs sont vides'
         //         const errorElement = alertMessage(error)

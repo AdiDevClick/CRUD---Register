@@ -34,7 +34,6 @@ if (($data && isset($_POST['submit']))) {
 }
 $loggedUser = LoginController::checkLoggedStatus();
 $errorMessage = CheckInput::showErrorMessage();
-echo 'voici le message => ' . $errorMessage
 ?>
 
 <!-- Register form for non registered visitor -->

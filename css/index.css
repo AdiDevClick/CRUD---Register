@@ -178,7 +178,7 @@ input {
     /* border: 1px solid #ccc; */
     border: 1px solid var(--border-color);
     width: 180px;
-    font-size: small;
+    /* font-size: small; */
     border-inline: #ccc;
     background-color: #ffffff1a;
     @media screen and (max-width: 876px) {
@@ -247,9 +247,10 @@ form {
 
 .form {
     display: flex;
-    gap: 1.3rem;
+    /* gap: 1.3rem; */
     justify-content: space-between;
     overflow: hidden;
+    padding-left: 5px;
     align-items: center;
     align-content: center;
     min-height: 20px;
@@ -263,6 +264,9 @@ form {
     /* position: left; */
 
     /* grid: minmax(400px, min-content) / repeat(auto-fill, 400px); */
+    @media (min-width: 996px) {
+        gap: 1.3rem;
+    }
     @media screen and (max-width: 976px) {
         min-width: 50px;
     }
@@ -328,7 +332,7 @@ form {
 .form-contact {
     margin-top: 20px;
     display: grid;
-    /* padding: 12px; */ /* original */
+    padding: 12px;
     padding-top: 0;
     margin: 0 auto;
     gap: 1.2rem;
@@ -354,6 +358,9 @@ form {
         grid-template-columns: repeat(2, 400px);
     }
     gap: 1.2rem;
+    @media (min-width: 996px) {
+        width: 50vh;
+    }
     /* margin: 20px auto; */
     input {
         width: 100%;
