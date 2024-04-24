@@ -18,7 +18,8 @@ ob_start()
         <div class="contact-img">
             <img src="https://booking.webestica.com/assets/images/element/forgot-pass.svg" alt="" srcset="">
         </div>
-        <div class="card" id="recovery-input" style="width: 80%">
+        <div class="card" id="recovery-input">
+        <!-- <div class="card" id="recovery-input" style="width: 80%"> -->
             <!-- Header Section -->
             <div class="card-header-section">
                 <!-- Logo -->
@@ -41,12 +42,12 @@ ob_start()
                                 echo '<p style="width: 80%" class="contact-section signupsuccess">Un email vous a été envoyé avec les instructions pour réinitialiser votre mot de passe à l\'adresse fournie </p>';
                             }
                         }
-                    ?>
-                    <?php //if (isset($_GET["reset"])) : ?>
-                        <?php //if ($_GET["reset"] == "success") : ?>
+?>
+                    <?php //if (isset($_GET["reset"])) :?>
+                        <?php //if ($_GET["reset"] == "success") :?>
                             <!-- <p style="width: 80%" class="contact-section signupsuccess">Veuillez vérifier votre boîte mail, un email vous a été envoyé avec les instructions pour réinitialiser votre mot de passe </p> -->
-                        <?php //endif; ?>
-                    <?php //endif ?>
+                        <?php //endif;?>
+                    <?php //endif?>
                 </div>
             </div>
             <div class="contact">
@@ -81,5 +82,5 @@ ob_start()
 
 <?php
     $content = ob_get_clean();
-    require("templates/layout.php")
+require("templates/layout.php")
 ?>

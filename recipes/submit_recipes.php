@@ -42,7 +42,7 @@ if ($data && isset($_POST['submit'])) {
         header('refresh:10, ../index.php?success=recipe-shared');
         // session_destroy();
     }
-        //header('Location: ../index.php?error=none');
+    //header('Location: ../index.php?error=none');
     //unset($_SESSION['REGISTERED_RECIPE']);
     //unset($_SESSION['REGISTERED_RECIPE']);
     //exit();
@@ -62,13 +62,13 @@ $loggedUser = LoginController::checkLoggedStatus();
 echo ' le array dans submit recipe';
 print_r($loggedUser);
 $errorMessage = CheckInput::showErrorMessage();
-echo 'voici le message => ' . $errorMessage
 ?>
     <?php //if (isset($loggedUser['email']) && !isset($loggedUser['recipe'])):?>
         <?php if (isset($loggedUser['email'])  && !isset($_SESSION['REGISTERED_RECIPE'])): ?> 
             <?php //(isset($loggedUserState)):?>
-        <section class="container">
-            <div class="form-flex">
+        <section class="contact-section">
+            <div class="contact-grid" id="recipe_creation">
+            <!-- <div class="form-flex " id="recipe_creation"> -->
                 <!-- <h1>Partagez votre recette !</h1> -->
                 <div class="form-recipe">
                     <form action="create_recipes.php" method="post">
@@ -99,9 +99,9 @@ echo 'voici le message => ' . $errorMessage
                 <div class="recipe">
                     <!-- <div class="preparation_header"> -->
                     <!-- DEBUT DE LA CARTE PREPARATION -->
-                    <div class="card-header">
-                        <div class="contact-section icon">
-                            <img src="" alt="icône représentant un fouet" srcset="">
+                    <div class="card-header-section">
+                        <div class=" icon form-logo">
+                            <img src="../img/cooking.svg" alt="icône représentant une cuisson" srcset="">
                         </div>
                         <div class="card-header title">
                             <h3 class="contact-section header">Préparation</h3>
@@ -111,24 +111,41 @@ echo 'voici le message => ' . $errorMessage
                         <div class="time">
                             <label for="time" class="label">Temps total</label>
                             <input id="time" type="text" name="time" class="input"></label>
+                            <select class="select" name="select_time" id="select_time" aria-placeholder="test">
+                                <option value="empty">-- Temps --</option>
+                                <option value="min">min</option>
+                                <option value="heures">heures</option>
+                            </select>
                         </div>
-                        <div class="resting_time">
+                        <div class="time">
+                        <!-- <div class="resting_time"> -->
                             <label for="resting_time" class="label">Temps de repos</label>
                             <input id="resting_time" type="text" name="resting_time" class="input"></label>
+                            <select class="select" name="select_time" id="select_time_resting_time" aria-placeholder="test">
+                                <option value="empty">-- Temps --</option>
+                                <option value="min">min</option>
+                                <option value="heures">heures</option>
+                            </select>
                         </div>
-                        <div class="oven">
+                        <div class="time">
+                        <!-- <div class="oven"> -->
                             <label for="oven" class="label">Temps de cuisson</label>
                             <input id="oven" type="text" name="oven" class="input"></label>
+                            <select class="select" name="select_time" id="select_time_oven" aria-placeholder="test">
+                                <option value="empty">-- Temps --</option>
+                                <option value="min">min</option>
+                                <option value="heures">heures</option>
+                            </select>
                         </div>
                     </div>
                     <!-- FIND DE LA CARTE PREPARATION -->
                     <!-- DEBUT DE LA CARTE INGREDIENTS -->
-                    <div class="card-header">
-                        <div class="contact-section icon">
-                            <img src="" alt="icône représentant un ingrédient" srcset="">
+                    <div class="card-header-section">
+                        <div class="icon form-logo">
+                            <img src="../img/food.svg" alt="icône représentant un panier d'ingrédients" srcset="">
                         </div>
                         <div class="card-header title">
-                            <h3 class="contact-section header">Ingrédients</h3>
+                            <h3 class="contact-section">Ingrédients</h3>
                         </div>
                     </div>
                     <div class="ingredients">
