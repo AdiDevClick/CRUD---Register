@@ -112,11 +112,14 @@ input[type=text], input[type=number], input[type=password], input[type=email], t
 textarea {
     display: flex;
     align-items: center;
-    max-width: 450px;
+    /* max-width: 450px; */
+    max-width: 100%;
     min-height: 50px;
-    min-width: 100%;
+    /* min-width: 100%; */
     resize: both;
     border: 1px solid #ccc;
+    margin-left: 0;
+    /* width: 50%; */
 }
 
 select {
@@ -136,6 +139,7 @@ select:hover {
 input[type=password], select, input[type=number] {
     padding: 12px 20px;
     display: inline-block;
+    text-align: center;
     padding: 10px;
     border-radius: 10px;
     max-width: 100%;
@@ -233,17 +237,23 @@ form {
     display: flex;
     /* width: 30%; */
     margin: 10px;
+    &.icon {
+        height: 50px;
+    }
     @media screen and (max-width: 576px) {
         img {
             opacity: 1;
         }
     }
+    @media (max-width: 770px) {
+        margin: 10px auto;
+    }
     /* flex-direction: column;
     align-items: flex-end; */
 }
-.form-logo.icon {
+/* .form-logo.icon {
     height: 50px;
-}
+} */
 
 .form {
     display: flex;
@@ -404,6 +414,10 @@ form {
         }
     } */
     &#recipe_creation {
+        .btn {
+            width: 100%;
+            max-width: unset;
+        }
         display: flex;
         /* background-color: pink; */
         /* grid-template-columns: 2, 1fr; */
@@ -668,11 +682,33 @@ form {
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    /* position: sticky; */
+    
     /* height: 100vh; */
     width: 50%;
     /* background-color: blue; */
     /* align-content: center; */
+    &.open {
+        position: absolute;
+    }
+}
+
+.recipe.hidden {
+    /* display: flex; */
+}
+
+.contact-section:has(.recipe.open) {
+    display: flex;
+    animation: slideToTop 1.5s ease-in-out;
+}
+
+@keyframes slideToTop {
+    0% {
+        transform: translateY(100vh);
+        position: absolute;
+    }
+    100% {
+        transform: translateY(0vh);
+    }
 }
 
 .form-flex {
@@ -692,6 +728,7 @@ form {
 .form-recipe {
     /* background-color: red; */
     /* width: 50vw; */
+    width: 100%;
     /* height: 100vh; */
     /* vertical-align: middle; */
     /* margin: 0 auto; */
@@ -726,4 +763,9 @@ form {
         text-align: center;
         width: fit-content;
     }
+}
+.ingredient {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    display: grid;
+    grid-gap: 5px;
 }
