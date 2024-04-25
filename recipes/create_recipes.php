@@ -11,6 +11,7 @@ include_once('../includes/variables.inc.php');
 // require_once(__DIR__ . "/logs/customErrorHandlers.php");
 
 $script = 'src="' . $rootUrl . $clicServer .'/scripts/fadeInScroller.js" defer';
+$script2 = 'type="module" src="' . $rootUrl . $clicServer .'/scripts/recipeApp.js" defer';
 $title = "Clic'Répare - Partagez votre recette";
 
 ob_start();

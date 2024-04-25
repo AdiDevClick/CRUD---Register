@@ -9,7 +9,6 @@ require_once(__DIR__ . "/includes/class-autoloader.inc.php");
 $data = $_SERVER['REQUEST_METHOD'] === 'POST';
 $err = [];
 $loggedUser = [];
-
 if ($data && isset($_POST["submit"])) {
     // We grab the data
     $getDatas = [
@@ -36,20 +35,25 @@ if ($data && isset($_POST["submit"])) {
 }
 
 $loggedUser = LoginController::checkLoggedStatus();
-
 ?>
 
 <?php if (!isset($loggedUser['email'])): ?> 
     <div class="contact">
+        <?php if (!empty($err) && (isset($err['userError']) || isset($err['userTaken']))):?>
+            <?php $errorMessage = $err['userError'] ?? $err['emailTaken'] ?>
+            <div>
+                <p class="alert-error"><?php echo strip_tags($errorMessage) ?></p>
+            </div>
+        <?php endif?>
         <form class="form-contact form-index js-form" action="index.php" method="post">
         <!-- <form class="form-contact js-form" action="index.php" method="post"> -->
             <!-- Si il y a erreur on affiche le message -->
-            <?php if (!empty($err) && (isset($err['userError']) || isset($err['userTaken']))):?>
-                    <?php $errorMessage = $err['userError'] ?? $err['emailTaken'] ?>
-                    <div>
-                        <p class="alert-error"><?php echo strip_tags($errorMessage) ?></p>
-                    </div>
-            <?php endif?>
+            <?php //if (!empty($err) && (isset($err['userError']) || isset($err['userTaken']))):?>
+                    <?php //$errorMessage = $err['userError'] ?? $err['emailTaken'] ?>
+                    <!-- <div>
+                        <p class="alert-error"><?php //echo strip_tags($errorMessage) ?></p>
+                    </div> -->
+            <?php //endif?>
             <!-- Username -->
             <div class="form splash-login form-hidden">
             <!-- <div class="form splash-login form-hidden"> -->

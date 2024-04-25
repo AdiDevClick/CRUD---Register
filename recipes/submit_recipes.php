@@ -5,7 +5,6 @@ if(session_status() !== PHP_SESSION_ACTIVE || session_status() === PHP_SESSION_N
 }
 //ob_start();
 
-
 // include_once("../includes/class-autoloader.inc.php");
 // include_once('../logs/customErrorHandlers.php');
 // require_once(__DIR__ . './' . "includes/class-autoloader.inc.php");
@@ -113,7 +112,7 @@ $errorMessage = CheckInput::showErrorMessage();
                         </div>
                         <!-- </form> -->
                 </div>
-                <div class="card recipe hidden">
+                <div class="card recipe hidden" id="js-preparation">
                     <!-- <div class="preparation_header"> -->
                     <!-- DEBUT DE LA CARTE PREPARATION -->
                     <div>
@@ -175,49 +174,49 @@ $errorMessage = CheckInput::showErrorMessage();
                         </div>
                         <div class="">
                             <p for="ingredient" class="label">Vos ingrédients</p>
-                            <div class="ingredient">
-                            <select class="select" name="ingredient" id="ingredient1" aria-placeholder="test">
-                                <option value="empty">-- Choisissez votre ingrédient --</option>
-                                <option value="oeuf">Oeuf</option>
-                                <option value="sel">Sel</option>
-                                <option value="sucre">Sucre</option>
-                                <option value="beurre">Beurre</option>
-                            </select>
-                            <select class="select" name="ingredient" id="ingredient2" aria-placeholder="test">
-                                <option value="empty">-- Choisissez votre ingrédient --</option>
-                                <option value="oeuf">Oeuf</option>
-                                <option value="sel">Sel</option>
-                                <option value="sucre">Sucre</option>
-                                <option value="beurre">Beurre</option>
-                            </select>
-                            <select class="select" name="ingredient" id="ingredient3" aria-placeholder="test">
-                                <option value="empty">-- Choisissez votre ingrédient --</option>
-                                <option value="oeuf">Oeuf</option>
-                                <option value="sel">Sel</option>
-                                <option value="sucre">Sucre</option>
-                                <option value="beurre">Beurre</option>
-                            </select>
-                            <select class="select" name="ingredient" id="ingredient4" aria-placeholder="test">
-                                <option value="empty">-- Choisissez votre ingrédient --</option>
-                                <option value="oeuf">Oeuf</option>
-                                <option value="sel">Sel</option>
-                                <option value="sucre">Sucre</option>
-                                <option value="beurre">Beurre</option>
-                            </select>
-                            <select class="select" name="ingredient" id="ingredient5" aria-placeholder="test">
-                                <option value="empty">-- Choisissez votre ingrédient --</option>
-                                <option value="oeuf">Oeuf</option>
-                                <option value="sel">Sel</option>
-                                <option value="sucre">Sucre</option>
-                                <option value="beurre">Beurre</option>
-                            </select>
-                            <select class="select" name="ingredient" id="ingredient6" aria-placeholder="test">
-                                <option value="empty">-- Choisissez votre ingrédient --</option>
-                                <option value="oeuf">Oeuf</option>
-                                <option value="sel">Sel</option>
-                                <option value="sucre">Sucre</option>
-                                <option value="beurre">Beurre</option>
-                            </select>
+                            <div class="ingredient js-ingredients">
+                                <select class="select" name="ingredient" id="ingredient1" aria-placeholder="test">
+                                    <option value="empty">-- Choisissez votre ingrédient --</option>
+                                    <option value="oeuf">Oeuf</option>
+                                    <option value="sel">Sel</option>
+                                    <option value="sucre">Sucre</option>
+                                    <option value="beurre">Beurre</option>
+                                </select>
+                                <select class="select" name="ingredient" id="ingredient2" aria-placeholder="test">
+                                    <option value="empty">-- Choisissez votre ingrédient --</option>
+                                    <option value="oeuf">Oeuf</option>
+                                    <option value="sel">Sel</option>
+                                    <option value="sucre">Sucre</option>
+                                    <option value="beurre">Beurre</option>
+                                </select>
+                                <select class="select" name="ingredient" id="ingredient3" aria-placeholder="test">
+                                    <option value="empty">-- Choisissez votre ingrédient --</option>
+                                    <option value="oeuf">Oeuf</option>
+                                    <option value="sel">Sel</option>
+                                    <option value="sucre">Sucre</option>
+                                    <option value="beurre">Beurre</option>
+                                </select>
+                                <select class="select" name="ingredient" id="ingredient4" aria-placeholder="test">
+                                    <option value="empty">-- Choisissez votre ingrédient --</option>
+                                    <option value="oeuf">Oeuf</option>
+                                    <option value="sel">Sel</option>
+                                    <option value="sucre">Sucre</option>
+                                    <option value="beurre">Beurre</option>
+                                </select>
+                                <select class="select" name="ingredient" id="ingredient5" aria-placeholder="test">
+                                    <option value="empty">-- Choisissez votre ingrédient --</option>
+                                    <option value="oeuf">Oeuf</option>
+                                    <option value="sel">Sel</option>
+                                    <option value="sucre">Sucre</option>
+                                    <option value="beurre">Beurre</option>
+                                </select>
+                                <select class="select" name="ingredient" id="ingredient6" aria-placeholder="test">
+                                    <option value="empty">-- Choisissez votre ingrédient --</option>
+                                    <option value="oeuf">Oeuf</option>
+                                    <option value="sel">Sel</option>
+                                    <option value="sucre">Sucre</option>
+                                    <option value="beurre">Beurre</option>
+                                </select>
                             </div>
                             
                             <div class="add_ingredient">
