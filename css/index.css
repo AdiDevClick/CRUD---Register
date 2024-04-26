@@ -143,6 +143,8 @@ input[type=password], select, input[type=number] {
     padding: 10px;
     border-radius: 10px;
     max-width: 100%;
+    /* margin-left: 0;
+    width: 100%; */
 }
 
 input:focus,
@@ -417,6 +419,7 @@ form {
         .btn {
             width: 100%;
             max-width: unset;
+            margin-left: 0;
         }
         display: flex;
         /* background-color: pink; */
@@ -743,6 +746,9 @@ form {
     position: sticky;
     /* top: 50px; */
     top: 60px;
+    & #register-btn {
+        padding-left: 0;
+    }
 }
 
 /* RECIPE CREATION */
@@ -768,6 +774,10 @@ form {
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     display: grid;
     grid-gap: 5px;
+    &>select {
+        margin-left: 0;
+        width: 100%;
+    }
 }
 
 hr {

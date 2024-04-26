@@ -128,9 +128,9 @@ export class IngredientFormFetch
     /** @type {Array} error list */
     #error = []
     /** @type {HTMLButtonElement} */
-    #formButton = document.querySelector('#add_custom')
+    #formButton
     /** @type {HTMLButtonElement} */
-    #formValidationButton = document.querySelector('#button')
+    #formValidationButton
 
     constructor(form) {
         this.#form = form
@@ -139,42 +139,82 @@ export class IngredientFormFetch
         this.#target = document.querySelector(form.dataset.target)
         this.#elements = JSON.parse(form.dataset.elements)
 
+        this.#formValidationButton = this.#form.querySelector('#button')
+        this.#formButton = this.#form.querySelector('#add_custom')
+
         this.#form.addEventListener('submit', e => {
             e.preventDefault()
             this.#onSubmit(e.currentTarget)
             this.#form.removeEventListener('submit', e)
         })
+
+        this.#formButton.addEventListener('click', e => {
+            e.preventDefault()
+            this.#onClick(e)
+            this.#formButton.removeEventListener('click', e)
+        })
+        // this.#formValidationButton.addEventListener('click', e => {
+        //     e.preventDefault()
+        //     this.#onSubmit(this.#form)
+        //     this.#formValidationButton.removeEventListener('click', e)
+        // })
+    }
+
+    #onClick(e) {
+        const ids = Date.now()
+        let input = this.#form.querySelector('#custom_ingredient')
+        if (!this.#isInputChecked(input.value)) {
+            return
+        }
+        const elementTemplate = this.#template.content.firstElementChild.cloneNode(true)
+        elementTemplate.setAttribute('id', ids)
+        elementTemplate.setAttribute('name', 'ingredient-'+ids)
+        for (const [key, selector] of Object.entries(this.#elements)) {
+            // elementTemplate.querySelector(selector).innerText = this.#list[key]
+            elementTemplate.querySelector(selector).innerText = input.value
+        }
+        // const ingredients = 
+        this.#target.prepend(elementTemplate)
+        this.#ingredientList = this.#ingredientList.filter((task) => task !== this.#list)
+        this.#ingredientList.push(elementTemplate.value)
+        this.#onUpdate('ingredients', this.#ingredientList)
+
+        input.value = ''
+        // this.#form.querySelector('#custom_ingredient').value = ''
+        // this.#onUpdate('test', this.#preparationList)
+        // new Toaster('Liste d\'ingrédients validé', 'Succès')
     }
 
     async #onSubmit(form) {
-        const ids = Date.now()
+        // const ids = Date.now()
         const data = new FormData(form)
         this.#formButton.disabled = true
         try {
-            if (!this.#isInputChecked(data)) {
-                return
-            }
+            // if (!this.#isInputChecked(data)) {
+            //     return
+            // }
             this.#list = await fetchJSON(this.#endpoint, {
                 method: 'POST',
                 json: data
             })
-            const elementTemplate = this.#template.content.firstElementChild.cloneNode(true)
-            elementTemplate.setAttribute('id', ids)
-            elementTemplate.setAttribute('name', 'ingredient-'+ids)
-            for (const [key, selector] of Object.entries(this.#elements)) {
-                elementTemplate.querySelector(selector).innerText = this.#list[key]
-            }
-            // const ingredients = 
-            this.#target.prepend(elementTemplate)
+            // const elementTemplate = this.#template.content.firstElementChild.cloneNode(true)
+            // elementTemplate.setAttribute('id', ids)
+            // elementTemplate.setAttribute('name', 'ingredient-'+ids)
+            // for (const [key, selector] of Object.entries(this.#elements)) {
+            //     elementTemplate.querySelector(selector).innerText = this.#list[key]
+            // }
+            // // const ingredients = 
+            // this.#target.prepend(elementTemplate)
             this.#preparationList = this.#preparationList.filter((task) => task === this.#list)
             this.#preparationList.push(this.#list)
-            this.#ingredientList = this.#ingredientList.filter((task) => task !== this.#list)
-            this.#ingredientList.push(elementTemplate.value)
-            this.#onUpdate('ingredients', this.#ingredientList)
+            // this.#ingredientList = this.#ingredientList.filter((task) => task !== this.#list)
+            // this.#ingredientList.push(elementTemplate.value)
+            // this.#onUpdate('ingredients', this.#ingredientList)
             this.#onUpdate('preparationList', this.#preparationList)
+            
             // form.reset()
             // this.#formIngredient = ''
-            this.#form.querySelector('#custom_ingredient').value = ''
+            // this.#form.querySelector('#custom_ingredient').value = ''
 
             const success = 'Votre ingrédient a été ajouté'
             new Toaster(success, 'Succès')
@@ -189,10 +229,12 @@ export class IngredientFormFetch
     }
 
     #isInputChecked(formDatas) {
-        this.#formIngredient = formDatas.get('custom_ingredient').toString().trim()
+        // this.#formIngredient = formDatas.get('custom_ingredient').toString().trim()
         const body = this.#form.querySelector('#custom_ingredient')
+        const inputValue = body.value.toString().trim()
         console.log(body)
-        if (this.#formIngredient === '') {
+        if (inputValue === '') {
+        // if (this.#formIngredient === '') {
             const message = "Vous n'avez pas ajouté d'ingrédient"
             body.classList.add("error")
             body.setAttribute('placeholder', message)

@@ -238,11 +238,11 @@ $errorMessage = CheckInput::showErrorMessage();
                         <div class="add_ingredient">
                             <label for="custom_ingredient" class="label">Votre ingrédient particulier</label>
                             <input id="custom_ingredient" type="text" name="custom_ingredient" class="input" placeholder="Votre ingrédient..."></input>
-                            <button name="add_custom" id="add_custom" type="submit" class="btn">Ajouter un nouvel ingrédient</button>
+                            <button name="add_custom" id="add_custom" type="button" class="btn">Ajouter un nouvel ingrédient</button>
                         </div>
                         <hr>
                         <div class="add_ingredient">
-                            <button name="add_ingredient" id="button" type="button" class="btn">Valider vos ingrédients</button>
+                            <button name="add_ingredient" id="button" type="submit" class="btn">Valider vos ingrédients</button>
                         </div>
                     </div>
                     </form>
