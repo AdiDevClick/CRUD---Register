@@ -769,3 +769,9 @@ form {
     display: grid;
     grid-gap: 5px;
 }
+
+hr {
+    border-bottom: 1px solid;
+    width: 50%;
+    margin: 30px auto;
+}

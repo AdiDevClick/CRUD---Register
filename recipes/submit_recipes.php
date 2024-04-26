@@ -111,8 +111,18 @@ $errorMessage = CheckInput::showErrorMessage();
                             <button type="submit" name="submit" class="btn">Partagez votre recette</button>
                         </div>
                         <!-- </form> -->
+                    </form>
                 </div>
+                
                 <div class="card recipe hidden" id="js-preparation">
+                    <form
+                        action="create_recipes.php"
+                        data-endpoint="https://jsonplaceholder.typicode.com/comments"
+                        data-template="#ingredient-template"
+                        data-target=".js-ingredient-group"
+                        data-elements='{"custom_ingredient": ".js-value"}'
+                        class="js-form-fetch" method="post"
+                    >
                     <!-- <div class="preparation_header"> -->
                     <!-- DEBUT DE LA CARTE PREPARATION -->
                     <div>
@@ -126,9 +136,9 @@ $errorMessage = CheckInput::showErrorMessage();
                         </div>
                         <div class="total_time">
                             <div class="time">
-                                <label for="time" class="label">Temps total</label>
-                                <input id="time" type="text" name="time" class="input"></label>
-                                <select class="select" name="select_time" id="select_time" aria-placeholder="test">
+                                <label for="total_time" class="label">Temps total</label>
+                                <input id="total_time" type="text" name="total_time" class="input"></label>
+                                <select class="select" name="total_time_length" id="total_time_length" aria-placeholder="test">
                                     <option value="empty">-- Temps --</option>
                                     <option value="min">min</option>
                                     <option value="heures">heures</option>
@@ -138,7 +148,7 @@ $errorMessage = CheckInput::showErrorMessage();
                             <!-- <div class="resting_time"> -->
                                 <label for="resting_time" class="label">Temps de repos</label>
                                 <input id="resting_time" type="text" name="resting_time" class="input"></label>
-                                <select class="select" name="select_time" id="select_time_resting_time" aria-placeholder="test">
+                                <select class="select" name="resting_time_length" id="resting_time_length" aria-placeholder="test">
                                     <option value="empty">-- Temps --</option>
                                     <option value="min">min</option>
                                     <option value="heures">heures</option>
@@ -146,9 +156,9 @@ $errorMessage = CheckInput::showErrorMessage();
                             </div>
                             <div class="time">
                             <!-- <div class="oven"> -->
-                                <label for="oven" class="label">Temps de cuisson</label>
-                                <input id="oven" type="text" name="oven" class="input"></label>
-                                <select class="select" name="select_time" id="select_time_oven" aria-placeholder="test">
+                                <label for="oven_time" class="label">Temps de cuisson</label>
+                                <input id="oven_time" type="text" name="oven_time" class="input"></label>
+                                <select class="select" name="oven_time_length" id="oven_time_length" aria-placeholder="test">
                                     <option value="empty">-- Temps --</option>
                                     <option value="min">min</option>
                                     <option value="heures">heures</option>
@@ -167,14 +177,20 @@ $errorMessage = CheckInput::showErrorMessage();
                             <h3 class="contact-section">Ingrédients</h3>
                         </div>
                     </div>
-                    <div class="ingredients">
+                    <div class="ingredients js-ingredients-list">
                         <div class="persons time">
                             <label for="persons" class="label">Nombre de personnes</label>
                             <input id="persons" type="text" name="persons" class="input"></label>
                         </div>
                         <div class="">
-                            <p for="ingredient" class="label">Vos ingrédients</p>
-                            <div class="ingredient js-ingredients">
+                        <template id="ingredient-template">
+                            <select class="select" name="ingredient-1" id="ingredient-1">
+                                <option class="js-value">heures</option>
+                                <!-- <option class="js-value" value="heures"><strong class="js-content"></strong></option> -->
+                            </select>
+                        </template>
+                            <p class="label">Vos ingrédients</p>
+                            <div class="ingredient js-ingredient-group">
                                 <select class="select" name="ingredient" id="ingredient1" aria-placeholder="test">
                                     <option value="empty">-- Choisissez votre ingrédient --</option>
                                     <option value="oeuf">Oeuf</option>
@@ -182,55 +198,56 @@ $errorMessage = CheckInput::showErrorMessage();
                                     <option value="sucre">Sucre</option>
                                     <option value="beurre">Beurre</option>
                                 </select>
-                                <select class="select" name="ingredient" id="ingredient2" aria-placeholder="test">
+                                <select class="select" name="ingredient2" id="ingredient2" aria-placeholder="test">
                                     <option value="empty">-- Choisissez votre ingrédient --</option>
                                     <option value="oeuf">Oeuf</option>
                                     <option value="sel">Sel</option>
                                     <option value="sucre">Sucre</option>
                                     <option value="beurre">Beurre</option>
                                 </select>
-                                <select class="select" name="ingredient" id="ingredient3" aria-placeholder="test">
+                                <select class="select" name="ingredient3" id="ingredient3" aria-placeholder="test">
                                     <option value="empty">-- Choisissez votre ingrédient --</option>
                                     <option value="oeuf">Oeuf</option>
                                     <option value="sel">Sel</option>
                                     <option value="sucre">Sucre</option>
                                     <option value="beurre">Beurre</option>
                                 </select>
-                                <select class="select" name="ingredient" id="ingredient4" aria-placeholder="test">
+                                <select class="select" name="ingredient4" id="ingredient4" aria-placeholder="test">
                                     <option value="empty">-- Choisissez votre ingrédient --</option>
                                     <option value="oeuf">Oeuf</option>
                                     <option value="sel">Sel</option>
                                     <option value="sucre">Sucre</option>
                                     <option value="beurre">Beurre</option>
                                 </select>
-                                <select class="select" name="ingredient" id="ingredient5" aria-placeholder="test">
+                                <select class="select" name="ingredient5" id="ingredient5" aria-placeholder="test">
                                     <option value="empty">-- Choisissez votre ingrédient --</option>
                                     <option value="oeuf">Oeuf</option>
                                     <option value="sel">Sel</option>
                                     <option value="sucre">Sucre</option>
                                     <option value="beurre">Beurre</option>
                                 </select>
-                                <select class="select" name="ingredient" id="ingredient6" aria-placeholder="test">
+                                <select class="select" name="ingredient6" id="ingredient6" aria-placeholder="test">
                                     <option value="empty">-- Choisissez votre ingrédient --</option>
                                     <option value="oeuf">Oeuf</option>
                                     <option value="sel">Sel</option>
                                     <option value="sucre">Sucre</option>
                                     <option value="beurre">Beurre</option>
                                 </select>
-                            </div>
-                            
-                            <div class="add_ingredient">
-                                <button name="add_ingredient" id="button" type="button" class="btn">Ajouter un nouvel ingrédient</button>
                             </div>
                         </div>
                         <div class="add_ingredient">
                             <label for="custom_ingredient" class="label">Votre ingrédient particulier</label>
                             <input id="custom_ingredient" type="text" name="custom_ingredient" class="input" placeholder="Votre ingrédient..."></input>
-                            <button name="add_custom" id="add_custom" type="button" class="btn">Ajouter</button>
+                            <button name="add_custom" id="add_custom" type="submit" class="btn">Ajouter un nouvel ingrédient</button>
+                        </div>
+                        <hr>
+                        <div class="add_ingredient">
+                            <button name="add_ingredient" id="button" type="button" class="btn">Valider vos ingrédients</button>
                         </div>
                     </div>
+                    </form>
                 </div>
-                </form>
+                <!-- </form> -->
             </div>
             <?php //endif?>
             <?php //session_destroy()?>
