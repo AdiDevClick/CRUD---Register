@@ -117,13 +117,20 @@ export class IngredientFormFetch
     #elements
     /** @type {FormData} */
     #form
+    /** @type {FormDataEntryValue} input value */
+    #formIngredient
     /** @type {} */
     #list
+    /** @type {Array} individual ingredient */
     #ingredientList = []
+    /** @type {Array} the whole preparation card list */
     #preparationList = []
-    #formIngredient
+    /** @type {Array} error list */
     #error = []
-    #formButton = document.querySelector('button')
+    /** @type {HTMLButtonElement} */
+    #formButton = document.querySelector('#add_custom')
+    /** @type {HTMLButtonElement} */
+    #formValidationButton = document.querySelector('#button')
 
     constructor(form) {
         this.#form = form
@@ -165,7 +172,9 @@ export class IngredientFormFetch
             this.#ingredientList.push(elementTemplate.value)
             this.#onUpdate('ingredients', this.#ingredientList)
             this.#onUpdate('preparationList', this.#preparationList)
-            form.reset()
+            // form.reset()
+            // this.#formIngredient = ''
+            this.#form.querySelector('#custom_ingredient').value = ''
 
             const success = 'Votre ingrédient a été ajouté'
             new Toaster(success, 'Succès')
