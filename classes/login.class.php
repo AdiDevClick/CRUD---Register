@@ -102,7 +102,7 @@ class Login extends Mysql
         }
         $hashedPwd = $pwdStatement->fetchAll(PDO::FETCH_ASSOC);
         $checkedPwd = password_verify($pwd, $hashedPwd[0]['password']);
-        echo json_encode([$checkedPwd => 'pwcheck']);
+        // echo json_encode([$checkedPwd => 'pwcheck']);
         return $checkedPwd;
     }
 

@@ -65,8 +65,8 @@ ob_start()
                     <h3><?php echo $recipe['title']; ?></h3>
                     <div><?php echo $recipe['recipe']; ?></div>
                     <i><?php echo displayAuthor($recipe["author"]) ?></i>
-                    <?php print_r($loggedUser)?>
-                    <?php print_r($recipe)?>
+                    <?php //print_r($loggedUser)?>
+                    <?php //print_r($recipe)?>
                     <?php if (isset($loggedUser['email']) && $recipe['author'] === $loggedUser['email']) : ?>
                     <!-- <?php //if (isset($loggedUser) && $recipe['author'] === $loggedUser['email'][0]) :?> -->
                         <ul class="list-group">

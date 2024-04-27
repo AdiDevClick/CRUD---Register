@@ -16,10 +16,12 @@ try {
     // preparations.forEach(preparation => {
     //     new RecipePreparation(preparation)
     // })
+
     document
         .querySelectorAll('.js-form-fetch')
         .forEach(form => {
-            new IngredientFormFetch(form)
+            const preparations = new IngredientFormFetch(form)
+            preparations.append(list)
     })
     // const preparations = new RecipePreparation(list)
     // preparations.appendTo(document.querySelector('#js-preparation'))

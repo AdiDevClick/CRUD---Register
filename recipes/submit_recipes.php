@@ -11,7 +11,7 @@ if(session_status() !== PHP_SESSION_ACTIVE || session_status() === PHP_SESSION_N
 // require_once(__DIR__ . "/logs/customErrorHandlers.php");
 
 $rootUrl = Functions::getRootUrl();
-echo $rootUrl;
+// echo $rootUrl;
 $data = $_SERVER['REQUEST_METHOD'] === 'POST';
 $err = [];
 $loggedUser = [];
@@ -29,13 +29,13 @@ if ($data && isset($_POST['submit'])) {
     'step_6' => $_POST['step_6'],
     'ingredient' => $_POST['time'],
     ];
-    print_r($getDatas);
+    // print_r($getDatas);
     $setRecipe = new RecipeView($getDatas);
     $setRecipe->insertRecipe();
     $err = CheckInput::getErrorMessages();
 
     if (count($err) > 0) {
-        print_r($err);
+        // print_r($err);
         session_destroy();
     } else {
         header('refresh:10, ../index.php?success=recipe-shared');
@@ -58,8 +58,8 @@ if ($data && isset($_POST['submit'])) {
 
 //ob_start()
 $loggedUser = LoginController::checkLoggedStatus();
-echo ' le array dans submit recipe';
-print_r($loggedUser);
+// echo ' le array dans submit recipe';
+// print_r($loggedUser);
 $errorMessage = CheckInput::showErrorMessage();
 ?>
     <?php //if (isset($loggedUser['email']) && !isset($loggedUser['recipe'])):?>
@@ -120,7 +120,7 @@ $errorMessage = CheckInput::showErrorMessage();
                         data-endpoint="https://jsonplaceholder.typicode.com/comments"
                         data-template="#ingredient-template"
                         data-target=".js-ingredient-group"
-                        data-elements='{"custom_ingredient": ".js-value"}'
+                        data-elements='{"ingredient": ".js-value", }'
                         class="js-form-fetch" method="post"
                     >
                     <!-- <div class="preparation_header"> -->
@@ -191,42 +191,42 @@ $errorMessage = CheckInput::showErrorMessage();
                         </template>
                             <p class="label">Vos ingrédients</p>
                             <div class="ingredient js-ingredient-group">
-                                <select class="select" name="ingredient" id="ingredient1" aria-placeholder="test">
+                                <select class="select js-select1" name="ingredient" id="ingredient1" aria-placeholder="test">
                                     <option value="empty">-- Choisissez votre ingrédient --</option>
                                     <option value="oeuf">Oeuf</option>
                                     <option value="sel">Sel</option>
                                     <option value="sucre">Sucre</option>
                                     <option value="beurre">Beurre</option>
                                 </select>
-                                <select class="select" name="ingredient2" id="ingredient2" aria-placeholder="test">
+                                <select class="select js-select2" name="ingredient2" id="ingredient2" aria-placeholder="test">
                                     <option value="empty">-- Choisissez votre ingrédient --</option>
                                     <option value="oeuf">Oeuf</option>
                                     <option value="sel">Sel</option>
                                     <option value="sucre">Sucre</option>
                                     <option value="beurre">Beurre</option>
                                 </select>
-                                <select class="select" name="ingredient3" id="ingredient3" aria-placeholder="test">
+                                <select class="select js-select3" name="ingredient3" id="ingredient3" aria-placeholder="test">
                                     <option value="empty">-- Choisissez votre ingrédient --</option>
                                     <option value="oeuf">Oeuf</option>
                                     <option value="sel">Sel</option>
                                     <option value="sucre">Sucre</option>
                                     <option value="beurre">Beurre</option>
                                 </select>
-                                <select class="select" name="ingredient4" id="ingredient4" aria-placeholder="test">
+                                <select class="select js-select4" name="ingredient4" id="ingredient4" aria-placeholder="test">
                                     <option value="empty">-- Choisissez votre ingrédient --</option>
                                     <option value="oeuf">Oeuf</option>
                                     <option value="sel">Sel</option>
                                     <option value="sucre">Sucre</option>
                                     <option value="beurre">Beurre</option>
                                 </select>
-                                <select class="select" name="ingredient5" id="ingredient5" aria-placeholder="test">
+                                <select class="select js-select5" name="ingredient5" id="ingredient5" aria-placeholder="test">
                                     <option value="empty">-- Choisissez votre ingrédient --</option>
                                     <option value="oeuf">Oeuf</option>
                                     <option value="sel">Sel</option>
                                     <option value="sucre">Sucre</option>
                                     <option value="beurre">Beurre</option>
                                 </select>
-                                <select class="select" name="ingredient6" id="ingredient6" aria-placeholder="test">
+                                <select class="select js-select6" name="ingredient6" id="ingredient6" aria-placeholder="test">
                                     <option value="empty">-- Choisissez votre ingrédient --</option>
                                     <option value="oeuf">Oeuf</option>
                                     <option value="sel">Sel</option>

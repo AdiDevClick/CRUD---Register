@@ -137,7 +137,8 @@ export class IngredientFormFetch
         this.#endpoint = form.dataset.endpoint
         this.#template = document.querySelector(form.dataset.template)
         this.#target = document.querySelector(form.dataset.target)
-        this.#elements = JSON.parse(form.dataset.elements)
+        // this.#elements = JSON.parse(form.dataset.elements)
+        this.#elements = JSON.parse(`{"ingredient": ".js-value"}`)
 
         this.#formValidationButton = this.#form.querySelector('#button')
         this.#formButton = this.#form.querySelector('#add_custom')
@@ -160,6 +161,50 @@ export class IngredientFormFetch
         // })
     }
 
+    append(list) {
+        let newKey
+        const ids = Date.now()
+        let input = this.#form.querySelector('#custom_ingredient')
+        console.log(list)
+        list.forEach(element => {
+            
+        
+        // for (const element in list[0]) {
+            console.log(element)
+            const elementTemplate = this.#template.content.firstElementChild.cloneNode(true)
+            elementTemplate.setAttribute('id', ids)
+            elementTemplate.setAttribute('name', 'ingredient-'+ids)
+            console.log(elementTemplate)
+            for (let [key, selector] of Object.entries(this.#elements)) {
+                console.log('elements => ' , this.#elements)
+                console.log('list => ' , element)
+                console.log('key => ', key)
+                console.log('selector => ' , selector)
+                // console.log('listKey => ' , Object.keys(list[0]).filter(i => { return i.startsWith('ingredient-') }))
+                // let objectKey = Object.keys(element).filter(i => {
+                //     if (i.startsWith('ingredient-') && key) key = i
+                // })
+                // console.log(list[0][startsWith(key)] === key)
+                // if (objectKey) {
+                //     console.log('objectKey')
+                    
+                    
+                //     console.log('newKey')
+                // }
+                // if (element.startsWith(key+'-')) {
+                //     key = key+'-'
+                // }
+                console.log('element[key] => ' , element[key])
+                elementTemplate.querySelector(selector).innerText = element[key]
+                // elementTemplate.querySelector(selector).innerText = '#'+list[key]
+                console.log(elementTemplate.querySelector(selector))
+            }
+            this.#target.prepend(elementTemplate)
+        // }
+    });
+        
+    }
+
     #onClick(e) {
         const ids = Date.now()
         let input = this.#form.querySelector('#custom_ingredient')
@@ -170,6 +215,7 @@ export class IngredientFormFetch
         elementTemplate.setAttribute('id', ids)
         elementTemplate.setAttribute('name', 'ingredient-'+ids)
         for (const [key, selector] of Object.entries(this.#elements)) {
+            console.log(this.#elements)
             // elementTemplate.querySelector(selector).innerText = this.#list[key]
             elementTemplate.querySelector(selector).innerText = input.value
         }
@@ -216,7 +262,7 @@ export class IngredientFormFetch
             // this.#formIngredient = ''
             // this.#form.querySelector('#custom_ingredient').value = ''
 
-            const success = 'Votre ingrédient a été ajouté'
+            const success = 'Votre préparation a été validée'
             new Toaster(success, 'Succès')
             this.#formButton.disabled = false
         } catch (error) {
