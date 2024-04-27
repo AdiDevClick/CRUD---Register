@@ -5,7 +5,7 @@ import { fetchJSON } from "./functions/api.js"
 
 
 try {
-    const ingredientsInStorage = localStorage.getItem('preparationList')?.toString()
+    const ingredientsInStorage = localStorage.getItem('ingredients')?.toString()
     let list = []
 
     if (ingredientsInStorage) {
@@ -21,7 +21,7 @@ try {
         .querySelectorAll('.js-form-fetch')
         .forEach(form => {
             const preparations = new IngredientFormFetch(form)
-            preparations.append(list)
+            preparations.appendThis(list)
     })
     // const preparations = new RecipePreparation(list)
     // preparations.appendTo(document.querySelector('#js-preparation'))

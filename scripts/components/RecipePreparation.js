@@ -115,6 +115,8 @@ export class IngredientFormFetch
     #target
     /** @type {object} */
     #elements
+    /** @type {object} */
+    #element
     /** @type {FormData} */
     #form
     /** @type {FormDataEntryValue} input value */
@@ -137,8 +139,8 @@ export class IngredientFormFetch
         this.#endpoint = form.dataset.endpoint
         this.#template = document.querySelector(form.dataset.template)
         this.#target = document.querySelector(form.dataset.target)
-        // this.#elements = JSON.parse(form.dataset.elements)
-        this.#elements = JSON.parse(`{"ingredient": ".js-value"}`)
+        this.#elements = JSON.parse(form.dataset.elements)
+        this.#element = JSON.parse(`{"ingredient": ".js-value"}`)
 
         this.#formValidationButton = this.#form.querySelector('#button')
         this.#formButton = this.#form.querySelector('#add_custom')
@@ -161,21 +163,42 @@ export class IngredientFormFetch
         // })
     }
 
+    appendThis(list) {
+        console.log(list)
+        const ids = Date.now()
+        list.forEach(ingredient => {
+            console.log(ingredient)
+            const elementTemplate = this.#template.content.firstElementChild.cloneNode(true)
+            elementTemplate.setAttribute('id', ids)
+            elementTemplate.setAttribute('name', 'ingredient-'+ids)
+            // for (const [key, selector] of Object.entries(this.#element)) {
+            //     console.log('elements => ' , this.#element)
+            //     console.log('list => ' , element)
+            //     console.log('key => ', key)
+            //     console.log('selector => ' , selector)
+            //     elementTemplate.querySelector(selector).innerText = ingredient[key]
+            //     // elementTemplate.querySelector(selector).innerText = '#'+list[key]
+            // }
+            elementTemplate.querySelector('.js-value').innerText = ingredient
+
+            this.#target.prepend(elementTemplate)
+        })
+    }
+
     append(list) {
         let newKey
         const ids = Date.now()
         let input = this.#form.querySelector('#custom_ingredient')
         console.log(list)
         list.forEach(element => {
-            
-        
         // for (const element in list[0]) {
             console.log(element)
             const elementTemplate = this.#template.content.firstElementChild.cloneNode(true)
-            elementTemplate.setAttribute('id', ids)
+            // elementTemplate.setAttribute('id', ids)
+            elementTemplate.setAttribute('id', element.id)
             elementTemplate.setAttribute('name', 'ingredient-'+ids)
             console.log(elementTemplate)
-            for (let [key, selector] of Object.entries(this.#elements)) {
+            for (const [key, selector] of Object.entries(this.#elements)) {
                 console.log('elements => ' , this.#elements)
                 console.log('list => ' , element)
                 console.log('key => ', key)
@@ -201,7 +224,7 @@ export class IngredientFormFetch
             }
             this.#target.prepend(elementTemplate)
         // }
-    });
+        })
         
     }
 
@@ -216,13 +239,26 @@ export class IngredientFormFetch
         elementTemplate.setAttribute('name', 'ingredient-'+ids)
         for (const [key, selector] of Object.entries(this.#elements)) {
             console.log(this.#elements)
+            console.log(selector)
             // elementTemplate.querySelector(selector).innerText = this.#list[key]
             elementTemplate.querySelector(selector).innerText = input.value
         }
         // const ingredients = 
         this.#target.prepend(elementTemplate)
         this.#ingredientList = this.#ingredientList.filter((task) => task !== this.#list)
+        // for (const ingredient of this.#ingredientList) {
+            // this.#ingredientList.push({'ingredient' : elementTemplate.value})
         this.#ingredientList.push(elementTemplate.value)
+        
+            
+        // this.#ingredientList[elementTemplate.value] = 'test'
+        //     for (let ingredient in this.#ingredientList) {
+        //         console.log(ingredient)
+        //         console.log(this.#ingredientList[ingredient])
+        //         console.log(ingredient['ingredient'])
+        //         ingredient['ingredient'] = elementTemplate.value
+        //     }
+        // this.#ingredientList['ingredient'] = {'elementTemplate.value'}
         this.#onUpdate('ingredients', this.#ingredientList)
 
         input.value = ''

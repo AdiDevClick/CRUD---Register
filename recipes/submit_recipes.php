@@ -120,7 +120,19 @@ $errorMessage = CheckInput::showErrorMessage();
                         data-endpoint="https://jsonplaceholder.typicode.com/comments"
                         data-template="#ingredient-template"
                         data-target=".js-ingredient-group"
-                        data-elements='{"ingredient": ".js-value", }'
+                        data-list-elements='{
+                            "ingredient-": ".js-value",
+                            "id": ".js-value",
+                            "ingredient": ".js-select1",
+                            "ingredient2": ".js-select2",
+                            "ingredient3": ".js-select3",
+                            "ingredient4": ".js-select4",
+                            "ingredient5": ".js-select5",
+                            "ingredient6": ".js-select6"
+                        }'
+                        data-elements='{
+                            "ingredient": ".js-value"
+                        }'
                         class="js-form-fetch" method="post"
                     >
                     <!-- <div class="preparation_header"> -->
