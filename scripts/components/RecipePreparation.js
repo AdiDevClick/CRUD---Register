@@ -179,7 +179,8 @@ export class IngredientFormFetch
             //     elementTemplate.querySelector(selector).innerText = ingredient[key]
             //     // elementTemplate.querySelector(selector).innerText = '#'+list[key]
             // }
-            elementTemplate.querySelector('.js-value').innerText = ingredient
+            elementTemplate.innerText = ingredient
+            // elementTemplate.querySelector('.js-value').innerText = ingredient
 
             this.#target.prepend(elementTemplate)
         })
@@ -219,6 +220,7 @@ export class IngredientFormFetch
                 // }
                 console.log('element[key] => ' , element[key])
                 elementTemplate.querySelector(selector).innerText = element[key]
+                // elementTemplate.querySelector(selector).innerText = element[key]
                 // elementTemplate.querySelector(selector).innerText = '#'+list[key]
                 console.log(elementTemplate.querySelector(selector))
             }
@@ -237,18 +239,22 @@ export class IngredientFormFetch
         const elementTemplate = this.#template.content.firstElementChild.cloneNode(true)
         elementTemplate.setAttribute('id', ids)
         elementTemplate.setAttribute('name', 'ingredient-'+ids)
+        console.log(elementTemplate)
         for (const [key, selector] of Object.entries(this.#elements)) {
             console.log(this.#elements)
             console.log(selector)
+            console.log(key)
+            console.log(elementTemplate.querySelector(selector))
             // elementTemplate.querySelector(selector).innerText = this.#list[key]
-            elementTemplate.querySelector(selector).innerText = input.value
+            elementTemplate.innerText = input.value
         }
         // const ingredients = 
         this.#target.prepend(elementTemplate)
         this.#ingredientList = this.#ingredientList.filter((task) => task !== this.#list)
         // for (const ingredient of this.#ingredientList) {
             // this.#ingredientList.push({'ingredient' : elementTemplate.value})
-        this.#ingredientList.push(elementTemplate.value)
+        this.#ingredientList.push(elementTemplate.innerText)
+        // this.#ingredientList.push(elementTemplate.value)
         
             
         // this.#ingredientList[elementTemplate.value] = 'test'

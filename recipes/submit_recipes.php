@@ -196,13 +196,14 @@ $errorMessage = CheckInput::showErrorMessage();
                         </div>
                         <div class="">
                         <template id="ingredient-template">
-                            <select class="select" name="ingredient-1" id="ingredient-1">
-                                <option class="js-value">heures</option>
-                                <!-- <option class="js-value" value="heures"><strong class="js-content"></strong></option> -->
-                            </select>
+                            <div class="custom-ingredient js-value"></div>
+                            <!-- <select class="select" name="ingredient-1" id="ingredient-1"> -->
+                                <!-- <option class="js-value">heures</option> -->
+                            <!-- </select> -->
                         </template>
                             <p class="label">Vos ingrédients</p>
-                            <div class="ingredient js-ingredient-group">
+                            <div class="ingredient-stack js-ingredient-group"></div>
+                            <div class="ingredient">
                                 <select class="select js-select1" name="ingredient" id="ingredient1" aria-placeholder="test">
                                     <option value="empty">-- Choisissez votre ingrédient --</option>
                                     <option value="oeuf">Oeuf</option>
