@@ -133,6 +133,11 @@ export class IngredientFormFetch
     #formButton
     /** @type {HTMLButtonElement} */
     #formValidationButton
+    /** @type {HTMLDivElement} */
+    #customIngredients
+    #newAttachedItems = []
+    newAttachedItems = []
+    #creationStatus = false
 
     constructor(form) {
         this.#form = form
@@ -144,6 +149,8 @@ export class IngredientFormFetch
 
         this.#formValidationButton = this.#form.querySelector('#button')
         this.#formButton = this.#form.querySelector('#add_custom')
+        this.#customIngredients = this.#form.querySelectorAll('.custom-ingredient')
+        console.log(this.#customIngredients)
 
         this.#form.addEventListener('submit', e => {
             e.preventDefault()
@@ -156,6 +163,8 @@ export class IngredientFormFetch
             this.#onClick(e)
             this.#formButton.removeEventListener('click', e)
         })
+
+        
         // this.#formValidationButton.addEventListener('click', e => {
         //     e.preventDefault()
         //     this.#onSubmit(this.#form)
@@ -165,12 +174,13 @@ export class IngredientFormFetch
 
     appendThis(list) {
         console.log(list)
-        const ids = Date.now()
+        let count = 0
         list.forEach(ingredient => {
             console.log(ingredient)
+            count = count+1
             const elementTemplate = this.#template.content.firstElementChild.cloneNode(true)
-            elementTemplate.setAttribute('id', ids)
-            elementTemplate.setAttribute('name', 'ingredient-'+ids)
+            elementTemplate.setAttribute('id', count)
+            elementTemplate.setAttribute('name', 'ingredient-'+count)
             // for (const [key, selector] of Object.entries(this.#element)) {
             //     console.log('elements => ' , this.#element)
             //     console.log('list => ' , element)
@@ -183,6 +193,89 @@ export class IngredientFormFetch
             // elementTemplate.querySelector('.js-value').innerText = ingredient
 
             this.#target.prepend(elementTemplate)
+            // this.#listen(this.#newAttachedItems)
+            this.#listen(elementTemplate)
+        })
+    }
+
+    #listen(item) {
+        // this.#form.querySelectorAll('.custom-ingredient').forEach(ingredient => {
+        let newAttachedItems
+        let validationItems
+        // this.#customIngredients.forEach(ingredient => {
+        item.addEventListener('click', e => {
+            e.preventDefault()
+            if (!newAttachedItems) {
+                newAttachedItems = new AttachNewItemsTo(item)
+                item.append(newAttachedItems.element)
+                this.#creationStatus = true
+            }
+                
+                // console.log(item)
+            
+            
+
+
+            // } else {
+            // })
+            // console.log()
+            //         item.prepend(newModifier)
+            //         item.append(newDeleter)
+            //     newDeleter.addEventListener(e => this.#onDelete.bind(item))
+            //     newModifier.addEventListener(e => this.#onModify.bind(item))
+                // } else if (e.currentTarget !== item) {
+                //     console.log('object')
+                //     newDeleter.delete()
+                //     newModifier.delete()
+                // }
+                
+                // this.#onClick(e)
+                // this.#customIngredients.removeEventListener('click', e)
+            // })
+        })
+        item.addEventListener('delete', e => {
+            e.preventDefault()
+            const message = `${e.detail.innerText} supprimé avec succès`
+            new Toaster(message)
+            item.removeEventListener('delete', e)
+            this.#creationStatus = true
+        })
+
+        item.addEventListener('modify', e => {
+            e.preventDefault()
+            if (!validationItems) {
+                newAttachedItems.element.remove()
+                // console.log(newAttachedItems.element)
+                validationItems = new UserValidations(item)
+                item.append(validationItems.element)
+                // this.#creationStatus = true
+            }
+            item.removeEventListener('modify', e)
+        })
+
+        item.addEventListener('validate', e => {
+            e.preventDefault()
+                console.log(validationItems.element)
+                validationItems.element.remove()
+                // console.log(newAttachedItems.element)
+                // validationItems = new UserValidations(item)
+                // item.append(validationItems.element)
+                // this.#creationStatus = true
+            item.removeEventListener('validate', e)
+        })
+    }
+
+    #onDelete(e) {
+        new CustomEvent('delete', {
+            detail: e.currentTarget,
+            bubbles: true
+        })
+    }
+
+    #onModify(e) {
+        new CustomEvent('modify', {
+            detail: e.currentTarget,
+            bubbles: true
         })
     }
 
@@ -225,6 +318,8 @@ export class IngredientFormFetch
                 console.log(elementTemplate.querySelector(selector))
             }
             this.#target.prepend(elementTemplate)
+            this.#newAttachedItems = elementTemplate
+            this.#listen(this.#newAttachedItems)
         // }
         })
         
@@ -250,6 +345,9 @@ export class IngredientFormFetch
         }
         // const ingredients = 
         this.#target.prepend(elementTemplate)
+        // this.#newAttachedItems[elementTemplate] = elementTemplate
+        // this.#listen(elementTemplate)
+        this.#listen(elementTemplate)
         this.#ingredientList = this.#ingredientList.filter((task) => task !== this.#list)
         // for (const ingredient of this.#ingredientList) {
             // this.#ingredientList.push({'ingredient' : elementTemplate.value})
@@ -341,5 +439,137 @@ export class IngredientFormFetch
         } else {
             return true
         }
+    }
+}
+
+class AttachNewItemsTo {
+    #item
+    #element = []
+    #modifier
+    #deleter
+
+    constructor(item) {
+        this.#item  = item
+        if (this.#element.length > 0 ){
+            return
+        }
+
+        this.#element = createElement('div', {
+            class: 'custom-ingredient__interactive-elements'
+        })
+
+        this.#modifier = createElement('div', {
+            class: 'interactive-elements__modify',
+            name: 'modify',
+            id: 'modify-'+this.#item.id
+        })
+        this.#deleter = createElement('div', {
+            class: 'interactive-elements__delete',
+            name: 'delete',
+            id: 'delete-'+this.#item.id
+        })
+        this.#modifier.innerText = ' MODIFY '
+        this.#deleter.innerText = ' DELETE '
+
+        this.#element.append(this.#deleter)
+        this.#element.prepend(this.#modifier)
+
+        this.#deleter.addEventListener('click', e => this.#remove(e))
+        this.#modifier.addEventListener('click', e => this.#modify(e))
+    }
+
+    /**
+     * @param {PointerEvent} e 
+     */
+    #remove(e) {
+        e.preventDefault()
+        this.#item.remove()
+        const deleteEvent = new CustomEvent('delete', {
+            detail: this.#item,
+            cancelable: true,
+            bubbles: false
+        })
+        this.#item.dispatchEvent(deleteEvent)
+    }
+
+    #modify(e) {
+        e.preventDefault()
+        this.#item.setAttribute('contenteditable', true)
+        const modifierEvent = new CustomEvent('modify', {
+            detail: this.#item,
+            cancelable: true,
+            bubbles: false
+        })
+        this.#item.dispatchEvent(modifierEvent)
+    }
+
+    get element() {
+        return this.#element
+    }
+}
+
+class UserValidations {
+    #item
+    #element = []
+    #validate
+    #cancel
+
+    constructor(item) {
+        this.#item  = item
+        if (this.#element.length > 0 ){
+            return
+        }
+
+        this.#element = createElement('div', {
+            class: 'custom-ingredient__interactive-elements'
+        })
+
+        this.#validate = createElement('div', {
+            class: 'interactive-elements__validate',
+            name: 'validate',
+            id: 'validate-'+this.#item.id
+        })
+        this.#cancel = createElement('div', {
+            class: 'interactive-elements__cancel',
+            name: 'cancel',
+            id: 'cancel-'+this.#item.id
+        })
+        this.#validate.innerText = ' VALIDATE '
+        this.#cancel.innerText = ' CANCEL '
+
+        this.#element.append(this.#cancel)
+        this.#element.prepend(this.#validate)
+
+        this.#cancel.addEventListener('click', e => this.#onCancel(e))
+        this.#validate.addEventListener('click', e => this.#onValidation(e))
+    }
+
+    /**
+     * @param {PointerEvent} e 
+     */
+    #onCancel(e) {
+        e.preventDefault()
+        // this.#item.remove()
+        const cancelEvent = new CustomEvent('canceled', {
+            detail: this.#item,
+            cancelable: true,
+            bubbles: false
+        })
+        this.#item.dispatchEvent(cancelEvent)
+    }
+
+    #onValidation(e) {
+        e.preventDefault()
+        this.#item.setAttribute('contenteditable', false)
+        const validateEvent = new CustomEvent('validate', {
+            detail: this.#item,
+            cancelable: true,
+            bubbles: false
+        })
+        this.#item.dispatchEvent(validateEvent)
+    }
+
+    get element() {
+        return this.#element
     }
 }

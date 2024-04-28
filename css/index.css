@@ -770,6 +770,15 @@ form {
         width: fit-content;
     }
 }
+
+.persons {
+    margin-bottom: 15px;
+}
+
+/* .ingredients .label {
+    padding-bottom: 15px;
+    column-gap: 40px;
+} */
 .ingredient {
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     display: grid;
@@ -784,6 +793,7 @@ form {
     flex-wrap: wrap;
     max-width: 100%;
     width: 100%;
+    margin-top: 15px;
     gap: 5px;
     min-height: fit-content;
 }
@@ -809,4 +819,7 @@ hr {
     @media screen and (max-width: 576px) {
         margin: 10px auto;
     } */
+    &:active {
+        background-color: unset;
+    }
 }

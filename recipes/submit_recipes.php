@@ -196,7 +196,8 @@ $errorMessage = CheckInput::showErrorMessage();
                         </div>
                         <div class="">
                         <template id="ingredient-template">
-                            <div class="custom-ingredient js-value"></div>
+                            <!-- <input type="text" class="custom-ingredient js-value"></input> -->
+                            <div contenteditable="false" type="text" class="custom-ingredient js-value"></div>
                             <!-- <select class="select" name="ingredient-1" id="ingredient-1"> -->
                                 <!-- <option class="js-value">heures</option> -->
                             <!-- </select> -->

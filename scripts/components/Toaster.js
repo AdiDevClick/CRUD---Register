@@ -136,7 +136,7 @@ export class Toaster {
     async #removeAlert(e) {
         await wait(5000)
         this.#alert.classList.remove('active')
-        await wait(5300)
+        await wait(300)
         this.#progressBar.classList.remove('active')
         this.#alert.remove()
         this.toasterContainer.remove()
