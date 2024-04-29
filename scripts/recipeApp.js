@@ -1,4 +1,4 @@
-import { IngredientFormFetch, RecipePreparation } from "./components/RecipePreparation.js"
+import { IngredientFormFetch, IngredientsFrom, RecipePreparation } from "./components/RecipePreparation.js"
 import { Toaster } from "./components/Toaster.js"
 import { fetchJSON } from "./functions/api.js"
 
@@ -17,12 +17,15 @@ try {
     //     new RecipePreparation(preparation)
     // })
 
-    document
-        .querySelectorAll('.js-form-fetch')
-        .forEach(form => {
-            const preparations = new IngredientFormFetch(form)
-            preparations.appendThis(list)
-    })
+    const ingredients = new IngredientsFrom(list)
+    ingredients.append(document.querySelector('.js-form-fetch'))
+
+    // document
+    //     .querySelectorAll('.js-form-fetch')
+    //     .forEach(form => {
+    //         const preparations = new IngredientFormFetch(form)
+    //         preparations.appendThis(list)
+    // })
     // const preparations = new RecipePreparation(list)
     // preparations.appendTo(document.querySelector('#js-preparation'))
     // console.log('hello world')

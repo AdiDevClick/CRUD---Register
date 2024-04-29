@@ -138,6 +138,8 @@ export class IngredientFormFetch
     #newAttachedItems = []
     newAttachedItems = []
     #creationStatus = false
+    #modifyStatus = false
+    element = []
 
     constructor(form) {
         this.#form = form
@@ -194,7 +196,10 @@ export class IngredientFormFetch
 
             this.#target.prepend(elementTemplate)
             // this.#listen(this.#newAttachedItems)
-            this.#listen(elementTemplate)
+            elementTemplate.addEventListener('click', this.#listen.bind(elementTemplate))
+            // this.#listen(elementTemplate)
+            // this.element = elementTemplate
+            // this.element.addEventListener('click', this.#listen)
         })
     }
 
@@ -202,68 +207,191 @@ export class IngredientFormFetch
         // this.#form.querySelectorAll('.custom-ingredient').forEach(ingredient => {
         let newAttachedItems
         let validationItems
+        let creationStatus = false
+        let modifyStatus
+        let clickStatus
+        let validatedStatus
+        // let id = newAttachedItems?.element.id
+
+        const ingredient = item.currentTarget
+        // const elem = item.currentTarget.querySelector(id)
+        console.log('test')
+        console.log(item.currentTarget)
         // this.#customIngredients.forEach(ingredient => {
-        item.addEventListener('click', e => {
-            e.preventDefault()
-            if (!newAttachedItems) {
-                newAttachedItems = new AttachNewItemsTo(item)
-                item.append(newAttachedItems.element)
-                this.#creationStatus = true
-            }
-                
-                // console.log(item)
-            
-            
+        console.log(newAttachedItems)
+        console.log(creationStatus)
+        console.log(this.element)
+        console.log(item)
+        console.log(newAttachedItems)
+        // item.removeEventListener('click', this.#listen)
+        if (!newAttachedItems) {
+            console.log(ingredient)
+            newAttachedItems = new AttachmentToThis(ingredient)
+            ingredient.append(newAttachedItems.element)
+            creationStatus = true
+            console.log(newAttachedItems.element.id)
+            console.log(newAttachedItems)
+        }
+        creationStatus = true
+        // if (newAttachedItems && clickStatus ) {
+        //     console.log('object')
+        //     clickStatus = false
+        //     item.append(newAttachedItems.element)
+        //     // item.removeEventListener('click', e)
+        // }
 
+        // if (newAttachedItems && validatedStatus) {
+        //     console.log('object')
+        //     clickStatus = true
+        //     // item.append(newAttachedItems.element)
+        //     // item.removeEventListener('click', e)
+        // }
+        // item.removeEventListener('click', e)
+        
 
-            // } else {
-            // })
-            // console.log()
-            //         item.prepend(newModifier)
-            //         item.append(newDeleter)
-            //     newDeleter.addEventListener(e => this.#onDelete.bind(item))
-            //     newModifier.addEventListener(e => this.#onModify.bind(item))
-                // } else if (e.currentTarget !== item) {
-                //     console.log('object')
-                //     newDeleter.delete()
-                //     newModifier.delete()
-                // }
-                
-                // this.#onClick(e)
-                // this.#customIngredients.removeEventListener('click', e)
-            // })
-        })
-        item.addEventListener('delete', e => {
+        ingredient.addEventListener('delete', e => {
             e.preventDefault()
             const message = `${e.detail.innerText} supprimé avec succès`
             new Toaster(message)
-            item.removeEventListener('delete', e)
-            this.#creationStatus = true
-        })
+        }, {once: true})
 
-        item.addEventListener('modify', e => {
+        ingredient.addEventListener('modify', e => {
             e.preventDefault()
             if (!validationItems) {
                 newAttachedItems.element.remove()
-                // console.log(newAttachedItems.element)
-                validationItems = new UserValidations(item)
-                item.append(validationItems.element)
+                validationItems = new UserValidations(ingredient)
+                ingredient.append(validationItems.element)
                 // this.#creationStatus = true
+                // modifyStatus = true
             }
-            item.removeEventListener('modify', e)
-        })
+            // item.removeEventListener('click', this.#listen(item))
+            console.log('event removed')
+            // console.log(item.removeEventListener('click', this.#listen(item)))
+            // if (validationItems) {
+            //     console.log('modify')
+            //     // clickStatus = true
+            //     item.append(newAttachedItems.element)
+            // }
+        }, {once: true})
 
-        item.addEventListener('validate', e => {
+        ingredient.addEventListener('validate', e => {
             e.preventDefault()
                 console.log(validationItems.element)
                 validationItems.element.remove()
+                modifyStatus = false
+                // creationStatus = false
+                clickStatus = false
+                validatedStatus = true
                 // console.log(newAttachedItems.element)
                 // validationItems = new UserValidations(item)
                 // item.append(validationItems.element)
                 // this.#creationStatus = true
-            item.removeEventListener('validate', e)
-        })
+                // this.#listen(item.currentTarget)
+                // ingredient = ingredient.cloneNode(true);
+                // ingredient.addEventListener('click', this.#listen.bind(ingredient), {once: true})
+        }, {once: true})
+
+        ingredient.addEventListener('canceled', e => {
+            e.preventDefault()
+                console.log(validationItems.element)
+                validationItems.element.remove()
+                // this.#modifyStatus = false
+                // console.log(newAttachedItems.element)
+                // validationItems = new UserValidations(item)
+                // item.append(validationItems.element)
+                // this.#creationStatus = true
+            // item.removeEventListener('validate', e)
+        }, {once: true})
     }
+    // #listen(item) {
+    //     // this.#form.querySelectorAll('.custom-ingredient').forEach(ingredient => {
+    //     let newAttachedItems
+    //     let validationItems
+    //     let creationStatus
+    //     let modifyStatus
+    //     let clickStatus
+    //     let validatedStatus
+    //     console.log('test')
+        
+    //     // this.#customIngredients.forEach(ingredient => {
+    //     item.addEventListener('click', e => {
+    //         console.log(newAttachedItems)
+    //         e.preventDefault()
+    //         if (!newAttachedItems && !creationStatus) {
+    //             newAttachedItems = new AttachmentToThis(item)
+    //             item.append(newAttachedItems.element)
+    //             creationStatus = true
+    //             // item.removeEventListener('click', e)
+    //         }
+
+    //         if (clickStatus) {
+    //             console.log('object')
+    //             clickStatus = false
+    //             item.append(newAttachedItems.element)
+    //             // item.removeEventListener('click', e)
+    //         }
+
+    //         if (newAttachedItems && validatedStatus) {
+    //             console.log('object')
+    //             clickStatus = true
+    //             // item.append(newAttachedItems.element)
+    //             // item.removeEventListener('click', e)
+    //         }
+    //         // item.removeEventListener('click', e)
+            
+    //     })
+
+    //     item.addEventListener('delete', e => {
+    //         e.preventDefault()
+    //         const message = `${e.detail.innerText} supprimé avec succès`
+    //         new Toaster(message)
+    //     }, {once: true})
+
+    //     item.addEventListener('modify', e => {
+    //         e.preventDefault()
+    //         item.removeEventListener('click', e)
+    //         if (!validationItems) {
+    //             newAttachedItems.element.remove()
+    //             validationItems = new UserValidations(item)
+    //             item.append(validationItems.element)
+    //             // this.#creationStatus = true
+    //             // modifyStatus = true
+    //         }
+            
+    //         // if (validationItems) {
+    //         //     console.log('modify')
+    //         //     // clickStatus = true
+    //         //     item.append(newAttachedItems.element)
+    //         // }
+    //     }, {once: true})
+
+    //     item.addEventListener('validate', e => {
+    //         e.preventDefault()
+    //             console.log(validationItems.element)
+    //             validationItems.element.remove()
+    //             modifyStatus = false
+    //             creationStatus = false
+    //             clickStatus = false
+    //             validatedStatus = true
+    //             // console.log(newAttachedItems.element)
+    //             // validationItems = new UserValidations(item)
+    //             // item.append(validationItems.element)
+    //             // this.#creationStatus = true
+    //             // this.#listen(item)
+    //     }, {once: true})
+
+    //     item.addEventListener('canceled', e => {
+    //         e.preventDefault()
+    //             console.log(validationItems.element)
+    //             validationItems.element.remove()
+    //             // this.#modifyStatus = false
+    //             // console.log(newAttachedItems.element)
+    //             // validationItems = new UserValidations(item)
+    //             // item.append(validationItems.element)
+    //             // this.#creationStatus = true
+    //         // item.removeEventListener('validate', e)
+    //     }, {once: true})
+    // }
 
     #onDelete(e) {
         new CustomEvent('delete', {
@@ -442,11 +570,450 @@ export class IngredientFormFetch
     }
 }
 
-class AttachNewItemsTo {
+export class IngredientsFrom {
+
+    #count
+    #list = []
+    element = []
+    #ingredient = []
+    /** @type {HTMLFormElement} */
+    #form
+    /** @type {string} */
+    #endpoint
+    /** @type {HTMLTemplateElement} */
+    #template
+    /** @type {HTMLElement} */
+    #target
+    /** @type {object} */
+    #elements
+    /** @type {HTMLButtonElement} */
+    #formButton
+    /** @type {HTMLButtonElement} */
+    #formValidationButton
+    /** @type {HTMLDivElement} */
+    #customIngredients
+    /** @type {Array} individual ingredient */
+    #ingredientList = []
+    /** @type {Array} the whole preparation card list */
+    #preparationList = {}
+    /** @type {Array} error list */
+    #error = []
+
+    constructor(list) {
+        this.#list = list
+        // this.#template = document.querySelector('#ingredient-template')
+        // this.#target = document.querySelector(".js-ingredient-group")
+
+
+        // this.#form = form
+        
+        console.log(this.#customIngredients)
+    }
+
+    append(formElement) {
+        this.#form = formElement
+        this.#endpoint = this.#form.dataset.endpoint
+        this.#template = document.querySelector(this.#form.dataset.template)
+        this.#target = document.querySelector(this.#form.dataset.target)
+        this.#elements = JSON.parse(this.#form.dataset.elements)
+        // this.#element = JSON.parse(`{"ingredient": ".js-value"}`)
+
+        this.#formValidationButton = this.#form.querySelector('#button')
+        this.#formButton = this.#form.querySelector('#add_custom')
+        this.#customIngredients = this.#form.querySelectorAll('.custom-ingredient')
+
+
+        // let count = 0
+        this.#count = 0
+        this.#list.forEach(ingredient => {
+            const savedIngredient = new Ingredient(ingredient)
+            this.#count = this.#count+1
+            // count = count+1
+            this.#ingredient = savedIngredient.element
+            this.#ingredient.setAttribute('id', this.#count)
+            // this.#ingredient.setAttribute('id', count)
+            this.#ingredient.setAttribute('name', 'ingredient-'+this.#count)
+            // this.#ingredient.setAttribute('name', 'ingredient-'+count)
+            this.#target.prepend(this.#ingredient)
+            this.#onIngredientDelete(this.#ingredient)
+
+            // this.#ingredient.addEventListener('delete', ({detail: ingredient}) => {
+            //     console.log(ingredient.innerText)
+            //     console.log(this.#ingredientList)
+            //     this.#ingredientList = this.#list.filter((t) => t !== ingredient)
+                // this.#onUpdate('ingredients', this.#list)
+            // })
+        })
+        // this.#target.addEventListener('click', this.#listen, {once: true})
+        // this.#ingredient.addEventListener('click', this.#listen)
+        this.#form.addEventListener('submit', e => {
+            e.preventDefault()
+            this.#onSubmit(e.currentTarget)
+        })
+
+        this.#formButton.addEventListener('click', this.#addNewIngredient.bind(this))
+    }
+
+    #addNewIngredient(e) {
+        e.preventDefault()
+        this.#count = this.#count+1
+        let input = this.#form.querySelector('#custom_ingredient')
+        if (!this.#isInputChecked(input.value)) {
+            return
+        }
+        // const elementTemplate = this.#template.content.firstElementChild.cloneNode(true)
+        
+        // elementTemplate.setAttribute('name', 'ingredient-'+ids)
+        // console.log(elementTemplate)
+        // for (const [key, selector] of Object.entries(this.#elements)) {
+        //     console.log(this.#elements)
+        //     console.log(selector)
+        //     console.log(key)
+        //     console.log(elementTemplate.querySelector(selector))
+        //     // elementTemplate.querySelector(selector).innerText = this.#list[key]
+        //     elementTemplate.innerText = input.value
+        // }
+        // const ingredients = 
+        this.#ingredient = new Ingredient(input.value)
+        this.#ingredient.element.setAttribute('id', this.#count)
+        this.#ingredient.element.setAttribute('name', 'ingredient-'+this.#count)
+        this.#target.prepend(this.#ingredient.element)
+        // this.#newAttachedItems[elementTemplate] = elementTemplate
+        // this.#listen(elementTemplate)
+        // this.#listen(elementTemplate)
+        // this.#ingredientList = this.#ingredientList.filter((task) => task !== this.#list)
+        // for (const ingredient of this.#ingredientList) {
+            // this.#ingredientList.push({'ingredient' : elementTemplate.value})
+        this.#list.push(this.#ingredient.element.innerText)
+        // this.#ingredientList.push(elementTemplate.value)
+        
+            
+        // this.#ingredientList[elementTemplate.value] = 'test'
+        //     for (let ingredient in this.#ingredientList) {
+        //         console.log(ingredient)
+        //         console.log(this.#ingredientList[ingredient])
+        //         console.log(ingredient['ingredient'])
+        //         ingredient['ingredient'] = elementTemplate.value
+        //     }
+        // this.#ingredientList['ingredient'] = {'elementTemplate.value'}
+        this.#onIngredientDelete(this.#ingredient.element)
+        this.#onUpdate('ingredients', this.#list)
+
+        input.value = ''
+        // this.#form.querySelector('#custom_ingredient').value = ''
+        // this.#onUpdate('test', this.#preparationList)
+        // new Toaster('Liste d\'ingrédients validé', 'Succès')
+        this.#formButton.removeEventListener('click', this.#addNewIngredient.bind(this))
+    }
+
+    #onIngredientDelete(ingredient) {
+        ingredient.addEventListener('delete', e => {
+            this.#list = this.#list.filter((i) => i !== e.detail.innerText)
+            this.#onUpdate('ingredients', this.#list)
+        })
+    }
+
+    async #onSubmit(form) {
+        console.log(form)
+        // const ids = Date.now()
+        const data = new FormData(form)
+        this.#formButton.disabled = true
+        try {
+            // if (!this.#isInputChecked(data)) {
+            //     return
+            // }
+            this.#ingredientList = await fetchJSON(this.#endpoint, {
+                method: 'POST',
+                json: data
+            })
+            // const elementTemplate = this.#template.content.firstElementChild.cloneNode(true)
+            // elementTemplate.setAttribute('id', ids)
+            // elementTemplate.setAttribute('name', 'ingredient-'+ids)
+            // for (const [key, selector] of Object.entries(this.#elements)) {
+            //     elementTemplate.querySelector(selector).innerText = this.#list[key]
+            // }
+            
+            // // const ingredients = 
+            // this.#target.prepend(elementTemplate)
+            console.log(this.#ingredientList)
+            console.log(this.#preparationList)
+            // this.#preparationList = this.#preparationList.filter((task) => task === this.#list)
+            this.#preparationList.formData = this.#ingredientList
+            // this.#preparationList.push(this.#ingredientList)
+            this.#preparationList.ingredients = this.#list
+            // this.#preparationList.push(this.#list)
+            // this.#ingredientList = this.#ingredientList.filter((task) => task !== this.#list)
+            // this.#ingredientList.push(elementTemplate.value)
+            // this.#onUpdate('ingredients', this.#ingredientList)
+            console.log(this.#preparationList)
+            this.#onUpdate('preparationList', this.#preparationList)
+            
+            // form.reset()
+            // this.#formIngredient = ''
+            // this.#form.querySelector('#custom_ingredient').value = ''
+
+            const success = 'Votre préparation a été validée'
+            new Toaster(success, 'Succès')
+            this.#formButton.disabled = false
+        } catch (error) {
+            // console.log(error.message)
+            new Toaster(error.message, 'Erreur')
+        }
+    }
+
+    #isInputChecked(formDatas) {
+        // this.#formIngredient = formDatas.get('custom_ingredient').toString().trim()
+        const body = this.#form.querySelector('#custom_ingredient')
+        const inputValue = body.value.toString().trim()
+        console.log(body)
+        if (inputValue === '') {
+        // if (this.#formIngredient === '') {
+            const message = "Vous n'avez pas ajouté d'ingrédient"
+            body.classList.add("error")
+            body.setAttribute('placeholder', message)
+            this.#error.push(message)
+        } else {
+            body.classList.remove("error")
+            body.setAttribute('placeholder', 'Votre ingrédient...')
+        }
+
+        if (this.#error.length >= 1) {
+            for (const error of this.#error) {
+                this.#error = this.#error.filter((t) => t !== error)
+                new Toaster(error, 'Erreur')
+            }
+            return false
+        } else {
+            return true
+        }
+    }
+
+    #onUpdate(storageName, items) {
+        localStorage.setItem(storageName, JSON.stringify(items))
+    }
+    
+    #listen(item) {
+        // this.#form.querySelectorAll('.custom-ingredient').forEach(ingredient => {
+        
+
+        let newAttachedItems
+        let validationItems
+        let creationStatus = false
+        let modifyStatus
+        let clickStatus
+        let validatedStatus
+        const ingredient = item.currentTarget
+        // this.element = ingredient
+        console.log('test')
+        console.log(item.currentTarget)
+        // this.#customIngredients.forEach(ingredient => {
+        console.log(newAttachedItems)
+        console.log(creationStatus)
+        // this.removeEventListener('click', this.#listen.bind(this))
+        if (!newAttachedItems && !creationStatus) {
+            newAttachedItems = new AttachmentToThis(ingredient)
+            ingredient.append(newAttachedItems.element)
+            creationStatus = true
+            console.log('g créé')
+        }
+
+        // if (newAttachedItems && clickStatus ) {
+        //     console.log('object')
+        //     clickStatus = false
+        //     item.append(newAttachedItems.element)
+        //     // item.removeEventListener('click', e)
+        // }
+
+        // if (newAttachedItems && validatedStatus) {
+        //     console.log('object')
+        //     clickStatus = true
+        //     // item.append(newAttachedItems.element)
+        //     // item.removeEventListener('click', e)
+        // }
+        // item.removeEventListener('click', e)
+        
+
+        ingredient.addEventListener('delete', e => {
+            e.preventDefault()
+            const message = `${e.detail.innerText} supprimé avec succès`
+            new Toaster(message)
+        }, {once: true})
+
+        ingredient.addEventListener('modify', e => {
+            e.preventDefault()
+            if (!validationItems) {
+                newAttachedItems.element.remove()
+                validationItems = new UserValidations(ingredient)
+                ingredient.append(validationItems.element)
+                // this.#creationStatus = true
+                // modifyStatus = true
+            }
+            // item.removeEventListener('click', this.#listen(item))
+            console.log('event removed')
+            // console.log(item.removeEventListener('click', this.#listen(item)))
+            // if (validationItems) {
+            //     console.log('modify')
+            //     // clickStatus = true
+            //     item.append(newAttachedItems.element)
+            // }
+        }, {once: true})
+
+        ingredient.addEventListener('validate', e => {
+            e.preventDefault()
+                console.log(validationItems.element)
+                validationItems.element.remove()
+                modifyStatus = false
+                // creationStatus = false
+                clickStatus = false
+                validatedStatus = true
+                // console.log(newAttachedItems.element)
+                // validationItems = new UserValidations(item)
+                // item.append(validationItems.element)
+                // this.#creationStatus = true
+                // this.#listen(item.currentTarget)
+                // ingredient = ingredient.cloneNode(true);
+                // ingredient.addEventListener('click', this.#listen.bind(ingredient), {once: true})
+            this.element.addEventListener('click', this.#listen.bind(ingredient), {once: true})
+        }, {once: true})
+
+        ingredient.addEventListener('canceled', e => {
+            e.preventDefault()
+                console.log(validationItems.element)
+                validationItems.element.remove()
+                // this.#modifyStatus = false
+                // console.log(newAttachedItems.element)
+                // validationItems = new UserValidations(item)
+                // item.append(validationItems.element)
+                // this.#creationStatus = true
+            // item.removeEventListener('validate', e)
+        }, {once: true})
+    }
+}
+
+class Ingredient {
+
+    element = []
+    #template
+    #count = 0
+    #creationStatus = false
+    #validationStatus = false
+    #done = false
+    #ingredient
+    #newModifierButtons = []
+    #validationItems = []
+    #modifyStatus
+    #observer = []
+    #ratio = .3
+    #handleIntersect = (entries, observer) => {
+        entries.forEach(entry => {
+            console.log(entry)
+            this.element.addEventListener('click', this.#onClick.bind(this))
+            // if (entry.addEventListener('click') > this.#ratio) {
+            //     this.#loadMore()
+            // }
+            console.log('je suis dans lobs')
+        })
+    }
+    #options = {
+        root: null,
+        rootMargin: '0px',
+        threshold: this.#ratio
+    }
+    #closed = false
+
+    constructor(ingredient) {
+        console.log(ingredient)
+        this.#ingredient = ingredient
+        this.#template = document.querySelector('#ingredient-template')
+        this.#count = this.#count+1
+
+        this.element = this.#template.content.firstElementChild.cloneNode(true)
+        // this.element.setAttribute('id', this.#count)
+        // this.element.setAttribute('name', 'ingredient-'+this.#count)
+        
+        this.element.innerText = this.#ingredient
+
+        this.element.addEventListener('click', this.#onClick.bind(this))
+        this.element.addEventListener('modify', this.#onModify.bind(this))
+        this.element.addEventListener('validate', this.#onValidate.bind(this))
+        this.element.addEventListener('canceled', this.#onCancel.bind(this))
+        this.element.addEventListener('closeAction', this.#onClose.bind(this))
+
+        this.element.addEventListener('delete', e => {
+            e.preventDefault()
+            const message = `${e.detail.innerText} supprimé avec succès`
+            new Toaster(message)
+        }, {once: true})
+
+        // window.addEventListener('DOMContentLoaded', () => {
+        //     this.#observer = new IntersectionObserver(this.#handleIntersect, this.#options)
+        //     this.#observer.observe(this.element)
+        // })
+    }
+
+    #onClick(e) {
+        e.preventDefault()
+        if (this.#validationStatus || this.#closed || this.#done) {
+            this.#validationStatus = false
+            this.#closed = false
+            this.#done = false
+            return
+        }
+        
+        if (!this.#newModifierButtons.element) {
+            this.#newModifierButtons = new AttachmentToThis(this.element)
+            this.element.append(this.#newModifierButtons.element)
+        }
+    }
+
+    #onModify(e) {
+        e.preventDefault()
+        if (!this.#validationItems.element) {
+            this.#newModifierButtons.element.remove()
+            this.#validationItems = new UserValidations(this.element)
+            this.element.append(this.#validationItems.element)
+            this.#validationStatus = true
+        }
+    }
+
+    #onValidate(e) {
+        e.preventDefault()
+        this.#validationItems.element.remove()
+        this.#validationStatus = true
+        this.#newModifierButtons = []
+        this.#validationItems = []
+    }
+    
+    #onCancel(e) {
+        e.preventDefault()
+        this.#validationItems.element.remove()
+        this.#validationItems = []
+        this.#newModifierButtons = []
+        this.#done = true
+    }
+
+    #onClose(e) {
+        e.preventDefault()
+        this.#closed = true
+        this.#newModifierButtons = []
+        this.#validationItems = []
+    }
+
+    get element() {
+        return this.element
+    }
+
+    get onClick() {
+        return this.#onClick.bind(this)
+    }
+}
+
+class AttachmentToThis {
     #item
     #element = []
     #modifier
     #deleter
+    #closeButton
 
     constructor(item) {
         this.#item  = item
@@ -455,7 +1022,8 @@ class AttachNewItemsTo {
         }
 
         this.#element = createElement('div', {
-            class: 'custom-ingredient__interactive-elements'
+            class: 'custom-ingredient__interactive-elements',
+            id: 'attach-'+this.#item.id
         })
 
         this.#modifier = createElement('div', {
@@ -468,31 +1036,39 @@ class AttachNewItemsTo {
             name: 'delete',
             id: 'delete-'+this.#item.id
         })
+        this.#closeButton = createElement('div', {
+            class: 'interactive-elements__close',
+            name: 'close',
+            id: 'close-'+this.#item.id
+        })
         this.#modifier.innerText = ' MODIFY '
         this.#deleter.innerText = ' DELETE '
+        this.#closeButton.innerText = ' CLOSE '
 
         this.#element.append(this.#deleter)
+        this.#element.append(this.#closeButton)
         this.#element.prepend(this.#modifier)
 
-        this.#deleter.addEventListener('click', e => this.#remove(e))
-        this.#modifier.addEventListener('click', e => this.#modify(e))
+        this.#deleter.addEventListener('click', this.#onRemove.bind(this), {once: true})
+        this.#modifier.addEventListener('click', this.#onModify.bind(this))
+        this.#closeButton.addEventListener('click', this.#onClose.bind(this))
     }
 
     /**
      * @param {PointerEvent} e 
      */
-    #remove(e) {
+    #onRemove(e) {
         e.preventDefault()
         this.#item.remove()
         const deleteEvent = new CustomEvent('delete', {
             detail: this.#item,
             cancelable: true,
             bubbles: false
-        })
+        }, {once: true})
         this.#item.dispatchEvent(deleteEvent)
     }
 
-    #modify(e) {
+    #onModify(e) {
         e.preventDefault()
         this.#item.setAttribute('contenteditable', true)
         const modifierEvent = new CustomEvent('modify', {
@@ -501,6 +1077,18 @@ class AttachNewItemsTo {
             bubbles: false
         })
         this.#item.dispatchEvent(modifierEvent)
+    }
+
+    #onClose(e) {
+        e.preventDefault()
+        this.#item.setAttribute('contenteditable', false)
+        this.#element.remove()
+        const closeEvent = new CustomEvent('closeAction', {
+            detail: this.#item,
+            cancelable: true,
+            bubbles: false
+        })
+        this.#item.dispatchEvent(closeEvent)
     }
 
     get element() {
@@ -550,6 +1138,7 @@ class UserValidations {
     #onCancel(e) {
         e.preventDefault()
         // this.#item.remove()
+        this.#item.setAttribute('contenteditable', false)
         const cancelEvent = new CustomEvent('canceled', {
             detail: this.#item,
             cancelable: true,
