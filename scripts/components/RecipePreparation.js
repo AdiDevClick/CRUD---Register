@@ -730,15 +730,28 @@ export class IngredientsFrom {
         //     "test": "test",
         //     "test2": "test2"
         // }
+        
+        for (let [key, value] of data) {
+            if (key === 'custom_ingredient') {
+                value = this.#list
+                console.log(key, value)
+            }
+            console.log(key, value)
+        }
         // this.#formButton.disabled = true
-        console.log(myPreparation)
+        // for (const [key, iterator] of data) {
+        //     // if (data[iterator] === 'custom_ingredient') {
+        //         console.log(key, iterator)
+        //     // }
+        // }
+        // return
         try {
             // this.#ingredientList = await fetchJSON(this.#endpoint, {
             // this.#ingredientList = await fetchJSON('test.php', {
             this.#ingredientList = await fetchJSON('Process_PreparationList.php', {
                 method: 'POST',
                 json: data,
-                json: myPreparation
+                // json: data
             })
             // const elementTemplate = this.#template.content.firstElementChild.cloneNode(true)
             // elementTemplate.setAttribute('id', ids)
