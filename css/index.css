@@ -796,6 +796,7 @@ form {
     margin-top: 15px;
     gap: 5px;
     min-height: fit-content;
+    /* position: relative; */
 }
 
 hr {
@@ -805,6 +806,7 @@ hr {
 }
 
 .custom-ingredient {
+    position: relative;
     display: inline-flex;
     text-align: center;
     cursor: pointer;
@@ -822,4 +824,26 @@ hr {
     &:active {
         background-color: unset;
     }
+}
+
+.custom-ingredient__interactive-elements {
+    position: absolute;
+    top: -25px;
+    left: 0;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.interactive-elements__validate,
+.interactive-elements__cancel,
+.interactive-elements__modify,
+.interactive-elements__delete,
+.interactive-elements__close {
+    /* position: relative; */
+    /* display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    top: -25px; */
+    background-color: var(--navbar-color);
 }

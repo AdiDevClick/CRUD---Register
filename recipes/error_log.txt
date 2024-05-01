@@ -1,17 +1,780 @@
-Errors : [2] Undefined array key "time" - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:30
-Errors : [2] Undefined array key "time" - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:30
-Errors : [2] Undefined array key "time" - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:30
-Errors : [2] Undefined array key "time" - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:30
-Errors : [2] Undefined array key "time" - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:30
-Errors : [2] Undefined array key "time" - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:30
-Errors : [2] Undefined array key "time" - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:30
-Errors : [2] Undefined array key "time" - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:30
-Errors : [2] Undefined array key "time" - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:30
-Errors : [2] Undefined array key "time" - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:30
-Errors : [2] Undefined array key "time" - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:30
-Errors : [2] Undefined array key "time" - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:30
-Errors : [2] Undefined array key "time" - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:30
-Errors : [2] Undefined array key "time" - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:30
-Errors : [2] Undefined array key "time" - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:30
-Errors : [2] Undefined array key "time" - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:30
-Errors : [2] Undefined array key "time" - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:30
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:27
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:27
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:27
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:27
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:27
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:27
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:27
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:27
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:27
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:27
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:27
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:27
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:27
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:27
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:27
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:27
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:27
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:27
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:27
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:27
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:27
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:27
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:27
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:27
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:27
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:27
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:27
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:27
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:27
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:27
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:27
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:27
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:27
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:27
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:27
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:27
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:27
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:27
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:27
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:27
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:27
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:27
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:27
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:27
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:27
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:27
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:27
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:27
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:27
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:27
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:27
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:27
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:27
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:27
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:27
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:27
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:27
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:27
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:27
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:27
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:27
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:27
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:27
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:27
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:27
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:27
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:27
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:27
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:27
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:27
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:27
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:27
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:27
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:27
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:27
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:27
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:27
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:27
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:27
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:27
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:27
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:27
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:27
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:27
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:27
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:26
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:26
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:26
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:26
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:26
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:26
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:26
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:26
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:26
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:26
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:26
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:26
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:26
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:27
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:27
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:27
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:27
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:27
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:27
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:27
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:27
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:27
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:27
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:27
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:27
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:27
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:27
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:27
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:27
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:27
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:27
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:27
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:27
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:27
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:27
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:27
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:27
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:27
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:27
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:27
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:27
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:27
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:27
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:27
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:27
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:27
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:27
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:27
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:27
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:27
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:27
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:27
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:27
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:27
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:27
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:27
+Errors : [2] Undefined array key "test" - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:27
+Errors : [2] Undefined array key "test" - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:27
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:27
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:50
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:27
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:50
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:26
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:50
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:26
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:50
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:26
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:50
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:50
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:50
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:50
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:50
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:50
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:50
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:50
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:50
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:50
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:50
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:50
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:50
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:50
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:50
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:50
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:50
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:50
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:50
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:50
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:50
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:50
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:50
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\test.php:11
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:50
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:50
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:50
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:50
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:50
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:50
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:50
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:50
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:50
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:50
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:50
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:50
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:50
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:50
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:50
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:50
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:50
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:50
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:50
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:50
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:50
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:50
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:50
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:50
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:50
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:50
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:50
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:50
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:50
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:50
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:50
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:50
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:50
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:50
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:50
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:50
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:50
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:50
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:50
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:50
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\create_recipes.php:17
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\create_recipes.php:17
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\create_recipes.php:17
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:50
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\create_recipes.php:17
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\create_recipes.php:17
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:50
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\create_recipes.php:17
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:50
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] foreach() argument must be of type array|object, null given - C:\xampp\htdocs\Recettes\recipes\create_recipes.php:17
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] foreach() argument must be of type array|object, null given - C:\xampp\htdocs\Recettes\recipes\create_recipes.php:17
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] foreach() argument must be of type array|object, null given - C:\xampp\htdocs\Recettes\recipes\create_recipes.php:17
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:50
+Errors : [2] foreach() argument must be of type array|object, null given - C:\xampp\htdocs\Recettes\recipes\create_recipes.php:17
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] foreach() argument must be of type array|object, string given - C:\xampp\htdocs\Recettes\recipes\create_recipes.php:17
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] foreach() argument must be of type array|object, string given - C:\xampp\htdocs\Recettes\recipes\create_recipes.php:17
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] foreach() argument must be of type array|object, string given - C:\xampp\htdocs\Recettes\recipes\create_recipes.php:17
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] foreach() argument must be of type array|object, string given - C:\xampp\htdocs\Recettes\recipes\create_recipes.php:17
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] foreach() argument must be of type array|object, string given - C:\xampp\htdocs\Recettes\recipes\create_recipes.php:17
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] foreach() argument must be of type array|object, string given - C:\xampp\htdocs\Recettes\recipes\create_recipes.php:17
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:50
+Errors : [2] foreach() argument must be of type array|object, string given - C:\xampp\htdocs\Recettes\recipes\create_recipes.php:17
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] foreach() argument must be of type array|object, string given - C:\xampp\htdocs\Recettes\recipes\create_recipes.php:17
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] foreach() argument must be of type array|object, string given - C:\xampp\htdocs\Recettes\recipes\create_recipes.php:17
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:50
+Errors : [2] foreach() argument must be of type array|object, string given - C:\xampp\htdocs\Recettes\recipes\create_recipes.php:17
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] foreach() argument must be of type array|object, string given - C:\xampp\htdocs\Recettes\recipes\create_recipes.php:17
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] foreach() argument must be of type array|object, string given - C:\xampp\htdocs\Recettes\recipes\create_recipes.php:17
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] foreach() argument must be of type array|object, string given - C:\xampp\htdocs\Recettes\recipes\create_recipes.php:17
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:50
+Errors : [2] foreach() argument must be of type array|object, string given - C:\xampp\htdocs\Recettes\recipes\create_recipes.php:17
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] foreach() argument must be of type array|object, string given - C:\xampp\htdocs\Recettes\recipes\create_recipes.php:17
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] foreach() argument must be of type array|object, string given - C:\xampp\htdocs\Recettes\recipes\create_recipes.php:17
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] foreach() argument must be of type array|object, string given - C:\xampp\htdocs\Recettes\recipes\create_recipes.php:17
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] foreach() argument must be of type array|object, string given - C:\xampp\htdocs\Recettes\recipes\create_recipes.php:17
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] foreach() argument must be of type array|object, null given - C:\xampp\htdocs\Recettes\recipes\create_recipes.php:29
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Array to string conversion - C:\xampp\htdocs\Recettes\recipes\create_recipes.php:26
+Errors : [2] foreach() argument must be of type array|object, null given - C:\xampp\htdocs\Recettes\recipes\create_recipes.php:29
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Array to string conversion - C:\xampp\htdocs\Recettes\recipes\create_recipes.php:26
+Errors : [2] foreach() argument must be of type array|object, null given - C:\xampp\htdocs\Recettes\recipes\create_recipes.php:29
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Array to string conversion - C:\xampp\htdocs\Recettes\recipes\create_recipes.php:26
+Errors : [2] foreach() argument must be of type array|object, null given - C:\xampp\htdocs\Recettes\recipes\create_recipes.php:29
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Array to string conversion - C:\xampp\htdocs\Recettes\recipes\create_recipes.php:26
+Errors : [2] foreach() argument must be of type array|object, null given - C:\xampp\htdocs\Recettes\recipes\create_recipes.php:29
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Array to string conversion - C:\xampp\htdocs\Recettes\recipes\create_recipes.php:26
+Errors : [2] foreach() argument must be of type array|object, null given - C:\xampp\htdocs\Recettes\recipes\create_recipes.php:29
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Array to string conversion - C:\xampp\htdocs\Recettes\recipes\create_recipes.php:26
+Errors : [2] foreach() argument must be of type array|object, null given - C:\xampp\htdocs\Recettes\recipes\create_recipes.php:29
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Array to string conversion - C:\xampp\htdocs\Recettes\recipes\create_recipes.php:26
+Errors : [2] foreach() argument must be of type array|object, null given - C:\xampp\htdocs\Recettes\recipes\create_recipes.php:29
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] foreach() argument must be of type array|object, null given - C:\xampp\htdocs\Recettes\recipes\create_recipes.php:29
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Array to string conversion - C:\xampp\htdocs\Recettes\recipes\create_recipes.php:26
+Errors : [2] Array to string conversion - C:\xampp\htdocs\Recettes\recipes\create_recipes.php:26
+Errors : [2] foreach() argument must be of type array|object, null given - C:\xampp\htdocs\Recettes\recipes\create_recipes.php:29
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] foreach() argument must be of type array|object, null given - C:\xampp\htdocs\Recettes\recipes\create_recipes.php:29
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:50
+Errors : [2] Array to string conversion - C:\xampp\htdocs\Recettes\recipes\create_recipes.php:26
+Errors : [2] foreach() argument must be of type array|object, null given - C:\xampp\htdocs\Recettes\recipes\create_recipes.php:29
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] foreach() argument must be of type array|object, null given - C:\xampp\htdocs\Recettes\recipes\create_recipes.php:29
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] foreach() argument must be of type array|object, null given - C:\xampp\htdocs\Recettes\recipes\create_recipes.php:29
+Errors : [2] foreach() argument must be of type array|object, null given - C:\xampp\htdocs\Recettes\recipes\create_recipes.php:29
+Errors : [2] foreach() argument must be of type array|object, null given - C:\xampp\htdocs\Recettes\recipes\create_recipes.php:29
+Errors : [2] foreach() argument must be of type array|object, null given - C:\xampp\htdocs\Recettes\recipes\create_recipes.php:29
+Errors : [2] foreach() argument must be of type array|object, null given - C:\xampp\htdocs\Recettes\recipes\create_recipes.php:29
+Errors : [2] foreach() argument must be of type array|object, null given - C:\xampp\htdocs\Recettes\recipes\create_recipes.php:29
+Errors : [2] Undefined variable $dataTest - C:\xampp\htdocs\Recettes\recipes\create_recipes.php:22
+Errors : [2] Array to string conversion - C:\xampp\htdocs\Recettes\recipes\test.php:17
+Errors : [2] Array to string conversion - C:\xampp\htdocs\Recettes\recipes\test.php:17
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\test.php:17
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\test.php:17
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\test.php:17
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\test.php:17
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\test.php:17
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\test.php:17
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\test.php:17
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\test.php:17
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\test.php:17
+Errors : [2] Undefined array key "persons" - C:\xampp\htdocs\Recettes\recipes\test.php:17
+Errors : [2] Undefined array key "persons" - C:\xampp\htdocs\Recettes\recipes\test.php:17
+Errors : [2] Undefined array key "persons" - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:33
+Errors : [2] Undefined array key "persons" - C:\xampp\htdocs\Recettes\recipes\test.php:17
+Errors : [2] Undefined array key "persons" - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:33
+Errors : [2] Undefined array key "persons" - C:\xampp\htdocs\Recettes\recipes\test.php:17
+Errors : [2] Undefined array key "persons" - C:\xampp\htdocs\Recettes\recipes\test.php:17
+Errors : [2] Undefined array key "persons" - C:\xampp\htdocs\Recettes\recipes\test.php:17
+Errors : [2] Undefined array key "persons" - C:\xampp\htdocs\Recettes\recipes\test.php:17
+Errors : [2] Undefined array key "persons" - C:\xampp\htdocs\Recettes\recipes\test.php:17
+Errors : [2] Undefined array key "persons" - C:\xampp\htdocs\Recettes\recipes\test.php:17
+Errors : [2] Undefined array key "persons" - C:\xampp\htdocs\Recettes\recipes\test.php:17
+Errors : [2] Undefined array key "persons" - C:\xampp\htdocs\Recettes\recipes\test.php:17
+Errors : [2] Undefined array key "persons" - C:\xampp\htdocs\Recettes\recipes\test.php:17
+Errors : [2] Undefined array key "persons" - C:\xampp\htdocs\Recettes\recipes\test.php:17
+Errors : [2] Undefined array key "persons" - C:\xampp\htdocs\Recettes\recipes\test.php:17
+Errors : [2] Undefined array key "persons" - C:\xampp\htdocs\Recettes\recipes\test.php:17
+Errors : [2] Undefined array key "persons" - C:\xampp\htdocs\Recettes\recipes\test.php:17
+Errors : [2] Undefined array key "persons" - C:\xampp\htdocs\Recettes\recipes\test.php:17
+Errors : [2] Undefined array key "persons" - C:\xampp\htdocs\Recettes\recipes\test.php:17
+Errors : [2] Undefined array key "persons" - C:\xampp\htdocs\Recettes\recipes\test.php:17
+Errors : [2] Undefined array key "persons" - C:\xampp\htdocs\Recettes\recipes\test.php:17
+Errors : [2] Undefined array key "persons" - C:\xampp\htdocs\Recettes\recipes\test.php:17
+Errors : [2] Undefined array key "persons" - C:\xampp\htdocs\Recettes\recipes\test.php:17
+Errors : [2] Undefined array key "persons" - C:\xampp\htdocs\Recettes\recipes\test.php:17
+Errors : [2] Undefined array key "persons" - C:\xampp\htdocs\Recettes\recipes\test.php:17
+Errors : [2] Undefined array key "persons" - C:\xampp\htdocs\Recettes\recipes\test.php:17
+Errors : [2] Undefined array key "persons" - C:\xampp\htdocs\Recettes\recipes\test.php:17
+Errors : [2] Undefined array key "persons" - C:\xampp\htdocs\Recettes\recipes\test.php:17
+Errors : [2] Undefined array key "persons" - C:\xampp\htdocs\Recettes\recipes\test.php:17
+Errors : [2] Undefined array key "persons" - C:\xampp\htdocs\Recettes\recipes\test.php:17
+Errors : [2] Undefined array key "persons" - C:\xampp\htdocs\Recettes\recipes\test.php:17
+Errors : [2] Undefined array key "persons" - C:\xampp\htdocs\Recettes\recipes\test.php:17
+Errors : [2] Undefined array key "persons" - C:\xampp\htdocs\Recettes\recipes\test.php:17
+Errors : [2] Undefined array key "persons" - C:\xampp\htdocs\Recettes\recipes\test.php:17
+Errors : [2] Undefined array key "persons" - C:\xampp\htdocs\Recettes\recipes\test.php:17
+Errors : [2] Undefined array key "persons" - C:\xampp\htdocs\Recettes\recipes\test.php:17
+Errors : [2] Undefined array key "persons" - C:\xampp\htdocs\Recettes\recipes\test.php:17
+Errors : [2] Undefined array key "persons" - C:\xampp\htdocs\Recettes\recipes\test.php:17
+Errors : [2] Undefined array key "persons" - C:\xampp\htdocs\Recettes\recipes\test.php:17
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\test.php:17
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\test.php:17
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\create_recipes.php:22
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\test.php:17
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\create_recipes.php:22
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\test.php:17
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\create_recipes.php:22
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\test.php:17
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\create_recipes.php:22
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\test.php:17
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\create_recipes.php:22
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\test.php:17
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\create_recipes.php:22
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\test.php:17
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\create_recipes.php:22
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\test.php:17
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\create_recipes.php:22
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\test.php:17
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\create_recipes.php:22
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\test.php:17
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\create_recipes.php:22
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\test.php:17
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\create_recipes.php:22
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\test.php:17
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\create_recipes.php:22
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\test.php:17
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\create_recipes.php:22
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\test.php:17
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\create_recipes.php:22
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\test.php:17
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\create_recipes.php:22
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\test.php:17
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\create_recipes.php:22
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\test.php:17
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\create_recipes.php:22
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\test.php:17
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\create_recipes.php:22
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\test.php:17
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\create_recipes.php:22
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\test.php:17
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\create_recipes.php:22
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\test.php:17
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\create_recipes.php:22
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\test.php:17
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\test.php:17
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\test.php:17
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\test.php:17
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\test.php:17
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\test.php:17
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\test.php:17
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\test.php:17
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\test.php:17
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\test.php:17
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\create_recipes.php:22
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\test.php:17
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\create_recipes.php:22
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\test.php:17
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\create_recipes.php:22
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\test.php:17
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\create_recipes.php:22
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\test.php:17
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\create_recipes.php:22
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\test.php:17
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\create_recipes.php:22
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\test.php:17
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\create_recipes.php:22
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\test.php:17
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\create_recipes.php:22
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\test.php:17
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\create_recipes.php:22
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\test.php:17
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\create_recipes.php:22
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\test.php:17
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\create_recipes.php:22
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\test.php:17
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\create_recipes.php:22
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\test.php:17
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\create_recipes.php:22
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\test.php:17
+Errors : [2] foreach() argument must be of type array|object, null given - C:\xampp\htdocs\Recettes\recipes\test.php:18
+Errors : [2] foreach() argument must be of type array|object, null given - C:\xampp\htdocs\Recettes\recipes\test.php:18
+Errors : [2] foreach() argument must be of type array|object, string given - C:\xampp\htdocs\Recettes\recipes\test.php:18
+Errors : [2] foreach() argument must be of type array|object, string given - C:\xampp\htdocs\Recettes\recipes\test.php:18
+Errors : [2] foreach() argument must be of type array|object, string given - C:\xampp\htdocs\Recettes\recipes\test.php:18
+Errors : [2] foreach() argument must be of type array|object, string given - C:\xampp\htdocs\Recettes\recipes\test.php:18
+Errors : [2] Undefined variable $test - C:\xampp\htdocs\Recettes\recipes\test.php:16
+Errors : [2] foreach() argument must be of type array|object, null given - C:\xampp\htdocs\Recettes\recipes\test.php:16
+Errors : [2] Array to string conversion - C:\xampp\htdocs\Recettes\recipes\test.php:23
+Errors : [2] Array to string conversion - C:\xampp\htdocs\Recettes\recipes\test.php:23
+Errors : [2] Undefined variable $content - C:\xampp\htdocs\Recettes\recipes\test.php:14
+Errors : [8192] json_decode(): Passing null to parameter #1 ($json) of type string is deprecated - C:\xampp\htdocs\Recettes\recipes\test.php:14
+Errors : [2] Undefined variable $content - C:\xampp\htdocs\Recettes\recipes\test.php:14
+Errors : [8192] json_decode(): Passing null to parameter #1 ($json) of type string is deprecated - C:\xampp\htdocs\Recettes\recipes\test.php:14
+Errors : [2] Undefined variable $content - C:\xampp\htdocs\Recettes\recipes\test.php:14
+Errors : [8192] json_decode(): Passing null to parameter #1 ($json) of type string is deprecated - C:\xampp\htdocs\Recettes\recipes\test.php:14
+Errors : [2] file_get_contents(): Invalid php:// URL specified - C:\xampp\htdocs\Recettes\recipes\test.php:4
+Errors : [2] file_get_contents(php://): Failed to open stream: operation failed - C:\xampp\htdocs\Recettes\recipes\test.php:4
+Errors : [2] file_get_contents(): Invalid php:// URL specified - C:\xampp\htdocs\Recettes\recipes\test.php:4
+Errors : [2] file_get_contents(php://): Failed to open stream: operation failed - C:\xampp\htdocs\Recettes\recipes\test.php:4
+Errors : [2] file_get_contents(): Invalid php:// URL specified - C:\xampp\htdocs\Recettes\recipes\test.php:4
+Errors : [2] file_get_contents(php://): Failed to open stream: operation failed - C:\xampp\htdocs\Recettes\recipes\test.php:4
+Errors : [2] file_get_contents(): Invalid php:// URL specified - C:\xampp\htdocs\Recettes\recipes\test.php:4
+Errors : [2] file_get_contents(php://): Failed to open stream: operation failed - C:\xampp\htdocs\Recettes\recipes\test.php:4
+Errors : [2] file_get_contents(): Invalid php:// URL specified - C:\xampp\htdocs\Recettes\recipes\test.php:4
+Errors : [2] file_get_contents(php://): Failed to open stream: operation failed - C:\xampp\htdocs\Recettes\recipes\test.php:4
+Errors : [2] file_get_contents(): Invalid php:// URL specified - C:\xampp\htdocs\Recettes\recipes\test.php:4
+Errors : [2] file_get_contents(php://): Failed to open stream: operation failed - C:\xampp\htdocs\Recettes\recipes\test.php:4
+Errors : [2] file_get_contents(): Invalid php:// URL specified - C:\xampp\htdocs\Recettes\recipes\test.php:4
+Errors : [2] file_get_contents(php://): Failed to open stream: operation failed - C:\xampp\htdocs\Recettes\recipes\test.php:4
+Errors : [2] file_get_contents(): Invalid php:// URL specified - C:\xampp\htdocs\Recettes\recipes\test.php:4
+Errors : [2] file_get_contents(php://): Failed to open stream: operation failed - C:\xampp\htdocs\Recettes\recipes\test.php:4
+Errors : [2] file_get_contents(): Invalid php:// URL specified - C:\xampp\htdocs\Recettes\recipes\test.php:4
+Errors : [2] file_get_contents(php://): Failed to open stream: operation failed - C:\xampp\htdocs\Recettes\recipes\test.php:4
+Errors : [2] file_get_contents(): Invalid php:// URL specified - C:\xampp\htdocs\Recettes\recipes\test.php:4
+Errors : [2] file_get_contents(php://): Failed to open stream: operation failed - C:\xampp\htdocs\Recettes\recipes\test.php:4
+Errors : [2] file_get_contents(): Invalid php:// URL specified - C:\xampp\htdocs\Recettes\recipes\test.php:4
+Errors : [2] file_get_contents(php://): Failed to open stream: operation failed - C:\xampp\htdocs\Recettes\recipes\test.php:4
+Errors : [2] file_get_contents(): Invalid php:// URL specified - C:\xampp\htdocs\Recettes\recipes\test.php:4
+Errors : [2] file_get_contents(php://): Failed to open stream: operation failed - C:\xampp\htdocs\Recettes\recipes\test.php:4
+Errors : [2] file_get_contents(): Invalid php:// URL specified - C:\xampp\htdocs\Recettes\recipes\test.php:4
+Errors : [2] file_get_contents(php://): Failed to open stream: operation failed - C:\xampp\htdocs\Recettes\recipes\test.php:4
+Errors : [2] file_get_contents(): Invalid php:// URL specified - C:\xampp\htdocs\Recettes\recipes\test.php:4
+Errors : [2] file_get_contents(php://): Failed to open stream: operation failed - C:\xampp\htdocs\Recettes\recipes\test.php:4
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\test.php:20
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\test.php:20
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\test.php:20
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\test.php:20
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\test.php:20
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\test.php:16
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\test.php:18
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\test.php:18
+Errors : [2] Undefined variable $content - C:\xampp\htdocs\Recettes\recipes\test.php:14
+Errors : [8192] json_decode(): Passing null to parameter #1 ($json) of type string is deprecated - C:\xampp\htdocs\Recettes\recipes\test.php:14
+Errors : [2] Undefined variable $content - C:\xampp\htdocs\Recettes\recipes\test.php:14
+Errors : [8192] json_decode(): Passing null to parameter #1 ($json) of type string is deprecated - C:\xampp\htdocs\Recettes\recipes\test.php:14
+Errors : [2] Undefined array key "persons" - C:\xampp\htdocs\Recettes\recipes\test.php:23
+Errors : [2] Undefined array key "persons" - C:\xampp\htdocs\Recettes\recipes\test.php:23
+Errors : [2] Undefined array key "persons" - C:\xampp\htdocs\Recettes\recipes\test.php:23
+Errors : [2] Undefined array key "persons" - C:\xampp\htdocs\Recettes\recipes\test.php:23
+Errors : [2] Undefined array key "persons" - C:\xampp\htdocs\Recettes\recipes\test.php:23
+Errors : [2] Undefined array key "persons" - C:\xampp\htdocs\Recettes\recipes\test.php:23
+Errors : [2] Undefined array key "persons" - C:\xampp\htdocs\Recettes\recipes\test.php:23
+Errors : [2] Undefined array key "persons" - C:\xampp\htdocs\Recettes\recipes\test.php:23
+Errors : [2] Undefined array key "persons" - C:\xampp\htdocs\Recettes\recipes\test.php:23
+Errors : [2] Undefined array key "persons" - C:\xampp\htdocs\Recettes\recipes\test.php:23
+Errors : [2] Undefined array key "persons" - C:\xampp\htdocs\Recettes\recipes\test.php:23
+Errors : [2] Undefined array key "persons" - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:22
+Errors : [2] Undefined array key "persons" - C:\xampp\htdocs\Recettes\recipes\test.php:23
+Errors : [2] Undefined array key "persons" - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:22
+Errors : [2] Array to string conversion - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:22
+Errors : [2] Undefined array key "step_2" - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:26
+Errors : [2] Undefined array key "step_2" - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:26
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:24
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:25
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:25
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:25
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:25
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:28
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:25
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:25
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:25
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:25
+Errors : [2] Undefined array key "title" - C:\xampp\htdocs\Recettes\classes\RecipeController.class.php:55
+Errors : [2] Undefined array key "step_1" - C:\xampp\htdocs\Recettes\classes\RecipeController.class.php:56
+Errors : [2] Undefined array key "step_2" - C:\xampp\htdocs\Recettes\classes\RecipeController.class.php:57
+Errors : [2] Undefined array key "step_3" - C:\xampp\htdocs\Recettes\classes\RecipeController.class.php:58
+Errors : [2] Undefined array key "step_4" - C:\xampp\htdocs\Recettes\classes\RecipeController.class.php:59
+Errors : [2] Undefined array key "step_5" - C:\xampp\htdocs\Recettes\classes\RecipeController.class.php:60
+Errors : [2] Undefined array key "step_6" - C:\xampp\htdocs\Recettes\classes\RecipeController.class.php:61
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:25
+Errors : [2] Undefined array key "title" - C:\xampp\htdocs\Recettes\classes\RecipeController.class.php:55
+Errors : [2] Undefined array key "step_1" - C:\xampp\htdocs\Recettes\classes\RecipeController.class.php:56
+Errors : [2] Undefined array key "step_2" - C:\xampp\htdocs\Recettes\classes\RecipeController.class.php:57
+Errors : [2] Undefined array key "step_3" - C:\xampp\htdocs\Recettes\classes\RecipeController.class.php:58
+Errors : [2] Undefined array key "step_4" - C:\xampp\htdocs\Recettes\classes\RecipeController.class.php:59
+Errors : [2] Undefined array key "step_5" - C:\xampp\htdocs\Recettes\classes\RecipeController.class.php:60
+Errors : [2] Undefined array key "step_6" - C:\xampp\htdocs\Recettes\classes\RecipeController.class.php:61
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:25
+Errors : [2] Undefined array key "title" - C:\xampp\htdocs\Recettes\classes\RecipeController.class.php:55
+Errors : [2] Undefined array key "step_1" - C:\xampp\htdocs\Recettes\classes\RecipeController.class.php:56
+Errors : [2] Undefined array key "step_2" - C:\xampp\htdocs\Recettes\classes\RecipeController.class.php:57
+Errors : [2] Undefined array key "step_3" - C:\xampp\htdocs\Recettes\classes\RecipeController.class.php:58
+Errors : [2] Undefined array key "step_4" - C:\xampp\htdocs\Recettes\classes\RecipeController.class.php:59
+Errors : [2] Undefined array key "step_5" - C:\xampp\htdocs\Recettes\classes\RecipeController.class.php:60
+Errors : [2] Undefined array key "step_6" - C:\xampp\htdocs\Recettes\classes\RecipeController.class.php:61
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:25
+Errors : [2] Undefined array key "title" - C:\xampp\htdocs\Recettes\classes\RecipeController.class.php:55
+Errors : [2] Undefined array key "step_1" - C:\xampp\htdocs\Recettes\classes\RecipeController.class.php:56
+Errors : [2] Undefined array key "step_2" - C:\xampp\htdocs\Recettes\classes\RecipeController.class.php:57
+Errors : [2] Undefined array key "step_3" - C:\xampp\htdocs\Recettes\classes\RecipeController.class.php:58
+Errors : [2] Undefined array key "step_4" - C:\xampp\htdocs\Recettes\classes\RecipeController.class.php:59
+Errors : [2] Undefined array key "step_5" - C:\xampp\htdocs\Recettes\classes\RecipeController.class.php:60
+Errors : [2] Undefined array key "step_6" - C:\xampp\htdocs\Recettes\classes\RecipeController.class.php:61
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:25
+Errors : [2] Undefined array key "title" - C:\xampp\htdocs\Recettes\classes\RecipeController.class.php:55
+Errors : [2] Undefined array key "step_1" - C:\xampp\htdocs\Recettes\classes\RecipeController.class.php:56
+Errors : [2] Undefined array key "step_2" - C:\xampp\htdocs\Recettes\classes\RecipeController.class.php:57
+Errors : [2] Undefined array key "step_3" - C:\xampp\htdocs\Recettes\classes\RecipeController.class.php:58
+Errors : [2] Undefined array key "step_4" - C:\xampp\htdocs\Recettes\classes\RecipeController.class.php:59
+Errors : [2] Undefined array key "step_5" - C:\xampp\htdocs\Recettes\classes\RecipeController.class.php:60
+Errors : [2] Undefined array key "step_6" - C:\xampp\htdocs\Recettes\classes\RecipeController.class.php:61
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:25
+Errors : [2] Undefined array key "title" - C:\xampp\htdocs\Recettes\classes\RecipeController.class.php:55
+Errors : [2] Undefined array key "step_1" - C:\xampp\htdocs\Recettes\classes\RecipeController.class.php:56
+Errors : [2] Undefined array key "step_2" - C:\xampp\htdocs\Recettes\classes\RecipeController.class.php:57
+Errors : [2] Undefined array key "step_3" - C:\xampp\htdocs\Recettes\classes\RecipeController.class.php:58
+Errors : [2] Undefined array key "step_4" - C:\xampp\htdocs\Recettes\classes\RecipeController.class.php:59
+Errors : [2] Undefined array key "step_5" - C:\xampp\htdocs\Recettes\classes\RecipeController.class.php:60
+Errors : [2] Undefined array key "step_6" - C:\xampp\htdocs\Recettes\classes\RecipeController.class.php:61
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:25
+Errors : [2] Undefined array key "title" - C:\xampp\htdocs\Recettes\classes\RecipeController.class.php:55
+Errors : [2] Undefined array key "step_1" - C:\xampp\htdocs\Recettes\classes\RecipeController.class.php:56
+Errors : [2] Undefined array key "step_2" - C:\xampp\htdocs\Recettes\classes\RecipeController.class.php:57
+Errors : [2] Undefined array key "step_3" - C:\xampp\htdocs\Recettes\classes\RecipeController.class.php:58
+Errors : [2] Undefined array key "step_4" - C:\xampp\htdocs\Recettes\classes\RecipeController.class.php:59
+Errors : [2] Undefined array key "step_5" - C:\xampp\htdocs\Recettes\classes\RecipeController.class.php:60
+Errors : [2] Undefined array key "step_6" - C:\xampp\htdocs\Recettes\classes\RecipeController.class.php:61
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:25
+Errors : [2] Undefined array key "title" - C:\xampp\htdocs\Recettes\classes\RecipeController.class.php:55
+Errors : [2] Undefined array key "step_1" - C:\xampp\htdocs\Recettes\classes\RecipeController.class.php:56
+Errors : [2] Undefined array key "step_2" - C:\xampp\htdocs\Recettes\classes\RecipeController.class.php:57
+Errors : [2] Undefined array key "step_3" - C:\xampp\htdocs\Recettes\classes\RecipeController.class.php:58
+Errors : [2] Undefined array key "step_4" - C:\xampp\htdocs\Recettes\classes\RecipeController.class.php:59
+Errors : [2] Undefined array key "step_5" - C:\xampp\htdocs\Recettes\classes\RecipeController.class.php:60
+Errors : [2] Undefined array key "step_6" - C:\xampp\htdocs\Recettes\classes\RecipeController.class.php:61
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:25
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:25
+Errors : [2] Undefined array key "title" - C:\xampp\htdocs\Recettes\classes\RecipeView.class.php:84
+Errors : [8192] strip_tags(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Recettes\classes\RecipeView.class.php:84
+Errors : [2] Undefined array key "recipe" - C:\xampp\htdocs\Recettes\classes\RecipeView.class.php:85
+Errors : [8192] strip_tags(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Recettes\classes\RecipeView.class.php:85
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:25
+Errors : [2] Undefined array key "title" - C:\xampp\htdocs\Recettes\classes\RecipeView.class.php:84
+Errors : [8192] strip_tags(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Recettes\classes\RecipeView.class.php:84
+Errors : [2] Undefined array key "recipe" - C:\xampp\htdocs\Recettes\classes\RecipeView.class.php:85
+Errors : [8192] strip_tags(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Recettes\classes\RecipeView.class.php:85
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:25
+Errors : [2] Undefined array key "title" - C:\xampp\htdocs\Recettes\classes\RecipeView.class.php:84
+Errors : [8192] strip_tags(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Recettes\classes\RecipeView.class.php:84
+Errors : [2] Undefined array key "recipe" - C:\xampp\htdocs\Recettes\classes\RecipeView.class.php:85
+Errors : [8192] strip_tags(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Recettes\classes\RecipeView.class.php:85
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:25
+Errors : [2] Undefined array key "title" - C:\xampp\htdocs\Recettes\classes\RecipeView.class.php:84
+Errors : [8192] strip_tags(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Recettes\classes\RecipeView.class.php:84
+Errors : [2] Undefined array key "recipe" - C:\xampp\htdocs\Recettes\classes\RecipeView.class.php:85
+Errors : [8192] strip_tags(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Recettes\classes\RecipeView.class.php:85

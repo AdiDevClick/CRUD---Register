@@ -7,6 +7,66 @@ class RecipeController extends Recipe
     ) {
     }
 
+    protected function insertRecipes2()
+    {
+        try {
+            $loggedUser = LoginController::checkLoggedStatus();
+            if  (!isset($loggedUser)) {
+                throw new Error("LGGDUSROFF  : Veuillez vous identifier avant de partager une recette.") ;
+            } else {
+
+                $checkInput = new CheckInput(
+                    $this->getData
+                );
+                print_r($this->getData);
+                $persons = $checkInput->test_input($this->getData["persons"]);
+                $total_time = $checkInput->test_input($this->getData["total_time"]);
+                $total_time_length = $checkInput->test_input($this->getData["total_time_length"]);
+                $resting_time = $checkInput->test_input($this->getData["resting_time"]);
+                $resting_time_length = $checkInput->test_input($this->getData["resting_time_length"]);
+                $oven_time = $checkInput->test_input($this->getData["oven_time"]);
+                $oven_time_length = $checkInput->test_input($this->getData["oven_time_length"]);
+                $ingredient = $checkInput->test_input($this->getData["ingredient"]);
+                $ingredient2 = $checkInput->test_input($this->getData["ingredient2"]);
+                $ingredient3 = $checkInput->test_input($this->getData["ingredient3"]);
+                $ingredient4 = $checkInput->test_input($this->getData["ingredient4"]);
+                $ingredient5 = $checkInput->test_input($this->getData["ingredient5"]);
+                $ingredient6 = $checkInput->test_input($this->getData["ingredient6"]);
+                $checkInput->checkInputs();
+                print_r($persons);
+                if (empty($checkInput->getErrorsArray())) {
+                    $this->setRecipeTest(
+                        $total_time,
+                        $total_time_length,
+                        $resting_time,
+                        $resting_time_length,
+                        $oven_time,
+                        $oven_time_length,
+                        $ingredient,
+                        $ingredient2,
+                        $ingredient3,
+                        $ingredient4,
+                        $ingredient5,
+                        $ingredient6,
+                        $persons,
+                        $loggedUser['email']
+                    );
+                } else {
+                    $checkInput->getErrorsArray();
+                    return;
+                }
+
+                $registeredRecipe = [
+                    'email' => $loggedUser['email']
+                ];
+                $_SESSION['REGISTERED_RECIPE'] = $registeredRecipe;
+
+                return $registeredRecipe;
+            }
+        } catch (Error $e) {
+            die('Erreur : '. $e->getMessage() . ' , Insertion de la recette dans la DB impossible') ;
+        }
+    }
     protected function insertRecipes()
     {
         try {
@@ -14,6 +74,8 @@ class RecipeController extends Recipe
             if  (!isset($loggedUser)) {
                 throw new Error("LGGDUSROFF  : Veuillez vous identifier avant de partager une recette.") ;
             } else {
+                print_r($this->getData);
+
                 $checkInput = new CheckInput(
                     $this->getData
                 );
@@ -25,14 +87,14 @@ class RecipeController extends Recipe
                 $step_4 = $checkInput->test_input($this->getData["step_4"]);
                 $step_5 = $checkInput->test_input($this->getData["step_5"]);
                 $step_6 = $checkInput->test_input($this->getData["step_6"]);
-                
+
                 $checkInput->checkInputs();
+
                 // echo $loggedUser['email'][0];
-                // echo 'array dans le recipectroller'; 
+                // echo 'array dans le recipectroller';
                 // print_r($loggedUser);
                 //$this->insertUser($this->nom, $this->email, $this->password, $this->age);
                 if (empty($checkInput->getErrorsArray())) {
-                    // die('test');
                     $this->setRecipes($title, $step_1, $step_2, $step_3, $step_4, $step_5, $step_6, $loggedUser['email']);
                     // $this->insertUser($this->getDatas['username'], $this->getDatas['email'], $this->getDatas['password'], $this->getDatas['age']);
                 } else {
@@ -43,7 +105,7 @@ class RecipeController extends Recipe
                 $registeredRecipe = [
                     'email' => $loggedUser['email']
                 ];
-                
+
                 $_SESSION['REGISTERED_RECIPE'] = $registeredRecipe;
                 //header("Location: ".Functions::getUrl()."?error=none") ; */
                 return $registeredRecipe;

@@ -6,6 +6,10 @@ class RecipeView extends RecipeController
     {
         return $this->insertRecipes();
     }
+    public function insertRecipeTest()
+    {
+        return $this->insertRecipeTest();
+    }
 
     public function insertComment($getDatas)
     {

@@ -2,6 +2,78 @@
 
 class Recipe extends Mysql
 {
+    protected function setRecipeTest(
+        int $total_time,
+        string $total_time_length,
+        int $resting_time,
+        string $resting_time_length,
+        int $oven_time,
+        string $oven_time_length,
+        string $ingredient,
+        string $ingredient2,
+        string $ingredient3,
+        string $ingredient4,
+        string $ingredient5,
+        string $ingredient6,
+        string $persons,
+        string $loggedUser
+    ): void {
+        $sqlQuery =
+        'INSERT INTO recipes(total_time,
+            total_time_length,
+            resting_time,
+            resting_time_length,
+            oven_time,
+            oven_time_length,
+            ingredient_1,
+            ingredient_2,
+            ingredient_3,
+            ingredient_4,
+            ingredient_5,
+            ingredient_6,
+            persons,
+            author,
+            is_enabled)
+        VALUES (:total_time,
+            :total_time_length,
+            :resting_time,
+            :resting_time_length,
+            :oven_time,
+            :oven_time_length,
+            :ingredient_1,
+            :ingredient_2,
+            :ingredient_3,
+            :ingredient_4,
+            :ingredient_5,
+            :ingredient_6,
+            :persons,
+            :author,
+            :is_enabled);';
+
+        $insertRecipe = $this->connect()->prepare($sqlQuery);
+
+        if (!$insertRecipe->execute([
+            'total_time' => $total_time,
+            'total_time_length' => $total_time_length,
+            'resting_time' => $resting_time,
+            'resting_time_length' => $resting_time_length,
+            'oven_time' => $oven_time,
+            'oven_time_length' => $oven_time_length,
+            'ingredient_1' => $ingredient,
+            'ingredient_2' => $ingredient2,
+            'ingredient_3' => $ingredient3,
+            'ingredient_4' => $ingredient4,
+            'ingredient_5' => $ingredient5,
+            'ingredient_6' => $ingredient6,
+            'persons' => $persons,
+            'author' => $loggedUser,
+            'is_enabled' => 1,
+        ])) {
+            $insertRecipe = null;
+            throw new Error("stmt Failed");
+        }
+    }
+
     /**
      * Summary of setRecipes
      * @param string $title
@@ -9,7 +81,7 @@ class Recipe extends Mysql
      * @throws Error
      * @return array
      */
-    protected function setRecipes(string $title, string $step_1, string $step_2 , string $step_3, string $step_4, string $step_5, string $step_6, string $loggedUser): void
+    protected function setRecipes(string $title, string $step_1, string $step_2, string $step_3, string $step_4, string $step_5, string $step_6, string $loggedUser): void
     {
         $sqlQuery =
         'INSERT INTO recipes(title, step_1, step_2, step_3, step_4, step_5, step_6, author, is_enabled) 

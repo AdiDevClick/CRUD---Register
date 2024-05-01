@@ -13,7 +13,7 @@ export async function fetchJSON(url = '', options = {}) {
     }
     if (options.json) {
         options.body = JSON.stringify(Object.fromEntries(options.json))
-        headers['Content-Type'] = 'application/json'
+        headers['Content-Type'] = 'application/json; charset=UTF-8'
     }
     try {
         const response = await fetch(url, {...options, headers})

@@ -1,20 +1,25 @@
 <?php declare(strict_types=1);
 
-if(session_status() !== PHP_SESSION_ACTIVE || session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
+// if(session_status() !== PHP_SESSION_ACTIVE || session_status() === PHP_SESSION_NONE) {
+//     session_start();
+// }
 //ob_start();
-
-// include_once("../includes/class-autoloader.inc.php");
+// require('../recipes/test.php');
+include_once("../includes/class-autoloader.inc.php");
 // include_once('../logs/customErrorHandlers.php');
 // require_once(__DIR__ . './' . "includes/class-autoloader.inc.php");
 // require_once(__DIR__ . "/logs/customErrorHandlers.php");
+// include('../recipes/test.php');
 
-$rootUrl = Functions::getRootUrl();
-// echo $rootUrl;
+// $rootUrl = Functions::getRootUrl();
+// // echo $rootUrl;
 $data = $_SERVER['REQUEST_METHOD'] === 'POST';
 $err = [];
 $loggedUser = [];
+// print_r($_REQUEST);
+// include('../recipes/test.php');
+
+// print_r($getDatas);
 // On affiche chaque recette une à une
 if ($data && isset($_POST['submit'])) {
     //try {
@@ -27,8 +32,19 @@ if ($data && isset($_POST['submit'])) {
     'step_4' => $_POST['step_4'],
     'step_5' => $_POST['step_5'],
     'step_6' => $_POST['step_6'],
-    'ingredient' => $_POST['time'],
+    // 'ingredient' => $_POST['time'],
     ];
+
+
+    // $content = trim(file_get_contents("php://input"));
+
+    // $dataTest = json_decode($content, true);
+
+    // echo json_encode($dataTest['persons']);
+    // echo($dataTest["persons"]);
+    // echo($content);
+
+    // print_r($dataTest);
     // print_r($getDatas);
     $setRecipe = new RecipeView($getDatas);
     $setRecipe->insertRecipe();
@@ -61,16 +77,22 @@ $loggedUser = LoginController::checkLoggedStatus();
 // echo ' le array dans submit recipe';
 // print_r($loggedUser);
 $errorMessage = CheckInput::showErrorMessage();
+// ob_get_clean();
+ob_start();
+// ob_end_clean();
+// ob_get_status();
+// ob_get_contents()
+//if (isset($loggedUser['email']) && !isset($loggedUser['recipe'])):
+
 ?>
-    <?php //if (isset($loggedUser['email']) && !isset($loggedUser['recipe'])):?>
         <?php if (isset($loggedUser['email'])  && !isset($_SESSION['REGISTERED_RECIPE'])): ?> 
-            <?php //(isset($loggedUserState)):?>
+        <?php //(isset($loggedUserState)):?>
         <section class="contact-section">
             <div class="contact-grid" id="recipe_creation">
             <!-- <div class="form-flex " id="recipe_creation"> -->
                 <!-- <h1>Partagez votre recette !</h1> -->
                 <div class="card form-recipe">
-                    <form action="create_recipes.php" method="post">
+                    <form action="create_recipes.php" method="post" id="recipe-form">
                         <!-- Title -->
                         <div class="">
                             <label for="title" class="label">Titre de votre recette</label>
@@ -108,7 +130,7 @@ $errorMessage = CheckInput::showErrorMessage();
                         </div>
                         <!-- Submit -->
                         <div id="register-btn" class="form form-hidden">
-                            <button type="submit" name="submit" class="btn">Partagez votre recette</button>
+                            <button id="recipe-submit" type="submit" name="submit" class="btn">Partagez votre recette</button>
                         </div>
                         <!-- </form> -->
                     </form>
@@ -116,6 +138,7 @@ $errorMessage = CheckInput::showErrorMessage();
                 
                 <div class="card recipe hidden" id="js-preparation">
                     <form
+                        id="preparation-form"
                         action="create_recipes.php"
                         data-endpoint="https://jsonplaceholder.typicode.com/comments"
                         data-template="#ingredient-template"
@@ -203,7 +226,7 @@ $errorMessage = CheckInput::showErrorMessage();
                             <!-- </select> -->
                         </template>
                             <p class="label">Vos ingrédients</p>
-                            <div class="ingredient-stack js-ingredient-group"></div>
+                            <div class="ingredient-stack js-ingredient-group js-modal-stop"></div>
                             <div class="ingredient">
                                 <select class="select js-select1" name="ingredient" id="ingredient1" aria-placeholder="test">
                                     <option value="empty">-- Choisissez votre ingrédient --</option>
@@ -256,7 +279,7 @@ $errorMessage = CheckInput::showErrorMessage();
                         </div>
                         <hr>
                         <div class="add_ingredient">
-                            <button name="add_ingredient" id="button" type="submit" class="btn">Valider vos ingrédients</button>
+                            <button name="add_preparation" id="button" type="submit" class="btn">Valider vos ingrédients</button>
                         </div>
                     </div>
                     </form>
@@ -267,7 +290,9 @@ $errorMessage = CheckInput::showErrorMessage();
             <?php //session_destroy()?>
         </section>
 <!-- start of success message -->
+<?php //$content = ob_get_clean()?>
 <?php //ob_start()?>
+
 <?php elseif (isset($_SESSION['REGISTERED_RECIPE'])):?>
     <?php //require_once('signup_success.php')?>
     <?php //ob_start()?>
@@ -284,4 +309,4 @@ $errorMessage = CheckInput::showErrorMessage();
 <?php endif?>
 <!-- end of success message --> 
 <?php //$content = ob_end_flush()?>
-<?php //$content = ob_get_clean()?>
+<?php $content = ob_get_clean()?>

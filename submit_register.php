@@ -25,7 +25,7 @@ if (($data && isset($_POST['submit']))) {
     $signup->setUsers();
     $err = CheckInput::getErrorMessages();
     if (count($err) > 0) {
-        print_r($err);
+        // print_r($err);
         session_destroy();
     } else {
         header('Location: index.php?register=success');

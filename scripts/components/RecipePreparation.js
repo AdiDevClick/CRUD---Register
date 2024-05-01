@@ -104,6 +104,7 @@ class PreparationIngredient {
     }
 }
 
+
 export class IngredientFormFetch
 {
 
@@ -570,11 +571,16 @@ export class IngredientFormFetch
     }
 }
 
+/**
+ * @typedef {object} Ingredient
+ */
 export class IngredientsFrom {
 
-    #count
+    /** @type {Number} */
+    #count = 0
+    /** @type {Ingredient[]} Ingredient List*/
     #list = []
-    element = []
+    /** @type {Ingredient[]} Ingredient */
     #ingredient = []
     /** @type {HTMLFormElement} */
     #form
@@ -588,143 +594,151 @@ export class IngredientsFrom {
     #elements
     /** @type {HTMLButtonElement} */
     #formButton
-    /** @type {HTMLButtonElement} */
-    #formValidationButton
-    /** @type {HTMLDivElement} */
-    #customIngredients
-    /** @type {Array} individual ingredient */
+    /** @type {Array} Individual ingredient */
     #ingredientList = []
-    /** @type {Array} the whole preparation card list */
+    /** @type {Object} The whole preparation card list */
     #preparationList = {}
-    /** @type {Array} error list */
+    /** @type {Array} Error list */
     #error = []
 
+    /**
+     * @param {Ingredient[]} list
+     */
     constructor(list) {
         this.#list = list
         // this.#template = document.querySelector('#ingredient-template')
         // this.#target = document.querySelector(".js-ingredient-group")
-
-
-        // this.#form = form
-        
-        console.log(this.#customIngredients)
     }
 
-    append(formElement) {
-        this.#form = formElement
+    /**
+     * Ajoute un Ingrédient de la liste à la cible "element"
+     * @param {HTMLElement} element
+     */
+    appendTo(element) {
+        this.#form = element
         this.#endpoint = this.#form.dataset.endpoint
         this.#template = document.querySelector(this.#form.dataset.template)
         this.#target = document.querySelector(this.#form.dataset.target)
         this.#elements = JSON.parse(this.#form.dataset.elements)
         // this.#element = JSON.parse(`{"ingredient": ".js-value"}`)
 
-        this.#formValidationButton = this.#form.querySelector('#button')
+        // this.#formValidationButton = this.#form.querySelector('#button')
         this.#formButton = this.#form.querySelector('#add_custom')
-        this.#customIngredients = this.#form.querySelectorAll('.custom-ingredient')
 
-
-        // let count = 0
-        this.#count = 0
         this.#list.forEach(ingredient => {
-            const savedIngredient = new Ingredient(ingredient)
-            this.#count = this.#count+1
-            // count = count+1
+            this.ingre = ingredient
+            const savedIngredient = new Ingredient(this)
             this.#ingredient = savedIngredient.element
-            this.#ingredient.setAttribute('id', this.#count)
-            // this.#ingredient.setAttribute('id', count)
-            this.#ingredient.setAttribute('name', 'ingredient-'+this.#count)
-            // this.#ingredient.setAttribute('name', 'ingredient-'+count)
             this.#target.prepend(this.#ingredient)
-            this.#onIngredientDelete(this.#ingredient)
+            // this.#onIngredientDelete(this.#ingredient)
+        })
 
-            // this.#ingredient.addEventListener('delete', ({detail: ingredient}) => {
-            //     console.log(ingredient.innerText)
-            //     console.log(this.#ingredientList)
-            //     this.#ingredientList = this.#list.filter((t) => t !== ingredient)
-                // this.#onUpdate('ingredients', this.#list)
-            // })
-        })
-        // this.#target.addEventListener('click', this.#listen, {once: true})
-        // this.#ingredient.addEventListener('click', this.#listen)
-        this.#form.addEventListener('submit', e => {
-            e.preventDefault()
-            this.#onSubmit(e.currentTarget)
-        })
+        this.#form.addEventListener('submit', this.#onSubmit.bind(this))
 
         this.#formButton.addEventListener('click', this.#addNewIngredient.bind(this))
     }
 
+    /**
+     * Ajoute un Ingrédient à la liste lorsqu'il est créé par l'utilisateur"
+     * @param {PointerEvent} e
+     * @returns 
+     */
     #addNewIngredient(e) {
         e.preventDefault()
-        this.#count = this.#count+1
         let input = this.#form.querySelector('#custom_ingredient')
-        if (!this.#isInputChecked(input.value)) {
+
+        if (!this.#isInputChecked()) {
             return
         }
-        // const elementTemplate = this.#template.content.firstElementChild.cloneNode(true)
-        
-        // elementTemplate.setAttribute('name', 'ingredient-'+ids)
-        // console.log(elementTemplate)
-        // for (const [key, selector] of Object.entries(this.#elements)) {
-        //     console.log(this.#elements)
-        //     console.log(selector)
-        //     console.log(key)
-        //     console.log(elementTemplate.querySelector(selector))
-        //     // elementTemplate.querySelector(selector).innerText = this.#list[key]
-        //     elementTemplate.innerText = input.value
-        // }
-        // const ingredients = 
-        this.#ingredient = new Ingredient(input.value)
-        this.#ingredient.element.setAttribute('id', this.#count)
-        this.#ingredient.element.setAttribute('name', 'ingredient-'+this.#count)
+        this.ingre = input.value
+        this.#ingredient = new Ingredient(this)
         this.#target.prepend(this.#ingredient.element)
-        // this.#newAttachedItems[elementTemplate] = elementTemplate
-        // this.#listen(elementTemplate)
-        // this.#listen(elementTemplate)
-        // this.#ingredientList = this.#ingredientList.filter((task) => task !== this.#list)
-        // for (const ingredient of this.#ingredientList) {
-            // this.#ingredientList.push({'ingredient' : elementTemplate.value})
+        // console.log(this.#ingredient.element.id)
+        // this.#list = this.#ingredient.element.innerText
         this.#list.push(this.#ingredient.element.innerText)
-        // this.#ingredientList.push(elementTemplate.value)
-        
-            
-        // this.#ingredientList[elementTemplate.value] = 'test'
-        //     for (let ingredient in this.#ingredientList) {
-        //         console.log(ingredient)
-        //         console.log(this.#ingredientList[ingredient])
-        //         console.log(ingredient['ingredient'])
-        //         ingredient['ingredient'] = elementTemplate.value
-        //     }
-        // this.#ingredientList['ingredient'] = {'elementTemplate.value'}
-        this.#onIngredientDelete(this.#ingredient.element)
-        this.#onUpdate('ingredients', this.#list)
+        // this.#list.push(this.#ingredient.element.childNodes[0])
+        console.log(this.#list)
+        // this.#onIngredientDelete(this.#ingredient.element)
+        this.onUpdate('ingredients', this.#list)
 
         input.value = ''
-        // this.#form.querySelector('#custom_ingredient').value = ''
-        // this.#onUpdate('test', this.#preparationList)
-        // new Toaster('Liste d\'ingrédients validé', 'Succès')
+
         this.#formButton.removeEventListener('click', this.#addNewIngredient.bind(this))
     }
 
-    #onIngredientDelete(ingredient) {
-        ingredient.addEventListener('delete', e => {
-            this.#list = this.#list.filter((i) => i !== e.detail.innerText)
-            this.#onUpdate('ingredients', this.#list)
-        })
+    /** @type {String} Retourne this.ingre qui est instancié lors de la création d'un ingrédient */
+    get ingredient() {
+        return this.ingre
     }
 
-    async #onSubmit(form) {
-        console.log(form)
-        // const ids = Date.now()
+    get form() {
+        return this.#form
+    }
+
+    /** @type {Number} Retourne le count avec +1 */
+    get count() {
+        return this.#count++
+    }
+
+    set listPush(item) {
+        this.#list.push(item)
+    }
+
+    /**
+     * 
+     * @param {HTMLElement} ingredient 
+     */
+    #onIngredientDelete() {
+        // ingredient.addEventListener('delete', e => {
+        this.#list = this.#list.filter((i) => i !== e.detail.innerText)
+        this.onUpdate('ingredients', this.#list)
+        // }, {once: true})
+    }
+    // #onIngredientDelete(ingredient) {
+    //     ingredient.addEventListener('delete', e => {
+    //         this.#list = this.#list.filter((i) => i !== e.detail.innerText)
+    //         this.#onUpdate('ingredients', this.#list)
+    //     }, {once: true})
+    // }
+
+    get ingredientList() {
+        return this.#list
+    }
+
+    set setIngredientList(newList) {
+        this.#list = newList
+    }
+
+    /**
+     * Sauvegarde toute la liste de préparation
+     * dans un localStorage 'preparationList'
+     * pour une récupération dans la database
+     * @param {HTMLElement} form 
+     */
+    async #onSubmit(e) {
+        e.preventDefault()
+        const form = e.currentTarget
         const data = new FormData(form)
-        this.#formButton.disabled = true
+        let myPreparation = []
+        myPreparation.push(this.#list)
+        myPreparation.push(data)
+
+        // myPreparation.data = data
+        // myPreparation.ingredient = this.#list
+
+        // let data = {
+        //     "test": "test",
+        //     "test2": "test2"
+        // }
+        // this.#formButton.disabled = true
+        console.log(myPreparation)
         try {
-            // if (!this.#isInputChecked(data)) {
-            //     return
-            // }
-            this.#ingredientList = await fetchJSON(this.#endpoint, {
+            // this.#ingredientList = await fetchJSON(this.#endpoint, {
+            // this.#ingredientList = await fetchJSON('test.php', {
+            this.#ingredientList = await fetchJSON('Process_PreparationList.php', {
                 method: 'POST',
-                json: data
+                json: data,
+                json: myPreparation
             })
             // const elementTemplate = this.#template.content.firstElementChild.cloneNode(true)
             // elementTemplate.setAttribute('id', ids)
@@ -735,8 +749,8 @@ export class IngredientsFrom {
             
             // // const ingredients = 
             // this.#target.prepend(elementTemplate)
+            
             console.log(this.#ingredientList)
-            console.log(this.#preparationList)
             // this.#preparationList = this.#preparationList.filter((task) => task === this.#list)
             this.#preparationList.formData = this.#ingredientList
             // this.#preparationList.push(this.#ingredientList)
@@ -746,31 +760,52 @@ export class IngredientsFrom {
             // this.#ingredientList.push(elementTemplate.value)
             // this.#onUpdate('ingredients', this.#ingredientList)
             console.log(this.#preparationList)
-            this.#onUpdate('preparationList', this.#preparationList)
+            this.onUpdate('preparationList', this.#preparationList)
             
             // form.reset()
             // this.#formIngredient = ''
             // this.#form.querySelector('#custom_ingredient').value = ''
-
+            
             const success = 'Votre préparation a été validée'
-            new Toaster(success, 'Succès')
+            // new Toaster(success, 'Succès')
             this.#formButton.disabled = false
         } catch (error) {
-            // console.log(error.message)
             new Toaster(error.message, 'Erreur')
         }
+
+        // fetch('create_recipes.php', {
+        //     'method': 'POST',
+        //     'headers': {
+        //         'Content-Type': 'application/json; charset=utf-8'
+        //     },
+        //     'body': JSON.stringify(data),
+        //     'cache': "no-cache",
+        //     'credentials': "same-origin",
+        // }).then((r) => {
+        //     return r.text()
+        // }).then((data) => {
+        //     let parser = new DOMParser();
+	    //     let doc = parser.parseFromString(data, 'text/html');
+        //     console.log(doc)
+        // }).catch(function (err) {
+        //     // There was an error
+        //     console.warn('Something went wrong.', err);
+        // });
     }
 
-    #isInputChecked(formDatas) {
+    /**
+     * Vérifie que l'input utilisateur n'est pas vide
+     * @returns 
+     */
+    #isInputChecked() {
         // this.#formIngredient = formDatas.get('custom_ingredient').toString().trim()
         const body = this.#form.querySelector('#custom_ingredient')
         const inputValue = body.value.toString().trim()
-        console.log(body)
         if (inputValue === '') {
         // if (this.#formIngredient === '') {
-            const message = "Vous n'avez pas ajouté d'ingrédient"
+            const message = "Vous n'avez pas saisit d'ingrédient"
             body.classList.add("error")
-            body.setAttribute('placeholder', message)
+            body.setAttribute('placeholder', 'Saissisez votre ingrédient...')
             this.#error.push(message)
         } else {
             body.classList.remove("error")
@@ -788,113 +823,31 @@ export class IngredientsFrom {
         }
     }
 
-    #onUpdate(storageName, items) {
+    // #onUpdate(storageName, items) {
+    //     localStorage.setItem(storageName, JSON.stringify(items))
+    // }
+
+    /**
+     * Sauvegarde un objet dans le localStorage
+     * @param {String} storageName
+     * @param {JSON} items
+     */
+    onUpdate(storageName, items) {
         localStorage.setItem(storageName, JSON.stringify(items))
     }
-    
-    #listen(item) {
-        // this.#form.querySelectorAll('.custom-ingredient').forEach(ingredient => {
-        
 
-        let newAttachedItems
-        let validationItems
-        let creationStatus = false
-        let modifyStatus
-        let clickStatus
-        let validatedStatus
-        const ingredient = item.currentTarget
-        // this.element = ingredient
-        console.log('test')
-        console.log(item.currentTarget)
-        // this.#customIngredients.forEach(ingredient => {
-        console.log(newAttachedItems)
-        console.log(creationStatus)
-        // this.removeEventListener('click', this.#listen.bind(this))
-        if (!newAttachedItems && !creationStatus) {
-            newAttachedItems = new AttachmentToThis(ingredient)
-            ingredient.append(newAttachedItems.element)
-            creationStatus = true
-            console.log('g créé')
-        }
-
-        // if (newAttachedItems && clickStatus ) {
-        //     console.log('object')
-        //     clickStatus = false
-        //     item.append(newAttachedItems.element)
-        //     // item.removeEventListener('click', e)
-        // }
-
-        // if (newAttachedItems && validatedStatus) {
-        //     console.log('object')
-        //     clickStatus = true
-        //     // item.append(newAttachedItems.element)
-        //     // item.removeEventListener('click', e)
-        // }
-        // item.removeEventListener('click', e)
-        
-
-        ingredient.addEventListener('delete', e => {
-            e.preventDefault()
-            const message = `${e.detail.innerText} supprimé avec succès`
-            new Toaster(message)
-        }, {once: true})
-
-        ingredient.addEventListener('modify', e => {
-            e.preventDefault()
-            if (!validationItems) {
-                newAttachedItems.element.remove()
-                validationItems = new UserValidations(ingredient)
-                ingredient.append(validationItems.element)
-                // this.#creationStatus = true
-                // modifyStatus = true
-            }
-            // item.removeEventListener('click', this.#listen(item))
-            console.log('event removed')
-            // console.log(item.removeEventListener('click', this.#listen(item)))
-            // if (validationItems) {
-            //     console.log('modify')
-            //     // clickStatus = true
-            //     item.append(newAttachedItems.element)
-            // }
-        }, {once: true})
-
-        ingredient.addEventListener('validate', e => {
-            e.preventDefault()
-                console.log(validationItems.element)
-                validationItems.element.remove()
-                modifyStatus = false
-                // creationStatus = false
-                clickStatus = false
-                validatedStatus = true
-                // console.log(newAttachedItems.element)
-                // validationItems = new UserValidations(item)
-                // item.append(validationItems.element)
-                // this.#creationStatus = true
-                // this.#listen(item.currentTarget)
-                // ingredient = ingredient.cloneNode(true);
-                // ingredient.addEventListener('click', this.#listen.bind(ingredient), {once: true})
-            this.element.addEventListener('click', this.#listen.bind(ingredient), {once: true})
-        }, {once: true})
-
-        ingredient.addEventListener('canceled', e => {
-            e.preventDefault()
-                console.log(validationItems.element)
-                validationItems.element.remove()
-                // this.#modifyStatus = false
-                // console.log(newAttachedItems.element)
-                // validationItems = new UserValidations(item)
-                // item.append(validationItems.element)
-                // this.#creationStatus = true
-            // item.removeEventListener('validate', e)
-        }, {once: true})
-    }
+    // get updateStorageList() {
+    //     return this.#onUpdate(storageName, items)
+    // }
 }
 
 class Ingredient {
 
+    #ingredientList
     element = []
     #template
-    #count = 0
+    #count
+    // #count = 0
     #creationStatus = false
     #validationStatus = false
     #done = false
@@ -921,15 +874,22 @@ class Ingredient {
     }
     #closed = false
 
+    /**
+     * 
+     * @param {IngredientsFrom} ingredient
+     * @param {Number} count
+     */
     constructor(ingredient) {
-        console.log(ingredient)
-        this.#ingredient = ingredient
+        // console.log(ingredient.ingredient)
+        this.#ingredientList = ingredient
+        this.#ingredient = ingredient.ingredient
         this.#template = document.querySelector('#ingredient-template')
-        this.#count = this.#count+1
+        this.#count = ingredient.count
+        // this.#count = this.#count+1
 
         this.element = this.#template.content.firstElementChild.cloneNode(true)
-        // this.element.setAttribute('id', this.#count)
-        // this.element.setAttribute('name', 'ingredient-'+this.#count)
+        this.element.setAttribute('id', this.#count)
+        this.element.setAttribute('name', 'ingredient-'+this.#count)
         
         this.element.innerText = this.#ingredient
 
@@ -941,14 +901,31 @@ class Ingredient {
 
         this.element.addEventListener('delete', e => {
             e.preventDefault()
+            const item = e.detail.id
+            const data = e.detail.firstChild.data
+            ingredient.setIngredientList = ingredient.ingredientList.filter((i, k) => (k != item))
+            // ingredient.setIngredientList = ingredient.ingredientList.filter((i) => i !== e.detail.firstChild.data)
+            // ingredient.setIngredientList = ingredient.ingredientList.filter((i) => i !== e.detail.innerText)
+            ingredient.onUpdate('ingredients', ingredient.ingredientList)
             const message = `${e.detail.innerText} supprimé avec succès`
             new Toaster(message)
         }, {once: true})
 
+        // console.log(this.#ingredientList.form)
+        // this.#ingredientList.form.addEventListener('click', this.#newModifierButtons.onClose)
+        // this.#ingredientList.form.querySelector('.js-modal-stop').addEventListener('click', this.#stopPropagation)
+        // this.#ingredientList.form.querySelector('.js-modal-stop').addEventListener('click', this.#stopPropagation)
+        
+        // this.element.addEventListener('click', this.#stopPropagation)
         // window.addEventListener('DOMContentLoaded', () => {
         //     this.#observer = new IntersectionObserver(this.#handleIntersect, this.#options)
         //     this.#observer.observe(this.element)
         // })
+    }
+
+    #stopPropagation(e) {
+        e.stopPropagation()
+        console.log('test')
     }
 
     #onClick(e) {
@@ -963,11 +940,16 @@ class Ingredient {
         if (!this.#newModifierButtons.element) {
             this.#newModifierButtons = new AttachmentToThis(this.element)
             this.element.append(this.#newModifierButtons.element)
+            // this.#ingredientList.form.querySelector('.js-modal-stop').addEventListener('click', this.#stopPropagation)
         }
     }
 
     #onModify(e) {
         e.preventDefault()
+        // this.#ingredientList.form.addEventListener('click', this.#newModifierButtons.onClose)
+
+        // document.addEventListener('click', this.#newModifierButtons.onClose)
+        this.data = e.detail.firstChild.data
         if (!this.#validationItems.element) {
             this.#newModifierButtons.element.remove()
             this.#validationItems = new UserValidations(this.element)
@@ -978,10 +960,15 @@ class Ingredient {
 
     #onValidate(e) {
         e.preventDefault()
+        const item = e.detail.id
+        const data = e.detail.firstChild.data
         this.#validationItems.element.remove()
         this.#validationStatus = true
         this.#newModifierButtons = []
         this.#validationItems = []
+        this.#ingredientList.setIngredientList = this.#ingredientList.ingredientList.filter((i, k) => k != item)
+        this.#ingredientList.listPush = data
+        this.#ingredientList.onUpdate('ingredients', this.#ingredientList.ingredientList)
     }
     
     #onCancel(e) {
@@ -990,13 +977,18 @@ class Ingredient {
         this.#validationItems = []
         this.#newModifierButtons = []
         this.#done = true
+        this.element.innerText = this.data
     }
 
     #onClose(e) {
         e.preventDefault()
+        console.log('je suis dans le close')
+
         this.#closed = true
         this.#newModifierButtons = []
         this.#validationItems = []
+        // this.element.removeEventListener('click', this.#stopPropagation)
+        // this.#ingredientList.form.removeEventListener('click', this.#onClose)
     }
 
     get element() {
@@ -1009,6 +1001,8 @@ class Ingredient {
 }
 
 class AttachmentToThis {
+
+    /** @type {Ingredient} item*/
     #item
     #element = []
     #modifier
@@ -1026,22 +1020,25 @@ class AttachmentToThis {
             id: 'attach-'+this.#item.id
         })
 
-        this.#modifier = createElement('div', {
+        this.#modifier = createElement('img', {
             class: 'interactive-elements__modify',
             name: 'modify',
-            id: 'modify-'+this.#item.id
+            id: 'modify-'+this.#item.id,
+            src: '../img/edit.svg'
         })
-        this.#deleter = createElement('div', {
+        this.#deleter = createElement('img', {
             class: 'interactive-elements__delete',
             name: 'delete',
-            id: 'delete-'+this.#item.id
+            id: 'delete-'+this.#item.id,
+            src: '../img/bin.svg'
         })
-        this.#closeButton = createElement('div', {
+        this.#closeButton = createElement('img', {
             class: 'interactive-elements__close',
             name: 'close',
-            id: 'close-'+this.#item.id
+            id: 'close-'+this.#item.id,
+            src: '../img/close.svg'
         })
-        this.#modifier.innerText = ' MODIFY '
+        // this.#modifier.innerText = ' MODIFY '
         this.#deleter.innerText = ' DELETE '
         this.#closeButton.innerText = ' CLOSE '
 
@@ -1052,6 +1049,15 @@ class AttachmentToThis {
         this.#deleter.addEventListener('click', this.#onRemove.bind(this), {once: true})
         this.#modifier.addEventListener('click', this.#onModify.bind(this))
         this.#closeButton.addEventListener('click', this.#onClose.bind(this))
+        // document.addEventListener('click', this.#onClose.bind(this))
+        // this.#item.querySelector('.js-modal-stop').addEventListener('click', this.#stopPropagation)
+    
+        console.log(item)
+    }
+
+    #stopPropagation(e) {
+        e.stopPropagation()
+        console.log('test')
     }
 
     /**
@@ -1080,6 +1086,7 @@ class AttachmentToThis {
     }
 
     #onClose(e) {
+        console.log('je suis dans le close du attach')
         e.preventDefault()
         this.#item.setAttribute('contenteditable', false)
         this.#element.remove()
@@ -1093,6 +1100,10 @@ class AttachmentToThis {
 
     get element() {
         return this.#element
+    }
+
+    get onClose() {
+        return this.#onClose.bind(this)
     }
 }
 
@@ -1112,18 +1123,20 @@ class UserValidations {
             class: 'custom-ingredient__interactive-elements'
         })
 
-        this.#validate = createElement('div', {
+        this.#validate = createElement('img', {
             class: 'interactive-elements__validate',
             name: 'validate',
-            id: 'validate-'+this.#item.id
+            id: 'validate-'+this.#item.id,
+            src: '../img/check-mark.svg'
         })
-        this.#cancel = createElement('div', {
+        this.#cancel = createElement('img', {
             class: 'interactive-elements__cancel',
             name: 'cancel',
-            id: 'cancel-'+this.#item.id
+            id: 'cancel-'+this.#item.id,
+            src: '../img/cancel.svg'
         })
-        this.#validate.innerText = ' VALIDATE '
-        this.#cancel.innerText = ' CANCEL '
+        // this.#validate.innerText = ' VALIDATE '
+        // this.#cancel.innerText = ' CANCEL '
 
         this.#element.append(this.#cancel)
         this.#element.prepend(this.#validate)

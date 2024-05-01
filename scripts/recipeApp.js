@@ -18,7 +18,7 @@ try {
     // })
 
     const ingredients = new IngredientsFrom(list)
-    ingredients.append(document.querySelector('.js-form-fetch'))
+    ingredients.appendTo(document.querySelector('.js-form-fetch'))
 
     // document
     //     .querySelectorAll('.js-form-fetch')
