@@ -41,6 +41,13 @@ if ($data && isset($_POST)) {
             'test' => $content,
             // 'recipe' => json_encode($dataTest['total_time']),
             // 'persons' => json_encode($dataTest['persons'])
+            'title' => $dataTest['title'],
+            'step_1' => $dataTest['step_1'],
+            'step_2' => $dataTest['step_2'],
+            'step_3' => $dataTest['step_3'],
+            'step_4' => $dataTest['step_4'],
+            'step_5' => $dataTest['step_5'],
+            'step_6' => $dataTest['step_6'],
             'persons' => $dataTest['persons'],
             'total_time' => $dataTest['total_time'],
             'total_time_length' => $dataTest['total_time_length'],
@@ -54,6 +61,7 @@ if ($data && isset($_POST)) {
             'ingredient4' => $dataTest['ingredient4'],
             'ingredient5' => $dataTest['ingredient5'],
             'ingredient6' => $dataTest['ingredient6'],
+            'custom_ingredients' => $dataTest['custom_ingredients'],
             // envoi toutes les données reçues en json
             // Il ne faudra pas oublier de sanitize on use
             // 'total_time' => $content,

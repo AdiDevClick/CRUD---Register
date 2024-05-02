@@ -88,11 +88,33 @@ ob_start();
         <?php if (isset($loggedUser['email'])  && !isset($_SESSION['REGISTERED_RECIPE'])): ?> 
         <?php //(isset($loggedUserState)):?>
         <section class="contact-section">
+        <form
+            id="preparation-form"
+            action="create_recipes.php"
+            data-endpoint="https://jsonplaceholder.typicode.com/comments"
+            data-template="#ingredient-template"
+            data-target=".js-ingredient-group"
+            data-list-elements='{
+                "ingredient-": ".js-value",
+                "id": ".js-value",
+                "ingredient": ".js-select1",
+                "ingredient2": ".js-select2",
+                "ingredient3": ".js-select3",
+                "ingredient4": ".js-select4",
+                "ingredient5": ".js-select5",
+                "ingredient6": ".js-select6"
+            }'
+            data-elements='{
+                "ingredient": ".js-value"
+            }'
+            class="js-form-fetch" method="post"
+        >
             <div class="contact-grid" id="recipe_creation">
             <!-- <div class="form-flex " id="recipe_creation"> -->
                 <!-- <h1>Partagez votre recette !</h1> -->
                 <div class="card form-recipe">
-                    <form action="create_recipes.php" method="post" id="recipe-form">
+                    <!-- <form action="create_recipes.php" method="post" id="recipe-form"> -->
+                    
                         <!-- Title -->
                         <div class="">
                             <label for="title" class="label">Titre de votre recette</label>
@@ -129,15 +151,15 @@ ob_start();
                             <textarea name="step_6" id="step_6" cols="60" rows="3" placeholder="Renseignez  votre sixième étape..."></textarea>
                         </div>
                         <!-- Submit -->
-                        <div id="register-btn" class="form form-hidden">
+                        <!-- <div id="register-btn" class="form form-hidden">
                             <button id="recipe-submit" type="submit" name="submit" class="btn">Partagez votre recette</button>
-                        </div>
+                        </div> -->
                         <!-- </form> -->
-                    </form>
+                    <!-- </form> test -->
                 </div>
                 
                 <div class="card recipe hidden" id="js-preparation">
-                    <form
+                    <!-- <form
                         id="preparation-form"
                         action="create_recipes.php"
                         data-endpoint="https://jsonplaceholder.typicode.com/comments"
@@ -157,7 +179,7 @@ ob_start();
                             "ingredient": ".js-value"
                         }'
                         class="js-form-fetch" method="post"
-                    >
+                    > -->
                     <!-- <div class="preparation_header"> -->
                     <!-- DEBUT DE LA CARTE PREPARATION -->
                     <div>
@@ -282,10 +304,13 @@ ob_start();
                             <button name="add_preparation" id="button" type="submit" class="btn">Valider vos ingrédients</button>
                         </div>
                     </div>
-                    </form>
+                    <!-- </form> -->
+                
                 </div>
                 <!-- </form> -->
             </div>
+            </form>
+
             <?php //endif?>
             <?php //session_destroy()?>
         </section>

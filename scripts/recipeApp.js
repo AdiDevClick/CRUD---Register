@@ -16,7 +16,6 @@ try {
     // preparations.forEach(preparation => {
     //     new RecipePreparation(preparation)
     // })
-
     const ingredients = new IngredientsFrom(list)
     ingredients.appendTo(document.querySelector('.js-form-fetch'))
 

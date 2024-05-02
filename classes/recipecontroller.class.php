@@ -19,23 +19,59 @@ class RecipeController extends Recipe
                     $this->getData
                 );
                 print_r($this->getData);
-                $persons = $checkInput->test_input($this->getData["persons"]);
+                $title = $checkInput->test_input($this->getData['title']);
+                $step_1 = $checkInput->test_input($this->getData["step_1"]);
+                $step_2 = $checkInput->test_input($this->getData["step_2"]);
+                $step_3 = $checkInput->test_input($this->getData["step_3"]);
+                $step_4 = $checkInput->test_input($this->getData["step_4"]);
+                $step_5 = $checkInput->test_input($this->getData["step_5"]);
+                $step_6 = $checkInput->test_input($this->getData["step_6"]);
                 $total_time = $checkInput->test_input($this->getData["total_time"]);
                 $total_time_length = $checkInput->test_input($this->getData["total_time_length"]);
                 $resting_time = $checkInput->test_input($this->getData["resting_time"]);
                 $resting_time_length = $checkInput->test_input($this->getData["resting_time_length"]);
                 $oven_time = $checkInput->test_input($this->getData["oven_time"]);
                 $oven_time_length = $checkInput->test_input($this->getData["oven_time_length"]);
-                $ingredient = $checkInput->test_input($this->getData["ingredient"]);
-                $ingredient2 = $checkInput->test_input($this->getData["ingredient2"]);
-                $ingredient3 = $checkInput->test_input($this->getData["ingredient3"]);
-                $ingredient4 = $checkInput->test_input($this->getData["ingredient4"]);
-                $ingredient5 = $checkInput->test_input($this->getData["ingredient5"]);
-                $ingredient6 = $checkInput->test_input($this->getData["ingredient6"]);
+                $ingredient = $checkInput->test_input($this->getData["ingredient"] ?? null);
+                $ingredient2 = $checkInput->test_input($this->getData["ingredient2"] ?? null);
+                $ingredient3 = $checkInput->test_input($this->getData["ingredient3"] ?? null);
+                $ingredient4 = $checkInput->test_input($this->getData["ingredient4"] ?? null);
+                $ingredient5 = $checkInput->test_input($this->getData["ingredient5"] ?? null);
+                $ingredient6 = $checkInput->test_input($this->getData["ingredient6"] ?? null);
+                $persons = $checkInput->test_input($this->getData["persons"]);
+                $custom_ingredients = $checkInput->test_input($this->getData["custom_ingredients"]);
+                // $title = $this->getData["title"];
+                // $step_1 = $this->getData["step_1"];
+                // $step_2 = $this->getData["step_2"];
+                // $step_3 = $this->getData["step_3"];
+                // $step_4 = $this->getData["step_4"];
+                // $step_5 = $this->getData["step_5"];
+                // $step_6 = $this->getData["step_6"];
+                // $total_time = $this->getData["total_time"];
+                // $total_time_length = $this->getData["total_time_length"];
+                // $resting_time = $this->getData["resting_time"];
+                // $resting_time_length = $this->getData["resting_time_length"];
+                // $oven_time = $this->getData["oven_time"];
+                // $oven_time_length = $this->getData["oven_time_length"];
+                // $ingredient = $this->getData["ingredient"];
+                // $ingredient2 = $this->getData["ingredient2"];
+                // $ingredient3 = $this->getData["ingredient3"];
+                // $ingredient4 = $this->getData["ingredient4"];
+                // $ingredient5 = $this->getData["ingredient5"];
+                // $ingredient6 = $this->getData["ingredient6"];
+                // $persons = $this->getData["persons"];
+                // $custom_ingredients = $this->getData["custom_ingredients"];
                 $checkInput->checkInputs();
-                print_r($persons);
+                print_r($custom_ingredients);
                 if (empty($checkInput->getErrorsArray())) {
                     $this->setRecipeTest(
+                        $title,
+                        $step_1,
+                        $step_2,
+                        $step_3,
+                        $step_4,
+                        $step_5,
+                        $step_6,
                         $total_time,
                         $total_time_length,
                         $resting_time,
@@ -49,9 +85,13 @@ class RecipeController extends Recipe
                         $ingredient5,
                         $ingredient6,
                         $persons,
+                        $custom_ingredients,
                         $loggedUser['email']
                     );
                 } else {
+                    echo "<pre>";
+                        print_r($checkInput->getErrorsArray());
+                    echo "</pre>";
                     $checkInput->getErrorsArray();
                     return;
                 }

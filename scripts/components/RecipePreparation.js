@@ -624,6 +624,7 @@ export class IngredientsFrom {
 
         // this.#formValidationButton = this.#form.querySelector('#button')
         this.#formButton = this.#form.querySelector('#add_custom')
+        console.log(this.#formButton)
 
         this.#list.forEach(ingredient => {
             this.ingre = ingredient
@@ -719,9 +720,6 @@ export class IngredientsFrom {
         e.preventDefault()
         const form = e.currentTarget
         const data = new FormData(form)
-        let myPreparation = []
-        myPreparation.push(this.#list)
-        myPreparation.push(data)
 
         // myPreparation.data = data
         // myPreparation.ingredient = this.#list
@@ -733,10 +731,9 @@ export class IngredientsFrom {
         
         for (let [key, value] of data) {
             if (key === 'custom_ingredient') {
-                value = this.#list
-                console.log(key, value)
+                // value = this.#list
+                data.set('custom_ingredients', this.#list)
             }
-            console.log(key, value)
         }
         // this.#formButton.disabled = true
         // for (const [key, iterator] of data) {
@@ -745,6 +742,7 @@ export class IngredientsFrom {
         //     // }
         // }
         // return
+        // data.append(this.#list)
         try {
             // this.#ingredientList = await fetchJSON(this.#endpoint, {
             // this.#ingredientList = await fetchJSON('test.php', {
@@ -759,7 +757,9 @@ export class IngredientsFrom {
             // for (const [key, selector] of Object.entries(this.#elements)) {
             //     elementTemplate.querySelector(selector).innerText = this.#list[key]
             // }
-            
+            // if (this.#ingredientList.ok) {
+            //     console.log('object')
+            // }
             // // const ingredients = 
             // this.#target.prepend(elementTemplate)
             

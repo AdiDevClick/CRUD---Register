@@ -14,8 +14,11 @@ class Validate
     public function test_input($getData)
     {
         if(is_null($getData) || is_array($getData)) {
+            echo 'je suis dand le null';
             $getData = '';
         }
+        echo($getData);
+        echo 'je suis dans le test input';
         $getData = trim($getData);
         $getData = stripslashes($getData);
         $getData = htmlspecialchars($getData);

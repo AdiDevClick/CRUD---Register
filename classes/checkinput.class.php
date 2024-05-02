@@ -32,10 +32,14 @@ class CheckInput extends Validate
             foreach ($this->getDatas as $key => $value) {
                 $result = false;
                 // try {
-                if (empty($value) || !isset($key)) {
+                if (!$key === 'step_6' || !$key === 'step_5' || !$key === 'step_4' || !$key === 'step_3' || !$key === 'step_2') {
+                    if (empty($value) || !isset($key)) {
+                        array_push(self::$errorsArray, "Votre $key est vide");
+                    }
                     //$result = false;
+                    // echo ($key === 'step_6') . 'test';
                     // array_push($this->errorsArray, "votre $key est vide");
-                    array_push(self::$errorsArray, "Votre $key est vide");
+                    // array_push(self::$errorsArray, $key === 'step_6' ||'step_5'||'step_4'||'step_3'||'step_2');
 
                     // $e = throw new Error("Votre $key est vide");
                     // array_push(self::$errorsArray, $e);
