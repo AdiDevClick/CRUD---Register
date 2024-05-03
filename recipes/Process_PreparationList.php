@@ -35,7 +35,7 @@ $data = $_SERVER['REQUEST_METHOD'] === 'POST';
 if ($data && isset($_POST)) {
     $content = file_get_contents("php://input");
     $dataTest = json_decode($content, true);
-    echo $content;
+    // echo $content;
     if ($dataTest) {
         $getDatas = [
             'test' => $content,
@@ -72,6 +72,27 @@ if ($data && isset($_POST)) {
         // $setRecipe = new RecipeView($dataTest);
         $setRecipe = new RecipeView($getDatas);
         $setRecipe->insertRecipeTest();
-        echo $dataTest['persons'];
+        
+        $err = CheckInput::getErrorMessages();
+
+        if (count($err) > 0) {
+            // print_r($err);
+            $errorMessage = CheckInput::showErrorMessage();
+
+            $successMessage = '';
+            //if (isset($_SESSION['REGISTERED_USER'])) {
+            //ob_start();
+            $successMessage = '<div>';
+            $successMessage .= '<p class="alert-error"> ' . strip_tags($errorMessage) . '</p>';
+            $successMessage .= '</div>';
+            echo $successMessage;
+            echo $dataTest['failed'] = true;
+            // session_destroy();
+        } else {
+            header('Location: ../index.php?success=recipe-shared');
+            // header('refresh:10, ../index.php?success=recipe-shared');
+            // session_destroy();
+        }
     }
 }
+

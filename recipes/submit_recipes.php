@@ -17,7 +17,7 @@ $data = $_SERVER['REQUEST_METHOD'] === 'POST';
 $err = [];
 $loggedUser = [];
 // print_r($_REQUEST);
-// include('../recipes/test.php');
+// include('../recipes/Process_PreparationList.php');
 
 // print_r($getDatas);
 // On affiche chaque recette une à une
@@ -76,6 +76,7 @@ if ($data && isset($_POST['submit'])) {
 $loggedUser = LoginController::checkLoggedStatus();
 // echo ' le array dans submit recipe';
 // print_r($loggedUser);
+$err = CheckInput::getErrorMessages();
 $errorMessage = CheckInput::showErrorMessage();
 // ob_get_clean();
 ob_start();
@@ -114,7 +115,12 @@ ob_start();
                 <!-- <h1>Partagez votre recette !</h1> -->
                 <div class="card form-recipe">
                     <!-- <form action="create_recipes.php" method="post" id="recipe-form"> -->
-                    
+                        <?php if (!empty($err)) : ?>
+                            <?php echo 'test' ?>
+                            <div>
+                                <p class="alert-error"><?php echo(strip_tags($errorMessage)) ?></p>
+                            </div>
+                        <?php endif ?>
                         <!-- Title -->
                         <div class="">
                             <label for="title" class="label">Titre de votre recette</label>

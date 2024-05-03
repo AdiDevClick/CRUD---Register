@@ -32,11 +32,12 @@ class CheckInput extends Validate
             foreach ($this->getDatas as $key => $value) {
                 $result = false;
                 // try {
-                if (!$key === 'step_6' || !$key === 'step_5' || !$key === 'step_4' || !$key === 'step_3' || !$key === 'step_2') {
+                if ($key !== 'custom_ingredients' && $key !== 'step_6' && $key !== 'step_5' && $key !== 'step_4' && $key !== 'step_3' && $key !== 'step_2') {
+                    $result = true;
                     if (empty($value) || !isset($key)) {
                         array_push(self::$errorsArray, "Votre $key est vide");
+                        $result = false;
                     }
-                    //$result = false;
                     // echo ($key === 'step_6') . 'test';
                     // array_push($this->errorsArray, "votre $key est vide");
                     // array_push(self::$errorsArray, $key === 'step_6' ||'step_5'||'step_4'||'step_3'||'step_2');
@@ -48,7 +49,8 @@ class CheckInput extends Validate
                     // throw new Error((string)header("Location: ".Functions::getUrl()."?error=$key-vide"));
                     //header("Location: ".Functions::getUrl()."?error=$key-vide");
                 }
-                if (isset($this->getDatas['email']) && (!filter_var($this->getDatas['email'], FILTER_VALIDATE_EMAIL)) && !preg_match("/[a-z0-9A-Z._-]+@[a-z0-9A-Z_-]+\.[a-zA-Z]+/", $this->getDatas['email'])) {
+                if ($key === 'email' && (!filter_var($key === 'email', FILTER_VALIDATE_EMAIL)) && !preg_match("/[a-z0-9A-Z._-]+@[a-z0-9A-Z_-]+\.[a-zA-Z]+/", $key === 'email')) {
+                // if (isset($this->getDatas['email']) && (!filter_var($this->getDatas['email'], FILTER_VALIDATE_EMAIL)) && !preg_match("/[a-z0-9A-Z._-]+@[a-z0-9A-Z_-]+\.[a-zA-Z]+/", $this->getDatas['email'])) {
                     // array_push($this->errorsArray, "Veuillez saisir un email valide");
                     array_push(self::$errorsArray, "Veuillez saisir un email valide");
 
@@ -59,7 +61,8 @@ class CheckInput extends Validate
                     // throw new Error((string)header("Location: ".Functions::getUrl()."?error=email-invalid"));
                 }
                 //if (isset($this->getDatas['username']) && !preg_match("/^[a-zA-Z0-9]*$/", $this->getDatas['username'])) { // No space allowed
-                if (isset($this->getDatas['username']) && !preg_match("/^[a-zA-Z0-9]*$/", $this->getDatas['username'])) { // With space allowed
+                if ($key === 'username' && !preg_match("/^[a-zA-Z0-9]*$/", $this->getDatas['username'])) { // With space allowed
+                // if (isset($this->getDatas['username']) && !preg_match("/^[a-zA-Z0-9]*$/", $this->getDatas['username'])) { // With space allowed
                     // array_push($this->errorsArray, 'Votre identifiant est invalide');
                     array_push(self::$errorsArray, 'invalidID - Votre identifiant est invalide');
 
@@ -71,7 +74,11 @@ class CheckInput extends Validate
                     //return $result;
                     //die('Nous ne pouvons continuer...');
                 }
-                if (isset($this->getDatas['title']) && !preg_match("(^[\w\s,.:_?'!éèêëàâäôöûüç-]+$)", $this->getDatas['title'])) { // With space allowed
+                // if ($key === 'title' ) { // With space allowed
+
+                if ($result && !empty($key === 'title') && !preg_match("/^[\w\s,.:_?'!\"éèêëàâäôöûüç-]+$/", $this->getDatas['title'])) { // With space allowed
+                // if ($key === 'title' && !preg_match("/(^[\w\s,.:_?'%!éèêëàâäôöûüç-]+$)/", $key === 'title')) { // With space allowed
+                // if (isset($this->getDatas['title']) && !preg_match("(^[\w\s,.:_?'!éèêëàâäôöûüç-]+$)", $this->getDatas['title'])) { // With space allowed
                     array_push(self::$errorsArray, 'invalidTitle - Ce titre est invalide');
                     
                     // array_push($this->errorsArray, 'Ce titre est invalide');
@@ -83,42 +90,51 @@ class CheckInput extends Validate
                     //return $e;
                     //return $result = false;
                 }
-                if (isset($this->getDatas['recipe']) && !preg_match("(^[\w\s,.:_?'!éèêëàâäôöûüç-]+$)", $this->getDatas['recipe'])) { // With space allowed "/^[a-zA-Z0-9]*\z/"
-                    array_push(self::$errorsArray, 'invalidRecipe - Cette recette est invalide');
+                // if ($key === 'step_1' || $key === 'title') array_push(self::$errorsArray, 'invalidRecipe - Cette recette est invalide' . $key);
+                // if (!empty($value[$key === 'recipe']) && !preg_match("(^[\w\s,.:_?'!éèêëàâäôöûüç-]+$)", $this->getDatas['recipe'])) { // With space allowed "/^[a-zA-Z0-9]*\z/"
+                //     array_push(self::$errorsArray, 'invalidRecipe - Cette recette est invalide');
                     
-                    // throw new Error((string)header("Location: ".Functions::getUrl()."?error=invalid-recipe-input"));
-                }
-                if (isset($this->getDatas['step_1']) && !preg_match("(^[\w\s,.:_?'!éèêëàâäôöûüç-]+$)", $this->getDatas['step_1'])) { // With space allowed "/^[a-zA-Z0-9]*\z/"
+                //     // throw new Error((string)header("Location: ".Functions::getUrl()."?error=invalid-recipe-input"));
+                // }
+                if ($result && !empty($key === 'step_1') && !preg_match("/^[\w\s,.:_?'!\"éèêëàâäôöûüç-]+$/", $this->getDatas['step_1'])) { // With space allowed "/^[a-zA-Z0-9]*\z/"
+                // if ($result && !empty($key === 'step_1') && !preg_match("/^[\w\s,.:_?'!\"éèêëàâäôöûüç-]+$/", $this->getDatas['step_1'])) { // With space allowed "/^[a-zA-Z0-9]*\z/"
+                // if (isset($key['step_1']) && !preg_match("(^[\w\s,.:_?'!éèêëàâäôöûüç-]+$)", $this->getDatas['step_1'])) { // With space allowed "/^[a-zA-Z0-9]*\z/"
                     array_push(self::$errorsArray, 'invalidRecipeStep1 - La première étape de cette recette est invalide');
                     
                     // throw new Error((string)header("Location: ".Functions::getUrl()."?error=invalid-recipe-input"));
                 }
-                if (isset($this->getDatas['step_2']) && !preg_match("(^[\w\s,.:_?'!éèêëàâäôöûüç-]+$)", $this->getDatas['step_2'])) { // With space allowed "/^[a-zA-Z0-9]*\z/"
+                if ($result && !empty($key === 'step_2') && !preg_match("(^[\w\s,.:_?'!éèêëàâäôöûüç-]+$)", $this->getDatas['step_2'])) { // With space allowed "/^[a-zA-Z0-9]*\z/"
+                // if (isset($this->getDatas['step_2']) && !preg_match("(^[\w\s,.:_?'!éèêëàâäôöûüç-]+$)", $this->getDatas['step_2'])) { // With space allowed "/^[a-zA-Z0-9]*\z/"
                     array_push(self::$errorsArray, 'invalidRecipeStep2 - La deuxième étape de cette recette est invalide');
                     
                     // throw new Error((string)header("Location: ".Functions::getUrl()."?error=invalid-recipe-input"));
                 }
-                if (isset($this->getDatas['step_3']) && !preg_match("(^[\w\s,.:_?'!éèêëàâäôöûüç-]+$)", $this->getDatas['step_3'])) { // With space allowed "/^[a-zA-Z0-9]*\z/"
+                if ($result && !empty($key === 'step_3') && !preg_match("(^[\w\s,.:_?'!éèêëàâäôöûüç-]+$)", $this->getDatas['step_3'])) { // With space allowed "/^[a-zA-Z0-9]*\z/"
+                // if (isset($this->getDatas['step_3']) && !preg_match("(^[\w\s,.:_?'!éèêëàâäôöûüç-]+$)", $this->getDatas['step_3'])) { // With space allowed "/^[a-zA-Z0-9]*\z/"
                     array_push(self::$errorsArray, 'invalidRecipeStep3 - La troisième étape de cette recette est invalide');
                     
                     // throw new Error((string)header("Location: ".Functions::getUrl()."?error=invalid-recipe-input"));
                 }
-                if (isset($this->getDatas['step_4']) && !preg_match("(^[\w\s,.:_?'!éèêëàâäôöûüç-]+$)", $this->getDatas['step_4'])) { // With space allowed "/^[a-zA-Z0-9]*\z/"
+                if ($result && !empty($key === 'step_4') && !preg_match("(^[\w\s,.:_?'!éèêëàâäôöûüç-]+$)", $this->getDatas['step_4'])) { // With space allowed "/^[a-zA-Z0-9]*\z/"
+                // if (isset($this->getDatas['step_4']) && !preg_match("(^[\w\s,.:_?'!éèêëàâäôöûüç-]+$)", $this->getDatas['step_4'])) { // With space allowed "/^[a-zA-Z0-9]*\z/"
                     array_push(self::$errorsArray, 'invalidRecipeStep4 - La quatrième étape de cette recette est invalide');
                     
                     // throw new Error((string)header("Location: ".Functions::getUrl()."?error=invalid-recipe-input"));
                 }
-                if (isset($this->getDatas['step_5']) && !preg_match("(^[\w\s,.:_?'!éèêëàâäôöûüç-]+$)", $this->getDatas['step_5'])) { // With space allowed "/^[a-zA-Z0-9]*\z/"
+                if ($result && !empty($key === 'step_5') && !preg_match("(^[\w\s,.:_?'!éèêëàâäôöûüç-]+$)", $this->getDatas['step_5'])) { // With space allowed "/^[a-zA-Z0-9]*\z/"
+                // if (isset($this->getDatas['step_5']) && !preg_match("(^[\w\s,.:_?'!éèêëàâäôöûüç-]+$)", $this->getDatas['step_5'])) { // With space allowed "/^[a-zA-Z0-9]*\z/"
                     array_push(self::$errorsArray, 'invalidRecipeStep5 - La cinquième étape de cette recette est invalide');
                     
                     // throw new Error((string)header("Location: ".Functions::getUrl()."?error=invalid-recipe-input"));
                 }
-                if (isset($this->getDatas['step_6']) && !preg_match("(^[\w\s,.:_?'!éèêëàâäôöûüç-]+$)", $this->getDatas['step_6'])) { // With space allowed "/^[a-zA-Z0-9]*\z/"
+                if ($result && !empty($key === 'step_6') && !preg_match("(^[\w\s,.:_?'!éèêëàâäôöûüç-]+$)", $this->getDatas['step_6'])) { // With space allowed "/^[a-zA-Z0-9]*\z/"
+                // if (isset($this->getDatas['step_6']) && !preg_match("(^[\w\s,.:_?'!éèêëàâäôöûüç-]+$)", $this->getDatas['step_6'])) { // With space allowed "/^[a-zA-Z0-9]*\z/"
                     array_push(self::$errorsArray, 'invalidRecipeStep6 - La sixième étape de cette recette est invalide');
                     
                     // throw new Error((string)header("Location: ".Functions::getUrl()."?error=invalid-recipe-input"));
                 }
-                if (isset($this->getDatas['comment']) && !preg_match("(^[\w\s,.:_?'!éèêëàâäôöûüç-]+$)", $this->getDatas['comment'])) { // With space allowed "/^[a-zA-Z0-9]*\z/"
+                if ($key === 'comment' && !preg_match("(^[\w\s,.:_?'!éèêëàâäôöûüç-]+$)", $this->getDatas['comment'])) { // With space allowed "/^[a-zA-Z0-9]*\z/"
+                // if (isset($this->getDatas['comment']) && !preg_match("(^[\w\s,.:_?'!éèêëàâäôöûüç-]+$)", $this->getDatas['comment'])) { // With space allowed "/^[a-zA-Z0-9]*\z/"
                     array_push(self::$errorsArray, 'invalidComment - Ce commentaire est invalide');
                     
                     // throw new Error((string)header("Location: ".Functions::getUrl()."?error=invalid-comment-input"));
