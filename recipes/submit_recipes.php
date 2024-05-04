@@ -165,6 +165,9 @@ ob_start();
                 </section>
                 
                 <section class="card recipe hidden" id="js-preparation">
+                    <div class="drawer">
+                        <div class="drawer__button"></div>
+                    </div>
                     <!-- <form
                         id="preparation-form"
                         action="create_recipes.php"
