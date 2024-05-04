@@ -16,7 +16,6 @@ class Validate
         if(is_null($getData) || is_array($getData)) {
             $getData = '';
         }
-        echo 'je suis dans le test input';
         $getData = trim($getData);
         $getData = stripslashes($getData);
         $getData = htmlspecialchars($getData);

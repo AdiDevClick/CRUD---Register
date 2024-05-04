@@ -763,7 +763,7 @@ export class IngredientsFrom {
             // // const ingredients = 
             // this.#target.prepend(elementTemplate)
             
-            // console.log(this.#ingredientList)
+            console.log(this.#ingredientList)
             // this.#preparationList = this.#preparationList.filter((task) => task === this.#list)
             this.#preparationList.formData = this.#ingredientList
             // this.#preparationList.push(this.#ingredientList)
