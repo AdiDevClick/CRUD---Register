@@ -110,10 +110,10 @@ ob_start();
             }'
             class="js-form-fetch" method="post"
         >
-            <div class="contact-grid" id="recipe_creation">
+            <section class="contact-grid" id="recipe_creation">
             <!-- <div class="form-flex " id="recipe_creation"> -->
                 <!-- <h1>Partagez votre recette !</h1> -->
-                <div class="card form-recipe">
+                <section class="card form-recipe">
                     <!-- <form action="create_recipes.php" method="post" id="recipe-form"> -->
                         <?php if (!empty($err)) : ?>
                             <?php echo 'test' ?>
@@ -162,9 +162,9 @@ ob_start();
                         </div> -->
                         <!-- </form> -->
                     <!-- </form> test -->
-                </div>
+                </section>
                 
-                <div class="card recipe hidden" id="js-preparation">
+                <section class="card recipe hidden" id="js-preparation">
                     <!-- <form
                         id="preparation-form"
                         action="create_recipes.php"
@@ -312,9 +312,9 @@ ob_start();
                     </div>
                     <!-- </form> -->
                 
-                </div>
+                </section>
                 <!-- </form> -->
-            </div>
+            </section>
             </form>
 
             <?php //endif?>
