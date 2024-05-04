@@ -692,16 +692,17 @@ form {
     /* align-content: center; */
     &.open {
         position: absolute;
+        animation: slideToTop 1.5s;
     }
 }
 
 .recipe.hidden {
-    display: flex;
+    display: none;
 }
 
 .contact-section:has(.recipe.open) {
-    display: flex;
-    animation: slideToTop 1.5s ease-in-out;
+    /* display: flex; */
+    /* animation: slideToTop 1.5s ease-in-out; */
 }
 
 @keyframes slideToTop {
