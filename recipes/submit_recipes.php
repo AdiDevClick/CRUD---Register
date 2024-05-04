@@ -230,7 +230,7 @@ ob_start();
                         </div>
                     </div>
                     
-                    <!-- FIND DE LA CARTE PREPARATION -->
+                    <!-- FIN DE LA CARTE PREPARATION -->
                     <!-- DEBUT DE LA CARTE INGREDIENTS -->
                     <div class="card-header-section">
                         <div class="icon form-logo">
