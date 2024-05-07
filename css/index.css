@@ -440,6 +440,21 @@ form {
     justify-items: end;
     @media screen and (max-width: 992px) {
         margin: 15px;
+        .recipe {
+            width: 60vw;
+            /* padding-left: 20px;
+            padding-right: 20px; */
+            position: absolute;
+            right: 0;
+            top: 85vh;
+            left: 0;
+        }
+        .form-recipe {
+            width: 60vw;
+            padding-bottom: 20px;
+            /* padding-left: 20px;
+            padding-right: 20px; */
+        }
     }
     @media screen and (min-width: 992px) {
         &:not(#recovery-page) {
@@ -450,6 +465,7 @@ form {
         margin: 0 auto;
         display: flex;
         flex-direction: column-reverse;
+
         img {
             height: 100%;
             position: fixed;
@@ -466,6 +482,13 @@ form {
         }
         .recipe {
             width: unset;
+            position: absolute;
+            right: 0;
+            top: 85vh;
+            left: 0;
+        }
+        .form-recipe {
+            width: 100%;
         }
     }
 }
@@ -675,9 +698,12 @@ form {
 
 .recipe {
     overflow: auto;
+    /* overflow: hidden; */
+
     /* display: block; */
-    /* right: 0; */
-    /* top: 0;  */
+    /* right: 0;
+    top: 0;
+    left: 0; */
     /* top: 60px; */
     /* width: 50vw; */
     /* margin: 0 auto; */
@@ -685,20 +711,32 @@ form {
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    scroll-snap-type: y-mandatory;
+    scroll-snap-type: y mandatory;
     /* height: 100vh; */
     width: 50%;
-    position: relative;
+    /* position: relative; */
+    position: absolute;
+    /* top: 85vh; */
     /* background-color: blue; */
     /* align-content: center; */
-    &.open {
-        position: absolute;
-        animation: slideToTop 1.5s;
-    }
-}
 
-.recipe.hidden {
-    /* display: none; */
+    &.open {
+        .test {
+            display: block;
+        }
+        /* position: absolute; */
+        background-color: #28292a;
+        animation: slideToTop 1s forwards;
+        /* -webkit-backdrop-filter : blur(20px);
+        backdrop-filter: blur(20px); */
+        z-index: 100;
+    }
+    &.hidden {
+        animation: slideToBottom 1.2s forwards;
+    }
+    .test {
+        /* display: none; */
+    }
 }
 
 .contact-section:has(.recipe.open) {
@@ -708,11 +746,20 @@ form {
 
 @keyframes slideToTop {
     0% {
-        transform: translateY(100vh);
-        position: absolute;
+        transform: translateY(0);
     }
     100% {
-        transform: translateY(0vh);
+        transform: translateY(-92%);
+    }
+}
+@keyframes slideToBottom {
+    0% {
+        /* opacity: 1; */
+        transform: translateY(-92%);
+    }
+    100% {
+        /* opacity: 0; */
+        transform: translateY(0);
     }
 }
 
@@ -853,10 +900,13 @@ hr {
 .drawer {
     position: absolute;
     top: 0;
+    opacity: 1;
     /* border: var(--background-color) solid 20px; */
     /* background: orange; */
     height: 25px;
     width: 100%;
+    transition: all 2s ease-in;
+    animation: slideToBottom 0.3s;
     /* mask-image: linear-gradient(to top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.7)); */
     & .drawer__button {
         border-radius: 100vh;

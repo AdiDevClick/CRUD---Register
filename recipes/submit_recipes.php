@@ -163,8 +163,7 @@ ob_start();
                         <!-- </form> -->
                     <!-- </form> test -->
                 </section>
-                
-                <section class="card recipe hidden" id="js-preparation">
+                <section class="card recipe" id="js-preparation">
                     <div class="drawer">
                         <div class="drawer__button"></div>
                     </div>
@@ -191,130 +190,131 @@ ob_start();
                     > -->
                     <!-- <div class="preparation_header"> -->
                     <!-- DEBUT DE LA CARTE PREPARATION -->
-                    <div>
-                        <div class="card-header-section">
-                            <div class=" icon form-logo">
-                                <img src="../img/cooking.svg" alt="icône représentant une cuisson" srcset="">
+                    <div class="test">
+                        <div>
+                            <div class="card-header-section">
+                                <div class=" icon form-logo">
+                                    <img src="../img/cooking.svg" alt="icône représentant une cuisson" srcset="">
+                                </div>
+                                <div class="card-header title">
+                                    <h3 class="contact-section header">Préparation</h3>
+                                </div>
                             </div>
-                            <div class="card-header title">
-                                <h3 class="contact-section header">Préparation</h3>
+                            <div class="total_time">
+                                <div class="time">
+                                    <label for="total_time" class="label">Temps total</label>
+                                    <input id="total_time" type="text" name="total_time" class="input"></label>
+                                    <select class="select" name="total_time_length" id="total_time_length" aria-placeholder="test">
+                                        <option value="empty">-- Temps --</option>
+                                        <option value="min">min</option>
+                                        <option value="heures">heures</option>
+                                    </select>
+                                </div>
+                                <div class="time">
+                                <!-- <div class="resting_time"> -->
+                                    <label for="resting_time" class="label">Temps de repos</label>
+                                    <input id="resting_time" type="text" name="resting_time" class="input"></label>
+                                    <select class="select" name="resting_time_length" id="resting_time_length" aria-placeholder="test">
+                                        <option value="empty">-- Temps --</option>
+                                        <option value="min">min</option>
+                                        <option value="heures">heures</option>
+                                    </select>
+                                </div>
+                                <div class="time">
+                                <!-- <div class="oven"> -->
+                                    <label for="oven_time" class="label">Temps de cuisson</label>
+                                    <input id="oven_time" type="text" name="oven_time" class="input"></label>
+                                    <select class="select" name="oven_time_length" id="oven_time_length" aria-placeholder="test">
+                                        <option value="empty">-- Temps --</option>
+                                        <option value="min">min</option>
+                                        <option value="heures">heures</option>
+                                    </select>
+                                </div>
                             </div>
                         </div>
-                        <div class="total_time">
-                            <div class="time">
-                                <label for="total_time" class="label">Temps total</label>
-                                <input id="total_time" type="text" name="total_time" class="input"></label>
-                                <select class="select" name="total_time_length" id="total_time_length" aria-placeholder="test">
-                                    <option value="empty">-- Temps --</option>
-                                    <option value="min">min</option>
-                                    <option value="heures">heures</option>
-                                </select>
-                            </div>
-                            <div class="time">
-                            <!-- <div class="resting_time"> -->
-                                <label for="resting_time" class="label">Temps de repos</label>
-                                <input id="resting_time" type="text" name="resting_time" class="input"></label>
-                                <select class="select" name="resting_time_length" id="resting_time_length" aria-placeholder="test">
-                                    <option value="empty">-- Temps --</option>
-                                    <option value="min">min</option>
-                                    <option value="heures">heures</option>
-                                </select>
-                            </div>
-                            <div class="time">
-                            <!-- <div class="oven"> -->
-                                <label for="oven_time" class="label">Temps de cuisson</label>
-                                <input id="oven_time" type="text" name="oven_time" class="input"></label>
-                                <select class="select" name="oven_time_length" id="oven_time_length" aria-placeholder="test">
-                                    <option value="empty">-- Temps --</option>
-                                    <option value="min">min</option>
-                                    <option value="heures">heures</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
                     
                     <!-- FIN DE LA CARTE PREPARATION -->
                     <!-- DEBUT DE LA CARTE INGREDIENTS -->
-                    <div class="card-header-section">
-                        <div class="icon form-logo">
-                            <img src="../img/food.svg" alt="icône représentant un panier d'ingrédients" srcset="">
-                        </div>
-                        <div class="card-header title">
-                            <h3 class="contact-section">Ingrédients</h3>
-                        </div>
-                    </div>
-                    <div class="ingredients js-ingredients-list">
-                        <div class="persons time">
-                            <label for="persons" class="label">Nombre de personnes</label>
-                            <input id="persons" type="text" name="persons" class="input"></label>
-                        </div>
-                        <div class="">
-                        <template id="ingredient-template">
-                            <!-- <input type="text" class="custom-ingredient js-value"></input> -->
-                            <div contenteditable="false" type="text" class="custom-ingredient js-value"></div>
-                            <!-- <select class="select" name="ingredient-1" id="ingredient-1"> -->
-                                <!-- <option class="js-value">heures</option> -->
-                            <!-- </select> -->
-                        </template>
-                            <p class="label">Vos ingrédients</p>
-                            <div class="ingredient-stack js-ingredient-group js-modal-stop"></div>
-                            <div class="ingredient">
-                                <select class="select js-select1" name="ingredient" id="ingredient1" aria-placeholder="test">
-                                    <option value="empty">-- Choisissez votre ingrédient --</option>
-                                    <option value="oeuf">Oeuf</option>
-                                    <option value="sel">Sel</option>
-                                    <option value="sucre">Sucre</option>
-                                    <option value="beurre">Beurre</option>
-                                </select>
-                                <select class="select js-select2" name="ingredient2" id="ingredient2" aria-placeholder="test">
-                                    <option value="empty">-- Choisissez votre ingrédient --</option>
-                                    <option value="oeuf">Oeuf</option>
-                                    <option value="sel">Sel</option>
-                                    <option value="sucre">Sucre</option>
-                                    <option value="beurre">Beurre</option>
-                                </select>
-                                <select class="select js-select3" name="ingredient3" id="ingredient3" aria-placeholder="test">
-                                    <option value="empty">-- Choisissez votre ingrédient --</option>
-                                    <option value="oeuf">Oeuf</option>
-                                    <option value="sel">Sel</option>
-                                    <option value="sucre">Sucre</option>
-                                    <option value="beurre">Beurre</option>
-                                </select>
-                                <select class="select js-select4" name="ingredient4" id="ingredient4" aria-placeholder="test">
-                                    <option value="empty">-- Choisissez votre ingrédient --</option>
-                                    <option value="oeuf">Oeuf</option>
-                                    <option value="sel">Sel</option>
-                                    <option value="sucre">Sucre</option>
-                                    <option value="beurre">Beurre</option>
-                                </select>
-                                <select class="select js-select5" name="ingredient5" id="ingredient5" aria-placeholder="test">
-                                    <option value="empty">-- Choisissez votre ingrédient --</option>
-                                    <option value="oeuf">Oeuf</option>
-                                    <option value="sel">Sel</option>
-                                    <option value="sucre">Sucre</option>
-                                    <option value="beurre">Beurre</option>
-                                </select>
-                                <select class="select js-select6" name="ingredient6" id="ingredient6" aria-placeholder="test">
-                                    <option value="empty">-- Choisissez votre ingrédient --</option>
-                                    <option value="oeuf">Oeuf</option>
-                                    <option value="sel">Sel</option>
-                                    <option value="sucre">Sucre</option>
-                                    <option value="beurre">Beurre</option>
-                                </select>
+                        <div class="card-header-section">
+                            <div class="icon form-logo">
+                                <img src="../img/food.svg" alt="icône représentant un panier d'ingrédients" srcset="">
+                            </div>
+                            <div class="card-header title">
+                                <h3 class="contact-section">Ingrédients</h3>
                             </div>
                         </div>
-                        <div class="add_ingredient">
-                            <label for="custom_ingredient" class="label">Votre ingrédient particulier</label>
-                            <input id="custom_ingredient" type="text" name="custom_ingredient" class="input" placeholder="Votre ingrédient..."></input>
-                            <button name="add_custom" id="add_custom" type="button" class="btn">Ajouter un nouvel ingrédient</button>
-                        </div>
-                        <hr>
-                        <div class="add_ingredient">
-                            <button name="add_preparation" id="button" type="submit" class="btn">Valider vos ingrédients</button>
+                        <div class="ingredients js-ingredients-list">
+                            <div class="persons time">
+                                <label for="persons" class="label">Nombre de personnes</label>
+                                <input id="persons" type="text" name="persons" class="input"></label>
+                            </div>
+                            <div class="">
+                            <template id="ingredient-template">
+                                <!-- <input type="text" class="custom-ingredient js-value"></input> -->
+                                <div contenteditable="false" type="text" class="custom-ingredient js-value"></div>
+                                <!-- <select class="select" name="ingredient-1" id="ingredient-1"> -->
+                                    <!-- <option class="js-value">heures</option> -->
+                                <!-- </select> -->
+                            </template>
+                                <p class="label">Vos ingrédients</p>
+                                <div class="ingredient-stack js-ingredient-group js-modal-stop"></div>
+                                <div class="ingredient">
+                                    <select class="select js-select1" name="ingredient" id="ingredient1" aria-placeholder="test">
+                                        <option value="empty">-- Choisissez votre ingrédient --</option>
+                                        <option value="oeuf">Oeuf</option>
+                                        <option value="sel">Sel</option>
+                                        <option value="sucre">Sucre</option>
+                                        <option value="beurre">Beurre</option>
+                                    </select>
+                                    <select class="select js-select2" name="ingredient2" id="ingredient2" aria-placeholder="test">
+                                        <option value="empty">-- Choisissez votre ingrédient --</option>
+                                        <option value="oeuf">Oeuf</option>
+                                        <option value="sel">Sel</option>
+                                        <option value="sucre">Sucre</option>
+                                        <option value="beurre">Beurre</option>
+                                    </select>
+                                    <select class="select js-select3" name="ingredient3" id="ingredient3" aria-placeholder="test">
+                                        <option value="empty">-- Choisissez votre ingrédient --</option>
+                                        <option value="oeuf">Oeuf</option>
+                                        <option value="sel">Sel</option>
+                                        <option value="sucre">Sucre</option>
+                                        <option value="beurre">Beurre</option>
+                                    </select>
+                                    <select class="select js-select4" name="ingredient4" id="ingredient4" aria-placeholder="test">
+                                        <option value="empty">-- Choisissez votre ingrédient --</option>
+                                        <option value="oeuf">Oeuf</option>
+                                        <option value="sel">Sel</option>
+                                        <option value="sucre">Sucre</option>
+                                        <option value="beurre">Beurre</option>
+                                    </select>
+                                    <select class="select js-select5" name="ingredient5" id="ingredient5" aria-placeholder="test">
+                                        <option value="empty">-- Choisissez votre ingrédient --</option>
+                                        <option value="oeuf">Oeuf</option>
+                                        <option value="sel">Sel</option>
+                                        <option value="sucre">Sucre</option>
+                                        <option value="beurre">Beurre</option>
+                                    </select>
+                                    <select class="select js-select6" name="ingredient6" id="ingredient6" aria-placeholder="test">
+                                        <option value="empty">-- Choisissez votre ingrédient --</option>
+                                        <option value="oeuf">Oeuf</option>
+                                        <option value="sel">Sel</option>
+                                        <option value="sucre">Sucre</option>
+                                        <option value="beurre">Beurre</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="add_ingredient">
+                                <label for="custom_ingredient" class="label">Votre ingrédient particulier</label>
+                                <input id="custom_ingredient" type="text" name="custom_ingredient" class="input" placeholder="Votre ingrédient..."></input>
+                                <button name="add_custom" id="add_custom" type="button" class="btn">Ajouter un nouvel ingrédient</button>
+                            </div>
+                            <hr>
+                            <div class="add_ingredient">
+                                <button name="add_preparation" id="button" type="submit" class="btn">Valider vos ingrédients</button>
+                            </div>
                         </div>
                     </div>
                     <!-- </form> -->
-                
                 </section>
                 <!-- </form> -->
             </section>
