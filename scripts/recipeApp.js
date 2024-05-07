@@ -2,7 +2,8 @@ import { IngredientFormFetch, IngredientsFrom, RecipePreparation } from "./compo
 import { Toaster } from "./components/Toaster.js"
 import { fetchJSON } from "./functions/api.js"
 
-
+const drawerButton = document.querySelector('.drawer__button')
+const recipe = document.querySelector('.recipe')
 
 try {
     const ingredientsInStorage = localStorage.getItem('ingredients')?.toString()
@@ -12,27 +13,28 @@ try {
         list = JSON.parse(ingredientsInStorage)
     }
 
-    // const preparations = document.querySelectorAll('#js-preparation')
-    // preparations.forEach(preparation => {
-    //     new RecipePreparation(preparation)
-    // })
     const ingredients = new IngredientsFrom(list)
     ingredients.appendTo(document.querySelector('.js-form-fetch'))
 
-    // document
-    //     .querySelectorAll('.js-form-fetch')
-    //     .forEach(form => {
-    //         const preparations = new IngredientFormFetch(form)
-    //         preparations.appendThis(list)
-    // })
-    // const preparations = new RecipePreparation(list)
-    // preparations.appendTo(document.querySelector('#js-preparation'))
-    // console.log('hello world')
     if (list.length === 0) {
         throw new Error("Aucun ingrédient enregistré")
     }
-// const loaded = document.querySelector('.form-loaded')
-// console.log(loaded)
 } catch (error) {
     new Toaster(error, 'Erreur')
 }
+
+const onClose = function (e) {
+    e.preventDefault()
+    recipe.classList.add('hidden')
+    recipe.addEventListener('animationend', () => {
+        recipe.classList.remove('hidden')
+        recipe.classList.remove('open')
+    }, {once: true})
+}
+const onOpen = function (e) {
+    e.preventDefault()
+    if (!recipe.classList.contains('open')) recipe.classList.add('open')
+    drawerButton.addEventListener('click', onClose, {once: true})
+}
+
+if (!recipe.classList.contains('open')) drawerButton.addEventListener('click', onOpen)
