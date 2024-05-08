@@ -1,9 +1,11 @@
+import { DrawerTouchPlugin } from "./components/DrawerTouchPlugin.js"
 import { IngredientFormFetch, IngredientsFrom, RecipePreparation } from "./components/RecipePreparation.js"
 import { Toaster } from "./components/Toaster.js"
 import { fetchJSON } from "./functions/api.js"
 
 const drawerButton = document.querySelector('.drawer__button')
 const recipe = document.querySelector('.recipe')
+const drawer = document.querySelector('.drawer')
 
 try {
     const ingredientsInStorage = localStorage.getItem('ingredients')?.toString()
@@ -34,7 +36,13 @@ const onClose = function (e) {
 const onOpen = function (e) {
     e.preventDefault()
     if (!recipe.classList.contains('open')) recipe.classList.add('open')
-    drawerButton.addEventListener('click', onClose, {once: true})
+    // drawerButton.addEventListener('click', onClose, {once: true})
+    drawer.addEventListener('click', onClose, {once: true})
 }
 
-if (!recipe.classList.contains('open')) drawerButton.addEventListener('click', onOpen)
+if (!recipe.classList.contains('open')) {
+    // drawerButton.addEventListener('click', onOpen)
+    drawer.addEventListener('click', onOpen)
+}
+
+new DrawerTouchPlugin(drawer)
