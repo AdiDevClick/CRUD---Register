@@ -503,8 +503,8 @@ main {
     padding-top: 60px; */
     max-width: 100%;
     @media (max-width: 1270px) {
-        padding-top: 10%;
-        padding-bottom: 10%;
+        /* padding-top: 10%;
+        padding-bottom: 10%; */
     }
 }
 
@@ -514,6 +514,9 @@ main {
     align-content: space-around;
     width: calc(100% - 20px); /* devrait etre deactivated */
     max-width: 100%;
+    @media screen and (max-width: 576px) {
+        /* padding: auto; */
+    }
     /* overflow: hidden;
     position: relative; */
 }
@@ -543,7 +546,7 @@ main {
     @media screen and (max-width: 576px) {
         /* width: 90%; */ /* original */
         /* margin-top: 10%;  */ /* original */
-        margin-top: 15%;
+        /* margin-top: 15%; */
         /* background-color: unset; */
     }
     @media screen and (min-width: 996px) {

@@ -190,7 +190,7 @@ ob_start();
                     > -->
                     <!-- <div class="preparation_header"> -->
                     <!-- DEBUT DE LA CARTE PREPARATION -->
-                    <div class="test">
+                    <div class="show_drawer">
                         <div>
                             <div class="card-header-section">
                                 <div class=" icon form-logo">

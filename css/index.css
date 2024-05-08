@@ -444,10 +444,20 @@ form {
             width: 60vw;
             /* padding-left: 20px;
             padding-right: 20px; */
-            position: absolute;
+            position: fixed;
             right: 0;
-            top: 85vh;
+            /* top: 85vh; */
             left: 0;
+            overflow-y: auto;
+            scroll-snap-type: y mandatory;
+            /* z-index: -1; */
+            overscroll-behavior-y: contain;
+            top: 95vh;
+            height: 50px;
+            /* left: 0; */
+            background-color: #28292a;
+            /* z-index: 0; */
+            /* opacity: 0.5;
         }
         .form-recipe {
             width: 60vw;
@@ -482,10 +492,10 @@ form {
         }
         .recipe {
             width: unset;
-            position: absolute;
-            right: 0;
-            top: 85vh;
-            left: 0;
+            /* position: fixed; */
+            /* right: 0; */
+            /* top: 85vh; */
+            /* left: 0; */
         }
         .form-recipe {
             width: 100%;
@@ -721,21 +731,22 @@ form {
     /* align-content: center; */
 
     &.open {
-        .test {
+        .show_drawer {
             display: block;
         }
-        /* position: absolute; */
+        position: absolute;
         background-color: #28292a;
         animation: slideToTop 1s forwards;
         /* -webkit-backdrop-filter : blur(20px);
         backdrop-filter: blur(20px); */
         z-index: 100;
+        height: unset;
     }
     &.hidden {
         animation: slideToBottom 1.2s forwards;
     }
-    .test {
-        /* display: none; */
+    .show_drawer {
+        display: none;
     }
 }
 
@@ -749,17 +760,21 @@ form {
         transform: translateY(0);
     }
     100% {
-        transform: translateY(-92%);
+        transform: translateY(-75%);
+        /* transform: translateY(-92%); */ /* default */
     }
 }
 @keyframes slideToBottom {
     0% {
         /* opacity: 1; */
-        transform: translateY(-92%);
+        /* transform: translateY(-92%); */
+        transform: translateY(-75%);
+        /* transform: translateY(-92%); */ /* default */
+
     }
     100% {
         /* opacity: 0; */
-        transform: translateY(0);
+        transform: translateY(18%);
     }
 }
 
