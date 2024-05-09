@@ -25,24 +25,29 @@ try {
     new Toaster(error, 'Erreur')
 }
 
-const onClose = function (e) {
-    e.preventDefault()
-    recipe.classList.add('hidden')
-    recipe.addEventListener('animationend', () => {
-        recipe.classList.remove('hidden')
-        recipe.classList.remove('open')
-    }, {once: true})
-}
-const onOpen = function (e) {
-    e.preventDefault()
-    if (!recipe.classList.contains('open')) recipe.classList.add('open')
-    // drawerButton.addEventListener('click', onClose, {once: true})
-    drawer.addEventListener('click', onClose, {once: true})
-}
+// const onClose = function (e) {
+//     e.preventDefault()
+//     console.log('je ferme')
+//     recipe.classList.add('hidden')
+//     recipe.addEventListener('transitionend', () => {
+//     // recipe.addEventListener('animationend', () => {
+//         recipe.classList.remove('hidden')
+//         recipe.classList.remove('open')
+//     }, {once: true})
+// }
+// const onOpen = function (e) {
+//     e.preventDefault()
+//     console.log('jouvre')
 
-if (!recipe.classList.contains('open')) {
-    // drawerButton.addEventListener('click', onOpen)
-    drawer.addEventListener('click', onOpen)
-}
+//     if (!recipe.classList.contains('open')) recipe.classList.add('open')
+//     // drawerButton.addEventListener('click', onClose, {once: true})
+//     drawer.addEventListener('click', onClose, {once: true})
+// }
 
-new DrawerTouchPlugin(drawer)
+// if (!recipe.classList.contains('open')) {
+//     // drawerButton.addEventListener('click', onOpen)
+//     console.log('je crer mon listener')
+//     drawer.addEventListener('click', onOpen)
+// }
+
+new DrawerTouchPlugin(recipe)
