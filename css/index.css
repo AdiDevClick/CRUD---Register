@@ -502,6 +502,8 @@ form {
             right: 0;
             top: 90vh;
             left: 0;
+            will-change: transform;
+            z-index: 999;
         }
         .form-recipe {
             width: 100%;
