@@ -421,13 +421,18 @@ form {
             max-width: unset;
             margin-left: 0;
         }
-        display: flex;
+        /* display: flex; */
         /* background-color: pink; */
         /* grid-template-columns: 2, 1fr; */
         /* grid-template-columns: repeat(2, 400px);  */
         gap: 2rem;
         /* grid-template-columns: repeat(2, 1fr); */
         align-items: unset;
+        #title {
+            margin-left: 0;
+        }
+        /* position: sticky; */
+        /* z-index: 0; */
     }
     display: grid;
     justify-content: center;
@@ -441,26 +446,27 @@ form {
     @media screen and (max-width: 992px) {
         margin: 15px;
         .recipe {
-            width: 60vw;
-            /* padding-left: 20px;
-            padding-right: 20px; */
-            position: fixed;
-            right: 0;
-            /* top: 85vh; */
-            left: 0;
-            overflow-y: auto;
+            height: 100vh;
             scroll-snap-type: y mandatory;
-            /* z-index: -1; */
+            overflow: auto;
+            width: fit-content;
+            position: sticky;
+            top: 0;
+            bottom: 0;
+        }
+        /* .recipe {
+            width: 60vw;
+            position: static;
+            right: 0;
+            left: 0;
+            scroll-snap-type: y mandatory;
             overscroll-behavior-y: contain;
             top: 95vh;
             height: 50px;
-            /* left: 0; */
             background-color: #28292a;
-            /* z-index: 0; */
-            /* opacity: 0.5;
-        }
+        } */
         .form-recipe {
-            width: 60vw;
+            /* width: 60vw; */
             padding-bottom: 20px;
             /* padding-left: 20px;
             padding-right: 20px; */
@@ -492,10 +498,10 @@ form {
         }
         .recipe {
             width: unset;
-            /* position: fixed; */
-            /* right: 0; */
-            /* top: 85vh; */
-            /* left: 0; */
+            position: fixed;
+            right: 0;
+            top: 90vh;
+            left: 0;
         }
         .form-recipe {
             width: 100%;
@@ -707,60 +713,60 @@ form {
 }
 
 .recipe {
-    /* overflow: auto; */
-    /* overflow: hidden; */
-
-    /* display: block; */
-    bottom: 0;
-    height: 100%;
-
-    /* right: 0;
-    top: 0;
-    left: 0; */
-    /* top: 60px; */
-    /* width: 50vw; */
-    /* margin: 0 auto; */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+    height: 100vh;
     scroll-snap-type: y mandatory;
-    /* height: 100vh; */
-    width: 50%;
-    /* position: relative; */
-    position: absolute;
-    /* top: 85vh; */
-    /* background-color: blue; */
-    /* align-content: center; */
+    overflow: auto;
+    width: fit-content;
+    position: sticky;
+    top: 0;
+    bottom: 0;
 
     &.open {
         .show_drawer {
             display: block;
         }
+        .show_drawer ::after {
+            content: '';
+            clear: both;
+            /* display: block; */
+        }
         bottom: 0;
-        height: 100%;
+        /* height: 100%; */
         /* display: inline-block; */
-        position: absolute;
+        /* position: absolute; */
         /* position: inherit; */
         background-color: #28292a;
-        animation: slideToTop 1s forwards;
+        /* animation: slideToTop 1s forwards; */
         /* transform-origin:  50% bottom; */
-        /* transition: transform 1s; */
+        transition: transform 1s;
         /* transform: translate3d(0, -75%, 0); */
         /* transform: translate3d(0, 0, 0); */
         /* -webkit-backdrop-filter : blur(20px);
         backdrop-filter: blur(20px); */
-        /* z-index: 100; */
+        /* z-index: 10000; */
         /* height: unset; */
     }
     &.hidden {
         /* position: relative; */
-        animation: slideToBottom 1.2s;
-        /* transition: transform 1s; */
+        /* animation: slideToBottom 1.2s; */
+        transition: transform 1s;
         /* transform: translate3d(0, 0, 0); */
     }
     .show_drawer {
-        display: none;
+        @media screen and (max-width: 576px) {
+            display: none;
+        }
+        /* z-index: 10000; */
+        &::after {
+            content: '';
+            clear: both;
+        }
+    }
+
+    &::after {
+        content: '';
+        clear: both;
+        display: block;
     }
 }
 
@@ -810,28 +816,19 @@ form {
     /* justify-content: space-between; */
 }
 
-.form-recipe {
-    /* background-color: red; */
-    /* width: 50vw; */
+/* .form-recipe {
     width: 100%;
-    /* height: 100vh; */
-    /* vertical-align: middle; */
-    /* margin: 0 auto; */
-    /* display: flex; */
+    height: 100%;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     padding: 1em;
-    /* overflow: auto; */
-    /* height: 100%; */
-    /* height: 100vh; */
     position: sticky;
-    /* top: 50px; */
     top: 60px;
     & #register-btn {
         padding-left: 0;
     }
-}
+} */
 
 /* RECIPE CREATION */
 .time {
@@ -931,6 +928,9 @@ hr {
 }
 
 .drawer {
+    @media screen and (min-width: 576px) {
+        display: none;
+    }
     position: absolute;
     top: 0;
     opacity: 1;
@@ -938,8 +938,8 @@ hr {
     /* background: orange; */
     height: 25px;
     width: 100%;
-    transition: all 2s ease-in;
-    animation: slideToBottom 0.3s;
+    /* transition: all 2s ease-in;
+    animation: slideToBottom 0.3s; */
     /* mask-image: linear-gradient(to top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.7)); */
     & .drawer__button {
         border-radius: 100vh;
@@ -956,6 +956,6 @@ hr {
     }
     & .drawer__button:hover {
         scale: 1.15;
-        transition: all 0.3s ease-out;
+        transition: all 0.3s ease;
     }
 }

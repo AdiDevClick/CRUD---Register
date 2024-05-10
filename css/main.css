@@ -524,6 +524,9 @@ main {
 
 /* CARDS */
 .card {
+    &.form-recipe, &.recipe {
+        display: block;
+    }
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -557,9 +560,9 @@ main {
 .card-header-section {
     display: flex;
     /* align-items: center; */
-    width: 100%;
-    justify-content: space-around;
-    justify-content: center;
+    /* width: 100%; */
+    /* justify-content: space-around; */
+    /* justify-content: center; */
     /* @media screen and (max-width: 576px) {
         display: block;
         width: unset;
@@ -581,10 +584,11 @@ main {
 .contact-section {
     justify-content: center;
     padding-top: 5px;
-    @media screen and (max-width: 576px) {
+    /* @media screen and (max-width: 576px) {
         margin-top: 5px;
-    }
+    } */
     /* margin-top: 5px; */ /* original */
+    margin-top: 5px;
     /* max-height: calc(100vh - 60px); */
 }
 

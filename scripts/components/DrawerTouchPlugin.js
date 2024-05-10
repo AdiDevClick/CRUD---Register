@@ -9,12 +9,15 @@ export class DrawerTouchPlugin {
     /**
      * @param {Drawer} drawer 
      */
-    constructor(drawer) {
-        this.card = drawer.querySelector('.show_drawer')
-        drawer .addEventListener('dragstart', e => e.preventDefault())
+    constructor(container) {
+        // console.log(container)
+        this.container = container
+        this.card = container.querySelector('.show_drawer')
+        this.drawer = container.querySelector('.recipe')
+        this.drawer.addEventListener('dragstart', e => e.preventDefault())
 
-        drawer.addEventListener('mousedown', this.startDrag.bind(this), {passive: true})
-        drawer.addEventListener('touchstart', this.startDrag.bind(this), {passive: true})
+        this.drawer.addEventListener('mousedown', this.startDrag.bind(this), {passive: true})
+        this.drawer.addEventListener('touchstart', this.startDrag.bind(this), {passive: true})
 
         window.addEventListener('mousemove', this.drag.bind(this))
         window.addEventListener('touchmove', this.drag.bind(this))
@@ -22,9 +25,6 @@ export class DrawerTouchPlugin {
         window.addEventListener('touchend', this.endDrag.bind(this))
         window.addEventListener('mouseup', this.endDrag.bind(this))
         window.addEventListener('touchcancel', this.endDrag.bind(this))
-
-        this.drawer = drawer
-
     }
 
     isDragging(e) {
@@ -38,11 +38,13 @@ export class DrawerTouchPlugin {
      * @param {MouseEvent|TouchEvent} e 
      */
     startDrag(e) {
+        console.log(this.drawer.getBoundingClientRect())
+
         // this.style(this.#savedPosition.y)
         // this.style('-70')
         console.log('je suis dans le start')
         console.log(e)
-        this.drawer.classList.contains('open') ? this.drawer.classList.add('hidden') : this.drawer.classList.add('open')
+        // this.drawer.classList.contains('open') ? this.drawer.classList.add('hidden') : this.drawer.classList.add('open')
 
         if (e.touches) {
             // Permet de ne prendre en compte qu'un seul point d'appui
@@ -53,12 +55,13 @@ export class DrawerTouchPlugin {
             }
         }
         this.origin = {x: e.screenX, y: e.screenY}
+        this.drawer.classList.add('open')
         // this.drawer.classList.contains('open') ? this.drawer.classList.add('hidden') : this.drawer.classList.add('open')
         this.disableTransition()
         
         // Sauvegarde de la witdh du conteneur
         this.height = this.drawer.offsetHeight
-        // this.width = this.drawer.offsetWidth
+        this.width = this.drawer.offsetWidth
     }
 
     /**
@@ -67,7 +70,7 @@ export class DrawerTouchPlugin {
      */
     drag(e) {
         if (this.origin) {
-            console.log('origine 2 => '+this.height)
+            // console.log('origine 2 => '+this.height)
             const pressionPoint = e.touches ? e.touches[0] : e
             // Calcul du point d'appuis de l'axe X et Y en fonction du point d'origine
             let translate = {x: pressionPoint.screenX - this.origin.x, y: pressionPoint.screenY - this.origin.y}
@@ -84,18 +87,18 @@ export class DrawerTouchPlugin {
             //     translate.y = translate.y - 1
             // }
             const offsets = this.drawer.getBoundingClientRect()
-            console.log(this.#savedPosition)
+            // console.log(this.#savedPosition)
             offsets.x = translate.x
             if (this.#isOpened && this.#savedPosition !== translate) {
                 // translate = this.#savedPosition
-                console.log(offsets)
+                // console.log(offsets)
                 // console.log(offsets.top, offsets.left, offsets.bottom, offsets.right)
-                this.drawer.classList.add('hidden')
+                // this.drawer.classList.add('hidden')
                 this.#isOpened = false
             }
             this.lastTranslate = translate
             
-
+            this.origin
             this.translate(100 * translate.y / this.height)
             // this.translate(100 * translate.y / this.width)
         }
@@ -106,7 +109,7 @@ export class DrawerTouchPlugin {
      * @param {Number} percent 
      */
     translate(percent) {
-        this.drawer.style.transform = 'translate3d(0, '+ percent + '%, 0)'
+        this.drawer.style.transform = 'translate3d(0,'+ percent + '%, 0)'
     }
 
     /**
@@ -121,7 +124,7 @@ export class DrawerTouchPlugin {
         // }
         // this.drawer.style.animation = 'none'
         // this.drawer.style.animation = 'auto ease 0s 1 normal both paused none'
-        this.drawer.style.transition = 'none'
+        // this.drawer.style.transition = 'none'
     }
 
     /**
@@ -130,7 +133,7 @@ export class DrawerTouchPlugin {
     enableTransition() {
         // this.drawer.style.animation = ''
         // this.drawer.style.animation = 'slideToTop 1s forwards'
-        this.drawer.style.transition = ''
+        // this.drawer.style.transition = ''
     }
 
     style(top) {
@@ -146,7 +149,10 @@ export class DrawerTouchPlugin {
     async endDrag(e) {
         console.log('je suis dans le end')
         if (this.origin && this.lastTranslate) {
-            console.log(this.lastTranslate)
+            // console.log(this.lastTranslate)
+            // Force Repaint
+            // this.drawer.offsetHeight
+        // End of Force Repaint
             this.enableTransition()
             //Au-delà de 20 points, l'alerte activera l'animation fadeout
             if (Math.abs(this.lastTranslate.y / this.drawerHeigth) > 0.20) {
@@ -154,7 +160,8 @@ export class DrawerTouchPlugin {
                 if (this.lastTranslate.y < 0) {
                     console.log('test2')
                     // this.translate('-75%')
-                    this.drawer.style.animation = 'slideToTop 1s forwards'
+                    
+                    // this.drawer.style.animation = 'slideToTop 1s forwards'
 
                     console.log(this.drawer.getBoundingClientRect())
                     // this.drawer.style.transform  = "none"
@@ -174,7 +181,7 @@ export class DrawerTouchPlugin {
                     // this.drawer.style.transition = 'none'
                     // this.drawer.classList.remove('open')
                     // this.drawer.classList.add('hidden')
-                    this.drawer.style.animation = 'slideToBottom 1s forwards'
+                    // this.drawer.style.animation = 'slideToBottom 1s forwards'
                     this.#isOpened = false
                     // this.drawer.style.transform = 'translate3d(0, 0, 0)'
                 }

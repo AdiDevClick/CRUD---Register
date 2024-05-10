@@ -5,6 +5,7 @@ import { fetchJSON } from "./functions/api.js"
 
 const drawerButton = document.querySelector('.drawer__button')
 const recipe = document.querySelector('.recipe')
+const grid = document.querySelector('.contact-section')
 const drawer = document.querySelector('.drawer')
 
 try {
@@ -50,4 +51,4 @@ try {
 //     drawer.addEventListener('click', onOpen)
 // }
 
-new DrawerTouchPlugin(recipe)
+new DrawerTouchPlugin(grid)
