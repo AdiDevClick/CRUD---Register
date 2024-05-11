@@ -510,6 +510,7 @@ main {
 
 /* WRAPPER */
 .wrapper {
+    /* white-space: nowrap; */
     margin: 0 auto; /* devrait etre deactivated */
     align-content: space-around;
     width: calc(100% - 20px); /* devrait etre deactivated */
@@ -588,6 +589,7 @@ main {
 .contact-section {
     justify-content: center;
     padding-top: 5px;
+    overflow: hidden;
     /* @media screen and (max-width: 576px) {
         margin-top: 5px;
     } */

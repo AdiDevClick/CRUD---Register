@@ -501,12 +501,14 @@ form {
             position: fixed;
             right: 0;
             top: 90vh;
+            /* height: 100vh; */
             left: 0;
             will-change: transform;
             z-index: 999;
         }
         .form-recipe {
             width: 100%;
+            margin-bottom: 50px;
         }
     }
 }
@@ -716,6 +718,7 @@ form {
 
 .recipe {
     height: 100vh;
+    opacity: 1;
     scroll-snap-type: y mandatory;
     overflow: auto;
     width: fit-content;
@@ -732,10 +735,15 @@ form {
             clear: both;
             /* display: block; */
         }
+        scroll-snap-type: y mandatory;
+        /* overscroll-behavior-y: contain; */
         bottom: 0;
-        /* height: 100%; */
+        position: absolute;
+        /* white-space: nowrap; */
+        max-height: 100%;
+        min-height: fit-content;
         /* display: inline-block; */
-        /* position: absolute; */
+        /* position: relative; */
         /* position: inherit; */
         background-color: #28292a;
         /* animation: slideToTop 1s forwards; */
@@ -749,7 +757,11 @@ form {
         /* height: unset; */
     }
     &.hidden {
+        .show_drawer {
+            display: none;
+        }
         /* position: relative; */
+        /* position: unset; */
         /* animation: slideToBottom 1.2s; */
         transition: transform 1s;
         /* transform: translate3d(0, 0, 0); */
@@ -757,12 +769,14 @@ form {
     .show_drawer {
         @media screen and (max-width: 576px) {
             display: none;
+            bottom: 0;
         }
         /* z-index: 10000; */
         &::after {
             content: '';
             clear: both;
         }
+        
     }
 
     &::after {
@@ -772,10 +786,10 @@ form {
     }
 }
 
-.contact-section:has(.recipe.open) {
+/* .contact-section:has(.recipe) {
     /* display: flex; */
-    /* animation: slideToTop 1.5s ease-in-out; */
-}
+    /* animation: slideToTop 1.5s ease-in-out; 
+} */
 
 @keyframes slideToTop {
     /* 0% {
@@ -785,7 +799,7 @@ form {
         transform: translate3d(0, -75%, 0);
     } */
     to {
-        transform: translate3d(0, -75%, 0);
+        transform: translate3d(0, -67%, 0);
     }
 }
 @keyframes slideToBottom {
@@ -797,10 +811,12 @@ form {
         transform: translate3d(0, 0, 0);
     } */
     /* from {
+        opacity: 1;
         transform: translate3d(0, -75%, 0);
     } */
-    to {
-        transform: translate3d(0, 1%, 0);
+    100% {
+        opacity: 0;
+        transform: translate3d(0, 0, 0);
     }
 }
 
@@ -933,12 +949,15 @@ hr {
     @media screen and (min-width: 576px) {
         display: none;
     }
-    position: absolute;
+    position: fixed;
     top: 0;
+    bottom: 0;
+    
     opacity: 1;
     /* border: var(--background-color) solid 20px; */
     /* background: orange; */
-    height: 25px;
+    /* height: 25px; */
+    height: 50px;
     width: 100%;
     /* transition: all 2s ease-in;
     animation: slideToBottom 0.3s; */
