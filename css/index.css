@@ -725,6 +725,18 @@ form {
     position: sticky;
     top: 0;
     bottom: 0;
+    &.opened {
+        top: 33%;
+        bottom: 0;
+        background-color: #28292a;
+        position: absolute;
+        scroll-snap-type: y mandatory;
+        max-height: 100%;
+        min-height: fit-content;
+        .show_drawer {
+            display: block;
+        }
+    }
 
     &.open {
         .show_drawer {
@@ -814,9 +826,9 @@ form {
         opacity: 1;
         transform: translate3d(0, -75%, 0);
     } */
-    100% {
+    to {
         opacity: 0;
-        transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 50%, 0);
     }
 }
 

@@ -3,6 +3,9 @@
  */
 export class DrawerTouchPlugin {
 
+    #recipe
+    #card
+    #steps
     #isOpened = false
     #savedPosition = {}
 
@@ -12,8 +15,9 @@ export class DrawerTouchPlugin {
     constructor(container) {
         // console.log(container)
         this.container = container
-        this.recipe = container.querySelector('.show_drawer')
-        this.card = container.querySelector('.recipe')
+        this.#steps = document.querySelector('.form-recipe')
+        this.#recipe = container.querySelector('.show_drawer')
+        this.#card = container.querySelector('.recipe')
         this.drawer = document.querySelector('.drawer')
         this.drawer.addEventListener('dragstart', e => e.preventDefault())
 
@@ -56,13 +60,13 @@ export class DrawerTouchPlugin {
             }
         }
         this.origin = {x: e.screenX, y: e.screenY}
-        this.card.classList.add('open')
-        // this.drawer.classList.contains('open') ? this.drawer.classList.add('hidden') : this.drawer.classList.add('open')
+        // this.card.classList.add('open')
+        this.#card.classList.contains('opened') ? null : this.#card.classList.add('open')
         this.disableTransition()
         
         // Sauvegarde de la witdh du conteneur
-        this.height = this.card.offsetHeight
-        this.width = this.card.offsetWidth
+        this.height = this.#card.offsetHeight
+        this.width = this.#card.offsetWidth
     }
 
     /**
@@ -87,7 +91,7 @@ export class DrawerTouchPlugin {
             //     console.log('pas ok')
             //     translate.y = translate.y - 1
             // }
-            const offsets = this.card.getBoundingClientRect()
+            const offsets = this.#card.getBoundingClientRect()
             // console.log(this.#savedPosition)
             offsets.x = translate.x
             if (this.#isOpened && this.#savedPosition !== translate) {
@@ -110,13 +114,14 @@ export class DrawerTouchPlugin {
      * @param {Number} percent 
      */
     translate(percent) {
-        this.card.style.transform = 'translate3d(0,'+ percent + '%, 0)'
+        this.#card.style.transform = 'translate3d(0,'+ percent + '%, 0)'
     }
 
     /**
      * Désactive la transition du conteneur
      */
     disableTransition() {
+        // this.#steps.style.position = 'sticky'
         // if (this.#isOpened) return
         // if (this.drawer.classList.contains('open')) {
         //     this.drawer.classList.add('hidden')
@@ -124,32 +129,32 @@ export class DrawerTouchPlugin {
         //     this.drawer.classList.add('open')
         // }
         // this.card.removeAttribute('style')
-        this.card.style.animation = 'none'
+        // this.card.style.animation = 'none'
         // this.drawer.style.animation = 'auto ease 0s 1 normal both paused none'
-        this.card.style.transition = 'none'
-        this.card.style.overflowY = 'hidden'
-        this.card.style.overflowX = 'hidden'
-        this.card.style.zIndex = '999'
-        this.card.style.position = 'fixed'
+        this.#card.style.transition = 'none'
+        this.#card.style.overflowY = 'hidden'
+        this.#card.style.overflowX = 'hidden'
+        this.#card.style.zIndex = '999'
+        this.#card.style.position = 'fixed'
     }
 
     /**
      * Active la transition du conteneur
      */
     enableTransition() {
-        this.card.style.overflowY = 'auto'
+        this.#card.style.overflowY = 'auto'
         // this.drawer.style.animation = ''
-        this.card.style.animation = null
+        this.#card.style.animation = null
 
         // this.drawer.style.animation = 'slideToTop 1s forwards'
-        this.card.style.transition = ''
+        this.#card.style.transition = ''
         // !this.#isOpened ? this.card.style.position = 'absolute' : this.card.style.position = 'fixed'
     }
 
     style(top) {
         console.log(top)
         // this.drawer.style.top = top+'%'
-        this.card.style.top = top
+        this.#card.style.top = top
     }
 
     /**
@@ -173,33 +178,37 @@ export class DrawerTouchPlugin {
                     console.log('test')
 
                     // this.drawer.style.transform = 'translateY(0)'
-                    this.translate('0')
+                    // this.translate('0')
                     // this.drawer.style.animation = 'none'
                     // this.drawer.style.transition = 'none'
                     // this.drawer.classList.remove('open')
-                    this.card.style.animation = 'slideToBottom 1s forwards'
-                    this.card.classList.add('hidden')
-                    this.card.addEventListener('transitionend', e => {
-                    // this.card.addEventListener('animationend', () => {
-                        this.card.classList.remove('open')
-                        this.card.classList.remove('hidden')
-                        this.card.removeAttribute('style')
+                    this.#card.style.animation = 'slideToBottom 1s forwards'
+                    this.#card.classList.add('hidden')
+                    // this.card.addEventListener('transitionend', e => {
+                    this.#card.addEventListener('animationend', () => {
+                        this.#card.classList.remove('open')
+                        this.#card.classList.remove('opened')
+                        this.#card.classList.remove('hidden')
+                        this.#card.removeAttribute('style')
                         this.#isOpened = false
-
+                        this.#steps.removeAttribute('style')
                     }, {once: true})
                     // this.drawer.style.transform = 'translate3d(0, 0, 0)'
                 }
                 if (this.lastTranslate.y < 0 && !this.#isOpened) {
                     console.log('test2')
                     // this.translate('-70')
-                    this.card.style.animation = 'slideToTop 1s forwards'
+                    this.#card.style.animation = 'slideToTop 1s forwards'
                     // this.card.addEventListener('transitionend', e => {
-                        this.card.addEventListener('animationend', e => {
+                        this.#card.addEventListener('animationend', e => {
                         this.#isOpened = true
-                        this.card.style.position = 'absolute'
+                        // this.card.style.position = 'absolute'
+                        this.#card.removeAttribute('style')
+                        this.#card.classList.remove('open')
+                        this.#card.classList.add('opened')
                     }, {once: true})
 
-                    console.log(this.card.getBoundingClientRect())
+                    console.log(this.#card.getBoundingClientRect())
                     // this.drawer.style.transform  = "none"
                     for (const [key, value] of Object.entries(this.lastTranslate)) {
                         this.#savedPosition[key] = value
@@ -230,12 +239,12 @@ export class DrawerTouchPlugin {
      * Retour la dimension width du conteneur
      */
     get drawerWidth() {
-        return this.card.offsetWidth
+        return this.#card.offsetWidth
     }
     /**
      * Retour la dimension height du conteneur
      */
     get drawerHeigth() {
-        return this.card.offsetHeight
+        return this.#card.offsetHeight
     }
 }
