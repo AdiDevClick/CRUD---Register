@@ -123,7 +123,8 @@ export class DrawerTouchPlugin {
         // } else {
         //     this.drawer.classList.add('open')
         // }
-        this.drawer.style.animation = 'none'
+        // this.card.removeAttribute('style')
+        this.card.style.animation = 'none'
         // this.drawer.style.animation = 'auto ease 0s 1 normal both paused none'
         this.card.style.transition = 'none'
         this.card.style.overflowY = 'hidden'
@@ -176,7 +177,7 @@ export class DrawerTouchPlugin {
                     // this.drawer.style.animation = 'none'
                     // this.drawer.style.transition = 'none'
                     // this.drawer.classList.remove('open')
-                    // this.card.style.animation = 'slideToBottom 1s forwards'
+                    this.card.style.animation = 'slideToBottom 1s forwards'
                     this.card.classList.add('hidden')
                     this.card.addEventListener('transitionend', e => {
                     // this.card.addEventListener('animationend', () => {
