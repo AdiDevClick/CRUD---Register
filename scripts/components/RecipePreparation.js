@@ -953,7 +953,19 @@ class Ingredient {
         if (!this.#newModifierButtons.element) {
             this.#newModifierButtons = new AttachmentToThis(this.element)
             this.element.append(this.#newModifierButtons.element)
+            console.log(this.element)
+            if (this.#newModifierButtons.creationStatus) {
+                // document.querySelector('.contact-grid').addEventListener('click', this.#newModifierButtons.onClose)
+            }
+
+            // document.querySelector('.contact-grid').addEventListener('click', this.#newModifierButtons.onClose.bind(this))
+            // this.#newModifierButtons.element.addEventListener('click', this.#stopPropagation)
+            // this.#newModifierButtons.element.addEventListener('click', this.#stopPropagation)
+            // this.#newModifierButtons.element.addEventListener('click', this.#newModifierButtons.onClose.bind(this))
+            // this.#newModifierButtons.element.addEventListener('click', this.#onClose.bind(this))
+            // this.element.querySelector('.js-modal-stop').addEventListener('click', this.#stopPropagation.bind(this))
             // this.#ingredientList.form.querySelector('.js-modal-stop').addEventListener('click', this.#stopPropagation)
+            console.log(this.#newModifierButtons.element)
         }
     }
 
@@ -1021,18 +1033,23 @@ class AttachmentToThis {
     #modifier
     #deleter
     #closeButton
+    #container = []
+    #isCreated = false
+    #stop
 
     constructor(item) {
         this.#item  = item
         if (this.#element.length > 0 ){
             return
         }
-
+        this.#container = createElement('div', {
+            class: 'custom-ingredient__container',
+            id: 'interactive-container-'+this.#item.id
+        })
         this.#element = createElement('div', {
             class: 'custom-ingredient__interactive-elements',
             id: 'attach-'+this.#item.id
         })
-
         this.#modifier = createElement('img', {
             class: 'interactive-elements__modify',
             name: 'modify',
@@ -1051,21 +1068,42 @@ class AttachmentToThis {
             id: 'close-'+this.#item.id,
             src: '../img/close.svg'
         })
+        this.#stop = createElement('div', {
+            class: 'js-stops',
+            name: 'stop',
+            id: 'stop-'+this.#item.id
+        })
         // this.#modifier.innerText = ' MODIFY '
         this.#deleter.innerText = ' DELETE '
         this.#closeButton.innerText = ' CLOSE '
+        
+        this.#container.prepend(this.#stop)
+        this.#container.append(this.#element)
 
         this.#element.append(this.#deleter)
         this.#element.append(this.#closeButton)
         this.#element.prepend(this.#modifier)
 
+        this.#isCreated = true
+
         this.#deleter.addEventListener('click', this.#onRemove.bind(this), {once: true})
         this.#modifier.addEventListener('click', this.#onModify.bind(this))
         this.#closeButton.addEventListener('click', this.#onClose.bind(this))
-        // document.addEventListener('click', this.#onClose.bind(this))
-        // this.#item.querySelector('.js-modal-stop').addEventListener('click', this.#stopPropagation)
+        
+        // this.#container.addEventListener('click', this.#onClose.bind(this))
+        // this.#container.addEventListener('click', this.#stopPropagation)
+        // if (this.#isCreated) {
+            this.#container.querySelector('.js-stops').addEventListener('click', this.#onClose.bind(this), {once: true})
+        // }
+        // this.#container.addEventListener('click', this.#onClose.bind(this), {once: true})
+        // this.#element.addEventListener('click', this.#onClose.bind(this))
+        // document.querySelector('.custom-ingredient__container').addEventListener('click', this.#stopPropagation)
+        // document.querySelector('.custom-ingredient__interactive-elements').addEventListener('click', this.#stopPropagation)
+        this.#element.addEventListener('click', this.#stopPropagation)
+        // this.#container.addEventListener('click', this.#stopPropagation)
+        // document.querySelector(`#${this.#container.id}`).addEventListener('click', this.#stopPropagation)
     
-        console.log(item)
+        console.log(this.#item)
     }
 
     #stopPropagation(e) {
@@ -1102,21 +1140,32 @@ class AttachmentToThis {
         console.log('je suis dans le close du attach')
         e.preventDefault()
         this.#item.setAttribute('contenteditable', false)
-        this.#element.remove()
+        // this.#element.remove()
+        this.#container.remove()
         const closeEvent = new CustomEvent('closeAction', {
             detail: this.#item,
             cancelable: true,
-            bubbles: false
+            bubbles: true
         })
         this.#item.dispatchEvent(closeEvent)
     }
 
     get element() {
-        return this.#element
+        // return this.#element
+        return this.#container
+    }
+
+    get creationStatus() {
+        // return this.#element
+        return this.#isCreated
     }
 
     get onClose() {
         return this.#onClose.bind(this)
+    }
+
+    get stopPropagation() {
+        return this.#stopPropagation.bind(this)
     }
 }
 

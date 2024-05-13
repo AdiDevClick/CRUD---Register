@@ -529,9 +529,13 @@ main {
         display: block;
         will-change: transform;
     }
+    /* & > :has(.js-stops) {
+        width: 100%;
+    } */
     /* &.form-recipe::before, &.form-recipe::after, &.form-recipe {
         z-index: -1;
     } */
+    /* position: relative; */
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -544,7 +548,7 @@ main {
     /* border-inline: 2px solid var(--site-color-01); */
     /* border-top: 1px solid var(--site-color-01); */
     /* border-bottom: 1px solid var(--site-color-01); */
-    max-width: 100%;
+    /* max-width: 100%; */
     /* padding: 5px; */ /* original */
     padding: 10px;
     padding-top: 20px;

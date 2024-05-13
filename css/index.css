@@ -116,10 +116,11 @@ textarea {
     max-width: 100%;
     min-height: 50px;
     /* min-width: 100%; */
-    resize: both;
+    /* resize: both; */
+    resize: vertical;
     border: 1px solid #ccc;
     margin-left: 0;
-    /* width: 50%; */
+    width: 100%;
 }
 
 select, .custom-ingredient {
@@ -448,7 +449,7 @@ form {
         .recipe {
             height: 100vh;
             scroll-snap-type: y mandatory;
-            overflow: auto;
+            overflow: visible;
             width: fit-content;
             position: sticky;
             top: 0;
@@ -720,13 +721,14 @@ form {
     height: 100vh;
     opacity: 1;
     scroll-snap-type: y mandatory;
-    overflow: auto;
+    overflow: visible;
     width: fit-content;
     position: sticky;
     top: 0;
     bottom: 0;
     &.opened {
-        top: 33%;
+        /* top: 33%; */
+        top: 23%;
         bottom: 0;
         background-color: #28292a;
         position: absolute;
@@ -934,14 +936,55 @@ hr {
         background-color: unset;
     }
 }
+/* .custom-ingredient__container {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.1);
+    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    width: 100vw;
+    height: 100vh;
+} */
+
+.js-stops {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    transform: translate3d(-310px, -310px, -100px);
+    height: calc(100% + 100vh);
+    right: 0;
+    background: #ffffff33;
+    width: calc(100% + 100vh);
+    z-index: 1;
+}
 
 .custom-ingredient__interactive-elements {
+    animation: fadeIn .4s;
     position: absolute;
-    top: -25px;
+    /* top: -25px; */
     left: 0;
     display: flex;
     justify-content: flex-start;
     align-items: center;
+    background-color: #474444;
+    top: -45px;
+    border-radius: 100vh;
+    padding: 10px;
+    width: max-content;
+    gap: 8px;
+    & > img {
+        position: relative;
+        opacity: 1;
+        filter: none;
+        z-index: 10000;
+    }
 }
 
 .interactive-elements__validate,
