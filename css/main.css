@@ -591,14 +591,17 @@ main {
 /* END OF CARDS */
 
 .contact-section {
+    position: relative;
     justify-content: center;
     padding-top: 5px;
-    overflow: hidden;
+    /* overflow: hidden; */
     /* @media screen and (max-width: 576px) {
         margin-top: 5px;
     } */
     /* margin-top: 5px; */ /* original */
     margin-top: 5px;
+    bottom: 0;
+    top: 0;
     /* max-height: calc(100vh - 60px); */
 }
 
