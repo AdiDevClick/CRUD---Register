@@ -1048,7 +1048,7 @@ class Ingredient {
         e.preventDefault()
         console.log('je suis dans le close')
 
-        this.#closed = true
+        // this.#closed = true
         this.#newModifierButtons = []
         this.#validationItems = []
         // this.element.removeEventListener('click', this.#stopPropagation)
@@ -1118,7 +1118,8 @@ class AttachmentToThis {
         this.#deleter.innerText = ' DELETE '
         this.#closeButton.innerText = ' CLOSE '
         
-        this.#container.prepend(this.#stop)
+        // this.#container.prepend(this.#stop)
+        document.querySelector('.contact-grid').append(this.#stop)
         this.#container.append(this.#element)
 
         this.#element.append(this.#deleter)
@@ -1134,7 +1135,8 @@ class AttachmentToThis {
         // this.#container.addEventListener('click', this.#onClose.bind(this))
         // this.#container.addEventListener('click', this.#stopPropagation)
         // if (this.#isCreated) {
-            this.#container.querySelector('.js-stops').addEventListener('click', this.#onClose.bind(this), {once: true})
+            // this.#container.querySelector('.js-stops').addEventListener('click', this.#onClose.bind(this), {once: true})
+            this.#stop.addEventListener('click', this.#onClose.bind(this), {once: true})
         // }
         // this.#container.addEventListener('click', this.#onClose.bind(this), {once: true})
         // this.#element.addEventListener('click', this.#onClose.bind(this))
@@ -1191,6 +1193,7 @@ class AttachmentToThis {
         this.#item.firstElementChild.setAttribute('contenteditable', false)
         // this.#element.remove()
         this.#container.remove()
+        this.#stop.remove()
         const closeEvent = new CustomEvent('closeAction', {
             detail: this.#item,
             cancelable: true,
