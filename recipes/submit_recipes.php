@@ -251,7 +251,9 @@ ob_start();
                             <div class="">
                             <template id="ingredient-template">
                                 <!-- <input type="text" class="custom-ingredient js-value"></input> -->
-                                <div contenteditable="false" type="text" class="custom-ingredient js-value"></div>
+                                <div contenteditable="false" type="text" class="custom-ingredient">
+                                    <p contenteditable="false" class="js-value"></p>
+                                </div>
                                 <!-- <select class="select" name="ingredient-1" id="ingredient-1"> -->
                                     <!-- <option class="js-value">heures</option> -->
                                 <!-- </select> -->

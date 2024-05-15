@@ -904,7 +904,8 @@ class Ingredient {
         this.element.setAttribute('id', this.#count)
         this.element.setAttribute('name', 'ingredient-'+this.#count)
         
-        this.element.innerText = this.#ingredient
+        this.element.querySelector('p').innerText = this.#ingredient
+        // this.element.innerText = this.#ingredient
 
         this.element.addEventListener('click', this.#onClick.bind(this))
         this.element.addEventListener('modify', this.#onModify.bind(this))
@@ -974,7 +975,30 @@ class Ingredient {
         // this.#ingredientList.form.addEventListener('click', this.#newModifierButtons.onClose)
 
         // document.addEventListener('click', this.#newModifierButtons.onClose)
-        this.data = e.detail.firstChild.data
+        // this.data = this.element.firstElementChild.innerText
+        this.data = this.element.firstElementChild.innerText
+        const test = this.element.querySelector('.js-value')
+        // this.element.firstElementChild.focus()
+        test.focus()
+        for (let i = 0; i < this.data.length; i++) {
+            // const element = this.data[i];
+            if (i === this.data.length - 1) {
+                this.str = this.data[i]
+            }
+        }
+        test.selectionStart = this.str
+        test.selectionEnd = this.str
+    
+        // test.selectionStart = this.data.length
+        // test.selectionEnd = this.data.length
+        // this.data.setSelectionRange(22, 22)
+        // this.element.firstElementChild.selectionStart = this.data.length
+        // this.element.firstElementChild.selectionEnd = this.data.length
+        // this.data = e.detail.firstElementChild.data
+        // this.data = e.detail.firstChild.data
+        // e.detail.setAttribute('contenteditable', true)
+        // e.target.setAttribute('contenteditable', true)
+        // this.element.firstElementChild.setAttribute('contenteditable', true)
         if (!this.#validationItems.element) {
             this.#newModifierButtons.element.remove()
             this.#validationItems = new UserValidations(this.element)
@@ -985,15 +1009,29 @@ class Ingredient {
 
     #onValidate(e) {
         e.preventDefault()
+        console.log(e)
         const item = e.detail.id
-        const data = e.detail.firstChild.data
-        this.#validationItems.element.remove()
-        this.#validationStatus = true
-        this.#newModifierButtons = []
-        this.#validationItems = []
-        this.#ingredientList.setIngredientList = this.#ingredientList.ingredientList.filter((i, k) => k != item)
-        this.#ingredientList.listPush = data
-        this.#ingredientList.onUpdate('ingredients', this.#ingredientList.ingredientList)
+        console.log(item)
+        
+        let data = this.element.firstElementChild.innerText
+        // const data = e.detail.firstChild.data
+        if (data !== '') {
+            this.#validationItems.element.remove()
+            this.#validationStatus = true
+            this.#newModifierButtons = []
+            this.#validationItems = []
+            this.#ingredientList.setIngredientList = this.#ingredientList.ingredientList.filter((i, k) => k != item)
+            this.#ingredientList.listPush = data
+            this.#ingredientList.onUpdate('ingredients', this.#ingredientList.ingredientList)
+        } else {
+            this.#validationItems.element.remove()
+            this.#validationStatus = true
+            this.#newModifierButtons = []
+            this.#validationItems = []
+            this.#ingredientList.setIngredientList = this.#ingredientList.ingredientList.filter((i, k) => k != item)
+            this.#ingredientList.onUpdate('ingredients', this.#ingredientList.ingredientList)
+            this.element.remove()
+        }
     }
     
     #onCancel(e) {
@@ -1002,7 +1040,8 @@ class Ingredient {
         this.#validationItems = []
         this.#newModifierButtons = []
         this.#done = true
-        this.element.innerText = this.data
+        // this.element.innerText = this.data
+        this.element.firstElementChild.innerText = this.data
     }
 
     #onClose(e) {
@@ -1044,11 +1083,13 @@ class AttachmentToThis {
         }
         this.#container = createElement('div', {
             class: 'custom-ingredient__container',
-            id: 'interactive-container-'+this.#item.id
+            id: 'interactive-container-'+this.#item.id,
+            contenteditable: false
         })
         this.#element = createElement('div', {
             class: 'custom-ingredient__interactive-elements',
-            id: 'attach-'+this.#item.id
+            id: 'attach-'+this.#item.id,
+            contenteditable: false
         })
         this.#modifier = createElement('img', {
             class: 'interactive-elements__modify',
@@ -1127,7 +1168,15 @@ class AttachmentToThis {
 
     #onModify(e) {
         e.preventDefault()
-        this.#item.setAttribute('contenteditable', true)
+        // this.#item.querySelector('.js-value')
+        console.log(this.#item.firstElementChild)
+        const editable = this.#item.firstChild
+        this.#item.firstElementChild.setAttribute('contenteditable', true)
+        // editable.setAttribute('contenteditable', true)
+        // this.#element.setAttribute('contenteditable', false)
+        // this.#item.firstChild.setAttribute('contenteditable', false)
+        console.log(this.#element)
+        console.log(this.#item.firstChild)
         const modifierEvent = new CustomEvent('modify', {
             detail: this.#item,
             cancelable: true,
@@ -1139,7 +1188,7 @@ class AttachmentToThis {
     #onClose(e) {
         console.log('je suis dans le close du attach')
         e.preventDefault()
-        this.#item.setAttribute('contenteditable', false)
+        this.#item.firstElementChild.setAttribute('contenteditable', false)
         // this.#element.remove()
         this.#container.remove()
         const closeEvent = new CustomEvent('closeAction', {
@@ -1213,7 +1262,7 @@ class UserValidations {
     #onCancel(e) {
         e.preventDefault()
         // this.#item.remove()
-        this.#item.setAttribute('contenteditable', false)
+        this.#item.firstElementChild.setAttribute('contenteditable', false)
         const cancelEvent = new CustomEvent('canceled', {
             detail: this.#item,
             cancelable: true,
@@ -1224,7 +1273,7 @@ class UserValidations {
 
     #onValidation(e) {
         e.preventDefault()
-        this.#item.setAttribute('contenteditable', false)
+        this.#item.firstElementChild.setAttribute('contenteditable', false)
         const validateEvent = new CustomEvent('validate', {
             detail: this.#item,
             cancelable: true,
