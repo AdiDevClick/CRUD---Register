@@ -447,9 +447,10 @@ form {
     @media screen and (max-width: 992px) {
         margin: 15px;
         .recipe {
-            height: 100vh;
+            /* height: 100vh; */
             scroll-snap-type: y mandatory;
-            overflow: visible;
+            /* overflow: auto; */
+            /* overflow: hidden; */
             width: fit-content;
             position: sticky;
             top: 0;
@@ -471,6 +472,7 @@ form {
             padding-bottom: 20px;
             /* padding-left: 20px;
             padding-right: 20px; */
+            /* height: max-content; */
         }
     }
     @media screen and (min-width: 992px) {
@@ -790,7 +792,11 @@ form {
             content: '';
             clear: both;
         }
-        
+        overflow: auto;
+        position: relative;
+        /* height: 100vh; */
+        /* max-height: max-content; */
+        height: 100%;
     }
 
     &::after {
@@ -956,12 +962,15 @@ hr {
     position: fixed;
     top: 0;
     bottom: 0;
+    /* left: -100%; */
     left: 0;
-    transform: translate3d(-310px, -310px, -100px);
-    height: calc(100% + 100vh);
+    /* transform: translate3d(-310px, -310px, -100px); */
+    transform: translate3d(-310px, 0px, 0px);
+    /* height: calc(100% + 100vh); */
     right: 0;
     background: #ffffff33;
-    width: calc(100% + 100vh);
+    width: 100vw;
+    /* width: calc(100% + 100vh); */
     z-index: 1;
 }
 
