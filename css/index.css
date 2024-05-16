@@ -149,7 +149,7 @@ input[type=password], select, input[type=number] {
 }
 
 input:focus,
-textarea:focus, input:hover, textarea:hover, .custom-ingredient:hover {
+textarea:focus, input:hover, textarea:hover, .custom-ingredient:hover, .custom-ingredient:focus-within {
     border: 1px solid var(--input-focus);
     background-color: var(--input-background-color);
     /* transition: all 0.2s ease; */
@@ -507,7 +507,7 @@ form {
             /* height: 100vh; */
             left: 0;
             will-change: transform;
-            z-index: 999;
+            /* z-index: 999; */
         }
         .form-recipe {
             width: 100%;
@@ -928,6 +928,7 @@ hr {
     text-align: center;
     cursor: pointer;
     width: fit-content;
+    /* z-index: 2; */
     /* margin: 10px; */
     border: 1px solid var(--border-color);
     /* padding: 10px;
@@ -962,14 +963,17 @@ hr {
     position: fixed;
     top: 0;
     bottom: 0;
-    /* left: -100%; */
-    left: 0;
+    left: -100%;
+    -webkit-backdrop-filter:blur(1px);
+    backdrop-filter: blur(1px);
+    /* left: 0; */
     /* transform: translate3d(-310px, -310px, -100px); */
     transform: translate3d(-310px, 0px, 0px);
     /* height: calc(100% + 100vh); */
-    right: 0;
-    background: #ffffff33;
-    width: 100vw;
+    right: -100%;
+    /* right: 0; */
+    /* background: #ffffff33; */
+    /* width: 100vw; */
     /* width: calc(100% + 100vh); */
     z-index: 1;
 }
@@ -992,7 +996,7 @@ hr {
         position: relative;
         opacity: 1;
         filter: none;
-        z-index: 10000;
+        z-index: 2;
     }
 }
 

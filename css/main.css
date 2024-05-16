@@ -201,7 +201,7 @@ header {
     padding: 2rem;
     /*padding-right: 60px; /* devrait etre deactivated */
     display: flex;
-    z-index: 1000;
+    /* z-index: 1000; */
     align-items: center;
     justify-content: space-around;
     @media (max-width: 992px) {
@@ -518,8 +518,8 @@ main {
     @media screen and (max-width: 576px) {
         /* padding: auto; */
     }
-    /* overflow: hidden;
-    position: relative; */
+    overflow: hidden;
+    /* position: relative; */
 }
 /* END OF WRAPPER */
 

@@ -1,5 +1,5 @@
 import { DrawerTouchPlugin } from "./components/DrawerTouchPlugin.js"
-import { IngredientFormFetch, IngredientsFrom, RecipePreparation } from "./components/RecipePreparation.js"
+import { IngredientsFrom } from "./components/RecipePreparation.js"
 import { Toaster } from "./components/Toaster.js"
 import { fetchJSON } from "./functions/api.js"
 
