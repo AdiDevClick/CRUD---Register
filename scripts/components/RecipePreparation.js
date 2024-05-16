@@ -56,7 +56,6 @@ export class IngredientsFrom {
 
         // this.#formValidationButton = this.#form.querySelector('#button')
         this.#formButton = this.#form.querySelector('#add_custom')
-        console.log(this.#formButton)
 
         this.#list.forEach(ingredient => {
             this.ingre = ingredient
@@ -74,7 +73,7 @@ export class IngredientsFrom {
     /**
      * Ajoute un Ingrédient à la liste lorsqu'il est créé par l'utilisateur"
      * @param {PointerEvent} e
-     * @returns 
+     * @returns si les inputs ne sont pas remplies
      */
     #addNewIngredient(e) {
         e.preventDefault()
@@ -86,12 +85,7 @@ export class IngredientsFrom {
         this.ingre = input.value
         this.#ingredient = new Ingredient(this)
         this.#target.prepend(this.#ingredient.element)
-        // console.log(this.#ingredient.element.id)
-        // this.#list = this.#ingredient.element.innerText
         this.#list.push(this.#ingredient.element.innerText)
-        // this.#list.push(this.#ingredient.element.childNodes[0])
-        console.log(this.#list)
-        // this.#onIngredientDelete(this.#ingredient.element)
         this.onUpdate('ingredients', this.#list)
 
         input.value = ''
@@ -99,20 +93,34 @@ export class IngredientsFrom {
         this.#formButton.removeEventListener('click', this.#addNewIngredient.bind(this))
     }
 
-    /** @type {String} Retourne this.ingre qui est instancié lors de la création d'un ingrédient */
+    /** 
+     * Retourne this.ingre qui est instancié lors de la création d'un ingrédient
+     * @returns {String}
+     */
     get ingredient() {
         return this.ingre
     }
 
+    /** 
+     * Retourne l'emplacement HTML qui servira de zone d'insertion
+     * @returns {HTMLElement}
+     */
     get form() {
         return this.#form
     }
 
-    /** @type {Number} Retourne le count avec +1 */
+    /** 
+     * Retourne le count avec +1
+     * @returns {Number}
+     */
     get count() {
         return this.#count++
     }
 
+    /**
+     * @type {Array}
+     * @param {String} item
+     */
     set listPush(item) {
         this.#list.push(item)
     }
@@ -134,47 +142,46 @@ export class IngredientsFrom {
     //     }, {once: true})
     // }
 
+    /**
+     * Retourne la liste d'ingrédients
+     * @returns {Array}
+     */
     get ingredientList() {
         return this.#list
     }
 
+    /**
+     * Modifie la liste établie par un nouvel Array
+     * @type {Array}
+     * @param {Array} newList
+     */
     set setIngredientList(newList) {
         this.#list = newList
     }
 
     /**
-     * Sauvegarde toute la liste de préparation
-     * dans un localStorage 'preparationList'
-     * pour une récupération dans la database
-     * @param {HTMLElement} form 
+     * Sauvegarde toute la liste de préparation dans un 
+     * localStorage 'preparationList' pour une récupération dans la database -
+     * Toutes les inputs sont envoyées par fetch dans la DB et la liste 
+     * est envoyée telle-quelle au format JSON dans 'custom_ingredient'
+     * @param {SubmitEvent} e
      */
     async #onSubmit(e) {
         e.preventDefault()
         const form = e.currentTarget
         const data = new FormData(form)
-
-        // myPreparation.data = data
-        // myPreparation.ingredient = this.#list
-
-        // let data = {
-        //     "test": "test",
-        //     "test2": "test2"
-        // }
         
+        // Modification de la clé 'custom_ingredient'
+        // pour pouvoir faire passer la liste  dynamique des ingrédients
+        // ajoutés par l'utilisateur au format JSON dans la
+        // database en même-temps que les données inputs
         for (let [key, value] of data) {
             if (key === 'custom_ingredient') {
                 // value = this.#list
                 data.set('custom_ingredients', this.#list)
             }
         }
-        // this.#formButton.disabled = true
-        // for (const [key, iterator] of data) {
-        //     // if (data[iterator] === 'custom_ingredient') {
-        //         console.log(key, iterator)
-        //     // }
-        // }
-        // return
-        // data.append(this.#list)
+
         try {
             // this.#ingredientList = await fetchJSON(this.#endpoint, {
             // this.#ingredientList = await fetchJSON('test.php', {
@@ -240,7 +247,9 @@ export class IngredientsFrom {
 
     /**
      * Vérifie que l'input utilisateur n'est pas vide
-     * @returns 
+     * Ajoute la classe 'error' à l'input ID '#custom_ingredient'
+     * @returns {Boolean} True => Si aucune erreur n'est trouvée
+     * @returns {Boolean} False => Si au moins une erreur a été trouvée
      */
     #isInputChecked() {
         // this.#formIngredient = formDatas.get('custom_ingredient').toString().trim()
@@ -268,10 +277,6 @@ export class IngredientsFrom {
         }
     }
 
-    // #onUpdate(storageName, items) {
-    //     localStorage.setItem(storageName, JSON.stringify(items))
-    // }
-
     /**
      * Sauvegarde un objet dans le localStorage
      * @param {String} storageName
@@ -280,10 +285,6 @@ export class IngredientsFrom {
     onUpdate(storageName, items) {
         localStorage.setItem(storageName, JSON.stringify(items))
     }
-
-    // get updateStorageList() {
-    //     return this.#onUpdate(storageName, items)
-    // }
 }
 
 class Ingredient {
