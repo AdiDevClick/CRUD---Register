@@ -504,7 +504,7 @@ class Ingredient {
 
 class AttachmentToThis {
 
-    /** @type {Ingredient} item*/
+    /** @type {Ingredient} item */
     #item
     /** @type {Array} contient l'élément HTML */
     #element = []
@@ -589,16 +589,19 @@ class AttachmentToThis {
         this.#element.addEventListener('click', this.#stopPropagation)
         // this.#container.addEventListener('click', this.#stopPropagation)
         // document.querySelector(`#${this.#container.id}`).addEventListener('click', this.#stopPropagation)
-    
-        console.log(this.#item)
     }
 
+    /**
+     * @param {EventTarget} e 
+     */
     #stopPropagation(e) {
         e.stopPropagation()
     }
 
     /**
-     * @param {PointerEvent} e 
+     * Supprime l'ingrédient et crer a custom Event 'delete'
+     * @param {PointerEvent} e
+     * @type {CustomEvent} delete
      */
     #onRemove(e) {
         e.preventDefault()
@@ -612,6 +615,12 @@ class AttachmentToThis {
         this.#item.dispatchEvent(deleteEvent)
     }
 
+    /**
+     * Permet de rendre éditable la zone 'p' de l'élément
+     * Crer un custom event 'modify' lors de l'event
+     * @param {PointerEvent} e
+     * @type {CustomEvent} delete
+     */
     #onModify(e) {
         e.preventDefault()
         // this.#item.querySelector('.js-value')
@@ -628,10 +637,13 @@ class AttachmentToThis {
         this.#item.dispatchEvent(modifierEvent)
     }
 
+    /**
+     * Supprime les éléments créés
+     * Crer un custom event 'closeAction' lors de l'event
+     * @param {PointerEvent} e 
+     */
     #onClose(e) {
-        console.log('je suis dans le close du attach')
         e.preventDefault()
-        
         const closeEvent = new CustomEvent('closeAction', {
             detail: this.#item,
             cancelable: true,
@@ -642,9 +654,11 @@ class AttachmentToThis {
         // this.#element.remove()
         this.#container.remove()
         this.#stop.remove()
-        console.log('test')
     }
 
+    /**
+     * @returns {Array} this.#container
+     */
     get element() {
         // return this.#element
         return this.#container
@@ -722,6 +736,10 @@ class UserValidations {
         this.#item.dispatchEvent(cancelEvent)
     }
 
+    /**
+     * 
+     * @param {PointerEvent} e 
+     */
     #onValidation(e) {
         e.preventDefault()
         this.#item.firstElementChild.setAttribute('contenteditable', false)
