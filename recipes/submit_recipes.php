@@ -163,6 +163,8 @@ ob_start();
                         <!-- </form> -->
                     <!-- </form> test -->
                 </section>
+                <div class="opening_drawer_button"></div>
+                
                 <section class="card recipe" id="js-preparation">
                     <div class="drawer">
                         <div class="drawer__button"></div>

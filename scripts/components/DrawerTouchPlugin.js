@@ -3,22 +3,30 @@
  */
 export class DrawerTouchPlugin {
 
+    /** @type {HTMLElement} */
     #recipe
+    /** @type {HTMLElement} */
     #card
+    /** @type {HTMLElement} */
     #steps
+    /** @type {HTMLElement} */
+    #showDrawerButton
+    /** @type {Boolean} */
     #isOpened = false
+    /** @type {Object} */
     #savedPosition = {}
 
     /**
-     * @param {Recipe Card}  
+     * @param {Recipe Card} container
      */
     constructor(container) {
         // console.log(container)
         this.container = container
-        this.#steps = document.querySelector('.form-recipe')
-        this.#recipe = container.querySelector('.show_drawer')
-        this.#card = container.querySelector('.recipe')
-        this.drawer = document.querySelector('.drawer')
+        this.#steps = this.container.querySelector('.form-recipe')
+        this.#recipe = this.container.querySelector('.show_drawer')
+        this.#card = this.container.querySelector('.recipe')
+        this.drawer = this.container.querySelector('.drawer')
+        this.#showDrawerButton = this.container.querySelector('.opening_drawer_button')
         this.drawer.addEventListener('dragstart', e => e.preventDefault())
 
         this.drawer.addEventListener('mousedown', this.startDrag.bind(this), {passive: true})
@@ -30,6 +38,14 @@ export class DrawerTouchPlugin {
         window.addEventListener('touchend', this.endDrag.bind(this))
         window.addEventListener('mouseup', this.endDrag.bind(this))
         window.addEventListener('touchcancel', this.endDrag.bind(this))
+
+        this.#showDrawerButton.addEventListener('click', e => {
+            // this.#card.style.animation = 'slideToTop 1s forwards'
+            this.enableTransition()
+            this.translate('-30')
+            this.#isOpened = true
+            this.#card.classList.add('opened')
+        })
     }
 
     isDragging(e) {
@@ -63,7 +79,7 @@ export class DrawerTouchPlugin {
         // this.card.classList.add('open')
         this.#card.classList.contains('opened') ? null : this.#card.classList.add('open')
         this.disableTransition()
-        
+        this.#showDrawerButton.classList.add('hidden')
         // Sauvegarde de la witdh du conteneur
         this.height = this.#card.offsetHeight
         this.width = this.#card.offsetWidth
@@ -192,6 +208,7 @@ export class DrawerTouchPlugin {
                         this.#card.removeAttribute('style')
                         this.#isOpened = false
                         this.#steps.removeAttribute('style')
+                        this.#showDrawerButton.classList.remove('hidden')
                     }, {once: true})
                     // this.drawer.style.transform = 'translate3d(0, 0, 0)'
                 }

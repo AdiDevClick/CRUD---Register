@@ -94,7 +94,7 @@ export class IngredientsFrom {
     }
 
     /** 
-     * Retourne this.ingre qui est instancié lors de la création d'un ingrédient
+     * Retourne 'this.ingre' qui est instancié lors de la création d'un ingrédient
      * @returns {String}
      */
     get ingredient() {

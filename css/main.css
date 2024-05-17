@@ -202,7 +202,7 @@ header {
     padding: 2rem;
     /*padding-right: 60px; /* devrait etre deactivated */
     display: flex;
-    /* z-index: 1000; */
+    z-index: 1000;
     align-items: center;
     justify-content: space-around;
     @media (max-width: 992px) {
@@ -460,7 +460,7 @@ footer {
 
     .navbar .toggle_btn, .toggle_btn-box {
         display: block;
-        /* z-index: 1; */
+        /* z-index: 3; */
         visibility: visible;
         color: var(--navbar-color);
     }
