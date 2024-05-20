@@ -221,7 +221,7 @@ export class DrawerTouchPlugin {
 
             //Au-delà de 20 points, l'alerte activera l'animation fadeout
             if (translateY > 0.10) {
-                let savedTranslateY = this.lastTranslate.y
+                // let savedTranslateY = this.lastTranslate.y
                 // if (this.lastTranslate.y < 0 || this.lastTranslate.y > 0) {
                 if (this.#isOpened && !this.#isFullyOpened && this.lastTranslate.y > 0 && this.#savedTranslateY !== this.lastTranslate.y) {
                 // if (this.#isOpened && this.lastTranslate.y > 0 && !this.#isFullyOpened) {
