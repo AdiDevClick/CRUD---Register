@@ -48,10 +48,12 @@ class LoginController extends Login
      */
     protected function login(string $pwd, string $email)
     {
+        
         if (empty(CheckInput::getErrorsArray())) {
-            $userEmail = $this->getUsers($email)[0]['email'];
-            $username = $this->getUsers($email)[0]['full_name'];
-            $userID = $this->getUsers($email)[0]['user_id'];
+            // echo ($this->getUsers($email)['email']);
+            $userEmail = $this->getUsers($email)[0]['email'] ?? null;
+            $username = $this->getUsers($email)[0]['full_name'] ?? null;
+            $userID = $this->getUsers($email)[0]['user_id'] ?? null;
 
             // $script = <<< JS
             // include_once("templates/toaster_template.html");

@@ -12,6 +12,7 @@ label {
     justify-content: center;
     /* background-color: #3b3b3b3b; */
     background-color: var(--background-color);
+    box-shadow: -5px 11px 31px -13px rgba(0,0,0,0.5);
     transition: all 0.3s ease;
 }
 
@@ -503,7 +504,9 @@ form {
             width: unset;
             position: fixed;
             right: 0;
-            top: 90vh;
+            /* top: 90vh; */
+            top: 100vh;
+            /* bottom: 0; */
             left: 0;
             will-change: transform;
         }
@@ -736,13 +739,30 @@ form {
         top: 23%;
         bottom: 0;
         background-color: #28292a;
-        position: absolute;
+        position: fixed;
         scroll-snap-type: y mandatory;
         max-height: 100%;
         min-height: fit-content;
         .show_drawer {
             display: block;
         }
+    }
+
+    &.opened.fullyOpened {
+        /* top: 33%; */
+        top: 0%;
+        position: fixed;
+        z-index: 1000;
+        overscroll-behavior-y: contain;
+        /* bottom: 0; */
+        /* background-color: #28292a; */
+        /* position: absolute; */
+        /* scroll-snap-type: y mandatory; */
+        /* max-height: 100%; */
+        /* min-height: fit-content; */
+        /* .show_drawer {
+            display: block;
+        } */
     }
 
     &.open {
@@ -757,7 +777,8 @@ form {
         scroll-snap-type: y mandatory;
         /* overscroll-behavior-y: contain; */
         bottom: 0;
-        position: absolute;
+        /* position: absolute; */
+        position: fixed;
         /* white-space: nowrap; */
         max-height: 100%;
         min-height: fit-content;
@@ -811,14 +832,73 @@ form {
 }
 
 .hidden {
-    display: none;
-    transition: transform 1s;
+    /* display: none; */
+    /* opacity: 0; */
+    animation: both fadeOut 0.3s;
+    /* transition: all animation 2s; */
+    /* @starting-style {
+        display: block;
+        opacity: 1;
+        animation: both fadeOut 2s;
+    } */
+}
+
+.show {
+    /* opacity: 1;
+    display: block; */
+    animation: both fadeIn 0.3s;
+    /* @starting-style {
+        display: none;
+        opacity: 0;
+    } */
+}
+
+/* .show {
+    opacity: 1;
+    transform: translateY(0px);
+    display: block;
+    transition: 1s cubic-bezier(.5, 0, 0, 1);
+    @starting-style {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+} */
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
 }
 
 /* .contact-section:has(.recipe) {
     /* display: flex; */
     /* animation: slideToTop 1.5s ease-in-out; 
 } */
+@keyframes slideFromTop {
+    /* 0% {
+        transform: translate3d(0, 0, 0);
+    }
+    100% {
+        transform: translate3d(0, -75%, 0);
+    } */
+    /* from {
+        transform: translate3d(0, 0, 0);
+    } */
+    to {
+        transform: translate3d(0, 30%, 0);
+    }
+}
 
 @keyframes slideToTop {
     /* 0% {
@@ -827,8 +907,25 @@ form {
     100% {
         transform: translate3d(0, -75%, 0);
     } */
+    /* from {
+        transform: translate3d(0, 0, 0);
+    } */
     to {
         transform: translate3d(0, -67%, 0);
+    }
+}
+@keyframes slideToFullTop {
+    /* 0% {
+        transform: translate3d(0, 0, 0);
+    }
+    100% {
+        transform: translate3d(0, -75%, 0);
+    } */
+    /* from {
+        transform: translate3d(0, 0, 0);
+    } */
+    to {
+        transform: translate3d(0, -22%, 0);
     }
 }
 @keyframes slideToBottom {
@@ -1020,6 +1117,17 @@ hr {
     flex-direction: column;
     top: -25px; */
     background-color: var(--navbar-color);
+    &:hover {
+        transition: scale 0.3s ease-in-out;
+        scale: 1.1;
+    }
+    &:active {
+        transition: scale 0.3s ease-in-out;
+        scale: 0.95;
+    }
+}
+#add {
+    fill: green;
 }
 
 .opening_drawer_button {
@@ -1027,17 +1135,34 @@ hr {
         transition: scale 0.3s ease-in-out;
         scale: 1.2;
     }
+    /* display: none; */
     position: fixed;
     /* top: 0; */
-    bottom: 30px;
+    bottom: 40px;
     height: 50px;
     width: 50px;
-    opacity: 1;
+    /* opacity: 1; */
     /* overflow: auto; */
     right: 50px;
-    background-color: var(--input-background-color);
+    /* background-color: #ccccccd1; */
+    /* background-color: var(--input-background-color); */
+    background-color: var(--background-color);
     border-radius: 100vh;
     z-index: 3;
+    &:active {
+        transition: all 0.3s ease;
+        scale: 0.95;
+    }
+    @media screen and (min-width: 576px) {
+        display: none;
+    }
+    & > img {
+        position: relative;
+        opacity: 1;
+        filter: invert(1);
+        padding: 8px;
+        /* filter: invert(67%) sepia(15%) saturate(6319%) hue-rotate(360deg) brightness(104%) contrast(107%) */
+    }
 }
 
 .drawer {
@@ -1050,11 +1175,11 @@ hr {
     height: 50px;
     width: 100%;
     opacity: 1;
-
+    z-index: 4;
     /* partie test */
     overflow: auto;
     left: 0;
-    border-radius: 100vh;
+    /* border-radius: 100vh; */
     &.open {
         display: none;
     }
@@ -1080,6 +1205,33 @@ hr {
         margin: 5px auto;
         bottom: 10px;
         position: relative;
+        animation: both fadeIn 0.3s;
+        &:is(.fullyOpened) {
+            animation: both fadeOut 0.3s;
+        }
+    }
+    & .drawer__close {
+        position: absolute;
+        color: var(--navbar-color);
+        top: 10px;
+        right: 15px;
+        filter: invert(1);
+        z-index: 4;
+        /* padding: 10px; */
+        & > img {
+            position: relative;
+            opacity: 1;
+            filter: none;
+            /* z-index: 2; */
+        }
+        &:hover {
+            scale: 1.1;
+            transition: all 0.3s ease;
+        }
+        &:active {
+            scale: 0.95;
+            transition: all 0.3s ease;
+        }
     }
     & .drawer__button:hover {
         scale: 1.15;

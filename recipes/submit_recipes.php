@@ -163,11 +163,19 @@ ob_start();
                         <!-- </form> -->
                     <!-- </form> test -->
                 </section>
-                <div class="opening_drawer_button"></div>
+                <div class="opening_drawer_button show">
+                    <img src='../img/add.svg' alt="image représentant une addition">
+                </div>
+                <!-- <div class="opening_drawer_button show">
+                    <img src='../img/add.svg' alt="image représentant une addition">
+                </div> -->
                 
                 <section class="card recipe" id="js-preparation">
                     <div class="drawer">
                         <div class="drawer__button"></div>
+                        <div class="drawer__close">
+                            <img src='../img/close.svg' alt="image représentant une fermeture">
+                        </div>
                     </div>
                     <!-- <form
                         id="preparation-form"

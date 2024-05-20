@@ -361,7 +361,8 @@ class Ingredient {
 
     /**
      * Crer des éléments d'intéractions (supprimer/modifier/fermer)
-     * L'élément clické sera mis en avant
+     * L'élément clické sera mis en avant et poussé vers l'intérieur
+     * Si il sort du champs de vision
      * @param {PointerEvent} e
      * @returns
      */
@@ -374,8 +375,26 @@ class Ingredient {
         }
         if (!this.#newModifierButtons.element) {
             this.#newModifierButtons = new AttachmentToThis(this.element)
-            this.element.append(this.#newModifierButtons.element)
-            this.#elementStyle(2)
+            this.element.append(this.#newModifierButtons.container)
+            // Quick repaint - Permet d'avoir un style Right: 0 correct
+            this.#newModifierButtons.container.offsetWidth
+            // End of repaint
+            this.#elementStyle(this.#newModifierButtons.element)
+            this.#elementZStyle(2)
+        }
+    }
+
+    /**
+     * Permet de forcer la position d'un élément
+     * qui dépasse du bord droit en le poussant vers l'intérieur
+     * @param {HTMLElement} element 
+     */
+    #elementStyle(element) {
+        const card = document.querySelector('.recipe')
+        const offsets = this.element.getBoundingClientRect()
+        if ((offsets.left + this.#newModifierButtons.containerWidth) > (card.offsetWidth - 5)) {
+            element.style.left = 'unset'
+            element.style.right = '0'
         }
     }
 
@@ -383,7 +402,7 @@ class Ingredient {
      * Permet de modifier le zIndex d'un élément
      * @param {HTMLStyleElement} zIndex 
      */
-    #elementStyle(zIndex) {
+    #elementZStyle(zIndex) {
         this.element.style.zIndex = zIndex
     }
 
@@ -451,7 +470,7 @@ class Ingredient {
     #arrayReset() {
         this.#newModifierButtons = []
         this.#validationItems = []
-        this.#elementStyle('auto')
+        this.#elementZStyle('auto')
     }
 
     /**
@@ -657,11 +676,25 @@ class AttachmentToThis {
     }
 
     /**
+     * @returns {Number}
+     */
+    get containerWidth() {
+        return this.#element.offsetWidth
+    }
+
+    /**
      * @returns {Array} this.#container
      */
-    get element() {
+    get container() {
         // return this.#element
         return this.#container
+    }
+
+    /**
+     * @returns {Array}
+     */
+    get element() {
+        return this.#element
     }
 
     /** @type {HTMLDivElement} removes the stop progatation element */
