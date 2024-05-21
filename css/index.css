@@ -795,6 +795,7 @@ form {
         backdrop-filter: blur(20px); */
         /* z-index: 10000; */
         /* height: unset; */
+        /* transform: translate3d(0, 0, 0); */
     }
     &.hidden {
         /* .show_drawer {
@@ -943,6 +944,16 @@ form {
     to {
         opacity: 0;
         transform: translate3d(0, 50%, 0);
+    }
+}
+@keyframes slideToRight {
+    to {
+        scale: 0.8;
+        transform: translate3d(0, 0, -10px);
+        /* transform: translate3d(20px, 100px, 0); */
+        /* height: 100%; */
+        /* position: sticky; */
+        /* width: 50%; */
     }
 }
 
