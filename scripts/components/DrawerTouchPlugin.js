@@ -41,6 +41,7 @@ export class DrawerTouchPlugin {
         this.#steps = this.container.querySelector('.form-recipe')
         this.#recipe = this.container.querySelector('.show_drawer')
         this.#card = this.container.querySelector('.recipe')
+        // this.#card.style.display = 'none'
         this.drawer = this.container.querySelector('.drawer')
         this.#showDrawerButton = this.container.querySelector('.opening_drawer_button')
         this.#drawerBarButton = this.container.querySelector('.drawer__button')
@@ -74,9 +75,11 @@ export class DrawerTouchPlugin {
     #onOpen(e) {
         console.log('jouvre')
         console.log(e.currentTarget)
+        // this.#card.style.display = 'block'
+
         this.#showDrawerButton.removeEventListener('click', this.#onOpen.bind(this))
         this.#steps.removeEventListener('click', this.#onOpen.bind(this))
-        if (e.currentTarget === this.#card) {
+        if (e.currentTarget === this.#showDrawerButton) {
             this.#card.classList.add('open')
             this.translate('-80')
             console.log('object')
@@ -91,6 +94,13 @@ export class DrawerTouchPlugin {
             }, {once: true})
         } else {
             this.#steps.classList.add('open')
+            this.#steps.addEventListener('transitionend', e => {
+                this.#isOpened = true
+                this.#steps.removeAttribute('style')
+                this.#steps.classList.remove('open')
+                this.#steps.classList.add('opened')
+                this.#disableScrollBehavior()
+            }, {once: true})
         }
     }
 
@@ -211,9 +221,8 @@ export class DrawerTouchPlugin {
      * @param {MouseEvent|TouchEvent} e 
      */
     drag(e) {
-        // e.preventDefault()
         // this.#card.style.overscrollBehavior = 'none'
-
+        if (this.#isTablet) return
         if (this.origin) {
             const pressionPoint = e.touches ? e.touches[0] : e
             // Calcul du point d'appuis de l'axe X et Y en fonction du point d'origine
@@ -236,7 +245,7 @@ export class DrawerTouchPlugin {
             this.lastTranslate = translate
             this.origin
             if (this.#isMobile) this.translate(100 * translate.y / this.height)
-            if (this.#isTablet) this.translate(100 * translate.x / this.width)
+            // if (this.#isTablet) this.translate(100 * translate.x / this.width)
         }
     }
 

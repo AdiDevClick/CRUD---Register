@@ -456,6 +456,7 @@ form {
             position: sticky;
             top: 0;
             bottom: 0;
+            /* display: none; */
         }
         /* .recipe {
             width: 60vw;
@@ -485,7 +486,7 @@ form {
         margin: 0 auto;
         display: flex;
         flex-direction: column-reverse;
-
+        /* display: none; */
         img {
             height: 100%;
             position: fixed;
@@ -736,9 +737,12 @@ form {
     top: 0;
     bottom: 0;
     transition: width 1s both ease-in-out;
+    /* display: none; /* !important ipad air bug */
+   
     &.opened {
         /* top: 33%; */
         top: 23%;
+        /* display: block; */
         bottom: 0;
         background-color: #28292a;
         position: fixed;
@@ -752,7 +756,7 @@ form {
 
     &.opened.fullyOpened {
         /* top: 33%; */
-        top: 0%;
+        top: 0;
         position: fixed;
         z-index: 1000;
         overscroll-behavior-y: contain;
@@ -779,6 +783,7 @@ form {
         scroll-snap-type: y mandatory;
         /* overscroll-behavior-y: contain; */
         bottom: 0;
+        /* display: block; */
         /* position: absolute; */
         position: fixed;
         /* white-space: nowrap; */
@@ -836,6 +841,8 @@ form {
         clear: both;
         display: block;
     }
+
+    
 }
 
 @keyframes scaleOut {
@@ -1227,6 +1234,7 @@ hr {
     /* partie test */
     overflow: auto;
     left: 0;
+    /* display: none; */
     /* border-radius: 100vh; */
     &.open {
         display: none;
