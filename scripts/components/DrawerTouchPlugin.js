@@ -65,6 +65,7 @@ export class DrawerTouchPlugin {
         this.#showDrawerButton.addEventListener('click', this.#onOpen.bind(this))
         this.#closeButton.addEventListener('click', this.#onClose.bind(this))
         this.#steps.addEventListener('click', this.#onClose.bind(this))
+        this.#steps.addEventListener('click', this.#onOpen.bind(this))
 
         this.#onWindowResize()
         window.addEventListener('resize', this.#onWindowResize.bind(this))
@@ -72,19 +73,33 @@ export class DrawerTouchPlugin {
 
     #onOpen(e) {
         console.log('jouvre')
-        this.#card.classList.add('open')
-        this.translate('-80')
+        console.log(e.currentTarget)
         this.#showDrawerButton.removeEventListener('click', this.#onOpen.bind(this))
-        this.#card.addEventListener('transitionend', e => {
-            this.#isOpened = true
-            this.#card.removeAttribute('style')
-            this.#card.classList.remove('open')
-            this.#card.classList.add('opened')
-            this.#showDrawerButton.classList.remove('show')
-            this.#showDrawerButton.classList.add('hidden')
-            document.documentElement.style.overflow = 'hidden'
-            document.documentElement.style.overscrollBehavior = 'none'
-        }, {once: true})
+        this.#steps.removeEventListener('click', this.#onOpen.bind(this))
+        if (e.currentTarget === this.#card) {
+            this.#card.classList.add('open')
+            this.translate('-80')
+            console.log('object')
+            this.#card.addEventListener('transitionend', e => {
+                this.#isOpened = true
+                this.#card.removeAttribute('style')
+                this.#card.classList.remove('open')
+                this.#card.classList.add('opened')
+                this.#showDrawerButton.classList.remove('show')
+                this.#showDrawerButton.classList.add('hidden')
+                this.#disableScrollBehavior()
+            }, {once: true})
+        } else {
+            this.#steps.classList.add('open')
+        }
+    }
+
+    /**
+     * Permet de désactiver le scroll sur le root
+     */
+    #disableScrollBehavior() {
+        document.documentElement.style.overflow = 'hidden'
+        document.documentElement.style.overscrollBehavior = 'none'
     }
 
     #onScroll(e) {
@@ -98,10 +113,10 @@ export class DrawerTouchPlugin {
     #onClose(e) {
         this.#steps.removeEventListener('click', this.#onClose.bind(this))
         this.#closeButton.removeEventListener('click', this.#onClose.bind(this))
+        if (!this.#card.classList.contains('open')) return
         if (this.#isMobile) this.#card.style.animation = 'slideToBottom 0.5s forwards'
-        if (this.#isTablet) {
-            this.#card.style.animation = 'slideToRight 0.5s forwards'
-        }
+        // if (this.#isTablet) this.#card.style.animation = 'scaleOut 0.5s reverse forwards'
+        if (this.#isTablet) this.#card.style.animation = 'slideToRight 0.5s forwards'
         this.#card.addEventListener('animationend', e => {
             this.#card.classList.remove('open')
 
@@ -114,6 +129,7 @@ export class DrawerTouchPlugin {
             this.#showDrawerButton.classList.add('show')
             this.#drawerBarButton.classList.remove('fullyOpened')
             document.documentElement.removeAttribute('style')
+            this.drawer.style.display = 'none'
 
         }, {once: true})
     }
@@ -152,16 +168,34 @@ export class DrawerTouchPlugin {
         if (this.#isMobile) {
             this.#card.classList.contains('opened') ? null : this.#card.classList.add('open')
         }
-        if (this.#isTablet) {
-            this.translate('0', '10', '550px')
+        if (this.#isTablet && !this.#card.classList.contains('open')) {
+            // this.#disableScrollBehavior()
+
+            // this.translate('0', '5', '550px')`
+
+            // this.#card.style.scale = '1.3'
+            // this.#card.style.animation = 'scaleOut 1s'
+            this.#card.style.animation = 'scaleOut 0.5s forwards'
+            // this.#card.style.transition = 'width 1s both ease-in-out'
             // this.translate('0', '10', '550px')
             // this.translate('-10', '-20', '550px')
             // this.#card.style.height = '100%'
             // this.#card.style.position = 'fixed'
+            this.#card.addEventListener('animationend', e => {
+                this.#card.classList.add('open')
+                this.drawer.style.display = 'block'
+                this.#drawerBarButton.style.display = 'none'
+                // this.translate('0', '5', '550px')
+
+                this.#card.removeAttribute('style')
+                this.#card.style.width = '550px'
+            })
             // this.#card.addEventListener('transitionend', e => {
-            //     this.#card.classList.add('open')
+            //     // this.#card.classList.add('open')
+            //     this.drawer.style.display = 'block'
+            //     this.#drawerBarButton.style.display = 'none'
             // })
-            this.#card.classList.add('open')
+            
         }
         
         this.disableTransition()
