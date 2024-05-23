@@ -40,7 +40,7 @@ $errorMessage = CheckInput::showErrorMessage();
 <?php //if (!isset($loggedUser['email'])):?> 
 
 <?php if (!isset($_SESSION['LOGGED_USER']) || !isset($_SESSION['REGISTERED_USER'])): ?>
-    <section class="contact-section">
+    <section class="card_container">
         <div class="contact-grid">
             <div class="contact-img">
                 <img src="https://booking.webestica.com/assets/images/element/signin.svg" alt="" srcset="">

@@ -19,7 +19,7 @@ ob_start()
 ?>
     <!--  Le Main -->
     <!-- <h1> Contactez-nous </h1> -->
-    <section class="contact-section">
+    <section class="card_container">
         <div class="contact-grid">
             <div class="img">
                 <img src="https://booking.webestica.com/assets/images/element/contact.svg" alt="" srcset="">

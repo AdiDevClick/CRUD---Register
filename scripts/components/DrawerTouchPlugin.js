@@ -123,7 +123,7 @@ export class DrawerTouchPlugin {
     #onClose(e) {
         this.#steps.removeEventListener('click', this.#onClose.bind(this))
         this.#closeButton.removeEventListener('click', this.#onClose.bind(this))
-        if (!this.#card.classList.contains('open')) return
+        if (!this.#card.classList.contains('opened')) return
         if (this.#isMobile) this.#card.style.animation = 'slideToBottom 0.5s forwards'
         // if (this.#isTablet) this.#card.style.animation = 'scaleOut 0.5s reverse forwards'
         if (this.#isTablet) this.#card.style.animation = 'slideToRight 0.5s forwards'

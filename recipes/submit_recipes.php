@@ -88,7 +88,7 @@ ob_start();
 ?>
         <?php if (isset($loggedUser['email'])  && !isset($_SESSION['REGISTERED_RECIPE'])): ?> 
         <?php //(isset($loggedUserState)):?>
-        <section class="contact-section">
+        <section class="card_container">
         <form
             id="preparation-form"
             action="create_recipes.php"

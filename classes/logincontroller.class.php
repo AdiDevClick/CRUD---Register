@@ -48,7 +48,7 @@ class LoginController extends Login
      */
     protected function login(string $pwd, string $email)
     {
-        
+
         if (empty(CheckInput::getErrorsArray())) {
             // echo ($this->getUsers($email)['email']);
             $userEmail = $this->getUsers($email)[0]['email'] ?? null;
@@ -136,6 +136,7 @@ class LoginController extends Login
     {
         $arrCookiesOptions = [
             'expires' => time() + 365 * 24 * 3600,
+            // 'secure' => false,
             'secure' => true,
             'httponly' => true,
             'samesite' => 'Strict'

@@ -436,26 +436,30 @@ form {
         /* position: sticky; */
         /* z-index: 0; */
     }
+
     display: grid;
-    justify-content: center;
+    justify-content: center!important;
     /* grid: minmax(50px, min-content) / repeat(auto-fill, minmax(400px, 650px)); */
     /* grid-template-columns: repeat(2, auto); */
     grid-template-columns: repeat(2, 1fr);
+    position: relative;
 
     align-items: center;
     align-content: center;
     justify-items: end;
-    @media screen and (max-width: 992px) {
-        margin: 15px;
+    
+    @media screen and (min-width: 576px) and (max-width: 992px) {
+        /* margin: 15px; */
         .recipe {
+
             /* height: 100vh; */
-            scroll-snap-type: y mandatory;
+            /* scroll-snap-type: y mandatory; */
             /* overflow: auto; */
             /* overflow: hidden; */
-            width: fit-content;
-            position: sticky;
-            top: 0;
-            bottom: 0;
+            /* width: fit-content; */
+            /* position: sticky; */
+            /* top: 0; */
+            /* bottom: 0; */
             /* display: none; */
         }
         /* .recipe {
@@ -475,6 +479,7 @@ form {
             /* padding-left: 20px;
             padding-right: 20px; */
             height: max-content;
+            /* padding: 5%; */
         }
     }
     @media screen and (min-width: 992px) {
@@ -502,23 +507,27 @@ form {
             filter: blur(0);
         }
         .recipe {
-            width: unset;
-            position: fixed;
-            right: 0;
+            /* width: unset; */
+            /* position: fixed; */
+            /* right: 0; */
             /* top: 90vh; */
-            top: 100vh;
-            /* bottom: 0; */
-            left: 0;
-            will-change: transform;
+            /* top: 100vh; */
+            /* top: 100%; */
+            /* bottom: -100%; */
+            /* left: 0; */
+            /* will-change: transform; */
+            /* display: none; */
         }
         /* début du test */
         .recipe {
             /* top: 100vh; */
+
         }
         /* fin du test*/
         .form-recipe {
             width: 100%;
             margin-bottom: 50px;
+            /* padding: 5%; */
         }
     }
 }
@@ -605,6 +614,9 @@ form {
     /* background-color: red; */
     /* background: purple; */
     transition: 0.2s;
+    -webkit-transition: 0.2s;
+    -moz-transition: 0.2s;
+    -o-transition: 0.2s;
     font-size: 1rem;
     width: auto;
     /* text-align: center; */
@@ -648,7 +660,9 @@ form {
     padding: 7px 0;
     /* background: red; */
     transition: border-color 0.2s;
-
+    -webkit-transition: border-color 0.2s;
+    -moz-transition: border-color 0.2s;
+    -o-transition: border-color 0.2s;
     &::placeholder {
         color: transparent;
         /* text-align: center; */
@@ -729,16 +743,27 @@ form {
 .recipe {
     height: 100vh;
     opacity: 1;
+    /* overflow: auto; */
+    /* display: none; */
     scroll-snap-type: y mandatory;
     overflow: visible;
     width: fit-content;
-    /* width: 100%; */
-    position: sticky;
-    top: 0;
-    bottom: 0;
-    transition: width 1s both ease-in-out;
+    /* position: sticky; */
+    /* position: relative; */
+
+    /* position: fixed!important; */
+    /* top: 0;
+    bottom: 0; */
+    /* transition: width 1s both ease-in-out; */
+    /* @media screen and (max-width: 576px) {
+        display: none;
+        height: unset;
+        overflow: auto;
+        width: 1000px;
+    } */
     /* display: none; /* !important ipad air bug */
-   
+    /* width: 100px; */
+    /* -webkit-appearance:none; */
     &.opened {
         /* top: 33%; */
         top: 23%;
@@ -748,7 +773,7 @@ form {
         position: fixed;
         scroll-snap-type: y mandatory;
         max-height: 100%;
-        min-height: fit-content;
+        /* min-height: fit-content; */
         .show_drawer {
             display: block;
         }
@@ -780,6 +805,7 @@ form {
             clear: both;
             /* display: block; */
         }
+        /* display: none; */
         scroll-snap-type: y mandatory;
         /* overscroll-behavior-y: contain; */
         bottom: 0;
@@ -831,9 +857,11 @@ form {
         }
         overflow: auto;
         position: relative;
+        /* display: none; */
         /* height: 100vh; */
         /* max-height: max-content; */
         height: 100%;
+        /* padding: 5%; */
     }
 
     &::after {
@@ -842,7 +870,25 @@ form {
         display: block;
     }
 
-    
+    @media screen and (min-width: 576px) and (max-width: 992px) {
+        scroll-snap-type: y mandatory;
+        width: fit-content;
+        position: sticky;
+        top: 0;
+        bottom: 0;
+    }
+    @media screen and (max-width: 576px) {
+        width: unset;
+        position: fixed;
+        right: 0;
+        /* top: 90vh; */
+        /* top: 100vh; */
+        top: 100%;
+        /* bottom: -100%; */
+        left: 0;
+        will-change: transform;
+        /* display: none; */
+    }
 }
 
 @keyframes scaleOut {
@@ -874,8 +920,9 @@ form {
 }
 
 .show {
-    /* opacity: 1;
-    display: block; */
+    /* opacity: 1; */
+    /* display: none; */
+    /* display: block; */
     animation: both fadeIn 0.3s;
     /* @starting-style {
         display: none;
@@ -1224,6 +1271,7 @@ hr {
         /* display: block; */
         display: none;
     }
+    
     position: fixed;
     top: 0;
     bottom: 0;
@@ -1240,7 +1288,6 @@ hr {
         display: none;
     }
     /* fin de test */
-
 
     /* border: var(--background-color) solid 20px; */
     /* background: orange; */
@@ -1274,6 +1321,7 @@ hr {
         right: 15px;
         filter: invert(1);
         z-index: 4;
+        /* display: none; */
         /* padding: 10px; */
         & > img {
             position: relative;

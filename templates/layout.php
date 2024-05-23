@@ -29,6 +29,8 @@ if ($url === 'about.php' || 'planningType.php' || 'todo.html' || 'carousel.html'
     <meta charset="UTF-8">
     <meta http-equiv="Cache-control" content="public">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="<?php echo($rootUrl). $clicServer?>/css/resetfirefox.css">
+    <!-- <link rel="stylesheet" href="<?php echo($rootUrl). $clicServer?>/css/resetchromium.css"> -->
     <link rel="stylesheet" href="<?php echo($rootUrl). $clicServer?>/css/reset.css">
     <!-- <link
         href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" 
@@ -53,7 +55,8 @@ if ($url === 'about.php' || 'planningType.php' || 'todo.html' || 'carousel.html'
 </head>
 <body>
     <!-- Start Header Content -->
-    <header class="header-main wrapper">
+    <!-- <header class="header-main wrapper"> -->
+    <header class="header-main">
         <nav>
             <div class="dropdown-menu-background">
                 <div class="dropdown-menu">
