@@ -228,12 +228,16 @@ form {
     filter: blur(5px);
     transform: translateX(-100%);
     transition: all 1s;
+    -webkit-transition: all 1s;
+    -moz-transition: all 1s;
+    -o-transition: all 1s;
 }
 
 .form-show, .form-hidden:has(.input_error) {
     opacity: 1;
     filter: blur(0);
     transform: translateX(0);
+    -o-transform: translateX(0);
 }
 
 .form-logo {
@@ -302,6 +306,9 @@ form {
         max-width: 100%;
         margin: 0 15px;
     } */
+    .opening_drawer_button {
+        display: none;
+    }
     .form-index {
         display: grid;
         grid-auto-columns: 1fr;
@@ -323,6 +330,15 @@ form {
     }
     .form-index > :nth-child(4) {
         grid-area: recovery;
+    }
+
+    .contact-grid img {
+        height: 100%;
+        position: fixed;
+        right: 0;
+        top: 0;
+        opacity: 0.1;
+        z-index: -1;
     }
 }
 /* .form .splash-login {
@@ -438,11 +454,11 @@ form {
     }
 
     display: grid;
-    justify-content: center!important;
+    justify-content: center;
     /* grid: minmax(50px, min-content) / repeat(auto-fill, minmax(400px, 650px)); */
     /* grid-template-columns: repeat(2, auto); */
     grid-template-columns: repeat(2, 1fr);
-    position: relative;
+    /* position: relative; */
 
     align-items: center;
     align-content: center;
@@ -450,7 +466,7 @@ form {
     
     @media screen and (min-width: 576px) and (max-width: 992px) {
         /* margin: 15px; */
-        .recipe {
+        & .recipe {
 
             /* height: 100vh; */
             /* scroll-snap-type: y mandatory; */
@@ -473,7 +489,7 @@ form {
             height: 50px;
             background-color: #28292a;
         } */
-        .form-recipe {
+        & .form-recipe {
             /* width: 60vw; */
             padding-bottom: 20px;
             /* padding-left: 20px;
@@ -492,7 +508,7 @@ form {
         display: flex;
         flex-direction: column-reverse;
         /* display: none; */
-        img {
+        & img {
             height: 100%;
             position: fixed;
             right: 0;
@@ -501,7 +517,7 @@ form {
             z-index: -1;
             filter: blur(1.5px);
         }
-        .form-logo img {
+        & .form-logo img {
             opacity: 1;
             position: unset;
             filter: blur(0);
@@ -524,7 +540,7 @@ form {
 
         }
         /* fin du test*/
-        .form-recipe {
+        & .form-recipe {
             width: 100%;
             margin-bottom: 50px;
             /* padding: 5%; */
@@ -540,6 +556,7 @@ form {
 
     align-items: center;
     align-content: center;
+    
     @media screen and (max-width: 992px) {
         margin: 15px;
     }
@@ -547,7 +564,7 @@ form {
         margin: 0 auto;
         display: flex;
         flex-direction: column-reverse;
-        img {
+        & img {
             height: 100%;
             position: fixed;
             right: 0;
@@ -764,6 +781,7 @@ form {
     /* display: none; /* !important ipad air bug */
     /* width: 100px; */
     /* -webkit-appearance:none; */
+    
     &.opened {
         /* top: 33%; */
         top: 23%;
@@ -1061,8 +1079,11 @@ form {
     /* justify-content: space-between; */
 }
 
-/* .form-recipe {
-    width: 100%;
+.form-recipe, .recipe {
+    display: block;
+    will-change: transform;
+    padding: 5%;
+    /* width: 100%;
     height: 100%;
     flex-direction: column;
     justify-content: center;
@@ -1072,8 +1093,8 @@ form {
     top: 60px;
     & #register-btn {
         padding-left: 0;
-    }
-} */
+    }*/
+} 
 
 /* RECIPE CREATION */
 .time {
@@ -1237,7 +1258,7 @@ hr {
         scale: 1.2;
     }
     /* display: none; */
-    position: fixed;
+    position: fixed!important;
     /* top: 0; */
     bottom: 40px;
     height: 50px;
@@ -1245,6 +1266,7 @@ hr {
     /* opacity: 1; */
     /* overflow: auto; */
     right: 50px;
+    /* left: 0; */
     /* background-color: #ccccccd1; */
     /* background-color: var(--input-background-color); */
     background-color: var(--background-color);
@@ -1254,14 +1276,13 @@ hr {
         transition: all 0.3s ease;
         scale: 0.95;
     }
-    @media screen and (min-width: 576px) {
-        display: none;
-    }
-    & > img {
+
+    & img {
         position: relative;
         opacity: 1;
         filter: invert(1);
         padding: 8px;
+        /* justify-content: center; */
         /* filter: invert(67%) sepia(15%) saturate(6319%) hue-rotate(360deg) brightness(104%) contrast(107%) */
     }
 }
@@ -1271,7 +1292,7 @@ hr {
         /* display: block; */
         display: none;
     }
-    
+    display: none;
     position: fixed;
     top: 0;
     bottom: 0;

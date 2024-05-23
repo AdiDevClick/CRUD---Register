@@ -211,24 +211,32 @@ header {
     margin: 15px auto;
     top: 0;
     left: 0;
+    /* right: 0; */
     background-color: var(--site-color-01);
     padding: 2rem;
     /* padding-right: 60px; /* devrait etre deactivated */
-    display: flex;
+    display: flex!important;
     z-index: 1000;
     align-items: center;
     justify-content: space-around;
-    @media (max-width: 992px) {
+    /* align-content: space-between; */
+    /* align-items: flex-end; */
+    /* flex-wrap: wrap; */
+    /* flex-direction: column; */
+    /* justify-content: center; */
+    /* justify-content: space-between; */
+    /* @media screen and (min-width: 100px) and (max-width: 992px) {
         justify-content: space-between;
+        display: flex;
         /* retirer tout ça pour remettre le fixed navbar */
-        padding-right: 5%;
+        /* padding-right: 5%;
         position: sticky;
         align-content: space-between;
         align-items: flex-end;
         flex-wrap: wrap;
         flex-direction: column;
         justify-content: center;
-    }
+    } /*
     /* @media (max-width: 576px) {
         justify-content: space-between;
         position: sticky;
@@ -504,6 +512,19 @@ footer {
         /* retirer tout ça pour remettre le fixed navbar */
         position: fixed;
         /* bug sur ipad */
+    }
+
+    .navbar {
+        justify-content: space-between;
+        /* display: flex; */
+        /* retirer tout ça pour remettre le fixed navbar */
+        padding-right: 5%;
+        position: sticky;
+        align-content: space-between;
+        align-items: flex-end;
+        flex-wrap: wrap;
+        flex-direction: column;
+        justify-content: center;
     }
 }
 
