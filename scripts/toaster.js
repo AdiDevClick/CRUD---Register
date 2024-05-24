@@ -1,6 +1,22 @@
 import { Toaster } from "./components/Toaster.js"
 import { resetURL } from "./functions/url.js"
 
+// esm
+import postcss from 'postcss';
+import postcssNesting from 'postcss-nesting';
+
+console.log(postcss)
+console.log(postcssNesting)
+
+// postcss([
+// 	postcssNesting(/* pluginOptions */)
+// ]).process(css, { from: 'css/main.css', to: 'dest/main.css' })
+//     .then(result => {
+//         fs.writeFile('dest/app.css', result.css, () => true)
+//         if ( result.map ) {
+//             fs.writeFile('dest/app.css.map', result.map.toString(), () => true)
+//         }
+//     })
 // const postcssPresetEnv = require('postcss-preset-env');
 
 // const yourConfig = {
@@ -15,21 +31,21 @@ import { resetURL } from "./functions/url.js"
 // }
 
 // esm
-const autoprefixer = require('autoprefixer')
-const postcss = require('postcss')
-const postcssNested = require('postcss-nested')
-const fs = require('fs')
+// const autoprefixer = require('autoprefixer')
+// const postcss = require('postcss')
+// const postcssNested = require('postcss-nested')
+// const fs = require('fs')
 
-fs.readFile('css/app.css', (err, css) => {
-    postcss([autoprefixer, postcssNested])
-    .process(css, { from: 'css/main.css', to: 'dest/main.css' })
-    .then(result => {
-        fs.writeFile('dest/app.css', result.css, () => true)
-        if ( result.map ) {
-            fs.writeFile('dest/app.css.map', result.map.toString(), () => true)
-        }
-    })
-})
+// fs.readFile('css/app.css', (err, css) => {
+//     postcss([autoprefixer, postcssNested])
+//     .process(css, { from: 'css/main.css', to: 'dest/main.css' })
+//     .then(result => {
+//         fs.writeFile('dest/app.css', result.css, () => true)
+//         if ( result.map ) {
+//             fs.writeFile('dest/app.css.map', result.map.toString(), () => true)
+//         }
+//     })
+// })
 
 let message
 let type

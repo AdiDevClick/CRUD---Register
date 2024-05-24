@@ -2,9 +2,9 @@ import { defineConfig } from "vite"
 
 export default defineConfig({
     server: {
-        origin: 'http://localhost:5173' // Règle le problème des chemins dans le CSS
+        origin: 'https://localhost/recettes/' // Règle le problème des chemins dans le CSS
     },
-    base: '/assets',
+    base: '/assets/',
     build: {
         copyPublicDir: false,
         outDir: 'public/assets',
@@ -13,7 +13,7 @@ export default defineConfig({
         rollupOptions: {
             input: [
                 'resources/main.js',
-                'resources/main.css',
+                'scripts/toaster.js',
             ]
         },
     },

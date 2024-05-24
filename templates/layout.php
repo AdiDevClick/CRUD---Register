@@ -47,20 +47,20 @@ if ($url === 'about.php' || 'planningType.php' || 'todo.html' || 'carousel.html'
     />
     <?php
     $dev = true;
-$manifest = json_decode(file_get_contents('./assets/.vite/manifest.json'), true);
+$manifest = json_decode(file_get_contents('assets/manifest.json', true));
 print_r($manifest);
 echo $manifest;
 if (!$dev) {
-    $manifest = json_decode(file_get_contents('assets/.vite/manifest.json'), true);
-    print_r($manifest);
+    // $manifest = json_decode(file_get_contents('assets/manifest.json'), true);
+    // print_r($manifest);
     ?>
-        <script src="assets/<?php $manifest['resources/main.js']['file'] ?>" type="module"></script>
-        <link rel="stylesheet" href="assets/<?php $manifest['resources/main.css']['file'] ?>">
+        <!-- <script src="/assets/<?php //$manifest['resources/main.js']['file'] ?>" type="module"></script> -->
+        <!-- <link rel="stylesheet" href="/assets/<?php //$manifest['resources/main.css']['file'] ?>"> -->
         <?php
 } else {
     ?>
-        <script type="module" src="http://localhost:5173/assets/@vite/client"></script>
-        <script type="module" src="http://localhost:5173/assets/resources/main.js"></script>
+        <!-- <script type="module" src="http://localhost:5173/assets/@vite/client"></script> -->
+        <!-- <script type="module" src="http://localhost:5173/assets/resources/main.js"></script> -->
         <?php
 }
 ?>

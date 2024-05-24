@@ -41,6 +41,8 @@ export class DrawerTouchPlugin {
     #isDesktop = false
     /** @type {Number} */
     #index
+    /** @type {String} */
+    #clickedElement
 
     /**
      * @param {Recipe Card} container
@@ -77,6 +79,7 @@ export class DrawerTouchPlugin {
         this.#closeButton.addEventListener('click', this.#onClose.bind(this))
         this.#steps.addEventListener('click', this.#onClose.bind(this))
         this.#steps.addEventListener('click', this.#onOpen.bind(this))
+        this.#card.addEventListener('click', this.#onClose.bind(this))
 
 
         this.#checkDisplay()
@@ -130,6 +133,7 @@ export class DrawerTouchPlugin {
         this.#showDrawerButton.removeEventListener('click', this.#onOpen.bind(this))
         this.#steps.removeEventListener('click', this.#onOpen.bind(this))
         if (e.currentTarget === this.#showDrawerButton) {
+            this.#clickedElement = 'card'
             this.#card.classList.add('open')
             this.translate('-80')
             // Force Repaint
@@ -145,11 +149,15 @@ export class DrawerTouchPlugin {
                 this.#drawerBarButton.style.display = 'block'
                 this.#disableScrollBehavior()
             }, {once: true})
-        } else {
+        } else if (this.#isTablet && e.currentTarget === this.#steps && !this.#card.classList.contains('open')) {
+            console.log('test')
+            this.#clickedElement = 'steps'
             this.#steps.classList.add('open')
-            this.#steps.addEventListener('transitionend', e => {
+            this.#steps.style.animation = 'scaleOutSteps 0.5s forwards'
+            this.#steps.addEventListener('animationend', e => {
                 this.#isOpened = true
-                this.#steps.removeAttribute('style')
+                
+                // this.#steps.removeAttribute('style')
                 this.#steps.classList.remove('open')
                 this.#steps.classList.add('opened')
                 this.#disableScrollBehavior()
@@ -175,13 +183,15 @@ export class DrawerTouchPlugin {
 
     #onClose(e) {
         console.log('je close')
+        console.log(e.currentTarget)
         this.#steps.removeEventListener('click', this.#onClose.bind(this))
         this.#closeButton.removeEventListener('click', this.#onClose.bind(this))
         if (this.#isMobile && !this.#card.classList.contains('opened')) return
         if (this.#isTablet && !this.#card.classList.contains('open')) return
         if (this.#isMobile) this.#card.style.animation = 'slideToBottom 0.5s forwards'
         // if (this.#isTablet) this.#card.style.animation = 'scaleOut 0.5s reverse forwards'
-        if (this.#isTablet) this.#card.style.animation = 'slideToRight 0.5s forwards'
+        if (this.#isTablet && e.currentTarget === this.#steps || e.currentTarget === this.#closeButton) this.#card.style.animation = 'slideToRight 0.5s forwards'
+        // if (this.#isTablet && e.currentTarget === this.#card) this.#steps.style.animation = 'scaleOutSteps 0.5s reverse forwards'
         this.#card.addEventListener('animationend', e => {
             this.#card.classList.remove('open')
             this.#card.classList.remove('opened')
@@ -315,9 +325,12 @@ export class DrawerTouchPlugin {
      */
     translate(percent, percentX = '0', width = null) {
         // this.#card.style.transform = 'translate3d(0,'+ percent + '%, 0)'
-        this.#card.style.transform = 'translate3d('+ percentX +'%,'+ percent + '%, 0)'
+        let element
+        if (this.#clickedElement === 'card') element = this.#card
+        if (this.#clickedElement === 'steps') element = this.#steps
+        element.style.transform = 'translate3d('+ percentX +'%,'+ percent + '%, 0)'
         if (width) {
-            this.#card.style.width = width
+            element.style.width = width
         }
     }
 

@@ -958,6 +958,24 @@ form {
 
     }
 }
+@keyframes scaleOutSteps {
+    from {
+        /* width: 50%; */
+        width: 100%;
+
+        position: sticky;
+        /* transform: scale(0.7); */
+        transform: translate3d(5%, 0, 0);
+    }
+    to {
+        background-color: #28292a;
+        width: 550px;
+        /* transform: scale(1); */
+        transform: translate3d(0, 0, 0);
+        position: sticky;
+        z-index: 10;
+    }
+}
 
 .hidden {
     /* display: none; */
@@ -1078,8 +1096,10 @@ form {
     from {
         /* scale: 0.8; */
         /* scale: 1.3; */
-        scale: 1.05;
-        transform: translate3d(0, 0, -10px);
+        scale: 1.02;
+        width: 550px;
+        height: 100%;
+        transform: translate3d(-250px, -150px, 0);
         position: sticky;
         /* width: 110%; */
         /* width: 50%; */
@@ -1089,7 +1109,8 @@ form {
         scale: 1;
         /* transform: translate3d(0, 0, -10px); */
         /* transform: translate3d(10px, 0, 10px); */ /* effet ok */
-        transform: translate3d(0, 0, 10px);
+        transform: translate3d(0, 0, 0);
+        /* transform: translate3d(0, 0, 10px); */
         /* transform: translate3d(10px, 0, 10px); */
         /* transform: translate3d(200px, 100px, 10px); */
         /* height: 100%; */
