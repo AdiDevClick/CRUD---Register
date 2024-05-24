@@ -21,7 +21,7 @@ ob_start()
     <!-- <h1> Contactez-nous </h1> -->
     <section class="card_container">
         <div class="contact-grid">
-            <div class="img">
+            <div class="contact-img">
                 <img src="https://booking.webestica.com/assets/images/element/contact.svg" alt="" srcset="">
             </div>
             <div class="card">

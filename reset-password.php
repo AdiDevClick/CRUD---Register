@@ -13,7 +13,7 @@ $errorMessage = CheckInput::showErrorMessage();
 ob_start()
 
 ?>
-<section class="contact-section">
+<section class="card_container">
     <div class="contact-grid" id="recovery-page">
         <div class="contact-img">
             <img src="https://booking.webestica.com/assets/images/element/forgot-pass.svg" alt="" srcset="">

@@ -30,7 +30,7 @@ if ($url === 'about.php' || 'planningType.php' || 'todo.html' || 'carousel.html'
     <meta http-equiv="Cache-control" content="public">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="<?php echo($rootUrl). $clicServer?>/css/resetfirefox.css">
-    <!-- <link rel="stylesheet" href="<?php echo($rootUrl). $clicServer?>/css/resetchromium.css"> -->
+    <!-- <link rel="stylesheet" href="<?php //echo($rootUrl). $clicServer?>/css/resetchromium.css"> -->
     <link rel="stylesheet" href="<?php echo($rootUrl). $clicServer?>/css/reset.css">
     <!-- <link
         href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" 
@@ -45,6 +45,25 @@ if ($url === 'about.php' || 'planningType.php' || 'todo.html' || 'carousel.html'
     <link 
     <?= $css ?? '' ?>
     />
+    <?php
+    $dev = true;
+$manifest = json_decode(file_get_contents('./assets/.vite/manifest.json'), true);
+print_r($manifest);
+echo $manifest;
+if (!$dev) {
+    $manifest = json_decode(file_get_contents('assets/.vite/manifest.json'), true);
+    print_r($manifest);
+    ?>
+        <script src="assets/<?php $manifest['resources/main.js']['file'] ?>" type="module"></script>
+        <link rel="stylesheet" href="assets/<?php $manifest['resources/main.css']['file'] ?>">
+        <?php
+} else {
+    ?>
+        <script type="module" src="http://localhost:5173/assets/@vite/client"></script>
+        <script type="module" src="http://localhost:5173/assets/resources/main.js"></script>
+        <?php
+}
+?>
     <script src="<?php echo($rootUrl). $clicServer?>/scripts/script.js" defer></script>
     <script type="module" src="<?php echo($rootUrl). $clicServer?>/scripts/toaster.js" defer></script>
     <script <?= $script ?? '' ?>></script>
@@ -204,7 +223,7 @@ if ($url === 'about.php' || 'planningType.php' || 'todo.html' || 'carousel.html'
     <!-- End Main Content -->
     </main>
     <!-- footer.php -->
-    <footer class="wrapper">
+    <footer class="">
         <div class="">
             <p>© 2023 Copyright <a class="" href="https://github.com/AdiDevClick/">Adi Dev Click</a></p>
         </div>

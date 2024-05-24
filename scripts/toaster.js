@@ -1,6 +1,36 @@
 import { Toaster } from "./components/Toaster.js"
 import { resetURL } from "./functions/url.js"
 
+// const postcssPresetEnv = require('postcss-preset-env');
+
+// const yourConfig = {
+// 	plugins: [
+// 		/* other plugins */
+// 		/* remove autoprefixer if you had it here, it's part of postcss-preset-env */
+// 		postcssPresetEnv({
+// 			/* pluginOptions */
+// 			features: {},
+// 		})
+// 	]
+// }
+
+// esm
+const autoprefixer = require('autoprefixer')
+const postcss = require('postcss')
+const postcssNested = require('postcss-nested')
+const fs = require('fs')
+
+fs.readFile('css/app.css', (err, css) => {
+    postcss([autoprefixer, postcssNested])
+    .process(css, { from: 'css/main.css', to: 'dest/main.css' })
+    .then(result => {
+        fs.writeFile('dest/app.css', result.css, () => true)
+        if ( result.map ) {
+            fs.writeFile('dest/app.css.map', result.map.toString(), () => true)
+        }
+    })
+})
+
 let message
 let type
 let errAlert = false

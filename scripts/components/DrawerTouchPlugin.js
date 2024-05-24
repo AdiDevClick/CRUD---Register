@@ -3,6 +3,12 @@
  */
 export class DrawerTouchPlugin {
 
+    /**
+     * This callback type is called `requestCallback` and is displayed as a global symbol.
+     * @callback moveCallback
+     * @param {number} index
+     */
+    #moveCallbacks = []
     /** @type {HTMLElement} */
     #recipe
     /** @type {HTMLElement} */
@@ -31,6 +37,10 @@ export class DrawerTouchPlugin {
     #isMobile = false
     /** @type {Boolean} */
     #isTablet = false
+    /** @type {Boolean} */
+    #isDesktop = false
+    /** @type {Number} */
+    #index
 
     /**
      * @param {Recipe Card} container
@@ -68,28 +78,71 @@ export class DrawerTouchPlugin {
         this.#steps.addEventListener('click', this.#onClose.bind(this))
         this.#steps.addEventListener('click', this.#onOpen.bind(this))
 
+
+        this.#checkDisplay()
+
+        // Evènements
+        this.#moveCallbacks.forEach(cb => cb(this.#index))
         this.#onWindowResize()
         window.addEventListener('resize', this.#onWindowResize.bind(this))
+    }
+
+    #checkDisplay() {
+        this.#onMove(index => {
+            if (index === 0) {
+                this.#card.classList.remove('open')
+                this.#card.removeAttribute('style')
+                this.#isMobile = true
+                this.#isTablet = false
+                this.#isDesktop = false
+            }
+            if (index === 1) {
+                this.#card.classList.remove('opened')
+                this.#card.removeAttribute('style')
+                this.#isMobile = false
+                this.#isTablet = true
+                this.#isDesktop = false
+            }
+            if (index === 2) {
+                this.#card.classList.remove('opened')
+                this.#card.classList.remove('open')
+                this.#card.removeAttribute('style')
+                this.#isMobile = false
+                this.#isTablet = false
+                this.#isDesktop = true
+            }
+            // if (this.items[this.currentItem + this.#visibleSlides] === undefined) {
+            //     this.#nextButton.classList.add('carousel__next--hidden')
+            //     this.#nextButton.disabled = true
+            //     this.#reverseMode = true
+            // } else {
+            //     this.#nextButton.classList.remove('carousel__next--hidden')
+            //     this.#nextButton.disabled = false
+            // }
+        })
     }
 
     #onOpen(e) {
         console.log('jouvre')
         console.log(e.currentTarget)
         // this.#card.style.display = 'block'
-
+        this.drawer.style.display = 'block'
         this.#showDrawerButton.removeEventListener('click', this.#onOpen.bind(this))
         this.#steps.removeEventListener('click', this.#onOpen.bind(this))
         if (e.currentTarget === this.#showDrawerButton) {
             this.#card.classList.add('open')
             this.translate('-80')
-            console.log('object')
+            // Force Repaint
+            this.container.offsetHeight
+            // End of Force Repaint
+            this.#showDrawerButton.classList.remove('show')
+            this.#showDrawerButton.classList.add('hidden')
             this.#card.addEventListener('transitionend', e => {
                 this.#isOpened = true
                 this.#card.removeAttribute('style')
                 this.#card.classList.remove('open')
                 this.#card.classList.add('opened')
-                this.#showDrawerButton.classList.remove('show')
-                this.#showDrawerButton.classList.add('hidden')
+                this.#drawerBarButton.style.display = 'block'
                 this.#disableScrollBehavior()
             }, {once: true})
         } else {
@@ -121,15 +174,16 @@ export class DrawerTouchPlugin {
     }
 
     #onClose(e) {
+        console.log('je close')
         this.#steps.removeEventListener('click', this.#onClose.bind(this))
         this.#closeButton.removeEventListener('click', this.#onClose.bind(this))
-        if (!this.#card.classList.contains('opened')) return
+        if (this.#isMobile && !this.#card.classList.contains('opened')) return
+        if (this.#isTablet && !this.#card.classList.contains('open')) return
         if (this.#isMobile) this.#card.style.animation = 'slideToBottom 0.5s forwards'
         // if (this.#isTablet) this.#card.style.animation = 'scaleOut 0.5s reverse forwards'
         if (this.#isTablet) this.#card.style.animation = 'slideToRight 0.5s forwards'
         this.#card.addEventListener('animationend', e => {
             this.#card.classList.remove('open')
-
             this.#card.classList.remove('opened')
             this.#card.classList.remove('fullyOpened')
             this.#isOpened = false
@@ -172,15 +226,17 @@ export class DrawerTouchPlugin {
         // console.log(e.pageY)
         // console.log(this.#card.scrollTop)
         // console.log(window.scrollY)
+
         // console.log(this.#card.getBoundingClientRect())
         // console.log(this.#card.clientHeight)
         // this.test = this.#card.scrollHeight + Math.round(this.#card.scrollTop) === this.#card.clientHeight
-        if (this.#isMobile) {
+        if (this.#isMobile && !this.#isTablet) {
+            console.log('je suis mobile')
             this.#card.classList.contains('opened') ? null : this.#card.classList.add('open')
         }
-        if (this.#isTablet && !this.#card.classList.contains('open')) {
+        if (!this.#isMobile && this.#isTablet && !this.#card.classList.contains('open')) {
             // this.#disableScrollBehavior()
-
+            console.log('je suis tablette')
             // this.translate('0', '5', '550px')`
 
             // this.#card.style.scale = '1.3'
@@ -192,6 +248,7 @@ export class DrawerTouchPlugin {
             // this.#card.style.height = '100%'
             // this.#card.style.position = 'fixed'
             this.#card.addEventListener('animationend', e => {
+                console.log('mon animation est pas terminée')
                 this.#card.classList.add('open')
                 this.drawer.style.display = 'block'
                 this.#drawerBarButton.style.display = 'none'
@@ -199,7 +256,7 @@ export class DrawerTouchPlugin {
 
                 this.#card.removeAttribute('style')
                 this.#card.style.width = '550px'
-            })
+            }, {once: true})
             // this.#card.addEventListener('transitionend', e => {
             //     // this.#card.classList.add('open')
             //     this.drawer.style.display = 'block'
@@ -245,6 +302,9 @@ export class DrawerTouchPlugin {
             this.lastTranslate = translate
             this.origin
             if (this.#isMobile) this.translate(100 * translate.y / this.height)
+            // Force Repaint
+            this.container.offsetHeight
+            // End of Force Repaint
             // if (this.#isTablet) this.translate(100 * translate.x / this.width)
         }
     }
@@ -266,8 +326,8 @@ export class DrawerTouchPlugin {
      */
     disableTransition() {
         this.#card.style.transition = 'none'
-        this.#card.style.overflowY = 'hidden'
-        this.#card.style.overflowX = 'hidden'
+        // this.#card.style.overflowY = 'hidden'
+        // this.#card.style.overflowX = 'hidden'
         this.#card.style.zIndex = '1000'
         // this.#card.style.position = 'fixed'
     }
@@ -277,6 +337,7 @@ export class DrawerTouchPlugin {
      */
     enableTransition() {
         this.#card.style.overflowY = 'auto'
+        // this.#card.style.overflowX = 'auto'
         // this.drawer.style.animation = ''
         this.#card.style.animation = null
 
@@ -285,6 +346,10 @@ export class DrawerTouchPlugin {
         // !this.#isOpened ? this.card.style.position = 'absolute' : this.card.style.position = 'fixed'
     }
 
+    /**
+     * Défini à quelle zone du top sera collé l'élément
+     * @param {string} top 
+     */
     style(top) {
         this.#card.style.top = top
     }
@@ -294,6 +359,8 @@ export class DrawerTouchPlugin {
      * @param {MouseEvent|TouchEvent} e 
      */
     async endDrag(e) {
+        if (!this.#isMobile) return
+
         if (this.origin && this.lastTranslate) {
             let translateY = Math.abs(this.lastTranslate.y / this.drawerHeigth)
             let translateX = Math.abs(this.lastTranslate.x / this.drawerWidth)
@@ -323,7 +390,7 @@ export class DrawerTouchPlugin {
                         document.documentElement.removeAttribute('style')
                     }, {once: true})
                 }
-                if (this.#isFullyOpened && this.lastTranslate.y > 0) {
+                if (this.#isMobile && this.#isFullyOpened && this.lastTranslate.y > 0) {
                     this.#savedTranslateY = this.lastTranslate.y
                     this.#drawerBarButton.classList.contains('fullyOpened') ? this.#drawerBarButton.classList.remove('fullyOpened') : null
                     this.#card.style.animation = 'slideFromTop 0.5s forwards'
@@ -333,7 +400,7 @@ export class DrawerTouchPlugin {
                         this.#isFullyOpened = false
                     }, {once: true})
                 }
-                if (this.lastTranslate.y < 0 && !this.#isOpened) {
+                if (this.#isMobile && this.lastTranslate.y < 0 && !this.#isOpened) {
                     this.#card.style.animation = 'slideToTop 0.5s forwards'
                     this.#card.addEventListener('animationend', e => {
                         this.#isOpened = true
@@ -345,7 +412,7 @@ export class DrawerTouchPlugin {
                         this.#savedPosition[key] = value
                     }
                 }
-                if (this.lastTranslate.y < 0 && !this.#isFullyOpened) {
+                if (this.#isMobile && this.lastTranslate.y < 0 && !this.#isFullyOpened) {
                     this.#card.style.animation = 'slideToFullTop 0.5s forwards'
                     this.#card.addEventListener('animationend', e => {
                         this.#isFullyOpened = true
@@ -361,31 +428,44 @@ export class DrawerTouchPlugin {
         }
         this.origin = null
     }
-
-    /** @param {moveCallback} */
-    #onMove(callback) {
-        // this.#moveCallbacks.push(callback)
-    }
     
     /**
-     * Permet de définir un reStyle en fonction 
-     * du changement de la taille de lafenêtre
+     * Permet de spécifier le type de display en fonction 
+     * du changement de la taille de la fenêtre
      */
     #onWindowResize() {
-        let mobile = window.innerWidth < 576
-        let tablet = window.innerWidth < 996 && window.innerWidth > 576
+        let mobile = window.innerWidth <= 576
+        let tablet = window.innerWidth <= 996 && window.innerWidth > 576
+        let desktop = window.innerWidth > 996
         if (mobile !== this.#isMobile) {
             this.#isMobile = mobile
-            console.log('mobile true')
             // this.setStyle()
-            // this.#moveCallbacks.forEach(cb => cb(this.currentItem))
+            this.#index = 0
+            this.#card.classList.remove('open')
+            this.#card.classList.remove('opened')
+            this.#moveCallbacks.forEach(cb => cb(this.#index))
         } 
         if (tablet !== this.#isTablet) {
             this.#isTablet = tablet
-            console.log('tablet true')
             // this.setStyle()
-            // this.#moveCallbacks.forEach(cb => cb(this.currentItem))
+            this.#index = 1
+            this.#card.classList.remove('open')
+            this.#card.classList.remove('opened')
+            this.#moveCallbacks.forEach(cb => cb(this.#index))
         }
+        if (desktop !== this.#isDesktop) {
+            this.#isDesktop = desktop
+            // this.setStyle()
+            this.#index = 2
+            this.#card.classList.remove('open')
+            this.#card.classList.remove('opened')
+            this.#moveCallbacks.forEach(cb => cb(this.#index))
+        }
+    }
+
+    /** @param {moveCallback} */
+    #onMove(callback) {
+        this.#moveCallbacks.push(callback)
     }
 
     /**
