@@ -2,14 +2,14 @@ import { defineConfig } from "vite"
 
 export default defineConfig({
     server: {
-        origin: 'https://localhost/recettes/' // Règle le problème des chemins dans le CSS
+        origin: 'http://localhost:5173' // Règle le problème des chemins dans le CSS
     },
-    base: '/assets/',
+    base: '/assets',
     build: {
+        manifest: true,
         copyPublicDir: false,
         outDir: 'public/assets',
         assetsDir: '',
-        manifest: true,
         rollupOptions: {
             input: [
                 'resources/main.js',

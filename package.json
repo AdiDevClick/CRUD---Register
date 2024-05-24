@@ -60,12 +60,5 @@
     "build": "vite build"
   },
   "author": "",
-  "license": "ISC",
-  "postcss": {
-    "parser": "sugarss",
-    "map": false,
-    "plugins": {
-      "postcss-plugin": {}
-    }
-  }
+  "license": "ISC"
 }

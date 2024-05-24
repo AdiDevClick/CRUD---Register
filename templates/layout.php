@@ -40,27 +40,31 @@ if ($url === 'about.php' || 'planningType.php' || 'todo.html' || 'carousel.html'
     integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" 
     crossorigin="anonymous"
     referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="<?php echo($rootUrl). $clicServer?>/css/main.css"/>
-    <link rel="stylesheet" href="<?php echo($rootUrl). $clicServer?>/css/index.css"/>
+    <!-- <link rel="stylesheet" href="<?php //echo($rootUrl). $clicServer?>/css/main.css"/> -->
+    <!-- <link rel="stylesheet" href="<?php //echo($rootUrl). $clicServer?>/css/index.css"/> -->
     <link 
     <?= $css ?? '' ?>
     />
     <?php
-    $dev = true;
-$manifest = json_decode(file_get_contents('assets/manifest.json', true));
-print_r($manifest);
-echo $manifest;
+
+    $dev = false;
+// $manifest = json_decode(file_get_contents(dirname(__DIR__) . DIRECTORY_SEPARATOR ."public" . DIRECTORY_SEPARATOR ."assets" . DIRECTORY_SEPARATOR .".vite". DIRECTORY_SEPARATOR ."manifest.json"), true);
+// print_r($manifest);
+// echo $manifest;
+// var_dump($manifest);
 if (!$dev) {
-    // $manifest = json_decode(file_get_contents('assets/manifest.json'), true);
-    // print_r($manifest);
+    $manifest = json_decode(file_get_contents(dirname(__DIR__) . DIRECTORY_SEPARATOR ."public" . DIRECTORY_SEPARATOR ."assets" . DIRECTORY_SEPARATOR .".vite". DIRECTORY_SEPARATOR ."manifest.json"), true);
+
+    // $manifest = json_decode(file_get_contents('./public/assets/.vite/manifest.json'), true);
+    // var_dump($manifest);
     ?>
-        <!-- <script src="/assets/<?php //$manifest['resources/main.js']['file'] ?>" type="module"></script> -->
-        <!-- <link rel="stylesheet" href="/assets/<?php //$manifest['resources/main.css']['file'] ?>"> -->
+        <script src="<?php echo($rootUrl) . $clicServer?>/public/assets/<?= $manifest['resources/main.js']['file']?>" type="module"></script>
+        <link rel="stylesheet" href="<?php echo($rootUrl) . $clicServer?>/public/assets/<?= $manifest['resources/main.js']['css'][0]?>">
         <?php
 } else {
     ?>
-        <!-- <script type="module" src="http://localhost:5173/assets/@vite/client"></script> -->
-        <!-- <script type="module" src="http://localhost:5173/assets/resources/main.js"></script> -->
+        <script type="module" src="http://localhost:5173/assets/@vite/client"></script>
+        <script type="module" src="http://localhost:5173/assets/resources/main.js"></script>
         <?php
 }
 ?>
