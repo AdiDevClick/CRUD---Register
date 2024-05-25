@@ -59,6 +59,7 @@ if (!$dev) {
     // var_dump($manifest);
     ?>
         <script src="<?php echo($rootUrl) . $clicServer?>/public/assets/<?= $manifest['resources/main.js']['file']?>" type="module"></script>
+        <script src="<?php echo($rootUrl) . $clicServer?>/public/assets/<?= $manifest['scripts/toaster.js']['file']?>" type="module"></script>
         <link rel="stylesheet" href="<?php echo($rootUrl) . $clicServer?>/public/assets/<?= $manifest['resources/main.js']['css'][0]?>">
         <?php
 } else {
@@ -69,7 +70,7 @@ if (!$dev) {
 }
 ?>
     <script src="<?php echo($rootUrl). $clicServer?>/scripts/script.js" defer></script>
-    <script type="module" src="<?php echo($rootUrl). $clicServer?>/scripts/toaster.js" defer></script>
+    <!-- <script type="module" src="<?php //echo($rootUrl). $clicServer?>/scripts/toaster.js" defer></script> -->
     <script <?= $script ?? '' ?>></script>
     <script <?= $script2 ?? '' ?>></script>
     <title>

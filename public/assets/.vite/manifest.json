@@ -1,4 +1,8 @@
 {
+  "resources/Fonts/Caveat/Caveat-VariableFont_wght.ttf": {
+    "file": "Caveat-VariableFont_wght-Cd5oCIlo.ttf",
+    "src": "resources/Fonts/Caveat/Caveat-VariableFont_wght.ttf"
+  },
   "resources/Fonts/Roboto/Roboto-Black.ttf": {
     "file": "Roboto-Black-qr0G-G-3.ttf",
     "src": "resources/Fonts/Roboto/Roboto-Black.ttf"
@@ -24,14 +28,15 @@
     "src": "resources/Fonts/Roboto/Roboto-Thin.ttf"
   },
   "resources/main.js": {
-    "file": "main-C7D7IAW7.js",
+    "file": "main-BU2ix3RJ.js",
     "name": "main",
     "src": "resources/main.js",
     "isEntry": true,
     "css": [
-      "main-CHl9n_-Y.css"
+      "main-Cw_UlzSl.css"
     ],
     "assets": [
+      "Caveat-VariableFont_wght-Cd5oCIlo.ttf",
       "Roboto-Regular-BHeBnKzs.ttf",
       "Roboto-Bold-BKtbn9Wi.ttf",
       "Roboto-Black-qr0G-G-3.ttf",
@@ -41,7 +46,7 @@
     ]
   },
   "scripts/toaster.js": {
-    "file": "toaster-CZTWcyii.js",
+    "file": "toaster-NUVJZ_HV.js",
     "name": "toaster",
     "src": "scripts/toaster.js",
     "isEntry": true
