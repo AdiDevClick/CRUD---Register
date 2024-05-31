@@ -393,14 +393,14 @@ header {
     top: 0;
     visibility: hidden;
     background-color: rgba(230, 181, 181, 0.2);
-    backdrop-filter: blur(15px);
     -webkit-backdrop-filter: blur(15px);
+    backdrop-filter: blur(15px);
     /* background-color: rgba(129, 32, 32, 0.5); */
     /* transition: height 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275); */
-    transition: background-color 10s ease-in-out;
     -webkit-transition: background-color 10s ease-in-out;
     -moz-transition: background-color 10s ease-in-out;
     -o-transition: background-color 10s ease-in-out;
+    transition: background-color 10s ease-in-out;
 }
 
 .dropdown-menu {
@@ -408,20 +408,20 @@ header {
     position: absolute;
     z-index: 1000;
     height: 0px;
-    max-height: 0px;
+    /* max-height: 0px; */
     right: 2rem;
     top: 60px;
     width: 300px;
     background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(15px);
     -webkit-backdrop-filter: blur(15px);
+    backdrop-filter: blur(15px);
     border-radius: 10px;
     overflow: hidden;
-    transition: max-height 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    transition: height 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     -webkit-transition: height 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     -moz-transition: height 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     -o-transition: height 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transition: max-height 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transition: height 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     @media (max-width: 992px) {
         display: block;
     }
@@ -430,15 +430,18 @@ header {
         overflow: scroll;
         right : 1rem;
         width: unset;
-        }
+    }
 }
 
 .dropdown-menu.open {
     overflow: hidden;
     display: block; /* important */
     height: 270px;
-    max-height: 400px;
+    /* height: calc(fit-content + 100px); */
+    min-height: max-content;
+    max-height: 600px;
     position: fixed;
+    margin-bottom: 100px;
     top: 80px;
     z-index: 1000;
 }

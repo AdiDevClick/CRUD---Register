@@ -10,5 +10,7 @@ const forms = document.querySelectorAll('form')
 // })
 forms.forEach(form => {
     // debugger
-    new ErrorHandler(form)
+    new ErrorHandler(form, {
+        deboucing: false
+    })
 })

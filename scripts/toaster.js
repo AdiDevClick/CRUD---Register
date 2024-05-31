@@ -1,12 +1,6 @@
 import { Toaster } from "./components/Toaster.js"
 import { resetURL } from "./functions/url.js"
 
-// esm
-import postcss from 'postcss';
-import postcssNesting from 'postcss-nesting';
-
-console.log(postcss)
-console.log(postcssNesting)
 // postcss([
 // 	postcssNesting(/* pluginOptions */)
 // ]).process(css, { from: 'resources/css/main.css', to: 'dest/main.css' })

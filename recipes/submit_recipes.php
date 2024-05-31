@@ -17,57 +17,59 @@ $data = $_SERVER['REQUEST_METHOD'] === 'POST';
 $err = [];
 $loggedUser = [];
 // print_r($_REQUEST);
+// print_r($data);
 // include('../recipes/Process_PreparationList.php');
 
 // print_r($getDatas);
 // On affiche chaque recette une à une
-if ($data && isset($_POST['submit'])) {
-    //try {
-    //require_once("../includes/class-autoloader.inc.php");
-    $getDatas = [
-    'title' => $_POST['title'],
-    'step_1' => $_POST['step_1'],
-    'step_2' => $_POST['step_2'],
-    'step_3' => $_POST['step_3'],
-    'step_4' => $_POST['step_4'],
-    'step_5' => $_POST['step_5'],
-    'step_6' => $_POST['step_6'],
-    // 'ingredient' => $_POST['time'],
-    ];
+// if ($data && isset($_POST['submit'])) {
+//     //try {
+//     //require_once("../includes/class-autoloader.inc.php");
+//     print_r($data);
+//     $getDatas = [
+//     'title' => $_POST['title'],
+//     'step_1' => $_POST['step_1'],
+//     'step_2' => $_POST['step_2'],
+//     'step_3' => $_POST['step_3'],
+//     'step_4' => $_POST['step_4'],
+//     'step_5' => $_POST['step_5'],
+//     'step_6' => $_POST['step_6'],
+//     // 'ingredient' => $_POST['time'],
+//     ];
 
+//     print_r($getDatas);
+//     // $content = trim(file_get_contents("php://input"));
 
-    // $content = trim(file_get_contents("php://input"));
+//     // $dataTest = json_decode($content, true);
 
-    // $dataTest = json_decode($content, true);
+//     // echo json_encode($dataTest['persons']);
+//     // echo($dataTest["persons"]);
+//     // echo($content);
 
-    // echo json_encode($dataTest['persons']);
-    // echo($dataTest["persons"]);
-    // echo($content);
+//     // print_r($dataTest);
+//     // print_r($getDatas);
+//     $setRecipe = new RecipeView($getDatas);
+//     $setRecipe->insertRecipe();
+//     $err = CheckInput::getErrorMessages();
 
-    // print_r($dataTest);
-    // print_r($getDatas);
-    $setRecipe = new RecipeView($getDatas);
-    $setRecipe->insertRecipe();
-    $err = CheckInput::getErrorMessages();
-
-    if (count($err) > 0) {
-        // print_r($err);
-        session_destroy();
-    } else {
-        header('refresh:10, ../index.php?success=recipe-shared');
-        // session_destroy();
-    }
-    //header('Location: ../index.php?error=none');
-    //unset($_SESSION['REGISTERED_RECIPE']);
-    //unset($_SESSION['REGISTERED_RECIPE']);
-    //exit();
-    //header('refresh:10, ../index.php');
-    //$content = ob_get_contents();
-    //$content = ob_get_clean();
-    //} catch (Error $e) {
-    //die('Erreur : ' . $e->getMessage() . ' Quelque chose ne va pas dans l\'insertion...') ;
-    //}
-}
+//     if (count($err) > 0) {
+//         // print_r($err);
+//         session_destroy();
+//     } else {
+//         header('refresh:10, ../index.php?success=recipe-shared');
+//         // session_destroy();
+//     }
+//     //header('Location: ../index.php?error=none');
+//     //unset($_SESSION['REGISTERED_RECIPE']);
+//     //unset($_SESSION['REGISTERED_RECIPE']);
+//     //exit();
+//     //header('refresh:10, ../index.php');
+//     //$content = ob_get_contents();
+//     //$content = ob_get_clean();
+//     //} catch (Error $e) {
+//     //die('Erreur : ' . $e->getMessage() . ' Quelque chose ne va pas dans l\'insertion...') ;
+//     //}
+// }
 
 //$content = ob_get_clean();
 //$content = ob_end_flush();
@@ -77,6 +79,24 @@ $loggedUser = LoginController::checkLoggedStatus();
 // echo ' le array dans submit recipe';
 // print_r($loggedUser);
 $err = CheckInput::getErrorMessages();
+// if (count($err) > 0) {
+//     // print_r($err);
+//     $errorMessage = CheckInput::showErrorMessage();
+
+//     $successMessage = '';
+//     //if (isset($_SESSION['REGISTERED_USER'])) {
+//     //ob_start();
+//     $successMessage = '<div>';
+//     $successMessage .= '<p class="alert-error"> ' . strip_tags($errorMessage) . '</p>';
+//     $successMessage .= '</div>';
+//     echo $successMessage;
+//     echo $dataTest['failed'] = true;
+//     // session_destroy();
+// } else {
+//     header('Location: ../index.php?success=recipe-shared');
+//     // header('refresh:10, ../index.php?success=recipe-shared');
+//     // session_destroy();
+// }
 $errorMessage = CheckInput::showErrorMessage();
 // ob_get_clean();
 ob_start();
@@ -321,9 +341,12 @@ ob_start();
                                 <button name="add_custom" id="add_custom" type="button" class="btn">Ajouter un nouvel ingrédient</button>
                             </div>
                             <hr>
-                            <div class="add_ingredient">
+                            <!-- <div class="add_ingredient">
                                 <button name="add_preparation" id="button" type="submit" class="btn">Valider vos ingrédients</button>
-                            </div>
+                            </div> -->
+                        </div>
+                        <div class="add_ingredient">
+                            <button name="add_preparation" id="button" type="submit" class="btn">Valider vos ingrédients</button>
                         </div>
                     </div>
                     <!-- </form> -->

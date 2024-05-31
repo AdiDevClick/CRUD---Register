@@ -73,8 +73,8 @@ export class Carousel
      * // IMPORTANT !! : si INFINITE = true : l'option loop DOIT ETRE FALSE
      * @param {boolean} [options.infinite=false]
      * @param {boolean} [options.automaticScrolling=true] Permet de définir le scrolling automatique - crer aussi un indicateur de temps avant chaques slides
-     * @param {boolean} [options.autoSlideDuration=3000] Permet de définir le délai entre chaque auto scroll - par défaut : 3s
-     * @param {boolean} [options.afterClickDelay=10000] Permet de définir un délai après intéraction de l'utilisateur - par défaut : 10s
+     * @param {Object} [options.autoSlideDuration=3000] Permet de définir le délai entre chaque auto scroll - par défaut : 3s
+     * @param {Object} [options.afterClickDelay=10000] Permet de définir un délai après intéraction de l'utilisateur - par défaut : 10s
      */
     constructor(element, options = {}) {
         this.element = element

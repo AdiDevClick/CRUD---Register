@@ -18,7 +18,7 @@ class RecipeController extends Recipe
                 $checkInput = new CheckInput(
                     $this->getData
                 );
-                print_r($this->getData);
+                // print_r($this->getData);
                 $title = $checkInput->test_input($this->getData['title']);
                 $step_1 = $checkInput->test_input($this->getData["step_1"]);
                 $step_2 = $checkInput->test_input($this->getData["step_2"]);
@@ -62,7 +62,7 @@ class RecipeController extends Recipe
                 // $persons = $this->getData["persons"];
                 // $custom_ingredients = $this->getData["custom_ingredients"];
                 $checkInput->checkInputs();
-                print_r($custom_ingredients);
+                // print_r($custom_ingredients);
                 if (empty($checkInput->getErrorsArray())) {
                     $this->setRecipeTest(
                         $title,
@@ -88,12 +88,21 @@ class RecipeController extends Recipe
                         $custom_ingredients,
                         $loggedUser['email']
                     );
+                    // echo json_encode('window.location.href = ../index.php?success=recipe-shared');
+                    // echo json_encode(header('refresh:10, ../index.php?success=recipe-shared'));
+                    // echo 'window.location.href = ../index.php?success=recipe-shared';
+                    // echo 'window.location.href = ../index.php?success=recipe-shared';
+                    echo json_encode(['status' => 'success']);
+                    // echo json_encode(['status' => 'success','message' => 'test']);
                 } else {
-                    echo "<pre>";
-                        print_r($checkInput->getErrorsArray());
-                    echo "</pre>";
-                    $checkInput->getErrorsArray();
-                    return;
+                    // echo "<pre>";
+                    echo json_encode($checkInput->getErrorsArray());
+                    // print_r($checkInput->getErrorsArray());
+                    // echo "</pre>";
+                    // header('refresh:10, ../index.php?success=recipe-shared');
+                    // $checkInput->getErrorsArray();
+                    // echo json_encode(['status' => 'error','message' => 'test error']);
+                    // return;
                 }
 
                 $registeredRecipe = [

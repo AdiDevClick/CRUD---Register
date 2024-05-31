@@ -150,7 +150,7 @@ export class DrawerTouchPlugin {
                 this.#disableScrollBehavior()
             }, {once: true})
             this.#steps.addEventListener('click', this.#onClose.bind(this), {once : true})
-        } else if (this.#isTablet && e.currentTarget === this.#steps && !this.#card.classList.contains('open')) {
+        } else if (this.#isTablet && e.currentTarget === this.#steps && !this.#card.classList.contains('open') && !this.#steps.classList.contains('opened')) {
             console.log('test')
             this.#clickedElement = 'steps'
             this.#steps.classList.add('open')
@@ -187,13 +187,22 @@ export class DrawerTouchPlugin {
         console.log('je close')
         console.log(e.currentTarget)
         // this.#steps.removeEventListener('click', this.#onClose.bind(this))
+        this.#card.removeEventListener('click', this.#onClose.bind(this))
         this.#closeButton.removeEventListener('click', this.#onClose.bind(this))
         if (this.#isMobile && !this.#card.classList.contains('opened')) return
         // if (this.#isMobile && !this.#card.classList.contains('opened') || e.currentTarget !== this.#closeButton) return
-        if (this.#isTablet && !this.#card.classList.contains('open')) return
+        // if (this.#isTablet && !this.#card.classList.contains('open')) return
         if (this.#isMobile) this.#card.style.animation = 'slideToBottom 0.5s forwards'
         // if (this.#isTablet) this.#card.style.animation = 'scaleOut 0.5s reverse forwards'
-        if (this.#isTablet && (e.currentTarget === this.#steps || e.currentTarget === this.#closeButton)) this.#card.style.animation = 'slideToRight 0.5s forwards'
+        // if (this.#isTablet && (e.currentTarget === this.#steps || e.currentTarget === this.#closeButton)) this.#card.style.animation = 'scaleOutReverse 0.5s reverse forwards'
+        if (this.#isTablet ) {
+            if ((e.currentTarget === this.#steps || e.currentTarget === this.#closeButton) && this.#card.classList.contains('open')) {
+                this.#card.style.animation = 'scaleOut 0.5s reverse forwards'
+            } else if ((e.currentTarget === this.#card) && this.#steps.classList.contains('opened')) {
+                this.#steps.style.animation = 'scaleOutSteps 0.5s reverse forwards'
+            }
+        }
+        // if (this.#isTablet && (e.currentTarget === this.#steps || e.currentTarget === this.#closeButton)) this.#card.style.animation = 'slideToRight 0.5s forwards'
         // if (this.#isTablet && e.currentTarget === this.#card) this.#steps.style.animation = 'scaleOutSteps 0.5s reverse forwards'
         this.#card.addEventListener('animationend', e => {
             console.log(e)

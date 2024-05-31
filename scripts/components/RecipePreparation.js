@@ -164,24 +164,31 @@ export class IngredientsFrom {
      * localStorage 'preparationList' pour une récupération dans la database -
      * Toutes les inputs sont envoyées par fetch dans la DB et la liste 
      * est envoyée telle-quelle au format JSON dans 'custom_ingredient'
+     * Le serveur devra renvoyer un objet {status: 'success'} encodé au format JSON
+     * pour que cela fonctionne
+     * S'il renvoie un array d'erreur, elles devront être traitées
      * @param {SubmitEvent} e
      */
     async #onSubmit(e) {
         e.preventDefault()
-        const form = e.currentTarget
-        const data = new FormData(form)
-        
+        // console.log(e.target)
+        // const form = e.currentTarget
+        const form = e.target
+        let data = new FormData(form)
+        // console.log(data)
+        // console.log(form)
         // Modification de la clé 'custom_ingredient'
-        // pour pouvoir faire passer la liste  dynamique des ingrédients
+        // pour pouvoir faire passer la liste dynamique des ingrédients
         // ajoutés par l'utilisateur au format JSON dans la
         // database en même-temps que les données inputs
+        // console.log(data)
         for (let [key, value] of data) {
             if (key === 'custom_ingredient') {
                 // value = this.#list
+                // console.log(this.#list)
                 data.set('custom_ingredients', this.#list)
             }
         }
-
         try {
             // this.#ingredientList = await fetchJSON(this.#endpoint, {
             // this.#ingredientList = await fetchJSON('test.php', {
@@ -201,8 +208,9 @@ export class IngredientsFrom {
             // }
             // // const ingredients = 
             // this.#target.prepend(elementTemplate)
-            
+            // console.log(this.#ingredientList.body)
             console.log(this.#ingredientList)
+            if (this.#ingredientList.status === 'success') window.location.assign('../index.php?success=recipe-shared')
             // this.#preparationList = this.#preparationList.filter((task) => task === this.#list)
             this.#preparationList.formData = this.#ingredientList
             // this.#preparationList.push(this.#ingredientList)
@@ -211,7 +219,7 @@ export class IngredientsFrom {
             // this.#ingredientList = this.#ingredientList.filter((task) => task !== this.#list)
             // this.#ingredientList.push(elementTemplate.value)
             // this.#onUpdate('ingredients', this.#ingredientList)
-            console.log(this.#preparationList)
+            // console.log(this.#preparationList)
             this.onUpdate('preparationList', this.#preparationList)
             
             // form.reset()

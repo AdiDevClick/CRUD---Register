@@ -20,7 +20,7 @@ export async function fetchJSON(url = '', options = {}) {
         if (!response.ok) {
             throw new Error('Impossible de récupérer les données serveur', {cause: response})
         }
-        return await response.json()
+        return response.json()
     } catch (error) {
         alertMessage(error.message)
     }

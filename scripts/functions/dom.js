@@ -27,10 +27,11 @@ export function createElement(tagName, attributes = {}) {
 /**
  * Debounce une fonction de manière Asynchrone
  * Il faut spécifier la duration -
- * Cette fonctione permet aussi de prendre en compte 
+ * Cette fonction permet aussi de prendre en compte 
  * les paramètres de la fonction debounced
  * @param {Function} funct 
- * @param {Number} duration 
+ * @param {Number} duration
+ * @fires [debounce]
  * @returns {Function}
  */
 export const debounce = function(funct, duration) {

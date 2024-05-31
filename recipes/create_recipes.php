@@ -64,4 +64,3 @@ require_once('../recipes/submit_recipes.php');
 // $content = ob_get_contents();
 // $content = ob_get_clean();
 require('../templates/layout.php');
-

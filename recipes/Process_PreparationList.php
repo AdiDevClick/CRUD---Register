@@ -5,6 +5,7 @@ declare(strict_types=1);
 include_once("../includes/class-autoloader.inc.php");
 
 $data = $_SERVER['REQUEST_METHOD'] === 'POST';
+// print_r($_REQUEST);
 // if (isset($_POST)) {
 //     // $content = file_get_contents("php://input");
 //     // $test = $_REQUEST;
@@ -32,10 +33,12 @@ $data = $_SERVER['REQUEST_METHOD'] === 'POST';
 //     // $loggedUser = LoginController::checkLoggedStatus();
 //     // echo json_encode($loggedUser);
 // }
+// print_r($data);
 if ($data && isset($_POST)) {
+    header('Content-Type: application/json; charset=utf-8');
     $content = file_get_contents("php://input");
     $dataTest = json_decode($content, true);
-    // echo $content;
+    $getDatas;
     if ($dataTest) {
         $getDatas = [
             'test' => $content,
@@ -62,6 +65,7 @@ if ($data && isset($_POST)) {
             'ingredient5' => $dataTest['ingredient5'],
             'ingredient6' => $dataTest['ingredient6'],
             'custom_ingredients' => $dataTest['custom_ingredients'],
+            // 'custom_ingredients' => $customIngredients,
             // envoi toutes les données reçues en json
             // Il ne faudra pas oublier de sanitize on use
             // 'total_time' => $content,
@@ -69,12 +73,13 @@ if ($data && isset($_POST)) {
             // de réencoder en JSON si nécessaire
             // 'persons' => json_encode($dataTest)
             ];
+
+        // print_r($getDatas);
         // $setRecipe = new RecipeView($dataTest);
         $setRecipe = new RecipeView($getDatas);
         $setRecipe->insertRecipeTest();
-        
-        $err = CheckInput::getErrorMessages();
 
+        $err = CheckInput::getErrorMessages();
         if (count($err) > 0) {
             // print_r($err);
             $errorMessage = CheckInput::showErrorMessage();
@@ -85,14 +90,24 @@ if ($data && isset($_POST)) {
             $successMessage = '<div>';
             $successMessage .= '<p class="alert-error"> ' . strip_tags($errorMessage) . '</p>';
             $successMessage .= '</div>';
-            echo $successMessage;
-            echo $dataTest['failed'] = true;
+            // echo json_encode($successMessage);
+            // print $getDatas['failed'] = true;
+            // echo $getDatas['failed'] = 1;
+            // echo json_encode($getDatas['failed'] = 1);
+            // echo 'window.location.href = ../index.php?success=recipe-shared';
             // session_destroy();
         } else {
-            header('Location: ../index.php?success=recipe-shared');
-            // header('refresh:10, ../index.php?success=recipe-shared');
+            // echo json_encode($getDatas['success'] = 0);
+            // return header('Location: ../index.php?success=recipe-shared');
+            // echo 'window.location.href = ../index.php?success=recipe-shared';
+
+            // echo header('refresh:10, ../index.php?success=recipe-shared');
             // session_destroy();
         }
+        // if (isset($getDatas['success'])) {
+        //     header('Location: ../index.php?success=recipe-shared');
+        // } elseif (isset($getDatas['failed'])) {
+        //     return false;
+        // }
     }
 }
-

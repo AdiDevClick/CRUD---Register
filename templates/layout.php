@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types= 1);
 
 require_once(dirname(__DIR__) . DIRECTORY_SEPARATOR . "classes" . DIRECTORY_SEPARATOR ."Functions.class.php");
 require_once(dirname(__DIR__) . DIRECTORY_SEPARATOR . "includes" . DIRECTORY_SEPARATOR ."variables.inc.php");
@@ -21,13 +21,15 @@ if ($url === 'about.php' || 'planningType.php' || 'todo.html' || 'carousel.html'
     $active = strip_tags('class="active"');
 }
 
+$dev = true;
+
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="Cache-control" content="public">
+    <!-- <meta http-equiv="Cache-control" content="public"> -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="<?php echo($rootUrl). $clicServer?>/css/resetfirefox.css">
     <!-- <link rel="stylesheet" href="<?php //echo($rootUrl). $clicServer?>/css/resetchromium.css"> -->
@@ -39,37 +41,41 @@ if ($url === 'about.php' || 'planningType.php' || 'todo.html' || 'carousel.html'
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" 
     integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" 
     crossorigin="anonymous"
-    referrerpolicy="no-referrer" />
-    <!-- <link rel="stylesheet" href="<?php //echo($rootUrl). $clicServer?>/css/main.css"/> -->
-    <!-- <link rel="stylesheet" href="<?php //echo($rootUrl). $clicServer?>/css/index.css"/> -->
+    referrerpolicy="no-referrer"/>
+    <script type="module" src="<?php echo($rootUrl). $clicServer?>/scripts/toaster.js" defer></script>
+    <script src="<?php echo($rootUrl). $clicServer?>/scripts/script.js" defer></script>
+
+    <link rel="stylesheet" href="<?php echo($rootUrl). $clicServer?>/resources/css/main.css"/>
+    <link rel="stylesheet" href="<?php echo($rootUrl). $clicServer?>/resources/css/index.css"/>
     <link 
     <?= $css ?? '' ?>
     />
     <?php
 
-    $dev = false;
 // $manifest = json_decode(file_get_contents(dirname(__DIR__) . DIRECTORY_SEPARATOR ."public" . DIRECTORY_SEPARATOR ."assets" . DIRECTORY_SEPARATOR .".vite". DIRECTORY_SEPARATOR ."manifest.json"), true);
 // print_r($manifest);
 // echo $manifest;
 // var_dump($manifest);
-if (!$dev) {
-    $manifest = json_decode(file_get_contents(dirname(__DIR__) . DIRECTORY_SEPARATOR ."public" . DIRECTORY_SEPARATOR ."assets" . DIRECTORY_SEPARATOR .".vite". DIRECTORY_SEPARATOR ."manifest.json"), true);
+// if (!$dev) {
+//     // $manifest = json_decode(file_get_contents(dirname(__DIR__) . DIRECTORY_SEPARATOR ."public" . DIRECTORY_SEPARATOR ."assets" . DIRECTORY_SEPARATOR .".vite". DIRECTORY_SEPARATOR ."manifest.json"), true);
 
-    // $manifest = json_decode(file_get_contents('./public/assets/.vite/manifest.json'), true);
-    // var_dump($manifest);
-    ?>
-        <script src="<?php echo($rootUrl) . $clicServer?>/public/assets/<?= $manifest['resources/main.js']['file']?>" type="module"></script>
-        <script src="<?php echo($rootUrl) . $clicServer?>/public/assets/<?= $manifest['scripts/toaster.js']['file']?>" type="module"></script>
-        <link rel="stylesheet" href="<?php echo($rootUrl) . $clicServer?>/public/assets/<?= $manifest['resources/main.js']['css'][0]?>">
-        <?php
-} else {
-    ?>
-        <script type="module" src="http://localhost:5173/assets/@vite/client"></script>
-        <script type="module" src="http://localhost:5173/assets/resources/main.js"></script>
-        <?php
-}
-?>
-    <script src="<?php echo($rootUrl). $clicServer?>/scripts/script.js" defer></script>
+//     $manifest = json_decode(file_get_contents('./public/assets/.vite/manifest.json'), true);
+//     // var_dump($manifest);
+//     ?>
+         <!-- <script src="<?php //echo($rootUrl) . $clicServer?>/public/assets/<?php //$manifest['resources/main.js']['file']?>" type="module"></script> -->
+<!-- //         <script src="./public/assets/<?php //$manifest['resources/main.js']['file']?>" type="module"></script> -->
+         <!-- <script src="<?php //echo($rootUrl) . $clicServer?>/public/assets/<?php //$manifest['scripts/toaster.js']['file']?>" type="module"></script> -->
+<!-- //         <link rel="stylesheet" href="./public/assets/<?php //$manifest['resources/main.js']['css'][0]?>"> -->
+         <!-- <link rel="stylesheet" href="<?php //echo($rootUrl) . $clicServer?>/public/assets/<?php //$manifest['resources/main.js']['css'][0]?>"> -->
+         <?php
+// } else {
+//     ?>
+         <!-- <script type="module" src="http://localhost:5173/assets/@vite/client"></script> -->
+<!-- //         <script type="module" src="http://localhost:5173/assets/resources/main.js"></script> -->
+         <!-- <script type="module" src="<?php //echo($rootUrl). $clicServer?>/scripts/toaster.js" defer></script> -->
+         <?php
+// }
+// ?>
     <!-- <script type="module" src="<?php //echo($rootUrl). $clicServer?>/scripts/toaster.js" defer></script> -->
     <script <?= $script ?? '' ?>></script>
     <script <?= $script2 ?? '' ?>></script>

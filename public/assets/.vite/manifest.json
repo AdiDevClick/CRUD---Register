@@ -28,7 +28,7 @@
     "src": "resources/Fonts/Roboto/Roboto-Thin.ttf"
   },
   "resources/main.js": {
-    "file": "main-BU2ix3RJ.js",
+    "file": "main-EdhzI_wE.js",
     "name": "main",
     "src": "resources/main.js",
     "isEntry": true,
@@ -46,7 +46,7 @@
     ]
   },
   "scripts/toaster.js": {
-    "file": "toaster-NUVJZ_HV.js",
+    "file": "toaster-CZTWcyii.js",
     "name": "toaster",
     "src": "scripts/toaster.js",
     "isEntry": true

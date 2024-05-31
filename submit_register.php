@@ -63,7 +63,7 @@ $errorMessage = CheckInput::showErrorMessage();
                     <form class="form-contact js-form" action="register.php" method="post">
                     <!-- <form action="submit_register.php" method="post"> -->
                         <?php if (!empty($err)) : ?>
-                            <?php echo 'test' ?>
+                            <?php //echo 'test' ?>
                             <div>
                                 <p class="alert-error"><?php echo(strip_tags($errorMessage)) ?></p>
                             </div>

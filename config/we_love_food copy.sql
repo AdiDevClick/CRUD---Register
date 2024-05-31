@@ -20,7 +20,7 @@ USE `we_love_food`;
 --
 
 CREATE TABLE IF NOT EXISTS `comments` (
-  `comment_id` int(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  `comment_id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
   `recipe_id` int(11) NOT NULL,
   `comment` text NOT NULL,
