@@ -1,23 +1,22 @@
 import { alertMessage, createElement, debounce } from "../functions/dom.js"
 
 export class ErrorHandler {
-    
+
     /** @type {Array} */
     #error = []
     /** @type {HTMLButtonElement} */
-    #formButton = document.querySelector('button')
+    #formButton = document.querySelector('#submit')
     /** @type {HTMLFormElement} */
     #form
     // #formName
     // #formEmail
     // #formAge
-    /** @type {String} */
-    #formPassword
-    /** @type {String} */
-    #formPwdRepeat
+    // /** @type {String} */
+    // #formPassword
+    // /** @type {String} */
+    // #formPwdRepeat
+    /** @type {HTMLElement} */
     #alert = document.querySelector('.alert-error')
-    /** @type {String} */
-    #data
     /** @type {String} */
     #password
     /** @type {String} */
@@ -28,9 +27,10 @@ export class ErrorHandler {
     #name
     /** @type {Number} */
     #age
-    // #emailInputRegex = new RegExp("[a-z0-9A-Z._-]+@[a-z0-9A-Z_-]+\\.[a-zA-Z]+")
     /** @type {RegExpConstructor} */
     #emailInputRegex = new RegExp("([a-z0-9A-Z._-]+)@([a-z0-9A-Z_-]+)\\.([a-z\.]{2,6})$")
+    /** @type {RegExpConstructor} */
+    #allowedSpecialChars = new RegExp('^[\\w\\s,.:;_?\'!\\"éèêëàâäôöûüçÀ-]+$')
     /** @type {String} */
     #invalidEmailMessage = `Votre email est invalide 
                 exemple valide : monEmail@mail.fr`
@@ -41,20 +41,34 @@ export class ErrorHandler {
     /** @type {Boolean} */
     #isEmpty = false
     /** @type {Boolean} */
+    #isCharAllowed = false
+    /** @type {Boolean} */
     #spaceNotAllowed = false
     /** @type {Array} */
     #listenInputs = []
 
     /**
      * @param {HTMLFormElement} form 
-     * @param {Boolean} [options.deboucing=true] Permet de définir un délai après intéraction de l'utilisateur - par défaut : 1s
+     * // IMPORTANT !! Exemple d'option à configurer : whichInputCanBeEmpty: ['pwdRepeat', 'password', 'username']
+     * @param {String, Array} [options.whichInputAllowSpecialCharacters=[string]] Permet de définir quelles inputs peuvent contenir des caractères spéciaux - par défaut : ['Mot de Passe']
+     * @param {String, Array} [options.whichInputCanBeEmpty=[string]] Permet de définir quelles inputs peuvent être vides -
+     * Il faut utiliser le nom de l'input - par défaut : ['step_3', 'step_4', 'step_5', 'step_6']
+     * @param {Boolean} [options.debouncing=true] Permet de définir un délai après intéraction de l'utilisateur - par défaut : true
+     * @param {Boolean} [options.canBeEmpty=false] Permet de définir si toutes les inputs peuvent être vides (non conseillé) - par défaut : false
+     * @param {Boolean} [options.useMyOwnListener=false] Permet de définir si l'on souhaite utiliser son propre eventListener dans son script - par défaut : false
+     * @param {Boolean} [options.isSpecialCharactersAllowed=false] Permet de définir si l'on souhaite autoriser des caractères spéciaux pour l'input - par défaut : false
      * @param {Object} [options.debounceDelay=1000] Permet de définir un délai après intéraction de l'utilisateur - par défaut : 1s
      */
     constructor(form, options = {}) {
         this.#form = form
         this.options = Object.assign({}, {
-            deboucing: true,
-            debounceDelay: 1000
+            debouncing: true,
+            debounceDelay: 1000,
+            canBeEmpty: false,
+            whichInputCanBeEmpty: ['step_3', 'step_4', 'step_5', 'step_6'],
+            useMyOwnListener: false,
+            isSpecialCharactersAllowed: false,
+            whichInputAllowSpecialCharacters: ['Mot de Passe', 'Mot de Passe de confirmation', 'Email'],
         }, options)
         if (!this.#alert) {
             this.#alert = createElement('p', {
@@ -66,8 +80,7 @@ export class ErrorHandler {
                 this.#alert
             )
         }
-
-        if (!this.options.deboucing) this.options.debounceDelay = 50
+        if (!this.options.debouncing) this.options.debounceDelay = 50
         this.#inputs = 'input, textarea'
         // this.#inputs = `#password, #pwdRepeat, #email, #username, #age,
         // #title, #step_1, #step_2, #step_3, #step_4, #step_5, #step_6,
@@ -82,16 +95,22 @@ export class ErrorHandler {
                 this.#email = input
                 if (input.classList.contains('form__field')) input.setAttribute('placeholder', '')
             }
-            // Inputs will be debounced @get debounceDelay
+            // Inputs will be debounced @ -> get debounceDelay
             // Les listeners d'inputs n'ajoutent pas d'erreurs à l'#error array
+            // ATTENTION !! : Ce script n'est pas bloquant !!
             input.addEventListener('input', debounce((e) => {
                 this.#isEmptyInputs(e.target)
                 this.#isExactPassword()
+                this.#charsNotAllowed(e.target)
                 if (input.id === 'username') this.#isSpaceAllowed(input)
                 if (this.#isEmpty && this.#error.length > 1) {
                     this.#alert.innerText = 'Un ou plusieurs champs sont vides'
                     input.classList.add('input_error')
                     return
+                } else if (input.id !== "email" && input.id !== "password" && input.id !== "pwdRepeat" && !this.#isCharAllowed) {
+                    this.#alert.innerText = 'Ce charactère n\'est pas autorisé.'
+                    input.classList.add("input_error")
+                    input.style.borderBottom = "1px solid red"
                 } else if (input.id === "email" && !this.#emailInputRegex.test(input.value)) {
                     this.#alert.innerText = this.#invalidEmailMessage
                     input.classList.add("input_error")
@@ -142,24 +161,39 @@ export class ErrorHandler {
         //     // e.preventDefault()
         //     console.log(e.key)
         // })
-
+        if (this.options.useMyOwnListener) return
         this.#form.addEventListener('submit', e => {
             this.#onSubmit(e)
             // e.currentTarget.reset()
         })
     }
 
-    #isInvalidInput(inputs) {
-        console.log(inputs.currentTarget.value.toString().trim())
-        const input = inputs.currentTarget
-        if (input === this.#name && input.value.toString().trim().includes(' ')) {
-            this.#spaceNotAllowed = true
-            this.#error.push(input)
+    /**
+     * Vérifie que le caractère d'une input est autorisé
+     * @param {EventTarget} input 
+     * @returns 
+     */
+    #charsNotAllowed(input) {
+        if (!this.#allowedSpecialChars.test(input.value) && !this.#isEmpty) {
+            this.#isCharAllowed = false
         } else {
-            // this.#error = this.#error.filter(t => t !== input)
-            // this.#resetInputs(input)
+            this.#isCharAllowed = true
+            input.classList.remove('input_error')
         }
+        return
     }
+
+    // #isInvalidInput(inputs) {
+    //     console.log(inputs.currentTarget.value.toString().trim())
+    //     const input = inputs.currentTarget
+    //     if (input === this.#name && input.value.toString().trim().includes(' ')) {
+    //         this.#spaceNotAllowed = true
+    //         this.#error.push(input)
+    //     } else {
+    //         // this.#error = this.#error.filter(t => t !== input)
+    //         // this.#resetInputs(input)
+    //     }
+    // }
 
     /**
      * Vérifie qu'une input n'est pas empty
@@ -169,12 +203,11 @@ export class ErrorHandler {
     #isEmptyInputs(input) {
         if (input.value.toString().trim() === '') {
             this.#isEmpty = true
-            return
         } else {
             this.#isEmpty = false
             input.classList.remove('input_error')
-            return
         }
+        return
     }
 
     /**
@@ -227,8 +260,8 @@ export class ErrorHandler {
             this.#pwdRepeat.style.borderBottom = '1px solid red'
         } else {
             this.#pwStatus = true
-            this.#password.removeAttribute('style')
-            this.#pwdRepeat.removeAttribute('style')
+            this.#password?.removeAttribute('style')
+            this.#pwdRepeat?.removeAttribute('style')
         }
     }
 
@@ -241,9 +274,9 @@ export class ErrorHandler {
      * @returns 
      */
     async #onSubmit(form) {
+        // form.preventDefault()
         this.#formButton.disabled = true
         try {
-            // const data = new FormData(form.currentTarget)
             if (!this.#isInputChecked()) {
                 form.preventDefault()
                 this.#formButton.disabled = true
@@ -261,33 +294,59 @@ export class ErrorHandler {
 
     /**
      * Vérifie les inputs et renvoie True / False
-     * trim toutes les inputs trouvées et les convertis dans un nouvel Array
+     * Trim toutes les inputs trouvées et les convertis dans un nouvel Array -
      * Il faut utiliser le nom de l'input pour la récupérer dans le cas où l'on souhaite
-     * faire quelque chose de spécifique avec
-     * @returns 
+     * faire quelque chose de spécifique avec -
+     * Ce script est bloquant -
+     * @returns
      */
     #isInputChecked() {
         let arrayKey = []
-        
-        this.#data = new FormData(this.#form)
-
-        for (const [key, value] of this.#data) {
-            arrayKey[key] = value.toString().trim()
-        }
-        for (const key in arrayKey) {
-            if (key === 'password') this.#formPassword = arrayKey[key]
-            if (key === 'pwdRepeat') this.#formPwdRepeat = arrayKey[key]
-            if (key === 'username') {
-                if (arrayKey[key] === '') {
-                    const message = 'Veuillez renseigner votre Nom d\'Utilisateur'
-                    this.#name.classList.add("input_error")
-                    this.#error.push(message)
-                } else {
-                    this.#removeError('Veuillez renseigner votre Nom d\'Utilisateur')
+        let count = 0
+        let specialCount = 0
+        const data = new FormData(this.#form)
+        // Permet de définir quelle input peut-être vide
+        // Par défaut : aucune
+        for (const [key, value] of data) {
+            arrayKey[key] = {value: value.toString().trim(), canBeEmpty: this.canBeEmpty, allowSpecialCharacters: this.allowSpecialCharacters}
+            for (const keys of this.options.whichInputCanBeEmpty) {
+                if (key === keys) {
+                    arrayKey[key].canBeEmpty = true
                 }
             }
+            for (const keys of this.options.whichInputAllowSpecialCharacters) {
+                if (key === keys) {
+                    arrayKey[key].allowSpecialCharacters = true
+                }
+            }
+        }
+        for (const key in arrayKey) {
+            if (!arrayKey[key].canBeEmpty && arrayKey[key].value === '') {
+                const message = `Veuillez renseigner votre ${key}`
+                this.#error.push(message)
+                count++
+                this.#listenInputs.forEach(input => {
+                    if (key === input.name) {
+                        input.classList.add("input_error")
+                    }
+                })
+            } else {
+                this.#removeError(`Veuillez renseigner votre ${key}`)
+            }
+            if (!arrayKey[key].allowSpecialCharacters && arrayKey[key].value !== '' && !this.#allowedSpecialChars.test(arrayKey[key].value)) {
+                const message = `Les caractères spéciaux ne sont pas autorisés pour le ${key}`
+                this.#error.push(message)
+                specialCount++
+                this.#listenInputs.forEach(input => {
+                    if (key === input.name) {
+                        input.classList.add("input_error")
+                    }
+                })
+            } else {
+                this.#removeError(`Les caractères spéciaux ne sont pas autorisés pour le ${key}`)
+            }
             if (key === 'email') {
-                if (!this.#emailInputRegex.test(arrayKey[key])) {
+                if (!this.#emailInputRegex.test(arrayKey[key].value)) {
                     this.#email.classList.add("input_error")
                     this.#email.style.borderBottom = '1px solid red'
                     if (!this.#email.classList.contains('form__field')) {
@@ -301,25 +360,6 @@ export class ErrorHandler {
                     this.#removeError(this.#invalidEmailMessage)
                 }
             }
-            if (key === 'password' || key === 'pwdRepeat') {
-                if (arrayKey[key] === '') {
-                    const message = 'Veuillez saisir un mot de passe'
-                    this.#password.classList.add("input_error")
-                    this.#pwdRepeat.classList.add("input_error")
-                    this.#error.push(message)
-                } else {
-                    this.#removeError('Veuillez saisir un mot de passe')
-                }
-            }
-            if (key === 'age') {
-                if (arrayKey[key] <= 0 || null) {
-                    const message = 'Veuillez renseigner votre âge'
-                    this.#age.classList.add("input_error")
-                    this.#error.push(message)
-                } else {
-                    this.#removeError('Veuillez renseigner votre âge')
-                }
-            }
         }
         if (!this.#pwStatus) {
             const message = 'Vos mots de passes ne sont pas identiques'
@@ -330,12 +370,11 @@ export class ErrorHandler {
         }
         if (this.#spaceNotAllowed) {
             const message = 'Veuillez ne pas utiliser d\'espace'
-            // this.#password.classList.add("input_error")
             this.#error.push(message)
         } else {
             this.#removeError('Veuillez ne pas utiliser d\'espace')
         }
-        if (this.#error.length > 1) {
+        if (this.#error.length > 1 && count > 1) {
             for (const error of this.#error) {
                 this.#alert.innerText = 'Un ou plusieurs champs doivent être renseignés'
                 this.#error = this.#error.filter((t) => t !== error)
@@ -344,6 +383,12 @@ export class ErrorHandler {
         } else if (this.#error.length === 1) {
             for (const error of this.#error) {
                 this.#alert.innerText = error 
+                this.#error = this.#error.filter((t) => t !== error)
+            }
+            return false
+        } else if (this.#error.length > 0 && specialCount > 0) {
+            for (const error of this.#error) {
+                this.#alert.innerText = 'Les caractères spéciaux ne sont pas autorisés'
                 this.#error = this.#error.filter((t) => t !== error)
             }
             return false
@@ -356,5 +401,20 @@ export class ErrorHandler {
     /** @returns {@param | options.debounceDelay} */
     get debounceDelay() {
         return this.options.debounceDelay
+    }
+
+    /** @returns {@param | options.canBeEmpty} */
+    get canBeEmpty() {
+        return this.options.canBeEmpty
+    }
+
+    /** @returns {@param | options.isSpecialCharactersAllowed} */
+    get allowSpecialCharacters() {
+        return this.options.isSpecialCharactersAllowed
+    }
+
+    /** @returns {Function} */
+    get checkInputs() {
+        return this.#isInputChecked()
     }
 }

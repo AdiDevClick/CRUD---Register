@@ -1,5 +1,6 @@
 import { fetchJSON } from "../functions/api.js"
 import { createElement } from "../functions/dom.js"
+import { ErrorHandler } from "./ErrorHandler.js"
 import { Toaster } from "./Toaster.js"
 
 
@@ -32,12 +33,27 @@ export class IngredientsFrom {
     #preparationList = {}
     /** @type {Array} Error list */
     #error = []
+    /** @type {String} */
+    #url
 
     /**
      * @param {Ingredient[]} list
+     * // ATTENTION !! // Il ne peut y avoir qu'une seule option possible
+     * @param {Boolean} [options.post=true] Permet d'envoyer des données lors de la création de recette - par défaut : true
+     * @param {Boolean} [options.get=false] Permet de modifier une recette déjà existante - par défaut : false
      */
-    constructor(list) {
+    constructor(list, options = {}) {
         this.#list = list
+        this.#list = this.#list.filter((k, v) => k !== '')
+        this.options = Object.assign ({}, {
+            post: true,
+            get: false
+        }, options)
+        // if (this.options.post === true) {
+        //     options
+        // }
+        this.options.get ? this.options.post = false : null
+        // this.options.get ? this.options.post = false : this.options.post = true
         // this.#template = document.querySelector('#ingredient-template')
         // this.#target = document.querySelector(".js-ingredient-group")
     }
@@ -56,16 +72,33 @@ export class IngredientsFrom {
 
         // this.#formValidationButton = this.#form.querySelector('#button')
         this.#formButton = this.#form.querySelector('#add_custom')
-
+        
         this.#list.forEach(ingredient => {
+            if (ingredient === '') return
             this.ingre = ingredient
             const savedIngredient = new Ingredient(this)
             this.#ingredient = savedIngredient.element
             this.#target.prepend(this.#ingredient)
             // this.#onIngredientDelete(this.#ingredient)
         })
-
-        this.#form.addEventListener('submit', this.#onSubmit.bind(this))
+        const passedInputs = new ErrorHandler(this.#form, {
+            whichInputCanBeEmpty: ['custom_ingredient', 'step_3', 'step_4', 'step_5', 'step_6'],
+            useMyOwnListener: true
+        })
+        if (this.options.post) {
+            this.#form.addEventListener('submit', e => {
+                e.preventDefault()
+                if (!passedInputs.checkInputs) return
+                this.#onSubmit(e)
+            })
+        }
+        if (this.options.get) {
+            this.#form.addEventListener('submit', e => {
+                e.preventDefault()
+                if (!passedInputs.checkInputs) return
+                this.#onRecipeUpdate(e)
+            })
+        }
 
         this.#formButton.addEventListener('click', this.#addNewIngredient.bind(this))
     }
@@ -87,7 +120,6 @@ export class IngredientsFrom {
         this.#target.prepend(this.#ingredient.element)
         this.#list.push(this.#ingredient.element.innerText)
         this.onUpdate('ingredients', this.#list)
-
         input.value = ''
 
         this.#formButton.removeEventListener('click', this.#addNewIngredient.bind(this))
@@ -170,23 +202,21 @@ export class IngredientsFrom {
      * @param {SubmitEvent} e
      */
     async #onSubmit(e) {
-        e.preventDefault()
-        // console.log(e.target)
-        // const form = e.currentTarget
+        // e.preventDefault()
         const form = e.target
+        // const form = e.currentTarget
+        // new ErrorHandler(form, {
+        //     whichInputCanBeEmpty: ['custom_ingredient', 'step_3', 'step_4', 'step_5', 'step_6']
+        // })
         let data = new FormData(form)
-        // console.log(data)
-        // console.log(form)
+        
         // Modification de la clé 'custom_ingredient'
         // pour pouvoir faire passer la liste dynamique des ingrédients
         // ajoutés par l'utilisateur au format JSON dans la
         // database en même-temps que les données inputs
-        // console.log(data)
         for (let [key, value] of data) {
             if (key === 'custom_ingredient') {
-                // value = this.#list
-                // console.log(this.#list)
-                data.set('custom_ingredients', this.#list)
+                data.set('custom_ingredient', this.#list)
             }
         }
         try {
@@ -209,7 +239,7 @@ export class IngredientsFrom {
             // // const ingredients = 
             // this.#target.prepend(elementTemplate)
             // console.log(this.#ingredientList.body)
-            console.log(this.#ingredientList)
+            // console.log(this.#ingredientList)
             if (this.#ingredientList.status === 'success') window.location.assign('../index.php?success=recipe-shared')
             // this.#preparationList = this.#preparationList.filter((task) => task === this.#list)
             this.#preparationList.formData = this.#ingredientList
@@ -254,6 +284,48 @@ export class IngredientsFrom {
     }
 
     /**
+     * Sauvegarde toute la liste de préparation dans un 
+     * localStorage 'preparationList' pour une récupération dans la database -
+     * Toutes les inputs sont envoyées par fetch dans la DB et la liste 
+     * est envoyée telle-quelle au format JSON dans 'custom_ingredient'
+     * Le serveur devra renvoyer un objet {status: 'success'} encodé au format JSON
+     * pour que cela fonctionne
+     * S'il renvoie un array d'erreur, elles devront être traitées
+     * @param {SubmitEvent} e
+     */
+    async #onRecipeUpdate(e) {
+        const form = e.target
+        let data = new FormData(form)
+        
+        // console.log(this.#url)
+        // Modification de la clé 'custom_ingredient'
+        // pour pouvoir faire passer la liste dynamique des ingrédients
+        // ajoutés par l'utilisateur au format JSON dans la
+        // database en même-temps que les données inputs
+        for (let [key, value] of data) {
+            if (key === 'custom_ingredient') {
+                data.set('custom_ingredient', this.#list)
+            }
+        }
+        try {
+            // console.log('je suis dans le submit update')
+            this.#ingredientList = await fetchJSON(this.#url, {
+            // this.#ingredientList = await fetchJSON('Process_Updated_PreparationList.php', {
+                method: 'POST',
+                json: data,
+            })
+            if (this.#ingredientList.status === 'success') window.location.assign('../index.php?success=recipe-updated')
+            this.#preparationList.formData = this.#ingredientList
+            this.#preparationList.ingredients = this.#list
+            this.onUpdate('preparationList', this.#preparationList)
+            const success = 'Votre préparation a été validée'
+            this.#formButton.disabled = false
+        } catch (error) {
+            new Toaster(error.message, 'Erreur')
+        }
+    }
+
+    /**
      * Vérifie que l'input utilisateur n'est pas vide
      * Ajoute la classe 'error' à l'input ID '#custom_ingredient'
      * @returns {Boolean} True => Si aucune erreur n'est trouvée
@@ -265,7 +337,7 @@ export class IngredientsFrom {
         const inputValue = body.value.toString().trim()
         if (inputValue === '') {
         // if (this.#formIngredient === '') {
-            const message = "Vous n'avez pas saisit d'ingrédient"
+            const message = "Veuillez renseigner l'ingrédient à ajouter"
             body.classList.add("error")
             body.setAttribute('placeholder', 'Saissisez votre ingrédient...')
             this.#error.push(message)
@@ -292,6 +364,10 @@ export class IngredientsFrom {
      */
     onUpdate(storageName, items) {
         localStorage.setItem(storageName, JSON.stringify(items))
+    }
+
+    set setUpdateAdress(url) {
+        this.#url = url
     }
 }
 
@@ -341,6 +417,7 @@ class Ingredient {
     constructor(ingredient) {
         this.#ingredientList = ingredient
         this.#ingredient = ingredient.ingredient
+        if (this.#ingredient === '') return
         this.#template = document.querySelector('#ingredient-template')
         this.#count = ingredient.count
 
@@ -395,6 +472,7 @@ class Ingredient {
     /**
      * Permet de forcer la position d'un élément
      * qui dépasse du bord droit en le poussant vers l'intérieur
+     * et inversement quand il est à gauche
      * @param {HTMLElement} element 
      */
     #elementStyle(element) {
@@ -403,6 +481,10 @@ class Ingredient {
         if ((offsets.left + this.#newModifierButtons.containerWidth) > (card.offsetWidth - 5)) {
             element.style.left = 'unset'
             element.style.right = '0'
+        }
+        if ((offsets.right - this.#newModifierButtons.containerWidth) < (card.offsetWidth - 5)) {
+            element.style.left = '0'
+            element.style.right = 'unset'
         }
     }
 
@@ -726,10 +808,18 @@ class AttachmentToThis {
 
 class UserValidations {
     #item
+    /** @type {Array | HTMLElement} */
     #element = []
+    /** @type {HTMLElement} */
     #validate
+    /** @type {HTMLElement} */
     #cancel
 
+    /**
+     * Crer une div contenant des boutons d'intéraction
+     * @param {Object | HTMLElement} item 
+     * @returns 
+     */
     constructor(item) {
         this.#item  = item
         if (this.#element.length > 0 ){
@@ -763,11 +853,12 @@ class UserValidations {
     }
 
     /**
+     * Annule l'intéraction en cours et dispatch un customEvent "canceled"
+     * Pour une future intéraction
      * @param {PointerEvent} e 
      */
     #onCancel(e) {
         e.preventDefault()
-        // this.#item.remove()
         this.#item.firstElementChild.setAttribute('contenteditable', false)
         const cancelEvent = new CustomEvent('canceled', {
             detail: this.#item,
@@ -778,7 +869,8 @@ class UserValidations {
     }
 
     /**
-     * 
+     * Valide l'intéraction en cours et dispatch un customEvent "validate"
+     * Pour une future intéraction
      * @param {PointerEvent} e 
      */
     #onValidation(e) {
@@ -792,6 +884,7 @@ class UserValidations {
         this.#item.dispatchEvent(validateEvent)
     }
 
+    /** @returns {NodeListOf.<HTMLElement>} */
     get element() {
         return this.#element
     }

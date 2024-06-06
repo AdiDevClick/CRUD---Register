@@ -1,17 +1,11 @@
-<?php declare(strict_types=1)?>
+<?php declare(strict_types=1);
 
-<?php
-
-ob_start();
-if(session_status() !== PHP_SESSION_ACTIVE) {
-    session_start();
-}
-
-if(session_status() === PHP_SESSION_NONE) {
+if(session_status() !== PHP_SESSION_ACTIVE || session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
 include_once("../includes/class-autoloader.inc.php");
+include_once('../logs/customErrorHandlers.php');
 
 $serverData = $_SERVER['REQUEST_METHOD'] === 'POST';
 //if ($getDatas = isset($_GET)){
@@ -19,14 +13,12 @@ $serverData = $_SERVER['REQUEST_METHOD'] === 'POST';
 /***
  * Grabing URL ID from index page and fetching rows datas
  */
-if(isset($_GET) && ($_GET['id'])) {
+if(isset($_GET['id']) && is_numeric($_GET['id'])) {
     $getDatas = $_GET['id'];
     $idDatas = new RecipeView($getDatas);
-    //$idDatas->checkId();
     $getTitle = $idDatas->getRecipeId();
-    //echo $getTitle['title'];
 } else {
-    header('Location: ../index.php?error=noId');
+    // header('Location: ../index.php?error=no-delete-id');
     //throw new Exception('La recette est introuvable');
 }
 
@@ -34,9 +26,8 @@ if ($serverData && isset($_POST['submit'])) {
     $getDatas = $_POST['id'];
     /*    $datas = new Recipecontroller($postDatas);
        $get = $datas->getRecipeId($postDatas); */
-
     $checkId = new RecipeView($getDatas);
-
+    $getTitle = $checkId->getRecipeId();
     try {
         if ($checkId->checkId()) {
             $checkId->deleteRecipe();
@@ -47,23 +38,21 @@ if ($serverData && isset($_POST['submit'])) {
     } catch (Error $e) {
         die('Erreur : '. $e->getMessage()) . 'Nous ne pouvons pas supprimer cette recette. ';
     }
-
 }
+ob_start();
 
 ?>
 <?php $title = "We Love Food - Suppression de votre recette"?>
-<?php //ob_start()?>
 <section class="container">
     <div class="form-flex">
         <?php //if (isset($_GET['title'])) :?>
-        <h1>Suppression de la recette : <?php echo htmlspecialchars($getTitle['title'])?> ?</h1>
+        <h1>Suppression de la recette : <?= strip_tags($getTitle['title'])?> ?</h1>
         <?php //endif?>
         <div class="form">
             <form action="delete_recipes.php" method="post">
                 <div class="visually-hidden">
-                    <input type="hidden" class="input" name="id" id="id" value="<?php echo strip_tags($getDatas)?>"/>
+                    <input type="hidden" class="input" name="id" id="id" value="<?= strip_tags($getDatas)?>"/>
                 </div>
-
                 <button type="submit" name="submit" class="btn btn-alert">Supprimer définitivement</button>
             </form>
         </div>

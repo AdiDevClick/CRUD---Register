@@ -154,14 +154,24 @@ export class Carousel
         new CarouselTouchPlugin(this)
     }
 
+    /**
+     * Désactive la transition du conteneur
+     */
     disableTransition() {
         this.container.style.transition = 'none'
     }
 
+    /**
+     * Réactive la transition du conteneur
+     */
     enableTransition() {
         this.container.style.transition = ''
     }
 
+    /**
+     * Défini le status sur "clicked" et active les status click & scrolling
+     * Le promise Array est réinitialisé
+     */
     activateClickStatus() {
         this.#status = 'clicked'
         this.#resolvedPromisesArray = []

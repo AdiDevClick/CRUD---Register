@@ -53,6 +53,30 @@ if (error === 'invalid-input') {
     message = 'Veuillez modifier votre identifiant'
     resetURL('index.php', 'error', urlParams)
 }
+if (error === 'no-update_id') {
+    errAlert = true
+    message = 'La recette à mettre à jour n\'existe pas'
+    resetURL('index.php', 'error', urlParams)
+}
+if (error === 'no-delete-id') {
+    errAlert = true
+    message = 'La recette que vous tentez de supprimer n\'existe pas'
+    resetURL('index.php', 'error', urlParams)
+}
+
+const deleted = urlParams.get('delete')
+if (deleted === 'success') {
+    errAlert = true
+    type = 'Success'
+    message = 'La recette a été supprimée avec succès'
+    resetURL('index.php', 'delete', urlParams)
+}
+
+if (deleted === 'error') {
+    errAlert = true
+    message = 'Une erreur s\'est produite lors de la suppression de la recette'
+    resetURL('index.php', 'delete', urlParams)
+}
 // error === 'invalid-input' ? message = 'Veuillez modifier votre identifiant' : errAlert = false
 
 const success = urlParams.get('success')

@@ -5,7 +5,7 @@
 // }
 //ob_start();
 // require('../recipes/test.php');
-include_once("../includes/class-autoloader.inc.php");
+// include_once("../includes/class-autoloader.inc.php");
 // include_once('../logs/customErrorHandlers.php');
 // require_once(__DIR__ . './' . "includes/class-autoloader.inc.php");
 // require_once(__DIR__ . "/logs/customErrorHandlers.php");
@@ -106,9 +106,10 @@ ob_start();
 //if (isset($loggedUser['email']) && !isset($loggedUser['recipe'])):
 
 ?>
-        <?php if (isset($loggedUser['email'])  && !isset($_SESSION['REGISTERED_RECIPE'])): ?> 
+<?php if (isset($loggedUser['email'])  && !isset($_SESSION['REGISTERED_RECIPE'])): ?> 
         <?php //(isset($loggedUserState)):?>
-        <section class="card_container">
+    <section class="card_container">
+        <h1>Partagez votre recette</h1>
         <form
             id="preparation-form"
             action="create_recipes.php"
@@ -144,7 +145,7 @@ ob_start();
                         <!-- Title -->
                         <div class="">
                             <label for="title" class="label">Titre de votre recette</label>
-                            <input class="form" name="title" type="text" id="title" placeholder="Votre titre..." class="input">
+                            <input class="form" name="title" type="text" id="title" placeholder="Votre titre...">
                         </div>
                         <!-- STEP 1 -->
                         <div class="">
@@ -233,7 +234,7 @@ ob_start();
                             <div class="total_time">
                                 <div class="time">
                                     <label for="total_time" class="label">Temps total</label>
-                                    <input id="total_time" type="text" name="total_time" class="input"></label>
+                                    <input id="total_time" type="text" name="total_time" class="input">
                                     <select class="select" name="total_time_length" id="total_time_length" aria-placeholder="test">
                                         <option value="empty">-- Temps --</option>
                                         <option value="min">min</option>
@@ -243,7 +244,7 @@ ob_start();
                                 <div class="time">
                                 <!-- <div class="resting_time"> -->
                                     <label for="resting_time" class="label">Temps de repos</label>
-                                    <input id="resting_time" type="text" name="resting_time" class="input"></label>
+                                    <input id="resting_time" type="text" name="resting_time" class="input">
                                     <select class="select" name="resting_time_length" id="resting_time_length" aria-placeholder="test">
                                         <option value="empty">-- Temps --</option>
                                         <option value="min">min</option>
@@ -253,7 +254,7 @@ ob_start();
                                 <div class="time">
                                 <!-- <div class="oven"> -->
                                     <label for="oven_time" class="label">Temps de cuisson</label>
-                                    <input id="oven_time" type="text" name="oven_time" class="input"></label>
+                                    <input id="oven_time" type="text" name="oven_time" class="input">
                                     <select class="select" name="oven_time_length" id="oven_time_length" aria-placeholder="test">
                                         <option value="empty">-- Temps --</option>
                                         <option value="min">min</option>
@@ -276,7 +277,7 @@ ob_start();
                         <div class="ingredients js-ingredients-list">
                             <div class="persons time">
                                 <label for="persons" class="label">Nombre de personnes</label>
-                                <input id="persons" type="text" name="persons" class="input"></label>
+                                <input id="persons" type="text" name="persons" class="input">
                             </div>
                             <div class="">
                             <template id="ingredient-template">
@@ -337,7 +338,7 @@ ob_start();
                             </div>
                             <div class="add_ingredient">
                                 <label for="custom_ingredient" class="label">Votre ingrédient particulier</label>
-                                <input id="custom_ingredient" type="text" name="custom_ingredient" class="input" placeholder="Votre ingrédient..."></input>
+                                <input id="custom_ingredient" type="text" name="custom_ingredient" class="input" placeholder="Votre ingrédient...">
                                 <button name="add_custom" id="add_custom" type="button" class="btn">Ajouter un nouvel ingrédient</button>
                             </div>
                             <hr>
@@ -346,7 +347,7 @@ ob_start();
                             </div> -->
                         </div>
                         <div class="add_ingredient">
-                            <button name="add_preparation" id="button" type="submit" class="btn">Valider vos ingrédients</button>
+                            <button name="add_preparation" id="submit" type="submit" class="btn">Valider vos ingrédients</button>
                         </div>
                     </div>
                     <!-- </form> -->

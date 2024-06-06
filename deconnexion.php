@@ -1,9 +1,6 @@
 <?php
 
-if(session_status() !== PHP_SESSION_ACTIVE) {
-    session_start();
-}
-if(session_status() === PHP_SESSION_NONE) {
+if(session_status() !== PHP_SESSION_ACTIVE || session_status() !== PHP_SESSION_NONE){
     session_start();
 }
 
@@ -21,9 +18,10 @@ if (isset($_SERVER['HTTP_COOKIE'])) {
         setcookie($name, '', time() - 1000);
         setcookie($name, '', time() - 1000, '/');
     }
-} else {
-    throw new Error("Erreur dans la suppression du cookie");
 }
+// } else {
+//     throw new Error("Erreur dans la suppression du cookie");
+// }
 
 header('Location: index.php?success=disconnected');
 

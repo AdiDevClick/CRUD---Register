@@ -196,19 +196,17 @@ class RecipeController extends Recipe
     protected function deleteRecipes()
     {
         try {
-            //if ($checkId->checkIds()) {
             $this->getRecipesId($this->getData);
             $deletingRecipe = [
                 'id' => $this->getData
             ];
             $_SESSION['DELETING_RECIPE'] = $deletingRecipe;
-            //}
             if (isset($deletingRecipe)) {
                 $this->deleteRecipeId($this->getData);
                 unset($deletingRecipe);
             }
         } catch (Error $e) {
-            die('Erreur : ' . $e->getMessage() . "Nous n'avons pas pu supprimer cette recette");
+            die('Erreur : ' . $e->getMessage() . "Nous n'avons pas pu supprimer cette recette ");
         }
     }
 
@@ -227,7 +225,7 @@ class RecipeController extends Recipe
                 unset($titleRecipe);
             }
         } catch (Error $e) {
-            die('Erreur : ' . $e->getMessage() . "Nous n'avons récupérer le titre de cette recette");
+            die('Erreur : ' . $e->getMessage() . "Nous n'avons pas pu récupérer le titre de cette recette ");
         }
     }
 
@@ -263,7 +261,7 @@ class RecipeController extends Recipe
             }
             unset($recipeId);
         } catch (Error $e) {
-            die('Erreur : ' . $e->getMessage() . "Nous n'avons récupérer cette recette");
+            die('Erreur : ' . $e->getMessage() . "Nous n'avons pas pu récupérer cette recette ");
         }
     }
 
@@ -280,7 +278,24 @@ class RecipeController extends Recipe
             }
             unset($recipeId);
         } catch (Error $e) {
-            die('Erreur : ' . $e->getMessage() . "Nous n'avons récupérer cette recette");
+            die('Erreur : ' . $e->getMessage() . "Nous n'avons pas pu récupérer cette recette");
+        }
+    }
+
+    protected function fetchesIngredientsInfosById()
+    {
+        try {
+            if (!isset($recipeId)) {
+                $this->checkIds();
+                $recipeId = [
+                    'recipeInfos' => $this->getData
+                ];
+                $_SESSION['INFO_RECIPE'] = $recipeId;
+                return $this->getIngredientsInfosById($this->getData);
+            }
+            unset($recipeId);
+        } catch (Error $e) {
+            die('Erreur : ' . $e->getMessage() . "Nous n'avons pas pu récupérer les ingrédients ");
         }
     }
 
@@ -295,10 +310,30 @@ class RecipeController extends Recipe
                 $checkInput = new CheckInput(
                     $this->getData
                 );
-
-                $title = $checkInput->test_input($this->getData["title"]);
-                $recipe = $checkInput->test_input($this->getData["recipe"]);
+                // print_r($this->getData);
+                $title = $checkInput->test_input($this->getData['title']);
+                $step_1 = $checkInput->test_input($this->getData["step_1"]);
+                $step_2 = $checkInput->test_input($this->getData["step_2"]);
+                $step_3 = $checkInput->test_input($this->getData["step_3"]);
+                $step_4 = $checkInput->test_input($this->getData["step_4"]);
+                $step_5 = $checkInput->test_input($this->getData["step_5"]);
+                $step_6 = $checkInput->test_input($this->getData["step_6"]);
+                $total_time = $checkInput->test_input($this->getData["total_time"]);
+                $total_time_length = $checkInput->test_input($this->getData["total_time_length"]);
+                $resting_time = $checkInput->test_input($this->getData["resting_time"]);
+                $resting_time_length = $checkInput->test_input($this->getData["resting_time_length"]);
+                $oven_time = $checkInput->test_input($this->getData["oven_time"]);
+                $oven_time_length = $checkInput->test_input($this->getData["oven_time_length"]);
+                $ingredient = $checkInput->test_input($this->getData["ingredient"] ?? null);
+                $ingredient2 = $checkInput->test_input($this->getData["ingredient2"] ?? null);
+                $ingredient3 = $checkInput->test_input($this->getData["ingredient3"] ?? null);
+                $ingredient4 = $checkInput->test_input($this->getData["ingredient4"] ?? null);
+                $ingredient5 = $checkInput->test_input($this->getData["ingredient5"] ?? null);
+                $ingredient6 = $checkInput->test_input($this->getData["ingredient6"] ?? null);
+                $persons = $checkInput->test_input($this->getData["persons"]);
+                $custom_ingredients = $checkInput->test_input($this->getData["custom_ingredients"]);
                 $id = $checkInput->test_input($this->getData["recipe_id"]);
+                
                 $checkInput->checkInputs();
 
                 /* $title = $checkInput->test_input($this->getData["title"]);
@@ -307,23 +342,49 @@ class RecipeController extends Recipe
                 /* $title = $checkInput->test_input($title);
                 $recipe = $checkInput->test_input($recipe);
                 $checkInput->checkInputs(); */
-
-                $this->updateRecipes($title, $recipe, $id);
-
+                // echo $id;
+                if (empty($checkInput->getErrorsArray())) {
+                    $this->updateRecipes(
+                        $title,
+                        $step_1,
+                        $step_2,
+                        $step_3,
+                        $step_4,
+                        $step_5,
+                        $step_6,
+                        $total_time,
+                        $total_time_length,
+                        $resting_time,
+                        $resting_time_length,
+                        $oven_time,
+                        $oven_time_length,
+                        $ingredient,
+                        $ingredient2,
+                        $ingredient3,
+                        $ingredient4,
+                        $ingredient5,
+                        $ingredient6,
+                        $persons,
+                        $custom_ingredients,
+                        $id
+                    );
+                    echo json_encode(['status' => 'success']);
+                } else {
+                    echo json_encode($checkInput->getErrorsArray());
+                }
                 $recipeId = [
                     'updatedRecipeInfos' => $this->getData
                     //'updatedRecipeInfos' => $id
                 ];
                 $_SESSION['UPDATED_RECIPE'] = $recipeId;
-
                 //return $this->updateRecipes($this->getData, $this->getData, $this->getData);
                 //return $this->updateRecipes($title, $recipe, $id);
-                //return $recipeId;
+                return $recipeId;
 
             }
             //unset($recipeId);
         } catch (Error $e) {
-            die('Erreur : ' . $e->getMessage() . "Nous n'avons pas pu mettre à jour cette recette");
+            die('Erreur : ' . $e->getMessage() . " Nous n'avons pas pu mettre à jour cette recette ");
         }
     }
 

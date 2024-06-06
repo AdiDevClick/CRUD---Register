@@ -47,6 +47,10 @@ class RecipeView extends RecipeController
     {
         return $this->fetchesRecipeInfosById();
     }
+    public function fetchIngredientsById()
+    {
+        return $this->fetchesIngredientsInfosById();
+    }
 
     //public function updateRecipeInfoById($title, $recipe, $id)
     public function updateRecipeInfoById()

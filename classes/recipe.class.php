@@ -106,6 +106,7 @@ class Recipe extends Mysql
             $insertRecipe = null;
             throw new Error("stmt Failed");
         }
+        // exit;
     }
 
     /**
@@ -142,6 +143,7 @@ class Recipe extends Mysql
         /* $usersStatement = null;
         header("Location : ".Functions::getUrl(). "?error=stmt-failed");
         exit(); */
+        exit;
     }
 
     /**
@@ -196,7 +198,10 @@ class Recipe extends Mysql
 
     protected function getRecipesInfosById(int $recipeId)
     {
-        $sqlRecipe = 'SELECT title, recipe_id, recipe FROM recipes WHERE recipe_id = :recipe_id;';
+        $sqlRecipe = 'SELECT title, recipe_id, step_1, step_2, step_3, step_4, step_5, step_6,
+        is_enabled, ingredient_1, ingredient_1, ingredient_2, ingredient_3, ingredient_4, ingredient_5, ingredient_6,
+        total_time, total_time_length, resting_time, resting_time_length, oven_time, oven_time_length, persons, custom_ingredients
+        FROM recipes WHERE recipe_id = :recipe_id;';
         $getRecipesIdStatement = $this->connect()->prepare($sqlRecipe);
         if (!$getRecipesIdStatement->execute([
             'recipe_id' => $recipeId,
@@ -214,6 +219,25 @@ class Recipe extends Mysql
         } */
         $recipe = $getRecipesIdStatement->fetch(PDO::FETCH_ASSOC);
         return $recipe;
+    }
+    protected function getIngredientsInfosById(int $recipeId)
+    {
+        $sqlRecipe = 'SELECT custom_ingredients
+        FROM recipes WHERE recipe_id = :recipe_id;';
+        $getRecipesIdStatement = $this->connect()->prepare($sqlRecipe);
+        if (!$getRecipesIdStatement->execute([
+            'recipe_id' => $recipeId,
+        ])) {
+            $getRecipesIdStatement = null;
+            //throw new Error((string)header("Location: ".Functions::getUrl()."?error=stmt-failed"));
+            echo json_encode(['status' => 'failed']);
+        }
+        $recipe = $getRecipesIdStatement->fetch(PDO::FETCH_ASSOC);
+        echo json_encode($recipe);
+        // echo json_encode(['status' => 'failed']);
+
+        // print_r($recipe);
+        // exit;
     }
 
     protected function getRecipesTitles($recipes)
@@ -260,18 +284,83 @@ class Recipe extends Mysql
             //exit();
         }
         //header('Location: ../index.php');
+        // exit;
     }
 
-    protected function updateRecipes(string $title, string $recipe, $id)
+    protected function updateRecipes(
+        string $title = null,
+        string $step_1 = null,
+        string $step_2 = null,
+        string $step_3 = null,
+        string $step_4 = null,
+        string $step_5 = null,
+        string $step_6 = null,
+        int $total_time = null,
+        string $total_time_length = null,
+        int $resting_time = null,
+        string $resting_time_length = null,
+        int $oven_time = null,
+        string $oven_time_length = null,
+        string $ingredient = null,
+        string $ingredient2 = null,
+        string $ingredient3 = null,
+        string $ingredient4 = null,
+        string $ingredient5 = null,
+        string $ingredient6 = null,
+        string $persons = null,
+        string $custom_ingredients = null,
+        $id)
     {
-        $sqlQuery = 'UPDATE recipes SET title = :title, recipe = :recipe WHERE recipe_id = :recipe_id;';
-
+        $sqlQuery = 'UPDATE recipes SET
+            title = :title,
+            step_1 = :step_1,
+            step_2 = :step_2,
+            step_3 = :step_3,
+            step_4 = :step_4,
+            step_5 = :step_5,
+            step_6 = :step_6,
+            total_time = :total_time,
+            total_time_length = :total_time_length,
+            resting_time = :resting_time,
+            resting_time_length = :resting_time_length,
+            oven_time = :oven_time,
+            oven_time_length = :oven_time_length,
+            ingredient_1 = :ingredient_1,
+            ingredient_2 = :ingredient_2,
+            ingredient_3 = :ingredient_3,
+            ingredient_4 = :ingredient_4,
+            ingredient_5 = :ingredient_5,
+            ingredient_6 = :ingredient_6,
+            persons = :persons,
+            custom_ingredients = :custom_ingredients
+        WHERE recipe_id = :recipe_id;';
+        // echo 'test';
+        // return;
         $updateRecipeStatement = $this->connect()->prepare($sqlQuery);
-
+        // print_r($updateRecipeStatement);
         if (!$updateRecipeStatement->execute([
             'title' => $title,
-            'recipe' => $recipe,
-            'recipe_id' => $id,
+            'step_1' => $step_1,
+            'step_2' => $step_2,
+            'step_3' => $step_3,
+            'step_4' => $step_4,
+            'step_5' => $step_5,
+            'step_6' => $step_6,
+            'total_time' => $total_time,
+            'total_time_length' => $total_time_length,
+            'resting_time' => $resting_time,
+            'resting_time_length' => $resting_time_length,
+            'oven_time' => $oven_time,
+            'oven_time_length' => $oven_time_length,
+            'ingredient_1' => $ingredient,
+            'ingredient_2' => $ingredient2,
+            'ingredient_3' => $ingredient3,
+            'ingredient_4' => $ingredient4,
+            'ingredient_5' => $ingredient5,
+            'ingredient_6' => $ingredient6,
+            'persons' => $persons,
+            'custom_ingredients' => $custom_ingredients,
+            'recipe_id' => $id
         ])) {
             $updateRecipeStatement = null;
             //throw new Error((string)header("Location: ".Functions::getUrl()."?error=stmt-failed"));
@@ -285,6 +374,7 @@ class Recipe extends Mysql
             //header("Location :" .Functions::getUrl(). "?error=recipe-not-found");
             //exit();
         }
+        // exit;
     }
 
     public function getRecipesWithCommentsById($recipeId)
@@ -366,6 +456,7 @@ class Recipe extends Mysql
             //header("Location :" .Functions::getUrl(). "?error=recipe-not-found");
             //exit();
         }
+        // exit;
     }
 }
 /* if (!isset($getData['id']) && is_numeric($getData['id']))

@@ -15,11 +15,11 @@ $loggedUser = [];
 if (($data && isset($_POST['submit']))) {
 
     $getDatas = [
-        'username' => $_POST['username'],
-        'email' => $_POST['email'],
-        'password' => $_POST['password'],
-        'pwdRepeat' => $_POST['pwdRepeat'],
-        'age' => $_POST['age'],
+        'username' => $_POST['Nom_d\'Utilisateur'],
+        'email' => $_POST['Email'],
+        'password' => $_POST['Mot_de_Passe'],
+        'pwdRepeat' => $_POST['Mot_de_Passe_de_confirmation'],
+        'age' => $_POST['Age'],
     ];
     $signup = new SignupView($getDatas);
     $signup->setUsers();
@@ -75,9 +75,11 @@ $errorMessage = CheckInput::showErrorMessage();
                         <?php //print_r($err['errorUsername']) . '<= array'?>
                         <?php //if ($errorMessages) :?>
                         <?php //if ($err['errorUsername']) :?>
-                                <input class="input_error" type="text" id="username" name="username" placeholder="<?php echo strip_tags($err['errorUsername'] ?? 'Votre nom d\'utilisateur...') ?>" autocomplete="username" value="<?php echo strip_tags($getDatas['username'])?>" >
+                                <input class="input_error" type="text" id="username" name="Nom d'Utilisateur" placeholder="<?php echo strip_tags($err['errorUsername'] ?? 'Votre nom d\'utilisateur...') ?>" autocomplete="username" value="<?php echo strip_tags($getDatas['username'])?>" >
+                                <!-- <input class="input_error" type="text" id="username" name="username" placeholder="<?php echo strip_tags($err['errorUsername'] ?? 'Votre nom d\'utilisateur...') ?>" autocomplete="username" value="<?php echo strip_tags($getDatas['username'])?>" > -->
                             <?php else: ?>
-                                <input name="username" class="input" type="text" id="username" placeholder="Votre nom d'utilisateur..."  autocomplete="username"/>
+                                <input name="Nom d'Utilisateur" class="input" type="text" id="username" placeholder="Votre nom d'utilisateur..."  autocomplete="username"/>
+                                <!-- <input name="username" class="input" type="text" id="username" placeholder="Votre nom d'utilisateur..."  autocomplete="username"/> -->
                             <?php endif ?>
                         </div>
 
@@ -85,9 +87,11 @@ $errorMessage = CheckInput::showErrorMessage();
                         <div class="form form-hidden">
                             <label for="email" class="label">Votre email </label>
                             <?php if (!empty($getDatas['email']) || array_key_exists('errorEmail', $err) || array_key_exists('emailTaken', $err)) : ?>
-                                <input class="input_error" name="email" type="email" id="email" placeholder="<?php echo strip_tags($err['errorEmail'] ?? "Votre email...")?>" value="<?php echo strip_tags($getDatas['email']) ?>"/>
+                                <!-- <input class="input_error" name="email" type="email" id="email" placeholder="<?php echo strip_tags($err['errorEmail'] ?? "Votre email...")?>" value="<?php echo strip_tags($getDatas['email']) ?>"/> -->
+                                <input class="input_error" name="Email" type="email" id="email" placeholder="<?php echo strip_tags($err['errorEmail'] ?? "Votre email...")?>" value="<?php echo strip_tags($getDatas['email']) ?>"/>
                             <?php else: ?>
-                                <input name="email" class="input" type="email" id="email" placeholder="Votre email..." autocomplete="email"/>
+                                <!-- <input name="mail" class="input" type="email" id="email" placeholder="Votre email..." autocomplete="email"/> -->
+                                <input name="Email" class="input" type="email" id="email" placeholder="Votre email..." autocomplete="email"/>
                             <?php endif ?>
                         </div>
                         
@@ -98,7 +102,8 @@ $errorMessage = CheckInput::showErrorMessage();
                                 <?php echo CheckInput::showInputError('password', 'password', array_key_exists('errorPassword', $err) ? 'errorPassword' : 'pwMatch', 'password', 'new-password') ?>
                                 <!-- <input class="input_error" name="password" type="password" id="password" placeholder="<?php //echo strip_tags($err['errorPassword'] ?: "*****")?>" autocomplete="new-password"/> -->
                             <?php else: ?>
-                                <input name="password" class="input" type="password" id="password" placeholder="*****" autocomplete="new-password"/>
+                                <!-- <input name="password" class="input" type="password" id="password" placeholder="*****" autocomplete="new-password"/> -->
+                                <input name="Mot de Passe" class="input" type="password" id="password" placeholder="*****" autocomplete="new-password"/>
                             <?php endif ?>
                         </div>
 
@@ -109,7 +114,8 @@ $errorMessage = CheckInput::showErrorMessage();
                                 <?php echo CheckInput::showInputError('pwdRepeat', 'password', array_key_exists('errorPwdRepeat', $err) ? 'errorPwdRepeat' : 'pwMatch', 'pwdRepeat', 'new-password') ?>
                                 <!-- <input class="input_error" name="pwdRepeat" type="password" id="pwdRepeat" placeholder="<?php //echo strip_tags($err['errorPwdRepeat'] ?: "*****")?>" autocomplete="new-password"/> -->
                             <?php else: ?>
-                                <input name="pwdRepeat" class="input" type="password" id="pwdRepeat" placeholder="*****" autocomplete="new-password"/>
+                                <!-- <input name="pwdRepeat" class="input" type="password" id="pwdRepeat" placeholder="*****" autocomplete="new-password"/> -->
+                                <input name="Mot de Passe de confirmation" class="input" type="password" id="pwdRepeat" placeholder="*****" autocomplete="new-password"/>
                             <?php endif ?>
                         </div>
 
@@ -119,15 +125,16 @@ $errorMessage = CheckInput::showErrorMessage();
                             <?php //if (!empty($getDatas['age']) || array_key_exists('age', $err)) :?>
                             <?php if (array_key_exists('age', $err)) : ?>
                                 <!-- <input class="input_error" name="age" type="number" id="age" placeholder="<?php //echo strip_tags($err['age'])?>" autocomplete="off" /> -->
-                                <input class="input_error" name="age" type="number" id="age" placeholder="<?php echo strip_tags($err['age'])?>" autocomplete="off"/>
+                                <input class="input_error" name="Age" type="number" id="age" placeholder="<?php echo strip_tags($err['age'])?>" autocomplete="off"/>
                             <?php else: ?>
-                                <input name="age" type="number" class="input" id="age" placeholder="Votre âge..." autocomplete="off"/>
+                                <!-- <input name="age" type="number" class="input" id="age" placeholder="Votre âge..." autocomplete="off"/> -->
+                                <input name="Age" type="number" class="input" id="age" placeholder="Votre âge..." autocomplete="off"/>
                             <?php endif ?>
                         </div>
 
                         <!-- Submit -->
                         <div id="register-btn" class="form form-hidden">
-                            <button type="submit" name="submit" class="btn">S'enregistrer</button>
+                            <button id="submit" type="submit" name="submit" class="btn">S'enregistrer</button>
                         </div>
                     </form>
                 </div>
