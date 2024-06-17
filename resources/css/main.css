@@ -206,7 +206,8 @@ header {
 
 .navbar {
     width: 100%;
-    height: 60px;
+    /* height: 60px; */ /* original */
+    height: 80px;
     position: fixed;
     /* position: sticky; */
     margin: 15px auto;
@@ -441,10 +442,12 @@ header {
     /* height: calc(fit-content + 100px); */
     min-height: max-content;
     max-height: 600px;
-    position: fixed;
+    position: fixed; /* original */
+    /* position: sticky; */
     margin-bottom: 100px;
-    top: 80px;
+    top: 100px;
     z-index: 1000;
+    /* float: right; */
 }
 
 .dropdown-menu li {
