@@ -637,6 +637,9 @@ main {
             width: 80%;
             /* margin-left: unset; */
             margin: 0 auto;
+            position: sticky;
+            top: 0;
+            bottom: 0;
         }
     }
 }
