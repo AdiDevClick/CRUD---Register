@@ -478,11 +478,22 @@ class Ingredient {
     #elementStyle(element) {
         const card = document.querySelector('.recipe')
         const offsets = this.element.getBoundingClientRect()
-        if ((offsets.left + this.#newModifierButtons.containerWidth) > (card.offsetWidth - 5)) {
+        const cardOffsets = card.getBoundingClientRect()
+        console.log(offsets.right+ ' => offset Right')
+        console.log(offsets.left+ ' => offset Left')
+        console.log(card.offsetWidth+ ' => card Offset')
+        console.log(this.#newModifierButtons.containerWidth+ ' => container width')
+        console.log(offsets)
+        console.log(cardOffsets)
+
+        if (cardOffsets.right - 10 < (offsets.left + this.#newModifierButtons.containerWidth)) {
+        // if ((offsets.left + this.#newModifierButtons.containerWidth) > (card.offsetWidth - 5)) {
             element.style.left = 'unset'
             element.style.right = '0'
+            return
         }
-        if ((offsets.right - this.#newModifierButtons.containerWidth) < (card.offsetWidth - 5)) {
+        if (cardOffsets.left - 10 < (offsets.right - this.#newModifierButtons.containerWidth)) {
+        // if ((offsets.right - this.#newModifierButtons.containerWidth) < (card.offsetWidth - 5)) {
             element.style.left = '0'
             element.style.right = 'unset'
         }

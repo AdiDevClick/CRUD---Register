@@ -281,7 +281,6 @@ class CheckInput extends Validate
 
     /**
      * Retourne un message d'erreur en fonction de l'erreur
-     *
      * @return string
      */
     public static function showErrorMessage(): string

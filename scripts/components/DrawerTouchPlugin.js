@@ -132,6 +132,7 @@ export class DrawerTouchPlugin {
         this.#steps.removeEventListener('click', this.#onOpen.bind(this))
         if (this.#isMobile) {
             this.drawer.style.display = 'block'
+            this.#closeButton.removeAttribute('style')
             if (e.currentTarget === this.#showDrawerButton) {
                 this.#clickedElement = 'card'
                 this.#card.classList.add('open')
@@ -163,6 +164,7 @@ export class DrawerTouchPlugin {
             //     return
             // }
             if (!this.#steps.classList.contains('opened')) {
+                
                 if (e.currentTarget === this.#steps && !this.#card.classList.contains('open')) {
                     // console.log('test')
                     this.#clickedElement = 'steps'
@@ -197,6 +199,7 @@ export class DrawerTouchPlugin {
         this.#isFullyOpened ? this.#isFullyOpened : null
         this.#showDrawerButton.classList.contains('hidden') ? this.#showDrawerButton.classList.remove('hidden') : null
         this.#showDrawerButton.classList.add('show')
+        // this.#closeButton.style.display = 'none'
         this.#enableScrollBehavior()
     }
 
@@ -277,6 +280,8 @@ export class DrawerTouchPlugin {
                             // this.#drawerBarButton.classList.remove('fullyOpened')
                             // this.#enableScrollBehavior()
                             // this.drawer.style.display = 'none'
+                            this.#closeButton.style.display = 'none'
+
                             this.#resetStatusAndStyle()
                         }
                     }, {once: true})
@@ -364,6 +369,7 @@ export class DrawerTouchPlugin {
                     // console.log('mon animation est pas terminée')
                     this.#card.classList.add('open')
                     this.drawer.style.display = 'block'
+                    this.#closeButton.removeAttribute('style')
                     this.#drawerBarButton.style.display = 'none'
                     // this.translate('0', '5', '550px')
 
