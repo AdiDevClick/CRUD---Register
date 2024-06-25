@@ -66,7 +66,7 @@ $recipeId = $postData['recipe_id']; */
 
 ?>
 
-<form action="<?php echo($rootUrl . '../comments/post_create.php'); ?>" method="POST">
+<form action="<?php echo($rootUrl . 'recettes/comments/post_create.php'); ?>" method="POST">
 <!--<form action="<?php //echo($rootUrl . 'recettes/recipes/read.php');?>" method="POST"> -->
     <div class="mb-3 hidden">
     <!-- <div class="mb-3 visually-hidden"> -->

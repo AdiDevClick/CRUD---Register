@@ -6,7 +6,8 @@ if(session_status() !== PHP_SESSION_ACTIVE || session_status() === PHP_SESSION_N
 
 include_once("../includes/class-autoloader.inc.php");
 include_once('../logs/customErrorHandlers.php');
-//include_once('../includes/functions.inc.php');
+include_once('../includes/variables.inc.php');
+include_once('../includes/functions.inc.php');
 
 /***
  * Grabing URL ID from index page and fetching rows datas
@@ -24,7 +25,18 @@ if(isset($_GET['id']) && is_numeric($_GET['id'])) {
     $recipe = [
     'recipe_id' => $getInfos[0]['recipe_id'],
     'title' => $getInfos[0]['title'],
-    'recipe' => $getInfos[0]['recipe'],
+    'persons' => $getInfos[0]['persons'],
+    'oven_time' => $getInfos[0]['oven_time'],
+    'oven_time_length' => $getInfos[0]['oven_time_length'],
+    'resting_time' => $getInfos[0]['resting_time'],
+    'resting_time_length' => $getInfos[0]['oven_time_length'],
+    'total_time' => $getInfos[0]['total_time'],
+    'total_time_length' => $getInfos[0]['total_time_length'],
+    'step_1' => $getInfos[0]['step_1'],
+    'step_2' => $getInfos[0]['step_2'],
+    'step_3' => $getInfos[0]['step_3'],
+    'step_4' => $getInfos[0]['step_4'],
+    'step_5' => $getInfos[0]['step_5'],
     'author' => $getInfos[0]['author'],
     'comments' => [],
     'rating' => $averageRating['rating']
@@ -67,10 +79,14 @@ ob_start()
         <h1><?php echo($recipe['title']); ?></h1>
         <div class="row">
             <article class="col">
-                <?php echo($recipe['recipe']); ?>
+                <p>Temps de cuisson : <?php echo($recipe['oven_time'] . ' ' . $recipe['oven_time_length']) ?></p>
+                <p>Temps de repos : <?php echo($recipe['resting_time'] . ' ' . $recipe['resting_time_length']) ?></p>
+                <p>Temps total : <?php echo($recipe['total_time'] . ' ' . $recipe['total_time_length']) ?></p>
+                <p>Nombre de personnes : <?php echo($recipe['persons']); ?></p>
             </article>
             <aside class="col">
-                <p><i>Contribuée par <?php echo($recipe['author']); ?></i></p>
+                <p><i>Contribuée par <?php echo strip_tags(displayAuthor($recipe['author'])) ?></i></p>
+                <!-- <p><i>Contribuée par <?php echo($recipe['author']); ?></i></p> -->
                 <p><b>Evaluée par la communauté à <?php echo($recipe['rating']); ?> / 5</b></p>
             </aside>
         </div>

@@ -41,7 +41,8 @@ function displayAuthor(string $authorEmail)
     $users = new LoginView('','','','');
     foreach ($users->displayUsers($authorEmail) as $user) {
         if ($authorEmail === $user['email']) {
-            return $user["full_name"] . '(' . $user["age"] . 'ans)';
+            return $user["full_name"];
+            // return $user["full_name"] . '(' . $user["age"] . 'ans)';
         } else {
             return $authorEmail . ' Annonyme';
         }
