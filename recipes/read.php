@@ -54,24 +54,16 @@ if(isset($_GET['id']) && is_numeric($_GET['id'])) {
 }
 
 
+
+$title = "Site de Recettes - " . htmlspecialchars($recipe['title']);
+
+ob_start()
+
 ?>
 
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Site de Recettes - <?php echo($recipe['title']); ?></title>
-    <link
-        href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" 
-        rel="stylesheet"
-    >
-</head>
-<body class="d-flex flex-column min-vh-100">
-    <div class="container">
+<!-- <body class="d-flex flex-column min-vh-100"> -->
+    <div class="card">
 
-    <?php include_once('../includes/header.inc.php'); ?>
         <h1><?php echo($recipe['title']); ?></h1>
         <div class="row">
             <article class="col">
@@ -82,7 +74,7 @@ if(isset($_GET['id']) && is_numeric($_GET['id'])) {
                 <p><b>Evaluée par la communauté à <?php echo($recipe['rating']); ?> / 5</b></p>
             </aside>
         </div>
-
+    </div>
         <?php //$checkId->displayComments($recipe, $getInfos)?>
         <?php if(count($recipe['comments']) > 0): ?>
         <hr />
@@ -104,7 +96,10 @@ if(isset($_GET['id']) && is_numeric($_GET['id'])) {
             <?php //$checkId->displayCommentForm($recipe)?>
             <?php //$checkId->displayCommentSuccess()?>
         <?php endif ?>
-    </div>
-    <?php include_once('../includes/footer.inc.php'); ?>
-</body>
-</html>
+    <!-- </div> -->
+<!-- </body> -->
+
+<?php
+$content = ob_get_clean();
+require('../templates/layout.php')
+?>
