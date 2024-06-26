@@ -28,12 +28,12 @@
     "src": "resources/Fonts/Roboto/Roboto-Thin.ttf"
   },
   "resources/main.js": {
-    "file": "main-BjJ4uNfc.js",
+    "file": "main-BXFJ4Wte.js",
     "name": "main",
     "src": "resources/main.js",
     "isEntry": true,
     "css": [
-      "main-BRYdrUQ3.css"
+      "main-CsjyGY2Y.css"
     ],
     "assets": [
       "Caveat-VariableFont_wght-Cd5oCIlo.ttf",
