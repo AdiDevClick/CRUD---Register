@@ -68,15 +68,32 @@ if(isset($_GET['id']) && is_numeric($_GET['id'])) {
 
 
 $title = "Site de Recettes - " . htmlspecialchars($recipe['title']);
+$script = 'src="../scripts/typeWriter.js" defer';
 
 ob_start()
 
 ?>
+<header>
+    <div class="hero">
+        <img src="" alt="">
+        <p><span><?php echo($recipe['title']) ?></span></p>
+    </div>
+</header>
+<div>
+
+<article>
+    <p>Première étape : <?php echo($recipe['step_1']) ?></p>
+    <p>Première étape : <?php echo($recipe['step_2']) ?></p>
+    <p>Première étape : <?php echo($recipe['step_3']) ?></p>
+    <p>Première étape : <?php echo($recipe['step_4']) ?></p>
+    <p>Première étape : <?php echo($recipe['step_5']) ?></p>
+</article>
+
+</div>
 
 <!-- <body class="d-flex flex-column min-vh-100"> -->
-    <div class="card">
-
-        <h1><?php echo($recipe['title']); ?></h1>
+    <aside class="card asideprep">
+        <h1><?php echo($recipe['title']) ?></h1>
         <div class="row">
             <article class="col">
                 <p>Temps de cuisson : <?php echo($recipe['oven_time'] . ' ' . $recipe['oven_time_length']) ?></p>
@@ -84,13 +101,13 @@ ob_start()
                 <p>Temps total : <?php echo($recipe['total_time'] . ' ' . $recipe['total_time_length']) ?></p>
                 <p>Nombre de personnes : <?php echo($recipe['persons']); ?></p>
             </article>
-            <aside class="col">
+            <div class="col">
                 <p><i>Contribuée par <?php echo strip_tags(displayAuthor($recipe['author'])) ?></i></p>
-                <!-- <p><i>Contribuée par <?php echo($recipe['author']); ?></i></p> -->
+                <!-- <p><i>Contribuée par <?php //echo($recipe['author']); ?></i></p> -->
                 <p><b>Evaluée par la communauté à <?php echo($recipe['rating']); ?> / 5</b></p>
-            </aside>
+            </div>
         </div>
-    </div>
+    </aside>
         <?php //$checkId->displayComments($recipe, $getInfos)?>
         <?php if(count($recipe['comments']) > 0): ?>
         <hr />

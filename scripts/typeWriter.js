@@ -1,10 +1,21 @@
+const queryString = document.location
+let words
 const dynamicText = document.querySelector(".hero p span")
-const words = [
-    "_gourmande",
-    "_à Tomber",
-    "_Incroyable",
-    "_plein d'Amour"
-]
+if (dynamicText) {
+    words = [
+        "_Gourmande",
+        "_à Tomber",
+        "_Incroyable",
+        "_pleine d'Amour"
+    ]
+}
+if (queryString.toString().includes("read.php")) {
+    const title = document.querySelector("title")
+    words = [
+        `${title.text}`
+    ]
+}
+
 
 let wordIndex = 0
 let charIndex = 0

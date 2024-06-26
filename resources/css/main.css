@@ -62,6 +62,7 @@ from the local website :
 
 /* TYPEWRITTER */
 .hero {
+    overflow: hidden;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -72,6 +73,7 @@ from the local website :
 }
 
 .hero p {
+    position: absolute; /* pose problème sur la splash screen */
     display: flex;
     flex-wrap: wrap;
     font-size: 4rem;
@@ -640,6 +642,13 @@ main {
             position: sticky;
             top: 0;
             bottom: 0;
+        }
+        &.asideprep {
+            margin: 0 auto;
+            position: sticky;
+            top: 0;
+            bottom: 0;
+            right: 0; 
         }
     }
 }
