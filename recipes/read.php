@@ -95,12 +95,12 @@ ob_start()
     <aside class="card asideprep">
         <h1><?php echo($recipe['title']) ?></h1>
         <div class="row">
-            <article class="col">
-                <p>Temps de cuisson : <?php echo($recipe['oven_time'] . ' ' . $recipe['oven_time_length']) ?></p>
-                <p>Temps de repos : <?php echo($recipe['resting_time'] . ' ' . $recipe['resting_time_length']) ?></p>
-                <p>Temps total : <?php echo($recipe['total_time'] . ' ' . $recipe['total_time_length']) ?></p>
-                <p>Nombre de personnes : <?php echo($recipe['persons']); ?></p>
-            </article>
+            <div class="col">
+                <p>Temps de cuisson :</p><p> <?php echo($recipe['oven_time'] . ' ' . $recipe['oven_time_length']) ?></p>
+                <p>Temps de repos :</p><p> <?php echo($recipe['resting_time'] . ' ' . $recipe['resting_time_length']) ?></p>
+                <p>Temps total :</p><p> <?php echo($recipe['total_time'] . ' ' . $recipe['total_time_length']) ?></p>
+                <p>Nombre de personne<?= $recipe['persons'] > 1 ? "s" : null ?> :</p><p> <?php echo($recipe['persons']); ?></p>
+            </div>
             <div class="col">
                 <p><i>Contribuée par <?php echo strip_tags(displayAuthor($recipe['author'])) ?></i></p>
                 <!-- <p><i>Contribuée par <?php //echo($recipe['author']); ?></i></p> -->
