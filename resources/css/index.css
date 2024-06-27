@@ -1480,3 +1480,20 @@ hr {
         transition: all 0.3s ease;
     }
 }
+
+/* PAGE READER */
+.read_page {
+    display: flex;
+    min-height: 100vh;
+    & > article {
+        width: 100%;
+    }
+    & > .read__aside {
+        align-self: start;
+        position: sticky;
+        word-break: break-word;
+        overflow-wrap: anywhere;
+        top: 0;
+        bottom: 0;
+    }
+}

@@ -79,20 +79,17 @@ ob_start()
         <p><span><?php echo($recipe['title']) ?></span></p>
     </div>
 </header>
-<div>
-
-<article>
-    <p>Première étape : <?php echo($recipe['step_1']) ?></p>
-    <p>Première étape : <?php echo($recipe['step_2']) ?></p>
-    <p>Première étape : <?php echo($recipe['step_3']) ?></p>
-    <p>Première étape : <?php echo($recipe['step_4']) ?></p>
-    <p>Première étape : <?php echo($recipe['step_5']) ?></p>
-</article>
-
-</div>
-
+<div class="read_page">
+    <article>
+        <p>Première étape : <?php echo($recipe['step_1']) ?></p>
+        <p>Première étape : <?php echo($recipe['step_2']) ?></p>
+        <p>Première étape : <?php echo($recipe['step_3']) ?></p>
+        <p>Première étape : <?php echo($recipe['step_4']) ?></p>
+        <p>Première étape : <?php echo($recipe['step_5']) ?></p>
+    </article>
+<!-- </div> -->
 <!-- <body class="d-flex flex-column min-vh-100"> -->
-    <aside class="card asideprep">
+    <aside class="card read__aside">
         <h1><?php echo($recipe['title']) ?></h1>
         <div class="row">
             <div class="col">
@@ -103,11 +100,13 @@ ob_start()
             </div>
             <div class="col">
                 <p><i>Contribuée par <?php echo strip_tags(displayAuthor($recipe['author'])) ?></i></p>
-                <!-- <p><i>Contribuée par <?php //echo($recipe['author']); ?></i></p> -->
+                <!-- <p><i>Contribuée par <?php //echo($recipe['author']);?></i></p> -->
                 <p><b>Evaluée par la communauté à <?php echo($recipe['rating']); ?> / 5</b></p>
             </div>
         </div>
     </aside>
+</div>
+
         <?php //$checkId->displayComments($recipe, $getInfos)?>
         <?php if(count($recipe['comments']) > 0): ?>
         <hr />
