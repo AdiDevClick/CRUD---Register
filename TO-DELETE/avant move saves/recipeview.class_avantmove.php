@@ -180,7 +180,8 @@ class RecipeView extends RecipeController
     $users = $this->getUsersById();
     foreach($users as $user) {
         if ($user['user_id'] === $userId) {        
-            return $user['full_name'] . '(' . $user['age'] . ' ans)';
+            return $user['full_name'];
+            // return $user['full_name'] . '(' . $user['age'] . ' ans)';
             }     
         }
         return 'Annonyme'; 

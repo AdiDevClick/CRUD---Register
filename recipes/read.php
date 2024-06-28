@@ -37,6 +37,7 @@ if(isset($_GET['id']) && is_numeric($_GET['id'])) {
     'step_3' => $getInfos[0]['step_3'],
     'step_4' => $getInfos[0]['step_4'],
     'step_5' => $getInfos[0]['step_5'],
+    'step_6' => $getInfos[0]['step_6'],
     'author' => $getInfos[0]['author'],
     'comments' => [],
     'rating' => $averageRating['rating']
@@ -81,15 +82,25 @@ ob_start()
 </header>
 <div class="read_page">
     <article>
-        <p>Première étape : <?php echo($recipe['step_1']) ?></p>
-        <p>Première étape : <?php echo($recipe['step_2']) ?></p>
-        <p>Première étape : <?php echo($recipe['step_3']) ?></p>
-        <p>Première étape : <?php echo($recipe['step_4']) ?></p>
-        <p>Première étape : <?php echo($recipe['step_5']) ?></p>
+        <?php foreach ($recipe as $key => $value) : ?>
+            <?php if (str_starts_with($key, 'step_') && !empty($value)) : ?>
+                <div>
+                    <?php
+                        if ($key === 'step_1') echo '<p><span> Première étape </span></p>';
+                        if ($key === 'step_2') echo '<p><span> Deuxième étape </span></p>';
+                        if ($key === 'step_3') echo '<p><span> Troisième étape </span></p>';
+                        if ($key === 'step_4') echo '<p><span> Quatrième étape </span></p>';
+                        if ($key === 'step_5') echo '<p><span> Cinquième étape </span></p>';
+                        if ($key === 'step_6') echo '<p><span> Sixième étape </span></p>'
+                    ?>
+                    <p><?php echo($value) ?></p>
+                </div>
+            <?php endif ?>
+        <?php endforeach ?>
     </article>
 <!-- </div> -->
 <!-- <body class="d-flex flex-column min-vh-100"> -->
-    <aside class="card read__aside">
+    <aside class="read__aside">
         <h1><?php echo($recipe['title']) ?></h1>
         <div class="row">
             <div class="col">
@@ -114,9 +125,9 @@ ob_start()
         <div class="row">>
             <?php foreach($recipe['comments'] as $comment): ?>
                 <div class="comment">
-                    <p><?php echo strip_tags($comment['created_at']) ?></p>
+                    <p><?php echo strip_tags($checkId->display_user($comment['user_id'])) ?></p>
                     <p><?php echo strip_tags($comment['comment']) ?></p>
-                    <i>(<?php echo strip_tags($checkId->display_user($comment['user_id'])) ?>)</i>
+                    <i>(Le : <?php echo strip_tags($comment['created_at']) ?>)</i>
                 </div>
             <?php endforeach ?>
         </div>
