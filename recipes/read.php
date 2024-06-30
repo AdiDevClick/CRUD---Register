@@ -76,7 +76,7 @@ ob_start()
 ?>
 <header>
     <div class="hero">
-        <img src="" alt="">
+        <img src="../img/img1.jpeg" alt="">
         <p><span><?php echo($recipe['title']) ?></span></p>
     </div>
 </header>
@@ -102,14 +102,14 @@ ob_start()
 <!-- <body class="d-flex flex-column min-vh-100"> -->
     <aside class="read__aside">
         <h1><?php echo($recipe['title']) ?></h1>
-        <div class="row">
-            <div class="col">
+        <div>
+            <div class="read__preparations">
                 <p>Temps de cuisson :</p><p> <?php echo($recipe['oven_time'] . ' ' . $recipe['oven_time_length']) ?></p>
                 <p>Temps de repos :</p><p> <?php echo($recipe['resting_time'] . ' ' . $recipe['resting_time_length']) ?></p>
                 <p>Temps total :</p><p> <?php echo($recipe['total_time'] . ' ' . $recipe['total_time_length']) ?></p>
                 <p>Nombre de personne<?= $recipe['persons'] > 1 ? "s" : null ?> :</p><p> <?php echo($recipe['persons']); ?></p>
             </div>
-            <div class="col">
+            <div class="read__credits">
                 <p><i>Contribuée par <?php echo strip_tags(displayAuthor($recipe['author'])) ?></i></p>
                 <!-- <p><i>Contribuée par <?php //echo($recipe['author']);?></i></p> -->
                 <p><b>Evaluée par la communauté à <?php echo($recipe['rating']); ?> / 5</b></p>

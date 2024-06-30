@@ -35,6 +35,8 @@ export class IngredientsFrom {
     #error = []
     /** @type {String} */
     #url
+    #allowedFiles = 'image/jpeg, image/png, image/jpg, image/gif'
+    #isSentAlready = false
 
     /**
      * @param {Ingredient[]} list
@@ -82,7 +84,7 @@ export class IngredientsFrom {
             // this.#onIngredientDelete(this.#ingredient)
         })
         const passedInputs = new ErrorHandler(this.#form, {
-            whichInputCanBeEmpty: ['custom_ingredient', 'step_3', 'step_4', 'step_5', 'step_6'],
+            whichInputCanBeEmpty: ['custom_ingredient', 'step_3', 'step_4', 'step_5', 'step_6', 'file'],
             useMyOwnListener: true
         })
         if (this.options.post) {
@@ -208,25 +210,51 @@ export class IngredientsFrom {
         // new ErrorHandler(form, {
         //     whichInputCanBeEmpty: ['custom_ingredient', 'step_3', 'step_4', 'step_5', 'step_6']
         // })
-        let data = new FormData(form)
         
+        let data = new FormData(form)
         // Modification de la clé 'custom_ingredient'
         // pour pouvoir faire passer la liste dynamique des ingrédients
         // ajoutés par l'utilisateur au format JSON dans la
         // database en même-temps que les données inputs
+        // if (!confirm('Voulez-vous envoyer votre recette ?')) {
+        //     // no
+        //     return
+        // }
         for (let [key, value] of data) {
             if (key === 'custom_ingredient') {
                 data.set('custom_ingredient', this.#list)
             }
+            if (key === 'file' && value.name) {
+                // check file type
+                if (!this.#allowedFiles.includes(value.type)) {
+                    new Toaster('Ce type de fichier n\'est pas autorisé. Veuillez n\'utiliser que : JPG, JPEG, PNG ou GIF', 'Erreur')
+                    form.querySelector("input[name='file']").value = '';
+                    return
+                }
+                // check file size (< 10MB)
+                if (value.size > 10 * 1024 * 1024) {
+                    new Toaster('Votre fichier ne peut dépasser 10MB', 'Erreur')
+                    form.querySelector("input[name='file']").value = ''
+                    return
+                }
+            }
         }
+        // data.append('isSentAlready', this.#isSentAlready)
         try {
             // this.#ingredientList = await fetchJSON(this.#endpoint, {
             // this.#ingredientList = await fetchJSON('test.php', {
             this.#ingredientList = await fetchJSON('Process_PreparationList.php', {
                 method: 'POST',
-                json: data,
-                // json: data
+                // json: data,
+                body: data,
+                // img: true,
             })
+            // this.#ingredientList = await fetchJSON('Process_PreparationList.php', {
+            //     method: 'POST',
+            //     json: data,
+            //     // json: data
+            //     // img: true,
+            // })
             // const elementTemplate = this.#template.content.firstElementChild.cloneNode(true)
             // elementTemplate.setAttribute('id', ids)
             // elementTemplate.setAttribute('name', 'ingredient-'+ids)
@@ -239,8 +267,20 @@ export class IngredientsFrom {
             // // const ingredients = 
             // this.#target.prepend(elementTemplate)
             // console.log(this.#ingredientList.body)
-            // console.log(this.#ingredientList)
-            if (this.#ingredientList.status === 'success') window.location.assign('../index.php?success=recipe-shared')
+            // return
+            console.log(this.#ingredientList)
+            // if (this.#ingredientList.isSentAlready) {
+            //     this.#isSentAlready = true
+            //     console.log('test')
+            // }
+            // return
+            this.#ingredientList.img_status ? this.#isSentAlready = true : this.#isSentAlready = false
+            this.#ingredientList.img_on_server ? this.#isSentAlready = true : null
+            if (this.#ingredientList.status === 'success') {
+                console.log(this.#isSentAlready)
+                return
+                window.location.assign('../index.php?success=recipe-shared')
+            }
             // this.#preparationList = this.#preparationList.filter((task) => task === this.#list)
             this.#preparationList.formData = this.#ingredientList
             // this.#preparationList.push(this.#ingredientList)
@@ -296,8 +336,6 @@ export class IngredientsFrom {
     async #onRecipeUpdate(e) {
         const form = e.target
         let data = new FormData(form)
-        
-        // console.log(this.#url)
         // Modification de la clé 'custom_ingredient'
         // pour pouvoir faire passer la liste dynamique des ingrédients
         // ajoutés par l'utilisateur au format JSON dans la
@@ -306,7 +344,11 @@ export class IngredientsFrom {
             if (key === 'custom_ingredient') {
                 data.set('custom_ingredient', this.#list)
             }
+            if (key === 'file' && value.name) {
+                data.set('file', Date.now())
+            }
         }
+
         try {
             // console.log('je suis dans le submit update')
             this.#ingredientList = await fetchJSON(this.#url, {
@@ -314,6 +356,7 @@ export class IngredientsFrom {
                 method: 'POST',
                 json: data,
             })
+            console.log(this.#ingredientList)
             if (this.#ingredientList.status === 'success') window.location.assign('../index.php?success=recipe-updated')
             this.#preparationList.formData = this.#ingredientList
             this.#preparationList.ingredients = this.#list
@@ -321,6 +364,7 @@ export class IngredientsFrom {
             const success = 'Votre préparation a été validée'
             this.#formButton.disabled = false
         } catch (error) {
+            console.log(error)
             new Toaster(error.message, 'Erreur')
         }
     }
@@ -479,12 +523,12 @@ class Ingredient {
         const card = document.querySelector('.recipe')
         const offsets = this.element.getBoundingClientRect()
         const cardOffsets = card.getBoundingClientRect()
-        console.log(offsets.right+ ' => offset Right')
-        console.log(offsets.left+ ' => offset Left')
-        console.log(card.offsetWidth+ ' => card Offset')
-        console.log(this.#newModifierButtons.containerWidth+ ' => container width')
-        console.log(offsets)
-        console.log(cardOffsets)
+        // console.log(offsets.right+ ' => offset Right')
+        // console.log(offsets.left+ ' => offset Left')
+        // console.log(card.offsetWidth+ ' => card Offset')
+        // console.log(this.#newModifierButtons.containerWidth+ ' => container width')
+        // console.log(offsets)
+        // console.log(cardOffsets)
 
         if (cardOffsets.right - 10 < (offsets.left + this.#newModifierButtons.containerWidth)) {
         // if ((offsets.left + this.#newModifierButtons.containerWidth) > (card.offsetWidth - 5)) {

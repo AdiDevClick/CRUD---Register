@@ -18,6 +18,9 @@ class RecipeController extends Recipe
                 $checkInput = new CheckInput(
                     $this->getData
                 );
+                // if (isset($_FILES['file']) && $_FILES['file']['error'] == 0) {
+                // print_r($_FILES);
+                // }
                 // print_r($this->getData);
                 $title = $checkInput->test_input($this->getData['title']);
                 $step_1 = $checkInput->test_input($this->getData["step_1"]);
@@ -62,7 +65,6 @@ class RecipeController extends Recipe
                 // $persons = $this->getData["persons"];
                 // $custom_ingredients = $this->getData["custom_ingredients"];
                 $checkInput->checkInputs();
-                // print_r($custom_ingredients);
                 if (empty($checkInput->getErrorsArray())) {
                     $this->setRecipeTest(
                         $title,
@@ -92,7 +94,7 @@ class RecipeController extends Recipe
                     // echo json_encode(header('refresh:10, ../index.php?success=recipe-shared'));
                     // echo 'window.location.href = ../index.php?success=recipe-shared';
                     // echo 'window.location.href = ../index.php?success=recipe-shared';
-                    echo json_encode(['status' => 'success']);
+                    echo json_encode(['status' => 'success', 'img_status'=> $this->getData['img_status'], 'is_on_server' => $this->getData['img_on_server']]);
                     // echo json_encode(['status' => 'success','message' => 'test']);
                 } else {
                     // echo "<pre>";
@@ -310,7 +312,7 @@ class RecipeController extends Recipe
                 $checkInput = new CheckInput(
                     $this->getData
                 );
-                // print_r($this->getData);
+                print_r($this->getData);
                 $title = $checkInput->test_input($this->getData['title']);
                 $step_1 = $checkInput->test_input($this->getData["step_1"]);
                 $step_2 = $checkInput->test_input($this->getData["step_2"]);
@@ -333,9 +335,9 @@ class RecipeController extends Recipe
                 $persons = $checkInput->test_input($this->getData["persons"]);
                 $custom_ingredients = $checkInput->test_input($this->getData["custom_ingredients"]);
                 $id = $checkInput->test_input($this->getData["recipe_id"]);
-                
+                $file = $checkInput->test_input($this->getData["file"]);
                 $checkInput->checkInputs();
-
+                exit;
                 /* $title = $checkInput->test_input($this->getData["title"]);
                 $recipe = $checkInput->test_input($this->getData["recipe"]);
                 $checkInput->checkInputs(); */
@@ -513,6 +515,36 @@ class RecipeController extends Recipe
                 $_SESSION['REGISTERED_COMMENT'] = $registeredComment;
                 //header("Location: ".Functions::getUrl()."?error=none") ; */
                 return $registeredComment;
+            }
+        }
+    }
+
+    protected function setImages($getData)
+    {
+        $loggedUser = LoginController::checkLoggedStatus();
+        if  (!isset($loggedUser)) {
+            throw new Error("RCPLGGDUSROFF - Veuillez vous identifier avant de partager une recette.") ;
+        } else {
+            $checkInput = new CheckInput(
+                $this->getData
+            );
+            /*  $message = $checkInput->test_input($this->getData["comment"]);
+             $recipeId = $checkInput->test_input($this->getData["recipe_id"]); */
+            // $message = $checkInput->test_input($getData['comment']);
+            $recipeId = $checkInput->test_input($getData['recipeId']);
+            $filePath = $getData['imagePath'];
+
+            $checkInput->checkInputs();
+
+            if (empty(CheckInput::getErrorsArray())) {
+                //print_r($loggedUser);
+                $this->insertComments($recipeId, $loggedUser['userId'], $filePath);
+                $registeredImage = [
+                    'email' => $loggedUser['email']
+                ];
+                $_SESSION['REGISTERED_COMMENT'] = $registeredImage;
+                //header("Location: ".Functions::getUrl()."?error=none") ; */
+                return $registeredImage;
             }
         }
     }

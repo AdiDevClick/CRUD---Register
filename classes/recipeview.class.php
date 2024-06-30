@@ -27,6 +27,16 @@ class RecipeView extends RecipeController
         return $this->getRecipesWithCommentsById($getDatas);
     }
 
+    public function insertImage($getDatas)
+    {
+        return $this->setImages($getDatas);
+    }
+
+    public function fetchRecipesWithImagesById($getDatas)
+    {
+        return $this->getRecipesWithCommentsById($getDatas);
+    }
+
 
     public function deleteRecipe()
     {

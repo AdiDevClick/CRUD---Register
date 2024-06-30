@@ -436,7 +436,7 @@ class Recipe extends Mysql
         return $recipe;
     }
 
-    /***
+    /**
      * Insert comments
      */
     protected function insertComments($comment, $recipeId, $userId)
@@ -457,6 +457,63 @@ class Recipe extends Mysql
             //exit();
         }
         // exit;
+    }
+
+    /**
+     * Insert images
+     */
+    protected function insertImages($recipeId, $userId, $filePath)
+    {
+        $sqlRecipe = 'INSERT INTO images(recipe_id, user_id, file_path) VALUES (:recipe_id, :user_id, :file_path);';
+        $insertCommentsStatment = $this->connect()->prepare($sqlRecipe);
+        if (!$insertCommentsStatment->execute([
+            'recipe_id' => $recipeId,
+            'user_id' => $userId,
+            'file_path'=> $filePath
+            // 'user_id' => retrieve_id_from_user_mail($loggedUser['email'], $users),
+        ])) {
+            $insertCommentsStatment = null;
+            //throw new Error((string)header("Location: ".Functions::getUrl()."?error=stmt-failed"));
+            throw new Error("stmt Failed");
+
+            //header("Location :" .Functions::getUrl(). "?error=recipe-not-found");
+            //exit();
+        }
+        // exit;
+    }
+
+    /**
+     * Find the Image assiociated by the recipe ID
+     *
+     * @param [type] $recipeId
+     * @return void
+     */
+    public function getRecipesWithImagesById($recipeId)
+    {
+        $sqlRecipe =
+        'SELECT *, DATE_FORMAT(c.created_at, "%d/%m/%Y") as image_date
+        FROM recipes r
+        LEFT JOIN images c
+        ON r.recipe_id = c.recipe_id
+        WHERE r.recipe_id = :recipe_id;';
+        $retrieveRecipeWithCommentsStatement = $this->connect()->prepare($sqlRecipe);
+        if (!$retrieveRecipeWithCommentsStatement->execute([
+            'recipe_id' => $recipeId,
+        ])) {
+            $retrieveRecipeWithCommentsStatement = null;
+            //throw new Error((string)header("Location: ".Functions::getUrl()."?error=stmt-failed"));
+            throw new Error("stmt Failed");
+        }
+        if ($retrieveRecipeWithCommentsStatement->rowCount() == 0) {
+            $retrieveRecipeWithCommentsStatement = null;
+            //echo strip_tags("Cette recette n'existe pas.");
+            //throw new Error((string)header("Location: ".Functions::getUrl()."?error=recipeid-not-found"));
+            throw new Error("Cette recette n'existe pas");
+            //header("Location :" .Functions::getUrl(). "?error=recipe-not-found");
+            //exit();
+        }
+        $recipe = $retrieveRecipeWithCommentsStatement->fetchAll(PDO::FETCH_ASSOC);
+        return $recipe;
     }
 }
 /* if (!isset($getData['id']) && is_numeric($getData['id']))

@@ -37,9 +37,10 @@ ob_start()
 
 <!-- Héro Section -->
     <section class="hero">
-        <div class="type-writter">
+        <!-- <div class="type-writter"> -->
+            <img src="img/img3.jpeg" alt="">
             <p>Une recette <span>Love</span></p>
-        </div>
+        <!-- </div> -->
     </section>
     
 <!-- Insertion du login form pour les non-connectés -->

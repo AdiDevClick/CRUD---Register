@@ -12,6 +12,7 @@ if ($data && isset($_POST)) {
     $content = file_get_contents("php://input");
     $dataTest = json_decode($content, true);
     $getDatas;
+
     if ($dataTest) {
         $getDatas = [
             // 'test' => $content,
@@ -37,6 +38,7 @@ if ($data && isset($_POST)) {
             'ingredient6' => $dataTest['ingredient6'],
             'custom_ingredients' => $dataTest['custom_ingredient'],
             'recipe_id' => $_GET['id'],
+            'file' => $dataTest['file']
             // 'custom_ingredients' => $customIngredients,
             // Envoi toutes les données reçues au format JSON vers le serveur -
             // Les données ont préalablement été vérifiées en JavaScript mais

@@ -1495,5 +1495,16 @@ hr {
         overflow-wrap: anywhere;
         top: 0;
         bottom: 0;
+        border-left: 1px grey solid;
+        margin-top: 2rem;
+        & h1 {
+            padding-top: 0;
+        }
+        & .read__preparations {
+            padding: 20px;
+        }
+        & .read__credits {
+            padding: 10px;
+        }
     }
 }

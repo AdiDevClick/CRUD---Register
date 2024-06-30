@@ -5,7 +5,8 @@ if(session_status() !== PHP_SESSION_ACTIVE || session_status() === PHP_SESSION_N
 }
 
 // include_once('includes/functions.inc.php');
-require_once(__DIR__ . "includes/functions.inc.php");
+require_once(__DIR__ . "/logs/customErrorHandlers.php");
+require_once(__DIR__ . "/includes/functions.inc.php");
 
 function display_mailReception($email, $message)
 {

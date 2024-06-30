@@ -7,14 +7,32 @@ import { alertMessage } from "./dom.js"
  * @returns {Promise}
  */
 export async function fetchJSON(url = '', options = {}) {
-    const headers = {
-        Accept: 'application/json',
-        ...options.headers
+    let headers
+    if (!options.img) {
+        headers = {
+            Accept: 'application/json',
+            ...options.headers
+        }
+    } else {
+        headers = {
+            // Accept: 'image/jpeg',
+            Accept: 'application/json',
+            ...options.headers
+        }
+        headers['Content-Type'] = 'multipart/form-data'
     }
-    if (options.json) {
+    // const headers = {
+    //     Accept: 'application/json',
+    //     Accept: 'image/jpeg',
+    //     ...options.headers
+    // }
+    if (options.json && !options.img) {
         options.body = JSON.stringify(Object.fromEntries(options.json))
         headers['Content-Type'] = 'application/json; charset=UTF-8'
     }
+    // if (options.img) {
+    //     headers['Content-Type'] = 'image/jpeg'
+    // }
     try {
         const response = await fetch(url, {...options, headers})
         if (!response.ok) {

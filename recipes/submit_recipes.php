@@ -341,13 +341,19 @@ ob_start();
                                 <input id="custom_ingredient" type="text" name="custom_ingredient" class="input" placeholder="Votre ingrédient...">
                                 <button name="add_custom" id="add_custom" type="button" class="btn">Ajouter un nouvel ingrédient</button>
                             </div>
+                            <!-- File -->
+                            <div class="select">
+                            <!-- <div class="form form-hidden"> -->
+                                <label for="file" class="label"> Ajouter une image</label>
+                                <input type="file" id="file" name="file" class="form"/>
+                            </div>
                             <hr>
                             <!-- <div class="add_ingredient">
                                 <button name="add_preparation" id="button" type="submit" class="btn">Valider vos ingrédients</button>
                             </div> -->
                         </div>
                         <div class="add_ingredient">
-                            <button name="add_preparation" id="submit" type="submit" class="btn">Valider vos ingrédients</button>
+                            <button name="add_preparation" id="submit" type="submit" class="btn">Valider votre recette</button>
                         </div>
                     </div>
                     <!-- </form> -->
