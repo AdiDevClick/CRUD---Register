@@ -34,7 +34,10 @@
     }
     return $users;
 } */
-
+function makeDir($path)
+{
+    return is_dir($path) || mkdir($path);
+}
 function displayAuthor(string $authorEmail)
 {
     //require_once("includes/class-autoloader.inc.php");

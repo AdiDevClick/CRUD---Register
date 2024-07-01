@@ -25,7 +25,7 @@ class Recipe extends Mysql
         string $persons = null,
         string $custom_ingredients = null,
         string $loggedUser
-    ): void {
+    ) {
         $sqlQuery =
         'INSERT INTO recipes(
             title,
@@ -75,8 +75,9 @@ class Recipe extends Mysql
             :custom_ingredients,
             :author,
             :is_enabled);';
-
-        $insertRecipe = $this->connect()->prepare($sqlQuery);
+        $PDO_Instance = $this->connect();
+        $insertRecipe = $PDO_Instance->prepare($sqlQuery);
+        // $insertRecipe = $this->connect()->prepare($sqlQuery);
 
         if (!$insertRecipe->execute([
             'title' => $title,
@@ -106,7 +107,13 @@ class Recipe extends Mysql
             $insertRecipe = null;
             throw new Error("stmt Failed");
         }
-        // exit;
+        $id = $PDO_Instance->lastInsertId();
+        return $id;
+        // $recipe = $getRecipesIdStatement->fetch(PDO::FETCH_ASSOC);
+        // print_r($insertRecipe);
+        // $sqlQuery = 'SELECT LAST_INSERT_ID() FROM `recipes`;';
+        // $insertRecipe = $this->connect()->prepare($sqlQuery);
+        // $insertRecipe->execute();
     }
 
     /**
@@ -309,8 +316,8 @@ class Recipe extends Mysql
         string $ingredient6 = null,
         string $persons = null,
         string $custom_ingredients = null,
-        $id)
-    {
+        $id
+    ) {
         $sqlQuery = 'UPDATE recipes SET
             title = :title,
             step_1 = :step_1,
@@ -462,14 +469,15 @@ class Recipe extends Mysql
     /**
      * Insert images
      */
-    protected function insertImages($recipeId, $userId, $filePath)
+    protected function insertImages(int $recipeId, int $userId, $imgName, $imgPath)
     {
-        $sqlRecipe = 'INSERT INTO images(recipe_id, user_id, file_path) VALUES (:recipe_id, :user_id, :file_path);';
+        $sqlRecipe = 'INSERT INTO images(recipe_id, user_id, img_name, img_path) VALUES (:recipe_id, :user_id, :img_name, :img_path);';
         $insertCommentsStatment = $this->connect()->prepare($sqlRecipe);
         if (!$insertCommentsStatment->execute([
             'recipe_id' => $recipeId,
             'user_id' => $userId,
-            'file_path'=> $filePath
+            'img_name' => $imgName,
+            'img_path' => $imgPath
             // 'user_id' => retrieve_id_from_user_mail($loggedUser['email'], $users),
         ])) {
             $insertCommentsStatment = null;

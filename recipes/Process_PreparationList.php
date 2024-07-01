@@ -5,9 +5,10 @@ declare(strict_types=1);
 include_once("../includes/class-autoloader.inc.php");
 include_once('../logs/customErrorHandlers.php');
 include_once('../includes/variables.inc.php');
+include_once('../includes/functions.inc.php');
 
 // header('Content-Type: application/json; charset=utf-8');
-
+$loggedUser = LoginController::checkLoggedStatus();
 $fetchData = $_SERVER['REQUEST_METHOD'] === 'GET';
 $data = $_SERVER['REQUEST_METHOD'] === 'POST';
 // print_r($_REQUEST);
@@ -46,7 +47,7 @@ if ($data && isset($_POST)) {
     $dataTest = json_decode($content, true);
     $getDatas;
     $isImageSent;
-    $isImageAlreadyOnServer;
+    $isImageAlreadyOnServer = false;
     if (isset($_FILES['file']) && $_FILES['file']['error'] == 0) {
         // On vérifie que le fichier ne pèse pas plus d'10Mo
         if ($_FILES['file']['size'] < 10 * 1024 * 1024) {
@@ -56,10 +57,14 @@ if ($data && isset($_POST)) {
             // On vérifie les extensions autorisée
             $allowedExtensions = ['jpg', 'jpeg', 'gif', 'png'];
             $new_name = time() . '.' . $extension;
+            $dir = '../uploads/'. $loggedUser['email'];
+            $file = $dir . '/' . $new_name;
             // move_uploaded_file($_FILES['sample_image']['tmp_name'], 'images/' . $new_name);
-            
+
             if (in_array($extension, $allowedExtensions)) {
-                move_uploaded_file($_FILES['file']['tmp_name'], '../uploads/' . $new_name) ;
+                makeDir($dir);
+                move_uploaded_file($_FILES['file']['tmp_name'], $file);
+                // move_uploaded_file($_FILES['file']['tmp_name'], '../uploads/'. $loggedUser['userId'] . '/' . $new_name);
                 // move_uploaded_file($_FILES['file']['tmp_name'], '../uploads/' . basename($_FILES['file']['name'])) ;
                 // echo "L'envoi a bien été effectué !";
                 // $encoded_data = [
@@ -77,12 +82,12 @@ if ($data && isset($_POST)) {
         } else {
             $isImageAlreadyOnServer = true;
             // $isImageAlreadyOnServer = ['isSentAlready' => true];
-            echo("Déjà envoyé..");
+            echo "Déjà envoyé..";
         }
     }
     // if ($_FILES['file']['size'] < 1000000) {
     //     $fileinfo = pathinfo($_FILES['file']['name']);
-        // $fileinfo = pathinfo($_FILES['img']['name'], PATHINFO_EXTENSION);
+    // $fileinfo = pathinfo($_FILES['img']['name'], PATHINFO_EXTENSION);
     //     echo $fileinfo;
     //     $extension = $fileinfo['extension'];
     //     $allowedExtensions = ['jpg', 'jpeg', 'gif', 'png'];
@@ -95,7 +100,7 @@ if ($data && isset($_POST)) {
     // } else {
     //     echo("Déjà envoyé..");
     // }
-// }
+    // }
     // exit;
     if ($dataTest || isset($_POST)) {
         $getDatas = [
@@ -123,7 +128,9 @@ if ($data && isset($_POST)) {
             'ingredient5' => $dataTest['ingredient5'] ?? $_POST['ingredient5'],
             'ingredient6' => $dataTest['ingredient6'] ?? $_POST['ingredient6'],
             'custom_ingredients' => $dataTest['custom_ingredient'] ?? $_POST['custom_ingredient'],
-            'file' => $dataTest['file'] ?? $_FILES['file']['name'],
+            'file' => $dataTest['file'] ?? $new_name,
+            'file_path' => $file,
+            // 'file' => $dataTest['file'] ?? $_FILES['file']['name'],
             'img_status' => $isImageSent,
             'img_on_server' => $isImageAlreadyOnServer,
             // 'custom_ingredients' => $customIngredients,
@@ -135,7 +142,7 @@ if ($data && isset($_POST)) {
             // de réencoder en JSON si nécessaire
             // 'persons' => json_encode($dataTest)
             ];
-            // print_r($getDatas);
+        // print_r($getDatas);
         $setRecipe = new RecipeView($getDatas);
         $setRecipe->insertRecipeTest();
 

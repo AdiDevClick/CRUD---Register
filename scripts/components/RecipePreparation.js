@@ -241,14 +241,30 @@ export class IngredientsFrom {
         }
         // data.append('isSentAlready', this.#isSentAlready)
         try {
+            if (!this.#isSentAlready) {
+                this.#ingredientList = await fetchJSON('Process_PreparationList.php', {
+                    method: 'POST',
+                    // json: data,
+                    body: data,
+                    // img: true,
+                })
+                this.#ingredientList.img_status ? this.#isSentAlready = true : this.#isSentAlready = false
+                this.#ingredientList.img_on_server ? this.#isSentAlready = true : null
+                if (this.#ingredientList.status === 'success') {
+                    window.location.assign('../index.php?success=recipe-shared')
+                }
+                this.#preparationList.formData = this.#ingredientList
+                this.#preparationList.ingredients = this.#list
+                this.onUpdate('preparationList', this.#preparationList)
+                const success = 'Votre préparation a été validée'
+                this.#formButton.disabled = false
+            } else {
+                window.location.assign('../index.php?success=recipe-shared')
+                new Toaster('Un envoi a déjà été effectué', 'Erreur')
+            }
             // this.#ingredientList = await fetchJSON(this.#endpoint, {
             // this.#ingredientList = await fetchJSON('test.php', {
-            this.#ingredientList = await fetchJSON('Process_PreparationList.php', {
-                method: 'POST',
-                // json: data,
-                body: data,
-                // img: true,
-            })
+            
             // this.#ingredientList = await fetchJSON('Process_PreparationList.php', {
             //     method: 'POST',
             //     json: data,
@@ -268,37 +284,30 @@ export class IngredientsFrom {
             // this.#target.prepend(elementTemplate)
             // console.log(this.#ingredientList.body)
             // return
-            console.log(this.#ingredientList)
             // if (this.#ingredientList.isSentAlready) {
             //     this.#isSentAlready = true
             //     console.log('test')
             // }
             // return
-            this.#ingredientList.img_status ? this.#isSentAlready = true : this.#isSentAlready = false
-            this.#ingredientList.img_on_server ? this.#isSentAlready = true : null
-            if (this.#ingredientList.status === 'success') {
-                console.log(this.#isSentAlready)
-                return
-                window.location.assign('../index.php?success=recipe-shared')
-            }
+            
             // this.#preparationList = this.#preparationList.filter((task) => task === this.#list)
-            this.#preparationList.formData = this.#ingredientList
+            
             // this.#preparationList.push(this.#ingredientList)
-            this.#preparationList.ingredients = this.#list
+            
             // this.#preparationList.push(this.#list)
             // this.#ingredientList = this.#ingredientList.filter((task) => task !== this.#list)
             // this.#ingredientList.push(elementTemplate.value)
             // this.#onUpdate('ingredients', this.#ingredientList)
             // console.log(this.#preparationList)
-            this.onUpdate('preparationList', this.#preparationList)
+            
             
             // form.reset()
             // this.#formIngredient = ''
             // this.#form.querySelector('#custom_ingredient').value = ''
             
-            const success = 'Votre préparation a été validée'
+            
             // new Toaster(success, 'Succès')
-            this.#formButton.disabled = false
+            
         } catch (error) {
             new Toaster(error.message, 'Erreur')
         }
