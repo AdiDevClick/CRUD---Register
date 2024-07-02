@@ -1,6 +1,0 @@
-Errors : [2] Undefined variable $new_name - C:\xampp\htdocs\Recettes\recipes\Process_PreparationList.php:131
-Errors : [2] Undefined variable $file - C:\xampp\htdocs\Recettes\recipes\Process_PreparationList.php:132
-Errors : [2] Undefined variable $isImageSent - C:\xampp\htdocs\Recettes\recipes\Process_PreparationList.php:134
-Errors : [2] Undefined variable $new_name - C:\xampp\htdocs\Recettes\recipes\Process_PreparationList.php:131
-Errors : [2] Undefined variable $file - C:\xampp\htdocs\Recettes\recipes\Process_PreparationList.php:132
-Errors : [2] Undefined variable $isImageSent - C:\xampp\htdocs\Recettes\recipes\Process_PreparationList.php:134

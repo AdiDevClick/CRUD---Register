@@ -13,6 +13,23 @@
 
 CREATE DATABASE IF NOT EXISTS `we_love_food`;
 USE `we_love_food`;
+
+-- -------------------------------------------------------
+
+--
+-- Structure de la table `images`
+--
+
+CREATE TABLE IF NOT EXISTS `images` (
+  `image_id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `recipe_id` int(11) NOT NULL,
+  `img_path` text NOT NULL,
+  `img_name` text NOT NULL,
+  `created_at` DATETIME NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`image_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
 -- -------------------------------------------------------
 
 --
@@ -31,9 +48,6 @@ CREATE TABLE IF NOT EXISTS `comments` (
   PRIMARY KEY (`comment_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-
-
-
 -- --------------------------------------------------------
 
 --
@@ -48,7 +62,6 @@ CREATE TABLE IF NOT EXISTS `pwdreset` (
   `pwdReset_expires` text NOT NULL,
   PRIMARY KEY (`pwdReset_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
 
 -- --------------------------------------------------------
 
@@ -86,7 +99,6 @@ CREATE TABLE IF NOT EXISTS `recipes` (
   PRIMARY KEY (`recipe_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-
 -- --------------------------------------------------------
 
 --
@@ -101,6 +113,8 @@ CREATE TABLE IF NOT EXISTS `users` (
   `age` int(11) NOT NULL,
   PRIMARY KEY (`user_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
 
 --
 -- Déchargement des données de la table `comments`
