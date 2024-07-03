@@ -37,7 +37,7 @@ class CheckInput extends Validate
             foreach ($this->getDatas as $key => $value) {
                 $result = false;
                 // try {
-                if ($key !== 'custom_ingredients' && $key !== 'step_6' && $key !== 'step_5' && $key !== 'step_4' && $key !== 'step_3' && $key !== 'step_2' && $key !== 'file' && $key !== 'img_on_server' && $key !== 'img_status') {
+                if ($key !== 'custom_ingredients' && $key !== 'step_6' && $key !== 'step_5' && $key !== 'step_4' && $key !== 'step_3' && $key !== 'step_2' && $key !== 'file' && $key !== 'img_on_server' && $key !== 'img_status' && $key !== 'recipe_id') {
                     $result = true;
                     if (empty($value) || !isset($key)) {
                         array_push(self::$errorsArray, "Votre $key est vide");
