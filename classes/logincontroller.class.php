@@ -267,7 +267,7 @@ class LoginController extends Login
             // }
 
 
-            if(isset($_COOKIE['EMAIL'])) {
+            if (isset($_COOKIE['EMAIL'])) {
                 $loggedUser['email'] = $_COOKIE['EMAIL'];
             }
             if (isset($_COOKIE['FULLNAME'])) {
@@ -276,19 +276,15 @@ class LoginController extends Login
             if (isset($_COOKIE['USER_ID'])) {
                 $loggedUser['userId'] = $_COOKIE['USER_ID'];
             }
-            if  (isset($_SESSION['LOGGED_USER'])) {
+            if (isset($_SESSION['LOGGED_USER'])) {
                 // echo'voici le session user => '. $_SESSION['LOGGED_USER'][0] . '<==';
                 $loggedUser['user'] = $_SESSION['LOGGED_USER'];
             }
             if (isset($_COOKIE['REGISTERED_RECIPE']) || isset($_SESSION['REGISTERED_RECIPE'])) {
-                $loggedUser = [
-                    'email' => $_COOKIE['REGISTERED_RECIPE'] ?? $_SESSION['REGISTERED_RECIPE'],
-                ];
+                $loggedUser['recipe'] = $_COOKIE['REGISTERED_RECIPE'] ?? $_SESSION['REGISTERED_RECIPE'];
             }
             if (isset($_COOKIE['REGISTERED_USER']) || isset($_SESSION['REGISTERED_USER'])) {
-                $loggedUser = [
-                    'email' => $_COOKIE['REGISTERED_USER'] ?? $_SESSION['REGISTERED_USER'],
-                ];
+                $loggedUser['registeredUser'] = $_COOKIE['REGISTERED_USER'] ?? $_SESSION['REGISTERED_USER'];
             } else {
                 //throw new Error("Veuillez vous identifier pour ajouter une recette" . header('Location:'.Functions::getUrl().'?error=no-loggedin'));
                 //throw new Error("Veuillez vous identifier pour ajouter une recette");

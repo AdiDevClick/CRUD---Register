@@ -90,18 +90,21 @@ class RecipeController extends Recipe
                         $custom_ingredients,
                         $loggedUser['email']
                     );
-                    $data = ['recipeId' => $id, 'fileName' => $this->getData['file'], 'filePath' => $this->getData['file_path']];
+                    $data = $id;
+                    // $data = ['recipeId' => $id, 'fileName' => $this->getData['file'], 'filePath' => $this->getData['file_path']];
+                    // return $data;
+                    // $this->setImages($data);
+                    // echo json_encode(['status' => 'success', 'img_status' => $this->getData['img_status'], 'is_on_server' => $this->getData['img_on_server']]);
 
-                    $this->setImages($data);
                     // echo json_encode('window.location.href = ../index.php?success=recipe-shared');
                     // echo json_encode(header('refresh:10, ../index.php?success=recipe-shared'));
                     // echo 'window.location.href = ../index.php?success=recipe-shared';
                     // echo 'window.location.href = ../index.php?success=recipe-shared';
-                    echo json_encode(['status' => 'success', 'img_status' => $this->getData['img_status'], 'is_on_server' => $this->getData['img_on_server']]);
                     // echo json_encode(['status' => 'success','message' => 'test']);
                 } else {
                     // echo "<pre>";
-                    echo json_encode($checkInput->getErrorsArray());
+                    $data = $checkInput->getErrorsArray();
+                    // echo json_encode($checkInput->getErrorsArray());
                     // print_r($checkInput->getErrorsArray());
                     // echo "</pre>";
                     // header('refresh:10, ../index.php?success=recipe-shared');
@@ -115,7 +118,8 @@ class RecipeController extends Recipe
                 ];
                 $_SESSION['REGISTERED_RECIPE'] = $registeredRecipe;
 
-                return $registeredRecipe;
+                return $data;
+                // return $registeredRecipe;
             }
         } catch (Error $e) {
             die('Erreur : '. $e->getMessage() . ' , Insertion de la recette dans la DB impossible') ;
@@ -545,7 +549,7 @@ class RecipeController extends Recipe
                 ];
                 $_SESSION['REGISTERED_IMG'] = $registeredImage;
                 //header("Location: ".Functions::getUrl()."?error=none") ; */
-                return $registeredImage;
+                // return $registeredImage;
             }
         }
     }

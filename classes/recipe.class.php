@@ -469,7 +469,7 @@ class Recipe extends Mysql
     /**
      * Insert images
      */
-    protected function insertImages(int $recipeId, int $userId, $imgName, $imgPath)
+    protected function insertImages($recipeId, int $userId, $imgName, $imgPath)
     {
         $sqlRecipe = 'INSERT INTO images(recipe_id, user_id, img_name, img_path) VALUES (:recipe_id, :user_id, :img_name, :img_path);';
         $insertCommentsStatment = $this->connect()->prepare($sqlRecipe);
@@ -492,9 +492,8 @@ class Recipe extends Mysql
 
     /**
      * Find the Image assiociated by the recipe ID
-     *
-     * @param [type] $recipeId
-     * @return void
+     * @param array $recipeId
+     * @return array
      */
     public function getRecipesWithImagesById($recipeId)
     {

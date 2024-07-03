@@ -36,12 +36,13 @@
 } */
 function makeDir($path)
 {
-    return is_dir($path) || mkdir($path);
+    return is_dir($path) || mkdir($path, 0777, true);
 }
 function displayAuthor(string $authorEmail)
 {
     //require_once("includes/class-autoloader.inc.php");
-    $users = new LoginView('','','','');
+    $users = new LoginView('');
+    // $users = new LoginView('', '', '', '');
     foreach ($users->displayUsers($authorEmail) as $user) {
         if ($authorEmail === $user['email']) {
             return $user["full_name"];
