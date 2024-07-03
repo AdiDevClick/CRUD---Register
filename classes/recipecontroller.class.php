@@ -103,8 +103,9 @@ class RecipeController extends Recipe
                     // echo json_encode(['status' => 'success','message' => 'test']);
                 } else {
                     // echo "<pre>";
-                    $data = $checkInput->getErrorsArray();
-                    // echo json_encode($checkInput->getErrorsArray());
+                    // $data = $checkInput->getErrorsArray();
+                    echo json_encode($checkInput->getErrorsArray());
+                    // $data = new Error('Erreur : ' . $checkInput->getErrorsArray());
                     // print_r($checkInput->getErrorsArray());
                     // echo "</pre>";
                     // header('refresh:10, ../index.php?success=recipe-shared');
@@ -389,7 +390,6 @@ class RecipeController extends Recipe
                 //return $this->updateRecipes($this->getData, $this->getData, $this->getData);
                 //return $this->updateRecipes($title, $recipe, $id);
                 return $recipeId;
-
             }
             //unset($recipeId);
         } catch (Error $e) {

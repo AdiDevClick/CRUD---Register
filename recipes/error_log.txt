@@ -1,0 +1,41 @@
+Errors : [2] Array to string conversion - C:\xampp\htdocs\Recettes\classes\Process_Ajax.class.php:65
+Errors : [2] Array to string conversion - C:\xampp\htdocs\Recettes\classes\Process_Ajax.class.php:65
+Errors : [2] Array to string conversion - C:\xampp\htdocs\Recettes\classes\Process_Ajax.class.php:66
+Errors : [2] Array to string conversion - C:\xampp\htdocs\Recettes\classes\Process_Ajax.class.php:66
+Errors : [2] Array to string conversion - C:\xampp\htdocs\Recettes\classes\Process_Ajax.class.php:66
+Errors : [2] Array to string conversion - C:\xampp\htdocs\Recettes\classes\RecipeController.class.php:107
+Errors : [2] mkdir(): No such file or directory - C:\xampp\htdocs\Recettes\includes\functions.inc.php:39
+Errors : [2] move_uploaded_file(../uploads/ptitbarba@hotmail.com/recipes_images/Error: Erreur : Array in C:\xampp\htdocs\Recettes\classes\RecipeController.class.php:107
+Stack trace:
+#0 C:\xampp\htdocs\Recettes\classes\RecipeView.class.php(12): RecipeController-&gt;insertRecipes2()
+#1 C:\xampp\htdocs\Recettes\classes\Process_Ajax.class.php(54): RecipeView-&gt;insertRecipeTest()
+#2 C:\xampp\htdocs\Recettes\recipes\Process_PreparationList.php(25): Process_Ajax-&gt;__construct(Array, Array, true, NULL)
+#3 {main}/1720044704.jpg): Failed to open stream: No such file or directory - C:\xampp\htdocs\Recettes\classes\Process_Ajax.class.php:70
+Errors : [2] move_uploaded_file(): Unable to move &quot;C:\xampp\tmp\phpAFC1.tmp&quot; to &quot;../uploads/ptitbarba@hotmail.com/recipes_images/Error: Erreur : Array in C:\xampp\htdocs\Recettes\classes\RecipeController.class.php:107
+Stack trace:
+#0 C:\xampp\htdocs\Recettes\classes\RecipeView.class.php(12): RecipeController-&gt;insertRecipes2()
+#1 C:\xampp\htdocs\Recettes\classes\Process_Ajax.class.php(54): RecipeView-&gt;insertRecipeTest()
+#2 C:\xampp\htdocs\Recettes\recipes\Process_PreparationList.php(25): Process_Ajax-&gt;__construct(Array, Array, true, NULL)
+#3 {main}/1720044704.jpg&quot; - C:\xampp\htdocs\Recettes\classes\Process_Ajax.class.php:70
+Errors : [2] Array to string conversion - C:\xampp\htdocs\Recettes\classes\RecipeController.class.php:107
+Errors : [2] mkdir(): No such file or directory - C:\xampp\htdocs\Recettes\includes\functions.inc.php:39
+Errors : [2] move_uploaded_file(../uploads/ptitbarba@hotmail.com/recipes_images/Error: Erreur : Array in C:\xampp\htdocs\Recettes\classes\RecipeController.class.php:107
+Stack trace:
+#0 C:\xampp\htdocs\Recettes\classes\RecipeView.class.php(12): RecipeController-&gt;insertRecipes2()
+#1 C:\xampp\htdocs\Recettes\classes\Process_Ajax.class.php(54): RecipeView-&gt;insertRecipeTest()
+#2 C:\xampp\htdocs\Recettes\recipes\Process_PreparationList.php(25): Process_Ajax-&gt;__construct(Array, Array, true, NULL)
+#3 {main}/1720044727.jpg): Failed to open stream: No such file or directory - C:\xampp\htdocs\Recettes\classes\Process_Ajax.class.php:68
+Errors : [2] move_uploaded_file(): Unable to move &quot;C:\xampp\tmp\phpAE2.tmp&quot; to &quot;../uploads/ptitbarba@hotmail.com/recipes_images/Error: Erreur : Array in C:\xampp\htdocs\Recettes\classes\RecipeController.class.php:107
+Stack trace:
+#0 C:\xampp\htdocs\Recettes\classes\RecipeView.class.php(12): RecipeController-&gt;insertRecipes2()
+#1 C:\xampp\htdocs\Recettes\classes\Process_Ajax.class.php(54): RecipeView-&gt;insertRecipeTest()
+#2 C:\xampp\htdocs\Recettes\recipes\Process_PreparationList.php(25): Process_Ajax-&gt;__construct(Array, Array, true, NULL)
+#3 {main}/1720044727.jpg&quot; - C:\xampp\htdocs\Recettes\classes\Process_Ajax.class.php:68
+Errors : [2] mkdir(): No such file or directory - C:\xampp\htdocs\Recettes\includes\functions.inc.php:39
+Errors : [2] move_uploaded_file(../uploads/ptitbarba@hotmail.com/recipes_images/[&quot;Votre recipe_id est vide&quot;]/1720044759.jpg): Failed to open stream: No such file or directory - C:\xampp\htdocs\Recettes\classes\Process_Ajax.class.php:68
+Errors : [2] move_uploaded_file(): Unable to move &quot;C:\xampp\tmp\php8505.tmp&quot; to &quot;../uploads/ptitbarba@hotmail.com/recipes_images/[&quot;Votre recipe_id est vide&quot;]/1720044759.jpg&quot; - C:\xampp\htdocs\Recettes\classes\Process_Ajax.class.php:68
+Errors : [2] Undefined variable $data - C:\xampp\htdocs\Recettes\classes\RecipeController.class.php:123
+Errors : [2] mkdir(): No such file or directory - C:\xampp\htdocs\Recettes\includes\functions.inc.php:39
+Errors : [2] move_uploaded_file(../uploads/ptitbarba@hotmail.com/recipes_images/[&quot;Votre recipe_id est vide&quot;]/1720044925.jpg): Failed to open stream: No such file or directory - C:\xampp\htdocs\Recettes\classes\Process_Ajax.class.php:68
+Errors : [2] move_uploaded_file(): Unable to move &quot;C:\xampp\tmp\phpF6B.tmp&quot; to &quot;../uploads/ptitbarba@hotmail.com/recipes_images/[&quot;Votre recipe_id est vide&quot;]/1720044925.jpg&quot; - C:\xampp\htdocs\Recettes\classes\Process_Ajax.class.php:68
+Errors : [2] Undefined variable $data - C:\xampp\htdocs\Recettes\classes\RecipeController.class.php:122

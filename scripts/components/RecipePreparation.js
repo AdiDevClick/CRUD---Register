@@ -220,25 +220,26 @@ export class IngredientsFrom {
         //     // no
         //     return
         // }
-        for (let [key, value] of data) {
-            if (key === 'custom_ingredient') {
-                data.set('custom_ingredient', this.#list)
-            }
-            if (key === 'file' && value.name) {
-                // check file type
-                if (!this.#allowedFiles.includes(value.type)) {
-                    new Toaster('Ce type de fichier n\'est pas autorisé. Veuillez n\'utiliser que : JPG, JPEG, PNG ou GIF', 'Erreur')
-                    form.querySelector("input[name='file']").value = '';
-                    return
-                }
-                // check file size (< 10MB)
-                if (value.size > 10 * 1024 * 1024) {
-                    new Toaster('Votre fichier ne peut dépasser 10MB', 'Erreur')
-                    form.querySelector("input[name='file']").value = ''
-                    return
-                }
-            }
-        }
+        this.#modifyFormDataValues(form, data)
+        // for (let [key, value] of data) {
+        //     if (key === 'custom_ingredient') {
+        //         data.set('custom_ingredient', this.#list)
+        //     }
+        //     if (key === 'file' && value.name) {
+        //         // check file type
+        //         if (!this.#allowedFiles.includes(value.type)) {
+        //             new Toaster('Ce type de fichier n\'est pas autorisé. Veuillez n\'utiliser que : JPG, JPEG, PNG ou GIF', 'Erreur')
+        //             form.querySelector("input[name='file']").value = '';
+        //             return
+        //         }
+        //         // check file size (< 10MB)
+        //         if (value.size > 10 * 1024 * 1024) {
+        //             new Toaster('Votre fichier ne peut dépasser 10MB', 'Erreur')
+        //             form.querySelector("input[name='file']").value = ''
+        //             return
+        //         }
+        //     }
+        // }
         // data.append('isSentAlready', this.#isSentAlready)
         try {
             if (!this.#isSentAlready) {
@@ -253,11 +254,13 @@ export class IngredientsFrom {
                 if (this.#ingredientList.status === 'success') {
                     window.location.assign('../index.php?success=recipe-shared')
                 }
-                this.#preparationList.formData = this.#ingredientList
-                this.#preparationList.ingredients = this.#list
-                this.onUpdate('preparationList', this.#preparationList)
-                const success = 'Votre préparation a été validée'
-                this.#formButton.disabled = false
+                this.#saveIngredientListToStorage()
+
+                // this.#preparationList.formData = this.#ingredientList
+                // this.#preparationList.ingredients = this.#list
+                // this.onUpdate('preparationList', this.#preparationList)
+                // const success = 'Votre préparation a été validée'
+                // this.#formButton.disabled = false
             } else {
                 window.location.assign('../index.php?success=recipe-shared')
                 new Toaster('Un envoi a déjà été effectué', 'Erreur')
@@ -349,14 +352,15 @@ export class IngredientsFrom {
         // pour pouvoir faire passer la liste dynamique des ingrédients
         // ajoutés par l'utilisateur au format JSON dans la
         // database en même-temps que les données inputs
-        for (let [key, value] of data) {
-            if (key === 'custom_ingredient') {
-                data.set('custom_ingredient', this.#list)
-            }
-            if (key === 'file' && value.name) {
-                data.set('file', Date.now())
-            }
-        }
+        // for (let [key, value] of data) {
+        //     if (key === 'custom_ingredient') {
+        //         data.set('custom_ingredient', this.#list)
+        //     }
+        //     if (key === 'file' && value.name) {
+        //         data.set('file', Date.now())
+        //     }
+        // }
+        this.#modifyFormDataValues(form, data)
 
         try {
             // console.log('je suis dans le submit update')
@@ -367,15 +371,46 @@ export class IngredientsFrom {
             })
             console.log(this.#ingredientList)
             if (this.#ingredientList.status === 'success') window.location.assign('../index.php?success=recipe-updated')
-            this.#preparationList.formData = this.#ingredientList
-            this.#preparationList.ingredients = this.#list
-            this.onUpdate('preparationList', this.#preparationList)
-            const success = 'Votre préparation a été validée'
-            this.#formButton.disabled = false
+            this.#saveIngredientListToStorage()
+                // this.#preparationList.formData = this.#ingredientList
+            // this.#preparationList.ingredients = this.#list
+            // this.onUpdate('preparationList', this.#preparationList)
+            // const success = 'Votre préparation a été validée'
+            // this.#formButton.disabled = false
         } catch (error) {
-            console.log(error)
+            // console.log(error)
             new Toaster(error.message, 'Erreur')
         }
+    }
+
+    #modifyFormDataValues(form, formData) {
+        for (let [key, value] of formData) {
+            if (key === 'custom_ingredient') {
+                formData.set('custom_ingredient', this.#list)
+            }
+            if (key === 'file' && value.name) {
+                // check file type
+                if (!this.#allowedFiles.includes(value.type)) {
+                    new Toaster('Ce type de fichier n\'est pas autorisé. Veuillez n\'utiliser que : JPG, JPEG, PNG ou GIF', 'Erreur')
+                    form.querySelector("input[name='file']").value = '';
+                    return
+                }
+                // check file size (< 10MB)
+                if (value.size > 10 * 1024 * 1024) {
+                    new Toaster('Votre fichier ne peut dépasser 10MB', 'Erreur')
+                    form.querySelector("input[name='file']").value = ''
+                    return
+                }
+            }
+        }
+    }
+
+    #saveIngredientListToStorage() {
+        this.#preparationList.formData = this.#ingredientList
+        this.#preparationList.ingredients = this.#list
+        this.onUpdate('preparationList', this.#preparationList)
+        const success = 'Votre préparation a été validée'
+        this.#formButton.disabled = false
     }
 
     /**
