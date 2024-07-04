@@ -2,7 +2,7 @@
 
 class Process_Ajax 
 {
-    private bool $isImageSent;
+    private bool $isImageSent = false;
     private array $getDatas;
     private bool $isImageAlreadyOnServer = false;
     private string $send_Status;
@@ -82,8 +82,8 @@ class Process_Ajax
                     // echo "Déjà envoyé..";
                 }
                 // print_r($this->$Post_Files['file']);
-                echo json_encode(['status' => $this->send_Status, 'img_status' => $this->isImageSent, 'is_on_server' => $this->isImageAlreadyOnServer]);
             }
+            echo json_encode(['status' => $this->send_Status, 'img_status' => $this->isImageSent, 'is_on_server' => $this->isImageAlreadyOnServer]);
         }
     }
 }

@@ -242,9 +242,10 @@ class Recipe extends Mysql
         $recipe = $getRecipesIdStatement->fetch(PDO::FETCH_ASSOC);
         echo json_encode($recipe);
         // echo json_encode(['status' => 'failed']);
-
+        die();
         // print_r($recipe);
         // exit;
+        // return json_encode($recipe);
     }
 
     protected function getRecipesTitles($recipes)

@@ -13,23 +13,23 @@
 
 // $rootUrl = Functions::getRootUrl();
 // // echo $rootUrl;
-$data = $_SERVER['REQUEST_METHOD'] === 'POST';
+$data = $_SERVER['REQUEST_METHOD'] === 'GET';
 $err = [];
 $loggedUser = [];
-
 /***
  * Grabbing URL ID from index page and fetching rows datas
  */
-if(isset($_GET['id']) && is_numeric($_GET['id'])) {
+if($data && isset($_GET['id']) && is_numeric($_GET['id'])) {
+
     $getDatas = $_GET['id'];
     $checkId = new RecipeView($getDatas);
     $getInfos = $checkId->getRecipeInfoById();
     // echo $getInfos['custom_ingredients'];
+    // print_r($getInfos);
 } else {
     // echo ('pas did');
     // echo $_GET['id'] . 'test';
     // print_r($_GET);
-    echo 'mouais';
     header('Location: ../index.php?error=no-update-id');
 }
 

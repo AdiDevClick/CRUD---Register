@@ -12,12 +12,16 @@ $data = $_SERVER['REQUEST_METHOD'] === 'POST';
 // isset($_GET['id']) ?: $getIdDatas = $_GET['id'];
 $getIdDatas;
 $is_Post = true;
+// if (isset($_GET['id'])) {
+if ($fetchData && isset($_GET['id'])) {
+    $getIdDatas = $_GET['id'];
+    $setRecipe = new RecipeView($getIdDatas);
+    $setRecipe->fetchIngredientsById();
+}
+
 if (isset($_GET['id'])) {
-// if ($fetchData && isset($_GET['id'])) {
     $getIdDatas = $_GET['id'];
     $is_Post = false;
-    // $setRecipe = new RecipeView($getIdDatas);
-    // $setRecipe->fetchIngredientsById();
 }
 
 if ($data && isset($_POST)) {

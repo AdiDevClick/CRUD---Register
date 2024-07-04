@@ -10,7 +10,7 @@ class RecipeController extends Recipe
     protected function insertRecipes2()
     {
         try {
-            print_r($this->getData);
+            // print_r($this->getData);
             $loggedUser = LoginController::checkLoggedStatus();
             if  (!isset($loggedUser)) {
                 throw new Error("LGGDUSROFF  : Veuillez vous identifier avant de partager une recette.") ;
@@ -284,7 +284,6 @@ class RecipeController extends Recipe
                 $recipeId = [
                     'recipeInfos' => $this->getData
                 ];
-
                 $_SESSION['INFO_RECIPE'] = $recipeId;
                 return $this->getRecipesInfosById($this->getData);
             }
@@ -381,7 +380,7 @@ class RecipeController extends Recipe
                         $custom_ingredients,
                         $id
                     );
-                    echo json_encode(['update_status' => 'success']);
+                    // echo json_encode(['update_status' => 'success']);
                 } else {
                     echo json_encode($checkInput->getErrorsArray());
                 }

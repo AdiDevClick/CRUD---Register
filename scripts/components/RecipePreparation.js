@@ -232,9 +232,9 @@ export class IngredientsFrom {
                 })
                 this.#ingredientList.img_status ? this.#isSentAlready = true : this.#isSentAlready = false
                 this.#ingredientList.img_on_server ? this.#isSentAlready = true : null
-                
                 if (this.options.get) {
                     if (this.#ingredientList.status === 'success') window.location.assign('../index.php?success=recipe-updated')
+                    if (this.#ingredientList.update_status === 'success') window.location.assign('../index.php?success=recipe-updated')
                 }
                 if (this.options.post) {
                     if (this.#ingredientList.status === 'success') window.location.assign('../index.php?success=recipe-shared')
