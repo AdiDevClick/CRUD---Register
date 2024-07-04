@@ -5,6 +5,7 @@ class Process_Ajax
     private bool $isImageSent;
     private array $getDatas;
     private bool $isImageAlreadyOnServer = false;
+    private string $send_Status;
 
     public function __construct(
         private array $Post_Data,
@@ -40,7 +41,8 @@ class Process_Ajax
                 'ingredient5' => $this->Post_Data['ingredient5'],
                 'ingredient6' => $this->Post_Data['ingredient6'],
                 'custom_ingredients' => $this->Post_Data['custom_ingredient'],
-                $this->Get_Id ?: 'recipe_id' => $this->Get_Id
+                // $this->Get_Id ?: 'recipe_id' => $this->Get_Id
+                'recipe_id' => $this->Get_Id
                 // Envoi toutes les données reçues au format JSON vers le serveur -
                 // Les données ont préalablement été vérifiées en JavaScript mais
                 // il ne faudra pas oublier de sanitize on use -
@@ -49,9 +51,10 @@ class Process_Ajax
                 // de réencoder en JSON si nécessaire
                 // 'persons' => json_encode($dataTest)
             ];
-            print_r($this->getDatas);
+            // print_r($this->getDatas);
             $setRecipe = new RecipeView($this->getDatas);
             $this->is_Post ? $recipeId = $setRecipe->insertRecipeTest() : $recipeId = $setRecipe->updateRecipeInfoById();
+            $this->send_Status = 'success';
             if ($this->Post_Files['file'] && $this->Post_Files['file']['error'] == 0) {
                 // On vérifie que le fichier ne pèse pas plus d'10Mo
                 if ($this->Post_Files['file']['size'] < 10 * 1024 * 1024) {
@@ -69,6 +72,7 @@ class Process_Ajax
                         $this->isImageSent = true;
                         $image_Data = ['recipeId' => $recipeId, 'fileName' => $new_name, 'filePath' => $file];
                         $setRecipe->insertImage($image_Data);
+                        $this->send_Status = 'success';
                     } else {
                         $this->isImageSent = false;
                         // echo "Votre fichier n'est pas compatible";
@@ -78,7 +82,7 @@ class Process_Ajax
                     // echo "Déjà envoyé..";
                 }
                 // print_r($this->$Post_Files['file']);
-                echo json_encode(['status' => 'success', 'img_status' => $this->isImageSent, 'is_on_server' => $this->isImageAlreadyOnServer]);
+                echo json_encode(['status' => $this->send_Status, 'img_status' => $this->isImageSent, 'is_on_server' => $this->isImageAlreadyOnServer]);
             }
         }
     }

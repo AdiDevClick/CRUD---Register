@@ -10,20 +10,24 @@ include_once('../includes/functions.inc.php');
 $fetchData = $_SERVER['REQUEST_METHOD'] === 'GET';
 $data = $_SERVER['REQUEST_METHOD'] === 'POST';
 // isset($_GET['id']) ?: $getIdDatas = $_GET['id'];
-// $getIdDatas;
-if ($fetchData && isset($_GET['id'])) {
+$getIdDatas;
+$is_Post = true;
+if (isset($_GET['id'])) {
+// if ($fetchData && isset($_GET['id'])) {
     $getIdDatas = $_GET['id'];
-    $setRecipe = new RecipeView($getIdDatas);
-    $setRecipe->fetchIngredientsById();
+    $is_Post = false;
+    // $setRecipe = new RecipeView($getIdDatas);
+    // $setRecipe->fetchIngredientsById();
 }
 
 if ($data && isset($_POST)) {
     header('Content-Type: application/json; charset=utf-8');
     $content = file_get_contents("php://input");
     $dataTest = json_decode($content, true);
-    $is_Post = true;
+    // !$is_Post ? null : $is_Post = true;
     $process_Ingredients = new Process_Ajax($dataTest ?? $_POST, $_FILES, $is_Post, $getIdDatas ?? null); 
     $err = CheckInput::getErrorMessages();
+    // exit;
     if (count($err) > 0) {
         // print_r($err);
         $errorMessage = CheckInput::showErrorMessage();

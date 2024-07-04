@@ -10,6 +10,7 @@ class RecipeController extends Recipe
     protected function insertRecipes2()
     {
         try {
+            print_r($this->getData);
             $loggedUser = LoginController::checkLoggedStatus();
             if  (!isset($loggedUser)) {
                 throw new Error("LGGDUSROFF  : Veuillez vous identifier avant de partager une recette.") ;
@@ -283,6 +284,7 @@ class RecipeController extends Recipe
                 $recipeId = [
                     'recipeInfos' => $this->getData
                 ];
+
                 $_SESSION['INFO_RECIPE'] = $recipeId;
                 return $this->getRecipesInfosById($this->getData);
             }
@@ -320,7 +322,6 @@ class RecipeController extends Recipe
                 $checkInput = new CheckInput(
                     $this->getData
                 );
-                // print_r($this->getData);
                 $title = $checkInput->test_input($this->getData['title']);
                 $step_1 = $checkInput->test_input($this->getData["step_1"]);
                 $step_2 = $checkInput->test_input($this->getData["step_2"]);
@@ -343,7 +344,7 @@ class RecipeController extends Recipe
                 $persons = $checkInput->test_input($this->getData["persons"]);
                 $custom_ingredients = $checkInput->test_input($this->getData["custom_ingredients"]);
                 $id = $checkInput->test_input($this->getData["recipe_id"]);
-                $file = $checkInput->test_input($this->getData["file"]);
+                // $file = $checkInput->test_input($this->getData["file"]);
                 $checkInput->checkInputs();
                 // exit;
                 /* $title = $checkInput->test_input($this->getData["title"]);
@@ -353,6 +354,8 @@ class RecipeController extends Recipe
                 $recipe = $checkInput->test_input($recipe);
                 $checkInput->checkInputs(); */
                 // echo $id;
+                // print_r($this->getData);
+                // return;
                 if (empty($checkInput->getErrorsArray())) {
                     $this->updateRecipes(
                         $title,
@@ -378,18 +381,20 @@ class RecipeController extends Recipe
                         $custom_ingredients,
                         $id
                     );
-                    echo json_encode(['status' => 'success']);
+                    echo json_encode(['update_status' => 'success']);
                 } else {
                     echo json_encode($checkInput->getErrorsArray());
                 }
                 $recipeId = [
                     'updatedRecipeInfos' => $this->getData
-                    //'updatedRecipeInfos' => $id
+                    // 'updatedRecipeInfos' => $id
                 ];
                 $_SESSION['UPDATED_RECIPE'] = $recipeId;
                 //return $this->updateRecipes($this->getData, $this->getData, $this->getData);
                 //return $this->updateRecipes($title, $recipe, $id);
-                return $recipeId;
+                // echo $id . ' < id';
+                return $id;
+                // return $recipeId;
             }
             //unset($recipeId);
         } catch (Error $e) {

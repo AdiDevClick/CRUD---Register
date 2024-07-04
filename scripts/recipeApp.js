@@ -34,7 +34,8 @@ if (queryString.toString().includes("create_recipes.php")) {
 if (queryString.toString().includes("update_recipes.php")) {
     try {
         const id = urlParams.get('id')
-        const url = 'Process_Updated_PreparationList.php?id='+id
+        const url = 'Process_PreparationList.php?id='+id
+        // const url = 'Process_Updated_PreparationList.php?id='+id
         const fetchedIngredients = await fetchJSON(url, {
             method: 'GET'
         })

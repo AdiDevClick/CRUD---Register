@@ -27,6 +27,9 @@ if(isset($_GET['id']) && is_numeric($_GET['id'])) {
     // echo $getInfos['custom_ingredients'];
 } else {
     // echo ('pas did');
+    // echo $_GET['id'] . 'test';
+    // print_r($_GET);
+    echo 'mouais';
     header('Location: ../index.php?error=no-update-id');
 }
 

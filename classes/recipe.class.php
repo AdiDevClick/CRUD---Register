@@ -342,7 +342,6 @@ class Recipe extends Mysql
             custom_ingredients = :custom_ingredients
         WHERE recipe_id = :recipe_id;';
         // echo 'test';
-        // return;
         $updateRecipeStatement = $this->connect()->prepare($sqlQuery);
         // print_r($updateRecipeStatement);
         if (!$updateRecipeStatement->execute([

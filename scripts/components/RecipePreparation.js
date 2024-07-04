@@ -87,20 +87,25 @@ export class IngredientsFrom {
             whichInputCanBeEmpty: ['custom_ingredient', 'step_3', 'step_4', 'step_5', 'step_6', 'file'],
             useMyOwnListener: true
         })
-        if (this.options.post) {
-            this.#form.addEventListener('submit', e => {
-                e.preventDefault()
-                if (!passedInputs.checkInputs) return
-                this.#onSubmit(e)
-            })
-        }
-        if (this.options.get) {
-            this.#form.addEventListener('submit', e => {
-                e.preventDefault()
-                if (!passedInputs.checkInputs) return
-                this.#onRecipeUpdate(e)
-            })
-        }
+        this.#form.addEventListener('submit', e => {
+            e.preventDefault()
+            if (!passedInputs.checkInputs) return
+            this.#onSubmit(e)
+        })
+        // if (this.options.post) {
+        //     this.#form.addEventListener('submit', e => {
+        //         e.preventDefault()
+        //         if (!passedInputs.checkInputs) return
+        //         this.#onSubmit(e)
+        //     })
+        // }
+        // if (this.options.get) {
+        //     this.#form.addEventListener('submit', e => {
+        //         e.preventDefault()
+        //         if (!passedInputs.checkInputs) return
+        //         this.#onRecipeUpdate(e)
+        //     })
+        // }
 
         this.#formButton.addEventListener('click', this.#addNewIngredient.bind(this))
     }
@@ -204,14 +209,10 @@ export class IngredientsFrom {
      * @param {SubmitEvent} e
      */
     async #onSubmit(e) {
-        // e.preventDefault()
         const form = e.target
-        // const form = e.currentTarget
-        // new ErrorHandler(form, {
-        //     whichInputCanBeEmpty: ['custom_ingredient', 'step_3', 'step_4', 'step_5', 'step_6']
-        // })
-        
         let data = new FormData(form)
+        let url = this.options.get ? this.#url : 'Process_PreparationList.php'
+        // console.log(url)
         // Modification de la clé 'custom_ingredient'
         // pour pouvoir faire passer la liste dynamique des ingrédients
         // ajoutés par l'utilisateur au format JSON dans la
@@ -221,29 +222,9 @@ export class IngredientsFrom {
         //     return
         // }
         this.#modifyFormDataValues(form, data)
-        // for (let [key, value] of data) {
-        //     if (key === 'custom_ingredient') {
-        //         data.set('custom_ingredient', this.#list)
-        //     }
-        //     if (key === 'file' && value.name) {
-        //         // check file type
-        //         if (!this.#allowedFiles.includes(value.type)) {
-        //             new Toaster('Ce type de fichier n\'est pas autorisé. Veuillez n\'utiliser que : JPG, JPEG, PNG ou GIF', 'Erreur')
-        //             form.querySelector("input[name='file']").value = '';
-        //             return
-        //         }
-        //         // check file size (< 10MB)
-        //         if (value.size > 10 * 1024 * 1024) {
-        //             new Toaster('Votre fichier ne peut dépasser 10MB', 'Erreur')
-        //             form.querySelector("input[name='file']").value = ''
-        //             return
-        //         }
-        //     }
-        // }
-        // data.append('isSentAlready', this.#isSentAlready)
         try {
             if (!this.#isSentAlready) {
-                this.#ingredientList = await fetchJSON('Process_PreparationList.php', {
+                this.#ingredientList = await fetchJSON(url, {
                     method: 'POST',
                     // json: data,
                     body: data,
@@ -251,88 +232,21 @@ export class IngredientsFrom {
                 })
                 this.#ingredientList.img_status ? this.#isSentAlready = true : this.#isSentAlready = false
                 this.#ingredientList.img_on_server ? this.#isSentAlready = true : null
-                if (this.#ingredientList.status === 'success') {
-                    window.location.assign('../index.php?success=recipe-shared')
+                
+                if (this.options.get) {
+                    if (this.#ingredientList.status === 'success') window.location.assign('../index.php?success=recipe-updated')
+                }
+                if (this.options.post) {
+                    if (this.#ingredientList.status === 'success') window.location.assign('../index.php?success=recipe-shared')
                 }
                 this.#saveIngredientListToStorage()
-
-                // this.#preparationList.formData = this.#ingredientList
-                // this.#preparationList.ingredients = this.#list
-                // this.onUpdate('preparationList', this.#preparationList)
-                // const success = 'Votre préparation a été validée'
-                // this.#formButton.disabled = false
             } else {
                 window.location.assign('../index.php?success=recipe-shared')
                 new Toaster('Un envoi a déjà été effectué', 'Erreur')
             }
-            // this.#ingredientList = await fetchJSON(this.#endpoint, {
-            // this.#ingredientList = await fetchJSON('test.php', {
-            
-            // this.#ingredientList = await fetchJSON('Process_PreparationList.php', {
-            //     method: 'POST',
-            //     json: data,
-            //     // json: data
-            //     // img: true,
-            // })
-            // const elementTemplate = this.#template.content.firstElementChild.cloneNode(true)
-            // elementTemplate.setAttribute('id', ids)
-            // elementTemplate.setAttribute('name', 'ingredient-'+ids)
-            // for (const [key, selector] of Object.entries(this.#elements)) {
-            //     elementTemplate.querySelector(selector).innerText = this.#list[key]
-            // }
-            // if (this.#ingredientList.ok) {
-            //     console.log('object')
-            // }
-            // // const ingredients = 
-            // this.#target.prepend(elementTemplate)
-            // console.log(this.#ingredientList.body)
-            // return
-            // if (this.#ingredientList.isSentAlready) {
-            //     this.#isSentAlready = true
-            //     console.log('test')
-            // }
-            // return
-            
-            // this.#preparationList = this.#preparationList.filter((task) => task === this.#list)
-            
-            // this.#preparationList.push(this.#ingredientList)
-            
-            // this.#preparationList.push(this.#list)
-            // this.#ingredientList = this.#ingredientList.filter((task) => task !== this.#list)
-            // this.#ingredientList.push(elementTemplate.value)
-            // this.#onUpdate('ingredients', this.#ingredientList)
-            // console.log(this.#preparationList)
-            
-            
-            // form.reset()
-            // this.#formIngredient = ''
-            // this.#form.querySelector('#custom_ingredient').value = ''
-            
-            
-            // new Toaster(success, 'Succès')
-            
         } catch (error) {
             new Toaster(error.message, 'Erreur')
         }
-
-        // fetch('create_recipes.php', {
-        //     'method': 'POST',
-        //     'headers': {
-        //         'Content-Type': 'application/json; charset=utf-8'
-        //     },
-        //     'body': JSON.stringify(data),
-        //     'cache': "no-cache",
-        //     'credentials': "same-origin",
-        // }).then((r) => {
-        //     return r.text()
-        // }).then((data) => {
-        //     let parser = new DOMParser();
-	    //     let doc = parser.parseFromString(data, 'text/html');
-        //     console.log(doc)
-        // }).catch(function (err) {
-        //     // There was an error
-        //     console.warn('Something went wrong.', err);
-        // });
     }
 
     /**
@@ -348,37 +262,21 @@ export class IngredientsFrom {
     async #onRecipeUpdate(e) {
         const form = e.target
         let data = new FormData(form)
-        // Modification de la clé 'custom_ingredient'
-        // pour pouvoir faire passer la liste dynamique des ingrédients
-        // ajoutés par l'utilisateur au format JSON dans la
-        // database en même-temps que les données inputs
-        // for (let [key, value] of data) {
-        //     if (key === 'custom_ingredient') {
-        //         data.set('custom_ingredient', this.#list)
-        //     }
-        //     if (key === 'file' && value.name) {
-        //         data.set('file', Date.now())
-        //     }
-        // }
+
         this.#modifyFormDataValues(form, data)
 
         try {
-            // console.log('je suis dans le submit update')
             this.#ingredientList = await fetchJSON(this.#url, {
             // this.#ingredientList = await fetchJSON('Process_Updated_PreparationList.php', {
                 method: 'POST',
-                json: data,
+                // json: data,
+                body: data,
             })
-            console.log(this.#ingredientList)
+            
             if (this.#ingredientList.status === 'success') window.location.assign('../index.php?success=recipe-updated')
+            
             this.#saveIngredientListToStorage()
-                // this.#preparationList.formData = this.#ingredientList
-            // this.#preparationList.ingredients = this.#list
-            // this.onUpdate('preparationList', this.#preparationList)
-            // const success = 'Votre préparation a été validée'
-            // this.#formButton.disabled = false
         } catch (error) {
-            // console.log(error)
             new Toaster(error.message, 'Erreur')
         }
     }
