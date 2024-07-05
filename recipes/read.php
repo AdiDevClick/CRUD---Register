@@ -42,25 +42,44 @@ if(isset($_GET['id']) && is_numeric($_GET['id'])) {
     'comments' => [],
     'rating' => $averageRating['rating']
 ];
-print_r($getInfos[0]);
-
+    // echo($getInfos[0]['recipe_id']);
+    // print_r($getInfos[0]['recipe_id']);
+    // print_r($averageRating['rating']);
+    // print_r($averageRating);
     // Append comments array into the recipe array
-    foreach($getInfos as $comment) {
-        // print_r($comment);
+    foreach($getInfos[0] as $comment => $data) {
+        // print_r($getInfos[0]) . '<br>';
+        // print_r($getInfos)  . '<br>';
+        // print_r($getInfos) ;
         // print_r($comment) ;
-        // print_r($comment);
-        // $recipe[$value] = $value[$comment];
-        if (!is_null($comment['comment_id'])) {
-            $recipe['comments'][] = [
-                'comment_id' => $comment['comment_id'],
-                'comment' => $comment['comment'],
-                'user_id' => $comment['user_id'],
-                'created_at' => $comment['comment_date'],
-            ];
-            //echo $recipe['comments']['user_id'];
-        }
-        // $recipe['rating'] = $averageRating['rating'];
+        // print_r($data);
+        $recipe[$comment] = $data;
+        $recipe['rating'] = $averageRating['rating'];
+        // print_r($data['comment_id']) ;
+        // if (!is_null(['comment_id'])) {
+        // // if ($comment === 'comment_id' && !is_null($data)) {
+        // //     // echo $comment;
+        //     $recipe['comments'][] = [
+        //         'comment_id' => ['comment_id'],
+        //         'comment' => ['comment'],
+        //         'user_id' => ['user_id'],
+        //         'created_at' => ['comment_date'],
+        //     ];
+        // }
     }
+    // foreach($getInfos as $comment) {
+    
+    //     if (!is_null($comment['comment_id'])) {
+    //         $recipe['comments'][] = [
+    //             'comment_id' => $comment['comment_id'],
+    //             'comment' => $comment['comment'],
+    //             'user_id' => $comment['user_id'],
+    //             'created_at' => $comment['comment_date'],
+    //         ];
+    //         //echo $recipe['comments']['user_id'];
+    //     }
+    //     // $recipe['rating'] = $averageRating['rating'];
+    // }
 
     print_r($recipe);
 
@@ -94,13 +113,25 @@ ob_start()
             <?php if (str_starts_with($key, 'step_') && !empty($value)) : ?>
                 <div>
                     <?php
-                        if ($key === 'step_1') echo '<p><span> Première étape </span></p>';
-                        if ($key === 'step_2') echo '<p><span> Deuxième étape </span></p>';
-                        if ($key === 'step_3') echo '<p><span> Troisième étape </span></p>';
-                        if ($key === 'step_4') echo '<p><span> Quatrième étape </span></p>';
-                        if ($key === 'step_5') echo '<p><span> Cinquième étape </span></p>';
-                        if ($key === 'step_6') echo '<p><span> Sixième étape </span></p>'
-                    ?>
+                        if ($key === 'step_1') {
+                            echo '<p><span> Première étape </span></p>';
+                        }
+                        if ($key === 'step_2') {
+                            echo '<p><span> Deuxième étape </span></p>';
+                        }
+                        if ($key === 'step_3') {
+                            echo '<p><span> Troisième étape </span></p>';
+                        }
+                        if ($key === 'step_4') {
+                            echo '<p><span> Quatrième étape </span></p>';
+                        }
+                        if ($key === 'step_5') {
+                            echo '<p><span> Cinquième étape </span></p>';
+                        }
+                        if ($key === 'step_6') {
+                            echo '<p><span> Sixième étape </span></p>';
+                        }
+                ?>
                     <p><?php echo($value) ?></p>
                 </div>
             <?php endif ?>
