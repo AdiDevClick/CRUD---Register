@@ -25,7 +25,7 @@ if($data && isset($_GET['id']) && is_numeric($_GET['id'])) {
     $checkId = new RecipeView($getDatas);
     $getInfos = $checkId->getRecipeInfoById();
     // echo $getInfos['custom_ingredients'];
-    // print_r($getInfos);
+    print_r($getInfos);
 } else {
     // echo ('pas did');
     // echo $_GET['id'] . 'test';
@@ -270,6 +270,7 @@ ob_start()
                             <!-- <div class="form form-hidden"> -->
                             <label for="file" class="label"> Ajouter une image</label>
                             <input type="file" id="file" name="file" class="form"/>
+                            <!-- <input type="file" id="file" name="file" class="form" value="<?php // $getInfos['file'] !== null ? $getInfos['file'] : null ?>"/> -->
                         </div>
                         <hr>
                         <!-- <div class="add_ingredient">

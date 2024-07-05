@@ -41,6 +41,7 @@ class Process_Ajax
                 'ingredient5' => $this->Post_Data['ingredient5'],
                 'ingredient6' => $this->Post_Data['ingredient6'],
                 'custom_ingredients' => $this->Post_Data['custom_ingredient'],
+                'file' => $this->Post_Files['file']['name'],
                 // $this->Get_Id ?: 'recipe_id' => $this->Get_Id
                 'recipe_id' => $this->Get_Id
                 // Envoi toutes les données reçues au format JSON vers le serveur -
@@ -51,10 +52,20 @@ class Process_Ajax
                 // de réencoder en JSON si nécessaire
                 // 'persons' => json_encode($dataTest)
             ];
-            // print_r($this->getDatas);
+            // print_r($this->is_Post);
             $setRecipe = new RecipeView($this->getDatas);
             $this->is_Post ? $recipeId = $setRecipe->insertRecipeTest() : $recipeId = $setRecipe->updateRecipeInfoById();
             $this->send_Status = 'success';
+            if (isset($recipeId['status']) && $recipeId['status']['update_status'] === 'RCPUPDTSTMTEXECNT') {
+                $this->send_Status = 'RCPUPDTSTMTEXECNT';
+                $recipeId = $recipeId['recipe_id'];
+            }
+            
+            // print_r($recipeId);
+            // echo json_encode($this->send_Status);
+            
+            // return;
+
             if ($this->Post_Files['file'] && $this->Post_Files['file']['error'] == 0) {
                 // On vérifie que le fichier ne pèse pas plus d'10Mo
                 if ($this->Post_Files['file']['size'] < 10 * 1024 * 1024) {

@@ -7,10 +7,10 @@ Input => IN (inputs)
 	Comment = CMT
 
 Statement => STMT 
-	Execution => Exe (exécution du stmt database)
+	Execution => EXE (exécution du stmt database)
 	DBCheck => DBCH
 	Insertion DB => INSRT
-	RowCount => CNT (user exists)
+	RowCount => CNT (user exists / data already exists / no changes)
 
 Signup => SGN
 	Taken => TKN (email taken or pw doesn't match)
@@ -29,6 +29,9 @@ Logged User => LGGDUSR
 
 Recipe Creation => RCPCREATE
 
+Recipe Update => RCPUPDT
+	Update DB with new datas => STMT
+
 
 Codes erreur :
 "STMTSGNDBCHCNT - Cet utilisateur existe déjà"
@@ -45,6 +48,7 @@ Codes erreur :
 "STMTRCPGETUSR - Failed"
 "RCPLGGDUSROFF - Veuillez vous identifier avant de partager une recette."
 "RCPDATACHK - Vous n'avez pas sélectionné la bonne recette"
+"RCPUPDTSTMTEXECNT - Aucun changement opéré"
 
 
 URL utiles :

@@ -9,33 +9,47 @@ include_once('../includes/functions.inc.php');
 
 $fetchData = $_SERVER['REQUEST_METHOD'] === 'GET';
 $data = $_SERVER['REQUEST_METHOD'] === 'POST';
-// isset($_GET['id']) ?: $getIdDatas = $_GET['id'];
 $getIdDatas;
 $is_Post = true;
-// if (isset($_GET['id'])) {
+$session = 'REGISTERED_RECIPE';
+
+/**
+ * LORS D'UNE MISE A JOUR :
+ * Récupère et renvoi l'ID de la recette au script JS 'RecipePreparation.js'
+ * Cela permet d'afficher les ingrédients dynamiques liés à la recette
+ */
 if ($fetchData && isset($_GET['id'])) {
     $getIdDatas = $_GET['id'];
     $setRecipe = new RecipeView($getIdDatas);
     $setRecipe->fetchIngredientsById();
 }
 
+/**
+ * LORS D'UNE MISE A JOUR :
+ * Récupère à nouveau l'ID de la recette pour la passer au serveur
+ */
 if (isset($_GET['id'])) {
     $getIdDatas = $_GET['id'];
     $is_Post = false;
+    $session = 'UPDATED_RECIPE';
 }
 
+/**
+ * Renvoi les informations formulaires vers le serveur
+ */
+
+// if (!isset($_SESSION[$session]) && $data && isset($_POST)) {
 if ($data && isset($_POST)) {
     header('Content-Type: application/json; charset=utf-8');
     $content = file_get_contents("php://input");
     $dataTest = json_decode($content, true);
-    // !$is_Post ? null : $is_Post = true;
     $process_Ingredients = new Process_Ajax($dataTest ?? $_POST, $_FILES, $is_Post, $getIdDatas ?? null); 
+    // return;
+    unset($_SESSION[$session]);
     $err = CheckInput::getErrorMessages();
-    // exit;
-    if (count($err) > 0) {
-        // print_r($err);
-        $errorMessage = CheckInput::showErrorMessage();
 
+    if (count($err) > 0) {
+        $errorMessage = CheckInput::showErrorMessage();
         $successMessage = '';
         //if (isset($_SESSION['REGISTERED_USER'])) {
         //ob_start();
@@ -50,4 +64,6 @@ if ($data && isset($_POST)) {
         // session_destroy();
     }
     // }
+} else {
+    return;
 }

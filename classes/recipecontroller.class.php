@@ -315,9 +315,9 @@ class RecipeController extends Recipe
     {
         try {
             if (!isset($recipeId)) {
-                //if ($this->checkIds()) {
+                // if ($this->checkIds()) {
                 $this->checkIds();
-
+                    // print_r($this->getData);
                 $checkInput = new CheckInput(
                     $this->getData
                 );
@@ -356,7 +356,7 @@ class RecipeController extends Recipe
                 // print_r($this->getData);
                 // return;
                 if (empty($checkInput->getErrorsArray())) {
-                    $this->updateRecipes(
+                    $update_Status = $this->updateRecipes(
                         $title,
                         $step_1,
                         $step_2,
@@ -380,6 +380,8 @@ class RecipeController extends Recipe
                         $custom_ingredients,
                         $id
                     );
+
+                    $update_Status['update_status'] === 'success' ? null : $id = ['recipe_id' => $id, 'status' => $update_Status];
                     // echo json_encode(['update_status' => 'success']);
                 } else {
                     echo json_encode($checkInput->getErrorsArray());
@@ -394,6 +396,7 @@ class RecipeController extends Recipe
                 // echo $id . ' < id';
                 return $id;
                 // return $recipeId;
+                // }
             }
             //unset($recipeId);
         } catch (Error $e) {

@@ -235,6 +235,13 @@ export class IngredientsFrom {
                 if (this.options.get) {
                     if (this.#ingredientList.status === 'success') window.location.assign('../index.php?success=recipe-updated')
                     if (this.#ingredientList.update_status === 'success') window.location.assign('../index.php?success=recipe-updated')
+                    if (this.#ingredientList.status === 'RCPUPDTSTMTEXECNT') {
+                        if (!confirm('Aucune modification n\'a été faite, souhaitez-vous continuer vers l\'accueil ?')) {
+                            // no
+                            return
+                        }
+                        window.location.assign('../index.php?success=recipe-unchanged')
+                    }
                 }
                 if (this.options.post) {
                     if (this.#ingredientList.status === 'success') window.location.assign('../index.php?success=recipe-shared')
@@ -283,6 +290,7 @@ export class IngredientsFrom {
 
     #modifyFormDataValues(form, formData) {
         for (let [key, value] of formData) {
+            console.log(key)
             if (key === 'custom_ingredient') {
                 formData.set('custom_ingredient', this.#list)
             }
@@ -299,6 +307,7 @@ export class IngredientsFrom {
                     form.querySelector("input[name='file']").value = ''
                     return
                 }
+                // formData.set('file', this.#list)
             }
         }
     }

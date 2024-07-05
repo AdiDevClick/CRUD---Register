@@ -205,10 +205,16 @@ class Recipe extends Mysql
 
     protected function getRecipesInfosById(int $recipeId)
     {
-        $sqlRecipe = 'SELECT title, recipe_id, step_1, step_2, step_3, step_4, step_5, step_6,
-        is_enabled, ingredient_1, ingredient_1, ingredient_2, ingredient_3, ingredient_4, ingredient_5, ingredient_6,
-        total_time, total_time_length, resting_time, resting_time_length, oven_time, oven_time_length, persons, custom_ingredients
-        FROM recipes WHERE recipe_id = :recipe_id;';
+        // $sqlRecipe = 'SELECT title, recipe_id, step_1, step_2, step_3, step_4, step_5, step_6,
+        // is_enabled, ingredient_1, ingredient_1, ingredient_2, ingredient_3, ingredient_4, ingredient_5, ingredient_6,
+        // total_time, total_time_length, resting_time, resting_time_length, oven_time, oven_time_length, persons, custom_ingredients
+        // FROM recipes WHERE recipe_id = :recipe_id;';
+        $sqlRecipe =
+        'SELECT *, DATE_FORMAT(i.created_at, "%d/%m/%Y") as image_date 
+        FROM recipes r 
+        LEFT JOIN images i
+        ON r.recipe_id = i.recipe_id
+        WHERE r.recipe_id = :recipe_id;';
         $getRecipesIdStatement = $this->connect()->prepare($sqlRecipe);
         if (!$getRecipesIdStatement->execute([
             'recipe_id' => $recipeId,
@@ -317,7 +323,7 @@ class Recipe extends Mysql
         string $ingredient6 = null,
         string $persons = null,
         string $custom_ingredients = null,
-        $id
+        int $id
     ) {
         $sqlQuery = 'UPDATE recipes SET
             title = :title,
@@ -373,15 +379,20 @@ class Recipe extends Mysql
             //throw new Error((string)header("Location: ".Functions::getUrl()."?error=stmt-failed"));
             throw new Error("stmt Failed");
         }
+        $status = 'success';
         if ($updateRecipeStatement->rowCount() == 0) {
             $updateRecipeStatement = null;
             //echo strip_tags("Cette recette ne peut pas être mise à jour, elle n'existe pas.");
             //throw new Error((string)header("Location: ".Functions::getUrl()."?error=uprecipeid-not-found"));
-            throw new Error("Cette recette ne peut pas être mise à jour, elle n'existe pas.");
+            // echo json_encode(['update_status' => 'RCPUPDTSTMTEXECNT']);
+            $status = 'RCPUPDTSTMTEXECNT';
+            // throw new Error("RCPUPDTSTMTEXECNT - Vous n'avez fait aucun changement.");
+            
+            // throw new Error("Cette recette ne peut pas être mise à jour, elle n'existe pas.");
             //header("Location :" .Functions::getUrl(). "?error=recipe-not-found");
             //exit();
         }
-        // exit;
+        return ['update_status' => $status];
     }
 
     public function getRecipesWithCommentsById($recipeId)
@@ -409,6 +420,7 @@ class Recipe extends Mysql
             //exit();
         }
         $recipe = $retrieveRecipeWithCommentsStatement->fetchAll(PDO::FETCH_ASSOC);
+        // print_r($recipe);
         return $recipe;
     }
 

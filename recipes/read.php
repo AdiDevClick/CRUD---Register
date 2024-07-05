@@ -42,9 +42,14 @@ if(isset($_GET['id']) && is_numeric($_GET['id'])) {
     'comments' => [],
     'rating' => $averageRating['rating']
 ];
+print_r($getInfos[0]);
 
     // Append comments array into the recipe array
     foreach($getInfos as $comment) {
+        // print_r($comment);
+        // print_r($comment) ;
+        // print_r($comment);
+        // $recipe[$value] = $value[$comment];
         if (!is_null($comment['comment_id'])) {
             $recipe['comments'][] = [
                 'comment_id' => $comment['comment_id'],
@@ -54,7 +59,10 @@ if(isset($_GET['id']) && is_numeric($_GET['id'])) {
             ];
             //echo $recipe['comments']['user_id'];
         }
+        // $recipe['rating'] = $averageRating['rating'];
     }
+
+    print_r($recipe);
 
     /* $loggedUser = LoginController::checkLoggedStatus();
     print_r  ($loggedUser); */

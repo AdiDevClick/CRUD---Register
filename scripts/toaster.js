@@ -100,6 +100,13 @@ if (success === 'recipe-updated') {
     message = 'Votre recette a bien été mise à jour!'
     resetURL('index.php', 'success', urlParams)
 }
+
+if (success === 'recipe-unchanged') {
+    errAlert = true
+    type = 'Success'
+    message = 'Aucune modification apportée à votre recette'
+    resetURL('index.php', 'success', urlParams)
+}
 // success === 'disconnected' ? message = 'Vous avez été déconnecté avec succès' : errAlert = false
 const reset = urlParams.get('reset')
 if (reset === 'success') {
