@@ -10,8 +10,8 @@ include_once('../includes/variables.inc.php');
 include_once('../includes/functions.inc.php');
 
 /**
- * Permet de filtrer quels clés de l'array getInfos qui
- * ne seront pas montrés
+ * Permet de filtrer quelles clés de l'array getInfos
+ * ne seront pas renvoyées à l'array $recipe
  * @var mixed
  */
 $filterKeys = [
