@@ -9,6 +9,20 @@ include_once('../logs/customErrorHandlers.php');
 include_once('../includes/variables.inc.php');
 include_once('../includes/functions.inc.php');
 
+$filterKey = [
+    'recipe_id', 'title', 'persons',
+    'oven_time', 'oven_time_length', 'resting_time',
+    'resting_time_length', 'total_time', 'total_time_length',
+    'step_1', 'step_2', 'step_3', 'step_4', 'step_5', 'step_6',
+    'author'
+];
+$array;
+
+function filtered_Key($key)
+{
+    return($key);
+}
+
 /***
  * Grabing URL ID from index page and fetching rows datas
  */
@@ -22,30 +36,33 @@ if(isset($_GET['id']) && is_numeric($_GET['id'])) {
     $getInfos = $checkId->fetchRecipesWithCommentsById($getDatas);
 
     // Inserting infos into the recipe array
-    $recipe = [
-    'recipe_id' => $getInfos[0]['recipe_id'],
-    'title' => $getInfos[0]['title'],
-    'persons' => $getInfos[0]['persons'],
-    'oven_time' => $getInfos[0]['oven_time'],
-    'oven_time_length' => $getInfos[0]['oven_time_length'],
-    'resting_time' => $getInfos[0]['resting_time'],
-    'resting_time_length' => $getInfos[0]['oven_time_length'],
-    'total_time' => $getInfos[0]['total_time'],
-    'total_time_length' => $getInfos[0]['total_time_length'],
-    'step_1' => $getInfos[0]['step_1'],
-    'step_2' => $getInfos[0]['step_2'],
-    'step_3' => $getInfos[0]['step_3'],
-    'step_4' => $getInfos[0]['step_4'],
-    'step_5' => $getInfos[0]['step_5'],
-    'step_6' => $getInfos[0]['step_6'],
-    'author' => $getInfos[0]['author'],
-    'comments' => [],
-    'rating' => $averageRating['rating']
-];
+//     $recipe = [
+//     'recipe_id' => $getInfos[0]['recipe_id'],
+//     'title' => $getInfos[0]['title'],
+//     'persons' => $getInfos[0]['persons'],
+//     'oven_time' => $getInfos[0]['oven_time'],
+//     'oven_time_length' => $getInfos[0]['oven_time_length'],
+//     'resting_time' => $getInfos[0]['resting_time'],
+//     'resting_time_length' => $getInfos[0]['oven_time_length'],
+//     'total_time' => $getInfos[0]['total_time'],
+//     'total_time_length' => $getInfos[0]['total_time_length'],
+//     'step_1' => $getInfos[0]['step_1'],
+//     'step_2' => $getInfos[0]['step_2'],
+//     'step_3' => $getInfos[0]['step_3'],
+//     'step_4' => $getInfos[0]['step_4'],
+//     'step_5' => $getInfos[0]['step_5'],
+//     'step_6' => $getInfos[0]['step_6'],
+//     'author' => $getInfos[0]['author'],
+//     'comments' => [],
+//     'rating' => $averageRating['rating']
+// ];
     // echo($getInfos[0]['recipe_id']);
     // print_r($getInfos[0]['recipe_id']);
     // print_r($averageRating['rating']);
     // print_r($averageRating);
+    // print_r($filterKey);
+    $array = array_diff_key($filterKey, $getInfos[0]);
+   
     // Append comments array into the recipe array
     foreach($getInfos[0] as $comment => $data) {
         // print_r($getInfos[0]) . '<br>';
@@ -53,20 +70,35 @@ if(isset($_GET['id']) && is_numeric($_GET['id'])) {
         // print_r($getInfos) ;
         // print_r($comment) ;
         // print_r($data);
-        $recipe[$comment] = $data;
-        $recipe['rating'] = $averageRating['rating'];
+        // if ($comment === in_array($comment, $filterKey)) {
+        //     echo 'hello';
+        // }
+        $recipe = array_filter($filterKey, fn ($key, $value) => $value);
+        // $recipe[$comment] ?? $recipe = array_filter($filterKey, fn ($key, $value) => $key == $comment || $value = $data);
+        // $recipe = array_filter($filterKey, function ($key, $value) {
+        //     $key == '4' || $value == '2';
+        // });
+        
+        
+        // if (empty($array)) return;
+        // print_r($key) ;
+        // $recipe[$comment] = $data;
+        $recipe['rating'] ?? $recipe['rating'] = $averageRating['rating'];
+        // $recipe['comments'][0] ?? $recipe['comments'][0];
+
         // print_r($data['comment_id']) ;
         // if (!is_null(['comment_id'])) {
-        // // if ($comment === 'comment_id' && !is_null($data)) {
-        // //     // echo $comment;
-        //     $recipe['comments'][] = [
-        //         'comment_id' => ['comment_id'],
-        //         'comment' => ['comment'],
-        //         'user_id' => ['user_id'],
-        //         'created_at' => ['comment_date'],
+        // // // if ($comment === 'comment_id' && !is_null($data)) {
+        //     // echo $comment;
+        //     $recipe['comments'][0] ?? $recipe['comments'][] = [
+        //         'comment_id' => ['comment_id'][0][$data],
+        //         'comment' => ['comment'][0][$data],
+        //         'user_id' => ['user_id'][0][$data],
+        //         'created_at' => ['comment_date'][0][$data],
         //     ];
         // }
     }
+
     // foreach($getInfos as $comment) {
     
     //     if (!is_null($comment['comment_id'])) {
@@ -82,6 +114,7 @@ if(isset($_GET['id']) && is_numeric($_GET['id'])) {
     // }
 
     print_r($recipe);
+    // print_r($array);
 
     /* $loggedUser = LoginController::checkLoggedStatus();
     print_r  ($loggedUser); */
