@@ -124,7 +124,7 @@ if(isset($_GET['id']) && is_numeric($_GET['id'])) {
     }
 
     /**
-     * Récupère toutes les itérations de commentaires donnés par $getInfos
+     * Récupère toutes les itérations de commentaires données par $getInfos
      * Puis rajoute chaque itérations au tableau $recipe
      */
     foreach($getInfos as $comment) {
