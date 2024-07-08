@@ -63,11 +63,11 @@ if (!$dev) {
 //     $manifest = json_decode(file_get_contents('./public/assets/.vite/manifest.json'), true);
 //     // var_dump($manifest);
 ?>
-         <script src="<?php echo($rootUrl) . $clicServer?>/public/assets/<?= $manifest['resources/main.js']['file']?>" type="module"></script>
+        <script src="<?php echo($rootUrl) . $clicServer?>/public/assets/<?= $manifest['resources/main.js']['file']?>" type="module"></script>
         <!-- <script src="./public/assets/<?php //$manifest['resources/main.js']['file']?>" type="module"></script> -->
-         <script src="<?php echo($rootUrl) . $clicServer?>/public/assets/<?= $manifest['scripts/toaster.js']['file']?>" type="module"></script>
+        <script src="<?php echo($rootUrl) . $clicServer?>/public/assets/<?= $manifest['scripts/toaster.js']['file']?>" type="module"></script>
         <!-- <link rel="stylesheet" href="./public/assets/<?php //$manifest['resources/main.js']['css'][0]?>"> -->
-         <link rel="stylesheet" href="<?php echo($rootUrl) . $clicServer?>/public/assets/<?= $manifest['resources/main.js']['css'][0]?>">
+        <link rel="stylesheet" href="<?php echo($rootUrl) . $clicServer?>/public/assets/<?= $manifest['resources/main.js']['css'][0]?>">
 <?php
 } else {
 ?>

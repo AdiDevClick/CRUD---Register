@@ -167,8 +167,8 @@ ob_start()
 ?>
 <header>
     <div class="hero">
-        <img src="../img/img1.jpeg" alt="">
-        <p><span><?php echo($recipe['title']) ?></span></p>
+        <img src="<?= $recipe['img_path'] ?>" alt="">
+        <p><span><?= htmlspecialchars($recipe['title']) ?></span></p>
     </div>
 </header>
 <div class="read_page">

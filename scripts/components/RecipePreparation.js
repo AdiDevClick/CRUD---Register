@@ -37,6 +37,8 @@ export class IngredientsFrom {
     #url
     #allowedFiles = 'image/jpeg, image/png, image/jpg, image/gif'
     #isSentAlready = false
+    #file
+    #imagePreview
 
     /**
      * @param {Ingredient[]} list
@@ -70,6 +72,8 @@ export class IngredientsFrom {
         this.#template = document.querySelector(this.#form.dataset.template)
         this.#target = document.querySelector(this.#form.dataset.target)
         this.#elements = JSON.parse(this.#form.dataset.elements)
+        this.#file = this.#form.querySelector('.file-uploader')
+        this.#imagePreview = this.#form.querySelector('.profile-picture')
         // this.#element = JSON.parse(`{"ingredient": ".js-value"}`)
 
         // this.#formValidationButton = this.#form.querySelector('#button')
@@ -91,6 +95,12 @@ export class IngredientsFrom {
             e.preventDefault()
             if (!passedInputs.checkInputs) return
             this.#onSubmit(e)
+        })
+        this.#file.addEventListener('change', e => {
+            e.preventDefault()
+            console.log(e.target.files)
+            const image = URL.createObjectURL(e.target.files[0]);
+            this.#imagePreview.style.backgroundImage = `url(${image})`;
         })
         // if (this.options.post) {
         //     this.#form.addEventListener('submit', e => {
@@ -221,7 +231,7 @@ export class IngredientsFrom {
         //     // no
         //     return
         // }
-        this.#modifyFormDataValues(form, data)
+        if (!this.#modifyFormDataValues(form, data)) return
         try {
             if (!this.#isSentAlready) {
                 this.#ingredientList = await fetchJSON(url, {
@@ -289,8 +299,8 @@ export class IngredientsFrom {
     }
 
     #modifyFormDataValues(form, formData) {
+        let status = true
         for (let [key, value] of formData) {
-            console.log(key)
             if (key === 'custom_ingredient') {
                 formData.set('custom_ingredient', this.#list)
             }
@@ -299,17 +309,18 @@ export class IngredientsFrom {
                 if (!this.#allowedFiles.includes(value.type)) {
                     new Toaster('Ce type de fichier n\'est pas autorisé. Veuillez n\'utiliser que : JPG, JPEG, PNG ou GIF', 'Erreur')
                     form.querySelector("input[name='file']").value = '';
-                    return
+                    return status = false
                 }
                 // check file size (< 10MB)
                 if (value.size > 10 * 1024 * 1024) {
                     new Toaster('Votre fichier ne peut dépasser 10MB', 'Erreur')
                     form.querySelector("input[name='file']").value = ''
-                    return
+                    return status = false
                 }
                 // formData.set('file', this.#list)
             }
         }
+        return status
     }
 
     #saveIngredientListToStorage() {

@@ -399,9 +399,11 @@ class Recipe extends Mysql
     {
         $sqlRecipe =
         'SELECT *, DATE_FORMAT(c.created_at, "%d/%m/%Y") as comment_date 
-        FROM recipes r 
+        FROM recipes r
         LEFT JOIN comments c
         ON r.recipe_id = c.recipe_id
+        LEFT JOIN images i
+        ON r.recipe_id = i.recipe_id
         WHERE r.recipe_id = :recipe_id;';
         $retrieveRecipeWithCommentsStatement = $this->connect()->prepare($sqlRecipe);
         if (!$retrieveRecipeWithCommentsStatement->execute([
@@ -500,6 +502,36 @@ class Recipe extends Mysql
             //exit();
         }
         // exit;
+    }
+
+    protected function deleteImageId(int $recipeId)
+    {
+        $sqlQuery = 'SELECT img_path FROM images WHERE recipe_id = :id;';
+        $getRecipeStatement = $this->connect()->prepare($sqlQuery);
+        if (!$getRecipeStatement->execute([
+            'id' => $recipeId
+        ])) {
+            $getRecipeStatement = null;
+            throw new Error("stmt Failed");
+        }
+
+        $image = $getRecipeStatement->fetchAll(PDO::FETCH_ASSOC);
+        if (file_exists($image[0]['img_path'])) {
+            unlink($image[0]['img_path']);
+        }
+        
+        $sqlQuery = 'DELETE FROM images WHERE recipe_id = :id;';
+        $deleteRecipeStatement = $this->connect()->prepare($sqlQuery);
+        if (!$deleteRecipeStatement->execute([
+            'id' => $recipeId
+        ])) {
+            $deleteRecipeStatement = null;
+            throw new Error("stmt Failed");
+        }
+        if ($deleteRecipeStatement->rowCount() == 0) {
+            $deleteRecipeStatement = null;
+            throw new Error("Cette recette ne peut pas être supprimée, elle n'existe pas.");
+        }
     }
 
     /**

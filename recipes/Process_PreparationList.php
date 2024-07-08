@@ -25,7 +25,8 @@ if ($fetchData && isset($_GET['id'])) {
 }
 
 /**
- * LORS D'UNE MISE A JOUR :
+ * IMPORTANT !!
+ * LORS DE L'ENVOI DU FORMULAIRE POUR UNE MISE A JOUR :
  * Récupère à nouveau l'ID de la recette pour la passer au serveur
  */
 if (isset($_GET['id'])) {
@@ -37,7 +38,6 @@ if (isset($_GET['id'])) {
 /**
  * Renvoi les informations formulaires vers le serveur
  */
-
 // if (!isset($_SESSION[$session]) && $data && isset($_POST)) {
 if ($data && isset($_POST)) {
     header('Content-Type: application/json; charset=utf-8');
