@@ -211,7 +211,7 @@ class Recipe extends Mysql
         // FROM recipes WHERE recipe_id = :recipe_id;';
         $sqlRecipe =
         'SELECT *, DATE_FORMAT(i.created_at, "%d/%m/%Y") as image_date 
-        FROM recipes r 
+        FROM recipes r
         LEFT JOIN images i
         ON r.recipe_id = i.recipe_id
         WHERE r.recipe_id = :recipe_id;';
@@ -401,9 +401,9 @@ class Recipe extends Mysql
         'SELECT *, DATE_FORMAT(c.created_at, "%d/%m/%Y") as comment_date 
         FROM recipes r
         LEFT JOIN comments c
-        ON r.recipe_id = c.recipe_id
+            ON r.recipe_id = c.recipe_id
         LEFT JOIN images i
-        ON r.recipe_id = i.recipe_id
+            ON i.recipe_id = r.recipe_id
         WHERE r.recipe_id = :recipe_id;';
         $retrieveRecipeWithCommentsStatement = $this->connect()->prepare($sqlRecipe);
         if (!$retrieveRecipeWithCommentsStatement->execute([
@@ -528,10 +528,10 @@ class Recipe extends Mysql
             $deleteRecipeStatement = null;
             throw new Error("stmt Failed");
         }
-        if ($deleteRecipeStatement->rowCount() == 0) {
-            $deleteRecipeStatement = null;
-            throw new Error("Cette recette ne peut pas être supprimée, elle n'existe pas.");
-        }
+        // if ($deleteRecipeStatement->rowCount() == 0) {
+        //     $deleteRecipeStatement = null;
+        //     throw new Error("Cette recette ne peut pas être supprimée, elle n'existe pas.");
+        // }
     }
 
     /**

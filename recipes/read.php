@@ -14,7 +14,7 @@ include_once('../includes/functions.inc.php');
  * ne seront pas renvoyées à l'array $recipe
  * @var mixed
  */
-$filterKeys = [
+$filterKeysToRemove = [
     'comment_id', 'comment', 'rating', 'user_id',
     'review', 'ranking', 'comment_date'
 ];
@@ -25,112 +25,31 @@ $array;
  */
 if(isset($_GET['id']) && is_numeric($_GET['id'])) {
     $getDatas = $_GET['id'];
-    //$idDatas = new RecipeView($getDatas);
     $checkId = new RecipeView($getDatas);
     //$idDatas->checkId();
     //$getInfos = $idDatas->getRecipeInfoById();
     $averageRating = $checkId->fetchAverageRatingCommentsById($getDatas);
     $getInfos = $checkId->fetchRecipesWithCommentsById($getDatas);
 
-    // Inserting infos into the recipe array
-    //     $recipe = [
-    //     'recipe_id' => $getInfos[0]['recipe_id'],
-    //     'title' => $getInfos[0]['title'],
-    //     'persons' => $getInfos[0]['persons'],
-    //     'oven_time' => $getInfos[0]['oven_time'],
-    //     'oven_time_length' => $getInfos[0]['oven_time_length'],
-    //     'resting_time' => $getInfos[0]['resting_time'],
-    //     'resting_time_length' => $getInfos[0]['oven_time_length'],
-    //     'total_time' => $getInfos[0]['total_time'],
-    //     'total_time_length' => $getInfos[0]['total_time_length'],
-    //     'step_1' => $getInfos[0]['step_1'],
-    //     'step_2' => $getInfos[0]['step_2'],
-    //     'step_3' => $getInfos[0]['step_3'],
-    //     'step_4' => $getInfos[0]['step_4'],
-    //     'step_5' => $getInfos[0]['step_5'],
-    //     'step_6' => $getInfos[0]['step_6'],
-    //     'author' => $getInfos[0]['author'],
-    //     'comments' => [],
-    //     'rating' => $averageRating['rating']
-    // ];
-    // echo($getInfos[0]['recipe_id']);
-    // print_r($getInfos[0]['recipe_id']);
-    // print_r($averageRating['rating']);
-    // echo "<pre>";
-    // print_r($getInfos);
-    // echo "</pre>";
-    // print_r($filterKeys);
-    // echo "</pre>";
-    // foreach($filterKey as $keys) {
-    //     foreach ($getInfos[0] as $key => $value) {
-    //         if ($key === $keys) {
-    //             $recipe[$key] = $value;
-    //         }
-    //     }
-    // }
-    // foreach($filterKeys as $keys) {
+    /**
+     * Création d'un array $recipe :
+     * Contient toutes les informations de $getInfos
+     * et utilise $filterKeysToRemove pour retirer certaines clés
+     * Puis modifie la clé 'rating' pour l'arrondir
+     */
     foreach ($getInfos[0] as $key => $value) {
-        if (!in_array($key, $filterKeys)) {
+        if (!in_array($key, $filterKeysToRemove)) {
             $recipe[$key] = $value;
         }
-        // if ($keys !== $key) {
-        //     echo '<pre>';
-        //     echo $keys . ' => ' . $key;
-        //     echo '</pre>';
-        //     // $recipe[$key] = $value;
-        // }
-
     }
-    // }
     $recipe['rating'] = $averageRating['rating'];
-    // $recipe['rating'] ?? $recipe['rating'] = $averageRating['rating'];
-
     // $array = array_diff_key($filterKey, $getInfos[0]);
-
-    // Append comments array into the recipe array
-    foreach($getInfos as $comment => $data) {
-        // print_r($getInfos[0]) . '<br>';
-        // print_r($getInfos)  . '<br>';
-        // print_r($getInfos) ;
-        // print_r($comment) ;
-        // print_r($data);
-        // if ($comment === in_array($comment, $filterKey)) {
-        //     echo 'hello';
-        // }
-        // $recipe = array_filter($filterKey, fn ($key, $value) => $value);
-        // $recipe[$comment] ?? $recipe = array_filter($filterKey, fn ($key, $value) => $key == $comment || $value = $data);
-        // $recipe = array_filter($filterKey, function ($key, $value) {
-        //     $key == '4' || $value == '2';
-        // });
-
-
-        // if (empty($array)) return;
-        // print_r($key) ;
-        // $recipe[$comment] = $data;
-        // $recipe['rating'] ?? $recipe['rating'] = $averageRating['rating'];
-        // $recipe['comments'][0] ?? $recipe['comments'][0];
-
-        // print_r($data['comment_id']) ;
-        // if (!is_null(['comment_id'])) {
-        // // // if ($comment === 'comment_id' && !is_null($data)) {
-        //     // echo $comment;
-        //     $recipe['comments'][0] ?? $recipe['comments'][] = [
-        //         'comment_id' => ['comment_id'][0][$data],
-        //         'comment' => ['comment'][0][$data],
-        //         'user_id' => ['user_id'][0][$data],
-        //         'created_at' => ['comment_date'][0][$data],
-        //     ];
-        // }
-    }
 
     /**
      * Récupère toutes les itérations de commentaires données par $getInfos
      * Puis rajoute chaque itérations au tableau $recipe
      */
     foreach($getInfos as $comment) {
-        // echo "<pre>";
-        // print_r($comment);
-        // echo "</pre>";
         if (!is_null($comment['comment_id'])) {
             $recipe['comments'][] = [
                 'comment_id' => $comment['comment_id'],
@@ -138,26 +57,12 @@ if(isset($_GET['id']) && is_numeric($_GET['id'])) {
                 'user_id' => $comment['user_id'],
                 'created_at' => $comment['comment_date'],
             ];
-            //echo $recipe['comments']['user_id'];
         }
-        // $recipe['rating'] = $averageRating['rating'];
     }
-    // echo "<pre>";
-    // print_r($recipe);
-    // echo "</pre>";
-    // print_r($array);
-
-    /* $loggedUser = LoginController::checkLoggedStatus();
-    print_r  ($loggedUser); */
-    /* foreach($getInfos[0] as $recipes => $value) {
-        echo($recipes .' => '. $value . '<br>');
-    } */
-
+    print_r($recipe);
 } else {
     header('Location: ../index.php?error=noId');
 }
-
-
 
 $title = "Site de Recettes - " . htmlspecialchars($recipe['title']);
 $script = 'src="../scripts/typeWriter.js" defer';
@@ -204,7 +109,7 @@ ob_start()
 <!-- </div> -->
 <!-- <body class="d-flex flex-column min-vh-100"> -->
     <aside class="read__aside">
-        <h1><?php echo($recipe['title']) ?></h1>
+        <h1><?= htmlspecialchars($recipe['title']) ?></h1>
         <div>
             <div class="read__preparations">
                 <p>Temps de cuisson :</p><p> <?php echo($recipe['oven_time'] . ' ' . $recipe['oven_time_length']) ?></p>
@@ -222,7 +127,7 @@ ob_start()
 </div>
 
         <?php //$checkId->displayComments($recipe, $getInfos)?>
-        <?php if(count($recipe['comments']) > 0): ?>
+        <?php if($recipe['comments'] && count($recipe['comments']) > 0): ?>
         <hr />
         <h2>Commentaires</h2>
         <div class="row">>
