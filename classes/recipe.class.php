@@ -401,9 +401,9 @@ class Recipe extends Mysql
         'SELECT *, DATE_FORMAT(c.created_at, "%d/%m/%Y") as comment_date 
         FROM recipes r
         LEFT JOIN comments c
-            ON r.recipe_id = c.recipe_id
+        ON r.recipe_id = c.recipe_id
         LEFT JOIN images i
-            ON i.recipe_id = r.recipe_id
+        ON r.recipe_id = i.recipe_id
         WHERE r.recipe_id = :recipe_id;';
         $retrieveRecipeWithCommentsStatement = $this->connect()->prepare($sqlRecipe);
         if (!$retrieveRecipeWithCommentsStatement->execute([

@@ -41,9 +41,53 @@ if(isset($_GET['id']) && is_numeric($_GET['id'])) {
         if (!in_array($key, $filterKeysToRemove)) {
             $recipe[$key] = $value;
         }
+        // if ($keys !== $key) {
+        //     echo '<pre>';
+        //     echo $keys . ' => ' . $key;
+        //     echo '</pre>';
+        //     // $recipe[$key] = $value;
+        // }
+
     }
+    // }
     $recipe['rating'] = $averageRating['rating'];
     // $array = array_diff_key($filterKey, $getInfos[0]);
+
+    // Append comments array into the recipe array
+    foreach($getInfos as $comment => $data) {
+        // print_r($getInfos[0]) . '<br>';
+        // print_r($getInfos)  . '<br>';
+        // print_r($getInfos) ;
+        // print_r($comment) ;
+        // print_r($data);
+        // if ($comment === in_array($comment, $filterKey)) {
+        //     echo 'hello';
+        // }
+        // $recipe = array_filter($filterKey, fn ($key, $value) => $value);
+        // $recipe[$comment] ?? $recipe = array_filter($filterKey, fn ($key, $value) => $key == $comment || $value = $data);
+        // $recipe = array_filter($filterKey, function ($key, $value) {
+        //     $key == '4' || $value == '2';
+        // });
+
+
+        // if (empty($array)) return;
+        // print_r($key) ;
+        // $recipe[$comment] = $data;
+        // $recipe['rating'] ?? $recipe['rating'] = $averageRating['rating'];
+        // $recipe['comments'][0] ?? $recipe['comments'][0];
+
+        // print_r($data['comment_id']) ;
+        // if (!is_null(['comment_id'])) {
+        // // // if ($comment === 'comment_id' && !is_null($data)) {
+        //     // echo $comment;
+        //     $recipe['comments'][0] ?? $recipe['comments'][] = [
+        //         'comment_id' => ['comment_id'][0][$data],
+        //         'comment' => ['comment'][0][$data],
+        //         'user_id' => ['user_id'][0][$data],
+        //         'created_at' => ['comment_date'][0][$data],
+        //     ];
+        // }
+    }
 
     /**
      * Récupère toutes les itérations de commentaires données par $getInfos
@@ -59,7 +103,17 @@ if(isset($_GET['id']) && is_numeric($_GET['id'])) {
             ];
         }
     }
-    print_r($recipe);
+    // echo "<pre>";
+    // print_r($recipe);
+    // echo "</pre>";
+    // print_r($array);
+
+    /* $loggedUser = LoginController::checkLoggedStatus();
+    print_r  ($loggedUser); */
+    /* foreach($getInfos[0] as $recipes => $value) {
+        echo($recipes .' => '. $value . '<br>');
+    } */
+
 } else {
     header('Location: ../index.php?error=noId');
 }

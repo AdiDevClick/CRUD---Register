@@ -83,7 +83,6 @@ class Process_Ajax
                         $this->isImageSent = true;
                         $image_Data = ['recipeId' => $recipeId, 'fileName' => $new_name, 'filePath' => $file];
                         $setRecipe->deleteImage($recipeId);
-                        // $this->is_Post ? $setRecipe->deleteImage($recipeId) : null;
                         $setRecipe->insertImage($image_Data);
                         $this->send_Status = 'success';
                     } else {
