@@ -82,7 +82,7 @@ class Process_Ajax
                         move_uploaded_file($this->Post_Files['file']['tmp_name'], $file);
                         $this->isImageSent = true;
                         $image_Data = ['recipeId' => $recipeId, 'fileName' => $new_name, 'filePath' => $file];
-                        $setRecipe->deleteImage($recipeId);
+                        !$this->is_Post ? $setRecipe->deleteImage($recipeId) : null;
                         $setRecipe->insertImage($image_Data);
                         $this->send_Status = 'success';
                     } else {
