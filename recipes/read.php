@@ -31,7 +31,7 @@ if(isset($_GET['id']) && is_numeric($_GET['id'])) {
     //$getInfos = $idDatas->getRecipeInfoById();
     $averageRating = $checkId->fetchAverageRatingCommentsById($getDatas);
     $getInfos = $checkId->fetchRecipesWithCommentsById($getDatas);
-
+    // print_r($getInfos);
     // Inserting infos into the recipe array
     //     $recipe = [
     //     'recipe_id' => $getInfos[0]['recipe_id'],
@@ -81,12 +81,11 @@ if(isset($_GET['id']) && is_numeric($_GET['id'])) {
         // }
 
     }
-    // }
     $recipe['rating'] = $averageRating['rating'];
     // $recipe['rating'] ?? $recipe['rating'] = $averageRating['rating'];
 
     // $array = array_diff_key($filterKey, $getInfos[0]);
-
+    // print_r($recipe);
     // Append comments array into the recipe array
     foreach($getInfos as $comment => $data) {
         // print_r($getInfos[0]) . '<br>';
@@ -142,9 +141,9 @@ if(isset($_GET['id']) && is_numeric($_GET['id'])) {
         }
         // $recipe['rating'] = $averageRating['rating'];
     }
-    // echo "<pre>";
-    // print_r($recipe);
-    // echo "</pre>";
+    echo "<pre>";
+    print_r($recipe);
+    echo "</pre>";
     // print_r($array);
 
     /* $loggedUser = LoginController::checkLoggedStatus();
@@ -222,7 +221,7 @@ ob_start()
 </div>
 
         <?php //$checkId->displayComments($recipe, $getInfos)?>
-        <?php if(count($recipe['comments']) > 0): ?>
+        <?php if($recipe['comments'] && count($recipe['comments']) > 0): ?>
         <hr />
         <h2>Commentaires</h2>
         <div class="row">>

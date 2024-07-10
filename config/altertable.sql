@@ -19,3 +19,4 @@ ALTER TABLE `recipes` ADD IF NOT EXISTS `oven_time` int(11) NOT NULL;
 ALTER TABLE `recipes` ADD IF NOT EXISTS `oven_time_length` varchar(6) NOT NULL;
 ALTER TABLE `recipes` ADD IF NOT EXISTS `persons` int(11) NOT NULL;
 ALTER TABLE `recipes` ADD IF NOT EXISTS `custom_ingredients` json NOT NULL;
+ALTER TABLE `comments` FOREIGN KEY (`recipe_id`) REFERENCES `recipes`(`recipe_id`) ON DELETE CASCADE;
