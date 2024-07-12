@@ -5,6 +5,7 @@ if(session_status() !== PHP_SESSION_ACTIVE || session_status() === PHP_SESSION_N
 }
 
 include_once("../includes/class-autoloader.inc.php");
+include_once('../logs/customErrorHandlers.php');
 
 $postData = $_POST;
 
@@ -47,12 +48,16 @@ unset($_SESSION['REGISTERED_COMMENT']);
 //header('refresh:5, '.Functions::getUrl().'?error=none');
 
 $title = "Site de Recettes - Création de commentaire";
+$err = CheckInput::getErrorMessages();
+$errorMessage = CheckInput::showErrorMessage();
 // <body class="d-flex flex-column min-vh-100">
 //   <div class="container"> -->
 ob_start()
 ?>
     <?php //include_once('../includes/header.inc.php')?>
         <h1>Commentaire ajouté avec succès !</h1>
+        <p><?php echo $errorMessage?></p>
+
         <div class="card">
             <div class="card-body">
                 <p class="card-text"><b>Votre commentaire</b> : <?php echo strip_tags($getDatas['comment']); ?></p>

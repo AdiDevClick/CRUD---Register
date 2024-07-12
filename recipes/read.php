@@ -52,7 +52,6 @@ if(isset($_GET['id']) && is_numeric($_GET['id'])) {
     // }
     $recipe['rating'] = $averageRating['rating'];
     // $array = array_diff_key($filterKey, $getInfos[0]);
-    print_r($getInfos);
     // Append comments array into the recipe array
     foreach($getInfos as $comment => $data) {
         // print_r($getInfos[0]) . '<br>';
@@ -104,7 +103,7 @@ if(isset($_GET['id']) && is_numeric($_GET['id'])) {
         }
     }
     // echo "<pre>";
-    // print_r($recipe);
+    print_r($recipe);
     // echo "</pre>";
     // print_r($array);
 
@@ -120,7 +119,6 @@ if(isset($_GET['id']) && is_numeric($_GET['id'])) {
 
 $title = "Site de Recettes - " . htmlspecialchars($recipe['title']);
 $script = 'src="../scripts/typeWriter.js" defer';
-
 ob_start()
 
 ?>
@@ -155,11 +153,12 @@ ob_start()
                             echo '<p><span> Sixième étape </span></p>';
                         }
                 ?>
-                    <p><?php echo($value) ?></p>
+                    <p><?php echo htmlspecialchars($value) ?></p>
                 </div>
             <?php endif ?>
         <?php endforeach ?>
     </article>
+    
 <!-- </div> -->
 <!-- <body class="d-flex flex-column min-vh-100"> -->
     <aside class="read__aside">
@@ -179,7 +178,43 @@ ob_start()
         </div>
     </aside>
 </div>
-
+<div class="preps">
+    <article>
+        <?php foreach ($recipe as $key => $value) : ?>
+            <?php if (str_starts_with($key, 'ingredient_') && !empty($value)) : ?>
+                <div>
+                    <?php
+                        if ($key === 'ingredient__1') {
+                            echo '<p><span> Première étape </span></p>';
+                        }
+                        if ($key === 'ingredient__2') {
+                            echo '<p><span> Deuxième étape </span></p>';
+                        }
+                        if ($key === 'ingredient__3') {
+                            echo '<p><span> Troisième étape </span></p>';
+                        }
+                        if ($key === 'ingredient__4') {
+                            echo '<p><span> Quatrième étape </span></p>';
+                        }
+                        if ($key === 'ingredient__5') {
+                            echo '<p><span> Cinquième étape </span></p>';
+                        }
+                        if ($key === 'ingredient__6') {
+                            echo '<p><span> Sixième étape </span></p>';
+                        }
+                ?>
+                    <p><?php echo htmlspecialchars($value) ?></p>
+                </div>
+            <?php endif ?>
+            <?php if ($key === 'custom_ingredients') : ?>
+                    <p><?php $str = explode(',', $value) ?></p>
+                    <?php foreach ($str as $key) : ?>
+                        <p><?php echo htmlspecialchars($key)?></p>
+                    <?php endforeach ?>
+            <?php endif ?>
+        <?php endforeach ?>
+    </article>
+</div>
         <?php //$checkId->displayComments($recipe, $getInfos)?>
         <?php if($recipe['comments'] && count($recipe['comments']) > 0): ?>
         <hr />
