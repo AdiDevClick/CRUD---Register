@@ -113,3 +113,1336 @@ Errors : [2] Undefined array key 0 - C:\xampp\htdocs\recettes\classes\recipe.cla
 Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\recettes\classes\recipe.class.php:519
 Errors : [8192] file_exists(): Passing null to parameter #1 ($filename) of type string is deprecated - C:\xampp\htdocs\recettes\classes\recipe.class.php:519
 Errors : [2] Undefined array key "comments" - C:\xampp\htdocs\recettes\recipes\read.php:130
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:35
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:35
+Errors : [8192] strip_tags(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:35
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:40
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:40
+Errors : [8192] strip_tags(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:40
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:45
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:45
+Errors : [8192] strip_tags(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:45
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:50
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:50
+Errors : [8192] strip_tags(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:50
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:55
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:55
+Errors : [8192] strip_tags(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:55
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:60
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:60
+Errors : [8192] strip_tags(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:60
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:65
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:65
+Errors : [8192] strip_tags(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:65
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:92
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:92
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:94
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:94
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:95
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:95
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:100
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:100
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:102
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:102
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:103
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:103
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:108
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:108
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:110
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:110
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:111
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:111
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:130
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:130
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:142
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:142
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:143
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:143
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:144
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:144
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:145
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:145
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:148
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:148
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:149
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:149
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:150
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:150
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:151
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:151
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:154
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:154
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:155
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:155
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:156
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:156
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:157
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:157
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:160
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:160
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:161
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:161
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:162
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:162
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:163
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:163
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:166
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:166
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:167
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:167
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:168
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:168
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:169
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:169
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:172
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:172
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:173
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:173
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:174
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:174
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:175
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:175
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:187
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:187
+Errors : [2] Undefined array key 0 - C:\xampp\htdocs\Recettes\classes\recipe.class.php:519
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\classes\recipe.class.php:519
+Errors : [8192] file_exists(): Passing null to parameter #1 ($filename) of type string is deprecated - C:\xampp\htdocs\Recettes\classes\recipe.class.php:519
+Errors : [2] Undefined array key "comments" - C:\xampp\htdocs\Recettes\recipes\read.php:184
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:35
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:35
+Errors : [8192] strip_tags(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:35
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:40
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:40
+Errors : [8192] strip_tags(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:40
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:45
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:45
+Errors : [8192] strip_tags(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:45
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:50
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:50
+Errors : [8192] strip_tags(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:50
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:55
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:55
+Errors : [8192] strip_tags(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:55
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:60
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:60
+Errors : [8192] strip_tags(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:60
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:65
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:65
+Errors : [8192] strip_tags(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:65
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:92
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:92
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:94
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:94
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:95
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:95
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:100
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:100
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:102
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:102
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:103
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:103
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:108
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:108
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:110
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:110
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:111
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:111
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:130
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:130
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:142
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:142
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:143
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:143
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:144
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:144
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:145
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:145
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:148
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:148
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:149
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:149
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:150
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:150
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:151
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:151
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:154
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:154
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:155
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:155
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:156
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:156
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:157
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:157
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:160
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:160
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:161
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:161
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:162
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:162
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:163
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:163
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:166
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:166
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:167
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:167
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:168
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:168
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:169
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:169
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:172
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:172
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:173
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:173
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:174
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:174
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:175
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:175
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:187
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:187
+Errors : [2] Undefined array key 0 - C:\xampp\htdocs\Recettes\classes\recipe.class.php:519
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\classes\recipe.class.php:519
+Errors : [8192] file_exists(): Passing null to parameter #1 ($filename) of type string is deprecated - C:\xampp\htdocs\Recettes\classes\recipe.class.php:519
+Errors : [2] Undefined array key "comments" - C:\xampp\htdocs\Recettes\recipes\read.php:184
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:35
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:35
+Errors : [8192] strip_tags(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:35
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:40
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:40
+Errors : [8192] strip_tags(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:40
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:45
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:45
+Errors : [8192] strip_tags(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:45
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:50
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:50
+Errors : [8192] strip_tags(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:50
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:55
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:55
+Errors : [8192] strip_tags(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:55
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:60
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:60
+Errors : [8192] strip_tags(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:60
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:65
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:65
+Errors : [8192] strip_tags(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:65
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:92
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:92
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:94
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:94
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:95
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:95
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:100
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:100
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:102
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:102
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:103
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:103
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:108
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:108
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:110
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:110
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:111
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:111
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:130
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:130
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:142
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:142
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:143
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:143
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:144
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:144
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:145
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:145
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:148
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:148
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:149
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:149
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:150
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:150
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:151
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:151
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:154
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:154
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:155
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:155
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:156
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:156
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:157
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:157
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:160
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:160
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:161
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:161
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:162
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:162
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:163
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:163
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:166
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:166
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:167
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:167
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:168
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:168
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:169
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:169
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:172
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:172
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:173
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:173
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:174
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:174
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:175
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:175
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:187
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:187
+Errors : [2] Undefined array key "comments" - C:\xampp\htdocs\Recettes\recipes\read.php:184
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:35
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:35
+Errors : [8192] strip_tags(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:35
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:40
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:40
+Errors : [8192] strip_tags(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:40
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:45
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:45
+Errors : [8192] strip_tags(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:45
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:50
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:50
+Errors : [8192] strip_tags(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:50
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:55
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:55
+Errors : [8192] strip_tags(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:55
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:60
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:60
+Errors : [8192] strip_tags(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:60
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:65
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:65
+Errors : [8192] strip_tags(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:65
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:92
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:92
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:94
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:94
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:95
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:95
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:100
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:100
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:102
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:102
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:103
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:103
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:108
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:108
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:110
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:110
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:111
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:111
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:130
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:130
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:142
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:142
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:143
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:143
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:144
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:144
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:145
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:145
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:148
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:148
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:149
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:149
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:150
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:150
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:151
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:151
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:154
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:154
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:155
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:155
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:156
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:156
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:157
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:157
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:160
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:160
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:161
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:161
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:162
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:162
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:163
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:163
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:166
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:166
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:167
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:167
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:168
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:168
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:169
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:169
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:172
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:172
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:173
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:173
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:174
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:174
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:175
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:175
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:187
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:187
+Errors : [2] Undefined array key 0 - C:\xampp\htdocs\Recettes\classes\recipe.class.php:519
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\classes\recipe.class.php:519
+Errors : [8192] file_exists(): Passing null to parameter #1 ($filename) of type string is deprecated - C:\xampp\htdocs\Recettes\classes\recipe.class.php:519
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:35
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:35
+Errors : [8192] strip_tags(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:35
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:40
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:40
+Errors : [8192] strip_tags(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:40
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:45
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:45
+Errors : [8192] strip_tags(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:45
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:50
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:50
+Errors : [8192] strip_tags(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:50
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:55
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:55
+Errors : [8192] strip_tags(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:55
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:60
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:60
+Errors : [8192] strip_tags(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:60
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:65
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:65
+Errors : [8192] strip_tags(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:65
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:92
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:92
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:94
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:94
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:95
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:95
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:100
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:100
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:102
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:102
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:103
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:103
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:108
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:108
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:110
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:110
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:111
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:111
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:130
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:130
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:142
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:142
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:143
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:143
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:144
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:144
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:145
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:145
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:148
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:148
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:149
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:149
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:150
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:150
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:151
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:151
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:154
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:154
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:155
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:155
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:156
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:156
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:157
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:157
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:160
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:160
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:161
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:161
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:162
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:162
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:163
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:163
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:166
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:166
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:167
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:167
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:168
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:168
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:169
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:169
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:172
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:172
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:173
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:173
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:174
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:174
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:175
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:175
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:187
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:187
+Errors : [2] Undefined array key "comments" - C:\xampp\htdocs\Recettes\recipes\read.php:184
+Errors : [2] Undefined array key "comments" - C:\xampp\htdocs\Recettes\recipes\read.php:184
+Errors : [2] Undefined array key "comments" - C:\xampp\htdocs\Recettes\recipes\read.php:184
+Errors : [2] Undefined array key "comments" - C:\xampp\htdocs\Recettes\recipes\read.php:184
+Errors : [2] Undefined array key "comments" - C:\xampp\htdocs\Recettes\recipes\read.php:184
+Errors : [2] Undefined array key "comments" - C:\xampp\htdocs\Recettes\recipes\read.php:184
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:35
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:35
+Errors : [8192] strip_tags(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:35
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:40
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:40
+Errors : [8192] strip_tags(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:40
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:45
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:45
+Errors : [8192] strip_tags(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:45
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:50
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:50
+Errors : [8192] strip_tags(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:50
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:55
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:55
+Errors : [8192] strip_tags(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:55
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:60
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:60
+Errors : [8192] strip_tags(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:60
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:65
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:65
+Errors : [8192] strip_tags(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:65
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:92
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:92
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:94
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:94
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:95
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:95
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:100
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:100
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:102
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:102
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:103
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:103
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:108
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:108
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:110
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:110
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:111
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:111
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:130
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:130
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:142
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:142
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:143
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:143
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:144
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:144
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:145
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:145
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:148
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:148
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:149
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:149
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:150
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:150
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:151
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:151
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:154
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:154
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:155
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:155
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:156
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:156
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:157
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:157
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:160
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:160
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:161
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:161
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:162
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:162
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:163
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:163
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:166
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:166
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:167
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:167
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:168
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:168
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:169
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:169
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:172
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:172
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:173
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:173
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:174
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:174
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:175
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:175
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:187
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:187
+Errors : [2] Undefined array key "comments" - C:\xampp\htdocs\Recettes\recipes\read.php:184
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:35
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:35
+Errors : [8192] strip_tags(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:35
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:40
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:40
+Errors : [8192] strip_tags(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:40
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:45
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:45
+Errors : [8192] strip_tags(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:45
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:50
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:50
+Errors : [8192] strip_tags(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:50
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:55
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:55
+Errors : [8192] strip_tags(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:55
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:60
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:60
+Errors : [8192] strip_tags(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:60
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:65
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:65
+Errors : [8192] strip_tags(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:65
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:92
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:92
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:94
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:94
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:95
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:95
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:100
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:100
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:102
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:102
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:103
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:103
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:108
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:108
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:110
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:110
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:111
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:111
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:130
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:130
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:142
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:142
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:143
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:143
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:144
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:144
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:145
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:145
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:148
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:148
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:149
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:149
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:150
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:150
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:151
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:151
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:154
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:154
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:155
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:155
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:156
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:156
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:157
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:157
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:160
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:160
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:161
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:161
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:162
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:162
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:163
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:163
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:166
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:166
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:167
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:167
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:168
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:168
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:169
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:169
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:172
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:172
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:173
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:173
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:174
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:174
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:175
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:175
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:187
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:187
+Errors : [2] Undefined array key "comments" - C:\xampp\htdocs\Recettes\recipes\read.php:184
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:35
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:35
+Errors : [8192] strip_tags(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:35
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:40
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:40
+Errors : [8192] strip_tags(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:40
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:45
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:45
+Errors : [8192] strip_tags(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:45
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:50
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:50
+Errors : [8192] strip_tags(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:50
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:55
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:55
+Errors : [8192] strip_tags(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:55
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:60
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:60
+Errors : [8192] strip_tags(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:60
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:65
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:65
+Errors : [8192] strip_tags(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:65
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:92
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:92
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:94
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:94
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:95
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:95
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:100
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:100
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:102
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:102
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:103
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:103
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:108
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:108
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:110
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:110
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:111
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:111
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:130
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:130
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:142
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:142
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:143
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:143
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:144
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:144
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:145
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:145
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:148
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:148
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:149
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:149
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:150
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:150
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:151
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:151
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:154
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:154
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:155
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:155
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:156
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:156
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:157
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:157
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:160
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:160
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:161
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:161
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:162
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:162
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:163
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:163
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:166
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:166
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:167
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:167
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:168
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:168
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:169
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:169
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:172
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:172
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:173
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:173
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:174
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:174
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:175
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:175
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:187
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:187
+Errors : [2] Undefined array key 0 - C:\xampp\htdocs\Recettes\classes\recipe.class.php:519
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\classes\recipe.class.php:519
+Errors : [8192] file_exists(): Passing null to parameter #1 ($filename) of type string is deprecated - C:\xampp\htdocs\Recettes\classes\recipe.class.php:519
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:35
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:35
+Errors : [8192] strip_tags(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:35
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:40
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:40
+Errors : [8192] strip_tags(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:40
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:45
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:45
+Errors : [8192] strip_tags(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:45
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:50
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:50
+Errors : [8192] strip_tags(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:50
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:55
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:55
+Errors : [8192] strip_tags(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:55
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:60
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:60
+Errors : [8192] strip_tags(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:60
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:65
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:65
+Errors : [8192] strip_tags(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:65
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:92
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:92
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:94
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:94
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:95
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:95
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:100
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:100
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:102
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:102
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:103
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:103
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:108
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:108
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:110
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:110
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:111
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:111
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:130
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:130
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:142
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:142
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:143
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:143
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:144
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:144
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:145
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:145
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:148
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:148
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:149
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:149
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:150
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:150
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:151
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:151
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:154
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:154
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:155
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:155
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:156
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:156
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:157
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:157
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:160
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:160
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:161
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:161
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:162
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:162
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:163
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:163
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:166
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:166
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:167
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:167
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:168
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:168
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:169
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:169
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:172
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:172
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:173
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:173
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:174
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:174
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:175
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:175
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:187
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:187
+Errors : [2] Undefined array key 0 - C:\xampp\htdocs\Recettes\classes\recipe.class.php:519
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\classes\recipe.class.php:519
+Errors : [8192] file_exists(): Passing null to parameter #1 ($filename) of type string is deprecated - C:\xampp\htdocs\Recettes\classes\recipe.class.php:519
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:35
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:35
+Errors : [8192] strip_tags(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:35
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:40
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:40
+Errors : [8192] strip_tags(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:40
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:45
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:45
+Errors : [8192] strip_tags(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:45
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:50
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:50
+Errors : [8192] strip_tags(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:50
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:55
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:55
+Errors : [8192] strip_tags(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:55
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:60
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:60
+Errors : [8192] strip_tags(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:60
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:65
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:65
+Errors : [8192] strip_tags(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:65
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:92
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:92
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:94
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:94
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:95
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:95
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:100
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:100
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:102
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:102
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:103
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:103
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:108
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:108
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:110
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:110
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:111
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:111
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:130
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:130
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:142
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:142
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:143
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:143
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:144
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:144
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:145
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:145
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:148
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:148
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:149
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:149
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:150
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:150
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:151
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:151
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:154
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:154
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:155
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:155
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:156
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:156
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:157
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:157
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:160
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:160
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:161
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:161
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:162
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:162
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:163
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:163
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:166
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:166
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:167
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:167
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:168
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:168
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:169
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:169
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:172
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:172
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:173
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:173
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:174
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:174
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:175
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:175
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:187
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:187
+Errors : [2] Undefined array key 0 - C:\xampp\htdocs\Recettes\classes\recipe.class.php:519
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\classes\recipe.class.php:519
+Errors : [8192] file_exists(): Passing null to parameter #1 ($filename) of type string is deprecated - C:\xampp\htdocs\Recettes\classes\recipe.class.php:519
+Errors : [2] Undefined array key 0 - C:\xampp\htdocs\Recettes\classes\recipe.class.php:519
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\classes\recipe.class.php:519
+Errors : [8192] file_exists(): Passing null to parameter #1 ($filename) of type string is deprecated - C:\xampp\htdocs\Recettes\classes\recipe.class.php:519
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:35
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:35
+Errors : [8192] strip_tags(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:35
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:40
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:40
+Errors : [8192] strip_tags(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:40
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:45
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:45
+Errors : [8192] strip_tags(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:45
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:50
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:50
+Errors : [8192] strip_tags(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:50
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:55
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:55
+Errors : [8192] strip_tags(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:55
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:60
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:60
+Errors : [8192] strip_tags(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:60
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:65
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:65
+Errors : [8192] strip_tags(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:65
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:92
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:92
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:94
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:94
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:95
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:95
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:100
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:100
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:102
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:102
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:103
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:103
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:108
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:108
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:110
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:110
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:111
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:111
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:130
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:130
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:142
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:142
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:143
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:143
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:144
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:144
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:145
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:145
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:148
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:148
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:149
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:149
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:150
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:150
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:151
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:151
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:154
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:154
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:155
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:155
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:156
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:156
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:157
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:157
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:160
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:160
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:161
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:161
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:162
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:162
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:163
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:163
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:166
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:166
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:167
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:167
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:168
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:168
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:169
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:169
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:172
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:172
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:173
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:173
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:174
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:174
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:175
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:175
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:187
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:187
+Errors : [2] Undefined array key 0 - C:\xampp\htdocs\Recettes\classes\recipe.class.php:519
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\classes\recipe.class.php:519
+Errors : [8192] file_exists(): Passing null to parameter #1 ($filename) of type string is deprecated - C:\xampp\htdocs\Recettes\classes\recipe.class.php:519
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:35
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:35
+Errors : [8192] strip_tags(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:35
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:40
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:40
+Errors : [8192] strip_tags(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:40
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:45
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:45
+Errors : [8192] strip_tags(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:45
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:50
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:50
+Errors : [8192] strip_tags(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:50
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:55
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:55
+Errors : [8192] strip_tags(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:55
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:60
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:60
+Errors : [8192] strip_tags(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:60
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:65
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:65
+Errors : [8192] strip_tags(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:65
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:92
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:92
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:94
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:94
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:95
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:95
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:100
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:100
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:102
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:102
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:103
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:103
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:108
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:108
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:110
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:110
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:111
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:111
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:130
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:130
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:142
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:142
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:143
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:143
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:144
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:144
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:145
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:145
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:148
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:148
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:149
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:149
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:150
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:150
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:151
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:151
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:154
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:154
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:155
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:155
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:156
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:156
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:157
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:157
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:160
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:160
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:161
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:161
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:162
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:162
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:163
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:163
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:166
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:166
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:167
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:167
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:168
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:168
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:169
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:169
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:172
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:172
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:173
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:173
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:174
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:174
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:175
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:175
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:187
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:187
+Errors : [2] Undefined array key "comments" - C:\xampp\htdocs\Recettes\recipes\read.php:184
+Errors : [2] Undefined array key 0 - C:\xampp\htdocs\Recettes\classes\recipe.class.php:519
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\classes\recipe.class.php:519
+Errors : [8192] file_exists(): Passing null to parameter #1 ($filename) of type string is deprecated - C:\xampp\htdocs\Recettes\classes\recipe.class.php:519
+Errors : [2] Undefined array key "comments" - C:\xampp\htdocs\Recettes\recipes\read.php:184
+Errors : [2] Undefined array key "comments" - C:\xampp\htdocs\Recettes\recipes\read.php:184
+Errors : [2] Undefined array key "comment_id" - C:\xampp\htdocs\Recettes\recipes\read.php:97
+Errors : [2] Undefined array key "title" - C:\xampp\htdocs\Recettes\recipes\read.php:121
+Errors : [2] Undefined array key "comment_date" - C:\xampp\htdocs\Recettes\recipes\read.php:102
+Errors : [2] Undefined array key "comments" - C:\xampp\htdocs\Recettes\recipes\read.php:184
+Errors : [2] Undefined array key "comment_date" - C:\xampp\htdocs\Recettes\recipes\read.php:102
+Errors : [2] Undefined array key "img_path" - C:\xampp\htdocs\Recettes\recipes\read.php:129
+Errors : [2] Undefined array key "comment_id" - C:\xampp\htdocs\Recettes\recipes\read.php:97
+Errors : [2] Undefined array key "comments" - C:\xampp\htdocs\Recettes\recipes\read.php:184
+Errors : [2] Undefined array key "comment_id" - C:\xampp\htdocs\Recettes\recipes\read.php:97
+Errors : [2] Undefined array key "comments" - C:\xampp\htdocs\Recettes\recipes\read.php:184
+Errors : [2] Undefined array key "comments" - C:\xampp\htdocs\Recettes\recipes\read.php:184
+Errors : [2] Undefined array key "img_path" - C:\xampp\htdocs\Recettes\recipes\read.php:129
+Errors : [2] Undefined array key "comments" - C:\xampp\htdocs\Recettes\recipes\read.php:184
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:35
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:35
+Errors : [8192] strip_tags(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:35
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:40
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:40
+Errors : [8192] strip_tags(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:40
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:45
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:45
+Errors : [8192] strip_tags(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:45
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:50
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:50
+Errors : [8192] strip_tags(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:50
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:55
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:55
+Errors : [8192] strip_tags(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:55
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:60
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:60
+Errors : [8192] strip_tags(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:60
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:65
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:65
+Errors : [8192] strip_tags(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:65
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:92
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:92
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:94
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:94
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:95
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:95
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:100
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:100
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:102
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:102
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:103
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:103
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:108
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:108
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:110
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:110
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:111
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:111
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:130
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:130
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:142
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:142
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:143
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:143
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:144
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:144
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:145
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:145
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:148
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:148
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:149
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:149
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:150
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:150
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:151
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:151
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:154
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:154
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:155
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:155
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:156
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:156
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:157
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:157
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:160
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:160
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:161
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:161
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:162
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:162
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:163
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:163
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:166
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:166
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:167
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:167
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:168
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:168
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:169
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:169
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:172
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:172
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:173
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:173
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:174
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:174
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:175
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:175
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:187
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:187
+Errors : [2] Undefined array key "comments" - C:\xampp\htdocs\Recettes\recipes\read.php:184
+Errors : [2] Undefined array key 0 - C:\xampp\htdocs\Recettes\classes\recipe.class.php:525
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\classes\recipe.class.php:525
+Errors : [8192] file_exists(): Passing null to parameter #1 ($filename) of type string is deprecated - C:\xampp\htdocs\Recettes\classes\recipe.class.php:525
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:35
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:35
+Errors : [8192] strip_tags(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:35
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:40
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:40
+Errors : [8192] strip_tags(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:40
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:45
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:45
+Errors : [8192] strip_tags(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:45
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:50
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:50
+Errors : [8192] strip_tags(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:50
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:55
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:55
+Errors : [8192] strip_tags(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:55
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:60
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:60
+Errors : [8192] strip_tags(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:60
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:65
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:65
+Errors : [8192] strip_tags(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:65
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:92
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:92
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:94
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:94
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:95
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:95
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:100
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:100
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:102
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:102
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:103
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:103
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:108
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:108
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:110
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:110
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:111
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:111
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:130
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:130
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:142
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:142
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:143
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:143
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:144
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:144
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:145
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:145
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:148
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:148
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:149
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:149
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:150
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:150
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:151
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:151
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:154
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:154
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:155
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:155
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:156
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:156
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:157
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:157
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:160
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:160
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:161
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:161
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:162
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:162
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:163
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:163
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:166
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:166
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:167
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:167
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:168
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:168
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:169
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:169
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:172
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:172
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:173
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:173
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:174
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:174
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:175
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:175
+Errors : [2] Undefined variable $getInfos - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:187
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\Recettes\templates\recipe_layout.php:187
+Errors : [2] Undefined array key "comments" - C:\xampp\htdocs\Recettes\recipes\read.php:184

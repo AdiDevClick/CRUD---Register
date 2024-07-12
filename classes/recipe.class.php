@@ -387,7 +387,7 @@ class Recipe extends Mysql
             // echo json_encode(['update_status' => 'RCPUPDTSTMTEXECNT']);
             $status = 'RCPUPDTSTMTEXECNT';
             // throw new Error("RCPUPDTSTMTEXECNT - Vous n'avez fait aucun changement.");
-            
+
             // throw new Error("Cette recette ne peut pas être mise à jour, elle n'existe pas.");
             //header("Location :" .Functions::getUrl(). "?error=recipe-not-found");
             //exit();
@@ -395,15 +395,21 @@ class Recipe extends Mysql
         return ['update_status' => $status];
     }
 
+    /**
+     * Summary of getRecipesWithCommentsById
+     * @param mixed $recipeId
+     * @throws \Error
+     * @return array
+     */
     public function getRecipesWithCommentsById($recipeId)
     {
         $sqlRecipe =
         'SELECT *, DATE_FORMAT(c.created_at, "%d/%m/%Y") as comment_date 
         FROM recipes r
-        LEFT JOIN comments c
-        ON r.recipe_id = c.recipe_id
         LEFT JOIN images i
-        ON r.recipe_id = i.recipe_id
+            ON i.recipe_id = r.recipe_id
+        LEFT JOIN comments c
+            ON c.recipe_id = r.recipe_id
         WHERE r.recipe_id = :recipe_id;';
         $retrieveRecipeWithCommentsStatement = $this->connect()->prepare($sqlRecipe);
         if (!$retrieveRecipeWithCommentsStatement->execute([
@@ -519,7 +525,7 @@ class Recipe extends Mysql
         if (file_exists($image[0]['img_path'])) {
             unlink($image[0]['img_path']);
         }
-        
+
         $sqlQuery = 'DELETE FROM images WHERE recipe_id = :id;';
         $deleteRecipeStatement = $this->connect()->prepare($sqlQuery);
         if (!$deleteRecipeStatement->execute([

@@ -18,7 +18,7 @@ $filterKeysToRemove = [
     'comment_id', 'comment', 'rating', 'user_id',
     'review', 'ranking', 'comment_date'
 ];
-$array;
+// $array;
 
 /**
  * Grabing URL ID from index page and fetching rows datas
@@ -52,7 +52,7 @@ if(isset($_GET['id']) && is_numeric($_GET['id'])) {
     // }
     $recipe['rating'] = $averageRating['rating'];
     // $array = array_diff_key($filterKey, $getInfos[0]);
-
+    print_r($getInfos);
     // Append comments array into the recipe array
     foreach($getInfos as $comment => $data) {
         // print_r($getInfos[0]) . '<br>';

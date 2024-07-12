@@ -1,6 +1,6 @@
 <?php
 
-class Process_Ajax 
+class Process_Ajax
 {
     private bool $isImageSent = false;
     private array $getDatas;
@@ -12,9 +12,8 @@ class Process_Ajax
         private array $Post_Files,
         private bool $is_Post,
         private $Get_Id,
-        )
-    {
-        
+    ) {
+
         // $isImageSent = $this->isImageSent;
         // $isImageAlreadyOnServer = $this->isImageAlreadyOnServer;
 
@@ -41,7 +40,7 @@ class Process_Ajax
                 'ingredient5' => $this->Post_Data['ingredient5'],
                 'ingredient6' => $this->Post_Data['ingredient6'],
                 'custom_ingredients' => $this->Post_Data['custom_ingredient'],
-                'file' => $this->Post_Files['file']['name'],
+                // 'file' => $this->Post_Files['file']['name'],
                 // $this->Get_Id ?: 'recipe_id' => $this->Get_Id
                 'recipe_id' => $this->Get_Id
                 // Envoi toutes les données reçues au format JSON vers le serveur -
@@ -60,10 +59,10 @@ class Process_Ajax
                 $this->send_Status = 'RCPUPDTSTMTEXECNT';
                 $recipeId = $recipeId['recipe_id'];
             }
-            
+
             // print_r($recipeId);
             // echo json_encode($this->send_Status);
-            
+
             // return;
 
             if ($this->Post_Files['file'] && $this->Post_Files['file']['error'] == 0) {
