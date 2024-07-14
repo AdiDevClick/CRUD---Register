@@ -234,6 +234,7 @@ if (!$dev) {
         <?= $content ?? ''?>
     <!-- End Main Content -->
     </main>
+
     <!-- footer.php -->
     <footer class="">
         <div class="">

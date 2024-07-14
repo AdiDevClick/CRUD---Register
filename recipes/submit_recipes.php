@@ -16,6 +16,7 @@
 $data = $_SERVER['REQUEST_METHOD'] === 'POST';
 $err = [];
 $loggedUser = [];
+$getInfos = null;
 // print_r($_REQUEST);
 // print_r($data);
 // include('../recipes/Process_PreparationList.php');
@@ -109,7 +110,7 @@ ob_start();
 <?php if (isset($loggedUser['email'])  && !isset($_SESSION['REGISTERED_RECIPE'])): ?> 
         <?php //(isset($loggedUserState)):?>
     <h1>Partagez votre recette</h1>
-    <?= include '../templates/recipe_layout.php'?>
+    <?php include '../templates/recipe_layout.php'?>
 <!-- start of success message -->
 
 <?php elseif (isset($_SESSION['REGISTERED_RECIPE'])):?>
