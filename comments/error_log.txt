@@ -1,0 +1,3 @@
+Errors : [2] Undefined array key "userId" - C:\xampp\htdocs\Recettes\classes\RecipeController.class.php:525
+Errors : [2] Undefined array key "recipe_id" - C:\xampp\htdocs\Recettes\comments\post_create.php:15
+Errors : [2] Undefined array key "recipe_id" - C:\xampp\htdocs\Recettes\comments\post_create.php:15

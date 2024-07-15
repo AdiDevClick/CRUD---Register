@@ -103,7 +103,7 @@ if(isset($_GET['id']) && is_numeric($_GET['id'])) {
         }
     }
     // echo "<pre>";
-    print_r($recipe);
+    // print_r($recipe);
     // echo "</pre>";
     // print_r($array);
 

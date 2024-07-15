@@ -139,6 +139,7 @@
                             <div class="ingredient-stack js-ingredient-group js-modal-stop"></div>
                             <div class="ingredient">
                                 <select class="select js-select1" name="ingredient" id="ingredient1" aria-placeholder="test">
+                                    <option type="text" class="test"></input>
                                     <option value="oeuf" <?= $getInfos !== null && $getInfos['ingredient_1'] === 'oeuf' ? htmlspecialchars('selected') : null ?>>Oeuf</option>
                                     <option value="sel" <?= $getInfos !== null && $getInfos['ingredient_1'] === 'sel' ? htmlspecialchars('selected') : null ?>>Sel</option>
                                     <option value="sucre" <?= $getInfos !== null && $getInfos['ingredient_1'] === 'sucre' ? htmlspecialchars('selected') : null ?>>Sucre</option>

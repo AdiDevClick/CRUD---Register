@@ -147,10 +147,20 @@ if (!$dev) {
                         <li><a class="" href="<?php echo($rootUrl). $clicServer.'/deconnexion.php' ?>">Se déconnecter</a></li>
                     <?php endif?>
                 </div>
-            </div class="dropdown-menu-background">
+            </div>
         
             <div class="navbar">
                 <div class="logo"><a href="<?php echo strip_tags($rootUrl). $clicServer.'/index.php' ?>">Adi Dev Click </a></div>
+                <div class="search" id="search" accesskey="s">
+                    <input accesskey="s" class="search-input" id="ig-header-search-box-input" name="q" autocomplete="off" spellcheck="false" autocapitalize="none" itemprop="query-input" placeholder="Recherchez votre recette...">
+                    <div class="icon-backspace icon-s">
+                        <i></i>
+                    </div>
+                    <div class="close-search">+</div>
+                    <div class="icon-search-input">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </div>
+                </div>
                 <ul class="links">
                     <li><a
                     <?php if ($url === 'index.php') {
@@ -198,7 +208,7 @@ if (!$dev) {
                     <?php if(!isset($_COOKIE['EMAIL'])): ?>
                     <?php //if(!isset($_SESSION['LOGGED_USER'])):?>
                     <?php //if(!isset($loggedUser['email'][0])):?>
-                        <li><a class="" href="<?php echo($rootUrl). $clicServer.'/login.php' ?>">Se connecter</a></li>  
+                        <li><a class="" href="<?php echo($rootUrl). $clicServer.'/login.php' ?>">Se connecter</a></li>
                         <!-- <li><a class="" href="<?php //echo($rootUrl). 'recettes/register.php'?>">S'enregistrer</a></li> -->
                     <?php endif?>
                     <?php if(isset($_COOKIE['EMAIL'])): ?>
@@ -209,6 +219,7 @@ if (!$dev) {
                         }?> class="" href="<?php echo($rootUrl). $clicServer.'/recipes/create_recipes.php' ?>">Créer une recette</a></li>
                         <li><a class="" href="<?php echo($rootUrl). $clicServer.'/deconnexion.php' ?>">Se déconnecter</a></li>
                     <?php endif?>
+                    
                 </ul>
                 <?php if(!isset($_COOKIE['EMAIL'])): ?>
                 <?php //if(!isset($_SESSION['LOGGED_USER'])):?>
