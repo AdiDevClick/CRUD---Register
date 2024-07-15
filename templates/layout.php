@@ -45,6 +45,7 @@ $dev = false;
     referrerpolicy="no-referrer"/>
     <!-- <script type="module" src="<?php //echo($rootUrl). $clicServer?>/scripts/toaster.js" defer></script> -->
     <script src="<?php echo($rootUrl). $clicServer?>/scripts/script.js" defer></script>
+    <script src="<?php echo($rootUrl). $clicServer?>/scripts/searchApp.js" type="module" defer></script>
 
     <!-- <link rel="stylesheet" href="<?php //echo($rootUrl). $clicServer?>/resources/css/main.css"/> -->
     <!-- <link rel="stylesheet" href="<?php //echo($rootUrl). $clicServer?>/resources/css/index.css"/> -->
@@ -151,16 +152,23 @@ if (!$dev) {
         
             <div class="navbar">
                 <div class="logo"><a href="<?php echo strip_tags($rootUrl). $clicServer.'/index.php' ?>">Adi Dev Click </a></div>
-                <div class="search" id="search" accesskey="s">
-                    <input accesskey="s" class="search-input" id="ig-header-search-box-input" name="q" autocomplete="off" spellcheck="false" autocapitalize="none" itemprop="query-input" placeholder="Recherchez votre recette...">
-                    <div class="icon-backspace icon-s">
-                        <i></i>
+                <form id="search-form" class="search-form" action="<?= $rootUrl. $clicServer.'/index.php' ?>" method="get" role="search">
+                
+                <!-- <meta itemprop="target" content="https://www.instant-gaming.com/fr/rechercher/?q={q}"> -->
+                    <div class="search " id="search" accesskey="s">
+                        <!-- <form id="search-form" class="search-form" action="<?= $rootUrl. $clicServer.'/index.php' ?>" method="get" role="search"> -->
+                            <input accesskey="s" class="search-input" id="ig-header-search-box-input" name="q" autocomplete="off" spellcheck="false" autocapitalize="none" itemprop="query-input" placeholder="Recherchez votre recette...">
+                        <!-- </form> -->
+                        <div class="icon-backspace icon-s">
+                            <i></i>
+                        </div>
+                        <div class="close-search">+</div>
+                        <div class="icon-search-input">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </div>
                     </div>
-                    <div class="close-search">+</div>
-                    <div class="icon-search-input">
-                        <i class="fa-solid fa-magnifying-glass"></i>
-                    </div>
-                </div>
+                </form>
+                
                 <ul class="links">
                     <li><a
                     <?php if ($url === 'index.php') {

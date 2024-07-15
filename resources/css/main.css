@@ -747,9 +747,10 @@ input:focus::placeholder, input.input_error:focus::placeholder {
     border-radius: 80px;
     height: 100%;
     padding: 0;
-    position: absolute;
+    /* position: absolute; */ /* doit etre remis */
     color: transparent;
     right: 0;
+    top: 0;
     width: 66px;
     z-index: 11;
     transition: .2s;
@@ -785,7 +786,10 @@ input:focus::placeholder, input.input_error:focus::placeholder {
     }
     &.open {
         /* width: 100%; */
+        position: absolute; /* a supprimer */
+
         right: 25px;
+        top: 0;
         width: calc(100% - 20%);
         margin-right: 20px;
         > input {
