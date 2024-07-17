@@ -4,7 +4,7 @@ import { debounce } from "../functions/dom.js"
 export class SearchBar
 {
     /** @type {String} */
-    #url = 'Process_PreparationList.php'
+    #url = '../recettes/recipes/Process_PreparationList.php'
     /** @type {Boolean} */
     #isSentAlready = false
     /** @type {Array} */
@@ -28,24 +28,21 @@ export class SearchBar
     }
 
     async #newSearch(e) {
-        // e.preventDefault()
+        e.preventDefault()
         // const form = e.target
         let data = new FormData(this.searchForm)
         // let url = this.options.get ? this.#url : 'Process_PreparationList.php'
-        const queryString = window.location
+        const queryString = document.location
         const urlParams = new URLSearchParams(queryString.search)
         urlParams.set('query', data.get('query'))
-        // console.log(urlParams.get('query'))
+        const query = urlParams.get('query')
+        // urlParams.toString()
 
         // if (!this.#modifyFormDataValues(form, data)) return
         try {
             if (!this.#isSentAlready) {
-                    this.#searchResults = await fetchJSON(this.#url, {
-                    method: 'GET',
-                    // json: data.get('query'),
-                    body: data,
-                    // body: data.get('query'),
-                    // img: true,
+                    this.#searchResults = await fetchJSON(this.#url+'?query='+query, {
+                    method: 'GET'
                 })
                 console.log(this.#searchResults)
             }
