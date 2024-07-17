@@ -1,1 +1,12 @@
 Errors : [2] Undefined variable $dataTest - C:\xampp\htdocs\Recettes\recipes\Process_PreparationList.php:27
+Errors : [2] Undefined variable $setRecipe - C:\xampp\htdocs\Recettes\recipes\Process_PreparationList.php:28
+Errors : [2] Undefined variable $setRecipe - C:\xampp\htdocs\Recettes\recipes\Process_PreparationList.php:28
+Errors : [2] Undefined variable $setRecipe - C:\xampp\htdocs\Recettes\recipes\Process_PreparationList.php:28
+Errors : [2] Array to string conversion - C:\xampp\htdocs\Recettes\classes\RecipeController.class.php:232
+Errors : [2] Undefined variable $titleRecipe - C:\xampp\htdocs\Recettes\classes\RecipeController.class.php:239
+Errors : [2] Undefined variable $titleRecipe - C:\xampp\htdocs\Recettes\classes\RecipeController.class.php:239
+Errors : [2] Undefined variable $title - C:\xampp\htdocs\Recettes\classes\RecipeController.class.php:235
+Errors : [2] Undefined variable $title - C:\xampp\htdocs\Recettes\classes\RecipeController.class.php:244
+Errors : [2] foreach() argument must be of type array|object, null given - C:\xampp\htdocs\Recettes\recipes\Process_PreparationList.php:29
+Errors : [2] Array to string conversion - C:\xampp\htdocs\Recettes\classes\recipe.class.php:284
+Errors : [2] Undefined array key 0 - C:\xampp\htdocs\Recettes\classes\recipe.class.php:280

@@ -50,7 +50,8 @@ class RecipeView extends RecipeController
 
     public function getRecipesTitle()
     {
-        return $this->fetchRecipesTitle();
+        $recipe = $this->fetchRecipesTitle();
+        return $recipe;
     }
 
     public function getRecipeId()
@@ -64,7 +65,8 @@ class RecipeView extends RecipeController
     }
     public function fetchIngredientsById()
     {
-        return $this->fetchesIngredientsInfosById();
+        $result = $this->fetchesIngredientsInfosById();
+        return $result;
     }
 
     //public function updateRecipeInfoById($title, $recipe, $id)

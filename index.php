@@ -59,6 +59,7 @@ ob_start()
         <?php //header_remove('Location: index.php?login=success')?>
         <?php require_once("includes/class-autoloader.inc.php"); ?>
         <?php $recipes = new LoginView([]); ?>
+        <?php print_r($recipes->displayRecipes()) ?>
         <?php foreach ($recipes->displayRecipes() as $recipe) : ?>
             <?php echo display_recipe($recipe); ?>
                 <article class="article">

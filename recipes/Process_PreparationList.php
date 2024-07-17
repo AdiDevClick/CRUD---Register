@@ -24,9 +24,14 @@ if (isset($_GET['query'])) {
     // $content = file_get_contents("php://input");
     // $dataTest = json_decode($content, true);
     $getIdDatas = $_GET['query'];
-    echo $getIdDatas;
-    // $setRecipe = new RecipeView($getIdDatas);
-    // $setRecipe->fetchIngredientsById();
+    $getRecipe = new RecipeView($getIdDatas);
+    $recipe = $getRecipe->getRecipesTitle();
+    // foreach ($recipe as $key) {
+    //     echo json_encode(array("title"=> $key));
+    // }
+    echo json_encode($recipe);
+    // echo json_encode(array("title"=> $recipe));
+
 }
 
 /**

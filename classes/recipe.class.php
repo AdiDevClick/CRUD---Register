@@ -254,12 +254,16 @@ class Recipe extends Mysql
         // return json_encode($recipe);
     }
 
-    protected function getRecipesTitles($recipes)
+    protected function getRecipesTitles($recipes): array
     {
-        $sqlRecipe = 'SELECT * FROM recipes WHERE title = :title;';
+        $sqlRecipe = 'SELECT *
+            FROM `recipes`
+            WHERE MATCH `title`
+            AGAINST(:word IN BOOLEAN MODE)
+            ORDER BY `recipe_id` ASC;';
         $getRecipesIdStatement = $this->connect()->prepare($sqlRecipe);
         if (!$getRecipesIdStatement->execute([
-            'title' => $recipes
+            'word' => $recipes . '*',
         ])) {
             $getRecipesIdStatement = null;
             //throw new Error((string)header("Location: ".Functions::getUrl()."?error=stmt-failed"));
@@ -273,7 +277,12 @@ class Recipe extends Mysql
             //header("Location :" .Functions::getUrl(). "?error=recipe-not-found");
             //exit();
         }
-        $recipe = $getRecipesIdStatement->fetch(PDO::FETCH_ASSOC);
+        $recipe = $getRecipesIdStatement->fetchAll(PDO::FETCH_ASSOC);
+        // foreach ($recipe as $recipeItem) {
+        //     echo json_encode($recipeItem);
+        // }
+        // print_r ($recipe);
+        // echo json_encode($recipe);
         return $recipe;
     }
 

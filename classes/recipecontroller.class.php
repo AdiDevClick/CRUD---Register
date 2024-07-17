@@ -225,16 +225,24 @@ class RecipeController extends Recipe
     {
         try {
             //if ($checkId->checkIds()) {
-            $this->getRecipesTitles($this->getData);
+            $title = $this->getRecipesTitles($this->getData);
+            // echo json_encode(array("title"=> $title));
+            // foreach ($title = $this->getRecipesTitles($this->getData) as $recipeItem) {
+            //     echo '<br>';
+            //     print_r($recipeItem);
+            //     echo '<br>';
+            // }
             $titleRecipe = [
-                'title' => $this->getData
+                'title' => $title
             ];
+            // print_r ($titleRecipe);
             $_SESSION['TITLE_RECIPE'] = $titleRecipe;
             //}
-            if (isset($titleRecipe)) {
-                $this->getRecipesTitles($this->getData);
-                unset($titleRecipe);
-            }
+            // if (isset($titleRecipe)) {
+            //     $this->getRecipesTitles($this->getData);
+            //     unset($titleRecipe);
+            // }
+            return $title; 
         } catch (Error $e) {
             die('Erreur : ' . $e->getMessage() . "Nous n'avons pas pu récupérer le titre de cette recette ");
         }
