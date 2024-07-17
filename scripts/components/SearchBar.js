@@ -3,7 +3,13 @@ import { debounce } from "../functions/dom.js"
 
 export class SearchBar
 {
-    #url
+    /** @type {String} */
+    #url = 'Process_PreparationList.php'
+    /** @type {Boolean} */
+    #isSentAlready = false
+    /** @type {Array} */
+    #searchResults = []
+
     constructor(searchForm, options = {}) {
         this.searchForm = searchForm
         this.options = Object.assign({}, {
@@ -15,31 +21,40 @@ export class SearchBar
             // whichInputAllowSpecialCharacters: ['Mot de Passe', 'Mot de Passe de confirmation', 'Email', 'file'],
         }, options)
 
-        this.searchForm.addEventListener('submit', this.#newSearch)
+        this.searchForm.addEventListener('submit', this.#newSearch.bind(this))
         this.searchForm.addEventListener('input', debounce((e) => {
             this.#newSearch(e)
         }, (this.options.debounceDelay)))
     }
 
-    #newSearch(e) {
-        console.log(e)
-        const form = e.target
-        console.log(form)
-        console.log(form.value)
+    async #newSearch(e) {
+        // e.preventDefault()
+        // const form = e.target
         let data = new FormData(this.searchForm)
-        console.log(data)
+        // let url = this.options.get ? this.#url : 'Process_PreparationList.php'
+        const queryString = window.location
+        const urlParams = new URLSearchParams(queryString.search)
+        urlParams.set('query', data.get('query'))
+        // console.log(urlParams.get('query'))
+
         // if (!this.#modifyFormDataValues(form, data)) return
-        // try {
-        //     if (!this.#isSentAlready) {
-        //         this.#ingredientList = await fetchJSON(url, {
-        //             method: 'POST',
-        //             // json: data,
-        //             body: data,
-        //             // img: true,
-        //         })
-        //     }
-        // } catch(e) {
-        //     console.log(e)
-        // }
+        try {
+            if (!this.#isSentAlready) {
+                    this.#searchResults = await fetchJSON(this.#url, {
+                    method: 'GET',
+                    // json: data.get('query'),
+                    body: data,
+                    // body: data.get('query'),
+                    // img: true,
+                })
+                console.log(this.#searchResults)
+            }
+        } catch(e) {
+            console.log(e)
+        }
+    }
+
+    set setUpdateAdress(url) {
+        this.#url = url
     }
 }

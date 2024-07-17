@@ -36,6 +36,7 @@ export class IngredientsFrom {
     /** @type {String} */
     #url
     #allowedFiles = 'image/jpeg, image/png, image/jpg, image/gif'
+    /** @type {Boolean} */
     #isSentAlready = false
     #file
     #imagePreview

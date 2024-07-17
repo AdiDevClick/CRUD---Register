@@ -13,6 +13,22 @@ $getIdDatas;
 $is_Post = true;
 $session = 'REGISTERED_RECIPE';
 
+header('Content-Type: application/json; charset=utf-8');
+$content = file_get_contents("php://input");
+$dataTest = json_decode($content, true);
+echo isset($_GET);
+print_r ($dataTest);
+
+if (isset($_GET['query'])) {
+    header('Content-Type: application/json; charset=utf-8');
+    $content = file_get_contents("php://input");
+    $dataTest = json_decode($content, true);
+    $getIdDatas = $_GET['query'];
+    echo $dataTest;
+    // $setRecipe = new RecipeView($getIdDatas);
+    // $setRecipe->fetchIngredientsById();
+}
+
 /**
  * LORS D'UNE MISE A JOUR :
  * Récupère et renvoi l'ID de la recette au script JS 'RecipePreparation.js'

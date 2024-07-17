@@ -155,9 +155,9 @@ if (!$dev) {
                 <form id="search-form" class="search-form" action="<?= $rootUrl. $clicServer.'/index.php' ?>" method="get" role="search">
                 
                 <!-- <meta itemprop="target" content="https://www.instant-gaming.com/fr/rechercher/?q={q}"> -->
-                    <div class="search " id="search" accesskey="s">
-                        <!-- <form id="search-form" class="search-form" action="<?= $rootUrl. $clicServer.'/index.php' ?>" method="get" role="search"> -->
-                            <input accesskey="s" class="search-input" id="ig-header-search-box-input" name="q" autocomplete="off" spellcheck="false" autocapitalize="none" itemprop="query-input" placeholder="Recherchez votre recette...">
+                    <div class="search open" id="search">
+                        <!-- <form id="search-form" class="search-form" action="<?php // $rootUrl. $clicServer.'/index.php' ?>" method="get" role="search"> -->
+                            <input accesskey="s" class="search-input" id="ig-header-search-box-input" name="query" autocomplete="off" spellcheck="false" autocapitalize="none" itemprop="query-input" placeholder="Recherchez votre recette...">
                         <!-- </form> -->
                         <div class="icon-backspace icon-s">
                             <i></i>
