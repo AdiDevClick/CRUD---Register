@@ -2,6 +2,7 @@ import { SearchBar } from "./components/SearchBar.js"
 
 const searchForm = document.querySelectorAll('#search-form')
 const searchBar = document.querySelector('#search')
+const input = searchBar.querySelector('#header-search-box-input')
 const closeSearchBtn = searchBar.querySelector('.close-search')
 const searchIcon = searchBar.querySelector('.icon-search-input')
 const body = document.querySelector('main')
@@ -10,7 +11,6 @@ let isOpened
 
 const onClose = function (e) {
     e.preventDefault()
-    console.log(e)
     if (isOpened && searchBar.classList.contains('open')) {
         navLinks.classList.remove('hidden')
         searchBar.classList.remove('open')
@@ -20,13 +20,13 @@ const onClose = function (e) {
 
 const onOpen = function (e) {
     e.preventDefault()
-    console.log(e)
     if (searchBar.classList.contains('open') || isOpened) return
     if (!isOpened) {
         isOpened = true
         searchBar.classList.add('open')
         navLinks.classList.add('hidden')
         searchBar.addEventListener('transitionend', (e) => {
+            input.focus()
             body.addEventListener('click', onClose, {once: true})
             closeSearchBtn.addEventListener('click', onClose, {once: true})
         }, {once: true})
