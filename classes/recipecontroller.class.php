@@ -225,6 +225,7 @@ class RecipeController extends Recipe
     {
         try {
             //if ($checkId->checkIds()) {
+            echo $this->getData;
             $title = $this->getRecipesTitles($this->getData);
             // echo json_encode(array("title"=> $title));
             // foreach ($title = $this->getRecipesTitles($this->getData) as $recipeItem) {

@@ -1,0 +1,3 @@
+Errors : [2] Undefined array key 0 - C:\xampp\htdocs\recettes\classes\recipe.class.php:544
+Errors : [2] Trying to access array offset on value of type null - C:\xampp\htdocs\recettes\classes\recipe.class.php:544
+Errors : [8192] file_exists(): Passing null to parameter #1 ($filename) of type string is deprecated - C:\xampp\htdocs\recettes\classes\recipe.class.php:544

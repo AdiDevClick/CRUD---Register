@@ -529,7 +529,8 @@ footer {
         /* retirer tout ça pour remettre le fixed navbar */
         padding-right: 5%;
         position: sticky;
-        align-content: space-between;
+        align-content: flex-start;
+        /* align-content: space-between; */
         align-items: flex-end;
         flex-wrap: wrap;
         flex-direction: column;

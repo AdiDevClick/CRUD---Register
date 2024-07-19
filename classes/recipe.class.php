@@ -256,11 +256,22 @@ class Recipe extends Mysql
 
     protected function getRecipesTitles($recipes): array
     {
-        $sqlRecipe = 'SELECT *
-            FROM `recipes`
-            WHERE MATCH `title`
-            AGAINST(:word IN BOOLEAN MODE)
-            ORDER BY `recipe_id` ASC;';
+        $sqlRecipe = 'SELECT r.recipe_id, r.title, r.author, i.img_path,
+            MATCH title
+                AGAINST(:word IN BOOLEAN MODE) AS score
+            FROM recipes r
+            LEFT JOIN images i
+                ON i.recipe_id = r.recipe_id
+            WHERE r.is_enabled = 1
+            HAVING score > 0
+            ORDER BY score DESC;';
+        // $sqlRecipe = 'SELECT *
+        //     MATCH (r.title) 
+        //         AGAINST (:word IN BOOLEAN MODE) AS score
+        //     FROM recipes r
+        //     LEFT JOIN images i
+        //         ON i.recipe_id = r.recipe_id
+        //     ORDER BY score DESC;';
         $getRecipesIdStatement = $this->connect()->prepare($sqlRecipe);
         if (!$getRecipesIdStatement->execute([
             'word' => $recipes . '*',
