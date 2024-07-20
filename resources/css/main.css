@@ -215,15 +215,18 @@ header {
     margin: 15px auto;
     top: 0;
     left: 0;
+    overflow: hidden;
     /* right: 0; */
     background-color: var(--site-color-01);
-    padding: 2rem;
+    padding: 2rem 3rem;
+    gap: 1rem;
     /* padding-right: 60px; /* devrait etre deactivated */
     display: flex!important;
     z-index: 1000;
     align-items: center;
-    justify-content: space-around;
-    /* align-content: space-between; */
+    justify-content: space-between;
+    /* justify-content: space-around; */
+    align-content: space-between;
     /* align-items: flex-end; */
     /* flex-wrap: wrap; */
     /* flex-direction: column; */
@@ -251,6 +254,14 @@ header {
         justify-content: center;
         /* padding-right: 10%; */ /* original
     } */
+    &.fadeOut {
+        .search {
+            transition: none;
+        }
+        /* .search.open {
+            position: fixed;
+        } */
+    }
 }
 
 /* .navbar .logo {
@@ -319,6 +330,7 @@ header {
 .fadeOut {
     animation-name: fadeOut;
     animation-duration: 0.3s;
+    /* transition: none; */
 }
 
 @keyframes borderSlide {
@@ -521,6 +533,13 @@ footer {
         /* retirer tout ça pour remettre le fixed navbar */
         position: fixed;
         /* bug sur ipad */
+        /* background-color: orange; */
+        &:hover {
+            background-color: orange;
+            transition: all .2s;
+            height: 80px;
+            border: 1px solid grey;
+        }
     }
 
     .navbar {
@@ -535,6 +554,12 @@ footer {
         flex-wrap: wrap;
         flex-direction: column;
         justify-content: center;
+        &.fadeOut {
+            :is(.search.open) {
+                position: fixed;
+                top: 15px
+            }
+        }
     }
 }
 
@@ -746,8 +771,9 @@ input:focus::placeholder, input.input_error:focus::placeholder {
     background-position: 50%;
     background-repeat: no-repeat;
     border-radius: 80px;
-    height: 100%;
-    padding: 0;
+    /* min-height: 33px; */
+    /* height: 100%; */
+    padding: 1px;
     /* position: absolute; */ /* doit etre remis */
     color: transparent;
     right: 0;
@@ -768,6 +794,26 @@ input:focus::placeholder, input.input_error:focus::placeholder {
     right: 0;
     width: 66px;
     z-index: 11; */
+    &:hover:not(.open) {
+        /* width: calc(66px - 10px);
+        padding: 60px; */
+        /* padding: 10px; */
+        height: 120px;
+    }
+    /* &:hover::after {
+        content: '';
+        padding: 60px
+    }
+    &:hover::before {
+        content: '';
+        padding: 60px
+    } */
+    &:not(.open) {
+        height: 33px;
+        .close-search {
+            display: none;
+        }
+    }
     > input {
         visibility: hidden;
         background: orange;
@@ -787,8 +833,9 @@ input:focus::placeholder, input.input_error:focus::placeholder {
     }
     &.open {
         /* width: 100%; */
+        content: '';
         position: absolute; /* a supprimer */
-
+        height: 80px;
         right: 25px;
         top: 0;
         width: calc(100% - 20%);
@@ -812,10 +859,19 @@ input:focus::placeholder, input.input_error:focus::placeholder {
             visibility: visible;
             /* margin: 0 10%; */
         }
+        &::after {
+            content: '';
+            padding: 60px
+        }
+        &::before {
+            content: '';
+            padding: 60px
+        }
     }
     & .icon-search-input {
         cursor: pointer;
         position: relative;
+        padding: 20px;
         /* position: absolute;
         right: 20px;
         top: 50%; */
@@ -871,6 +927,16 @@ input:focus::placeholder, input.input_error:focus::placeholder {
         }
     }
 }
+
+@keyframes width-shrink {
+    from {
+        width: 80%
+    }
+    to {
+        width: 66px;
+    }
+}
+
 @keyframes fa-bounce {
     0% {
         -webkit-transform: scale(1) translateY(0);

@@ -3,7 +3,8 @@
 class RecipeController extends Recipe
 {
     public function __construct(
-        private $getData
+        private $getData,
+        private $optionnalData = null,
     ) {
     }
 
@@ -134,7 +135,7 @@ class RecipeController extends Recipe
             if  (!isset($loggedUser)) {
                 throw new Error("LGGDUSROFF  : Veuillez vous identifier avant de partager une recette.") ;
             } else {
-                print_r($this->getData);
+                // print_r($this->getData);
 
                 $checkInput = new CheckInput(
                     $this->getData
@@ -225,8 +226,8 @@ class RecipeController extends Recipe
     {
         try {
             //if ($checkId->checkIds()) {
-            echo $this->getData;
-            $title = $this->getRecipesTitles($this->getData);
+            // echo $this->getData;
+            $title = $this->getRecipesTitles($this->getData, $this->optionnalData);
             // echo json_encode(array("title"=> $title));
             // foreach ($title = $this->getRecipesTitles($this->getData) as $recipeItem) {
             //     echo '<br>';
@@ -243,7 +244,7 @@ class RecipeController extends Recipe
             //     $this->getRecipesTitles($this->getData);
             //     unset($titleRecipe);
             // }
-            return $title; 
+            return $title;
         } catch (Error $e) {
             die('Erreur : ' . $e->getMessage() . "Nous n'avons pas pu récupérer le titre de cette recette ");
         }
@@ -326,7 +327,7 @@ class RecipeController extends Recipe
             if (!isset($recipeId)) {
                 // if ($this->checkIds()) {
                 $this->checkIds();
-                    // print_r($this->getData);
+                // print_r($this->getData);
                 $checkInput = new CheckInput(
                     $this->getData
                 );

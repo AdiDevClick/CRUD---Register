@@ -1,4 +1,4 @@
-<?php declare(strict_types= 1);
+<?php declare(strict_types=1);
 
 require_once(dirname(__DIR__) . DIRECTORY_SEPARATOR . "classes" . DIRECTORY_SEPARATOR ."Functions.class.php");
 require_once(dirname(__DIR__) . DIRECTORY_SEPARATOR . "includes" . DIRECTORY_SEPARATOR ."variables.inc.php");
@@ -61,9 +61,9 @@ $dev = false;
 if (!$dev) {
     $manifest = json_decode(file_get_contents(dirname(__DIR__) . DIRECTORY_SEPARATOR ."public" . DIRECTORY_SEPARATOR ."assets" . DIRECTORY_SEPARATOR .".vite". DIRECTORY_SEPARATOR ."manifest.json"), true);
 
-//     $manifest = json_decode(file_get_contents('./public/assets/.vite/manifest.json'), true);
-//     // var_dump($manifest);
-?>
+    //     $manifest = json_decode(file_get_contents('./public/assets/.vite/manifest.json'), true);
+    //     // var_dump($manifest);
+    ?>
         <script src="<?php echo($rootUrl) . $clicServer?>/public/assets/<?= $manifest['resources/main.js']['file']?>" type="module"></script>
         <!-- <script src="./public/assets/<?php //$manifest['resources/main.js']['file']?>" type="module"></script> -->
         <script src="<?php echo($rootUrl) . $clicServer?>/public/assets/<?= $manifest['scripts/toaster.js']['file']?>" type="module"></script>
@@ -71,7 +71,7 @@ if (!$dev) {
         <link rel="stylesheet" href="<?php echo($rootUrl) . $clicServer?>/public/assets/<?= $manifest['resources/main.js']['css'][0]?>">
 <?php
 } else {
-?>
+    ?>
     <script type="module" src="http://localhost:5173/assets/@vite/client"></script>
     <script type="module" src="http://localhost:5173/assets/resources/main.js"></script>
     <script type="module" src="<?php echo($rootUrl). $clicServer?>/scripts/toaster.js" defer></script>
@@ -152,12 +152,29 @@ if (!$dev) {
         
             <div class="navbar">
                 <div class="logo"><a href="<?php echo strip_tags($rootUrl). $clicServer.'/index.php' ?>">Adi Dev Click </a></div>
-                <form id="search-form" class="search-form" action="<?= $rootUrl. $clicServer.'/index.php' ?>" method="get" role="search">
+                <form
+                    id="search-form"
+                    class="search-form"
+                    action="<?= $rootUrl. $clicServer.'/index.php' ?>"
+                    method="get"
+                    role="search"
+                    data-endpoint ="<?= $rootUrl . $clicServer . '/recipes/Process_PreparationList.php'?>"
+                >
                 
                 <!-- <meta itemprop="target" content="https://www.instant-gaming.com/fr/rechercher/?q={q}"> -->
                     <div class="search" id="search">
-                        <!-- <form id="search-form" class="search-form" action="<?php // $rootUrl. $clicServer.'/index.php' ?>" method="get" role="search"> -->
-                            <input accesskey="s" class="search-input" id="header-search-box-input" name="query" autocomplete="off" spellcheck="false" autocapitalize="none" itemprop="query-input" placeholder="Recherchez votre recette...">
+                        <!-- <form id="search-form" class="search-form" action="<?php // $rootUrl. $clicServer.'/index.php'?>" method="get" role="search"> -->
+                            <input
+                                accesskey="s"
+                                class="search-input"
+                                id="header-search-box-input"
+                                name="query"
+                                autocomplete="off"
+                                spellcheck="false"
+                                autocapitalize="none"
+                                itemprop="query-input"
+                                placeholder="Recherchez votre recette..."
+                            >
                         <!-- </form> -->
                         <div class="icon-backspace icon-s">
                             <i></i>

@@ -1,6 +1,7 @@
 import { SearchBar } from "./components/SearchBar.js"
 
 const searchForm = document.querySelectorAll('#search-form')
+const pagination = document.querySelectorAll('.js-infinite-pagination')
 const searchBar = document.querySelector('#search')
 const input = searchBar.querySelector('#header-search-box-input')
 const closeSearchBtn = searchBar.querySelector('.close-search')
@@ -13,6 +14,10 @@ let isOpened
 const onClose = function (e) {
     e.preventDefault()
     if (isOpened && searchBar.classList.contains('open')) {
+        // input.removeAttribute('style')
+        input.style.animation = 'width-shrink .2s'
+
+        // input.style.disableAnimation = 'width-shrink'
         navLinks.classList.remove('hidden')
         burgerMenu.classList.remove('hidden')
         searchBar.classList.remove('open')
@@ -25,11 +30,13 @@ const onOpen = function (e) {
     if (searchBar.classList.contains('open') || isOpened) return
     if (!isOpened) {
         isOpened = true
+        input.removeAttribute('style')
         searchBar.classList.add('open')
         navLinks.classList.add('hidden')
         burgerMenu.classList.add('hidden')
         searchBar.addEventListener('transitionend', (e) => {
             input.focus()
+            // input.style.animation = 'width-shrink 0.2s'
             body.addEventListener('click', onClose, {once: true})
             closeSearchBtn.addEventListener('click', onClose, {once: true})
         }, {once: true})
@@ -38,8 +45,8 @@ const onOpen = function (e) {
 
 searchIcon.addEventListener('click', onOpen)
 
-searchForm.forEach(form => {
-    new SearchBar(form, {
+pagination.forEach(element => {
+    new SearchBar(element, {
         debounceDelay: 1000
     })
 })

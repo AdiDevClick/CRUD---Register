@@ -2,6 +2,11 @@
 
 declare(strict_types=1);
 
+if(session_status() !== PHP_SESSION_ACTIVE || session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+($_SESSION['LAST_ID'] !== 0) ? null : $_SESSION['LAST_ID'] = 0;
+
 include_once("../includes/class-autoloader.inc.php");
 include_once('../logs/customErrorHandlers.php');
 include_once('../includes/variables.inc.php');
@@ -23,13 +28,29 @@ if (isset($_GET['query'])) {
     // header('Content-Type: application/json; charset=utf-8');
     // $content = file_get_contents("php://input");
     // $dataTest = json_decode($content, true);
-    $getIdDatas = $_GET['query'];
-    $getRecipe = new RecipeView($getIdDatas);
-    $recipe = $getRecipe->getRecipesTitle();
-    // foreach ($recipe as $key) {
-    //     echo json_encode(array("title"=> $key));
-    // }
-    echo json_encode($recipe);
+    
+        // echo json_encode($_SESSION['LAST_ID']) ;
+
+        // $_SESSION['LAST_ID'] = 0;
+        $getSearchLimit = $_GET['_limit'];
+        $getSearchRequest = $_GET['query'];
+        $getRecipe = new RecipeView($getSearchRequest, $getSearchLimit);
+        $recipe = $getRecipe->getRecipesTitle();
+        // foreach ($recipe as $key) {
+        //     echo json_encode(array("title"=> $key));
+        // }
+        // if ($getSearchLimit > 0) {
+        //     for ($i = 0; $i < $getSearchLimit; $i++) {
+        //         array_slice($recipe, $i);
+        //         echo json_encode([$recipe[$i]]);
+        //     }
+        // }
+        // echo json_encode($_SESSION['LAST_ID']);
+
+        echo json_encode($recipe);
+        // $_SESSION['LAST_ID'] = $recipe['recipe_id'];
+        // echo json_encode($_SESSION['LAST_ID']) ;
+
     // echo json_encode(array("title"=> $recipe));
 
 }
@@ -64,7 +85,7 @@ if ($data && isset($_POST)) {
     header('Content-Type: application/json; charset=utf-8');
     $content = file_get_contents("php://input");
     $dataTest = json_decode($content, true);
-    $process_Ingredients = new Process_Ajax($dataTest ?? $_POST, $_FILES, $is_Post, $getIdDatas ?? null); 
+    $process_Ingredients = new Process_Ajax($dataTest ?? $_POST, $_FILES, $is_Post, $getIdDatas ?? null);
     // return;
     unset($_SESSION[$session]);
     $err = CheckInput::getErrorMessages();

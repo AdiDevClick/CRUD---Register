@@ -3,7 +3,8 @@
 class Recipecontroller extends Recipe
 {
     public function __construct(
-        private $getData
+        private $getData,
+        private $optionnalData,
     ) {
     }
 
@@ -161,7 +162,7 @@ class Recipecontroller extends Recipe
     {
         try {
             if (!isset($recipeId)) {
-            //if ($this->checkIds()) {
+                //if ($this->checkIds()) {
                 $this->checkIds();
 
                 $checkInput = new CheckInput(
@@ -203,12 +204,12 @@ class Recipecontroller extends Recipe
     {
         try {
             if (!isset($recipeId)) {
-            //if ($this->checkIds()) {
+                //if ($this->checkIds()) {
                 $this->checkIds();
 
                 $checkInput = new CheckInput(
                     $this->getData
-                ); 
+                );
 
                 $id = $checkInput->test_input($this->getData["recipe_id"]);
                 $checkInput->checkInputs();
@@ -243,7 +244,7 @@ class Recipecontroller extends Recipe
     {
         try {
             if (!isset($recipeId)) {
-            //if ($this->checkIds()) {
+                //if ($this->checkIds()) {
                 $this->checkIds();
 
                 $checkInput = new CheckInput(
@@ -298,30 +299,30 @@ class Recipecontroller extends Recipe
     protected function setComments($getData)
     {
         $loggedUser = LoginController::checkLoggedStatus();
-            if  (!isset($loggedUser)) {
-                throw new Error("Erreur : Veuillez vous identifier avant de partager une recette.") ;
-            } else {
-                $checkInput = new CheckInput(
-                    $this->getData
-                );
-               /*  $message = $checkInput->test_input($this->getData["comment"]);
-                $recipeId = $checkInput->test_input($this->getData["recipe_id"]); */
-                $message = $checkInput->test_input($getData['comment']);
-                $recipeId = $checkInput->test_input($getData['recipeId']);
+        if  (!isset($loggedUser)) {
+            throw new Error("Erreur : Veuillez vous identifier avant de partager une recette.") ;
+        } else {
+            $checkInput = new CheckInput(
+                $this->getData
+            );
+            /*  $message = $checkInput->test_input($this->getData["comment"]);
+             $recipeId = $checkInput->test_input($this->getData["recipe_id"]); */
+            $message = $checkInput->test_input($getData['comment']);
+            $recipeId = $checkInput->test_input($getData['recipeId']);
 
-                $checkInput->checkInputs();
+            $checkInput->checkInputs();
 
-                $this->insertComments($message, $recipeId, $loggedUser['user'][1]);
-                $registeredComment = [
-                    'email' => $loggedUser['email']
-                ];
-                $_SESSION['REGISTERED_COMMENT'] = $registeredComment;
-                //header("Location: ".Functions::getUrl()."?error=none") ; */
-                return $registeredComment;    
+            $this->insertComments($message, $recipeId, $loggedUser['user'][1]);
+            $registeredComment = [
+                'email' => $loggedUser['email']
+            ];
+            $_SESSION['REGISTERED_COMMENT'] = $registeredComment;
+            //header("Location: ".Functions::getUrl()."?error=none") ; */
+            return $registeredComment;
         }
     }
 
-    protected function getUsersById() : array
+    protected function getUsersById(): array
     {
         $sqlUsersQuery =
         'SELECT * FROM users;';
@@ -341,9 +342,9 @@ class Recipecontroller extends Recipe
             //exit();
         } //else {
         $users = $usersStatement->fetchAll(PDO::FETCH_ASSOC);
-            /* $usersStatement = null;
-            header("Location : ".Functions::getUrl(). "?error=stmt-failed");
-            exit(); */       
+        /* $usersStatement = null;
+        header("Location : ".Functions::getUrl(). "?error=stmt-failed");
+        exit(); */
         return $users;
     }
 }
