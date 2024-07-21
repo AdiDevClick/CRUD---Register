@@ -6,6 +6,7 @@ class RecipeController extends Recipe
         private $getData,
         private $optionnalData = null,
     ) {
+        //
     }
 
     protected function insertRecipes2()

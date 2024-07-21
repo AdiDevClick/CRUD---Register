@@ -898,7 +898,7 @@ input:focus::placeholder, input.input_error:focus::placeholder {
             .close-search {
                 margin: 0;
             }
-            margin: 0 5%;
+            /* margin: 0 5%; */
             width: 91%;
         }
         right: 20%;

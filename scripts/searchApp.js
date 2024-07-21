@@ -9,6 +9,7 @@ const searchIcon = searchBar.querySelector('.icon-search-input')
 const body = document.querySelector('main')
 const navLinks = document.querySelector('.links')
 const burgerMenu = document.querySelector('.toggle_btn-box')
+const actionBtn = document.querySelector('.action_btn')
 let isOpened
 
 const onClose = function (e) {
@@ -16,10 +17,10 @@ const onClose = function (e) {
     if (isOpened && searchBar.classList.contains('open')) {
         // input.removeAttribute('style')
         input.style.animation = 'width-shrink .2s'
-
         // input.style.disableAnimation = 'width-shrink'
         navLinks.classList.remove('hidden')
         burgerMenu.classList.remove('hidden')
+        actionBtn?.classList.remove('hidden')
         searchBar.classList.remove('open')
         isOpened = false
     }
@@ -34,6 +35,7 @@ const onOpen = function (e) {
         searchBar.classList.add('open')
         navLinks.classList.add('hidden')
         burgerMenu.classList.add('hidden')
+        actionBtn?.classList.add('hidden')
         searchBar.addEventListener('transitionend', (e) => {
             input.focus()
             // input.style.animation = 'width-shrink 0.2s'
