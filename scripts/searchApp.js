@@ -9,7 +9,7 @@ const searchIcon = searchBar.querySelector('.icon-search-input')
 const body = document.querySelector('main')
 const navLinks = document.querySelector('.links')
 const burgerMenu = document.querySelector('.toggle_btn-box')
-const actionBtn = document.querySelector('.action_btn')
+const actionBtn = document.querySelector('.action-btn')
 let isOpened
 
 const onClose = function (e) {

@@ -148,7 +148,7 @@ a, p {
     font-weight: 400;
 }
 
-a:hover:not(.action_btn), a.active {
+a:hover:not(.action-btn), a.active {
     color: var(--site-color-01-hover);
     color: orange;
     cursor: pointer;
@@ -291,7 +291,7 @@ header {
     cursor: pointer;
 }
 
-.navbar .active, .navbar a:hover:not(.action_btn) {
+.navbar .active, .navbar a:hover:not(.action-btn) {
     display: flex;
     flex-direction: column-reverse;
     /* float: left!important; */
@@ -378,7 +378,7 @@ header {
     100%{ left: 0;}
 } */
 
-.action_btn {
+.action-btn {
     background-color: var(--background-color);
     outline: none;
     border: none;
@@ -391,12 +391,12 @@ header {
     transition: scale 0.2 ease;
 }
 
-.action_btn:hover {
+.action-btn:hover {
     scale: 1.05;
     color: var(--navbar-color);
 }
 
-.action_btn:active {
+.action-btn:active {
     scale: 0.95;
 }
 
@@ -471,7 +471,7 @@ header {
     justify-content: center;
 }
 
-.dropdown-menu .action_btn {
+.dropdown-menu .action-btn {
     width: 100%;
     display: flex;
     justify-content: center;
@@ -499,7 +499,7 @@ footer {
 /* RESPONSIVE DESIGN */
 @media (max-width: 992px) {
     .navbar .links, 
-    .navbar .action_btn {
+    .navbar .action-btn {
         display: none;
     }
 

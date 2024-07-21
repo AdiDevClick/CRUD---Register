@@ -249,7 +249,7 @@ if (!$dev) {
                 <?php if(!isset($_COOKIE['EMAIL'])): ?>
                 <?php //if(!isset($_SESSION['LOGGED_USER'])):?>
                 <?php //if(!isset($loggedUser['email'][0])):?>
-                    <a href="<?php echo($rootUrl). $clicServer.'/register.php' ?>" class="action_btn">S'enregistrer</a>
+                    <a href="<?php echo($rootUrl). $clicServer.'/register.php' ?>" class="action-btn">S'enregistrer</a>
                 <?php endif?>
                 <section class="toggle_btn-box">
                     <div class="toggle_btn">
