@@ -17,6 +17,8 @@ export class SearchBar
     #searchResults = []
     /** @type {boolean} */
     #loading = false
+    /** @type {boolean} */
+    #isCreated = false
     /** @type {string} */
     #endpoint
     /** @type {object} */
@@ -45,8 +47,10 @@ export class SearchBar
     }
     #handleIntersect = (entries, observer) => {
         entries.forEach(entry => {
-            if (entry.intersectionRatio > this.#ratio) {
+            if (entry.isIntersecting) {
+            // if (entry.intersectionRatio > this.#ratio) {
                 this.#loadMore()
+                console.log(entry.target)
             }
         })
     }
@@ -82,6 +86,13 @@ export class SearchBar
 
     #newSearch(e) {
         e.preventDefault()
+        const wrapper = document.querySelector('.wrapper')
+        // document.querySelector('.container').remove()
+        // const container = document.createElement('section')
+        // container.classList.add('container')
+        // console.log(container)
+        // wrapper.append(container)
+        // const hero = document.querySelector('.hero')
         // if (this.#loading) {
         //     return
         // }
@@ -93,13 +104,42 @@ export class SearchBar
         // url.searchParams.set('_page', this.#page)
         // url.searchParams.set('_limit', this.#limit)
         this.#url .searchParams.set('query', this.#input)
+        console.log(this.#observer)
         // const queryString = document.location
         // const url = queryString.origin+'/recettes/recipes/Process_PreparationList.php'
         // const urlParams = new URLSearchParams(queryString.search)
         // urlParams.set('query', data.get('query'))
         if (this.#loading) {
-            document.querySelector('.searched-recipes').append(this.#loader)
+            console.log(this.#loader)
+            // wrapper.append(this.#loader)
+            // document.querySelector('.searched-recipes').append(this.#loader)
+            wrapper.append(this.#loader)
             this.#loading = false
+        }
+
+        if (!this.#isCreated) {
+            document.querySelector('.container').remove()
+            const container = document.createElement('section')
+            container.classList.add('container')
+            wrapper.append(container)
+            const hero = document.querySelector('.hero')
+
+            wrapper.classList.add('hidden')
+            wrapper.addEventListener('animationend', () => {
+                // this.#observer.unobserve(this.#loader)
+                // container.innerHTML = ''
+                hero.remove()
+                container.append(this.#loader)
+                container.append(this.#template)
+                container.prepend(this.#target)
+                // this.#observer.observe(this.#loader)
+                wrapper.classList.remove('hidden')
+            })
+            console.log('je crer avant')
+            // const newContent = this.#template.content.firstElementChild.cloneNode(true)
+            // newContent.forEach()
+
+            this.#isCreated = true
         }
         // const query = url.searchParams.get('query')
         // const query = urlParams.get('query')
@@ -123,11 +163,15 @@ export class SearchBar
         //     console.log(e)
         // }
     }
+
     async #loadMore() {
         if (this.#loading) {
             return
         }
         this.#loading = true
+        console.log('je rajoute apres')
+        console.log(this.#observer)
+
         // const url = new URL(this.#endpoint)
         // if (this.#url !== undefined) {
             // console.log(this.#url)
@@ -171,9 +215,9 @@ export class SearchBar
     }
 
     #disconnectObserver(message) {
-        this.#observer.disconnect
+        this.#observer.disconnect()
         this.#loader.remove()
-        new Toaster(message, 'Erreur')
+        new Toaster(message, 'Succès')
         // this.#loading = false
         // throw new Error(message)
     }
