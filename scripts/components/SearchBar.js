@@ -1,5 +1,5 @@
 import { fetchJSON } from "../functions/api.js"
-import { debounce } from "../functions/dom.js"
+import { createElement, debounce } from "../functions/dom.js"
 import { Toaster } from "./Toaster.js"
 
 export class SearchBar
@@ -47,10 +47,11 @@ export class SearchBar
     }
     #handleIntersect = (entries, observer) => {
         entries.forEach(entry => {
-            if (entry.isIntersecting) {
+            // if (entry.isIntersecting) {
             // if (entry.intersectionRatio > this.#ratio) {
+            if (entry.boundingClientRect) {
                 this.#loadMore()
-                console.log(entry.target)
+                console.log(entry.boundingClientRect)
             }
         })
     }
@@ -67,7 +68,11 @@ export class SearchBar
         }, options)
         
         this.#searchForm = document.querySelector(element.dataset.form)
-        this.#target = document.querySelector(element.dataset.target)
+        this.#target = document.createElement('div')
+        // this.#target = document.createElement('div', {
+        //     class: "element.dataset.target"
+        // })
+        // this.#target = document.querySelector(element.dataset.target)
         this.#endpoint = this.#searchForm.dataset.endpoint
         this.#limit = element.dataset.limit
         this.#elements = JSON.parse(element.dataset.elements)
@@ -96,6 +101,14 @@ export class SearchBar
         // if (this.#loading) {
         //     return
         // }
+        if (this.#loading) {
+            // console.log(this.#loader)
+            // wrapper.append(this.#loader)
+            // document.querySelector('.searched-recipes').append(this.#loader)
+            wrapper.append(this.#loader)
+            // this.#observer.observe(this.#loader)
+            this.#loading = false
+        }
         // this.#loading = true
         // const form = e.target
         let data = new FormData(this.#searchForm)
@@ -104,43 +117,58 @@ export class SearchBar
         // url.searchParams.set('_page', this.#page)
         // url.searchParams.set('_limit', this.#limit)
         this.#url .searchParams.set('query', this.#input)
-        console.log(this.#observer)
         // const queryString = document.location
         // const url = queryString.origin+'/recettes/recipes/Process_PreparationList.php'
         // const urlParams = new URLSearchParams(queryString.search)
         // urlParams.set('query', data.get('query'))
-        if (this.#loading) {
-            console.log(this.#loader)
-            // wrapper.append(this.#loader)
-            // document.querySelector('.searched-recipes').append(this.#loader)
-            wrapper.append(this.#loader)
-            this.#loading = false
-        }
+        
 
         if (!this.#isCreated) {
-            document.querySelector('.container').remove()
-            const container = document.createElement('section')
-            container.classList.add('container')
+            const script = document.querySelector('script[data-name="typewritter"]')
+            // console.log(script)
+            script.remove()
+            const container = document.querySelector('.container')
+            // container.innerHTML = ''
+            // document.querySelector('.container').remove()
+            // const container = document.createElement('section')
+            // container.classList.add('container')
+            this.#target.classList.add('searched-recipes')
+            // this.#target.classList.add(this.#loader.dataset.target)
+            container.append(this.#target)
             wrapper.append(container)
             const hero = document.querySelector('.hero')
+            console.log(this.#target)
+            // wrapper.classList.add('hidden')
+            // wrapper.addEventListener('animationend', () => {
+            //     // this.#observer.unobserve(this.#loader)
+            //     // container.innerHTML = ''
+            //     hero.remove()
+            //     container.append(this.#loader)
+            //     container.append(this.#template)
+            //     container.prepend(this.#target)
+            //     // this.#observer.observe(this.#loader)
+            //     wrapper.offsetHeight
+            //     // wrapper.classList.remove('hidden')
+            // })
+            // hero.innesrHTML = ''
+            // hero.innerHTML = ''
+            hero.remove()
+            console.log(hero.isConnected);
+            // delete hero
 
-            wrapper.classList.add('hidden')
-            wrapper.addEventListener('animationend', () => {
-                // this.#observer.unobserve(this.#loader)
-                // container.innerHTML = ''
-                hero.remove()
                 container.append(this.#loader)
                 container.append(this.#template)
                 container.prepend(this.#target)
                 // this.#observer.observe(this.#loader)
-                wrapper.classList.remove('hidden')
-            })
-            console.log('je crer avant')
+                wrapper.offsetHeight
+                console.log('je crer avant')
             // const newContent = this.#template.content.firstElementChild.cloneNode(true)
             // newContent.forEach()
 
             this.#isCreated = true
         }
+        console.log(this.#observer)
+        
         // const query = url.searchParams.get('query')
         // const query = urlParams.get('query')
         // urlParams.toString()
@@ -168,9 +196,8 @@ export class SearchBar
         if (this.#loading) {
             return
         }
+        debugger
         this.#loading = true
-        console.log('je rajoute apres')
-        console.log(this.#observer)
 
         // const url = new URL(this.#endpoint)
         // if (this.#url !== undefined) {
@@ -185,10 +212,11 @@ export class SearchBar
                 this.#disconnectObserver('Tout le contenu a été chargé')
                 return
             }
+
             // console.log(this.#searchResults.length)
             this.#searchResults.forEach(result => {
                 const elementTemplate = this.#template.content.firstElementChild.cloneNode(true)
-                elementTemplate.setAttribute('id', result.id)
+                elementTemplate.setAttribute('id', result.recipe_id)
                 for (const [key, selector] of Object.entries(this.#elements)) {
                     elementTemplate.querySelector(selector).innerText = result[key]
                 }

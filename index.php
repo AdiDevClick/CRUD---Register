@@ -27,7 +27,7 @@ $seconds = date("s");
 //print_r($_COOKIE);
 
 //$css = 'rel="stylesheet" href="css/index.css"';
-$script = 'src="scripts/typeWriter.js" defer';
+$script = 'data-name="typewritter" src="scripts/typeWriter.js" type="module" defer';
 $script2 = 'src="scripts/fadeInScroller.js" defer';
 $title = "Affichage de recettes";
 
@@ -79,18 +79,18 @@ ob_start()
                     <hr />
                 </article>
         <?php endforeach ?>
-        <div class="searched-recipes"></div>
+        <!-- <div class="searched-recipes"></div> -->
 
-        <template id="search-template">
+        <!-- <template id="search-template">
             <article class="mb-4" id="1">
                 <div class="mb-1"><strong class="js-title">John Doe</strong></div>
                 <p class="js-author">Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem vel temporibus quos, 
                     accusantium culpa, praesentium delectus architecto quaerat animi magni explicabo debitis, 
                     velit quod libero. Quas nesciunt ut repellendus praesentium.</p>
             </article>
-        </template>
+        </template> -->
 
-        <div 
+        <!-- <div 
             data-endpoint ="<?php // $rootUrl . $clicServer . '/recipes/Process_PreparationList.php'?>"
             data-template="#search-template"
             data-target=".searched-recipes"
@@ -100,7 +100,7 @@ ob_start()
             data-elements='{"title": ".js-title", "author": ".js-author"}'
             class="text-center js-infinite-pagination">
             <div class="spinner-border" role="status"></div>
-        </div>
+        </div> -->
     </section>
     <?php else: ?>
         <?php session_unset()?>

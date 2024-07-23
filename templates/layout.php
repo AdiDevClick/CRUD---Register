@@ -268,6 +268,17 @@ if (!$dev) {
     <main class="wrapper">
     <!-- Start Main Content -->
         <?= $content ?? ''?>
+        <div 
+            data-endpoint ="<?php // $rootUrl . $clicServer . '/recipes/Process_PreparationList.php'?>"
+            data-template="#search-template"
+            data-target=".searched-recipes"
+            data-limit="10"
+            data-form=".search-form"
+            data-id='{"recipe_id": "#id"}'
+            data-elements='{"title": ".js-title", "author": ".js-author"}'
+            class="text-center js-infinite-pagination">
+            <div class="spinner-border" role="status"></div>
+        </div>
     <!-- End Main Content -->
     </main>
 
@@ -279,7 +290,14 @@ if (!$dev) {
     </footer>
     <!-- end of footer -->
 </body>
-
+<template id="search-template">
+    <article class="mb-4" id="1">
+        <div class="mb-1"><strong class="js-title">John Doe</strong></div>
+        <p class="js-author">Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem vel temporibus quos, 
+            accusantium culpa, praesentium delectus architecto quaerat animi magni explicabo debitis, 
+            velit quod libero. Quas nesciunt ut repellendus praesentium.</p>
+    </article>
+</template>
 </html>
 
 <?php require_once(dirname(__DIR__) . DIRECTORY_SEPARATOR . "templates" . DIRECTORY_SEPARATOR . "toaster_template.html") ?>
