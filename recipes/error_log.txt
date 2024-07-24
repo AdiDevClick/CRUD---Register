@@ -1,3 +1,5 @@
 Errors : [2] Undefined array key "LAST_ID" - C:\xampp\htdocs\Recettes\classes\recipe.class.php:279
 Errors : [2] Undefined array key "LAST_ID" - C:\xampp\htdocs\recettes\classes\recipe.class.php:279
 Errors : [2] Undefined array key "LAST_ID" - C:\xampp\htdocs\recettes\classes\recipe.class.php:279
+Errors : [2] Undefined array key "LAST_ID" - C:\xampp\htdocs\Recettes\classes\Recipe.class.php:279
+Errors : [2] Undefined array key "LAST_ID" - C:\xampp\htdocs\Recettes\classes\Recipe.class.php:279

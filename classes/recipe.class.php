@@ -256,7 +256,7 @@ class Recipe extends Mysql
 
     protected function getRecipesTitles($recipes, $limite): array
     {
-            $sqlRecipe = "SELECT r.recipe_id, r.title, r.author, i.img_path,
+        $sqlRecipe = "SELECT r.recipe_id, r.title, r.author, i.img_path,
                 MATCH title
                     AGAINST(:word IN BOOLEAN MODE) AS score
                 FROM recipes r
@@ -264,48 +264,55 @@ class Recipe extends Mysql
                     ON i.recipe_id = r.recipe_id
                 WHERE r.is_enabled = 1 AND r.recipe_id > :id
                 HAVING score > 0
-                ORDER BY score DESC
+                ORDER BY r.recipe_id ASC
                 LIMIT $limite;";
-            // $sqlRecipe = 'SELECT *
-            //     MATCH (r.title)
-            //         AGAINST (:word IN BOOLEAN MODE) AS score
-            //     FROM recipes r
-            //     LEFT JOIN images i
-            //         ON i.recipe_id = r.recipe_id
-            //     ORDER BY score DESC;';
-            $getRecipesIdStatement = $this->connect()->prepare($sqlRecipe);
-            if (!$getRecipesIdStatement->execute([
-                'word' => $recipes . '*',
-                'id' => $_SESSION['LAST_ID'],
-            ])) {
-                $getRecipesIdStatement = null;
-                //throw new Error((string)header("Location: ".Functions::getUrl()."?error=stmt-failed"));
-                throw new Error("stmt Failed");
-            }
+        // $sqlRecipe = 'SELECT *
+        //     MATCH (r.title)
+        //         AGAINST (:word IN BOOLEAN MODE) AS score
+        //     FROM recipes r
+        //     LEFT JOIN images i
+        //         ON i.recipe_id = r.recipe_id
+        //     ORDER BY score DESC;';
+        $getRecipesIdStatement = $this->connect()->prepare($sqlRecipe);
+        if (!$getRecipesIdStatement->execute([
+            'word' => $recipes . '*',
+            'id' => $_SESSION['LAST_ID'],
+        ])) {
+            $getRecipesIdStatement = null;
+            //throw new Error((string)header("Location: ".Functions::getUrl()."?error=stmt-failed"));
+            throw new Error("stmt Failed");
+        }
 
-            if ($getRecipesIdStatement->rowCount() == 0) {
-                $_SESSION['LAST_ID'] = 0;
-                $getRecipesIdStatement = null;
-                return $data = [];
-                //echo strip_tags("Cette recette n'existe pas.");
-                //throw new Error((string)header("Location: ".Functions::getUrl()."?error=recipetitle-not-found"));
-                // throw new Error("Le titre de cette recette n'existe pas");
-                //header("Location :" .Functions::getUrl(). "?error=recipe-not-found");
-                //exit();
-            }
-            if ($getRecipesIdStatement->rowCount() > 0) {
-                // output data of each row
-                // $recipesArray = $getRecipesIdStatement->fetchAll(PDO::FETCH_ASSOC) ;
-                while ($recipesArray = $getRecipesIdStatement->fetch(PDO::FETCH_ASSOC)) {
-                    // echo json_encode($recipesArray[0]['recipe_id']);
-                    if ($_SESSION['LAST_ID'] < $recipesArray['recipe_id']) $_SESSION['LAST_ID'] = $recipesArray['recipe_id'];
-                    $data[] = $recipesArray;
+        if ($getRecipesIdStatement->rowCount() > 0) {
+            // output data of each row
+            // $recipesArray = $getRecipesIdStatement->fetchAll(PDO::FETCH_ASSOC) ;
+            while ($recipesArray = $getRecipesIdStatement->fetch(PDO::FETCH_ASSOC)) {
+                // echo json_encode($recipesArray[0]['recipe_id']);
+                // echo  json_encode($_SESSION['LAST_ID']);
 
-                    // $_SESSION['LAST_ID'] = $recipesArray['recipe_id']+= $limite;
+                if ($_SESSION['LAST_ID'] < $recipesArray['recipe_id']) {
+                    $_SESSION['LAST_ID'] = $recipesArray['recipe_id'];
+                    // echo  json_encode($_SESSION['LAST_ID']);
+
                 }
-                return $data;
+                $data[] = $recipesArray;
+
+                // $_SESSION['LAST_ID'] = $recipesArray['recipe_id']+= $limite;
             }
-            // $recipesArray = $getRecipesIdStatement->fetchAll(PDO::FETCH_ASSOC);
+            return $data;
+        }
+
+        if ($getRecipesIdStatement->rowCount() == 0) {
+            $_SESSION['LAST_ID'] = 0;
+            $getRecipesIdStatement = null;
+            return $data = [];
+            //echo strip_tags("Cette recette n'existe pas.");
+            //throw new Error((string)header("Location: ".Functions::getUrl()."?error=recipetitle-not-found"));
+            // throw new Error("Le titre de cette recette n'existe pas");
+            //header("Location :" .Functions::getUrl(). "?error=recipe-not-found");
+            //exit();
+        }
+        // $recipesArray = $getRecipesIdStatement->fetchAll(PDO::FETCH_ASSOC);
         // echo json_encode($recipesArray);
 
         // if ($limit > 0) {

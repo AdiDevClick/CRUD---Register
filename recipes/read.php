@@ -118,7 +118,7 @@ if(isset($_GET['id']) && is_numeric($_GET['id'])) {
 }
 
 $title = "Site de Recettes - " . htmlspecialchars($recipe['title']);
-$script = 'src="../scripts/typeWriter.js" defer';
+$script = 'src="../scripts/typeWriter.js" type="module" defer';
 ob_start()
 
 ?>

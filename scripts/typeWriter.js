@@ -51,7 +51,6 @@ const typeEffect = async () => {
         if (dynamicText.isConnected) await wait(1200)
         if (dynamicText.isConnected) await typeEffect()
     }
-    
 }
 
 if (dynamicText.isConnected) {
