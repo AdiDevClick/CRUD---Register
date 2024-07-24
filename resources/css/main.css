@@ -568,7 +568,8 @@ footer {
         &.fadeOut {
             :is(.search.open) {
                 position: fixed;
-                top: 15px
+                top: 15px;
+                right: 20px;
             }
         }
     }
