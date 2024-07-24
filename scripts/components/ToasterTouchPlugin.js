@@ -101,6 +101,7 @@ export class ToasterTouchPlugin {
             }
         }
         this.origin = null
+        window.removeEventListener('touchmove', this.drag)
     }
 
     /**
