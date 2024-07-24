@@ -44,8 +44,6 @@ export class ToasterTouchPlugin {
         this.disableTransition()
         // Sauvegarde de la witdh du conteneur
         this.width = this.toaster.toasterContainer.offsetWidth
-        // toaster.toasterContainer.removeEventListener('mousedown', this.startDrag(this))
-        // toaster.toasterContainer.removeEventListener('touchstart', this.startDrag(this))
     }
 
     /**
@@ -108,7 +106,6 @@ export class ToasterTouchPlugin {
             }
         }
         this.origin = null
-        // window.removeEventListener('touchmove', this.drag)
     }
 
     /**
