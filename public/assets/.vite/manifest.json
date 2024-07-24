@@ -28,12 +28,12 @@
     "src": "resources/Fonts/Roboto/Roboto-Thin.ttf"
   },
   "resources/main.js": {
-    "file": "main-CiVoF8r5.js",
+    "file": "main-CsH9JCVZ.js",
     "name": "main",
     "src": "resources/main.js",
     "isEntry": true,
     "css": [
-      "main-D24GHJHM.css"
+      "main-VOZPWVlQ.css"
     ],
     "assets": [
       "Caveat-VariableFont_wght-Cd5oCIlo.ttf",
@@ -46,7 +46,7 @@
     ]
   },
   "scripts/toaster.js": {
-    "file": "toaster-PMCZbUdq.js",
+    "file": "toaster-hpo3QclP.js",
     "name": "toaster",
     "src": "scripts/toaster.js",
     "isEntry": true

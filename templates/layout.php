@@ -275,7 +275,7 @@ if (!$dev) {
             data-limit="10"
             data-form=".search-form"
             data-id='{"recipe_id": "#id"}'
-            data-elements='{"title": ".js-title", "author": ".js-author"}'
+            data-elements='{"title": ".js-title", "author": ".js-author", "img_path": ".js-img"}'
             class="text-center js-infinite-pagination">
             <div class="spinner-border" role="status"></div>
         </div>
@@ -291,12 +291,33 @@ if (!$dev) {
     <!-- end of footer -->
 </body>
 <template id="search-template">
-    <article class="mb-4" id="1">
+    <article class="title">Carousel 1
+        <div id="carousel1">
+            <div class="item_container">
+                <div class="item__image">
+                    <img class="js-img" src="img/img1.jpeg" alt="">
+                    <div class="player" id="UzRY3BsWFYg"></div>
+                </div>
+                <div class="item__body">
+                    <div class="item__title js-title">
+                        Mon titre 1
+                    </div>
+                    <div class="item__description">
+                        Ici, une description de mon image
+                    </div>
+                    <div class="item__author">
+                        Partagée par <span class="js-author"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </article>
+    <!-- <article class="mb-4" id="1">
         <div class="mb-1"><strong class="js-title">John Doe</strong></div>
         <p class="js-author">Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem vel temporibus quos, 
             accusantium culpa, praesentium delectus architecto quaerat animi magni explicabo debitis, 
             velit quod libero. Quas nesciunt ut repellendus praesentium.</p>
-    </article>
+    </article> -->
 </template>
 </html>
 

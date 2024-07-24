@@ -258,9 +258,10 @@ header {
         .search {
             transition: none;
         }
-        /* .search.open {
-            position: fixed;
-        } */
+        .search.open {
+            margin: 0 auto;
+            left: 0;
+        }
     }
 }
 
@@ -900,8 +901,20 @@ input:focus::placeholder, input.input_error:focus::placeholder {
             }
             /* margin: 0 5%; */
             width: 91%;
+            left: 0;
+            /* margin-left: 20px; */
+            margin: 0 auto;
         }
         right: 20%;
+    }
+
+    @media screen and (max-width: 576px) {
+        &.open {
+            .close-search {
+                display: none;
+            }
+            width: 100%;
+        }
     }
     /* & .icon-backspace::before {
         content: '';

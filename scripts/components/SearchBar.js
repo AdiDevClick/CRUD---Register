@@ -18,6 +18,8 @@ export class SearchBar
     /** @type {boolean} */
     #loading = false
     /** @type {boolean} */
+    #isDeleted = false
+    /** @type {boolean} */
     #isCreated = false
     /** @type {string} */
     #endpoint
@@ -41,17 +43,22 @@ export class SearchBar
     /** @type {Number} */
     #ratio = .3
     #options = {
-        root: null,
+        delay: 100,
+        // root: "26px solid #44aa44",
         rootMargin: '0px',
         threshold: this.#ratio
     }
     #handleIntersect = (entries, observer) => {
         entries.forEach(entry => {
-            // if (entry.isIntersecting) {
-            // if (entry.intersectionRatio > this.#ratio) {
-            if (entry.boundingClientRect) {
+            if (entry.isIntersecting) {
+                console.log('ça intersect')
+            }
+            // if (entry.intersectionRatio <= this.#ratio) {
+            if (entry.intersectionRatio > this.#ratio) {
+            // if (entry.boundingClientRect) {
                 this.#loadMore()
                 console.log(entry.boundingClientRect)
+                console.log(this.#loading)
             }
         })
     }
@@ -86,12 +93,15 @@ export class SearchBar
         window.addEventListener('DOMContentLoaded', () => {
             this.#observer = new IntersectionObserver(this.#handleIntersect, this.#options)
             this.#observer.observe(this.#loader)
+            // this.#observer.root.style.border = "26px solid #44aa44";
         })
     }
 
     #newSearch(e) {
         e.preventDefault()
         const wrapper = document.querySelector('.wrapper')
+        const container = document.querySelector('.container')
+
         // document.querySelector('.container').remove()
         // const container = document.createElement('section')
         // container.classList.add('container')
@@ -101,14 +111,15 @@ export class SearchBar
         // if (this.#loading) {
         //     return
         // }
-        if (this.#loading) {
-            // console.log(this.#loader)
-            // wrapper.append(this.#loader)
-            // document.querySelector('.searched-recipes').append(this.#loader)
-            wrapper.append(this.#loader)
-            // this.#observer.observe(this.#loader)
-            this.#loading = false
-        }
+        // if (this.#loading) {
+        //     // console.log(this.#loader)
+        //     // wrapper.append(this.#loader)
+        //     // document.querySelector('.searched-recipes').append(this.#loader)
+        //     wrapper.append(this.#loader)
+        //     // this.#loader = this.#loader
+        //     // this.#observer.observe(this.#loader)
+        //     this.#loading = false
+        // }
         // this.#loading = true
         // const form = e.target
         let data = new FormData(this.#searchForm)
@@ -117,27 +128,31 @@ export class SearchBar
         // url.searchParams.set('_page', this.#page)
         // url.searchParams.set('_limit', this.#limit)
         this.#url .searchParams.set('query', this.#input)
+        debugger
+
         // const queryString = document.location
         // const url = queryString.origin+'/recettes/recipes/Process_PreparationList.php'
         // const urlParams = new URLSearchParams(queryString.search)
         // urlParams.set('query', data.get('query'))
-        
+        // document.querySelector('.container').createElement('div').classList.add('searched-recipes').prepend()
+        // document.querySelector('.container').append(this.#loader)
+        // this.#target.classList.add('searched-recipes')
 
-        if (!this.#isCreated) {
+        // this.#observer.observe(this.#loader)
+        console.log(this.#loading)
+        console.log(this.#isCreated)
+
+        if (!this.#isDeleted) {
             const script = document.querySelector('script[data-name="typewritter"]')
-            // console.log(script)
             script.remove()
-            const container = document.querySelector('.container')
-            // container.innerHTML = ''
+            container.innerHTML = ''
             // document.querySelector('.container').remove()
             // const container = document.createElement('section')
             // container.classList.add('container')
-            this.#target.classList.add('searched-recipes')
+
             // this.#target.classList.add(this.#loader.dataset.target)
-            container.append(this.#target)
-            wrapper.append(container)
+            // this.#target = this.#target
             const hero = document.querySelector('.hero')
-            console.log(this.#target)
             // wrapper.classList.add('hidden')
             // wrapper.addEventListener('animationend', () => {
             //     // this.#observer.unobserve(this.#loader)
@@ -153,20 +168,26 @@ export class SearchBar
             // hero.innesrHTML = ''
             // hero.innerHTML = ''
             hero.remove()
-            console.log(hero.isConnected);
             // delete hero
-
-                container.append(this.#loader)
-                container.append(this.#template)
-                container.prepend(this.#target)
-                // this.#observer.observe(this.#loader)
-                wrapper.offsetHeight
-                console.log('je crer avant')
+            this.#isDeleted = true
+            // container.append(this.#template)
+            // container.prepend(this.#target)
             // const newContent = this.#template.content.firstElementChild.cloneNode(true)
             // newContent.forEach()
+        }
 
+        if (!this.#isCreated) {
+            // container.innerHTML = ''
+            this.#target.innerHTML = ''
+            this.#target.classList.add('searched-recipes')
+            container.append(this.#loader)
+            container.prepend(this.#target)
+            this.#observer.observe(this.#loader)
+            // wrapper.offsetHeight
             this.#isCreated = true
         }
+
+        // this.#observer.takeRecords()
         console.log(this.#observer)
         
         // const query = url.searchParams.get('query')
@@ -196,12 +217,13 @@ export class SearchBar
         if (this.#loading) {
             return
         }
-        debugger
         this.#loading = true
 
         // const url = new URL(this.#endpoint)
         // if (this.#url !== undefined) {
             // console.log(this.#url)
+        console.log(this.#url)
+        // this.#target.innerHTML = ''
         this.#url.searchParams.set('_page', this.#page)
         this.#url.searchParams.set('_limit', this.#limit)
         // }
@@ -218,7 +240,9 @@ export class SearchBar
                 const elementTemplate = this.#template.content.firstElementChild.cloneNode(true)
                 elementTemplate.setAttribute('id', result.recipe_id)
                 for (const [key, selector] of Object.entries(this.#elements)) {
-                    elementTemplate.querySelector(selector).innerText = result[key]
+                    console.log(key, ' ' +selector)
+                    // console.log(elementTemplate.querySelector(selector))
+                    key === 'img_path' ? elementTemplate.querySelector(selector).src = result[key] : elementTemplate.querySelector(selector).innerText = result[key]
                 }
                 this.#target.append(elementTemplate)
             })
@@ -226,7 +250,7 @@ export class SearchBar
             this.#loading = false
             this.#input.value = ''
         } catch (error) {
-            // this.#loader.style.display = 'none'
+            this.#loader.style.display = 'none'
             // const alert = alertMessage(error.message)
             // this.#target.insertAdjacentElement(
             //     'beforeend',
@@ -238,15 +262,19 @@ export class SearchBar
             //     // alert.addEventListener('close', (e))
             // }, {once: true})
             new Toaster(error, 'Erreur')
+            this.#loader.style.removeProperty('display')
             this.#loading = false
         }
     }
 
     #disconnectObserver(message) {
+        this.#loading = false
+        this.#isCreated = false
+        new Toaster(message, 'Succès')
         this.#observer.disconnect()
         this.#loader.remove()
-        new Toaster(message, 'Succès')
-        // this.#loading = false
+        // this.#observer.unobserve(this.#loader)
+        
         // throw new Error(message)
     }
 

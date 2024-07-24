@@ -16,12 +16,15 @@ const leftSideMenuBackground = document.querySelector('.leftside-menu-background
 
 const openMenu = function (e) {
     e.preventDefault()
+    dropDownMenu.classList.toggle('open')
+    dropDownMenuBackground.classList.toggle('open')
+    toggleBtn.classList.toggle('open')
+    navbar.classList.toggle('open')
     // dropDownMenu.classList.add('open')
     // dropDownMenuBackground.classList.add('open')
     // toggleBtn.classList.add('open')
     // navbar.classList.add('open')
     // menu.addEventListener('click', closeMenu, {once: true})
-
 
     // nav.addEventListener('click', closeMenu, {once: true})
     // toggleBtnBox.addEventListener('click', closeMenu)
@@ -33,6 +36,7 @@ const openMenu = function (e) {
     // if (!link && navbar.classList.contains('open')) {
     // navbar.addEventListener('click', ifOpened, {once: true})
     // }
+
     // dropDownMenuBackground.addEventListener('click', closeMenu)
     dropDownMenu.addEventListener('click', stopPropagation)
 }
@@ -72,6 +76,7 @@ const closeMenu = function(e) {
     toggleBtn.classList.remove('open')
     navbar.classList.remove('open')
     dropDownMenu.removeEventListener('click', stopPropagation)
+    toggleBtnBox.removeEventListener('click', openMenu)
     
     // dropDownMenu.removeEventListener('click', stopPropagation)
     // dropDownMenuBackground.removeEventListener('click', closeMenu)
@@ -106,7 +111,6 @@ const ifOpened = function(e) {
     const link = e.target.getAttribute('href')
     if (navbar.classList.contains('open') && !link && e.target !== toggleBtnBox && e.target !== toggleBtn && e.target !== toggleBtnIcon) {
     // if (!link) {
-        console.log('object')
         closeMenu()
     }
 }
@@ -118,13 +122,14 @@ const ifOpened = function(e) {
 //     if (!link ) nav.addEventListener('click', openMenu)
 // })
 // toggleBtnBox.addEventListener('click', openMenu)
-toggleBtnBox.addEventListener('click', e => {
-    dropDownMenu.classList.toggle('open')
-    dropDownMenuBackground.classList.toggle('open')
-    toggleBtn.classList.toggle('open')
-    navbar.classList.toggle('open')
-    openMenu(e)
-})
+toggleBtnBox.addEventListener('click', openMenu)
+// toggleBtnBox.addEventListener('click', e => {
+    // dropDownMenu.classList.toggle('open')
+    // dropDownMenuBackground.classList.toggle('open')
+    // toggleBtn.classList.toggle('open')
+    // navbar.classList.toggle('open')
+//     openMenu(e)
+// })
 
 const onScrollEnd = function(e) {
     navbar.style.opacity = 1
@@ -139,7 +144,7 @@ const onScroll = function(e) {
         })
         navbar.style.opacity = 0
         ticking = true
-        document.addEventListener('scrollend', onScrollEnd)
+        document.addEventListener('scrollend', onScrollEnd, {once: true})
     }
 }
 

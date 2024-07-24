@@ -62,7 +62,7 @@ export class Toaster {
 
         this.#alert.addEventListener('animationend', e => {
             this.#removeAlert(e)
-        })
+        }, {once: true})
     
         this.#closeBtn.addEventListener('click', e => {
             this.#closingAnimation(e)
@@ -140,6 +140,7 @@ export class Toaster {
         this.#progressBar.classList.remove('active')
         this.#alert.remove()
         this.toasterContainer.remove()
+        // this.#alert.removeEventListener('animationend', this.#removeAlert(e))
     }
 
     /**
@@ -156,7 +157,7 @@ export class Toaster {
         this.#alert.addEventListener('animationend', () => {
             this.#alert.remove()
             this.toasterContainer.remove()
-        })
+        }, {once: true})
     }
 
     // async #fetchTemplate(url) {
