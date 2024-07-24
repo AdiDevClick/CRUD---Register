@@ -5,20 +5,26 @@ import { Carousel } from "./Carousel.js"
  */
 export class CarouselTouchPlugin {
 
+    /** @type {AbortController} */
+    #controller
+
     /**
      * @param {Carousel} carousel 
      */
     constructor(carousel) {
-        carousel.container.addEventListener('dragstart', e => e.preventDefault())
-        carousel.container.addEventListener('mousedown', this.startDrag.bind(this), {passive: false})
-        carousel.container.addEventListener('touchstart', this.startDrag.bind(this))
 
-        window.addEventListener('mousemove', this.drag.bind(this))
-        window.addEventListener('touchmove', this.drag.bind(this), {passive: false})
+        this.#controller = new AbortController()
+
+        carousel.container.addEventListener('dragstart', e => e.preventDefault(), {signal: this.#controller.signal})
+        carousel.container.addEventListener('mousedown', this.startDrag.bind(this), {signal: this.#controller.signal, passive: false})
+        carousel.container.addEventListener('touchstart', this.startDrag.bind(this), {signal: this.#controller.signal})
+
+        window.addEventListener('mousemove', this.drag.bind(this), {signal: this.#controller.signal})
+        window.addEventListener('touchmove', this.drag.bind(this), {signal: this.#controller.signal, passive: false})
         
-        window.addEventListener('touchend', this.endDrag.bind(this))
-        window.addEventListener('mouseup', this.endDrag.bind(this))
-        window.addEventListener('touchcancel', this.endDrag.bind(this))
+        window.addEventListener('touchend', this.endDrag.bind(this), {signal: this.#controller.signal})
+        window.addEventListener('mouseup', this.endDrag.bind(this), {signal: this.#controller.signal})
+        window.addEventListener('touchcancel', this.endDrag.bind(this), {signal: this.#controller.signal})
         
         carousel.debounce(carousel.container, 'touchend')
         carousel.debounce(carousel.container, 'mouseup')
@@ -77,6 +83,7 @@ export class CarouselTouchPlugin {
             }
         }
         this.origin = null
+        this.#controller.abort()
     }
 }
 /* Le remanié */

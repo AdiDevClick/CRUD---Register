@@ -44,6 +44,8 @@ export class DrawerTouchPlugin {
     /** @type {String} */
     #clickedElement
     #grid
+    /** @type {AbortController} */
+    #controller
 
     /**
      * @param {Recipe Card} container
@@ -549,6 +551,7 @@ export class DrawerTouchPlugin {
                     }
                 }
             }
+            // this.#controller.abort()
         }
         this.origin = null
     }

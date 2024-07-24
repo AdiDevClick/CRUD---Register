@@ -98,7 +98,6 @@ export class ToasterTouchPlugin {
                 if (this.lastTranslate.x < 0 || this.lastTranslate.x > 0) {
                     this.alert.classList.add('close')
                     this.alert.addEventListener('animationend', () => {
-                        // this.alert.remove()
                         this.toaster.toasterContainer.remove()
                         this.#controller.abort()
                     }, {once: true})
