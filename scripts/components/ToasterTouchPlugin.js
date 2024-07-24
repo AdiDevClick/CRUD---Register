@@ -3,22 +3,26 @@
  */
 export class ToasterTouchPlugin {
 
+    /** @type {AbortController} */
+    #controller
+
     /**
      * @param {Toaster} toaster 
      */
     constructor(toaster) {
         this.alert = toaster.toasterContainer.querySelector('.toast')
+        this.#controller = new AbortController()
 
-        toaster.toasterContainer.addEventListener('dragstart', e => e.preventDefault())
-        toaster.toasterContainer.addEventListener('mousedown', this.startDrag.bind(this), {passive: true})
-        toaster.toasterContainer.addEventListener('touchstart', this.startDrag.bind(this), {passive: true})
+        toaster.toasterContainer.addEventListener('dragstart', e => e.preventDefault(), {signal: this.#controller.signal})
+        toaster.toasterContainer.addEventListener('mousedown', this.startDrag.bind(this), {signal: this.#controller.signal, passive: true})
+        toaster.toasterContainer.addEventListener('touchstart', this.startDrag.bind(this), {signal: this.#controller.signal, passive: true})
 
-        window.addEventListener('mousemove', this.drag.bind(this))
-        window.addEventListener('touchmove', this.drag.bind(this))
+        window.addEventListener('mousemove', this.drag.bind(this), {signal: this.#controller.signal})
+        window.addEventListener('touchmove', this.drag.bind(this), {signal: this.#controller.signal})
         
-        window.addEventListener('touchend', this.endDrag.bind(this))
-        window.addEventListener('mouseup', this.endDrag.bind(this))
-        window.addEventListener('touchcancel', this.endDrag.bind(this))
+        window.addEventListener('touchend', this.endDrag.bind(this), {signal: this.#controller.signal})
+        window.addEventListener('mouseup', this.endDrag.bind(this), {signal: this.#controller.signal})
+        window.addEventListener('touchcancel', this.endDrag.bind(this), {signal: this.#controller.signal})
 
         this.toaster = toaster
     }
@@ -40,6 +44,8 @@ export class ToasterTouchPlugin {
         this.disableTransition()
         // Sauvegarde de la witdh du conteneur
         this.width = this.toaster.toasterContainer.offsetWidth
+        // toaster.toasterContainer.removeEventListener('mousedown', this.startDrag(this))
+        // toaster.toasterContainer.removeEventListener('touchstart', this.startDrag(this))
     }
 
     /**
@@ -96,12 +102,13 @@ export class ToasterTouchPlugin {
                     this.alert.addEventListener('animationend', () => {
                         // this.alert.remove()
                         this.toaster.toasterContainer.remove()
+                        this.#controller.abort()
                     }, {once: true})
                 }
             }
         }
         this.origin = null
-        window.removeEventListener('touchmove', this.drag)
+        // window.removeEventListener('touchmove', this.drag)
     }
 
     /**

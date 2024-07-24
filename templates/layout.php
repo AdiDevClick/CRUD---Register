@@ -22,7 +22,9 @@ if ($url === 'about.php' || 'planningType.php' || 'todo.html' || 'carousel.html'
     $active = strip_tags('class="active"');
 }
 
-$dev = false;
+$dev = true;
+// $dev = false;
+$vite = false;
 
 ?>
 
@@ -70,7 +72,7 @@ if (!$dev) {
         <!-- <link rel="stylesheet" href="./public/assets/<?php //$manifest['resources/main.js']['css'][0]?>"> -->
         <link rel="stylesheet" href="<?php echo($rootUrl) . $clicServer?>/public/assets/<?= $manifest['resources/main.js']['css'][0]?>">
 <?php
-} else {
+} else if ($dev && $vite) {
     ?>
     <script type="module" src="http://localhost:5173/assets/@vite/client"></script>
     <script type="module" src="http://localhost:5173/assets/resources/main.js"></script>
@@ -78,6 +80,12 @@ if (!$dev) {
 <?php
 }
 ?>
+
+<?php if (!$vite) : ?>
+        <link rel="stylesheet" href="<?php echo($rootUrl). $clicServer?>/resources/css/main.css"/>
+        <link rel="stylesheet" href="<?php echo($rootUrl). $clicServer?>/resources/css/index.css"/>
+<?php endif ?>
+
     <!-- <script type="module" src="<?php //echo($rootUrl). $clicServer?>/scripts/toaster.js" defer></script> -->
     <script <?= $script ?? '' ?>></script>
     <script <?= $script2 ?? '' ?>></script>
