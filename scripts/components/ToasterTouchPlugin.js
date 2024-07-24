@@ -96,7 +96,7 @@ export class ToasterTouchPlugin {
                     this.alert.addEventListener('animationend', () => {
                         // this.alert.remove()
                         this.toaster.toasterContainer.remove()
-                    })
+                    }, {once: true})
                 }
             }
         }

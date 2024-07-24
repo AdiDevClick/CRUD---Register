@@ -110,6 +110,7 @@ export class SearchBar
 
     async #newSearch(e) {
         e.preventDefault()
+        debugger
         // const wrapper = document.querySelector('.wrapper')
         // const container = document.querySelector('.container')
 
@@ -152,7 +153,6 @@ export class SearchBar
         // this.#observer.observe(this.#loader)
         console.log(this.#loading)
         console.log(this.#isCreated)
-        await wait(200)
 
         if (!this.#isDeleted) {
             const script = document.querySelector('script[data-name="typewritter"]')
@@ -197,14 +197,17 @@ export class SearchBar
 
         if (!this.#isCreated && this.#isDeleted) {
             // container.innerHTML = ''
+
             this.#target.innerHTML = ''
+            await wait(200)
+
             this.#container.append(this.#loader)
             // wrapper.offsetHeight
             this.#isCreated = true
+            this.#observer.observe(this.#loader)
 
             console.log('fin de création')
         }
-        this.#observer.observe(this.#loader)
 
         // this.#observer.takeRecords()
         console.log(this.#observer)
