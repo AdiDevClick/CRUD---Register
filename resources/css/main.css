@@ -259,8 +259,18 @@ header {
             transition: none;
         }
         .search.open {
+            /* content: ''; */
+            background: transparent;
+            transition: .5s;
             margin: 0 auto;
+            opacity: 1;
             left: 0;
+            right: 0;
+            /* width: 80%; */
+            @starting-style {
+                right: 25px;
+                opacity: 0;
+            }
         }
     }
 }
