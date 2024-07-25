@@ -254,8 +254,16 @@ class Recipe extends Mysql
         // return json_encode($recipe);
     }
 
-    protected function getRecipesTitles($recipes, $limite): array
+    protected function getRecipesTitles(string $recipes, array $optionnal): array
     {
+        $limit = $optionnal['limit'];
+        $optionnal['resetState'] == 1 ? $_SESSION['LAST_ID'] = 0 : null;
+
+        // $optionnal['reset'] ? $_SESSION['LAST_ID'] = 0 : null;
+        // echo "resetState => ". $optionnal['resetState'] . ' limit => ' . $limit . ' session id => ' . $_SESSION['LAST_ID'];
+
+        // echo $_SESSION['LAST_ID'];
+        // $reset = $optionnal['_reset'];
         $sqlRecipe = "SELECT r.recipe_id, r.title, r.author, i.img_path,
                 MATCH title
                     AGAINST(:word IN BOOLEAN MODE) AS score
@@ -265,7 +273,7 @@ class Recipe extends Mysql
                 WHERE r.is_enabled = 1 AND r.recipe_id > :id
                 HAVING score > 0
                 ORDER BY r.recipe_id ASC
-                LIMIT $limite;";
+                LIMIT $limit;";
         // $sqlRecipe = 'SELECT *
         //     MATCH (r.title)
         //         AGAINST (:word IN BOOLEAN MODE) AS score
@@ -283,26 +291,8 @@ class Recipe extends Mysql
             throw new Error("stmt Failed");
         }
 
-        if ($getRecipesIdStatement->rowCount() > 0) {
-            // output data of each row
-            // $recipesArray = $getRecipesIdStatement->fetchAll(PDO::FETCH_ASSOC) ;
-            while ($recipesArray = $getRecipesIdStatement->fetch(PDO::FETCH_ASSOC)) {
-                // echo json_encode($recipesArray[0]['recipe_id']);
-                // echo  json_encode($_SESSION['LAST_ID']);
-
-                if ($_SESSION['LAST_ID'] < $recipesArray['recipe_id']) {
-                    $_SESSION['LAST_ID'] = $recipesArray['recipe_id'];
-                    // echo  json_encode($_SESSION['LAST_ID']);
-
-                }
-                $data[] = $recipesArray;
-
-                // $_SESSION['LAST_ID'] = $recipesArray['recipe_id']+= $limite;
-            }
-            return $data;
-        }
-
         if ($getRecipesIdStatement->rowCount() == 0) {
+            // echo json_encode($_SESSION['LAST_ID'] . ' => row zero ');
             $_SESSION['LAST_ID'] = 0;
             $getRecipesIdStatement = null;
             return $data = [];
@@ -312,6 +302,28 @@ class Recipe extends Mysql
             //header("Location :" .Functions::getUrl(). "?error=recipe-not-found");
             //exit();
         }
+
+        if ($getRecipesIdStatement->rowCount() > 0) {
+            // $data = [];
+            // output data of each row
+            // $recipesArray = $getRecipesIdStatement->fetchAll(PDO::FETCH_ASSOC) ;
+            while ($recipesArray = $getRecipesIdStatement->fetch(PDO::FETCH_ASSOC)) {
+                // echo json_encode($recipesArray[0]['recipe_id']);
+                // echo  json_encode($_SESSION['LAST_ID']);
+
+                if ($recipesArray['recipe_id'] > $_SESSION['LAST_ID']) {
+                    $_SESSION['LAST_ID'] = $recipesArray['recipe_id'];
+                    // echo  json_encode($_SESSION['LAST_ID']);
+                    // array_push($data, $recipesArray);
+                    $data[] = $recipesArray;
+                }
+                // $_SESSION['LAST_ID'] = $recipesArray['recipe_id']+= $limite;
+            }
+            // echo json_encode($_SESSION['LAST_ID'] . ' => row > 0 ');
+            return $data;
+        }
+
+
         // $recipesArray = $getRecipesIdStatement->fetchAll(PDO::FETCH_ASSOC);
         // echo json_encode($recipesArray);
 

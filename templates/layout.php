@@ -72,7 +72,7 @@ if (!$dev) {
         <!-- <link rel="stylesheet" href="./public/assets/<?php //$manifest['resources/main.js']['css'][0]?>"> -->
         <link rel="stylesheet" href="<?php echo($rootUrl) . $clicServer?>/public/assets/<?= $manifest['resources/main.js']['css'][0]?>">
 <?php
-} else if ($dev && $vite) {
+} elseif ($dev && $vite) {
     ?>
     <script type="module" src="http://localhost:5173/assets/@vite/client"></script>
     <script type="module" src="http://localhost:5173/assets/resources/main.js"></script>
@@ -280,7 +280,7 @@ if (!$dev) {
             data-endpoint ="<?php // $rootUrl . $clicServer . '/recipes/Process_PreparationList.php'?>"
             data-template="#search-template"
             data-target=".searched-recipes"
-            data-limit="5"
+            data-limit="2"
             data-form=".search-form"
             data-id='{"recipe_id": "#id"}'
             data-elements='{"title": ".js-title", "author": ".js-author", "img_path": ".js-img"}'

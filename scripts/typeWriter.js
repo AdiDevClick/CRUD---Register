@@ -34,13 +34,13 @@ const typeEffect = async () => {
         charIndex++
         // setTimeout(typeEffect, 200)
         if (dynamicText.isConnected) await wait(200)
-        if (dynamicText.isConnected) await typeEffect()
+        if (dynamicText.isConnected) typeEffect()
     } else if (dynamicText.isConnected && isDeleting && charIndex > 0) {
         // If condition is true, remove the previous character
         charIndex--
         // setTimeout(typeEffect, 100)
         if (dynamicText.isConnected) await wait(100)
-        if (dynamicText.isConnected) await typeEffect()
+        if (dynamicText.isConnected) typeEffect()
     } else {
         // If the word is deleted, then switch to the next word
         if (!dynamicText.isConnected) return
@@ -49,10 +49,10 @@ const typeEffect = async () => {
         wordIndex = !isDeleting ? (wordIndex +1) % words.length : wordIndex 
         // setTimeout(typeEffect, 1200)
         if (dynamicText.isConnected) await wait(1200)
-        if (dynamicText.isConnected) await typeEffect()
+        if (dynamicText.isConnected) typeEffect()
     }
 }
 
 if (dynamicText.isConnected) {
-    await typeEffect()
+    typeEffect()
 }

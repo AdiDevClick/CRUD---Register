@@ -21,6 +21,8 @@ export class SearchBar
     #isDeleted = false
     /** @type {boolean} */
     #isCreated = false
+    /** @type {boolean} */
+    #intersect = false
     /** @type {string} */
     #endpoint
     /** @type {object} */
@@ -47,26 +49,35 @@ export class SearchBar
     /** @type {Number} */
     #ratio = .3
     #options = {
-        delay: 100,
+        // delay: 100,
         // root: "26px solid #44aa44",
         rootMargin: '0px',
         threshold: this.#ratio
     }
     #handleIntersect = (entries, observer) => {
         entries.forEach(entry => {
+            console.log('je suis dans le entry => ', ' // loading => ' + this.#loading, ' // isCreated => ' + this.#isCreated)
+
             if (entry.isIntersecting) {
                 console.log('ça intersect')
             }
             // if (entry.intersectionRatio <= this.#ratio) {
             if (entry.intersectionRatio > this.#ratio) {
             // if (entry.boundingClientRect) {
+            console.log('g le bon ratio => ', ' // loading => ' + this.#loading, ' // isCreated => ' + this.#isCreated)
+                this.#intersect = true
                 this.#loadMore()
                 // console.log(entry.boundingClientRect)
                 // console.log(this.#loading)
                 // console.log(this.#isCreated)
                 // console.log(this.#isDeleted)
+                return
+            } else {
+                this.#intersect = false
+                return
             }
         })
+        return
     }
 
     constructor(element, options = {}) {
@@ -139,7 +150,8 @@ export class SearchBar
         this.#input = data.get('query')
         // url.searchParams.set('_page', this.#page)
         // url.searchParams.set('_limit', this.#limit)
-        this.#url .searchParams.set('query', this.#input)
+        this.#url.searchParams.set('query', this.#input)
+        this.#url.searchParams.set('_reset', 1)
         // debugger
 
         // const queryString = document.location
@@ -152,16 +164,27 @@ export class SearchBar
 
         // this.#observer.observe(this.#loader)
         console.log(this.#loading)
-        console.log(this.#isCreated)
+        this.#isCreated = false
 
         if (!this.#isDeleted) {
+            this.#wrapper.classList.add('hidden')
             const script = document.querySelector('script[data-name="typewritter"]')
             script.remove()
+            // this.#wrapper.addEventListener('transitionend', (e) => {
+            this.#wrapper.addEventListener('animationend', (e) => {
+                if (e.animationName === 'fadeOut') {
+                    this.#wrapper.innerHTML = ''
+                    this.#wrapper.appendChild(this.#container)
+                    this.#container.appendChild(this.#target)
+                    this.#wrapper.classList.remove('hidden')
+                }
+            }, {once: true})
+
             // container.innerHTML = ''
-            this.#wrapper.innerHTML = ''
-            // container.classList.add('container')
-            this.#wrapper.appendChild(this.#container)
-            this.#container.appendChild(this.#target)
+            // this.#wrapper.innerHTML = ''
+            // // container.classList.add('container')
+            // this.#wrapper.appendChild(this.#container)
+            // this.#container.appendChild(this.#target)
 
             // document.querySelector('.container').remove()
             // const container = document.createElement('section')
@@ -170,7 +193,6 @@ export class SearchBar
             // this.#target.classList.add(this.#loader.dataset.target)
             // this.#target = this.#target
             // const hero = document.querySelector('.hero')
-            // wrapper.classList.add('hidden')
             // wrapper.addEventListener('animationend', () => {
             //     // this.#observer.unobserve(this.#loader)
             //     // container.innerHTML = ''
@@ -197,20 +219,30 @@ export class SearchBar
 
         if (!this.#isCreated && this.#isDeleted) {
             // container.innerHTML = ''
+            this.#wrapper.classList.add('hidden')
+            this.#wrapper.addEventListener('animationend', (e) => {
+                if (e.animationName === 'fadeOut') {
+                    this.#target.innerHTML = ''
+                    this.#container.append(this.#loader)
+                    // wrapper.offsetHeight
+                    this.#isCreated = true
+                    this.#loading = false
+                }
+            }, {once: true})
+            
+            // await wait(200)
 
-            this.#target.innerHTML = ''
-            await wait(200)
-
-            this.#container.append(this.#loader)
-            // wrapper.offsetHeight
-            this.#isCreated = true
-            this.#observer.observe(this.#loader)
+            
+            // this.#observe(this.#loader)
 
             console.log('fin de création')
         }
+        console.log('je viens de créer => ', ' // loading => ' + this.#loading, ' // isCreated => ' + this.#isCreated)
+
+        // this.#observer.observe(this.#loader)
 
         // this.#observer.takeRecords()
-        console.log(this.#observer)
+        console.log(this.#url)
         
         // const query = url.searchParams.get('query')
         // const query = urlParams.get('query')
@@ -236,17 +268,17 @@ export class SearchBar
     }
 
     async #loadMore() {
+        console.log('j suis rentré et je commence le script => ', ' // loading => ' + this.#loading, ' // isCreated => ' + this.#isCreated)
+
         if (this.#loading || !this.#isCreated) {
             console.log('je peux pas rentrer => ', ' // loading => ' + this.#loading, ' // isCreated => ' + this.#isCreated)
-
-            return this.#observer.observe(this.#loader)
+            return
+            // return this.#observer.observe(this.#loader)
         }
         this.#loading = true
-
         // const url = new URL(this.#endpoint)
         // if (this.#url !== undefined) {
             // console.log(this.#url)
-        console.log(this.#url)
         // this.#target.innerHTML = ''
         // }
         // url.searchParams.set('query', data.get('query'))
@@ -254,12 +286,16 @@ export class SearchBar
             
             this.#url.searchParams.set('_page', this.#page)
             this.#url.searchParams.set('_limit', this.#limit)
+
             this.#searchResults = await fetchJSON(this.#url)
 
             if (this.#searchResults.length <= 0) {
-                this.#disconnectObserver('Tout le contenu a été chargé')
+                // this.#disconnectObserver('Tout le contenu a été chargé')
+                this.#observe(this.#loader, 'Tout le contenu a été chargé')
                 return
             }
+            this.#url.searchParams.set('_reset', 0)
+            console.log(this.#url)
 
             console.log(this.#searchResults)
             this.#searchResults.forEach(result => {
@@ -273,10 +309,16 @@ export class SearchBar
                 }
                 this.#target.append(elementTemplate)
             })
+            this.#wrapper.classList.remove('hidden')
+
             this.#page++
             this.#input.value = ''
             this.#loading = false
+            // this.#observe(this.#loader)
+            console.log('jsuis arrivé à la fin du script => ', ' // loading => ' + this.#loading, ' // isCreated => ' + this.#isCreated)
         } catch (error) {
+            console.log('g une error => ', ' // loading => ' + this.#loading, ' // isCreated => ' + this.#isCreated)
+
             this.#loader.style.display = 'none'
             // const alert = alertMessage(error.message)
             // this.#target.insertAdjacentElement(
@@ -288,19 +330,41 @@ export class SearchBar
             //     this.#loader.style.removeProperty('display')
             //     // alert.addEventListener('close', (e))
             // }, {once: true})
-            new Toaster(error, 'Erreur')
-            this.#loader.style.removeProperty('display')
             this.#loading = false
             this.#isCreated = false
+            new Toaster(error, 'Erreur')
+            this.#loader.style.removeProperty('display')
         }
+    }
+
+    /**
+     * @param {NodeListOf.<HTMLElement>} elements
+     */
+    #observe(elements, message = null) {
+        if (this.#observer) {
+            this.#observer.unobserve(elements)
+            this.#observer.disconnect()
+            this.#intersect = false
+            this.#loading ? this.#input.value = '' : null
+            this.#loading = false
+            this.#isCreated = false
+            this.#page = 1
+            this.#loader.remove()
+            message ? new Toaster(message, 'Succès') : null
+        }
+        this.#observer = new IntersectionObserver(this.#handleIntersect, this.#options)
+        this.#observer.observe(elements)
+        return
     }
 
     #disconnectObserver(message) {
         this.#loading = false
         this.#isCreated = false
-        new Toaster(message, 'Succès')
+        this.#input.value = ''
         this.#observer.disconnect()
         this.#loader.remove()
+        new Toaster(message, 'Succès')
+
         // this.#observer.unobserve(this.#loader)
         
         // throw new Error(message)

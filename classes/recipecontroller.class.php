@@ -227,7 +227,7 @@ class RecipeController extends Recipe
     {
         try {
             //if ($checkId->checkIds()) {
-            // echo $this->getData;
+            // echo $this->getData . ' ' . $this->optionnalData . ' ' . $_SESSION['LAST_ID'];
             $title = $this->getRecipesTitles($this->getData, $this->optionnalData);
             // echo json_encode(array("title"=> $title));
             // foreach ($title = $this->getRecipesTitles($this->getData) as $recipeItem) {

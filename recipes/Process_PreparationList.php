@@ -33,9 +33,15 @@ if (isset($_GET['query'])) {
     // echo json_encode($_SESSION['LAST_ID']) ;
 
     // $_SESSION['LAST_ID'] = 0;
-    $getSearchLimit = $_GET['_limit'];
+    // $getSearchLimit = $_GET['_limit'];
     $getSearchRequest = $_GET['query'];
-    $getRecipe = new RecipeView($getSearchRequest, $getSearchLimit);
+    // $getSearchReset = $_GET['_reset'];
+    $optionnalData = [
+        'limit' => $_GET['_limit'],
+        // 'query' => $_GET['query'],
+        'resetState' => $_GET['_reset']
+    ];
+    $getRecipe = new RecipeView($getSearchRequest, $optionnalData);
     $recipe = $getRecipe->getRecipesTitle();
     // foreach ($recipe as $key) {
     //     echo json_encode(array("title"=> $key));
