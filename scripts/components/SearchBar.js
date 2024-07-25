@@ -347,12 +347,14 @@ export class SearchBar
             this.#observer.unobserve(elements)
             this.#observer.disconnect()
             this.#intersect = false
-            this.#loading ? this.#input.value = '' : null
-            this.#loading = false
-            this.#isCreated = false
+            if (this.#loading) {
+                this.#input.value = ''
+                this.#loading = false
+            }
+            if (this.#isCreated) this.#isCreated = false
             this.#page = 1
             this.#loader.remove()
-            this.#wrapper.classList.remove('hidden')
+            if (this.#wrapper.classList.contains('hidden')) this.#wrapper.classList.remove('hidden')
             message ? new Toaster(message, 'Succès') : null
         }
         this.#observer = new IntersectionObserver(this.#handleIntersect, this.#options)
