@@ -147,11 +147,15 @@ export class SearchBar
         // const form = e.target
         let data = new FormData(this.#searchForm)
         this.#url = new URL(this.#endpoint)
+        // window.location.replace('recherche')
+        // window.location.hash = 'recherche'
+        history.pushState({}, document.title, 'recherche/')
         this.#input = data.get('query')
         // url.searchParams.set('_page', this.#page)
         // url.searchParams.set('_limit', this.#limit)
         this.#url.searchParams.set('query', this.#input)
         this.#url.searchParams.set('_reset', 1)
+        // resetURL('register.php', 'failed', urlParams)
         // debugger
 
         // const queryString = document.location
@@ -170,7 +174,7 @@ export class SearchBar
         if (!this.#isDeleted) {
             this.#wrapper.classList.add('hidden')
             const script = document.querySelector('script[data-name="typewritter"]')
-            script.remove()
+            if (script) script.remove()
             // this.#wrapper.addEventListener('transitionend', (e) => {
             this.#wrapper.addEventListener('animationend', (e) => {
                 if (e.animationName === 'fadeOut') {

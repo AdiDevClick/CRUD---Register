@@ -273,7 +273,7 @@ if (!$dev) {
 
     </header>
     <!-- End Header Content -->
-    <main class="wrapper">
+    <main id="wrapper" class="wrapper">
     <!-- Start Main Content -->
         <?= $content ?? ''?>
         <div 

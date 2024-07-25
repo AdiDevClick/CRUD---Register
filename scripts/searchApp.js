@@ -10,12 +10,24 @@ const body = document.querySelector('main')
 const navLinks = document.querySelector('.links')
 const burgerMenu = document.querySelector('.toggle_btn-box')
 const actionBtn = document.querySelector('.action-btn')
+
+const wrapper = document.querySelector('#wrapper')
+const content = wrapper.innerHTML
+const oldUrl = window.location
+let newUrl
+
+console.log("new URL => " , oldUrl, "\n  old URL => "+ newUrl)
 let isOpened
 
 const onClose = function (e) {
     e.preventDefault()
+    console.log("new URL => " , oldUrl, "\n  old URL => "+ newUrl)
+
     if (isOpened && searchBar.classList.contains('open')) {
         // input.removeAttribute('style')
+        wrapper.innerHTML = content
+        console.log('url dans le close => ', newUrl)
+        history.pushState({}, document.title, newUrl)
         input.style.animation = 'width-shrink .2s'
         // input.style.disableAnimation = 'width-shrink'
         navLinks.classList.remove('hidden')
@@ -28,6 +40,7 @@ const onClose = function (e) {
 
 const onOpen = function (e) {
     e.preventDefault()
+    if (newUrl !== oldUrl) newUrl = oldUrl.href
     if (searchBar.classList.contains('open') || isOpened) return
     if (!isOpened) {
         isOpened = true
@@ -43,6 +56,8 @@ const onOpen = function (e) {
             closeSearchBtn.addEventListener('click', onClose, {once: true})
         }, {once: true})
     }
+    console.log("new URL => " , oldUrl, "\n  old URL => "+ newUrl)
+
 }
 
 searchIcon.addEventListener('click', onOpen)
