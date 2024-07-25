@@ -121,7 +121,7 @@ export class SearchBar
 
     async #newSearch(e) {
         e.preventDefault()
-        debugger
+        // debugger
         // const wrapper = document.querySelector('.wrapper')
         // const container = document.querySelector('.container')
 
