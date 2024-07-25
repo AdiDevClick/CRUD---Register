@@ -76,7 +76,7 @@ const closeMenu = function(e) {
     toggleBtn.classList.remove('open')
     navbar.classList.remove('open')
     dropDownMenu.removeEventListener('click', stopPropagation)
-    toggleBtnBox.removeEventListener('click', openMenu)
+    // toggleBtnBox.removeEventListener('click', openMenu)
     
     // dropDownMenu.removeEventListener('click', stopPropagation)
     // dropDownMenuBackground.removeEventListener('click', closeMenu)

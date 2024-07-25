@@ -16,24 +16,25 @@ const content = wrapper.innerHTML
 const oldUrl = window.location
 let newUrl
 
-console.log("new URL => " , oldUrl, "\n  old URL => "+ newUrl)
+// console.log("new URL => " , oldUrl, "\n  old URL => "+ newUrl)
 let isOpened
 
 const onClose = function (e) {
     e.preventDefault()
-    console.log("new URL => " , oldUrl, "\n  old URL => "+ newUrl)
+    // console.log("new URL => " , oldUrl, "\n  old URL => "+ newUrl)
 
     if (isOpened && searchBar.classList.contains('open')) {
         // input.removeAttribute('style')
-        wrapper.innerHTML = content
-        console.log('url dans le close => ', newUrl)
-        history.pushState({}, document.title, newUrl)
+        // wrapper.innerHTML = content
+        // console.log('url dans le close => ', newUrl)
+        // history.pushState({}, document.title, newUrl)
         input.style.animation = 'width-shrink .2s'
         // input.style.disableAnimation = 'width-shrink'
         navLinks.classList.remove('hidden')
         burgerMenu.classList.remove('hidden')
         actionBtn?.classList.remove('hidden')
         searchBar.classList.remove('open')
+        // if (wrapper.classList.contains('hidden')) wrapper.classList.remove('hidden')
         isOpened = false
     }
 }
@@ -56,9 +57,14 @@ const onOpen = function (e) {
             closeSearchBtn.addEventListener('click', onClose, {once: true})
         }, {once: true})
     }
-    console.log("new URL => " , oldUrl, "\n  old URL => "+ newUrl)
+    // console.log("new URL => " , oldUrl, "\n  old URL => "+ newUrl)
 
 }
+
+// window.onpopstate = (e) => {
+//     wrapper.innerHTML = content
+//     history.pushState({}, document.title, newUrl)
+// }
 
 searchIcon.addEventListener('click', onOpen)
 

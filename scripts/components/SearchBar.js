@@ -41,6 +41,10 @@ export class SearchBar
     #limit
     /** @type {HTMLFormElement} */
     #searchForm
+    /** @type {HTMLHtmlElement} */
+    #content
+    #newUrl = window.location
+    #oldUrl
     /** 
      * Options pour le loader infini
      * @type {IntersectionObserver} 
@@ -56,15 +60,15 @@ export class SearchBar
     }
     #handleIntersect = (entries, observer) => {
         entries.forEach(entry => {
-            console.log('je suis dans le entry => ', ' \n // loading => ' + this.#loading, ' \n // isCreated => ' + this.#isCreated, ' \n // intersect ? => ' + this.#intersect)
+            // console.log('je suis dans le entry => ', ' \n // loading => ' + this.#loading, ' \n // isCreated => ' + this.#isCreated, ' \n // intersect ? => ' + this.#intersect)
 
             if (entry.isIntersecting) {
-                console.log('ça intersect')
+                // console.log('ça intersect')
             }
             // if (entry.intersectionRatio <= this.#ratio) {
             if (entry.intersectionRatio > this.#ratio) {
             // if (entry.boundingClientRect) {
-            console.log('g le bon ratio => ', ' \n // loading => ' + this.#loading, ' \n // isCreated => ' + this.#isCreated, ' \n // intersect ? => ' + this.#intersect)
+            // console.log('g le bon ratio => ', ' \n // loading => ' + this.#loading, ' \n // isCreated => ' + this.#isCreated, ' \n // intersect ? => ' + this.#intersect)
                 this.#intersect = true
                 this.#loadMore()
                 // console.log(entry.boundingClientRect)
@@ -105,7 +109,7 @@ export class SearchBar
         this.#container = document.createElement('section')
         this.#container.classList.add('container')
         this.#wrapper = document.querySelector('.wrapper')
-
+        this.#content = this.#wrapper.innerHTML
 
         this.#searchForm.addEventListener('submit', this.#newSearch.bind(this))
         this.#searchForm.addEventListener('input', debounce((e) => {
@@ -117,6 +121,11 @@ export class SearchBar
             this.#observer.observe(this.#loader)
             // this.#observer.root.style.border = "26px solid #44aa44";
         })
+        window.onpopstate = (e) => {
+            this.#wrapper.innerHTML = this.#content
+            history.pushState({}, document.title, newUrl)
+            this.#observe(this.#loader)
+        }
     }
 
     #newSearch(e) {
@@ -149,7 +158,8 @@ export class SearchBar
         this.#url = new URL(this.#endpoint)
         // window.location.replace('recherche')
         // window.location.hash = 'recherche'
-        history.pushState({}, document.title, 'recherche/')
+        if (!window.location.href.toString().includes('recherche')) history.pushState({}, document.title, 'recherche/')
+        
         this.#input = data.get('query')
         // url.searchParams.set('_page', this.#page)
         // url.searchParams.set('_limit', this.#limit)
@@ -172,6 +182,7 @@ export class SearchBar
         this.#isCreated = false
 
         if (!this.#isDeleted) {
+            // if (this.#wrapper.classList.contains('hidden')) this.#wrapper.classList.remove('hidden')
             this.#wrapper.classList.add('hidden')
             const script = document.querySelector('script[data-name="typewritter"]')
             if (script) script.remove()
@@ -214,7 +225,7 @@ export class SearchBar
             // hero.remove()
             // delete hero
             this.#isDeleted = true
-            console.log('fin de delete')
+            // console.log('fin de delete')
 
             // container.append(this.#template)
             // container.prepend(this.#target)
@@ -232,7 +243,7 @@ export class SearchBar
                     // wrapper.offsetHeight
                     this.#isCreated = true
                     this.#loading = false
-                    console.log('Je demande a append le loader')
+                    // console.log('Je demande a append le loader')
                 }
             }, {once: true})
             
@@ -241,14 +252,14 @@ export class SearchBar
             
             // this.#observe(this.#loader)
 
-            console.log('fin de création')
+            // console.log('fin de création')
         }
-        console.log('je viens de créer => ', ' // loading => ' + this.#loading, ' // isCreated => ' + this.#isCreated)
+        // console.log('je viens de créer => ', ' // loading => ' + this.#loading, ' // isCreated => ' + this.#isCreated)
 
         // this.#observer.observe(this.#loader)
 
         // this.#observer.takeRecords()
-        console.log(this.#url)
+        // console.log(this.#url)
         
         // const query = url.searchParams.get('query')
         // const query = urlParams.get('query')
@@ -274,10 +285,10 @@ export class SearchBar
     }
 
     async #loadMore() {
-        console.log('j suis rentré et je commence le script => ', ' \n // loading => ' + this.#loading, ' \n // isCreated => ' + this.#isCreated, ' \n // intersect ? => ' + this.#intersect)
+        // console.log('j suis rentré et je commence le script => ', ' \n // loading => ' + this.#loading, ' \n // isCreated => ' + this.#isCreated, ' \n // intersect ? => ' + this.#intersect)
 
         if (this.#loading || !this.#isCreated || !this.#intersect) {
-            console.log('je peux pas rentrer => ', ' \n // loading => ' + this.#loading, ' \n // isCreated => ' + this.#isCreated, ' \n // intersect ? => ' + this.#intersect)
+            // console.log('je peux pas rentrer => ', ' \n // loading => ' + this.#loading, ' \n // isCreated => ' + this.#isCreated, ' \n // intersect ? => ' + this.#intersect)
             return
             // return this.#observer.observe(this.#loader)
         }
@@ -301,14 +312,14 @@ export class SearchBar
                 return
             }
             this.#url.searchParams.set('_reset', 0)
-            console.log(this.#url)
+            // console.log(this.#url)
 
-            console.log(this.#searchResults)
+            // console.log(this.#searchResults)
             this.#searchResults.forEach(result => {
                 const elementTemplate = this.#template.content.firstElementChild.cloneNode(true)
                 elementTemplate.setAttribute('id', result.recipe_id)
                 for (const [key, selector] of Object.entries(this.#elements)) {
-                    console.log(key, ' ' +selector)
+                    // console.log(key, ' ' +selector)
                     // console.log(elementTemplate.querySelector(selector))
                     // key === 'img_path' ? elementTemplate.querySelector(selector).src = result[key] : elementTemplate.querySelector(selector).innerText = result[key]
                     elementTemplate.querySelector(selector).innerText = result[key]
@@ -321,9 +332,9 @@ export class SearchBar
             this.#input.value = ''
             this.#loading = false
             // this.#observe(this.#loader)
-            console.log('jsuis arrivé à la fin du script => ', ' \n // loading => ' + this.#loading, ' \n // isCreated => ' + this.#isCreated, ' \n // intersect ? => ' + this.#intersect)
+            // console.log('jsuis arrivé à la fin du script => ', ' \n // loading => ' + this.#loading, ' \n // isCreated => ' + this.#isCreated, ' \n // intersect ? => ' + this.#intersect)
         } catch (error) {
-            console.log('g une error => ', ' // loading => ', ' \n // loading => ' + this.#loading, ' \n // isCreated => ' + this.#isCreated, ' \n // intersect ? => ' + this.#intersect)
+            // console.log('g une error => ', ' // loading => ', ' \n // loading => ' + this.#loading, ' \n // isCreated => ' + this.#isCreated, ' \n // intersect ? => ' + this.#intersect)
 
             this.#loader.style.display = 'none'
             // const alert = alertMessage(error.message)
