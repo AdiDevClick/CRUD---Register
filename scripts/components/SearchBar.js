@@ -56,7 +56,7 @@ export class SearchBar
     }
     #handleIntersect = (entries, observer) => {
         entries.forEach(entry => {
-            console.log('je suis dans le entry => ', ' // loading => ' + this.#loading, ' // isCreated => ' + this.#isCreated)
+            console.log('je suis dans le entry => ', ' \n // loading => ' + this.#loading, ' \n // isCreated => ' + this.#isCreated, ' \n // intersect ? => ' + this.#intersect)
 
             if (entry.isIntersecting) {
                 console.log('ça intersect')
@@ -64,7 +64,7 @@ export class SearchBar
             // if (entry.intersectionRatio <= this.#ratio) {
             if (entry.intersectionRatio > this.#ratio) {
             // if (entry.boundingClientRect) {
-            console.log('g le bon ratio => ', ' // loading => ' + this.#loading, ' // isCreated => ' + this.#isCreated)
+            console.log('g le bon ratio => ', ' \n // loading => ' + this.#loading, ' \n // isCreated => ' + this.#isCreated, ' \n // intersect ? => ' + this.#intersect)
                 this.#intersect = true
                 this.#loadMore()
                 // console.log(entry.boundingClientRect)
@@ -268,10 +268,10 @@ export class SearchBar
     }
 
     async #loadMore() {
-        console.log('j suis rentré et je commence le script => ', ' // loading => ' + this.#loading, ' // isCreated => ' + this.#isCreated)
+        console.log('j suis rentré et je commence le script => ', ' \n // loading => ' + this.#loading, ' \n // isCreated => ' + this.#isCreated, ' \n // intersect ? => ' + this.#intersect)
 
-        if (this.#loading || !this.#isCreated) {
-            console.log('je peux pas rentrer => ', ' // loading => ' + this.#loading, ' // isCreated => ' + this.#isCreated)
+        if (this.#loading || !this.#isCreated || !this.#intersect) {
+            console.log('je peux pas rentrer => ', ' \n // loading => ' + this.#loading, ' \n // isCreated => ' + this.#isCreated, ' \n // intersect ? => ' + this.#intersect)
             return
             // return this.#observer.observe(this.#loader)
         }
@@ -315,9 +315,9 @@ export class SearchBar
             this.#input.value = ''
             this.#loading = false
             // this.#observe(this.#loader)
-            console.log('jsuis arrivé à la fin du script => ', ' // loading => ' + this.#loading, ' // isCreated => ' + this.#isCreated)
+            console.log('jsuis arrivé à la fin du script => ', ' \n // loading => ' + this.#loading, ' \n // isCreated => ' + this.#isCreated, ' \n // intersect ? => ' + this.#intersect)
         } catch (error) {
-            console.log('g une error => ', ' // loading => ' + this.#loading, ' // isCreated => ' + this.#isCreated)
+            console.log('g une error => ', ' // loading => ', ' \n // loading => ' + this.#loading, ' \n // isCreated => ' + this.#isCreated, ' \n // intersect ? => ' + this.#intersect)
 
             this.#loader.style.display = 'none'
             // const alert = alertMessage(error.message)
