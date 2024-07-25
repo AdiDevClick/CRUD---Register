@@ -280,7 +280,7 @@ if (!$dev) {
             data-endpoint ="<?php // $rootUrl . $clicServer . '/recipes/Process_PreparationList.php'?>"
             data-template="#search-template"
             data-target=".searched-recipes"
-            data-limit="2"
+            data-limit="5"
             data-form=".search-form"
             data-id='{"recipe_id": "#id"}'
             data-elements='{"title": ".js-title", "author": ".js-author", "img_path": ".js-img"}'
