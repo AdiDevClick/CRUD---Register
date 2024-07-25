@@ -119,7 +119,7 @@ export class SearchBar
         })
     }
 
-    async #newSearch(e) {
+    #newSearch(e) {
         e.preventDefault()
         // debugger
         // const wrapper = document.querySelector('.wrapper')
@@ -163,7 +163,8 @@ export class SearchBar
         // this.#target.classList.add('searched-recipes')
 
         // this.#observer.observe(this.#loader)
-        console.log(this.#loading)
+        console.log('je demande la création => ', ' \n // deleted => ' + this.#isDeleted, ' \n // isCreated => ' + this.#isCreated, ' \n // intersect ? => ' + this.#intersect)
+
         this.#isCreated = false
 
         if (!this.#isDeleted) {
@@ -218,7 +219,7 @@ export class SearchBar
         }
 
         if (!this.#isCreated && this.#isDeleted) {
-            // container.innerHTML = ''
+            // this.#wrapper.classList.contains('hidden') ? this.#wrapper.classList.remove('hidden') : null
             this.#wrapper.classList.add('hidden')
             this.#wrapper.addEventListener('animationend', (e) => {
                 if (e.animationName === 'fadeOut') {
@@ -227,6 +228,7 @@ export class SearchBar
                     // wrapper.offsetHeight
                     this.#isCreated = true
                     this.#loading = false
+                    console.log('Je demande a append le loader')
                 }
             }, {once: true})
             
@@ -350,6 +352,7 @@ export class SearchBar
             this.#isCreated = false
             this.#page = 1
             this.#loader.remove()
+            this.#wrapper.classList.remove('hidden')
             message ? new Toaster(message, 'Succès') : null
         }
         this.#observer = new IntersectionObserver(this.#handleIntersect, this.#options)
