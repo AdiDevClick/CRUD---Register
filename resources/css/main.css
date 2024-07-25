@@ -569,7 +569,11 @@ footer {
             :is(.search.open) {
                 position: fixed;
                 top: 15px;
-                right: 20px;
+                right: 25px;
+                /* right: 20px; */
+                @media screen and (max-width: 576px) {
+                    right: 0;
+                }
             }
         }
     }
@@ -924,7 +928,8 @@ input:focus::placeholder, input.input_error:focus::placeholder {
             .close-search {
                 display: none;
             }
-            width: 100%;
+            /* width: 100%; */
+            right: 0;
         }
     }
     /* & .icon-backspace::before {
