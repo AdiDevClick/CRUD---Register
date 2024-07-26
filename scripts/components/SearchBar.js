@@ -1,5 +1,5 @@
 import { fetchJSON } from "../functions/api.js"
-import { createNewElements, debounce, wait } from "../functions/dom.js"
+import { createElement, debounce, wait } from "../functions/dom.js"
 import { Toaster } from "./Toaster.js"
 
 export class SearchBar
@@ -99,7 +99,7 @@ export class SearchBar
         
         this.#searchForm = document.querySelector(element.dataset.form)
         
-        this.#target = createNewElements("div", {
+        this.#target = createElement("div", {
             class: "element.dataset.target"
         })
         // this.#target.classList.add('searched-recipes')
@@ -108,12 +108,12 @@ export class SearchBar
         this.#limit = element.dataset.limit
         this.#elements = JSON.parse(element.dataset.elements)
         this.#template = document.querySelector(element.dataset.template)
-        this.#container = createNewElements('section', {
+        this.#container = createElement('section', {
             class: "container"
         })
         // this.#container.classList.add('container')
         this.#wrapper = document.querySelector('.wrapper')
-        this.#content = this.#wrapper.innerHTML
+        // this.#content = this.#wrapper.innerHTML
 
         this.#searchForm.addEventListener('submit', this.#newSearch.bind(this))
         this.#searchForm.addEventListener('input', debounce((e) => {
@@ -127,11 +127,29 @@ export class SearchBar
             // this.#observer.root.style.border = "26px solid #44aa44";
         })
         window.onpopstate = (e) => {
-            this.#wrapper.innerHTML = this.#content
-            if (history.back) {
+            e.preventDefault()
+            console.log(this.#content)
+            // this.#wrapper.innerHTML = this.#content
+            if (e.state === null) {
+                
+                // this.#wrapper.innerHTML = this.#content
+                this.#content = this.#wrapper.innerHTML
+                localStorage.setItem('forwardContent', this.#content)
+                
                 // document.querySelector('head').append(this.#script)
-                history.pushState({}, document.title, this.#newUrl)
-                this.#observe(this.#loader)
+                // history.pushState({}, document.title, this.#newUrl)
+                location.reload()
+                console.log('cest le back')
+                console.log(this.#content)
+                // this.#observe(this.#loader)
+            }
+            if (e.state !== null) {
+                console.log(this.#content)
+                this.#content = localStorage.getItem('forwardContent')
+                this.#wrapper.innerHTML = this.#content
+
+                console.log('cest le go')
+
             }
         }
     }
@@ -188,7 +206,7 @@ export class SearchBar
         // this.#target.classList.add('searched-recipes')
 
         // this.#observer.observe(this.#loader)
-        console.log('je demande la création => ', ' \n // deleted => ' + this.#isDeleted, ' \n // isCreated => ' + this.#isCreated, ' \n // intersect ? => ' + this.#intersect)
+        // console.log('je demande la création => ', ' \n // deleted => ' + this.#isDeleted, ' \n // isCreated => ' + this.#isCreated, ' \n // intersect ? => ' + this.#intersect)
 
         this.#isCreated = false
 
@@ -322,17 +340,21 @@ export class SearchBar
                 return
             }
             this.#url.searchParams.set('_reset', 0)
-            console.log(this.#url)
+            // console.log(this.#url)
             // console.log(this.#searchResults)
             this.#searchResults.forEach(result => {
                 const elementTemplate = this.#template.content.firstElementChild.cloneNode(true)
                 elementTemplate.setAttribute('id', result.recipe_id)
                 for (const [key, selector] of Object.entries(this.#elements)) {
-                    // console.log(key, ' ' +selector)
-                    console.log(elementTemplate.querySelector(selector))
-                    // key === 'img_path' ? null : elementTemplate.querySelector(selector).innerText = result[key]
-                    key === 'img_path' ? elementTemplate.querySelector(selector).src =  this.#url.origin+/recettes/+result[key] : elementTemplate.querySelector(selector).innerText = result[key]
-                    // elementTemplate.querySelector(selector).innerText = result[key]
+                    // console.log(key['img_path'], ' ' +selector)
+                    // console.log(elementTemplate.querySelector(selector))
+                    if (key === 'img_path' && result[key]) {
+                        elementTemplate.querySelector(selector).src = this.#url.origin+/recettes/+result[key]
+                    } else if (key === 'img_path' && result[key] === null || undefined) {
+                         elementTemplate.querySelector(selector).src = this.#url.origin+/recettes/+'img/img1.jpeg'
+                    } else {
+                        elementTemplate.querySelector(selector).innerText = result[key]
+                    }
                 }
                 this.#target.append(elementTemplate)
             })

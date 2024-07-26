@@ -1,5 +1,5 @@
 import { fetchTemplate } from "../functions/api.js"
-import { wait, alertMessage, createNewElements } from "../functions/dom.js"
+import { wait, alertMessage, createElement } from "../functions/dom.js"
 import { ToasterTouchPlugin } from "./ToasterTouchPlugin.js"
 
 
@@ -82,7 +82,7 @@ export class Toaster {
      * pour target les élements nécessaires à l'alerte
      */
     #createNewToasterContainer() {
-        const toasterDivContainer = createNewElements('div', {
+        const toasterDivContainer = createElement('div', {
             class: 'toast-container',
             role: 'alert',
             'data-template': '#alert-layout',

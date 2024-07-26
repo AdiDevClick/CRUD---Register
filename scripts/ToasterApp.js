@@ -1,4 +1,4 @@
-import { createNewElements, wait } from "./functions/dom.js"
+import { createElement, wait } from "./functions/dom.js"
 
 // document.querySelectorAll('.toast').forEach(toaster => {
 //     new Toaster(toaster)
@@ -42,7 +42,7 @@ class Toaster {
     }
 
     #createNewToasterContainer() {
-        const toasterDivContainer = createNewElements('div', {
+        const toasterDivContainer = createElement('div', {
             class: 'toast-container',
             role: 'alert',
             'data-template': '#alert-layout',

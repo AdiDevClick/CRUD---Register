@@ -14,7 +14,7 @@
  * @param {Object} attributes 
  * @returns {HTMLElement}
  */
-export function createNewElements(tagName, attributes = {}) {
+export function createElement(tagName, attributes = {}) {
     const element = document.createElement(tagName)
     for (const [attribute, value] of Object.entries(attributes)) {
         if (value !== null) {
