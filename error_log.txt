@@ -1,0 +1,1 @@
+Errors : [2] Undefined variable $clicServerimg - C:\xampp\htdocs\Recettes\templates\layout.php:306

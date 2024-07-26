@@ -1,10 +1,10 @@
 import { fetchJSON } from "../functions/api.js"
-import { createElement, debounce, wait } from "../functions/dom.js"
+import { createNewElements, debounce, wait } from "../functions/dom.js"
 import { Toaster } from "./Toaster.js"
 
 export class SearchBar
 {
-    /** @type {HTMLElement} */
+    /** @type {NodeListOf<HTMLElement>} */
     #loader
     /** @type {HTMLElement} */
     #input 
@@ -17,34 +17,36 @@ export class SearchBar
     #searchResults = []
     /** @type {boolean} */
     #loading = false
-    /** @type {boolean} */
+    /** @type {Boolean} */
     #isDeleted = false
-    /** @type {boolean} */
+    /** @type {Boolean} */
     #isCreated = false
-    /** @type {boolean} */
+    /** @type {Boolean} */
     #intersect = false
-    /** @type {string} */
+    /** @param {String} endpoint */
     #endpoint
-    /** @type {object} */
+    /** @type {Object} */
     #elements
     /** @type {HTMLTemplateElement} */
     #template
     /** @type {HTMLElement} */
     #target
-    /** @type {HTMLElement} */
+    /** @typedef  {HTMLElement} HTMLMainElement */
     #wrapper
     /** @type {HTMLElement} */
     #container
     /** @type {Number} */
     #page = 1
-    /** @type {number} */
+    /** @type {Number} */
     #limit
-    /** @type {HTMLFormElement} */
+    /** @type {HTMLFormElement} HTMLFormElement */
     #searchForm
-    /** @type {HTMLHtmlElement} */
+    /** @type {String} */
     #content
+    /** @type {Location} */
     #newUrl = window.location
     #oldUrl
+    #script
     /** 
      * Options pour le loader infini
      * @type {IntersectionObserver} 
@@ -96,18 +98,20 @@ export class SearchBar
         }, options)
         
         this.#searchForm = document.querySelector(element.dataset.form)
-        this.#target = document.createElement('div')
-        this.#target.classList.add('searched-recipes')
-        // this.#target = document.createElement('div', {
-        //     class: "element.dataset.target"
-        // })
+        
+        this.#target = createNewElements("div", {
+            class: "element.dataset.target"
+        })
+        // this.#target.classList.add('searched-recipes')
         // this.#target = document.querySelector(element.dataset.target)
         this.#endpoint = this.#searchForm.dataset.endpoint
         this.#limit = element.dataset.limit
         this.#elements = JSON.parse(element.dataset.elements)
         this.#template = document.querySelector(element.dataset.template)
-        this.#container = document.createElement('section')
-        this.#container.classList.add('container')
+        this.#container = createNewElements('section', {
+            class: "container"
+        })
+        // this.#container.classList.add('container')
         this.#wrapper = document.querySelector('.wrapper')
         this.#content = this.#wrapper.innerHTML
 
@@ -118,16 +122,23 @@ export class SearchBar
         }, (this.options.debounceDelay)))
         window.addEventListener('DOMContentLoaded', () => {
             this.#observer = new IntersectionObserver(this.#handleIntersect, this.#options)
-            this.#observer.observe(this.#loader)
+            this.#observe(this.#loader)
+            // this.#observer.observe(this.#loader)
             // this.#observer.root.style.border = "26px solid #44aa44";
         })
         window.onpopstate = (e) => {
             this.#wrapper.innerHTML = this.#content
-            history.pushState({}, document.title, newUrl)
-            this.#observe(this.#loader)
+            if (history.back) {
+                // document.querySelector('head').append(this.#script)
+                history.pushState({}, document.title, this.#newUrl)
+                this.#observe(this.#loader)
+            }
         }
     }
 
+    /**
+     * @param {InputEvent} e 
+     */
     #newSearch(e) {
         e.preventDefault()
         // debugger
@@ -184,8 +195,8 @@ export class SearchBar
         if (!this.#isDeleted) {
             // if (this.#wrapper.classList.contains('hidden')) this.#wrapper.classList.remove('hidden')
             this.#wrapper.classList.add('hidden')
-            const script = document.querySelector('script[data-name="typewritter"]')
-            if (script) script.remove()
+            // this.#script = document.querySelector('script[data-name="typewritter"]')
+            // if (this.#script) this.#script.remove()
             // this.#wrapper.addEventListener('transitionend', (e) => {
             this.#wrapper.addEventListener('animationend', (e) => {
                 if (e.animationName === 'fadeOut') {
@@ -300,7 +311,6 @@ export class SearchBar
         // }
         // url.searchParams.set('query', data.get('query'))
         try {
-            
             this.#url.searchParams.set('_page', this.#page)
             this.#url.searchParams.set('_limit', this.#limit)
 
@@ -312,17 +322,17 @@ export class SearchBar
                 return
             }
             this.#url.searchParams.set('_reset', 0)
-            // console.log(this.#url)
-
+            console.log(this.#url)
             // console.log(this.#searchResults)
             this.#searchResults.forEach(result => {
                 const elementTemplate = this.#template.content.firstElementChild.cloneNode(true)
                 elementTemplate.setAttribute('id', result.recipe_id)
                 for (const [key, selector] of Object.entries(this.#elements)) {
                     // console.log(key, ' ' +selector)
-                    // console.log(elementTemplate.querySelector(selector))
-                    // key === 'img_path' ? elementTemplate.querySelector(selector).src = result[key] : elementTemplate.querySelector(selector).innerText = result[key]
-                    elementTemplate.querySelector(selector).innerText = result[key]
+                    console.log(elementTemplate.querySelector(selector))
+                    // key === 'img_path' ? null : elementTemplate.querySelector(selector).innerText = result[key]
+                    key === 'img_path' ? elementTemplate.querySelector(selector).src =  this.#url.origin+/recettes/+result[key] : elementTemplate.querySelector(selector).innerText = result[key]
+                    // elementTemplate.querySelector(selector).innerText = result[key]
                 }
                 this.#target.append(elementTemplate)
             })

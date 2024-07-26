@@ -31,7 +31,7 @@ $vite = true;
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <meta content="text/javascript; charset=UTF-8" http-equiv="content-type">
     <!-- <meta http-equiv="Cache-control" content="public"> -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="<?php echo($rootUrl). $clicServer?>/css/resetfirefox.css">
@@ -303,12 +303,12 @@ if (!$dev) {
         <div id="carousel1">
             <div class="item_container">
                 <div class="item__image">
-                    <img class="js-img" src="img/img1.jpeg" alt="">
+                    <img class="js-img"  src=<?= $rootUrl. $clicServer ?> alt="">
                     <div class="player" id="UzRY3BsWFYg"></div>
                 </div>
                 <div class="item__body">
                     <div class="item__title js-title">
-                        Mon titre 1
+                        <?php //echo($rootUrl). $clicServer?><span></span>
                     </div>
                     <div class="item__description">
                         Ici, une description de mon image

@@ -74,7 +74,7 @@ class Process_Ajax
                     // On vérifie les extensions autorisée
                     $allowedExtensions = ['jpg', 'jpeg', 'gif', 'png'];
                     $new_name = time() . '.' . $extension;
-                    $dir = '../uploads/'. $loggedUser['email'] . '/recipes_images/' . $recipeId;
+                    $dir = 'uploads/'. $loggedUser['email'] . '/recipes_images/' . $recipeId;
                     $file = $dir . '/' . $new_name;
                     if (in_array($extension, $allowedExtensions)) {
                         makeDir($dir);

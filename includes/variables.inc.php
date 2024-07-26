@@ -8,3 +8,4 @@ if ($rootUrl === 'https://adi.ezaya.fr/') {
 } else {
     $clicServer = 'recettes';
 }
+

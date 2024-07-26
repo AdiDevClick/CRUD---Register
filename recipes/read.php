@@ -124,7 +124,7 @@ ob_start()
 ?>
 <header>
     <div class="hero">
-        <img src="<?= $recipe['img_path'] ?>" alt="">
+        <img src="<?= '../' . $recipe['img_path'] ?>" alt="">
         <p><span><?= htmlspecialchars($recipe['title']) ?></span></p>
     </div>
 </header>
