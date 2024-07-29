@@ -87,7 +87,8 @@ export class Carousel
             infinite: false,
             automaticScrolling: true,
             autoSlideDuration: 3000,
-            afterClickDelay: 10000
+            afterClickDelay: 10000,
+            restyle: false
         }, options)
         this.currentItem = 0
 
@@ -108,7 +109,7 @@ export class Carousel
             this.container.append(item)
             return item
         })
-        
+        console.log('jai créé')
         if (this.options.infinite) {
             this.#offset = this.#slidesToScroll + this.#visibleSlides
             if (this.#offset > children.length) {
@@ -196,6 +197,8 @@ export class Carousel
      * Applique les bonnes dimensions aux éléments du carousel
      */
     setStyle() {
+        console.log('je suis dans le restyle')
+        this.#moveCallbacks.forEach(cb => cb(this.currentItem))
         let ratio = this.items.length / this.#visibleSlides
         this.container.style.width = (ratio * 100) + "%"
         this.items.forEach(item => {
@@ -711,6 +714,18 @@ export class Carousel
         return this.root.offsetWidth
     }
 
+    /** @type {HTMLElement} item */
+    appendToContainer(item) {
+        const newItem = createElement('div', {class: 'carousel__item'})
+        newItem.append(item)
+        this.container.append(newItem)
+        this.items.push(newItem)
+        this.#createPagination()
+        this.setStyle()
+        console.log(this.items)
+
+    }
+
     get getScrollingStatus() {
         return this.#scrolling
     }
@@ -786,5 +801,10 @@ export class Carousel
 
     set setCase(status) {
         return this.#case = status
+    }
+
+    get restyle() {
+        console.log('je demande le restyle')
+        return this.setStyle()
     }
 }

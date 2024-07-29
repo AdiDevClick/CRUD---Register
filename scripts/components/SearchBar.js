@@ -1,5 +1,7 @@
 import { fetchJSON } from "../functions/api.js"
-import { createElement, debounce, wait } from "../functions/dom.js"
+import { createElement, debounce, wait, waitAndFail } from "../functions/dom.js"
+import { resetURL } from "../functions/url.js"
+import { Carousel } from "./Carousel.js"
 import { Toaster } from "./Toaster.js"
 
 export class SearchBar
@@ -41,11 +43,11 @@ export class SearchBar
     #limit
     /** @type {HTMLFormElement} HTMLFormElement */
     #searchForm
-    /** @type {String} */
-    #content
+    /** @type {Object} */
+    #content = {}
     /** @type {Location} */
-    #newUrl = window.location
-    #oldUrl
+    #oldUrl = window.location.origin+window.location.pathname
+    #newUrl
     #script
     /** 
      * Options pour le loader infini
@@ -85,8 +87,14 @@ export class SearchBar
         })
         return
     }
+    /** @type {Object} */
+    #carousel = {}
 
     constructor(element, options = {}) {
+        // localStorage.removeItem('forwardContent');
+        // this.#oldUrl = this.#oldUrl !== this.#newUrl
+        // if (this.#oldUrl !== this.#newUrl ) this.#oldUrl = this.#newUrl
+
         this.#loader = element
         this.options = Object.assign({}, {
             debouncing: true,
@@ -100,8 +108,10 @@ export class SearchBar
         this.#searchForm = document.querySelector(element.dataset.form)
         
         this.#target = createElement("div", {
-            class: "element.dataset.target"
+            class: "searched-recipes",
+            id: "carousel1"
         })
+        this.#target.innerText = 'Carousel 1'
         // this.#target.classList.add('searched-recipes')
         // this.#target = document.querySelector(element.dataset.target)
         this.#endpoint = this.#searchForm.dataset.endpoint
@@ -113,7 +123,12 @@ export class SearchBar
         })
         // this.#container.classList.add('container')
         this.#wrapper = document.querySelector('.wrapper')
+        this.#content.innerHTML = this.#wrapper.innerHTML
+        // this.#content.innerHTML = JSON.stringify(this.#wrapper.innerHTML)
         // this.#content = this.#wrapper.innerHTML
+        // localStorage.setItem('forwardContent', JSON.stringify(this.#content))
+        // localStorage.setItem('forwardContent', JSON.stringify(this.#content))
+
 
         this.#searchForm.addEventListener('submit', this.#newSearch.bind(this))
         this.#searchForm.addEventListener('input', debounce((e) => {
@@ -128,30 +143,198 @@ export class SearchBar
         })
         window.onpopstate = (e) => {
             e.preventDefault()
-            console.log(this.#content)
-            // this.#wrapper.innerHTML = this.#content
-            if (e.state === null) {
+            console.log("je reload")
+            
+            if (history && (window.location.origin+window.location.pathname === this.#oldUrl)) {
+                // this.#content.push(this.#wrapper.innerHTML)
+                // this.#content.push(this.#newUrl)
+                console.log('1 => -----------------')
+                console.log(this.#content)
+                console.log(this.#content.innerHTML)
+                console.log('-----------------')
+
+                this.#content.innerHTML = this.#wrapper.innerHTML
+                this.#content.newUrl = this.#newUrl
+                localStorage.setItem('forwardContent', JSON.stringify(this.#content))
                 
-                // this.#wrapper.innerHTML = this.#content
-                this.#content = this.#wrapper.innerHTML
-                localStorage.setItem('forwardContent', this.#content)
-                
+                // this.#content['test'].push(this.#wrapper.innerHTML)
+                // this.#content.push(this.#content.newUrl)
+
+                // localStorage.setItem('forwardContent', JSON.stringify(toSave))
+                // localStorage.setItem('forwardContent', JSON.stringify(this.#content))
                 // document.querySelector('head').append(this.#script)
                 // history.pushState({}, document.title, this.#newUrl)
                 location.reload()
                 console.log('cest le back')
-                console.log(this.#content)
                 // this.#observe(this.#loader)
             }
-            if (e.state !== null) {
-                console.log(this.#content)
-                this.#content = localStorage.getItem('forwardContent')
-                this.#wrapper.innerHTML = this.#content
-
+            if (history !== null && (window.location.origin+window.location.pathname !== this.#oldUrl)) {
+                // this.#content = localStorage.getItem('forwardContent')
+                const content = localStorage.getItem('forwardContent')
+                // let content = JSON.parse(this.#content)
+                this.#content = JSON.parse(content)
+                this.#newUrl = this.#content.newUrl
+                this.#wrapper.innerHTML = this.#content.innerHTML
+                // this.#newUrl = content.newUrl
+                // this.#wrapper.innerHTML = content.innerHTML
+                // this.#content.innerHTML = localStorage.getItem('forwardContent')
+                // this.#newUrl = this.#content.newUrl
+                // this.#wrapper.innerHTML = this.#content.innerHTML
                 console.log('cest le go')
-
             }
         }
+
+        // if (sessionStorage.getItem("is_reloaded")) alert('Reloaded!');
+
+        // if (window.performance) {
+        //     console.log(performance.getEntriesByType("navigation")[0].type)
+
+        // }
+
+        // window.addEventListener('beforeunload', (e) => {
+        //     // e.preventDefault()
+        //     // console.log(e)
+        //         // return window.location.href = 'index.php'
+        //     window.location.href = 'http://127.0.0.1/recettes/index.php'
+        //     e.target.location = 'http://127.0.0.1/recettes/index.php'
+
+        //     // if (performance.getEntriesByType("navigation")[0].type) {
+        //     //     e.preventDefault()
+        //     //     console.log(e.currentTarget.closed = true)
+        //     //     return window.location.href = 'index.php'
+        //     history.pushState({}, document.title, this.#oldUrl)
+                
+        //     //     // return true
+        //     // }
+        //     console.log(this.#oldUrl)
+        //     // e.preventDefault()
+        //     window.location.reload()
+        // if (performance.getEntriesByType("navigation")[0].type === 'reload') {
+            //     //     e.preventDefault()
+            // console.log(this.#newUrl)
+            //     //     return window.location.href = 'index.php'
+                // window.history.pushState({}, document.title, "https://127.0.0.1/recettes/index.php")
+            // window.location.reload()
+                    
+            //     //     // return true
+        // }
+        // })
+        //     return null
+            // e.returnValue = 'reload'
+            // if ((performance.getEntriesByType("navigation")[0].type) === 'reload') {
+            //     // e.preventDefault()
+                
+            //     history.replaceState({}, document.title, this.#newUrl)
+            //     history.pushState({}, document.title, this.#oldUrl)
+            //     window.location.href = 'index.php'
+            //     console.log('testest')
+            //     e.target.location = 'http://127.0.0.1/recettes/index.php'
+            // // return true
+            //     if (e.currentTarget.confirm) {
+            //         console.log('testest2')
+            //         console.log(e.currentTarget.confirm())
+            //         // window.removeEventListener('beforeunload', (e))
+            //         e.target.location = 'http://127.0.0.1/recettes/index.php'
+            //         const test = e.currentTarget.confirm()
+            //         if (test) {
+            //             e.preventDefault()
+            //             console.log(test.value)
+            //         } else {
+            //             console.log(test)
+            //             window.location.reload(true)
+
+            //             window.open("exit.html", "Thanks for Visiting!");
+            //             e.currentTarget.confirm()
+            //         }
+            //     }
+            // }
+            // window.onbeforeunload = null
+            // e.preventDefault()
+        // })
+
+        // if (confirm()) {
+        //     confirm().close()
+        // }
+
+        // window.addEventListener('beforeunload', debounce( (e) => {
+        //     console.log(e)
+        //     e.preventDefault()
+
+        //     // if (window.location.origin+window.location.pathname === this.#newUrl) {
+        //     //     console.log('object')
+        //     //     window.location.href = 'index.php'
+        //     //     window.location.reload(true)
+        //     // }
+        // }, 500))
+        // window.onbeforeunload = (e) => {
+        //     console.log('je demande le reload')
+        //     if (window.location.origin+window.location.pathname === this.#newUrl) {
+        //         // beforeUnloadHandler 
+        //         // e.preventDefault()
+        //         // while(true) {
+        //             // if (window.onbeforeunload != null) {
+        //                 // window.onbeforeunload = null
+        //                 debounce (() => { 
+        //                     console.log('object')
+        //                 }, 1000)
+        //                 console.log('je reload')
+        //                 // history.replaceState({}, document.title, this.#newUrl)
+        //                 // history.pushState({}, document.title, this.#oldUrl)
+
+        //                 // resetURL(this.#newUrl)
+        //                 // history.replaceState({}, document.title, this.#oldUrl)
+        //                 // window.history.go(this.#oldUrl)
+        //                 // window.location.reload(true)
+
+        //                 // window.location.assign(this.#oldUrl)
+        //                 // window.location.replace("https://http://127.0.0.1/recettes/index.php");
+        //                 window.location.href = 'index.php'
+        //                 window.location.reload(true)
+
+                        
+
+                        
+
+        //                 // e.preventDefault()
+
+        //                 // location.reload()
+        //                 // return e.returnValue = true
+        //             // }
+        //         // }
+                
+        //             // return true
+        //         // console.log(this.#content.innerHTML)
+        //         // window.location.assign(this.#oldUrl)
+        //         // history.replaceState({}, document.title, this.#newUrl)
+                
+
+        //         // history.pushState({}, document.title, this.#oldUrl)
+        //         // console.log(e.srcElement.documentElement)
+        //         // console.log(document.documentElement)
+        //         // document.documentElement = e.srcElement.documentElement
+        //         // document.replaceChild(
+        //         //     document.importNode(e.srcElement.documentElement, true),
+        //         //     document.documentElement
+        //         // )
+
+
+        //         // const content = localStorage.getItem('forwardContent')
+        //         // this.#content = JSON.parse(content)
+        //         // this.#wrapper.innerHTML = this.#content.innerHTML
+
+
+        //         // this.#content.innerHTML = localStorage.getItem('forwardContent')
+        //         // this.#wrapper.innerHTML = this.#content.innerHTML
+        //     } 
+        // }
+
+        // window.onbeforeunload = (e) => {
+        //     if (window.location.origin+window.location.pathname === this.#newUrl) {
+        //         console.log('test')
+        //         location.href = 'index.php'
+        //         location.reload(true);
+        //     }
+        // }
     }
 
     /**
@@ -187,8 +370,17 @@ export class SearchBar
         this.#url = new URL(this.#endpoint)
         // window.location.replace('recherche')
         // window.location.hash = 'recherche'
+        console.log(this.#newUrl)
+        console.log(window.location.href)
         if (!window.location.href.toString().includes('recherche')) history.pushState({}, document.title, 'recherche/')
+        // if (!window.location.href.toString().includes('recherche')) history.pushState({}, document.title, window.location.pathname+'/recherche/')
+        if (this.#oldUrl !== window.location.origin+window.location.pathname) this.#newUrl = window.location.origin+window.location.pathname
         
+        // window.history.pushState({}, document.title, this.#oldUrl)
+
+        console.log('old => ', this.#oldUrl)
+        console.log('new si différente => ', this.#newUrl)
+
         this.#input = data.get('query')
         // url.searchParams.set('_page', this.#page)
         // url.searchParams.set('_limit', this.#limit)
@@ -220,6 +412,11 @@ export class SearchBar
                 if (e.animationName === 'fadeOut') {
                     this.#wrapper.innerHTML = ''
                     this.#wrapper.appendChild(this.#container)
+                    const title = createElement('div', {
+                        class: 'title'
+                    })
+                    title.innerText = 'MA RECHERCHE'
+                    this.#container.prepend(title)
                     this.#container.appendChild(this.#target)
                     this.#wrapper.classList.remove('hidden')
                 }
@@ -329,9 +526,19 @@ export class SearchBar
         // }
         // url.searchParams.set('query', data.get('query'))
         try {
+
+            
+            // const id = createElement('div', {
+            //     id: 'carousel1'
+            // })
+            // this.#container.prepend(title)
+            // this.#container.append(id)
+
             this.#url.searchParams.set('_page', this.#page)
             this.#url.searchParams.set('_limit', this.#limit)
-
+            
+            
+            console.log(this.#url.searchParams.get('_reset'))
             this.#searchResults = await fetchJSON(this.#url)
 
             if (this.#searchResults.length <= 0) {
@@ -339,8 +546,9 @@ export class SearchBar
                 this.#observe(this.#loader, 'Tout le contenu a été chargé')
                 return
             }
-            this.#url.searchParams.set('_reset', 0)
+            // this.#url.searchParams.set('_reset', 0)
             // console.log(this.#url)
+            console.log(this.#template.content.firstElementChild.firstElementChild)
             // console.log(this.#searchResults)
             this.#searchResults.forEach(result => {
                 const elementTemplate = this.#template.content.firstElementChild.cloneNode(true)
@@ -351,13 +559,30 @@ export class SearchBar
                     if (key === 'img_path' && result[key]) {
                         elementTemplate.querySelector(selector).src = this.#url.origin+/recettes/+result[key]
                     } else if (key === 'img_path' && result[key] === null || undefined) {
-                         elementTemplate.querySelector(selector).src = this.#url.origin+/recettes/+'img/img1.jpeg'
+                        elementTemplate.querySelector(selector).src = this.#url.origin+/recettes/+'img/img1.jpeg'
                     } else {
                         elementTemplate.querySelector(selector).innerText = result[key]
                     }
                 }
-                this.#target.append(elementTemplate)
+                
+                if (this.#url.searchParams.get('_reset') === '0') {
+                    console.log(this.#url.searchParams.get('_reset'))
+                    this.#carousel.appendToContainer(elementTemplate)
+                    console.log('je demande a append le carousel')
+                } else {
+                    console.log(this.#url.searchParams.get('_reset'))
+                    this.#target.append(elementTemplate)
+                    console.log('je demande a append n,ormalement')
+                }
             })
+            
+            // if (window.readyState !== 'loading') {
+            this.#onReady(this.#url.searchParams.get('_reset'))
+            // }
+            this.#url.searchParams.set('_reset', 0)
+
+            // window.addEventListener('DOMContentLoaded', onReady)
+
             this.#wrapper.classList.remove('hidden')
 
             this.#page++
@@ -383,6 +608,30 @@ export class SearchBar
             this.#isCreated = false
             new Toaster(error, 'Erreur')
             this.#loader.style.removeProperty('display')
+        }
+    }
+
+    #onReady(restyle) {
+        const updateStyle = (restyle === '0') ? true : false
+        
+        if (!updateStyle) {
+            console.log(restyle)
+            console.log(updateStyle)
+            console.log('je demande à créer')
+            this.#carousel = new Carousel(document.querySelector('#carousel1'), {
+                slidesToScroll: 2,
+                visibleSlides: 2,
+                loop: true,
+                pagination: true,
+                autoSlideDuration: 3000,
+                afterClickDelay: 1000
+            })
+        } else {
+            console.log(restyle)
+            console.log(updateStyle)
+            console.log('je restyle')
+
+            this.#carousel.restyle
         }
     }
 

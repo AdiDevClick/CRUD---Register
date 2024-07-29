@@ -32,7 +32,6 @@ $script2 = 'src="scripts/fadeInScroller.js" defer';
 $title = "Affichage de recettes";
 
 ob_start()
-
 ?>
 
 <!-- Héro Section -->
@@ -55,9 +54,9 @@ ob_start()
 <!-- Fin du Form -->
 
 <!-- Si l'utilisateur est bien connecté il peut voir les recettes -->
-    <?php if (isset($loggedUser['user']) || isset($loggedUser['email'])): ?>
+    <?php if (isset($loggedUser['user'][0]) || isset($loggedUser['email'])): ?>
         <?php //header_remove('Location: index.php?login=success')?>
-        <?php require_once("includes/class-autoloader.inc.php"); ?>
+        <?php // require_once("includes/class-autoloader.inc.php");?>
         <?php $recipes = new LoginView([]); ?>
         <?php // print_r($recipes->displayRecipes())?>
         <?php foreach ($recipes->displayRecipes() as $recipe) : ?>

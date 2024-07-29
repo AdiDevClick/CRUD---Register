@@ -50,8 +50,10 @@ const onOpen = function (e) {
         navLinks.classList.add('hidden')
         burgerMenu.classList.add('hidden')
         actionBtn?.classList.add('hidden')
+        // input.focus({ focusVisible: true })
+
         searchBar.addEventListener('transitionend', (e) => {
-            input.focus()
+            input.focus({ focusVisible: true })
             // input.style.animation = 'width-shrink 0.2s'
             body.addEventListener('click', onClose, {once: true})
             closeSearchBtn.addEventListener('click', onClose, {once: true})

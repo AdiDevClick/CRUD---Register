@@ -1,11 +1,23 @@
 @import "burgerBtn.css";
 @import "toaster.css";
+@import "carousel.css";
 
 
 /**
 * Root part // Custom colors and fonts
 */
 :root {
+    /* CAROUSEL */
+    --fs-hero-title: 4rem;
+    --f-hero-title-color: rgb(37, 36, 36);
+    --fs-carousel-title: 2.75rem;
+    --fs-title: 2rem;
+    --fs-description: 1.35rem;
+    --f-title-color: #232323;
+    --f-color: #585858;
+    font-size: 62.5%;
+    font-family: system-ui, sans-serif;
+    /* END OF CAROUSEL */
     --navbar-color: #eeeeee;
     --navbar-text-color : #000;
     --navbar-hoover-text-color : #a39191;
@@ -116,6 +128,12 @@ from the local website :
 html, body {
     margin: 0;
     padding: 0;
+    scroll-behavior: smooth;
+    /* overflow-x: hidden; */
+    &:not(:has(.recipe.open)) {
+        overflow-x: hidden;
+    }
+
     /* overflow: hidden;
     overscroll-behavior: none; */
 }
@@ -207,6 +225,9 @@ header {
 }
 
 .navbar {
+    &:not(:has(.search.open)) {
+        background-color: var(--site-color-01);
+    }
     width: 100%;
     /* height: 60px; */ /* original */
     height: 80px;
@@ -217,7 +238,7 @@ header {
     left: 0;
     overflow: hidden;
     /* right: 0; */
-    background-color: var(--site-color-01);
+    /* background-color: var(--site-color-01); */
     padding: 2rem 3rem;
     gap: 1rem;
     /* padding-right: 60px; /* devrait etre deactivated */

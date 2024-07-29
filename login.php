@@ -35,6 +35,7 @@ if ($data && isset($_POST["submit"])) {
 }
 
 $loggedUser = LoginController::checkLoggedStatus();
+
 ?>
 
 <?php if (!isset($loggedUser['email'])): ?> 
@@ -49,9 +50,9 @@ $loggedUser = LoginController::checkLoggedStatus();
         <!-- <form class="form-contact js-form" action="index.php" method="post"> -->
             <!-- Si il y a erreur on affiche le message -->
             <?php //if (!empty($err) && (isset($err['userError']) || isset($err['userTaken']))):?>
-                    <?php //$errorMessage = $err['userError'] ?? $err['emailTaken'] ?>
+                    <?php //$errorMessage = $err['userError'] ?? $err['emailTaken']?>
                     <!-- <div>
-                        <p class="alert-error"><?php //echo strip_tags($errorMessage) ?></p>
+                        <p class="alert-error"><?php //echo strip_tags($errorMessage)?></p>
                     </div> -->
             <?php //endif?>
             <!-- Username -->

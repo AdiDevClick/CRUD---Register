@@ -31,7 +31,8 @@ $vite = true;
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta content="text/javascript; charset=UTF-8" http-equiv="content-type">
+    <meta charset="UTF-8">
+    <!-- <meta content="text/javascript; charset=UTF-8" http-equiv="content-type"> -->
     <!-- <meta http-equiv="Cache-control" content="public"> -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="<?php echo($rootUrl). $clicServer?>/css/resetfirefox.css">
@@ -299,9 +300,9 @@ if (!$dev) {
     <!-- end of footer -->
 </body>
 <template id="search-template">
-    <article class="title">Carousel 1
-        <div id="carousel1">
-            <div class="item_container">
+    <!-- <article class="title">Carousel 1 -->
+        <!-- <div id="carousel1"> -->
+            <article class="item_container">
                 <div class="item__image">
                     <img class="js-img"  src=<?= $rootUrl. $clicServer ?> alt="">
                     <div class="player" id="UzRY3BsWFYg"></div>
@@ -317,9 +318,9 @@ if (!$dev) {
                         Partagée par <span class="js-author"></span>
                     </div>
                 </div>
-            </div>
-        </div>
-    </article>
+            </article>
+        <!-- </div> -->
+    <!-- </article> -->
     <!-- <article class="mb-4" id="1">
         <div class="mb-1"><strong class="js-title">John Doe</strong></div>
         <p class="js-author">Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem vel temporibus quos, 

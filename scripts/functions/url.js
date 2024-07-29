@@ -1,11 +1,12 @@
 /**
- * Remove and replace the URL Parameter from the history
- * delete the success/failed param in case of a browser return)
- * @param {string} page 
- * @param {string} paramName 
- * @returns 
+ * Supprime et remplace les Paramètres URL de
+ * l'historique de Navigation -
+ * @param {String} page
+ * @param {URLSearchParams} paramName
+ * @param {String} urlParams
+ * @returns
  */
-export function resetURL(page, paramName, urlParams) {
-    urlParams.delete(paramName)
+export function resetURL(page, paramName = null, urlParams = null) {
+    urlParams?.delete(paramName)
     return window.history.replaceState({}, document.title, page);
 }
