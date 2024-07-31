@@ -216,7 +216,7 @@ ob_start()
     </article>
 </div>
         <?php //$checkId->displayComments($recipe, $getInfos)?>
-        <?php if($recipe['comments'] && count($recipe['comments']) > 0): ?>
+        <?php if(isset($recipe['comments']) && count($recipe['comments']) > 0): ?>
         <hr />
         <h2>Commentaires</h2>
         <div class="row">>

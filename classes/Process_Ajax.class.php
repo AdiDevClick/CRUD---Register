@@ -52,7 +52,7 @@ class Process_Ajax
                 // 'persons' => json_encode($dataTest)
             ];
             // print_r($this->is_Post);
-            $setRecipe = new RecipeView($this->getDatas);
+            $setRecipe = new RecipeView($this->getDatas, 'creation');
             $this->is_Post ? $recipeId = $setRecipe->insertRecipeTest() : $recipeId = $setRecipe->updateRecipeInfoById();
             $this->send_Status = 'success';
             if (isset($recipeId['status']) && $recipeId['status']['update_status'] === 'RCPUPDTSTMTEXECNT') {
@@ -74,14 +74,20 @@ class Process_Ajax
                     // On vérifie les extensions autorisée
                     $allowedExtensions = ['jpg', 'jpeg', 'gif', 'png'];
                     $new_name = time() . '.' . $extension;
-                    $dir = 'uploads/'. $loggedUser['email'] . '/recipes_images/' . $recipeId;
-                    $file = $dir . '/' . $new_name;
-                    if (in_array($extension, $allowedExtensions)) {
-                        makeDir($dir);
-                        move_uploaded_file($this->Post_Files['file']['tmp_name'], $file);
+                    $database_Dir = 'uploads/'. $loggedUser['email'] . '/recipes_images/' . $recipeId;
+                    $file_In_Database = $database_Dir . '/' . $new_name;
+
+                    $file_Upload_Dir = '../uploads/'. $loggedUser['email'] . '/recipes_images/' . $recipeId . '/';
+                    $file_In_Upload_Dir = $file_Upload_Dir . '/' . $new_name;
+                    // echo($dir);
+                    // echo($fileUploadDir);
+                    if (isset($recipeId) && in_array($extension, $allowedExtensions)) {
+                        makeDir($file_Upload_Dir);
+                        move_uploaded_file($this->Post_Files['file']['tmp_name'], $file_In_Upload_Dir);
                         $this->isImageSent = true;
-                        $image_Data = ['recipeId' => $recipeId, 'fileName' => $new_name, 'filePath' => $file];
+                        $image_Data = ['recipeId' => $recipeId, 'fileName' => $new_name, 'filePath' => $file_In_Database];
                         $setRecipe->deleteImage($recipeId);
+                        // if ($recipeId) $setRecipe->deleteImage($recipeId);
                         $setRecipe->insertImage($image_Data);
                         $this->send_Status = 'success';
                     } else {

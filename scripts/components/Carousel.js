@@ -720,7 +720,9 @@ export class Carousel
         newItem.append(item)
         this.container.append(newItem)
         this.items.push(newItem)
-        this.#createPagination()
+        // for (let i = 0; i < this.items.length - 2 * this.#offset; i = i + this.#slidesToScroll) {
+        //     this.#paginate(i)
+        // }
         this.setStyle()
         console.log(this.items)
 

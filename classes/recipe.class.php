@@ -586,7 +586,8 @@ class Recipe extends Mysql
         }
 
         $image = $getRecipeStatement->fetchAll(PDO::FETCH_ASSOC);
-        if (file_exists($image[0]['img_path'])) {
+        // print_r($image);
+        if (isset($image[0]) && file_exists($image[0]['img_path'])) {
             unlink($image[0]['img_path']);
         }
 

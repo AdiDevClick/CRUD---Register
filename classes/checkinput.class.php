@@ -27,6 +27,11 @@ class CheckInput extends Validate
     public function checkInputs()
     {
         $regex = "/^[\w\s,.:_?'!\"éèêëàâäôöûüç-]+$/";
+        $canBeEmpty = [
+            'custom_ingredients', 'step_6', 'step_5',
+            'step_4', 'step_3', 'step_2', 'file',
+            'img_on_server', 'img_status', 'resting_time'
+        ];
         // self::$inputData = $this->getDatas;
         //$errorMessage = "";
         //$value1 = self::test_input($this->input1);
@@ -37,23 +42,32 @@ class CheckInput extends Validate
             foreach ($this->getDatas as $key => $value) {
                 $result = false;
                 // try {
-                if ($key !== 'custom_ingredients' && $key !== 'step_6' && $key !== 'step_5' && $key !== 'step_4' && $key !== 'step_3' && $key !== 'step_2' && $key !== 'file' && $key !== 'img_on_server' && $key !== 'img_status' && $key !== 'recipe_id') {
+                if (!in_array($key, $canBeEmpty)) {
+                    // echo $key . ' <= ' . ' <br> ';
                     $result = true;
                     if (empty($value) || !isset($key)) {
                         array_push(self::$errorsArray, "Votre $key est vide");
                         $result = false;
                     }
-                    // echo ($key === 'step_6') . 'test';
-                    // array_push($this->errorsArray, "votre $key est vide");
-                    // array_push(self::$errorsArray, $key === 'step_6' ||'step_5'||'step_4'||'step_3'||'step_2');
-
-                    // $e = throw new Error("Votre $key est vide");
-                    // array_push(self::$errorsArray, $e);
-                    // array_push($this->errorsArray, new Error("votre $key est vide"));
-                    //$e = throw new Error((string)header("Location: $url?error=$key-vide"));
-                    // throw new Error((string)header("Location: ".Functions::getUrl()."?error=$key-vide"));
-                    //header("Location: ".Functions::getUrl()."?error=$key-vide");
                 }
+                // if ($key !== 'custom_ingredients' && $key !== 'step_6' && $key !== 'step_5' && $key !== 'step_4' && $key !== 'step_3' && $key !== 'step_2' && $key !== 'file' && $key !== 'img_on_server' && $key !== 'img_status' && $key !== 'img_status') {
+                //     echo $key . ' <= ' . ' <br> ';
+                //     $result = true;
+                //     if (empty($value) || !isset($key)) {
+                //         array_push(self::$errorsArray, "Votre $key est vide");
+                //         $result = false;
+                //     }
+                //     // echo ($key === 'step_6') . 'test';
+                //     // array_push($this->errorsArray, "votre $key est vide");
+                //     // array_push(self::$errorsArray, $key === 'step_6' ||'step_5'||'step_4'||'step_3'||'step_2');
+
+                //     // $e = throw new Error("Votre $key est vide");
+                //     // array_push(self::$errorsArray, $e);
+                //     // array_push($this->errorsArray, new Error("votre $key est vide"));
+                //     //$e = throw new Error((string)header("Location: $url?error=$key-vide"));
+                //     // throw new Error((string)header("Location: ".Functions::getUrl()."?error=$key-vide"));
+                //     //header("Location: ".Functions::getUrl()."?error=$key-vide");
+                // }
                 // echo ($key);
                 if ($key === 'email' && (!filter_var($key === 'email', FILTER_VALIDATE_EMAIL)) && !preg_match("/([a-z0-9A-Z._-]+)@([a-z0-9A-Z_-]+)\.([a-z\.]{2,6})$/", $value)) {
                     // if ($key === 'email' && (!filter_var($key === 'email', FILTER_VALIDATE_EMAIL)) && !preg_match("/[a-z0-9A-Z._-]+@[a-z0-9A-Z_-]+.[a-zA-Z]+/", $key === 'email')) {

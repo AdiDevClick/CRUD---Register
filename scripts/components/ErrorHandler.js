@@ -65,7 +65,7 @@ export class ErrorHandler {
             debouncing: true,
             debounceDelay: 1000,
             canBeEmpty: false,
-            whichInputCanBeEmpty: ['step_3', 'step_4', 'step_5', 'step_6', 'file'],
+            whichInputCanBeEmpty: ['step_3', 'step_4', 'step_5', 'step_6', 'file', 'resting_time'],
             useMyOwnListener: false,
             isSpecialCharactersAllowed: false,
             whichInputAllowSpecialCharacters: ['Mot de Passe', 'Mot de Passe de confirmation', 'Email', 'file'],

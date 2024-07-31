@@ -18,6 +18,8 @@ class RecipeController extends Recipe
                 throw new Error("LGGDUSROFF  : Veuillez vous identifier avant de partager une recette.") ;
             } else {
 
+                if ($this->optionnalData === 'creation') array_pop($this->getData);
+
                 $checkInput = new CheckInput(
                     $this->getData
                 );
@@ -25,6 +27,7 @@ class RecipeController extends Recipe
                 // print_r($_FILES);
                 // }
                 // print_r($this->getData);
+
                 $title = $checkInput->test_input($this->getData['title']);
                 $step_1 = $checkInput->test_input($this->getData["step_1"]);
                 $step_2 = $checkInput->test_input($this->getData["step_2"]);
@@ -67,7 +70,9 @@ class RecipeController extends Recipe
                 // $ingredient6 = $this->getData["ingredient6"];
                 // $persons = $this->getData["persons"];
                 // $custom_ingredients = $this->getData["custom_ingredients"];
+
                 $checkInput->checkInputs();
+
                 if (empty($checkInput->getErrorsArray())) {
                     $id = $this->setRecipeTest(
                         $title,
