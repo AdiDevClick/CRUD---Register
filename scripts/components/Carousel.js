@@ -75,6 +75,8 @@ export class Carousel
      * @param {boolean} [options.automaticScrolling=true] Permet de définir le scrolling automatique - crer aussi un indicateur de temps avant chaques slides
      * @param {Object} [options.autoSlideDuration=3000] Permet de définir le délai entre chaque auto scroll - par défaut : 3s
      * @param {Object} [options.afterClickDelay=10000] Permet de définir un délai après intéraction de l'utilisateur - par défaut : 10s
+     * // IMPORTANT !! : si GRID = true : l'affichage mobile aura alors 2 items par ligne
+     * @param {Object} [options.grid=false] Permet de définir un affichage de type "GRID" - par défaut : false
      */
     constructor(element, options = {}) {
         this.element = element
@@ -709,7 +711,7 @@ export class Carousel
 
     /** @returns {number} */
     get #visibleSlides() {
-        return this.#isMobile ? 1 : this.options.visibleSlides
+        return this.#isMobile ? (this.options.grid ? 2 : 1) : this.options.visibleSlides
     }
 
     /** @returns {number} */
