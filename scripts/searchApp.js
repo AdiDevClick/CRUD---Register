@@ -10,6 +10,8 @@ const body = document.querySelector('main')
 const navLinks = document.querySelector('.links')
 const burgerMenu = document.querySelector('.toggle_btn-box')
 const actionBtn = document.querySelector('.action-btn')
+const loaded = document.documentElement
+
 
 const wrapper = document.querySelector('#wrapper')
 const content = wrapper.innerHTML
@@ -20,10 +22,10 @@ let newUrl
 let isOpened
 
 const onClose = function (e) {
-    e.preventDefault()
     // console.log("new URL => " , oldUrl, "\n  old URL => "+ newUrl)
-
+    if (e.type === 'click') e.preventDefault()
     if (isOpened && searchBar.classList.contains('open')) {
+
         // input.removeAttribute('style')
         // wrapper.innerHTML = content
         // console.log('url dans le close => ', newUrl)
@@ -70,9 +72,26 @@ const onOpen = function (e) {
 
 searchIcon.addEventListener('click', onOpen)
 
+window.addEventListener("DOMContentLoaded", () => {
+    const observer = new MutationObserver(callback)
+    observer.observe(loaded, { attributes: true })
+})
+
 pagination.forEach(element => {
     new SearchBar(element, {
         debounceDelay: 1000
     })
 })
+
+function callback(mutationsList, observer) {
+    mutationsList.forEach(mutation => {
+        if (mutation.attributeName === 'class' && mutation.target.classList.contains('search-loaded')) {
+            onClose(mutation)
+            // console.log(window.history.state)
+            // const doc = document.querySelector('#wrapper')
+            // console.log(doc)
+            // doc.addEventListener('animationend', (e) => console.log(e))
+        }
+    })
+}
 

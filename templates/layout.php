@@ -22,14 +22,14 @@ if ($url === 'about.php' || 'planningType.php' || 'todo.html' || 'carousel.html'
     $active = strip_tags('class="active"');
 }
 
-$dev = false;
+$dev = true;
 // $dev = false;
 $vite = true;
 
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html id="html" lang="en">
 <head>
     <meta charset="UTF-8">
     <!-- <meta content="text/javascript; charset=UTF-8" http-equiv="content-type"> -->
@@ -284,7 +284,7 @@ if (!$dev) {
             data-limit="5"
             data-form=".search-form"
             data-id='{"recipe_id": "#id"}'
-            data-elements='{"title": ".js-title", "author": ".js-author", "img_path": ".js-img"}'
+            data-elements='{"title": ".js-title", "author": ".js-author", "img_path": ".js-img", "href": ".js-href"}'
             class="text-center js-infinite-pagination">
             <div class="spinner-border" role="status"></div>
         </div>
@@ -318,7 +318,7 @@ if (!$dev) {
                         Partagée par <span class="js-author"></span>
                     </div>
                 </div>
-                <a href=""></button>
+                <a class="file-uploader js-href"></button>
             </article>
         <!-- </div> -->
     <!-- </article> -->

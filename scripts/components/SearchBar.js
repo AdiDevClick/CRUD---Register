@@ -130,7 +130,11 @@ export class SearchBar
         // localStorage.setItem('forwardContent', JSON.stringify(this.#content))
 
 
-        this.#searchForm.addEventListener('submit', this.#newSearch.bind(this))
+        this.#searchForm.addEventListener('submit', e => {
+            e.preventDefault()
+            // this.#newSearch(e)
+            // this.#input = e.target
+        })
         this.#searchForm.addEventListener('input', debounce((e) => {
             this.#newSearch(e)
             this.#input = e.target
@@ -548,13 +552,12 @@ export class SearchBar
             }
             // this.#url.searchParams.set('_reset', 0)
             // console.log(this.#url)
-            console.log(this.#template.content.firstElementChild.firstElementChild)
             // console.log(this.#searchResults)
             this.#searchResults.forEach(result => {
                 const elementTemplate = this.#template.content.firstElementChild.cloneNode(true)
                 elementTemplate.setAttribute('id', result.recipe_id)
                 for (const [key, selector] of Object.entries(this.#elements)) {
-                    // console.log(key['img_path'], ' ' +selector)
+                    console.log(key, ' ' +selector)
                     // console.log(elementTemplate.querySelector(selector))
                     if (key === 'img_path' && result[key]) {
                         elementTemplate.querySelector(selector).src = this.#url.origin+/recettes/+result[key]
@@ -563,6 +566,7 @@ export class SearchBar
                     } else {
                         elementTemplate.querySelector(selector).innerText = result[key]
                     }
+                    if (key === 'href') elementTemplate.querySelector(selector).href = this.#url.origin+'/recettes/recipes/read.php?id='+result.recipe_id
                 }
                 
                 if (this.#url.searchParams.get('_reset') === '0') {
@@ -575,6 +579,7 @@ export class SearchBar
                     // console.log('je demande a append n,ormalement')
                 }
             })
+            document.documentElement.classList.add('search-loaded')
             
             // if (window.readyState !== 'loading') {
             this.#onReady(this.#url.searchParams.get('_reset'))

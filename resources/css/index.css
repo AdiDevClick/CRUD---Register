@@ -1505,8 +1505,7 @@ hr {
         &:hover .upload-icon {
             opacity: 1;
         }
-        .file-uploader {
-            /* make it invisible */
+        /* .file-uploader {
             opacity: 0;
             height: 100%;
             width: 100%;
@@ -1514,7 +1513,7 @@ hr {
             position: absolute;
             top: 0%;
             left: 0%;
-        }
+        } */
         .upload-icon {
             position: absolute;
             top: 45%;
@@ -1558,4 +1557,17 @@ hr {
             padding: 10px;
         }
     }
+}
+/* END OF PAGE READER */
+
+/* STATIC CSS */
+.file-uploader {
+    /* make it invisible */
+    opacity: 0;
+    height: 100%;
+    width: 100%;
+    cursor: pointer;
+    position: absolute;
+    top: 0%;
+    left: 0%;
 }

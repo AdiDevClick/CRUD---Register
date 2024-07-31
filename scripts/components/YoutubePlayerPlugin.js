@@ -72,7 +72,7 @@ export class YoutubePlayer
     onHover(element) {
         const player = this.player[element.id]
         const data = player.event.data
-        console.log(player)
+        // console.log(player)
         if (player.event && data !== 1 && this.done) {
             if (this.carousel.getLoadingBar) this.carousel.getLoadingBar.style.animationPlayState = 'paused'
             this.done = false
@@ -88,7 +88,9 @@ export class YoutubePlayer
      */
     onPointerOut(element) {
         const player = this.player[element.id]
-        console.log(element.id)
+        // console.log(element.id)
+        // console.log(player)
+
         const data = player.event.data
         if (player.event && data === 1 && !this.done) {
             this.carousel.setPromiseArray = []
