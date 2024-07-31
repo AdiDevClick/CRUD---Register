@@ -1,0 +1,1 @@
+Errors : [2] file_get_contents(C:\xampp\htdocs\Recettes\public\assets\.vite\manifest.json): Failed to open stream: No such file or directory - C:\xampp\htdocs\Recettes\templates\layout.php:65

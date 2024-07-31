@@ -88,7 +88,8 @@ export class Carousel
             automaticScrolling: true,
             autoSlideDuration: 3000,
             afterClickDelay: 10000,
-            restyle: false
+            restyle: false,
+            grid: false
         }, options)
         this.currentItem = 0
 
@@ -129,10 +130,10 @@ export class Carousel
 
         this.setStyle()
 
-        if (this.options.navigation) {
+        if (this.options.navigation && !this.options.grid) {
             this.#createNavigation()
         }
-        if (this.options.pagination) {
+        if (this.options.pagination && !this.options.grid) {
             this.#createPagination()
         }
         // Evènements
@@ -200,9 +201,26 @@ export class Carousel
         console.log('je suis dans le restyle')
         this.#moveCallbacks.forEach(cb => cb(this.currentItem))
         let ratio = this.items.length / this.#visibleSlides
-        this.container.style.width = (ratio * 100) + "%"
+        // this.container.style.width = (100) + "%"
+        
+        this.options.grid === true ?
+            this.container.style.width = "100%" :
+            this.container.style.width = (ratio * 100) + "%"
+        // this.container.style.display = 'flex'
+        // this.container.style.flexDirection = 'row'
+        // this.container.style.flexWrap = 'wrap'
+        // this.container.style.gridTemplateColumns = 'repeat(5, 1fr)'
+        // this.container.style.display = 'flex'
+
+
+        // this.container.style.height = (ratio * 100)
         this.items.forEach(item => {
-            item.style.width = ((100 / this.#visibleSlides) / ratio) + "%"
+            this.options.grid === true ?
+                item.style.width = (100 / this.#visibleSlides)+ "%" :
+                item.style.width = ((100 / this.#visibleSlides) / ratio) + "%"
+            
+            // item.style.width = "20%"
+            // 
         })
     }
 

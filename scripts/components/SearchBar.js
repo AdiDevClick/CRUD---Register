@@ -620,11 +620,12 @@ export class SearchBar
             console.log('je demande à créer')
             this.#carousel = new Carousel(document.querySelector('#carousel1'), {
                 slidesToScroll: 2,
-                visibleSlides: 2,
+                visibleSlides: 5,
                 loop: true,
                 pagination: true,
                 autoSlideDuration: 3000,
-                afterClickDelay: 1000
+                afterClickDelay: 1000,
+                grid: true
             })
         } else {
             console.log(restyle)
