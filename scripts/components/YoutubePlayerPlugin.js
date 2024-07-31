@@ -72,6 +72,7 @@ export class YoutubePlayer
     onHover(element) {
         const player = this.player[element.id]
         const data = player.event.data
+        console.log(player)
         if (player.event && data !== 1 && this.done) {
             if (this.carousel.getLoadingBar) this.carousel.getLoadingBar.style.animationPlayState = 'paused'
             this.done = false
@@ -87,6 +88,7 @@ export class YoutubePlayer
      */
     onPointerOut(element) {
         const player = this.player[element.id]
+        console.log(element.id)
         const data = player.event.data
         if (player.event && data === 1 && !this.done) {
             this.carousel.setPromiseArray = []
@@ -98,17 +100,21 @@ export class YoutubePlayer
 
     // 4. The API will call this function when the video player is ready.
     onPlayerReady(event) {
+        console.log(this.player)
+        console.log(event.target)
         event.target.playVideo()
         event.target.setPlaybackQuality('hd1080')
         event.target.pauseVideo()
-        this.player[event.target.o.id].event = event
+        // this.player[event.target.o.id].event = event
+        this.player[event.target.l.id].event = event
     }
 
     // 5. The API calls this function when the player's state changes.
     //    The function indicates that when playing a video (state=1),
     //    the player should play for six seconds and then stop.
     onPlayerStateChange(event) {
-        this.player[event.target.o.id].event = event
+        // this.player[event.target.o.id].event = event
+        this.player[event.target.l.id].event = event
         if (event.data === YT.PlayerState.BUFFERING) {
             event.target.setPlaybackQuality('hd1080')
         }

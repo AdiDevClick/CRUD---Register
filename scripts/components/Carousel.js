@@ -76,7 +76,8 @@ export class Carousel
      * @param {Object} [options.autoSlideDuration=3000] Permet de définir le délai entre chaque auto scroll - par défaut : 3s
      * @param {Object} [options.afterClickDelay=10000] Permet de définir un délai après intéraction de l'utilisateur - par défaut : 10s
      * // IMPORTANT !! : si GRID = true : l'affichage mobile aura alors 2 items par ligne
-     * @param {Object} [options.grid=false] Permet de définir un affichage de type "GRID" - par défaut : false
+     * // Le Carousel Touch Plugin n'étant utile que sur l'axe "X", il ne sera pas actif -
+     * @param {boolean} [options.grid=false] Permet de définir un affichage de type "GRID" - par défaut : false
      */
     constructor(element, options = {}) {
         this.element = element
@@ -90,7 +91,6 @@ export class Carousel
             automaticScrolling: true,
             autoSlideDuration: 3000,
             afterClickDelay: 10000,
-            restyle: false,
             grid: false
         }, options)
         this.currentItem = 0
@@ -112,7 +112,7 @@ export class Carousel
             this.container.append(item)
             return item
         })
-        console.log('jai créé')
+
         if (this.options.infinite) {
             this.#offset = this.#slidesToScroll + this.#visibleSlides
             if (this.#offset > children.length) {
@@ -155,7 +155,7 @@ export class Carousel
         }
         this.#player = new YoutubePlayer(this)
 
-        new CarouselTouchPlugin(this)
+        if (!this.options.grid) new CarouselTouchPlugin(this)
     }
 
     /**

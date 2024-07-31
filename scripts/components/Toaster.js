@@ -140,6 +140,12 @@ export class Toaster {
         this.#progressBar.classList.remove('active')
         this.#alert.remove()
         this.toasterContainer.remove()
+        const onRemove = new CustomEvent('onRemove', {
+            detail: this.#alert,
+            cancelable: true,
+            bubbles: false
+        })
+        this.toasterContainer.dispatchEvent(onRemove)
         // this.#alert.removeEventListener('animationend', this.#removeAlert(e))
     }
 

@@ -89,7 +89,7 @@ export class IngredientsFrom {
             // this.#onIngredientDelete(this.#ingredient)
         })
         const passedInputs = new ErrorHandler(this.#form, {
-            whichInputCanBeEmpty: ['custom_ingredient', 'step_3', 'step_4', 'step_5', 'step_6', 'file'],
+            whichInputCanBeEmpty: ['custom_ingredient', 'step_3', 'step_4', 'step_5', 'step_6', 'file', 'add_preparation'],
             useMyOwnListener: true
         })
         this.#form.addEventListener('submit', e => {

@@ -11,6 +11,7 @@ export class ToasterTouchPlugin {
      */
     constructor(toaster) {
         this.alert = toaster.toasterContainer.querySelector('.toast')
+        
         this.#controller = new AbortController()
 
         toaster.toasterContainer.addEventListener('dragstart', e => e.preventDefault(), {signal: this.#controller.signal})
@@ -25,6 +26,10 @@ export class ToasterTouchPlugin {
         window.addEventListener('touchcancel', this.endDrag.bind(this), {signal: this.#controller.signal})
 
         this.toaster = toaster
+
+        toaster.toasterContainer.addEventListener('onRemove', e => {
+            this.#controller.abort()
+        }, {once: true})
     }
 
     /**
@@ -42,7 +47,7 @@ export class ToasterTouchPlugin {
         }
         this.origin = {x: e.screenX, y: e.screenY}
         this.disableTransition()
-        // Sauvegarde de la witdh du conteneur
+        // Sauvegarde de la width du conteneur
         this.width = this.toaster.toasterContainer.offsetWidth
     }
 
@@ -99,7 +104,6 @@ export class ToasterTouchPlugin {
                     this.alert.classList.add('close')
                     this.alert.addEventListener('animationend', () => {
                         this.toaster.toasterContainer.remove()
-                        this.#controller.abort()
                     }, {once: true})
                 }
             }

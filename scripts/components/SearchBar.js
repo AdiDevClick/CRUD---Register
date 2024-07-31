@@ -566,13 +566,13 @@ export class SearchBar
                 }
                 
                 if (this.#url.searchParams.get('_reset') === '0') {
-                    console.log(this.#url.searchParams.get('_reset'))
+                    // console.log(this.#url.searchParams.get('_reset'))
                     this.#carousel.appendToContainer(elementTemplate)
-                    console.log('je demande a append le carousel')
+                    // console.log('je demande a append le carousel')
                 } else {
-                    console.log(this.#url.searchParams.get('_reset'))
+                    // console.log(this.#url.searchParams.get('_reset'))
                     this.#target.append(elementTemplate)
-                    console.log('je demande a append n,ormalement')
+                    // console.log('je demande a append n,ormalement')
                 }
             })
             
@@ -622,15 +622,12 @@ export class SearchBar
                 visibleSlides: 3,
                 automaticScrolling: false,
                 loop: false,
+                // infinite: true,
                 pagination: false,
                 afterClickDelay: 1000,
                 grid: true
             })
         } else {
-            console.log(restyle)
-            console.log(updateStyle)
-            console.log('je restyle')
-
             this.#carousel.restyle
         }
     }
