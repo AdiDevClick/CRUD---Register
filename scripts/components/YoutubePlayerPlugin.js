@@ -46,8 +46,9 @@ export class YoutubePlayer
             tag.loading = 'lazy'
             tag.referrerPolicy = 'no-referrer'
             // tag.type =  'image/svg+xml'
-            
-            window.onYouTubeIframeAPIReady = this.onYouTubeIframeAPIReady.bind(this)
+            window.addEventListener('DOMContentLoaded', e => {
+                window.onYouTubeIframeAPIReady = this.onYouTubeIframeAPIReady.bind(this)
+            }, {once: true})
 
             const firstScriptTag = document.getElementsByTagName('script')[0]
             firstScriptTag.parentNode.insertBefore(tag, firstScriptTag)

@@ -1,8 +1,9 @@
-import { wait } from "./functions/dom.js"
+import { wait, waitAndFail } from "./functions/dom.js"
 
 const queryString = document.location
 let words
 const dynamicText = document.querySelector(".hero > p > span")
+const search = document.documentElement.classList.contains('search-loaded')
 
 words = [
     "_Gourmande",
@@ -29,18 +30,26 @@ const typeEffect = async () => {
     dynamicText.textContent = currentChar
     dynamicText.classList.add('stop-blinking')
 
-    if (dynamicText.isConnected && !isDeleting && charIndex < currentWord.length) {
+    if (!search && dynamicText.isConnected && !isDeleting && charIndex < currentWord.length) {
         // If condition is true, type the next character
         charIndex++
         // setTimeout(typeEffect, 200)
-        if (dynamicText.isConnected) await wait(200)
-        if (dynamicText.isConnected) typeEffect()
+        if (dynamicText.isConnected) {
+            await wait(200)
+            typeEffect()
+        } else {
+            await waitAndFail(100)
+        }
     } else if (dynamicText.isConnected && isDeleting && charIndex > 0) {
         // If condition is true, remove the previous character
         charIndex--
         // setTimeout(typeEffect, 100)
-        if (dynamicText.isConnected) await wait(100)
-        if (dynamicText.isConnected) typeEffect()
+        if (dynamicText.isConnected) {
+            await wait(100)
+            typeEffect()
+        } else {
+            await waitAndFail(100)
+        }
     } else {
         // If the word is deleted, then switch to the next word
         if (!dynamicText.isConnected) return
@@ -48,8 +57,12 @@ const typeEffect = async () => {
         dynamicText.classList.remove('stop-blinking')
         wordIndex = !isDeleting ? (wordIndex +1) % words.length : wordIndex 
         // setTimeout(typeEffect, 1200)
-        if (dynamicText.isConnected) await wait(1200)
-        if (dynamicText.isConnected) typeEffect()
+        if (dynamicText.isConnected) {
+            await wait(1200)
+            typeEffect()
+        } else {
+            await waitAndFail(100)
+        }
     }
 }
 

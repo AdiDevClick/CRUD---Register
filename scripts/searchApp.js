@@ -22,8 +22,9 @@ let newUrl
 let isOpened
 
 const onClose = function (e) {
+    console.log(e)
     // console.log("new URL => " , oldUrl, "\n  old URL => "+ newUrl)
-    if (e.type === 'click') e.preventDefault()
+    if (e.type === 'click' && !loaded.classList.contains('search-loaded')) e.preventDefault()
     if (isOpened && searchBar.classList.contains('open')) {
 
         // input.removeAttribute('style')
@@ -36,6 +37,8 @@ const onClose = function (e) {
         burgerMenu.classList.remove('hidden')
         actionBtn?.classList.remove('hidden')
         searchBar.classList.remove('open')
+        // loaded.classList.remove('search-loaded')
+
         // if (wrapper.classList.contains('hidden')) wrapper.classList.remove('hidden')
         isOpened = false
     }
@@ -82,6 +85,8 @@ pagination.forEach(element => {
         debounceDelay: 1000
     })
 })
+
+
 
 function callback(mutationsList, observer) {
     mutationsList.forEach(mutation => {

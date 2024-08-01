@@ -73,6 +73,7 @@ export class SearchBar
             if (entry.intersectionRatio > this.#ratio) {
             // if (entry.boundingClientRect) {
             // console.log('g le bon ratio => ', ' \n // loading => ' + this.#loading, ' \n // isCreated => ' + this.#isCreated, ' \n // intersect ? => ' + this.#intersect)
+                console.log('je sis dans lobs')
                 this.#intersect = true
                 this.#loadMore()
                 // console.log(entry.boundingClientRect)
@@ -81,6 +82,7 @@ export class SearchBar
                 // console.log(this.#isDeleted)
                 return
             } else {
+                console.log('le ratio est pas bon')
                 this.#intersect = false
                 return
             }
@@ -139,12 +141,15 @@ export class SearchBar
             this.#newSearch(e)
             this.#input = e.target
         }, (this.options.debounceDelay)))
-        window.addEventListener('DOMContentLoaded', () => {
-            this.#observer = new IntersectionObserver(this.#handleIntersect, this.#options)
-            this.#observe(this.#loader)
-            // this.#observer.observe(this.#loader)
-            // this.#observer.root.style.border = "26px solid #44aa44";
-        })
+        // if (this.#loader) {
+            window.addEventListener('DOMContentLoaded', () => {
+                this.#observer = new IntersectionObserver(this.#handleIntersect, this.#options)
+                this.#observe(this.#loader)
+                // this.#observer.observe(this.#loader)
+                // this.#observer.root.style.border = "26px solid #44aa44";
+            }, {once: true})
+        // }
+        
         window.onpopstate = (e) => {
             e.preventDefault()
             console.log("je reload")
@@ -407,8 +412,9 @@ export class SearchBar
         this.#isCreated = false
 
         if (!this.#isDeleted) {
+            console.log('je demade a delete')
             // if (this.#wrapper.classList.contains('hidden')) this.#wrapper.classList.remove('hidden')
-            this.#wrapper.classList.add('hidden')
+            // this.#wrapper.classList.add('hidden')
             // this.#script = document.querySelector('script[data-name="typewritter"]')
             // if (this.#script) this.#script.remove()
             // this.#wrapper.addEventListener('transitionend', (e) => {
@@ -423,8 +429,10 @@ export class SearchBar
                     this.#container.prepend(title)
                     this.#container.appendChild(this.#target)
                     this.#wrapper.classList.remove('hidden')
+                    console.log('jai normalement delete')
                 }
             }, {once: true})
+            this.#wrapper.classList.add('hidden')
 
             // container.innerHTML = ''
             // this.#wrapper.innerHTML = ''
@@ -464,8 +472,10 @@ export class SearchBar
         }
 
         if (!this.#isCreated && this.#isDeleted) {
+            // this.#wrapper.classList.add('hidden')
+
             // this.#wrapper.classList.contains('hidden') ? this.#wrapper.classList.remove('hidden') : null
-            this.#wrapper.classList.add('hidden')
+            console.log('je cache mon content')
             this.#wrapper.addEventListener('animationend', (e) => {
                 if (e.animationName === 'fadeOut') {
                     this.#target.innerHTML = ''
@@ -473,9 +483,13 @@ export class SearchBar
                     // wrapper.offsetHeight
                     this.#isCreated = true
                     this.#loading = false
+                    console.log('je lappend')
+                    // this.#observer.observe(this.#loader)
+
                     // console.log('Je demande a append le loader')
                 }
             }, {once: true})
+            this.#wrapper.classList.add('hidden')
             
             // await wait(200)
 
@@ -485,9 +499,8 @@ export class SearchBar
             // console.log('fin de création')
         }
         // console.log('je viens de créer => ', ' // loading => ' + this.#loading, ' // isCreated => ' + this.#isCreated)
-
-        // this.#observer.observe(this.#loader)
-
+        // console.log(this.#observer)
+        // console.log(this.#observer)
         // this.#observer.takeRecords()
         // console.log(this.#url)
         
@@ -518,11 +531,12 @@ export class SearchBar
         // console.log('j suis rentré et je commence le script => ', ' \n // loading => ' + this.#loading, ' \n // isCreated => ' + this.#isCreated, ' \n // intersect ? => ' + this.#intersect)
 
         if (this.#loading || !this.#isCreated || !this.#intersect) {
-            // console.log('je peux pas rentrer => ', ' \n // loading => ' + this.#loading, ' \n // isCreated => ' + this.#isCreated, ' \n // intersect ? => ' + this.#intersect)
+            console.log('je peux pas rentrer => ', ' \n // loading => ' + this.#loading, ' \n // isCreated => ' + this.#isCreated, ' \n // intersect ? => ' + this.#intersect)
             return
             // return this.#observer.observe(this.#loader)
         }
         this.#loading = true
+        console.log('je suis sensé afficher le content')
         // const url = new URL(this.#endpoint)
         // if (this.#url !== undefined) {
             // console.log(this.#url)
@@ -541,8 +555,6 @@ export class SearchBar
             this.#url.searchParams.set('_page', this.#page)
             this.#url.searchParams.set('_limit', this.#limit)
             
-            
-            console.log(this.#url.searchParams.get('_reset'))
             this.#searchResults = await fetchJSON(this.#url)
 
             if (this.#searchResults.length <= 0) {
@@ -641,7 +653,9 @@ export class SearchBar
      * @param {NodeListOf.<HTMLElement>} elements
      */
     #observe(elements, message = null) {
+        debugger
         if (this.#observer) {
+            console.log('je suis dans le delete obs')
             this.#observer.unobserve(elements)
             this.#observer.disconnect()
             this.#intersect = false
@@ -653,8 +667,10 @@ export class SearchBar
             this.#page = 1
             this.#loader.remove()
             if (this.#wrapper.classList.contains('hidden')) this.#wrapper.classList.remove('hidden')
+            if (document.documentElement.classList.contains('search-loaded')) document.documentElement.classList.remove('search-loaded')
             message ? new Toaster(message, 'Succès') : null
         }
+        console.log('je recrer lobs')
         this.#observer = new IntersectionObserver(this.#handleIntersect, this.#options)
         this.#observer.observe(elements)
         return
