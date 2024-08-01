@@ -190,8 +190,21 @@ export class SearchBar
                 // this.#newUrl = this.#content.newUrl
                 // this.#wrapper.innerHTML = this.#content.innerHTML
                 console.log('cest le go')
+                console.log(this.#carousel )
+                this.#onReady("1")
             }
         }
+
+        window.addEventListener('beforeunload', (e) => {
+            if (window.location.href.toString().includes('recherche')) {
+                // e.preventDefault()
+                this.#content.innerHTML = this.#wrapper.innerHTML
+                this.#content.newUrl = this.#newUrl
+                localStorage.setItem('saved_search_results', JSON.stringify(this.#content))
+                localStorage.setItem('saved_search_query', this.#url.searchParams)
+            }
+        })
+
 
         // if (sessionStorage.getItem("is_reloaded")) alert('Reloaded!');
 
@@ -544,7 +557,6 @@ export class SearchBar
         // }
         // url.searchParams.set('query', data.get('query'))
         try {
-
             
             // const id = createElement('div', {
             //     id: 'carousel1'
@@ -645,6 +657,7 @@ export class SearchBar
                 grid: true
             })
         } else {
+            console.log("object")
             this.#carousel.restyle
         }
     }

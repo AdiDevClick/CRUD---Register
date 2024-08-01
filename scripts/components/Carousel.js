@@ -743,9 +743,10 @@ export class Carousel
         // for (let i = 0; i < this.items.length - 2 * this.#offset; i = i + this.#slidesToScroll) {
         //     this.#paginate(i)
         // }
+        console.log(this.#player)
+        // this.#player.refreshPlayers()
+        this.#player = new YoutubePlayer(this)
         this.setStyle()
-        console.log(this.items)
-
     }
 
     get getScrollingStatus() {

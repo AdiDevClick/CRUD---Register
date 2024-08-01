@@ -15,7 +15,6 @@ export class YoutubePlayer
         this.videoContainer = carousel.container
 
         const containers = this.videoContainer.querySelectorAll('.player')
-
         for (const container of containers) {
             this.player[container.id] = {
                 element: container, 
@@ -46,14 +45,16 @@ export class YoutubePlayer
             tag.loading = 'lazy'
             tag.referrerPolicy = 'no-referrer'
             // tag.type =  'image/svg+xml'
-            window.addEventListener('DOMContentLoaded', e => {
-                window.onYouTubeIframeAPIReady = this.onYouTubeIframeAPIReady.bind(this)
-            }, {once: true})
-
+            // this.videoContainer.addEventListener('load', e => {
+                // console.log(e)
+            window.onYouTubeIframeAPIReady = this.onYouTubeIframeAPIReady.bind(this)
+            // }, {once: true})
             const firstScriptTag = document.getElementsByTagName('script')[0]
             firstScriptTag.parentNode.insertBefore(tag, firstScriptTag)
         } else {
-            e => this.loadVideo.bind(this)
+            this.onYouTubeIframeAPIReady()
+            // console.log(e => this.loadVideo()) 
+            // window.onYouTubeIframeAPIReady = this.onYouTubeIframeAPIReady.bind(this)
         }
     }
 
@@ -73,7 +74,6 @@ export class YoutubePlayer
     onHover(element) {
         const player = this.player[element.id]
         const data = player.event.data
-        // console.log(player)
         if (player.event && data !== 1 && this.done) {
             if (this.carousel.getLoadingBar) this.carousel.getLoadingBar.style.animationPlayState = 'paused'
             this.done = false

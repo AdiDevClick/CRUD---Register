@@ -12,7 +12,6 @@ const burgerMenu = document.querySelector('.toggle_btn-box')
 const actionBtn = document.querySelector('.action-btn')
 const loaded = document.documentElement
 
-
 const wrapper = document.querySelector('#wrapper')
 const content = wrapper.innerHTML
 const oldUrl = window.location
@@ -22,9 +21,9 @@ let newUrl
 let isOpened
 
 const onClose = function (e) {
-    console.log(e)
     // console.log("new URL => " , oldUrl, "\n  old URL => "+ newUrl)
-    if (e.type === 'click' && !loaded.classList.contains('search-loaded')) e.preventDefault()
+    // if (e.type === 'click') e.preventDefault()
+    if (e.type === 'click' && (!loaded.classList.contains('search-loaded') || searchBar.classList.contains('open'))) e.preventDefault()
     if (isOpened && searchBar.classList.contains('open')) {
 
         // input.removeAttribute('style')
@@ -65,7 +64,6 @@ const onOpen = function (e) {
         }, {once: true})
     }
     // console.log("new URL => " , oldUrl, "\n  old URL => "+ newUrl)
-
 }
 
 // window.onpopstate = (e) => {
@@ -85,8 +83,6 @@ pagination.forEach(element => {
         debounceDelay: 1000
     })
 })
-
-
 
 function callback(mutationsList, observer) {
     mutationsList.forEach(mutation => {
