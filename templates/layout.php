@@ -22,8 +22,8 @@ if ($url === 'about.php' || 'planningType.php' || 'todo.html' || 'carousel.html'
     $active = strip_tags('class="active"');
 }
 
-// $dev = true;
-$dev = false;
+$dev = true;
+// $dev = false;
 $vite = false;
 
 ?>
@@ -285,8 +285,8 @@ if (!$dev) {
             data-form=".search-form"
             data-id='{"recipe_id": "#id"}'
             data-elements='{"title": ".js-title", "author": ".js-author", "img_path": ".js-img", "href": ".js-href"}'
-            class="text-center js-infinite-pagination">
-            <div class="spinner-border" role="status"></div>
+            class="align-center js-infinite-pagination">
+            <div class="loader" role="status"></div>
         </div>
     <!-- End Main Content -->
     </main>

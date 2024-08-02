@@ -1571,3 +1571,8 @@ hr {
     top: 0%;
     left: 0%;
 }
+
+.align-center {
+    display: flex;
+    justify-content: center;
+}

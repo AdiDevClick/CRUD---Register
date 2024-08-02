@@ -1,6 +1,7 @@
 @import "burgerBtn.css";
 @import "toaster.css";
 @import "carousel.css";
+@import "loader.css";
 
 
 /**
@@ -130,7 +131,7 @@ html, body {
     padding: 0;
     scroll-behavior: smooth;
     /* overflow-x: hidden; */
-    &:not(:has(.recipe.open)) {
+    &:not(:has(.recipe, .read__aside)) {
         overflow-x: hidden;
     }
 

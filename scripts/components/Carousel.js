@@ -200,7 +200,6 @@ export class Carousel
      * Applique les bonnes dimensions aux éléments du carousel
      */
     setStyle() {
-        console.log('je suis dans le restyle')
         this.#moveCallbacks.forEach(cb => cb(this.currentItem))
         let ratio = this.items.length / this.#visibleSlides
         // this.container.style.width = (100) + "%"
