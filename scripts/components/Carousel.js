@@ -198,6 +198,7 @@ export class Carousel
 
     /**
      * Applique les bonnes dimensions aux éléments du carousel
+     * Permet de prendre en compte une grille
      */
     setStyle() {
         this.#moveCallbacks.forEach(cb => cb(this.currentItem))

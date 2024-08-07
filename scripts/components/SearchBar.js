@@ -57,15 +57,17 @@ export class SearchBar
      */
     #observer
     /** @type {Number} */
-    #ratio = .3
+    #ratio = .6
     #options = {
         delay: 100,
         root: null,
         rootMargin: '0px',
-        threshold: this.#ratio
+        threshold: this.#ratio,
+        trackVisibility: true
     }
     #handleIntersect = (entries, observer) => {
         entries.forEach(entry => {
+            console.log('Il ma ete demande dobserver')
             // console.log('je suis dans le entry => ', ' \n // loading => ' + this.#loading, ' \n // isCreated => ' + this.#isCreated, ' \n // intersect ? => ' + this.#intersect)
 
             if (entry.isIntersecting) {
@@ -83,11 +85,20 @@ export class SearchBar
                 // console.log(this.#isCreated)
                 // console.log(this.#isDeleted)
                 
-            } else {
+            // } else {
+            }
+
                 console.log('le ratio est pas bon')
                 this.#intersect = false
                 
-            }
+            // }
+            // }
+            // do {
+            //     console.log('je suis dans lobs')
+            //     this.#intersect = true
+            //     this.#loadMore()
+            // } if (entry.intersectionRatio > this.#ratio)
+            // this.#intersect = false
         })
         // return
     }
@@ -133,7 +144,7 @@ export class SearchBar
         // localStorage.setItem('forwardContent', JSON.stringify(this.#content))
         // localStorage.setItem('forwardContent', JSON.stringify(this.#content))
 
-        console.log(this.#observer)
+        // console.log(this.#observer)
 
         this.#searchForm.addEventListener('submit', e => {
             e.preventDefault()
@@ -148,9 +159,15 @@ export class SearchBar
             window.addEventListener('DOMContentLoaded', () => {
                 console.log('lancement du DOM, je lance lobs')
                 this.#observer = new IntersectionObserver(this.#handleIntersect, this.#options)
+                // debugger
                 // this.#observe(this.#loader)
-                this.#observer.observe(this.#loader)
-                this.#loader.dataset.libraryNameObserverType = true
+                if (window.location.href.toString().includes('recherche')) {
+                    this.#observer.observe(this.#loader)
+                    this.#loader.dataset.libraryNameObserverType = true
+                } else {
+                    this.#loader.remove()
+                }
+                
                 // this.#observer.root.style.border = "26px solid #44aa44";
             }, {once: true})
         // }
@@ -399,7 +416,7 @@ export class SearchBar
         // window.location.hash = 'recherche'
         // console.log(this.#newUrl)
         // console.log(window.location.href)
-        if (!window.location.href.toString().includes('recherche')) history.pushState({}, document.title, 'recherche/')
+        if (!window.location.href.toString().includes('recherche')) history.pushState({}, document.title, window.location.href+'/recherche/')
         // if (!window.location.href.toString().includes('recherche')) history.pushState({}, document.title, window.location.pathname+'/recherche/')
         if (this.#oldUrl !== window.location.origin+window.location.pathname) this.#newUrl = window.location.origin+window.location.pathname
         
@@ -440,6 +457,7 @@ export class SearchBar
                 if (!this.#isCreated && this.#isDeleted) {
                     this.#target.innerHTML = ''
                     this.#container.append(this.#loader)
+                    this.#loader.classList.remove('hidden')
                     this.#isCreated = true
                     this.#loading = false
                     console.log('je lappend')
@@ -467,131 +485,9 @@ export class SearchBar
 
         this.#isCreated = false
 
-        if (!this.#isDeleted) {
-            console.log('je demade a delete')
-            // if (this.#wrapper.classList.contains('hidden')) this.#wrapper.classList.remove('hidden')
-            // this.#wrapper.classList.add('hidden')
-            // this.#script = document.querySelector('script[data-name="typewritter"]')
-            // if (this.#script) this.#script.remove()
-            // this.#wrapper.addEventListener('transitionend', (e) => {
-            // this.#wrapper.addEventListener('animationend', (e) => {
-            //     if (e.animationName === 'fadeOut') {
-            //         this.#wrapper.innerHTML = ''
-            //         this.#wrapper.appendChild(this.#container)
-            //         const title = createElement('div', {
-            //             class: 'title'
-            //         })
-            //         title.innerText = 'MA RECHERCHE'
-            //         this.#container.prepend(title)
-            //         this.#container.appendChild(this.#target)
-            //         this.#wrapper.classList.remove('hidden')
-            //         console.log('jai normalement delete')
-            //         // this.#controller.abort()
-
-            //     }
-            // }, {signal: this.#controller.signal})
-            // }, {once: true})
+        if (!this.#isDeleted || !this.#isCreated && this.#isDeleted) {
             this.#wrapper.classList.add('hidden')
-
-            // container.innerHTML = ''
-            // this.#wrapper.innerHTML = ''
-            // // container.classList.add('container')
-            // this.#wrapper.appendChild(this.#container)
-            // this.#container.appendChild(this.#target)
-
-            // document.querySelector('.container').remove()
-            // const container = document.createElement('section')
-            // container.classList.add('container')
-
-            // this.#target.classList.add(this.#loader.dataset.target)
-            // this.#target = this.#target
-            // const hero = document.querySelector('.hero')
-            // wrapper.addEventListener('animationend', () => {
-            //     // this.#observer.unobserve(this.#loader)
-            //     // container.innerHTML = ''
-            //     hero.remove()
-            //     container.append(this.#loader)
-            //     container.append(this.#template)
-            //     container.prepend(this.#target)
-            //     // this.#observer.observe(this.#loader)
-            //     wrapper.offsetHeight
-            //     // wrapper.classList.remove('hidden')
-            // })
-            // hero.innesrHTML = ''
-            // hero.innerHTML = ''
-            // hero.remove()
-            // delete hero
-            // this.#isDeleted = true
-            // console.log('fin de delete')
-
-            // container.append(this.#template)
-            // container.prepend(this.#target)
-            // const newContent = this.#template.content.firstElementChild.cloneNode(true)
-            // newContent.forEach()
-            // console.log(this.#observer)
         }
-
-        if (!this.#isCreated && this.#isDeleted) {
-            // this.#wrapper.classList.add('hidden')
-
-            // this.#wrapper.classList.contains('hidden') ? this.#wrapper.classList.remove('hidden') : null
-            console.log('je cache mon content')
-            // this.#wrapper.addEventListener('animationend', (e) => {
-            //     if (e.animationName === 'fadeOut') {
-            //         this.#target.innerHTML = ''
-            //         this.#container.append(this.#loader)
-            //         // wrapper.offsetHeight
-            //         this.#isCreated = true
-            //         this.#loading = false
-            //         console.log('je lappend')
-            //         // this.#observer.observe(this.#loader)
-
-            //         // console.log('Je demande a append le loader')
-            //     }
-            // // }, {once: true})
-            // }, {signal: this.#controller.signal})
-            this.#wrapper.classList.add('hidden')
-            // console.log('les stats en fin de création => ', ' \\\n // loading => ' + this.#loading, ' \\\n // isCreated => ' + this.#isCreated, ' \\\n // intersect ? => ' + this.#intersect)
-            
-            // await wait(200)
-
-            
-            // this.#observe(this.#loader)
-
-            // console.log('fin de création')
-            // if (this.#intersect) {
-            //     this.#loadMore()
-            // }
-            // console.log(this.#observer)
-
-        }
-        // console.log('je viens de créer => ', ' // loading => ' + this.#loading, ' // isCreated => ' + this.#isCreated)
-        // console.log(this.#observer)
-        // console.log(this.#observer)
-        // this.#observer.takeRecords()
-        // console.log(this.#url)
-        
-        // const query = url.searchParams.get('query')
-        // const query = urlParams.get('query')
-        // urlParams.toString()
-
-        // if (!this.#modifyFormDataValues(form, data)) return
-        // try {
-        //     if (!this.#isSentAlready) {
-        //             this.#searchResults = await fetchJSON(url, {
-        //             // this.#searchResults = await fetchJSON(url+'?query='+query, {
-        //             method: 'GET'
-        //         })
-        //         if (this.#searchResults.length <= 0) {
-        //             this.#disconnectObserver('Tout le contenu a été chargé')
-        //             return
-        //         }
-        //         console.log(this.#searchResults)
-        //     }
-        //     this.#loading = false
-        // } catch(e) {
-        //     console.log(e)
-        // }
     }
 
     async #loadMore() {
@@ -626,6 +522,7 @@ export class SearchBar
             this.#searchResults = await fetchJSON(this.#url)
 
             if (this.#searchResults.length <= 0) {
+                console.log("done")
                 // this.#disconnectObserver('Tout le contenu a été chargé')
                 this.#observe(this.#loader, 'Tout le contenu a été chargé')
                 return
@@ -678,7 +575,8 @@ export class SearchBar
 
             // console.log(this.#observer)
             // console.log(this.#loader.dataset)
-            // this.#observer.unobserve(this.#loader)
+            this.#observer.unobserve(this.#loader)
+            console.log('jobserve')
             this.#observer.observe(this.#loader)
             // this.#loader.remove()
 

@@ -1,6 +1,7 @@
 /* HTML: <div class="loader"></div> */
 .loader {
-    width: 50px;
+    margin: max(5vh, 30px);
+    width: 25px;
     aspect-ratio: 1;
     border-radius: 50%;
     border: 8px solid #0000;

@@ -436,12 +436,7 @@ form {
     }
 }
 
-.container {
-    /* margin-bottom: 50px; */
-    /* max-width: 100%; */
-    /* min-height: 50px; */
-    /* overflow: hidden; */
-}
+
 
 .contact {
     display: grid;
@@ -1560,7 +1555,33 @@ hr {
 }
 /* END OF PAGE READER */
 
+/*SEARCH PAGE */
+
+
+
+.searched-recipes {
+    @media screen and (max-width: 976px) {
+        /* margin-inline: 0; */
+    }
+    /* height: clamp(min(calc(100vh + 30px)), 100vh, max(calc(100vh + 300px), 100%)); */
+    /* height: clamp(min(calc(100px + 30px),100px), 100%, max(10px, 150px)); */
+    /* height: clamp(100vh, 100%, 100%); */
+    /* margin-bottom: clamp(min()); */
+    /* padding-top: 30px; */
+    padding: max(3vh, 20px) 0;
+    /* margin-inline: 20%; */
+    /* margin: 0px 20% 30px 20%; */
+}
+
+/* END OF SEARCH PAGE */
+
 /* STATIC CSS */
+
+.container {
+    width: min(100%, 1000px);
+    margin-inline: auto;
+}
+
 .file-uploader {
     /* make it invisible */
     opacity: 0;

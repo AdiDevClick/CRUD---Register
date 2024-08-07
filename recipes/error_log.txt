@@ -1,2 +1,0 @@
-sErrors : [2] Undefined array key "_reset" - C:\xampp\htdocs\recettes\recipes\Process_PreparationList.php:42
-Errors : [2] Undefined array key "_reset" - C:\xampp\htdocs\recettes\recipes\Process_PreparationList.php:42
