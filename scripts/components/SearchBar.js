@@ -104,6 +104,8 @@ export class SearchBar
     }
     /** @type {Object} */
     #carousel = {}
+    /** @type {String} */
+    #isSearchIncludedInUrl = window.location.href.toString().includes('search')
 
     constructor(element, options = {}) {
         // localStorage.removeItem('forwardContent');
@@ -161,7 +163,8 @@ export class SearchBar
                 this.#observer = new IntersectionObserver(this.#handleIntersect, this.#options)
                 // debugger
                 // this.#observe(this.#loader)
-                if (window.location.href.toString().includes('recherche')) {
+                if (this.#isSearchIncludedInUrl) {
+                // if (window.location.href.toString().includes('search')) {
                     this.#observer.observe(this.#loader)
                     this.#loader.dataset.libraryNameObserverType = true
                 } else {
@@ -174,8 +177,6 @@ export class SearchBar
         
         window.onpopstate = (e) => {
             e.preventDefault()
-            console.log("je reload")
-            
             if (history && (window.location.origin+window.location.pathname === this.#oldUrl)) {
                 // this.#content.push(this.#wrapper.innerHTML)
                 // this.#content.push(this.#newUrl)
@@ -186,11 +187,14 @@ export class SearchBar
 
                 this.#content.innerHTML = this.#wrapper.innerHTML
                 this.#content.newUrl = this.#newUrl
+                this.#content.params = JSON.stringify(this.#url.searchParams)
+
                 localStorage.setItem('forwardContent', JSON.stringify(this.#content))
+                // localStorage.setItem('forwardContent', JSON.stringify(this.#content))
                 
                 // this.#content['test'].push(this.#wrapper.innerHTML)
                 // this.#content.push(this.#content.newUrl)
-
+                console.log(this.#content.params.toString())
                 // localStorage.setItem('forwardContent', JSON.stringify(toSave))
                 // localStorage.setItem('forwardContent', JSON.stringify(this.#content))
                 // document.querySelector('head').append(this.#script)
@@ -204,21 +208,28 @@ export class SearchBar
                 const content = localStorage.getItem('forwardContent')
                 // let content = JSON.parse(this.#content)
                 this.#content = JSON.parse(content)
+
+                console.log(this.#content)
+
                 this.#newUrl = this.#content.newUrl
+
                 this.#wrapper.innerHTML = this.#content.innerHTML
+
+                // this.#loadMore()
                 // this.#newUrl = content.newUrl
                 // this.#wrapper.innerHTML = content.innerHTML
                 // this.#content.innerHTML = localStorage.getItem('forwardContent')
                 // this.#newUrl = this.#content.newUrl
                 // this.#wrapper.innerHTML = this.#content.innerHTML
                 console.log('cest le go')
-                console.log(this.#carousel )
-                this.#onReady("1")
+                // console.log(this.#carousel)
+                // this.#onReady("1")
             }
         }
 
         window.addEventListener('beforeunload', (e) => {
-            if (window.location.href.toString().includes('recherche')) {
+            if (this.#isSearchIncludedInUrl) {
+            // if (window.location.href.toString().includes('search')) {
                 // e.preventDefault()
                 this.#content.innerHTML = this.#wrapper.innerHTML
                 this.#content.newUrl = this.#newUrl
@@ -416,7 +427,8 @@ export class SearchBar
         // window.location.hash = 'recherche'
         // console.log(this.#newUrl)
         // console.log(window.location.href)
-        if (!window.location.href.toString().includes('recherche')) history.pushState({}, document.title, window.location.href+'/recherche/')
+        if (!this.#isSearchIncludedInUrl) history.pushState({}, document.title, 'search/')
+        // if (!window.location.href.toString().includes('search')) history.pushState({}, document.title, 'search/')
         // if (!window.location.href.toString().includes('recherche')) history.pushState({}, document.title, window.location.pathname+'/recherche/')
         if (this.#oldUrl !== window.location.origin+window.location.pathname) this.#newUrl = window.location.origin+window.location.pathname
         
@@ -573,16 +585,13 @@ export class SearchBar
             this.#loading = false
             this.#controller.abort()
 
-            // console.log(this.#observer)
-            // console.log(this.#loader.dataset)
+            // IMPORTANT !! 
+            // Force observer to reset in some cases where 
+            // the loader appears but it's state cannot update
             this.#observer.unobserve(this.#loader)
-            console.log('jobserve')
-            this.#observer.observe(this.#loader)
-            // this.#loader.remove()
+            // End of Force
 
-            // this.#observer.disconnect()
-            // console.log(this.#observer)
-            // console.log(this.#loader.dataset)
+            this.#observer.observe(this.#loader)
 
             // this.#observe(this.#loader)
             // this.#observer.unobserve(this.#loader)
@@ -608,14 +617,12 @@ export class SearchBar
         }
     }
 
-    #onReady(restyle) {
-        const updateStyle = (restyle === '0') ? true : false
+    #onReady(restyleNumber) {
+        const updateStyle = (restyleNumber === '0') ? true : false
         
         if (!updateStyle) {
             // console.log(restyle)
             // console.log(updateStyle)
-            console.log(this.#observer)
-
             console.log('je demande à créer le carousel')
             this.#carousel = new Carousel(document.querySelector('#carousel1'), {
                 visibleSlides: 3,

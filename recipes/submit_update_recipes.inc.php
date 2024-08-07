@@ -33,6 +33,7 @@ if($data && isset($_GET['id']) && is_numeric($_GET['id'])) {
     // echo $_GET['id'] . 'test';
     // print_r($_GET);
     header('Location: ../index.php?error=no-update-id');
+    exit("Il n'y a malheureusement plus rien à voir !");
 }
 
 $loggedUser = LoginController::checkLoggedStatus();

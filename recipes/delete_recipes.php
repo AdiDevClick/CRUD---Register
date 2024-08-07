@@ -32,8 +32,10 @@ if ($serverData && isset($_POST['submit'])) {
         if ($checkId->checkId()) {
             $checkId->deleteRecipe();
             header('Location: ../index.php?delete=success');
+            exit("Il n'y a malheureusement plus rien à voir !");
         } else {
             header('Location: ../index.php?delete=error');
+            exit("Il n'y a malheureusement plus rien à voir !");
         }
     } catch (Error $e) {
         die('Erreur : '. $e->getMessage()) . 'Nous ne pouvons pas supprimer cette recette. ';

@@ -125,7 +125,7 @@ ob_start();
     <?php else:?>
         <?php session_destroy()?>
         <?php header('Location: ../register.php?failed=recipe-creation')?>
-        <?php exit()?>
+        <?php exit("Il n'y a malheureusement plus rien à voir !") ?>
 <?php endif?>
 <!-- end of success message --> 
 <?php //$content = ob_end_flush()?>
