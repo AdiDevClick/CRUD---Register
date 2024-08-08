@@ -1,10 +1,16 @@
 
 # Pour la recherche dans la barre de navigation
 
-``` 
+<br>
+
+```
 Modification APACHE de redirection HTTPD dans le httpd.conf 
 Cela permettra à la recherche de pouvoir se réactualiser facilement
+
+Si un utilisateur tente d'accéder à la navigation, cela créera une erreur 403
 ```
+<br>
+
 ## Désactiver la possibilité pour l'utilisateur de naviguer dans le dossier serveur 
 
 Dans le <Directory "var/www/"> du fichier Apache httpd.conf au lieu de :
@@ -15,18 +21,35 @@ Le modifier par :
 
 2. ` Options -Indexes +FollowSymLinks `
 
-```
-Si un utilisateur tente d'accéder à la navigation, cela créera une erreur 403
-```
-
 ## Permettre une lecture directe du fichier quand un pathname est entré dans la barre d'adresse
 
 Rajouter le nom des fichiers à lire dans le directory index :
-` recherche.php \ `
+` recherche.php \ `  
 
+<br>
+<br>
 
----
+# Il est possible d'utiliser VITE si installé 
 
+<br>
+
+```
+S'assurer que NodeJs est installé sur la machine
+```
+<br>
+
+## Pour lancer une build
+
+Dans le terminal, saisir ce code :
+1. `npm run dev`
+
+## Pour construire une build
+
+Dans le terminal, saisir ce code :
+1. `npm run build`
+
+<br>
+<br>
 
 Input => IN (inputs)
 	Email => EM (email)

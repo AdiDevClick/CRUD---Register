@@ -185,22 +185,33 @@ export class SearchBar
                 console.log(this.#content.innerHTML)
                 console.log('-----------------')
 
-                this.#content.innerHTML = this.#wrapper.innerHTML
-                this.#content.newUrl = this.#newUrl
-                this.#content.params = JSON.stringify(this.#url.searchParams)
-
-                localStorage.setItem('forwardContent', JSON.stringify(this.#content))
-                // localStorage.setItem('forwardContent', JSON.stringify(this.#content))
+                // this.#content.innerHTML = this.#wrapper.innerHTML
                 
+                this.#content.innerHTML = this.#wrapper.innerHTML
+                // this.#content.push(this.#wrapper.innerHTML)
+                // this.#content.push(this.#newUrl)
+                this.#content.newUrl = this.#newUrl
+                // this.#content.push(this.#url.searchParams)
+                // this.#content.params['params'] = this.#url.searchParams
+                this.#content.params = {}
+                // this.#content.params.push(this.#url.searchParams)
+
+                for (const [key, value] of this.#url.searchParams) {
+                    this.#content.params[key] = value
+                }
+                localStorage.setItem('forwardContent', JSON.stringify(this.#content))
+                // localStorage.setItem('forwardContent', this.#content)
                 // this.#content['test'].push(this.#wrapper.innerHTML)
                 // this.#content.push(this.#content.newUrl)
-                console.log(this.#content.params.toString())
                 // localStorage.setItem('forwardContent', JSON.stringify(toSave))
                 // localStorage.setItem('forwardContent', JSON.stringify(this.#content))
                 // document.querySelector('head').append(this.#script)
                 // history.pushState({}, document.title, this.#newUrl)
                 location.reload()
                 console.log('cest le back')
+
+                // console.log(this.#content)
+
                 // this.#observe(this.#loader)
             }
             if (history !== null && (window.location.origin+window.location.pathname !== this.#oldUrl)) {
@@ -208,8 +219,6 @@ export class SearchBar
                 const content = localStorage.getItem('forwardContent')
                 // let content = JSON.parse(this.#content)
                 this.#content = JSON.parse(content)
-
-                console.log(this.#content)
 
                 this.#newUrl = this.#content.newUrl
 
@@ -221,6 +230,7 @@ export class SearchBar
                 // this.#content.innerHTML = localStorage.getItem('forwardContent')
                 // this.#newUrl = this.#content.newUrl
                 // this.#wrapper.innerHTML = this.#content.innerHTML
+                console.log(this.#content.params)
                 console.log('cest le go')
                 // console.log(this.#carousel)
                 // this.#onReady("1")

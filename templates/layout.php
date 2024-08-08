@@ -22,9 +22,9 @@ if ($url === 'about.php' || 'planningType.php' || 'todo.html' || 'carousel.html'
     $active = strip_tags('class="active"');
 }
 
-$dev = false;
+$dev = true;
 // $dev = false;
-$vite = false;
+$vite = true;
 
 ?>
 

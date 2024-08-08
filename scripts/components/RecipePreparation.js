@@ -370,6 +370,7 @@ export class IngredientsFrom {
      * @param {JSON} items
      */
     onUpdate(storageName, items) {
+        debugger
         localStorage.setItem(storageName, JSON.stringify(items))
     }
 
