@@ -12,7 +12,7 @@ export class Carousel
      * @param {number} index
      */
     /** @type {Array} In order to save the inital HTML elements before manipulation for future use */
-    initialItemsArray
+    initialItemsArray = []
     #paginationButton
     #click = false
     #scrolling = false
@@ -100,9 +100,8 @@ export class Carousel
         if (options.loop && options.infinite) {
             throw new Error(`Vous ne pouvez pas être à la fois en boucle ET en infini`)
         }
-        console.log(element)
         let children = [].slice.call(element.children)
-        this.initialItemsArray = children
+        // this.initialItemsArray = children
         // Modification du DOM
         this.root = createElement('div', {class: 'carousel'})
         this.container = createElement('div', {class: 'carousel__container'})
@@ -110,6 +109,7 @@ export class Carousel
         this.root.append(this.container)
         this.element.append(this.root)
         this.items = children.map(child => {
+            this.initialItemsArray.push(child)
             const item = createElement('div', {class: 'carousel__item'})
             item.append(child)
             this.container.append(item)
@@ -749,10 +749,9 @@ export class Carousel
         // for (let i = 0; i < this.items.length - 2 * this.#offset; i = i + this.#slidesToScroll) {
         //     this.#paginate(i)
         // }
-        console.log(this.#player)
         // this.#player.refreshPlayers()
         this.#player = new YoutubePlayer(this)
-        this.setStyle()
+        // this.setStyle()
     }
 
     get getScrollingStatus() {
@@ -833,7 +832,6 @@ export class Carousel
     }
 
     get restyle() {
-        console.log('je demande le restyle')
         return this.setStyle()
     }
 }

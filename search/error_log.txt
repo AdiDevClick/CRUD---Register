@@ -11,3 +11,5 @@ Errors : [2] Undefined array key "PATH_INFO" - C:\xampp\htdocs\Recettes\search\r
 Errors : [2] Undefined array key "PATH_INFO" - C:\xampp\htdocs\Recettes\search\recherche.php:24
 Errors : [2] Undefined array key "PATH_INFO" - C:\xampp\htdocs\Recettes\search\recherche.php:24
 Errors : [2] Undefined array key "PATH_INFO" - C:\xampp\htdocs\Recettes\search\recherche.php:24
+Errors : [2] Undefined array key "PATH_INFO" - C:\xampp\htdocs\Recettes\search\recherche.php:24
+Errors : [2] Undefined array key "PATH_INFO" - C:\xampp\htdocs\Recettes\search\recherche.php:24

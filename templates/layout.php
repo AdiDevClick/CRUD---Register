@@ -3,7 +3,7 @@
 require_once(dirname(__DIR__) . DIRECTORY_SEPARATOR . "classes" . DIRECTORY_SEPARATOR ."Functions.class.php");
 require_once(dirname(__DIR__) . DIRECTORY_SEPARATOR . "includes" . DIRECTORY_SEPARATOR ."variables.inc.php");
 
-header('Cache-Control: private');
+header('Cache-Control: private, must-revalidate');
 
 // $url = $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
 // $url = explode("/", parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));
