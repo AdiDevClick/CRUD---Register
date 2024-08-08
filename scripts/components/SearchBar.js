@@ -128,7 +128,7 @@ export class SearchBar
             class: "searched-recipes",
             id: "carousel1"
         })
-        this.#target.innerText = 'Carousel 1'
+        // this.#target.innerText = 'Carousel 1'
         // this.#target.classList.add('searched-recipes')
         // this.#target = document.querySelector(element.dataset.target)
         this.#endpoint = this.#searchForm.dataset.endpoint
@@ -190,11 +190,13 @@ export class SearchBar
                 this.#content.innerContent = []
 
                 this.#carousel.initialItemsArray.forEach(element => {
+                    // this.#content.innerContent.push(JSON.stringify(element))
                     this.#content.innerContent.push(element.outerHTML)
                 })
 
                 // this.#content.push(this.#wrapper.innerHTML)
                 // this.#content.push(this.#newUrl)
+                console.log(this.#content.innerContent)
 
                 this.#content.newUrl = this.#newUrl
                 this.#content.carousel = this.#carousel
@@ -229,8 +231,8 @@ export class SearchBar
                 this.#content = JSON.parse(content)
 
                 this.#newUrl = this.#content.newUrl
-                this.#wrapper.innerHTML = this.#content.innerContent
-
+                // this.#wrapper.innerHTML = this.#content.innerContent
+                console.log(parse(this.#content.innerContent))
                 this.#page = this.#content.params._page
                 this.#limit = this.#content.params._limit
                 this.#input = this.#content.params.query
@@ -242,20 +244,57 @@ export class SearchBar
                 // this.#newUrl = this.#content.newUrl
                 // this.#wrapper.innerHTML = this.#content.innerHTML
                 this.#createOrUpdateNewUrl(
-                    'create', this.#input, 1,
+                    'create', this.#input, 0,
                     this.#page, this.#limit
                 )
 
-                this.#isCreated = true
+                if (!this.#isDeleted) {
+                    this.#wrapper.innerHTML = ''
+                    this.#wrapper.appendChild(this.#container)
+                    const title = createElement('div', {
+                        class: 'title'
+                    })
+                    title.innerText = 'MA RECHERCHE'
+                    this.#container.prepend(title)
+                    this.#container.appendChild(this.#target)
+                    this.#target.append(this.#content.innerContent)
+                    this.#container.append(this.#loader)
+
+                    this.#wrapper.classList.remove('hidden')
+                    console.log('jai normalement delete')
+                    this.#isDeleted = true
+                    this.#isCreated = true
+                    this.#loading = false
+                    // this.#intersect = true
+                    console.log('les stats en fin de delete anim => ', ' \\\n // loading => ' + this.#loading, ' \\\n // isCreated => ' + this.#isCreated, ' \\\n // intersect ? => ' + this.#intersect, ' \\\n // is deleted ? => ' + this.#isDeleted)
+                    console.log(this.#wrapper)
+                    this.#observer.observe(this.#loader)
+
+                }
+                // if (!this.#isCreated && this.#isDeleted) {
+                //     this.#target.innerHTML = ''
+                //     this.#wrapper.innerHTML = this.#content.innerContent
+
+                //     this.#container.append(this.#loader)
+                //     this.#loader.classList.remove('hidden')
+                //     this.#isCreated = true
+                //     this.#loading = false
+                //     console.log('je lappend')
+                //     console.log('les stats en fin de creation anim => ', ' \\\n // loading => ' + this.#loading, ' \\\n // isCreated => ' + this.#isCreated, ' \\\n // intersect ? => ' + this.#intersect, ' \\\n // is deleted ? => ' + this.#isDeleted)
+                //     // this.#loadMore()
+                //     this.#observer.observe(this.#loader)
+                // }
+
+                // this.#isCreated = true
                 
-                this.#intersect = true
+                // this.#intersect = true
 
                 console.log(this.#content.params)
                 console.log('cest le go')
                 console.log(this.#isCreated)
                 // console.log(this.#carousel)
                 // this.#onReady("1")
-                this.#loadMore()
+                // this.#loadMore()
                 // this.#observer.observe(this.#loader)
             }
         }
@@ -264,6 +303,7 @@ export class SearchBar
             if (this.#isSearchIncludedInUrl) {
             // if (window.location.href.toString().includes('search')) {
                 // e.preventDefault()
+                console.log('je suis dans le beforeunload')
                 this.#content.innerHTML = this.#wrapper.innerHTML
                 this.#content.newUrl = this.#newUrl
                 localStorage.setItem('saved_search_results', JSON.stringify(this.#content))

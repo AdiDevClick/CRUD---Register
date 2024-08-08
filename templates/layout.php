@@ -3,6 +3,8 @@
 require_once(dirname(__DIR__) . DIRECTORY_SEPARATOR . "classes" . DIRECTORY_SEPARATOR ."Functions.class.php");
 require_once(dirname(__DIR__) . DIRECTORY_SEPARATOR . "includes" . DIRECTORY_SEPARATOR ."variables.inc.php");
 
+header('Cache-Control: private');
+
 // $url = $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
 // $url = explode("/", parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));
 // $url = array_pop($url);
@@ -22,9 +24,9 @@ if ($url === 'about.php' || 'planningType.php' || 'todo.html' || 'carousel.html'
     $active = strip_tags('class="active"');
 }
 
-$dev = true;
+$dev = false;
 // $dev = false;
-$vite = true;
+$vite = false;
 
 ?>
 
@@ -33,7 +35,8 @@ $vite = true;
 <head>
     <meta charset="UTF-8">
     <!-- <meta content="text/javascript; charset=UTF-8" http-equiv="content-type"> -->
-    <!-- <meta http-equiv="Cache-control" content="public"> -->
+    <!-- <meta cache-control="private"> -->
+    <!-- <meta http-equiv="Cache-Control" content="private, must-revalidate"> -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="<?php echo($rootUrl). $clicServer?>/css/resetfirefox.css">
     <!-- <link rel="stylesheet" href="<?php //echo($rootUrl). $clicServer?>/css/resetchromium.css"> -->
