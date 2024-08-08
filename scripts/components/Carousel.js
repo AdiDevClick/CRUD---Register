@@ -11,6 +11,8 @@ export class Carousel
      * @callback moveCallback
      * @param {number} index
      */
+    /** @type {Array} In order to save the inital HTML elements before manipulation for future use */
+    initialItemsArray
     #paginationButton
     #click = false
     #scrolling = false
@@ -98,8 +100,9 @@ export class Carousel
         if (options.loop && options.infinite) {
             throw new Error(`Vous ne pouvez pas être à la fois en boucle ET en infini`)
         }
+        console.log(element)
         let children = [].slice.call(element.children)
-
+        this.initialItemsArray = children
         // Modification du DOM
         this.root = createElement('div', {class: 'carousel'})
         this.container = createElement('div', {class: 'carousel__container'})
@@ -736,6 +739,9 @@ export class Carousel
 
     /** @type {HTMLElement} item */
     appendToContainer(item) {
+        // Sauvegarde de l'item
+        this.initialItemsArray.push(item)
+        // Fin de sauvegarde
         const newItem = createElement('div', {class: 'carousel__item'})
         newItem.append(item)
         this.container.append(newItem)

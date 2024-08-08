@@ -187,10 +187,17 @@ export class SearchBar
 
                 // this.#content.innerHTML = this.#wrapper.innerHTML
                 
-                this.#content.innerHTML = this.#wrapper.innerHTML
+                this.#content.innerContent = []
+
+                this.#carousel.initialItemsArray.forEach(element => {
+                    this.#content.innerContent.push(element.outerHTML)
+                })
+
                 // this.#content.push(this.#wrapper.innerHTML)
                 // this.#content.push(this.#newUrl)
+
                 this.#content.newUrl = this.#newUrl
+                this.#content.carousel = this.#carousel
                 // this.#content.push(this.#url.searchParams)
                 // this.#content.params['params'] = this.#url.searchParams
                 this.#content.params = {}
@@ -207,6 +214,7 @@ export class SearchBar
                 // localStorage.setItem('forwardContent', JSON.stringify(this.#content))
                 // document.querySelector('head').append(this.#script)
                 // history.pushState({}, document.title, this.#newUrl)
+                this.#observer.unobserve(this.#loader)
                 location.reload()
                 console.log('cest le back')
 
@@ -221,19 +229,34 @@ export class SearchBar
                 this.#content = JSON.parse(content)
 
                 this.#newUrl = this.#content.newUrl
+                this.#wrapper.innerHTML = this.#content.innerContent
 
-                this.#wrapper.innerHTML = this.#content.innerHTML
-
+                this.#page = this.#content.params._page
+                this.#limit = this.#content.params._limit
+                this.#input = this.#content.params.query
+                this.#carousel = this.#content.carousel
                 // this.#loadMore()
                 // this.#newUrl = content.newUrl
                 // this.#wrapper.innerHTML = content.innerHTML
-                // this.#content.innerHTML = localStorage.getItem('forwardContent')
+                this.#content.innerHTML = localStorage.getItem('forwardContent')
                 // this.#newUrl = this.#content.newUrl
                 // this.#wrapper.innerHTML = this.#content.innerHTML
+                this.#createOrUpdateNewUrl(
+                    'create', this.#input, 1,
+                    this.#page, this.#limit
+                )
+
+                this.#isCreated = true
+                
+                this.#intersect = true
+
                 console.log(this.#content.params)
                 console.log('cest le go')
+                console.log(this.#isCreated)
                 // console.log(this.#carousel)
                 // this.#onReady("1")
+                this.#loadMore()
+                // this.#observer.observe(this.#loader)
             }
         }
 
@@ -432,7 +455,8 @@ export class SearchBar
         // this.#loading = true
         // const form = e.target
         let data = new FormData(this.#searchForm)
-        this.#url = new URL(this.#endpoint)
+        this.#input = data.get('query')
+        
         // window.location.replace('recherche')
         // window.location.hash = 'recherche'
         // console.log(this.#newUrl)
@@ -447,11 +471,16 @@ export class SearchBar
         // console.log('old => ', this.#oldUrl)
         // console.log('new si différente => ', this.#newUrl)
 
-        this.#input = data.get('query')
+        this.#createOrUpdateNewUrl('create', this.#input, 1)
+
+        // this.#url = new URL(this.#endpoint)
+        
+        // this.#url.searchParams.set('query', this.#input)
+        // this.#url.searchParams.set('_reset', 1)
+
+
         // url.searchParams.set('_page', this.#page)
         // url.searchParams.set('_limit', this.#limit)
-        this.#url.searchParams.set('query', this.#input)
-        this.#url.searchParams.set('_reset', 1)
         // resetURL('register.php', 'failed', urlParams)
         // debugger
         this.#controller = new AbortController()
@@ -512,6 +541,14 @@ export class SearchBar
         }
     }
 
+    #createOrUpdateNewUrl(create = '', query = null, reset = null, page = null, limit = null) {
+        if (create === 'create') this.#url = new URL(this.#endpoint)
+        if (query) this.#url.searchParams.set('query', query)
+        if (reset) this.#url.searchParams.set('_reset', reset)
+        if (page) this.#url.searchParams.set('_page', page)
+        if (limit) this.#url.searchParams.set('_limit', limit)
+    }
+
     async #loadMore() {
         // console.log(this.#observer)
 
@@ -537,9 +574,10 @@ export class SearchBar
             // this.#container.prepend(title)
             // this.#container.append(id)
             // this.#wrapper.removeEventListener('animationend')
-
-            this.#url.searchParams.set('_page', this.#page)
-            this.#url.searchParams.set('_limit', this.#limit)
+            this.#createOrUpdateNewUrl('update', null, null, this.#page, this.#limit)
+            console.log(this.#url)
+            // this.#url.searchParams.set('_page', this.#page)
+            // this.#url.searchParams.set('_limit', this.#limit)
             
             this.#searchResults = await fetchJSON(this.#url)
 
