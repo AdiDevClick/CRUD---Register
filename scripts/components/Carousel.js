@@ -13,26 +13,51 @@ export class Carousel
      */
     /** @type {Array} In order to save the inital HTML elements before manipulation for future use */
     initialItemsArray = []
+    /** @type {HTMLElement} */
     #paginationButton
+    /** @type {Boolean} */
     #click = false
+    /** @type {Boolean} */
     #scrolling = false
+    /** @type {String} */
     #status
+    /** @type {Boolean} */
     #hovered = false
+    /** @type {Number} */
     #currentTime
+    /** @type {HTMLElement} Boutton "précédent" du carousel */
     #prevButton
+    /** @type {HTMLElement} Boutton "suivant" du carousel */
     #nextButton
+    /** @type {Number} */
     #endTime = 0
+    /** @type {Number} */
     #startTime = 0
+    /** @type {Boolean} */
     #reverseAnimation
+    /** 
+     * @type {IntersectionObserver}
+     */
     #observer
+    /** @type {Boolean} */
     #intersect
+    /** @type {Number} Threshold for intersection obs */
     #ratio = .6
+    /** @type {Object} Intersection Observer options */
     #options = {
         root: null,
         rootMargin: '0px',
         threshold: this.#ratio
     }
-    #intersectHandler = (entries) => {
+    /**
+     * Intersection Obs Handler -
+     * When intersect, calls the main function
+     * and modify animation and loading bar behavior -
+     * In order to avoid too many callstacks, 50ms debouncer
+     * is in place (not mandatory) -
+     * @type {IntersectionObserverCallback}
+     */
+    #intersectHandler = debounce( (entries) => {
         entries.forEach(entry => {
             if (entry.intersectionRatio > this.#ratio) {
                 this.#intersect = true
@@ -49,18 +74,53 @@ export class Carousel
             }
         })
         return
-    }
+    }, 50)
+
+    /**
+     * @type {ResizeObserver}
+     */
+    #resizeObserver
+    /**
+     * Resize Obs Handler -
+     * When resizing, calls the restyle function
+     * and recalculate the appearence of the carousel -
+     * In order to avoid too many callstacks, 50ms debouncer
+     * is in place (mandatory) -
+     * @type {ResizeObserverCallback}
+     */
+    #handleResize = debounce( (entries, observer) => {
+        entries.forEach(entry => {
+            let mobile = window.innerWidth < 800
+            if (mobile !== this.#isMobile) {
+                this.#isMobile = mobile
+                this.setStyle()
+                this.#moveCallbacks.forEach(cb => cb(this.currentItem))
+            }
+        })
+        return
+    }, 50)
+
+    /** @type {Array.Callback} */
     #moveCallbacks = []
+    /** @type {Boolean} */
     #isMobile = false
+    /** @type {HTMLElement} */
     #loadingBar
+    /** @type {Number} */
     #offset = 0
+    /** @type {Array} Promises array */
     #resolvedPromisesArray = []
-    #eventAction
+    // #eventAction
     #myIndex
+    /** @type {Boolean} */
     #reverseMode = false
+    /** @type {Array} Youtube API players array */
     #player = []
+    /** @type {Boolean} */
     #alreadyHovered
+    /** @type {Number} */
     #alreadyHoveredStartTime = 0
+    /** @type {Number} */
     #alreadyHoveredEndTime = 0
     #case
 
@@ -147,7 +207,7 @@ export class Carousel
             this.observe(this.element)
         }
         this.#onWindowResize()
-        window.addEventListener('resize', this.#onWindowResize.bind(this))
+        // window.addEventListener('resize', this.#onWindowResize.bind(this))
         this.root.addEventListener('keyup', e => this.#accessibilityKeys(e))
         if (this.options.infinite) {
             this.container.addEventListener('transitionend', this.#resetInfinite.bind(this))
@@ -346,7 +406,7 @@ export class Carousel
             const r = await this.getStates
 
             if (r.status === 'rejected') {
-                    throw new Error(`Promesse ${r.reason} non tenable`, {cause: r.reason})
+                throw new Error(`Promesse ${r.reason} non tenable`, {cause: r.reason})
             }
 
             this.#currentTime = 0
@@ -695,12 +755,14 @@ export class Carousel
      * du changement de la taille de lafenêtre
      */
     #onWindowResize() {
-        let mobile = window.innerWidth < 800
-        if (mobile !== this.#isMobile) {
-            this.#isMobile = mobile
-            this.setStyle()
-            this.#moveCallbacks.forEach(cb => cb(this.currentItem))
-        } 
+        this.#resizeObserver = new ResizeObserver(this.#handleResize)
+        this.#resizeObserver.observe(this.root)
+        // let mobile = window.innerWidth < 800
+        // if (mobile !== this.#isMobile) {
+        //     this.#isMobile = mobile
+        //     this.setStyle()
+        //     this.#moveCallbacks.forEach(cb => cb(this.currentItem))
+        // }
     }
 
     translate(percent) {
@@ -811,9 +873,9 @@ export class Carousel
         return this.#intersect
     }
 
-    get getEventAction() {
-        return this.#eventAction
-    }
+    // get getEventAction() {
+    //     return this.#eventAction
+    // }
 
     get isAlreadyHovered() {
         return this.#alreadyHovered
