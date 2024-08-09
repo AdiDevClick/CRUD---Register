@@ -1,6 +1,7 @@
 import { fetchJSON } from "../functions/api.js"
 import { createElement, debounce, wait, waitAndFail } from "../functions/dom.js"
 import { resetURL } from "../functions/url.js"
+import { closeMenu } from "../script.js"
 import { Carousel } from "./Carousel.js"
 import { Toaster } from "./Toaster.js"
 
@@ -158,6 +159,10 @@ export class SearchBar
          */
         window.onpopstate = (e) => {
             e.preventDefault()
+            if (window.location.hash === '#username') {
+                closeMenu(e)
+                return
+            }
             if (history && (window.location.origin+window.location.pathname === this.#oldUrl)) {
                 
                 this.#content.innerContent = []
@@ -188,13 +193,13 @@ export class SearchBar
                 this.#page = this.#content.params._page
                 this.#limit = this.#content.params._limit
                 this.#input = document.querySelector(`#${this.#content.input}`)
-                this.#input.value = this.#content.params.query
+                // this.#input.value = this.#content.params.query
                 this.#carousel = this.#content.Carousel
 
                 this.#content.innerHTML = localStorage.getItem('forwardContent')
                 this.#createOrUpdateNewUrl(
                     'create',
-                    this.#input.value,
+                    this.#content.params.query,
                     "0",
                     this.#page,
                     this.#limit

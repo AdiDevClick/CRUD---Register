@@ -69,7 +69,7 @@ const stopPropagation = function(e) {
     e.stopPropagation()
 }
 
-const closeMenu = function(e) {
+export const closeMenu = (e) => {
     e.preventDefault()
     dropDownMenu.classList.remove('open')
     dropDownMenuBackground.classList.remove('open')

@@ -82,6 +82,9 @@ export class Toaster {
      * pour target les élements nécessaires à l'alerte
      */
     #createNewToasterContainer() {
+        const wrapper = createElement('div', {
+            class: 'toast-wrapper'
+        })
         const toasterDivContainer = createElement('div', {
             class: 'toast-container',
             role: 'alert',
@@ -91,7 +94,9 @@ export class Toaster {
             'data-closebtn': '.toggle_btn-box',
             'data-endpoint': './templates/toaster_template.html'
         })
-        document.body.append(toasterDivContainer)
+        wrapper.append(toasterDivContainer)
+        document.body.append(wrapper)
+        // document.body.append(toasterDivContainer)
     }
 
     /**
@@ -134,9 +139,11 @@ export class Toaster {
      * Une animation sera jouée en fin de délai
      */
     async #removeAlert(e) {
-        await wait(5000)
+        await wait(50000)
+        // await wait(5000)
         this.#alert.classList.remove('active')
-        await wait(300)
+        await wait(30000)
+        // await wait(300)
         this.#progressBar.classList.remove('active')
         this.#alert.remove()
         this.toasterContainer.remove()
@@ -158,7 +165,8 @@ export class Toaster {
         e.preventDefault()
         this.#alert.classList.remove('active')
         this.#alert.classList.add('close')
-        await wait(300)
+        await wait(30000)
+        // await wait(300)
         this.#progressBar.classList.remove('active')
         this.#alert.addEventListener('animationend', () => {
             this.#alert.remove()

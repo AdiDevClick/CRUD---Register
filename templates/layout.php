@@ -24,7 +24,7 @@ if ($url === 'about.php' || 'planningType.php' || 'todo.html' || 'carousel.html'
     $active = strip_tags('class="active"');
 }
 
-$dev = false;
+$dev = true;
 // $dev = false;
 $vite = false;
 
@@ -88,6 +88,7 @@ if (!$dev) {
 <?php if (!$vite) : ?>
         <link rel="stylesheet" href="<?php echo($rootUrl). $clicServer?>/resources/css/main.css"/>
         <link rel="stylesheet" href="<?php echo($rootUrl). $clicServer?>/resources/css/index.css"/>
+        <script type="module" src="<?php echo($rootUrl). $clicServer?>/scripts/toaster.js" defer></script>
 <?php endif ?>
 
     <!-- <script type="module" src="<?php //echo($rootUrl). $clicServer?>/scripts/toaster.js" defer></script> -->
@@ -148,7 +149,7 @@ if (!$dev) {
                     <?php //if(!isset($_SESSION['LOGGED_USER'])):?>
                     <?php if(!isset($_COOKIE['EMAIL'])): ?>
                     <?php //if(!isset($loggedUser['email'][0])):?>
-                        <li><a class="" href="<?php echo($rootUrl). $clicServer.'/login.php' ?>">Se connecter</a></li>
+                        <li><a class="" href="<?php echo($rootUrl). $clicServer.'/index.php#username' ?>">Se connecter</a></li>
                         <li><a class="action_btn" href="<?php echo($rootUrl). $clicServer.'/register.php' ?>">S'enregistrer</a></li>
                     <?php endif?>
                     <?php if(isset($_COOKIE['EMAIL'])): ?>
@@ -245,7 +246,7 @@ if (!$dev) {
                     <?php if(!isset($_COOKIE['EMAIL'])): ?>
                     <?php //if(!isset($_SESSION['LOGGED_USER'])):?>
                     <?php //if(!isset($loggedUser['email'][0])):?>
-                        <li><a class="" href="<?php echo($rootUrl). $clicServer.'/login.php' ?>">Se connecter</a></li>
+                        <li><a class="" href="<?php echo($rootUrl). $clicServer.'/index.php#username' ?>">Se connecter</a></li>
                         <!-- <li><a class="" href="<?php //echo($rootUrl). 'recettes/register.php'?>">S'enregistrer</a></li> -->
                     <?php endif?>
                     <?php if(isset($_COOKIE['EMAIL'])): ?>
