@@ -726,4 +726,5 @@ protected function getRecipesTitles2(string $recipes, array $optionnal): array
             // echo json_encode($_SESSION['LAST_ID'] . ' => row > 0 ');
             return $data;
         }
+    }
 }

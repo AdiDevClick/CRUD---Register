@@ -1,7 +1,11 @@
+/*
+                        STYLING FOR CAROUSEL
+*/
+
 .item_container {
     margin: 40px 5px;
     position: relative;
-    background-color: white;
+    /* background-color: white; */
     /* -webkit-box-shadow: -5px 4px 43px -1px rgba(0,0,0,0.5);  */
     /* -webkit-box-shadow: -5px 4px 50px -1px rgba(0,0,0,0.35);  */
     box-shadow: -5px 4px 50px -1px rgba(0,0,0,0.35);
@@ -18,39 +22,39 @@
             display: none;
         }
     }
-    img {
-        display: block;
+    img, iframe {
         width: 100%;
         height: 100%;
         border: none;
+        border-radius: 10px;
         background-size: contain;
-        object-fit: fill;
         aspect-ratio: 16 / 9;
+    }
+
+    img {
+        object-fit: fill;
+        display: block;
     }
     iframe {
         display: none;
-        border: none;
         overflow: none;
-        width: 100%;
-        height: 100%;
         object-fit: contain;
-        background-size: contain;
-        aspect-ratio: 16 / 9;
     }
     
     .item__body {
-        padding: 25px;
+        /* padding: 25px; */
+        margin: 15px auto;
     }
     .item__title {
-        color: #232323;
+        /* color: #232323; */
         font-size: var(--fs-title);
-        font-weight: 400;
-        margin-bottom: 15px;
+        font-weight: 500;
+        margin-bottom: 10px;
     }
     .item__description {
-        color: var(--f-color);
+        /* color: var(--f-color); */
         font-size: var(--fs-description);
-        margin: 5px;
+        margin: 4px auto;
     }
 }
 

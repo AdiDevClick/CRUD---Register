@@ -1,5 +1,6 @@
 import { fetchJSON } from "../functions/api.js"
 import { createElement } from "../functions/dom.js"
+import { DrawerTouchPlugin } from "./DrawerTouchPlugin.js"
 import { ErrorHandler } from "./ErrorHandler.js"
 import { Toaster } from "./Toaster.js"
 
@@ -38,6 +39,10 @@ export class IngredientsFrom {
     #allowedFiles = 'image/jpeg, image/png, image/jpg, image/gif'
     /** @type {Boolean} */
     #isSentAlready = false
+    /** @type {ErrorHandler} */
+    #Errorhandler
+    /** @type {DrawerTouchPlugin} */
+    #touchPlugin
     #file
     #imagePreview
 
@@ -50,6 +55,8 @@ export class IngredientsFrom {
     constructor(list, options = {}) {
         this.#list = list
         this.#list = this.#list.filter((k, v) => k !== '')
+        const grid = document.querySelector('.card_container')
+
         this.options = Object.assign ({}, {
             post: true,
             get: false
@@ -61,6 +68,7 @@ export class IngredientsFrom {
         // this.options.get ? this.options.post = false : this.options.post = true
         // this.#template = document.querySelector('#ingredient-template')
         // this.#target = document.querySelector(".js-ingredient-group")
+        this.#touchPlugin = new DrawerTouchPlugin(grid)
     }
 
     /**
@@ -88,18 +96,21 @@ export class IngredientsFrom {
             this.#target.prepend(this.#ingredient)
             // this.#onIngredientDelete(this.#ingredient)
         })
-        const passedInputs = new ErrorHandler(this.#form, {
+        this.#Errorhandler = new ErrorHandler(this.#form, {
             whichInputCanBeEmpty: ['custom_ingredient', 'step_3', 'step_4', 'step_5', 'step_6', 'file', 'add_preparation'],
             useMyOwnListener: true
         })
         this.#form.addEventListener('submit', e => {
             e.preventDefault()
-            if (!passedInputs.checkInputs) return
+            if (!this.#Errorhandler.checkInputs) {
+                this.#touchPlugin.resetStates
+                return
+            }
             this.#onSubmit(e)
         })
         this.#file.addEventListener('change', e => {
             e.preventDefault()
-            console.log(e.target.files)
+            // console.log(e.target.files)
             const image = URL.createObjectURL(e.target.files[0]);
             this.#imagePreview.style.backgroundImage = `url(${image})`;
         })

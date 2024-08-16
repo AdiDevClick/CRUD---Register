@@ -249,6 +249,10 @@ export class SearchBar
                 // this.#content.newUrl = this.#newUrl
                 // localStorage.setItem('saved_search_results', JSON.stringify(this.#content))
                 // localStorage.setItem('saved_search_query', this.#url.searchParams)
+                
+                // history.replaceState({}, document.title, window.location.origin+'/recherche')
+                // location.reload()
+                
             }
         })
 
@@ -419,7 +423,7 @@ export class SearchBar
         let data = new FormData(this.#searchForm)
         this.#input = data.get('query')
 
-        if (!window.location.href.toString().includes('recherche')) history.pushState({}, document.title, 'recherche/')
+        if (!window.location.href.toString().includes('recherche')) history.pushState({}, document.title, window.location.origin+'/recettes/recherche/')
         if (this.#oldUrl !== window.location.origin+window.location.pathname) this.#newUrl = window.location.origin+window.location.pathname
 
         this.#createOrUpdateNewUrl('create', this.#input, 1)

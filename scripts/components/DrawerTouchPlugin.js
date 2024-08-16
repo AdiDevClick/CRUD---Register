@@ -43,12 +43,13 @@ export class DrawerTouchPlugin {
     #index
     /** @type {String} */
     #clickedElement
+    /** @type {HTMLElement} */
     #grid
     /** @type {AbortController} */
     #controller
 
     /**
-     * @param {Recipe Card} container
+     * @param {HTMLElement} container
      */
     constructor(container) {
         this.container = container
@@ -133,6 +134,9 @@ export class DrawerTouchPlugin {
         this.#showDrawerButton.removeEventListener('click', this.#onOpen.bind(this))
         this.#steps.removeEventListener('click', this.#onOpen.bind(this))
         if (this.#isMobile) {
+            // IMPORTANT in case of reset
+            this.#recipe.scrollTo(50, 0)
+
             this.drawer.style.display = 'block'
             this.#closeButton.removeAttribute('style')
             if (e.currentTarget === this.#showDrawerButton) {
@@ -198,7 +202,9 @@ export class DrawerTouchPlugin {
         this.#card.removeAttribute('style')
         this.#steps.removeAttribute('style')
         this.#isOpened ? this.#isOpened = false : null
-        this.#isFullyOpened ? this.#isFullyOpened : null
+        this.#isFullyOpened ? this.#isFullyOpened = false : null
+        // this.#isScrolledAtTop ? this.#isScrolledAtTop = false : null
+        // this.#isFullyOpened ? this.#isFullyOpened : null
         this.#showDrawerButton.classList.contains('hidden') ? this.#showDrawerButton.classList.remove('hidden') : null
         this.#showDrawerButton.classList.add('show')
         // this.#closeButton.style.display = 'none'
@@ -251,6 +257,12 @@ export class DrawerTouchPlugin {
                 // this.#showDrawerButton.classList.contains('hidden') ? this.#showDrawerButton.classList.remove('hidden') : null
                 // this.#showDrawerButton.classList.add('show')
                 // this.#enableScrollBehavior()
+                
+                
+                console.log(this.#isOpened)
+                console.log(this.#isFullyOpened)
+                console.log(this.#isScrolledAtTop)
+                console.log('object')
                 // document.documentElement.removeAttribute('style')
                 this.#resetStatusAndStyle()
             }, {once: true})
@@ -337,6 +349,11 @@ export class DrawerTouchPlugin {
                 e = e.touches[0]
             }
         }
+        console.log('Start drag => \n')
+        console.log(this.#isOpened)
+        console.log(this.#isFullyOpened)
+        console.log(this.#isScrolledAtTop)
+        console.log('dans le start drag')
         if (this.#isFullyOpened && !this.#isScrolledAtTop) {
             return
         }
@@ -512,6 +529,7 @@ export class DrawerTouchPlugin {
                         this.#showDrawerButton.classList.remove('hidden')
                         this.#showDrawerButton.classList.add('show')
                         this.#enableScrollBehavior()
+                        console.log('je ferme')
                     }, {once: true})
                 }
                 if (this.#isMobile && this.#isFullyOpened && this.lastTranslate.y > 0) {
@@ -607,4 +625,12 @@ export class DrawerTouchPlugin {
     get drawerHeigth() {
         return this.#card.offsetHeight
     }
+
+    get resetStates() {
+        this.#card.style.animation = 'slideToBottom 0.5s forwards'
+        this.#card.addEventListener('animationend', () => {
+            this.#resetStatusAndStyle()
+        }, {once: true})
+        return
+    }    
 }

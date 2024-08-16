@@ -5,7 +5,7 @@ import { fetchJSON } from "./functions/api.js"
 
 const drawerButton = document.querySelector('.drawer__button')
 const recipe = document.querySelector('.recipe')
-const grid = document.querySelector('.card_container')
+// const grid = document.querySelector('.card_container')
 const drawer = document.querySelector('.drawer')
 
 
@@ -83,4 +83,4 @@ if (queryString.toString().includes("update_recipes.php")) {
 //     drawer.addEventListener('click', onOpen)
 // }
 
-new DrawerTouchPlugin(grid)
+// new DrawerTouchPlugin(grid)

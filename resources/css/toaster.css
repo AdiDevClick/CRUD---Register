@@ -9,8 +9,12 @@
     display: grid;
     margin-left: 20px;
     gap: 1rem;
+    
     &:has(.toast.close) {
-        width: 100%;
+        overflow: visible;
+    }
+    &:not(:has(.toast.close)) {
+        overflow: hidden;
     }
 }
 

@@ -1500,7 +1500,8 @@ hr {
         background-size: cover;
         box-shadow: 0 8px 6px -6px black;
         &:hover .upload-icon {
-            opacity: 1;
+            opacity: 0;
+            scale: 1.05;
         }
         /* .file-uploader {
             opacity: 0;
@@ -1517,8 +1518,10 @@ hr {
             left: 50%;
             transform: translate(-50%, -50%);
             /* initial icon state */
-            opacity: 0;
-            transition: opacity 0.3s ease;
+            opacity: 1;
+            scale: 1;
+            transition: scale 0.3s ease, opacity 0.3s ease;
+            /* transition: opacity 0.3s ease; */
             color: #ccc;
             -webkit-text-stroke-width: 2px;
             -webkit-text-stroke-color: #bbb;
