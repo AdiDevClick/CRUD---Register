@@ -48,6 +48,7 @@ export class SearchBar
     #content = {}
     /** @type {Location} */
     #oldUrl = window.location.origin+window.location.pathname
+    /** @type {Location} */
     #newUrl
     #script
     /** @type {AbortController} */
@@ -79,7 +80,7 @@ export class SearchBar
      */
     #handleIntersect = debounce( (entries, observer) => {
         entries.forEach(entry => {
-            if (entry.intersectionRatio > this.#ratio) {
+            if (entry.intersectionRatio > this.#ratio && !this.#intersect) {
                 this.#intersect = true
                 this.#loadMore()
             }
@@ -146,6 +147,7 @@ export class SearchBar
                 this.#loader.dataset.libraryNameObserverType = true
             } else {
                 this.#loader.remove()
+                this.#observer.unobserve(this.#loader)
             }
             // this.#observer.root.style.border = "26px solid #44aa44";
         }, {once: true})
@@ -185,7 +187,6 @@ export class SearchBar
                 location.reload()
             }
             if (history !== null && (window.location.origin+window.location.pathname !== this.#oldUrl)) {
-                
                 const content = localStorage.getItem('forwardContent')
                 this.#content = JSON.parse(content)
 
@@ -213,6 +214,7 @@ export class SearchBar
 
                 this.#onReady("1")
             }
+            console.log('object')
         }
 
         //           //
@@ -224,11 +226,29 @@ export class SearchBar
             if (window.location.href.toString().includes('recherche')) {
             // if (window.location.href.toString().includes('search')) {
                 // e.preventDefault()
-                console.log('je suis dans le beforeunload')
-                this.#content.innerHTML = this.#wrapper.innerHTML
+                this.#content.innerContent = []
+                const XMLS = new XMLSerializer()
+                this.#carousel.initialItemsArray.forEach(element => {
+                    const inp_xmls = XMLS.serializeToString(element)
+                    this.#content.innerContent.push(inp_xmls)
+                })
+                this.#content.input = this.#input.id
                 this.#content.newUrl = this.#newUrl
-                localStorage.setItem('saved_search_results', JSON.stringify(this.#content))
-                localStorage.setItem('saved_search_query', this.#url.searchParams)
+                this.#content.searchResultsLength = this.#searchResults.length
+
+                this.#content.params = {}
+
+                for (const [key, value] of this.#url.searchParams) {
+                    this.#content.params[key] = value
+                }
+
+                localStorage.setItem('forwardContent', JSON.stringify(this.#content))
+                // location.reload()
+                // console.log('je suis dans le beforeunload')
+                // this.#content.innerHTML = this.#wrapper.innerHTML
+                // this.#content.newUrl = this.#newUrl
+                // localStorage.setItem('saved_search_results', JSON.stringify(this.#content))
+                // localStorage.setItem('saved_search_query', this.#url.searchParams)
             }
         })
 
@@ -588,8 +608,10 @@ export class SearchBar
                 pagination: false,
                 grid: true
             })
+            return
         } else {
             this.#carousel.restyle
+            return
         }
     }
 

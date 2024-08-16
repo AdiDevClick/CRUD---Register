@@ -60,8 +60,8 @@ export class CarouselHoverPlugin {
     /**
      * Permet de créer un EventListener pour une action Souris contenant un CustomEvent
      * @param {HTMLElement} object 
-     * @param {EventListenerOptions} eventToListen 
-     * @param {CustomElementConstructor} customEvent  
+     * @param {EventListenerOptions} eventToListen
+     * @param {CustomElementConstructor} customEvent
      * @param {number} animationDelay 
      * @function funct une fonction associée à l'évènement
      * @param {FunctionStringCallback} args Les arguments de la fonction si nécessaire 

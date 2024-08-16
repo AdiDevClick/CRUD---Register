@@ -227,9 +227,15 @@ header {
 
 .navbar {
     &:not(:has(.search.open)) {
-        background-color: var(--site-color-01);
+        /* background-color: var(--site-color-01); */
     }
-    width: 100%;
+    &:is(:has(.search.open)) {
+        border: none transparent;
+    }
+    /* width: 90%; */
+    /* width: 100%; */
+    width: clamp(min(556px, 95%),95%, max(80%, 1024px));
+
     /* height: 60px; */ /* original */
     height: 80px;
     position: fixed;
@@ -237,11 +243,15 @@ header {
     margin: 15px auto;
     top: 0;
     left: 0;
+    right: 0;
     overflow: hidden;
     /* right: 0; */
     /* background-color: var(--site-color-01); */
     padding: 2rem 3rem;
     gap: 1rem;
+    border-radius: 100vh;
+    border: 0.5px rgb(196, 186, 186) solid;
+    outline: none;
     /* padding-right: 60px; /* devrait etre deactivated */
     display: flex!important;
     z-index: 1000;
@@ -343,6 +353,7 @@ header {
     animation: fadeIn 0.5s both;
     animation: borderSlide 0.5s both;
     visibility: inherit;
+    padding: 1px;
 }
 
 .navbar.fadeOut a.active {
@@ -370,12 +381,14 @@ header {
     0% {
         opacity: 0;
         width: 0%;
+
         /* border-bottom-width: 0%; */
         /* transform: translateX(0%); */
     } 
     100% {
         opacity: 1;
         width: 50%;
+
         /* border-bottom-width: 50%; */
         /* transform: translateX(50%); */
     }
@@ -540,7 +553,7 @@ footer {
         min-width: 280px;
     }
 
-    .navbar .toggle_btn, .toggle_btn-box {
+    .navbar .toggle_btn, .toggle_btn-box, .navbar-grid .toggle_btn {
         display: block;
         /* z-index: 3; */
         visibility: visible;
@@ -565,6 +578,8 @@ footer {
     .toggle_btn-box {
         /* retirer tout ça pour remettre le fixed navbar */
         position: fixed;
+        /* grid-column: menu;
+        place-self: end; */
         /* bug sur ipad */
         /* background-color: orange; */
         &:hover {
@@ -835,8 +850,28 @@ input:focus::placeholder, input.input_error:focus::placeholder {
     &:hover:not(.open) {
         /* width: calc(66px - 10px);
         padding: 60px; */
-        /* padding: 10px; */
+        /* text-align: center; */
+        /* EFFET PLUS FUN DU HOVER ? */
+        
+        /* grid mode top & left */
+        /* left: -25%;
+        top: 22%; */
+        /* end of grid mode */
+
+        /* flex mode top & left */
+        /* left: -26%;
+        top: 50%; */
+        /* end of flex mode */
+
+        /* position: absolute; */
+        /* transform: translate(10%, -50%); */
+        /* FIN DE L'EFFET PLUS FUN DU HOVER */
         height: 120px;
+        grid-column-start: search-start;
+        grid-column-end: search-end;
+        justify-self: center;
+        align-items: center;
+        justify-items: center;
     }
     /* &:hover::after {
         content: '';

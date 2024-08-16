@@ -56,10 +56,105 @@
     "util-deprecate": "^1.0.2"
   },
   "scripts": {
+    "vscode:prepublish": "npm run build",
     "dev": "vite",
     "devhost": "vite --host",
     "build": "vite build"
   },
+  "activationEvents": [
+    "*",
+    "onFileSystem:vite.config.mjs",
+    "onFileSystem:vite.config.ts"
+  ],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "configuration": {
+    "type": "object",
+    "title": "Vite",
+    "properties": {
+      "vite.autoStart": {
+        "type": "boolean",
+        "default": true,
+        "description": "Start Vite server with VS Code"
+      },
+      "vite.browserType": {
+        "type": "string",
+        "enum": [
+          "embedded",
+          "system"
+        ],
+        "default": "embedded",
+        "description": "Browser to open Vite app"
+      },
+      "vite.port": {
+        "type": "number",
+        "default": 4000,
+        "description": "Port for Vite server"
+      },
+      "vite.host": {
+        "type": "string",
+        "default": "localhost",
+        "description": "Host for Vite server"
+      },
+      "vite.base": {
+        "type": "string",
+        "default": "",
+        "description": "Base path for open the app"
+      },
+      "vite.https": {
+        "type": "boolean",
+        "default": false,
+        "description": "Enable https"
+      },
+      "vite.pingInterval": {
+        "type": "number",
+        "default": 200,
+        "description": "Interval in mileseconds to try on pinging for server to start"
+      },
+      "vite.maximumTimeout": {
+        "type": "number",
+        "default": 30000,
+        "description": "Maximum timeout in mileseconds waiting for server to start"
+      },
+      "vite.showTerminal": {
+        "type": "boolean",
+        "default": false,
+        "description": "Force on terminal when server starts"
+      },
+      "vite.notifyOnStarted": {
+        "type": "boolean",
+        "default": true,
+        "description": "Send notification when server starts"
+      },
+      "vite.devCommand": {
+        "type": "string",
+        "description": "Command for dev"
+      },
+      "vite.buildCommand": {
+        "type": "string",
+        "default": "npm run build",
+        "description": "Command for build"
+      },
+      "vite.vitepress": {
+        "type": "boolean",
+        "default": true,
+        "description": "Use vitepress if available"
+      },
+      "vite.vitepressBase": {
+        "type": "string",
+        "default": "",
+        "description": "Base path for Vitepress"
+      },
+      "vite.vitepressAutoRouting": {
+        "type": "boolean",
+        "default": false,
+        "description": "Navigate to the page you are working on"
+      },
+      "vite.open": {
+        "type": "boolean",
+        "default": true,
+        "description": "Open app on server ready"
+      }
+    }
+  }
 }

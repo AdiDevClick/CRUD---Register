@@ -1,6 +1,7 @@
 /* LABELS */
 label {
     font-size: var(--textfs);
+    text-wrap: pretty;
     color: var(--navbar-color);
     &#add_image {
         cursor: pointer;
@@ -101,6 +102,7 @@ input[type=text], input[type=number], input[type=password], input[type=email], t
     border-radius: 10px;
     color: #eeeeee;
     transition: all 0.3s ease;
+    font-size: larger;
     @media screen and (max-width: 576px) {
         margin: 10px auto;
     }
@@ -241,10 +243,6 @@ form {
     opacity: 0;
     filter: blur(5px);
     transform: translateX(-100%);
-    -webkit-transition: all 1s;
-    -moz-transition: all 1s;
-    -o-transition: all 1s;
-    transition: all 1s;
 }
 
 .form-show, .form-hidden:has(.input_error) {
@@ -252,6 +250,10 @@ form {
     filter: blur(0);
     -o-transform: translateX(0);
     transform: translateX(0);
+    -webkit-transition: all 1s;
+    -moz-transition: all 1s;
+    -o-transition: all 1s;
+    transition: all 1s;
 }
 
 .form-logo {
@@ -1580,6 +1582,91 @@ hr {
 .container {
     width: min(100%, 1000px);
     margin-inline: auto;
+}
+
+.inline-flex {
+    display: inline-flex;
+    align-items: center;
+    gap: 6rem;
+    justify-content: space-around;
+    align-content: space-between;
+    flex-wrap: wrap;
+}
+
+.navbar-grid {
+    --padding-inline: 2rem;
+    --content-max-width: 100%;
+    --test : grid-column-start: search-start;
+    --testt : grid-column-end: menu-start;
+    margin: 15px auto;
+    height: 80px;
+    z-index: 1000;
+    top: 0;
+    left: 0;
+    position: fixed;
+    width: 100%;
+    display: grid;
+    align-items: center;
+    justify-items: center;
+    overflow: hidden;
+    border-radius: 100vh;
+    &:not(:has(.search.open)) {
+        background-color: var(--site-color-01);
+    }
+    padding: 0 4rem;
+    gap: 1rem;
+    grid-template-rows:
+    [top-start] auto
+    [top-end center-start] 1px
+    [center-end bottom-end] auto;
+    grid-template-columns:
+    [logo-start] 100px [logo-end search-start] 100px [search-end menu-start] 1fr [menu-end];
+    > .logo {
+        grid-column: logo;
+        grid-row: center;
+    }
+    > .search-form {
+        grid-column: search;
+        grid-row: center;
+        position: relative;
+    }
+    > .links {
+        grid-column: menu;
+        grid-row: center;
+        display: flex;
+        justify-self: end;
+        gap: 2rem;
+    }
+    /* &.fadeOut {
+        :is(.search.open) {
+            position: fixed;
+            top: 15px;
+            right: 25px;
+            /* right: 20px; */
+            /* @media screen and (max-width: 576px) {
+                right: 0;
+            }
+        }
+    } */
+    &.fadeOut {
+        .search {
+            transition: none;
+        }
+        .search.open {
+            /* content: ''; */
+            background: transparent;
+            transition: .5s;
+            margin: 0 auto;
+            opacity: 1;
+            left: 0;
+            right: 0;
+            /* width: 80%; */
+            @starting-style {
+                right: 25px;
+                opacity: 0;
+            }
+        }
+    }
 }
 
 .file-uploader {

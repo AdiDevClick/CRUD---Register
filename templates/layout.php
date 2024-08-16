@@ -26,7 +26,8 @@ if ($url === 'about.php' || 'planningType.php' || 'todo.html' || 'carousel.html'
 
 $dev = true;
 // $dev = false;
-$vite = false;
+// $vite = false;
+$vite = true;
 
 ?>
 
@@ -50,7 +51,7 @@ $vite = false;
     crossorigin="anonymous"
     referrerpolicy="no-referrer"/>
     <!-- <script type="module" src="<?php //echo($rootUrl). $clicServer?>/scripts/toaster.js" defer></script> -->
-    <script src="<?php echo($rootUrl). $clicServer?>/scripts/script.js" defer></script>
+    <script src="<?php echo($rootUrl). $clicServer?>/scripts/script.js" type="module" defer></script>
     <script src="<?php echo($rootUrl). $clicServer?>/scripts/searchApp.js" type="module" defer></script>
 
     <!-- <link rel="stylesheet" href="<?php //echo($rootUrl). $clicServer?>/resources/css/main.css"/> -->
@@ -102,7 +103,7 @@ if (!$dev) {
     <!-- Start Header Content -->
     <!-- <header class="header-main wrapper"> -->
     <header class="header-main">
-        <nav>
+        <nav class="">
             <div class="dropdown-menu-background">
                 <div class="dropdown-menu">
                         <li><a
@@ -162,9 +163,13 @@ if (!$dev) {
                     <?php endif?>
                 </div>
             </div>
-        
+            <!-- <div> -->
+            <!-- <div class="logo"><a href="<?php // echo strip_tags($rootUrl). $clicServer.'/index.php'?>">Adi Dev Click </a></div> -->
+            
             <div class="navbar">
-                <div class="logo"><a href="<?php echo strip_tags($rootUrl). $clicServer.'/index.php' ?>">Adi Dev Click </a></div>
+                <!-- default -->
+                <div class="logo"><a href="<?php echo strip_tags($rootUrl). $clicServer.'/index.php'?>">Adi Dev Click </a></div>
+                <!-- end of default -->
                 <form
                     id="search-form"
                     class="search-form"
@@ -207,13 +212,7 @@ if (!$dev) {
                         null;
                     }?>
                     href="<?php echo($rootUrl). $clicServer.'/index.php' ?>">Accueil</a></li>
-                    <li><a
-                    <?php if ($url === 'about.php') {
-                        echo strip_tags('class="active"');
-                    } else {
-                        null;
-                    } ?>
-                    href="#">About</a></li>
+                    
                     <li><a
                     <?php if ($url === 'planningType.php') {
                         echo strip_tags('class="active"');
@@ -235,13 +234,7 @@ if (!$dev) {
                         null;
                     } ?>
                     href="<?php echo($rootUrl). $clicServer.'/todo.html' ?>">Ma ToDo list</a></li>
-                    <li><a
-                    <?php if ($url === 'contact.php') {
-                        echo strip_tags('class="active"');
-                    } else {
-                        null;
-                    } ?>
-                    href="<?php echo($rootUrl). $clicServer.'/contact.php' ?>">Contact</a></li>
+                    
                     <?php //$setLoggedStatus?>
                     <?php if(!isset($_COOKIE['EMAIL'])): ?>
                     <?php //if(!isset($_SESSION['LOGGED_USER'])):?>
@@ -273,6 +266,7 @@ if (!$dev) {
                     </div>
                 </section>
             </div>
+            <!-- </div> -->
         <!-- </div class="dropdown-menu-background"> -->
         </nav>
 
@@ -299,6 +293,22 @@ if (!$dev) {
     <footer class="">
         <div class="">
             <p>© 2023 Copyright <a class="" href="https://github.com/AdiDevClick/">Adi Dev Click</a></p>
+            <li><a
+                <?php if ($url === 'contact.php') {
+                    echo strip_tags('class="active"');
+                } else {
+                    null;
+                } ?>
+                href="<?php echo($rootUrl). $clicServer.'/contact.php' ?>">Contact
+            </a></li>
+            <li><a
+                <?php if ($url === 'about.php') {
+                    echo strip_tags('class="active"');
+                } else {
+                    null;
+                } ?>
+                href="#">About
+            </a></li>
         </div>
     </footer>
     <!-- end of footer -->

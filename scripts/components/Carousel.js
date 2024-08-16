@@ -59,7 +59,7 @@ export class Carousel
      */
     #intersectHandler = debounce( (entries) => {
         entries.forEach(entry => {
-            if (entry.intersectionRatio > this.#ratio) {
+            if (entry.intersectionRatio > this.#ratio & !this.#intersect) {
                 this.#intersect = true
                 this.#animate()
                 this.#autoSlide()
@@ -95,6 +95,7 @@ export class Carousel
                 this.#isMobile = mobile
                 this.setStyle()
                 this.#moveCallbacks.forEach(cb => cb(this.currentItem))
+                return
             }
         })
         return
@@ -285,7 +286,7 @@ export class Carousel
                 item.style.width = ((100 / this.#visibleSlides) / ratio) + "%"
             
             // item.style.width = "20%"
-            // 
+            //
         })
     }
 
@@ -385,6 +386,8 @@ export class Carousel
      * @returns 
      */
     async #autoSlide() {
+        console.log('callback')
+
         if (this.#scrolling || !this.#intersect) return
 
         this.#alreadyHovered ? this.startTime : null
@@ -747,6 +750,8 @@ export class Carousel
 
     /** @param {moveCallback} */
     #onMove(callback) {
+            console.log('object')
+
         this.#moveCallbacks.push(callback)
     }
     
@@ -763,6 +768,7 @@ export class Carousel
         //     this.setStyle()
         //     this.#moveCallbacks.forEach(cb => cb(this.currentItem))
         // }
+        
     }
 
     translate(percent) {

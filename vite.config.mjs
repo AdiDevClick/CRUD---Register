@@ -1,5 +1,4 @@
 import { defineConfig } from "vite"
-
 export default defineConfig({
     server: {
         // origin: 'https://http://192.168.1.181:5173',

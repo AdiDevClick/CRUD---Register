@@ -4,7 +4,8 @@ let ticking = false
 const toggleBtnIcon = document.querySelector('.toggle_btn i')
 const toggleBtn = document.querySelector('.toggle_btn')
 const toggleBtnBox = document.querySelector('.toggle_btn-box')
-const navbar = document.querySelector('.navbar')
+const navbar = document.querySelector('.navbar') 
+// const navbar = document.querySelector('.navbar-grid') 
 const nav = document.querySelector('.nav')
 const header = document.querySelector('header')
 const logo = document.querySelector('.logo')
@@ -12,6 +13,7 @@ const dropDownMenu = document.querySelector('.dropdown-menu')
 const dropDownMenuBackground = document.querySelector('.dropdown-menu-background')
 const leftSideMenu = document.querySelector('.leftside-menu')
 const leftSideMenuBackground = document.querySelector('.leftside-menu-background')
+
 
 
 const openMenu = function (e) {
@@ -65,6 +67,7 @@ const openMenu = function (e) {
 //     // dropDownMenu.addEventListener('click', stopPropagation)
 // }
 
+
 const stopPropagation = function(e) {
     e.stopPropagation()
 }
@@ -83,6 +86,17 @@ export const closeMenu = (e) => {
     // toggleBtnBox.removeEventListener('click', closeMenu)
     // navbar.removeEventListener('click', ifOpened)
 }
+
+// export function closeMenu(e) {
+//     e.preventDefault()
+//     dropDownMenu.classList.remove('open')
+//     dropDownMenuBackground.classList.remove('open')
+//     toggleBtn.classList.remove('open')
+//     navbar.classList.remove('open')
+//     dropDownMenu.removeEventListener('click', stopPropagation)
+// }
+
+
 // const closeMenu = function(e) {
 //     e.preventDefault()
 //     if (e.target.classList.contains('open')) {

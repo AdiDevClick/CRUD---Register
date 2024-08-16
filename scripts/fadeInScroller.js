@@ -34,7 +34,7 @@ const intersectHandler = function(entries, observer) {
 document.documentElement.classList.add('form-loaded')
 
 
-window.addEventListener("DOMContentLoaded", function () {
+window.addEventListener("DOMContentLoaded", () => {
     const observer = new IntersectionObserver(intersectHandler, options)
     const hiddenElements = document.querySelectorAll('.form-hidden')
     hiddenElements.forEach((el) => observer.observe(el))

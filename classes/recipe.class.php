@@ -637,9 +637,93 @@ class Recipe extends Mysql
         $recipe = $retrieveRecipeWithCommentsStatement->fetchAll(PDO::FETCH_ASSOC);
         return $recipe;
     }
-}
+
 /* if (!isset($getData['id']) && is_numeric($getData['id']))
 {
     echo ('Il faut un identifiant de recette pour la modifier.');
     return;
 } */
+
+protected function getRecipesTitles2(string $recipes, array $optionnal): array
+    {
+        $limit = $optionnal['limit'];
+        $optionnal['resetState'] == 1 ? $_SESSION['LAST_ID'] = 0 : null;
+
+        // $optionnal['reset'] ? $_SESSION['LAST_ID'] = 0 : null;
+        // echo "resetState => ". $optionnal['resetState'] . ' limit => ' . $limit . ' session id => ' . $_SESSION['LAST_ID'];
+
+        // echo $_SESSION['LAST_ID'];
+        // $reset = $optionnal['_reset'];
+        $sqlRecipe = "SELECT *,
+                MATCH title
+                    AGAINST(:word IN BOOLEAN MODE) AS score
+                FROM users r
+                LEFT JOIN users2 i
+                    ON i.recipe_id = r.recipe_id
+                LEFT JOIN images i
+                    ON i.recipe_id = r.recipe_id
+                WHERE r.is_enabled = 1 AND r.recipe_id > :id
+                HAVING score > 0
+                ORDER BY r.recipe_id ASC
+                LIMIT $limit;";
+        // $sqlRecipe = "SELECT *,
+        //         MATCH title
+        //             AGAINST(:word IN BOOLEAN MODE) AS score
+        //         FROM users r
+        //         LEFT JOIN users2 i
+        //             ON i.recipe_id = r.recipe_id
+        //         LEFT JOIN images i
+        //             ON i.recipe_id = r.recipe_id
+        //         WHERE r.is_enabled = 1 AND r.recipe_id > :id
+        //         HAVING score > 0
+        //         ORDER BY r.recipe_id ASC
+        //         LIMIT $limit;";
+        // $sqlRecipe = 'SELECT *
+        //     MATCH (r.title)
+        //         AGAINST (:word IN BOOLEAN MODE) AS score
+        //     FROM recipes r
+        //     LEFT JOIN images i
+        //         ON i.recipe_id = r.recipe_id
+        //     ORDER BY score DESC;';
+        $getRecipesIdStatement = $this->connect()->prepare($sqlRecipe);
+        if (!$getRecipesIdStatement->execute([
+            'word' => $recipes . '*',
+            'id' => $_SESSION['LAST_ID'],
+        ])) {
+            $getRecipesIdStatement = null;
+            //throw new Error((string)header("Location: ".Functions::getUrl()."?error=stmt-failed"));
+            throw new Error("stmt Failed");
+        }
+
+        if ($getRecipesIdStatement->rowCount() == 0) {
+            // echo json_encode($_SESSION['LAST_ID'] . ' => row zero ');
+            $_SESSION['LAST_ID'] = 0;
+            $getRecipesIdStatement = null;
+            return $data = [];
+            //echo strip_tags("Cette recette n'existe pas.");
+            //throw new Error((string)header("Location: ".Functions::getUrl()."?error=recipetitle-not-found"));
+            // throw new Error("Le titre de cette recette n'existe pas");
+            //header("Location :" .Functions::getUrl(). "?error=recipe-not-found");
+            //exit();
+        }
+
+        if ($getRecipesIdStatement->rowCount() > 0) {
+            // $data = [];
+            // output data of each row
+            // $recipesArray = $getRecipesIdStatement->fetchAll(PDO::FETCH_ASSOC) ;
+            while ($recipesArray = $getRecipesIdStatement->fetch(PDO::FETCH_ASSOC)) {
+                // echo json_encode($recipesArray[0]['recipe_id']);
+                // echo  json_encode($_SESSION['LAST_ID']);
+
+                if ($recipesArray['recipe_id'] > $_SESSION['LAST_ID']) {
+                    $_SESSION['LAST_ID'] = $recipesArray['recipe_id'];
+                    // echo  json_encode($_SESSION['LAST_ID']);
+                    // array_push($data, $recipesArray);
+                    $data[] = $recipesArray;
+                }
+                // $_SESSION['LAST_ID'] = $recipesArray['recipe_id']+= $limite;
+            }
+            // echo json_encode($_SESSION['LAST_ID'] . ' => row > 0 ');
+            return $data;
+        }
+}

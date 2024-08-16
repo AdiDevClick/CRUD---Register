@@ -16,6 +16,7 @@ const wrapper = document.querySelector('#wrapper')
 const content = wrapper.innerHTML
 const oldUrl = window.location
 let newUrl
+let newEvent
 
 // console.log("new URL => " , oldUrl, "\n  old URL => "+ newUrl)
 let isOpened
@@ -40,6 +41,10 @@ const onClose = function (e) {
 
         // if (wrapper.classList.contains('hidden')) wrapper.classList.remove('hidden')
         isOpened = false
+        console.log(newEvent)
+        if (newEvent?.type === "observer") newEvent.detail.disconnect()
+
+        console.log('je suis passé je ferme le menu')
     }
 }
 
@@ -73,9 +78,13 @@ const onOpen = function (e) {
 
 searchIcon.addEventListener('click', onOpen)
 
-window.addEventListener("DOMContentLoaded", () => {
+window.addEventListener("DOMContentLoaded", (e) => {
     const observer = new MutationObserver(callback)
     observer.observe(loaded, { attributes: true })
+    newEvent = new CustomEvent('observer', {
+        bubbles: false,
+        detail: observer
+    }, {once: true})
 })
 
 pagination.forEach(element => {
