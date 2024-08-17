@@ -225,6 +225,43 @@ header {
     left: 0; */
 }
 
+/* .nav {
+    width: clamp(min(98%, 556px),95%, max(80%, 1024px));
+    gap: 2rem;
+    padding: 2rem 3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80px;
+    border-radius: 100vh;
+    border: 0.5px rgb(196, 186, 186) solid;
+    border-inline: none;
+    outline: none;
+} */
+
+nav.nav {
+    width: clamp(min(98%, 556px),95%, max(80%, 1024px));
+    height: 80px;
+    position: sticky; /* meilleur choix que fixed */
+    margin: 15px auto;
+    top: 0;
+    left: 0;
+    right: 0;
+    /* overflow: hidden; */
+    padding: 2rem 3rem;
+    gap: 1rem;
+    outline: none;
+    display: flex!important;
+    z-index: 1000;
+    align-items: center;
+    justify-content: space-between;
+    align-content: space-between;
+    & img {
+        height: 100px;
+    }
+}
+
+
 .navbar {
     &:not(:has(.search.open)) {
         /* background-color: var(--site-color-01); */
@@ -233,10 +270,9 @@ header {
         border: none transparent;
     }
     /* width: 90%; */
-    /* width: 100%; */
-    width: clamp(min(98%, 556px),95%, max(80%, 1024px));
+    width: 100%;
+    /* width: clamp(min(98%, 556px),95%, max(80%, 1024px)); */
     /* width: clamp(min(556px, 95%),95%, max(80%, 1024px)); */
-
     /* height: 60px; */ /* original */
     height: 80px;
     /* position: fixed; */
@@ -260,6 +296,7 @@ header {
     justify-content: space-between;
     /* justify-content: space-around; */
     align-content: space-between;
+    
     /* align-items: flex-end; */
     /* flex-wrap: wrap; */
     /* flex-direction: column; */
@@ -293,11 +330,14 @@ header {
         }
         .search.open {
             /* content: ''; */
+            width: clamp(min(98%, 556px),90%, max(80%, 1024px));
+
             background: transparent;
             transition: .5s;
             margin: 0 auto;
             position: fixed;
             opacity: 1;
+            top: 20px;
             left: 0;
             right: 0;
             /* width: 80%; */
@@ -918,7 +958,8 @@ input:focus::placeholder, input.input_error:focus::placeholder {
         height: 80px;
         right: 25px;
         top: 0;
-        width: calc(100% - 20%);
+        /* width: calc(100% - 20%); */
+        width: 100%;
         margin-right: 20px;
         > input {
             color: white;

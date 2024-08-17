@@ -103,7 +103,7 @@ if (!$dev) {
     <!-- Start Header Content -->
     <!-- <header class="header-main wrapper"> -->
     <header class="header-main">
-        <nav class="">
+        <nav class="nav">
             <div class="dropdown-menu-background">
                 <div class="dropdown-menu">
                         <li><a
@@ -163,13 +163,20 @@ if (!$dev) {
                     <?php endif?>
                 </div>
             </div>
-            <!-- <div> -->
-            <!-- <div class="logo"><a href="<?php // echo strip_tags($rootUrl). $clicServer.'/index.php'?>">Adi Dev Click </a></div> -->
-            
+            <div>
+                <img src="img/logoicon.svg" class="form-logo"></img>
+                <a class="img-link" href="<?php echo strip_tags($rootUrl). $clicServer.'/index.php'?>"></a>
+            </div>
             <div class="navbar">
                 <!-- default -->
-                <div class="logo"><a href="<?php echo strip_tags($rootUrl). $clicServer.'/index.php'?>">Adi Dev Click </a></div>
+                 <!-- <div class="logo form-logo">
+                    <img src="img/logoicon.svg" alt="Logo du site web">
+                    <a href="<?php // echo strip_tags($rootUrl). $clicServer.'/index.php'?>"></a>
+                </div> -->
+                <!-- <div class="logo"><a href="<?php // echo strip_tags($rootUrl). $clicServer.'/index.php'?>">AdiDevClick</a></div> -->
                 <!-- end of default -->
+                <!-- <div class="nav"> -->
+
                 <form
                     id="search-form"
                     class="search-form"
@@ -252,6 +259,7 @@ if (!$dev) {
                     <?php endif?>
                     
                 </ul>
+
                 <?php if(!isset($_COOKIE['EMAIL'])): ?>
                 <?php //if(!isset($_SESSION['LOGGED_USER'])):?>
                 <?php //if(!isset($loggedUser['email'][0])):?>
@@ -265,7 +273,9 @@ if (!$dev) {
                         <i></i>
                     </div>
                 </section>
-            </div>
+                </div>
+
+            <!-- </div> -->
             <!-- </div> -->
         <!-- </div class="dropdown-menu-background"> -->
         </nav>

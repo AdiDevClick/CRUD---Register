@@ -260,6 +260,8 @@ form {
     filter: drop-shadow(16px 16px 20px rgb(255, 254, 254)) invert(70%);
     display: flex;
     /* width: 30%; */
+    /* width: 50px; */
+    width: auto;
     margin: 10px;
     &.icon {
         height: 50px;
@@ -1672,7 +1674,7 @@ hr {
     }
 }
 
-.file-uploader {
+.file-uploader, .img-link {
     /* make it invisible */
     opacity: 0;
     height: 100%;
