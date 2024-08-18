@@ -259,6 +259,31 @@ nav.nav {
     & img {
         height: 100px;
     }
+    .nav .logo:hover {
+        scale: 1.05;
+    }
+    &.fadeOut {
+        .search {
+            transition: none;
+        }
+        .search.open {
+            /* content: ''; */
+
+            /* background: transparent; */
+            transition: .5s;
+            /* margin: 0 auto;
+            position: fixed; */
+            opacity: 1;
+            /* top: 20px;
+            left: 0;
+            right: 0; */
+            /* width: 80%; */
+            @starting-style {
+                /* right: 25px; */
+                opacity: 0;
+            }
+        }
+    }
 }
 
 
@@ -354,21 +379,18 @@ nav.nav {
         margin: 20px;
     }
 } */
+.nav .logo a {
+    font-size: var(--textfs);
+    font-weight: 600;
+    cursor: pointer;
+}
 
 /* .navbar a {
     display: unset;
     text-decoration: none;
 } */
 
-.navbar .logo a {
-    font-size: var(--textfs);
-    font-weight: 600;
-    cursor: pointer;
-}
 
-.navbar .logo:hover {
-    scale: 1.05;
-}
 
 .navbar .links {
     display: flex;
