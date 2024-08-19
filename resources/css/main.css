@@ -256,12 +256,17 @@ nav.nav {
     align-items: center;
     justify-content: space-between;
     align-content: space-between;
-    & img {
-        height: 100px;
+    & .logo {
+        transition: 0.3s;
+        width: 100px;
+        &:hover {
+            scale: 1.05;
+        }
+        &:active {
+            scale: 0.95;
+        }
     }
-    .nav .logo:hover {
-        scale: 1.05;
-    }
+    
     &.fadeOut {
         .search {
             transition: none;
@@ -295,9 +300,9 @@ nav.nav {
         border: none transparent;
     }
     /* width: 90%; */
-    width: 100%;
+    /* width: 100%; */
     /* width: clamp(min(98%, 556px),95%, max(80%, 1024px)); */
-    /* width: clamp(min(556px, 95%),95%, max(80%, 1024px)); */
+    width: clamp(min(556px, 95%),95%, max(70%, 1024px));
     /* height: 60px; */ /* original */
     height: 80px;
     /* position: fixed; */
@@ -635,9 +640,9 @@ footer {
         inset: 0px 0px 0px 0px;
     }
 
-    .navbar .logo {
+    /* .navbar .logo {
         margin: 20px;
-    }
+    } */
 
     .toggle_btn-box {
         /* retirer tout ça pour remettre le fixed navbar */

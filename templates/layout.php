@@ -26,8 +26,8 @@ if ($url === 'about.php' || 'planningType.php' || 'todo.html' || 'carousel.html'
 
 $dev = true;
 // $dev = false;
-$vite = false;
-// $vite = true;
+// $vite = false;
+$vite = true;
 
 ?>
 
@@ -163,7 +163,7 @@ if (!$dev) {
                     <?php endif?>
                 </div>
             </div>
-            <div>
+            <div class="logo">
                 <img src="img/logoicon.svg" class="form-logo"></img>
                 <a class="img-link" href="<?php echo strip_tags($rootUrl). $clicServer.'/index.php'?>"></a>
             </div>
