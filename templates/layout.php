@@ -26,8 +26,8 @@ if ($url === 'about.php' || 'planningType.php' || 'todo.html' || 'carousel.html'
 
 $dev = true;
 // $dev = false;
-// $vite = false;
-$vite = true;
+$vite = false;
+// $vite = true;
 
 ?>
 
@@ -164,7 +164,7 @@ if (!$dev) {
                 </div>
             </div>
             <div class="logo">
-                <img src="img/logoicon.svg" class="form-logo"></img>
+                <img src="<?= $rootUrl. $clicServer ?>/img/logoicon.svg" class="form-logo"></img>
                 <a class="img-link" href="<?php echo strip_tags($rootUrl). $clicServer.'/index.php'?>"></a>
             </div>
             <div class="navbar">
@@ -244,8 +244,6 @@ if (!$dev) {
                     
                     <?php //$setLoggedStatus?>
                     <?php if(!isset($_COOKIE['EMAIL'])): ?>
-                    <?php //if(!isset($_SESSION['LOGGED_USER'])):?>
-                    <?php //if(!isset($loggedUser['email'][0])):?>
                         <li><a class="" href="<?php echo($rootUrl). $clicServer.'/index.php#username' ?>">Se connecter</a></li>
                         <!-- <li><a class="" href="<?php //echo($rootUrl). 'recettes/register.php'?>">S'enregistrer</a></li> -->
                     <?php endif?>
@@ -265,11 +263,29 @@ if (!$dev) {
                 <?php //if(!isset($loggedUser['email'][0])):?>
                     <a href="<?php echo($rootUrl). $clicServer.'/register.php' ?>" class="action-btn">S'enregistrer</a>
                 <?php endif?>
+
+                <?php if(isset($_COOKIE['EMAIL'])): ?>
+                    
+                    <section class="account" id="account">
+                        <div class="icon-search-input">
+                            <img src="<?= $rootUrl. $clicServer ?>/img/logoicon.svg" class=""></img>
+                            <a class="img-link" href="<?php echo strip_tags($rootUrl). $clicServer.'/account.php'?>"></a>
+                        </div>
+                        <ul class="sub-menu">
+                            <li><a <?php if ($url === 'create_recipes.php') {
+                                echo strip_tags('class="active"');
+                            }?> class="" href="<?php echo($rootUrl). $clicServer.'/recipes/create_recipes.php' ?>">Créer une recette</a></li>
+                            <li><a class="" href="<?php echo($rootUrl). $clicServer.'/deconnexion.php' ?>">Se déconnecter</a></li>
+                        </ul>
+                    </section>
+
+                <?php endif?>
+
                 <section class="toggle_btn-box">
                     <div class="toggle_btn">
                         <!-- <i class="fa-solid fa-bars"></i> -->
                         <i></i>
-                        <i></i>
+                        <i></i> 
                         <i></i>
                     </div>
                 </section>

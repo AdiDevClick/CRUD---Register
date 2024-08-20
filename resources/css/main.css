@@ -83,27 +83,64 @@ from the local website :
     border-radius: 30px;
     border-top: 1px solid var(--site-color-01);
     border-bottom: 1px solid var(--site-color-01);
+    p {
+        position: absolute; /* pose problème sur la splash screen */
+        display: flex;
+        flex-wrap: wrap;
+        font-size: 4rem;
+        color: var(--navbar-color);
+        font-weight: 600;
+        letter-spacing: 0.1rem;
+        /* width: calc(100% - 20px); */
+        margin: 20 30 20;
+        padding: 0 20;
+        span {
+            position: relative;
+            color: var(--background-color);
+        }
+        span::before {
+            content: "";
+            right: -22px;
+            top: 50%;
+            position: absolute;
+            height: 4rem;
+            width: 20px;
+            background: var(--background-color);
+            transform: translateY(-45%);
+            animation: blink 0.7s infinite;
+        }
+        span.stop-blinking::before {
+            animation: none;
+        }
+    }
+    &.small {
+        max-height: 200px;
+        min-height: 100px;
+        p {
+            font-size: var(--fs-title);
+        }
+    }
 }
 
-.hero p {
-    position: absolute; /* pose problème sur la splash screen */
-    display: flex;
+/* .hero p {
+    position: absolute /* pose problème sur la splash screen */
+    /* display: flex;
     flex-wrap: wrap;
     font-size: 4rem;
     color: var(--navbar-color);
     font-weight: 600;
     letter-spacing: 0.1rem;
-    /* width: calc(100% - 20px); */
+    /* width: calc(100% - 20px);
     margin: 20 30 20;
     padding: 0 20;
-}
+} */
 
-.hero p span {
+/* .hero p span {
     position: relative;
     color: var(--background-color);
-}
+} */
 
-.hero p span::before {
+/* .hero p span::before {
     content: "";
     right: -22px;
     top: 50%;
@@ -113,11 +150,11 @@ from the local website :
     background: var(--background-color);
     transform: translateY(-45%);
     animation: blink 0.7s infinite;
-}
+} */
 
-.hero p span.stop-blinking::before {
+/* .hero p span.stop-blinking::before {
     animation: none;
-}
+} */
 
 @keyframes blink {
     50% {
@@ -266,6 +303,17 @@ nav.nav {
             scale: 0.95;
         }
     }
+
+    & .account-img {
+        transition: 0.3s;
+        width: 30px;
+        &:hover {
+            scale: 1.05;
+        }
+        &:active {
+            scale: 0.95;
+        }
+    }
     
     &.fadeOut {
         .search {
@@ -298,6 +346,8 @@ nav.nav {
     }
     &:is(:has(.search.open)) {
         border: none transparent;
+        overflow: hidden;
+/*  */
     }
     /* width: 90%; */
     /* width: 100%; */
@@ -305,13 +355,14 @@ nav.nav {
     width: clamp(min(556px, 95%),95%, max(70%, 1024px));
     /* height: 60px; */ /* original */
     height: 80px;
+    max-height: 80px;
     /* position: fixed; */
     position: sticky; /* meilleur choix que fixed */
     margin: 15px auto;
-    top: 0;
-    left: 0;
-    right: 0;
-    overflow: hidden;
+    /* top: 0; */
+    /* left: 0; */
+    /* right: 0; */
+    /* overflow: hidden; */
     /* right: 0; */
     /* background-color: var(--site-color-01); */
     padding: 2rem 3rem;
@@ -486,6 +537,24 @@ nav.nav {
     }
 }
 /* END OF NAVBAR ANIMATION */
+
+/* NAVBAR SUBMENU */
+.sub-menu {
+    /* overflow: auto; */
+    position: absolute;
+    min-height: 50px;
+    background: grey;
+    /* background: var(--fs-description); */
+    min-width: fit-content;
+    width: max-content;
+    bottom: -62px;
+    padding: 10px;
+    visibility: hidden;
+    opacity: 0;
+    /* transition: 0.3s; */
+    /* z-index: 9000; */
+}
+/* END OF NAVBAR SUBMENU */
 
 /* @keyframes slidein {
     0% { left: 0;}
@@ -666,7 +735,7 @@ footer {
         /* retirer tout ça pour remettre le fixed navbar */
         padding-right: 5%;
         position: sticky;
-        align-content: flex-start;
+        /* align-content: flex-start; */
         /* align-content: space-between; */
         align-items: flex-end;
         flex-wrap: wrap;
@@ -893,7 +962,7 @@ input:focus::placeholder, input.input_error:focus::placeholder {
 /* END OF PLACEHOLDERS */
 
 /* SEARCHBAR */
-.search {
+.search, .account {
     background: orange;
     background-position: 50%;
     background-repeat: no-repeat;
@@ -912,6 +981,10 @@ input:focus::placeholder, input.input_error:focus::placeholder {
     display: flex;
     justify-content: center;
     align-items: center;
+    position: relative;
+    &.account .icon-search-input {
+        height: 80px;
+    }
     /* background-position: 50%;
     background-repeat: no-repeat;
     border-radius: 80px;
@@ -921,7 +994,7 @@ input:focus::placeholder, input.input_error:focus::placeholder {
     right: 0;
     width: 66px;
     z-index: 11; */
-    &:hover:not(.open) {
+    &:hover:not(.open), .account:hover {
         /* width: calc(66px - 10px);
         padding: 60px; */
         /* text-align: center; */
@@ -940,12 +1013,20 @@ input:focus::placeholder, input.input_error:focus::placeholder {
         /* position: absolute; */
         /* transform: translate(10%, -50%); */
         /* FIN DE L'EFFET PLUS FUN DU HOVER */
-        height: 120px;
+        /* height: 120px; */
+        height: 80px;
+        /* height: max-content; */
+        border-radius: 10px;
         grid-column-start: search-start;
         grid-column-end: search-end;
         justify-self: center;
         align-items: center;
         justify-items: center;
+        .sub-menu {
+            transition: 0.5s;
+            opacity: 1;
+            visibility: visible;
+        }
     }
     /* &:hover::after {
         content: '';
@@ -979,6 +1060,10 @@ input:focus::placeholder, input.input_error:focus::placeholder {
         width: 66px;
     }
     &.open {
+        .account {
+            opacity: 0;
+            visibility: hidden;
+        }
         /* width: 100%; */
         content: '';
         position: absolute; /* a supprimer */
@@ -1020,6 +1105,7 @@ input:focus::placeholder, input.input_error:focus::placeholder {
         cursor: pointer;
         position: relative;
         padding: 20px;
+
         /* position: absolute;
         right: 20px;
         top: 50%; */
@@ -1038,6 +1124,7 @@ input:focus::placeholder, input.input_error:focus::placeholder {
             animation: fa-bounce 1s infinite cubic-bezier(0.28, 0.84, 0.42, 1);
         }
     }
+
     @media screen and (max-width: 996px) {
         &.open {
             ~ .toggle_btn-box {
