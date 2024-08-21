@@ -840,6 +840,7 @@ form {
         scroll-snap-type: y mandatory;
         max-height: 100%;
         /* min-height: fit-content; */
+        z-index: 1000;
         .show_drawer {
             display: block;
         }
@@ -1391,7 +1392,7 @@ hr {
     border-radius: 100vh;
     z-index: 3;
     &:active {
-        transition: all 0.3s ease;
+        transition: scale 0.3s ease;
         scale: 0.95;
     }
 
@@ -1431,7 +1432,7 @@ hr {
     /* border: var(--background-color) solid 20px; */
     /* background: orange; */
     /* height: 25px; */
-    
+    /* transition: scale 0.3s ease; */
     /* transition: all 2s ease-in;
     animation: slideToBottom 0.3s; */
     /* mask-image: linear-gradient(to top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.7)); */
@@ -1470,16 +1471,16 @@ hr {
         }
         &:hover {
             scale: 1.1;
-            transition: all 0.3s ease;
+            transition: scale 0.3s ease;
         }
         &:active {
             scale: 0.95;
-            transition: all 0.3s ease;
+            transition: scale 0.3s ease;
         }
     }
     & .drawer__button:hover {
         scale: 1.15;
-        transition: all 0.3s ease;
+        transition: scale 0.3s ease;
     }
 }
 

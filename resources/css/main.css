@@ -208,8 +208,9 @@ a:hover:not(.action-btn), a.active {
     color: var(--site-color-01-hover);
     color: orange;
     cursor: pointer;
-    transform: scale(1.05);
-    transition: .1s ease-in-out;
+    transform: scale(1.03);
+    /* transform: scale(1.05); */
+    transition: transform .1s ease-in-out;
     animation: fadeIn 0.3s all;
 }
 
@@ -293,9 +294,17 @@ nav.nav {
     align-items: center;
     justify-content: space-between;
     align-content: space-between;
+    @media screen and (max-width: 576px) {
+        flex-direction: column;
+        height: auto;
+        /* height: 250px; */
+    }
     & .logo {
-        transition: 0.3s;
-        width: 100px;
+        transition: scale 0.3s;
+        /* width: 100px; */
+        width: max(100px, 10%);
+        position: relative;
+        z-index: 1000;
         &:hover {
             scale: 1.05;
         }
@@ -305,7 +314,7 @@ nav.nav {
     }
 
     & .account-img {
-        transition: 0.3s;
+        transition: scale 0.3s;
         width: 30px;
         &:hover {
             scale: 1.05;
@@ -314,7 +323,16 @@ nav.nav {
             scale: 0.95;
         }
     }
-    
+    @media screen and (max-width: 576px) {
+        &:not(.fadeOut) {
+            .dropdown-menu.open {
+                /* top: 0; */
+                top: 277px;
+            }
+        }
+        
+    }
+
     &.fadeOut {
         .search {
             transition: none;
@@ -323,7 +341,7 @@ nav.nav {
             /* content: ''; */
 
             /* background: transparent; */
-            transition: .5s;
+            transition: opacity .5s;
             /* margin: 0 auto;
             position: fixed; */
             opacity: 1;
@@ -414,7 +432,7 @@ nav.nav {
             width: clamp(min(98%, 556px),90%, max(80%, 1024px));
 
             background: transparent;
-            transition: .5s;
+            transition: opacity .5s;
             margin: 0 auto;
             position: fixed;
             opacity: 1;
@@ -459,7 +477,7 @@ nav.nav {
     flex-direction: column-reverse;
     /* float: left!important; */
     justify-content: center;
-    position: relative;
+    /* position: relative; */ /* original */
     align-items: center;
     animation: fadeIn 0.5s both;
     /* animation: borderSlide 0.5s both; */
@@ -547,7 +565,8 @@ nav.nav {
     /* background: var(--fs-description); */
     min-width: fit-content;
     width: max-content;
-    bottom: -62px;
+    /* bottom: -67px; */ /* le faire apparaître par le haut */
+    top: 85px; /* le faire apparaître par le bas */
     padding: 10px;
     visibility: hidden;
     opacity: 0;
@@ -646,6 +665,12 @@ nav.nav {
     top: 100px;
     z-index: 1000;
     /* float: right; */
+    @media screen and (max-width: 576px) {
+        /* top: 277px; */
+        ~.navbar.fadeOut {
+            top: 0;
+        }
+    }
 }
 
 .dropdown-menu li {
@@ -712,20 +737,31 @@ footer {
     /* .navbar .logo {
         margin: 20px;
     } */
+    .toggle_btn {
+        height: 80px;
+    }
 
     .toggle_btn-box {
         /* retirer tout ça pour remettre le fixed navbar */
-        position: fixed;
+        /* position: fixed; */
+
+        position: absolute;
         border-radius: 6px;
+        /* ~ .navbar:is(fadeOut) {
+            position: fixed;
+        } */
         /* grid-column: menu;
         place-self: end; */
         /* bug sur ipad */
         /* background-color: orange; */
+        /* top: -50%; */
         &:hover {
             background-color: orange;
-            transition: all .2s;
+            transition: height .2s;
+            /* transition: all .2s; */
             height: 80px;
             border: 1px solid grey;
+            top: -1.5px;
         }
     }
 
@@ -733,7 +769,7 @@ footer {
         justify-content: space-between;
         /* display: flex; */
         /* retirer tout ça pour remettre le fixed navbar */
-        padding-right: 5%;
+        /* padding-right: 5%; */
         position: sticky;
         /* align-content: flex-start; */
         /* align-content: space-between; */
@@ -751,6 +787,11 @@ footer {
                     right: 0;
                 }
             }
+            .toggle_btn-box {
+                position: fixed;
+                margin-top: 15px;
+                right: 20px;
+            }
         }
     }
 }
@@ -759,6 +800,9 @@ footer {
     .dropdown-menu-background.open {
         inset: 0px 0px 0px 0px;
         visibility: visible;
+    }
+    .navbar {
+        align-items: center;
     }
 }
 
@@ -976,7 +1020,7 @@ input:focus::placeholder, input.input_error:focus::placeholder {
     top: 0;
     width: 66px;
     z-index: 11;
-    transition: .2s;
+    transition: height .2s;
     /* margin: 0 20%; */
     display: flex;
     justify-content: center;
@@ -1023,7 +1067,7 @@ input:focus::placeholder, input.input_error:focus::placeholder {
         align-items: center;
         justify-items: center;
         .sub-menu {
-            transition: 0.5s;
+            transition: opacity 0.5s;
             opacity: 1;
             visibility: visible;
         }
@@ -1056,11 +1100,11 @@ input:focus::placeholder, input.input_error:focus::placeholder {
         padding: 0;
         position: absolute;
         right: 0;
-        transition: .2s;
+        transition: width .2s;
         width: 66px;
     }
     &.open {
-        .account {
+        & ~.account {
             opacity: 0;
             visibility: hidden;
         }
@@ -1088,7 +1132,7 @@ input:focus::placeholder, input.input_error:focus::placeholder {
         }
         > .close-search {
             opacity: 1;
-            transition: .2s;
+            transition: width .2s;
             visibility: visible;
             /* margin: 0 10%; */
         }
@@ -1119,7 +1163,7 @@ input:focus::placeholder, input.input_error:focus::placeholder {
         }
         &:hover {
             scale: 1.2;
-            transition: .2s;
+            transition: scale .2s;
             /* transform: translateY(-5px); */
             animation: fa-bounce 1s infinite cubic-bezier(0.28, 0.84, 0.42, 1);
         }
@@ -1141,7 +1185,8 @@ input:focus::placeholder, input.input_error:focus::placeholder {
             /* margin-left: 20px; */
             margin: 0 auto;
         }
-        right: 20%;
+        /* right: 20%; */
+        margin-inline: 19%;
     }
 
     @media screen and (max-width: 576px) {
@@ -1152,6 +1197,7 @@ input:focus::placeholder, input.input_error:focus::placeholder {
             /* width: 100%; */
             right: 0;
         }
+        margin-inline: 0;
     }
     /* & .icon-backspace::before {
         content: '';

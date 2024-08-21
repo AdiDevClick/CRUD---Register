@@ -281,14 +281,16 @@ if (!$dev) {
 
                 <?php endif?>
 
-                <section class="toggle_btn-box">
-                    <div class="toggle_btn">
-                        <!-- <i class="fa-solid fa-bars"></i> -->
-                        <i></i>
-                        <i></i> 
-                        <i></i>
+                <!-- <section id="burger"> -->
+                    <div class="toggle_btn-box"> 
+                        <div class="toggle_btn">
+                            <!-- <i class="fa-solid fa-bars"></i> -->
+                            <i></i>
+                            <i></i> 
+                            <i></i>
+                        </div>
                     </div>
-                </section>
+                <!-- </section> -->
                 </div>
 
             <!-- </div> -->

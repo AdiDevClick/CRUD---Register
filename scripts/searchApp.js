@@ -3,6 +3,7 @@ import { SearchBar } from "./components/SearchBar.js"
 const searchForm = document.querySelectorAll('#search-form')
 const pagination = document.querySelectorAll('.js-infinite-pagination')
 const searchBar = document.querySelector('#search')
+const accountMenu = document.querySelector('#account')
 const input = searchBar.querySelector('#header-search-box-input')
 const closeSearchBtn = searchBar.querySelector('.close-search')
 const searchIcon = searchBar.querySelector('.icon-search-input')
@@ -36,6 +37,7 @@ const onClose = function (e) {
         navLinks.classList.remove('hidden')
         burgerMenu.classList.remove('hidden')
         actionBtn?.classList.remove('hidden')
+        accountMenu?.classList.remove('hidden')
         searchBar.classList.remove('open')
         // loaded.classList.remove('search-loaded')
 
@@ -59,6 +61,7 @@ const onOpen = function (e) {
         navLinks.classList.add('hidden')
         burgerMenu.classList.add('hidden')
         actionBtn?.classList.add('hidden')
+        accountMenu?.classList.add('hidden')
         // input.focus({ focusVisible: true })
 
         searchBar.addEventListener('transitionend', (e) => {
