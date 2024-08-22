@@ -107,7 +107,7 @@ ob_start()
 <section class="hero small">
     <div class="">
         <div class="">
-            La newsletter pour les gourmands !
+            <p>La newsletter pour les gourmands !</p>
         </div>
         <button type="button" class="btn">S'abonner</button>
         <div class="">
