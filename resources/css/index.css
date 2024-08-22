@@ -262,7 +262,7 @@ form {
     /* width: 30%; */
     /* width: 50px; */
     width: auto;
-    margin: 10px;
+    margin: 10px auto;
     &.icon {
         height: 50px;
     }

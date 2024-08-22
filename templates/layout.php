@@ -102,9 +102,14 @@ if (!$dev) {
 <body>
     <!-- Start Header Content -->
     <!-- <header class="header-main wrapper"> -->
+    <!-- <div class="dropdown-menu-background"></div> -->
+
     <header class="header-main">
+    <div class="dropdown-menu-background"></div>
+
         <nav class="nav">
-            <div class="dropdown-menu-background">
+            <!-- <div class="dropdown-menu-background"> -->
+            
                 <div class="dropdown-menu">
                         <li><a
                         <?php if ($url === 'index.php') {
@@ -162,7 +167,7 @@ if (!$dev) {
                         <li><a class="" href="<?php echo($rootUrl). $clicServer.'/deconnexion.php' ?>">Se déconnecter</a></li>
                     <?php endif?>
                 </div>
-            </div>
+            <!-- </div> -->
             <div class="logo">
                 <img src="<?= $rootUrl. $clicServer ?>/img/logoicon.svg" class="form-logo"></img>
                 <a class="img-link" href="<?php echo strip_tags($rootUrl). $clicServer.'/index.php'?>"></a>
