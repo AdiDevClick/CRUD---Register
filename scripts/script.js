@@ -21,8 +21,8 @@ const openMenu = function (e) {
     dropDownMenu.classList.toggle('open')
     dropDownMenuBackground.classList.toggle('open')
     toggleBtn.classList.toggle('open')
-    navbar.classList.toggle('open')
-    nav.classList.toggle('open')
+    // navbar.classList.toggle('open')
+    // nav.classList.toggle('open')
     // dropDownMenu.classList.add('open')
     // dropDownMenuBackground.classList.add('open')
     // toggleBtn.classList.add('open')
@@ -78,8 +78,8 @@ export const closeMenu = (e) => {
     dropDownMenu.classList.remove('open')
     dropDownMenuBackground.classList.remove('open')
     toggleBtn.classList.remove('open')
-    navbar.classList.remove('open')
-    nav.classList.remove('open')
+    // navbar.classList.remove('open')
+    // nav.classList.remove('open')
     dropDownMenu.removeEventListener('click', stopPropagation)
     // toggleBtnBox.removeEventListener('click', openMenu)
     
@@ -171,8 +171,15 @@ const hiddenVisibility = function(e) {
     if (navbar.classList.contains('fadeOut')) navbar.style.visibility = 'hidden'
     if (nav.classList.contains('fadeOut')) nav.style.visibility = 'hidden'
     // if ()
-    navbar.removeEventListener('animationend', hiddenVisibility)
-    nav.removeEventListener('animationend', hiddenVisibility)
+    console.log('object')
+    // navbar.classList.remove('slideUp')
+    // navbar.classList.add('fadeOut')
+    // nav.classList.remove('slideUp')
+    // nav.classList.add('fadeOut')
+
+    // navbar.removeEventListener('animationend', hiddenVisibility)
+    // nav.removeEventListener('animationend', hiddenVisibility)
+    // document.removeEventListener('animationend', hiddenVisibility)
 }
 
 window.onscroll = function() {
@@ -186,19 +193,20 @@ function scrolling() {
     // if (window.scrolling === scrollTopMax) {
     if (document.documentElement.scrollTop === 0) {
     // if (document.documentElement.scrollTop === screenTop) {
-        navbar.classList.remove('fadeOut')
-        navbar.removeAttribute('style')
-        navbar.classList.add('slideUp')
-
         nav.classList.remove('fadeOut')
         nav.removeAttribute('style')
         nav.classList.add('slideUp')
+
+        navbar.classList.remove('fadeOut')
+        navbar.removeAttribute('style')
+        navbar.classList.add('slideUp')
+        
     } else {
-        navbar.addEventListener('animationend', hiddenVisibility)
+        navbar.addEventListener('animationend', hiddenVisibility, {once: true})
         navbar.classList.remove('slideUp')
         navbar.classList.add('fadeOut')
 
-        nav.addEventListener('animationend', hiddenVisibility)
+        nav.addEventListener('animationend', hiddenVisibility, {once: true})
         nav.classList.remove('slideUp')
         nav.classList.add('fadeOut')
     }

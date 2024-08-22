@@ -78,12 +78,16 @@
 .message .text {
     font-size: 1.6rem;
     font-weight: 400;
+    text-wrap: pretty;
+
     color: #666666;
 }
 
 .message .text.text-1 {
     font-weight: 600;
     color: #333;
+    text-wrap: pretty;
+
 }
 
 .toast .toggle_btn-box {
