@@ -9,12 +9,18 @@
 .toggle_btn {
     width: 100%;
     /* z-index: 1; */
-    height: 100%;
+
+    /* height: 100%; */
+
     /* height: 2.4rem; */
     /* top: 35%; Pas besoin de top  */
     /* left: 50%; */
     /* transform: translate(-50%, -50%); Pas besoin de translate*/
-    position: relative;
+    
+    
+    /* position: relative; */
+
+
     /* font-size: 1.9rem; */
     cursor: pointer;
     /* color: var(--site-color-01); */
