@@ -103,7 +103,8 @@ input[type=text], input[type=number], input[type=password], input[type=email], t
     color: #eeeeee;
     transition: all 0.3s ease;
     font-size: larger;
-    @media screen and (max-width: 576px) {
+    @media screen and (max-width: 976px) {
+    /* @media screen and (max-width: 576px) { */
         margin: 10px auto;
     }
 }
@@ -303,14 +304,15 @@ form {
     @media (min-width: 996px) {
         gap: 1.3rem;
     }
-    @media screen and (max-width: 976px) {
+    /* @media screen and (max-width: 976px) {
         min-width: 50px;
-    }
-    @media screen and (max-width: 576px) {
+    } */
+    @media screen and (max-width: 976px) {
         flex-direction: column;
         gap: 0.5rem;
         padding: 5px;
         align-items: baseline;
+        min-width: 50px;
     }
     
 }
@@ -400,7 +402,8 @@ form {
     width: 100%;
     min-height: 50px;
     /* grid: minmax(50px, min-content) / repeat(auto-fill, 400px); */
-    @media screen and (max-width: 576px) {
+    /* @media screen and (max-width: 576px) { */
+    @media screen and (max-width: 976px) {
         gap: 0;
         input {
             width: 400px;
@@ -1689,4 +1692,12 @@ hr {
 .align-center {
     display: flex;
     justify-content: center;
+}
+
+.small {
+    max-height: 200px;
+    min-height: 100px;
+    p {
+        font-size: var(--fs-title);
+    }
 }

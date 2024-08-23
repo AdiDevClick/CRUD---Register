@@ -111,13 +111,16 @@ ob_start()
         </div>
         <button type="button" class="btn">S'abonner</button>
         <div class="">
-            Ne manquez plus d'inspiration
+            <img src="" alt="">
+            <p>Ne manquez plus d'inspiration</p>
         </div>
         <div class="">
-            Surprenez vos convives !
+            <img src="" alt="">
+            <p>Surprenez vos convives !</p>
         </div>
         <div class="">
-            Laissez-vous guider chaques semaine
+            <img src="" alt="">
+            <p>Laissez-vous guider chaques semaine</p>
         </div>
     </div>
     

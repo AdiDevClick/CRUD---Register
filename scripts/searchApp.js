@@ -32,8 +32,15 @@ const onClose = function (e) {
         // wrapper.innerHTML = content
         // console.log('url dans le close => ', newUrl)
         // history.pushState({}, document.title, newUrl)
-        input.style.animation = 'width-shrink .2s'
+        // input.style.display = 'none'
+        // input.style.animation = 'fadeOut 0.3s'
+        // searchBar.style.animation = 'width-shrink 0.2s'
         // input.style.disableAnimation = 'width-shrink'
+
+        // input.style.animation = 'width-shrink 0s'
+        input.style.animation = 'width-shrink 0.2s'
+        // input.style.disableAnimation = 'width-shrink'
+        // console.log(e)
         navLinks.classList.remove('hidden')
         burgerMenu.classList.remove('hidden')
         actionBtn?.classList.remove('hidden')
@@ -43,10 +50,10 @@ const onClose = function (e) {
 
         // if (wrapper.classList.contains('hidden')) wrapper.classList.remove('hidden')
         isOpened = false
-        console.log(newEvent)
+        // console.log(newEvent)
         if (newEvent?.type === "observer") newEvent.detail.disconnect()
 
-        console.log('je suis passé je ferme le menu')
+        // console.log('je suis passé je ferme le menu')
     }
 }
 
