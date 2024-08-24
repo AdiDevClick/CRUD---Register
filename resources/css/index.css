@@ -1612,15 +1612,16 @@ hr {
     z-index: 1000;
     top: 0;
     left: 0;
-    position: fixed;
-    width: 100%;
+    position: sticky;
+    /* position: fixed; */
+    width: clamp(min(556px, 95%),95%, max(70%, 1024px));
     display: grid;
     align-items: center;
     justify-items: center;
-    overflow: hidden;
-    border-radius: 100vh;
+    /* overflow: hidden; */
+    /* border-radius: 100vh; */
     &:not(:has(.search.open)) {
-        background-color: var(--site-color-01);
+        /* background-color: var(--site-color-01); */
     }
     padding: 0 4rem;
     gap: 1rem;
@@ -1629,23 +1630,47 @@ hr {
     [top-end center-start] 1px
     [center-end bottom-end] auto;
     grid-template-columns:
-    [logo-start] 100px [logo-end search-start] 100px [search-end menu-start] 1fr [menu-end];
+    [logo-start] 100px [logo-end search-start] 1fr [search-end menu-start] 1fr [menu-end register-start] 100px [register-end];
     > .logo {
         grid-column: logo;
         grid-row: center;
+        transition: scale 0.3s;
+        width: 100px;
+        position: relative;
+        z-index: 1000;
+        margin: 5px auto;
+        &:hover {
+            scale: 1.05;
+        }
+        &:active {
+            scale: 0.95;
+        }
     }
-    > .search-form {
+    > .navbar {
+        /* display: grid; */
+        grid-column: menu;
+        grid-row: center;
+        /* > .action-btn {
+            grid-column: register;
+            grid-row: center;
+        } */
+    }
+    /* .search-form {
         grid-column: search;
         grid-row: center;
         position: relative;
     }
-    > .links {
+    .links {
         grid-column: menu;
         grid-row: center;
         display: flex;
-        justify-self: end;
+        justify-self: center;
         gap: 2rem;
-    }
+    } */
+    /* .action-btn {
+        grid-column: register;
+        grid-row: center;
+    } */
     /* &.fadeOut {
         :is(.search.open) {
             position: fixed;
@@ -1664,7 +1689,7 @@ hr {
         .search.open {
             /* content: ''; */
             background: transparent;
-            transition: .5s;
+            transition: .3s;
             margin: 0 auto;
             opacity: 1;
             left: 0;

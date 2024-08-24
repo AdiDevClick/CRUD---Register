@@ -38,14 +38,21 @@ const onClose = function (e) {
         // input.style.disableAnimation = 'width-shrink'
 
         // input.style.animation = 'width-shrink 0s'
-        input.style.animation = 'width-shrink 0.2s'
+        // input.style.animation = 'width-shrink 0.2s'
+        searchBar.classList.add('close')
+
         // input.style.disableAnimation = 'width-shrink'
         // console.log(e)
         navLinks.classList.remove('hidden')
         burgerMenu.classList.remove('hidden')
         actionBtn?.classList.remove('hidden')
         accountMenu?.classList.remove('hidden')
-        searchBar.classList.remove('open')
+        searchBar.addEventListener('animationend', e => {
+            searchBar.classList.remove('open')
+            searchBar.classList.remove('close')
+        }, {once: true})
+        // searchBar.classList.remove('close')
+        // searchBar.classList.remove('open')
         // loaded.classList.remove('search-loaded')
 
         // if (wrapper.classList.contains('hidden')) wrapper.classList.remove('hidden')

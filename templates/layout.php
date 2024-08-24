@@ -296,10 +296,10 @@ if (!$dev) {
                         </div>
                     </div>
                 <!-- </section> -->
-                </div>
+                <!-- </div> -->
 
             <!-- </div> -->
-            <!-- </div> -->
+            </div>
         <!-- </div class="dropdown-menu-background"> -->
         </nav>
 

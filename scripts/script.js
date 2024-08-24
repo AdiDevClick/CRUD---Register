@@ -187,21 +187,24 @@ window.onscroll = function() {
 }
 
 function scrolling() {
+    let count = 0
     lastKnownScrollPosition = window.scrollY
     // toggleBtnBox.style.visibility = 'visible'
     // if (window. === screenTop) {
     // if (window.scrolling === scrollTopMax) {
-    if (document.documentElement.scrollTop === 0) {
+    if (document.documentElement.scrollTop < 1 && count == 0) {
     // if (document.documentElement.scrollTop === screenTop) {
         nav.classList.remove('fadeOut')
-        nav.removeAttribute('style')
         nav.classList.add('slideUp')
+        nav.removeAttribute('style')
+
 
         navbar.classList.remove('fadeOut')
-        navbar.removeAttribute('style')
         navbar.classList.add('slideUp')
-        
-    } else {
+        navbar.removeAttribute('style')
+
+        count++
+    } else if (document.documentElement.scrollTop > 5 && count < 1) {
         navbar.addEventListener('animationend', hiddenVisibility, {once: true})
         navbar.classList.remove('slideUp')
         navbar.classList.add('fadeOut')
@@ -209,6 +212,11 @@ function scrolling() {
         nav.addEventListener('animationend', hiddenVisibility, {once: true})
         nav.classList.remove('slideUp')
         nav.classList.add('fadeOut')
+        // nav.style.transition = 'height 3s'
+        // nav.style.height = '0'
+        count = 0
+    } else {
+        return
     }
     // navbar.classList.add('fadeOut')
 }
