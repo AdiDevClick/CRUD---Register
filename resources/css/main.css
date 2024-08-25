@@ -64,6 +64,7 @@ from the local website :
     /* outline: 1px solid tomato; */
 }
 /* For testing purpose only */
+
 /* * * {
     outline: 1px solid black;
 }
@@ -71,6 +72,7 @@ from the local website :
 * * * {
     outline: 1px solid white;
 } */
+
 /* END OF For testing purpose only */
 
 /* TYPEWRITTER */
@@ -514,21 +516,21 @@ nav.nav {
     border: 0.5px rgb(196, 186, 186) solid;
     outline: none;
     /* padding-right: 60px; /* devrait etre deactivated */
-    display: flex;
+    /* display: flex; */
     /* display: flex!important; */
     z-index: 1000;
     align-items: center;
     justify-content: space-between;
     align-content: space-between;
 
-    display: grid;
-    grid-template-columns: subgrid;
-    grid-template-rows: subgrid;
-    > .action-btn {
+    /* display: grid; */
+    /* grid-template-columns: subgrid;
+    grid-template-rows: subgrid; */
+    /* > .action-btn {
         grid-column: register;
         grid-row: center;
-    }
-    &.fadeOut {
+    } */
+    .fadeOut {
 
         .search {
             transition: none;
