@@ -495,7 +495,7 @@ nav.nav {
 }
 
 
-.navbar {
+.navbar2 {
 
     &:not(:has(.search.open)) {
         /* background-color: var(--site-color-01); */
@@ -505,18 +505,20 @@ nav.nav {
         border: none transparent;
         overflow: hidden;
     }
-    width: clamp(min(556px, 95%),95%, max(70%, 1024px));
+    /* width: clamp(min(556px, 95%),95%, max(70%, 1024px)); */
+    width: clamp(min(95%, 556px),95%, max(70%, 1024px));
     height: 80px;
-    max-height: 80px;
+    /* max-height: 80px; */
     position: sticky; /* meilleur choix que fixed */
-    margin: 15px auto;
+    /* margin: 15px auto; */
+    margin: 0 auto;
     padding: 2rem 3rem;
     gap: 1rem;
     border-radius: 100vh;
     border: 0.5px rgb(196, 186, 186) solid;
     outline: none;
     /* padding-right: 60px; /* devrait etre deactivated */
-    /* display: flex; */
+    display: flex;
     /* display: flex!important; */
     z-index: 1000;
     align-items: center;
@@ -531,10 +533,8 @@ nav.nav {
         grid-row: center;
     } */
     .fadeOut {
-
         .search {
             transition: none;
-
         }
         .search.open {
             width: clamp(min(98%, 556px),90%, max(80%, 1024px));
@@ -579,7 +579,7 @@ nav.nav {
     gap: 2rem;
     cursor: pointer;
     flex-wrap: wrap;
-    align-items: center;
+    /* align-items: center; */
     justify-content: center;
 }
 
@@ -994,7 +994,6 @@ main {
     align-content: space-around;
     /* min-height: 85vh; /* test pas ok */
     min-height: clamp(400px, 100vh - 288px + 5rem, 100vh); /* test */
-  
     padding: 10px;
     width: calc(100% - 20px); /* devrait etre deactivated */
     max-width: 100%;

@@ -107,7 +107,8 @@ if (!$dev) {
     <header class="header-main">
     <div class="dropdown-menu-background"></div>
 
-        <nav class="nav">
+        <!-- <nav class="nav"> -->
+        <nav class="navbar-grid">
             <!-- <div class="dropdown-menu-background"> -->
             
                 <div class="dropdown-menu">
