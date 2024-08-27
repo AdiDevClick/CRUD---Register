@@ -49,6 +49,37 @@ Dans le terminal, saisir ce code :
 1. `npm run build`
 npm install postcss-preset-env --save-dev 
 npm install postcss postcss-preset-env --save-dev 
+
+20
+
+Add postcss and autoprefixer: yarn add -D postcss@latest autoprefixer@latest
+
+then add a file postcss.config.js on your root project directory:
+
+module.exports = {
+  plugins: {
+    autoprefixer: {}
+  }
+}
+ℹ️ You can find bellow an example of vite.config.ts for a new project without a postcss config file.
+
+import { defineConfig } from "vite"
+import react from '@vitejs/plugin-react'
+import autoprefixer from 'autoprefixer'
+
+export default defineConfig({
+  plugins: [
+    react()
+  ],
+  css: {
+    postcss: {
+      plugins: [
+        autoprefixer({}) // add options if needed
+      ],
+    }
+  }
+})
+And if it still doesn't work please provide a reproducible project.
 <br>
 <br>
 
