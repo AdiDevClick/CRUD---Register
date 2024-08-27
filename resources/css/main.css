@@ -85,17 +85,24 @@ from the local website :
     border-radius: 30px;
     border-top: 1px solid var(--site-color-01);
     border-bottom: 1px solid var(--site-color-01);
+    /* overflow-wrap: anywhere; */
     p {
         position: absolute; /* pose problème sur la splash screen */
         display: flex;
+       
+        overflow-wrap: break-word;
+        hyphens: auto;
+        /* max-width: 300px; */
+
         flex-wrap: wrap;
         font-size: 4rem;
         color: var(--navbar-color);
         font-weight: 600;
         letter-spacing: 0.1rem;
         /* width: calc(100% - 20px); */
-        margin: 20 30 20;
-        padding: 0 20;
+        /* margin: 20px 30px 20px; */
+        margin: 20px auto;
+        padding: 0 20px;
         span {
             position: relative;
             color: var(--background-color);
@@ -688,7 +695,7 @@ nav.nav {
     visibility: hidden;
     opacity: 0;
     /* transition: 0.3s; */
-    /* z-index: 9000; */
+    /* z-index: 1000; */
 }
 /* END OF NAVBAR SUBMENU */
 
@@ -1125,11 +1132,16 @@ main {
 }
 
 * img {
+    /* object-fit: contain;
+    display: block;
+    width: 100%;
+    height: 100%; */
+    /* aspect-ratio: 16 / 9; */
     object-fit: contain;
     display: block;
     width: 100%;
     height: 100%;
-    /* aspect-ratio: 16 / 9; */
+    /* aspect-ratio: 2 / 1.6; */
 }
 
 /* PLACEHOLDERS */
@@ -1232,6 +1244,7 @@ input:focus::placeholder, input.input_error:focus::placeholder {
             transition: opacity 0.5s;
             opacity: 1;
             visibility: visible;
+            /* z-index: 1001; */
         }
     }
     /* &:hover::after {

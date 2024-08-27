@@ -1745,6 +1745,10 @@ hr {
         }
         & .navbar > .toggle_btn-box {
             grid-column: menu;
+            justify-self: end;
+        }
+        & .navbar:has(.account) > .toggle_btn-box {
+            grid-column: menu;
             justify-self: center;
         }
         /* min-height: 100%; */
@@ -1758,8 +1762,11 @@ hr {
         &:not(.fadeOut) {
             animation: fadeOut 0.3s;
             .dropdown-menu.open {
-                top: 250px;
-                transition: top .3s;
+                animation: slideDown 0.3s forwards;
+
+                /* A REMETTRE POUR LA TRANSITION */
+                /* top: 240px; */
+                /* transition: top .3s; */
             }
         }
     }
@@ -1784,6 +1791,7 @@ hr {
         }
     }
     & > .dropdown-menu {
+        will-change: top;
         display: none; /* ne s'ouvre pas sur ipad il faut forcer le display block*/
         position: absolute;
         z-index: 1000;
@@ -1809,8 +1817,14 @@ hr {
         }
         @media screen and (max-width: 576px) {
             left: 0;
-            top: 273px;
+
+            animation: slideOut 0.3s forwards;
+            /* transform-origin: 273px top; */
+
+            /* A REMETTRE POUR LA TRANSITION */
+            /* top: 273px; */
             display: block;
+
             right : 0;
             position: fixed;
         }
@@ -1828,13 +1842,14 @@ hr {
             /* position: sticky; */
             margin-bottom: 100px;
             top: 115px;
+            /* animation: slideDown 0.3s forwards; */
             z-index: 1000;
             visibility: visible;
 
             @media screen and (max-width: 576px) {
                 margin-inline: 5px;
 
-                ~.navbar.fadeOut {
+                & ~ .navbar.fadeOut {
                     top: 0;
                 }
             }
@@ -1881,4 +1896,37 @@ hr {
     p {
         font-size: var(--fs-title);
     }
+}
+
+@keyframes slideDown {
+    /* 0% {
+        transform: translateY(0);
+    } */
+    
+    50% {
+        transform: translateY(160px);
+    }
+    100% {
+        transform: translateY(130px);
+        /* transform: translateY(273px); */
+        /* top: 273px; */
+        /* top: 240px; */
+    }
+    
+}
+@keyframes slideOut {
+    0% {
+        transform: translateY(130px);
+    }
+    
+    50% {
+        transform: translateY(160px);
+    }
+    100% {
+        transform: translateY(0);
+        /* transform: translateY(273px); */
+        /* top: 273px; */
+        /* top: 240px; */
+    }
+    
 }

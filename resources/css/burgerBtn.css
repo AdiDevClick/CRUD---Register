@@ -125,11 +125,19 @@ i + i {
 
 .open i:nth-child(1) {
     /* animation: ease .7s top forwards; */
+    top: 0;
+    @starting-style {
+      /* top: 0; */
+    }
     animation: ease .3s top forwards;
 }
 
 i:nth-child(1) {
     /* animation: ease .7s top-2 forwards; */
+    top: 17px;
+    @starting-style {
+      /* top: 17px; */
+    }
     animation: ease .3s top-2 forwards;
 }
 
@@ -145,71 +153,92 @@ i:nth-child(2) {
 
 .open i:nth-child(3) {
     /* animation: ease .7s bottom forwards; */
+    bottom: 0;
+    @starting-style {
+      /* bottom: 0; */
+    }
     animation: ease .3s bottom forwards;
 }
 
 i:nth-child(3) {
     /* animation: ease .7s bottom-2 forwards; */
+    bottom: 17px;
+    @starting-style {
+      /* bottom: 17px; */
+    }
     animation: ease .5s bottom-2 forwards;
 }
 
 @keyframes top {
     0% {
-      top: 0;
+      /* top: 0; */
       transform: rotate(0);
     }
     50% {
-      top: 17px;
-      transform: rotate(0);
+      /* top: 17px; */
+      transform: translateY(17px) rotate(0);
+      /* transform: rotate(0); */
     }
     100% {
-      top: 17px;
-      transform: rotate(45deg);
+      /* top: 17px; */
+      transform: translateY(17px) rotate(45deg);
     }
 }
 
 @keyframes top-2 {
     0% {
-      top: 17px;
+      /* top: 17px; */
       transform: rotate(45deg);
+      /* transform: translateY(17px) rotate(45deg); */
+
     }
     50% {
-      top: 17px;
-      transform: rotate(0deg);
+      /* top: 17px; */
+      /* transform: rotate(0deg); */
+      transform: translateY(17px) rotate(0);
+
     }
     100% {
-      top: 0;
-      transform: rotate(0deg);
+      /* top: 0; */
+      /* transform: rotate(0deg); */
+      transform: translateY(0) rotate(0);
+
     }
 }
 
 @keyframes bottom {
     0% {
-      bottom: 0;
+      /* bottom: 0; */
       transform: rotate(0);
     }
     50% {
-      bottom: 17px;
-      transform: rotate(0);
+      /* bottom: 17px;
+      transform: rotate(0); */
+      transform: translateY(-17px) rotate(0);
+
     }
     100% {
-      bottom: 17px;
-      transform: rotate(135deg);
+      /* bottom: 17px;
+      transform: rotate(135deg); */
+      transform: translateY(-17px) rotate(135deg);
+
     }
 }
   
 @keyframes bottom-2 {
     0% {
-      bottom: 17px;
+      /* bottom: 17px; */
       transform: rotate(135deg);
     }
     50% {
-      bottom: 17px;
+      /* bottom: 17px; */
       transform: rotate(0);
     }
     100% {
-      bottom: 0;
-      transform: rotate(0);
+      /* bottom: 0; */
+      /* transform: rotate(0); */
+      transform: translateY(17px) rotate(0);
+
     }
 }
 
