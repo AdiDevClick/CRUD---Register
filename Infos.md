@@ -47,7 +47,8 @@ Dans le terminal, saisir ce code :
 
 Dans le terminal, saisir ce code :
 1. `npm run build`
-
+npm install postcss-preset-env --save-dev 
+npm install postcss postcss-preset-env --save-dev 
 <br>
 <br>
 
