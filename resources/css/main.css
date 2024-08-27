@@ -86,7 +86,7 @@ from the local website :
     border-top: 1px solid var(--site-color-01);
     border-bottom: 1px solid var(--site-color-01);
     /* overflow-wrap: anywhere; */
-    p {
+    & p {
         position: absolute; /* pose problème sur la splash screen */
         display: flex;
        
@@ -107,7 +107,7 @@ from the local website :
             position: relative;
             color: var(--background-color);
         }
-        span::before {
+        & span::before {
             content: "";
             right: -22px;
             top: 50%;
@@ -118,7 +118,7 @@ from the local website :
             transform: translateY(-45%);
             animation: blink 0.7s infinite;
         }
-        span.stop-blinking::before {
+        & span.stop-blinking::before {
             animation: none;
         }
     }
@@ -1264,7 +1264,7 @@ input:focus::placeholder, input.input_error:focus::placeholder {
             display: none;
         }
     }
-    > input {
+    & > input {
         /* visibility: hidden; */
         display: none;
         background: orange;
@@ -1290,7 +1290,7 @@ input:focus::placeholder, input.input_error:focus::placeholder {
         animation: width-shrink 0.3s;
     }
     &.open {
-        & ~.account {
+        & ~ .account {
             opacity: 0;
             visibility: hidden;
         }
@@ -1305,7 +1305,7 @@ input:focus::placeholder, input.input_error:focus::placeholder {
         width: 100%;
         margin-right: 20px;
 
-        > input {
+        & > input {
             color: white;
             visibility: visible;
             cursor: text;
@@ -1320,7 +1320,7 @@ input:focus::placeholder, input.input_error:focus::placeholder {
             opacity: 0;
             visibility: hidden;
         }
-        > .close-search {
+        & > .close-search {
             opacity: 1;
             transition: width .2s;
             visibility: visible;
@@ -1393,7 +1393,7 @@ input:focus::placeholder, input.input_error:focus::placeholder {
     /* & .icon-backspace::before {
         content: '';
     } */
-    > .close-search {
+    & > .close-search {
         align-items: center;
         cursor: pointer;
         display: flex;
