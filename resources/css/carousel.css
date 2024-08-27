@@ -1,5 +1,5 @@
 /*
-                        STYLING FOR CAROUSEL
+STYLING FOR CAROUSEL
 */
 
 .item_container {
@@ -15,14 +15,14 @@
         transform: translate3d(0, -10px, 0);
     }
     &:hover:has(iframe) {
-        iframe {
+        & iframe {
             display: block;
         }
-        img {
+        & img {
             display: none;
         }
     }
-    img, iframe {
+    & img, & iframe {
         width: 100%;
         height: 100%;
         border: none;
@@ -31,11 +31,11 @@
         aspect-ratio: 16 / 9;
     }
 
-    img {
+    & img {
         object-fit: cover;
         display: block;
     }
-    iframe {
+    & iframe {
         display: none;
         overflow: none;
         object-fit: contain;

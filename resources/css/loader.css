@@ -23,5 +23,5 @@
     animation-duration: 4s;
 }
 @keyframes l24 {
-    to {transform: rotate(1turn)}
+    to { transform: rotate(1turn) }
 }
