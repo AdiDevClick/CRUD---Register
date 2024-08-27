@@ -54,6 +54,10 @@ npm install postcss postcss-preset-env --save-dev
 
 Add postcss and autoprefixer: yarn add -D postcss@latest autoprefixer@latest
 
+Install postcss and autoprefixer with:
+npm i autoprefixer -D
+npm i postcss -D
+
 then add a file postcss.config.js on your root project directory:
 
 module.exports = {
