@@ -32,7 +32,7 @@ export default defineConfig({
     css: {
         postcss: {
             plugins: [
-            autoprefixer({}) // add options if needed
+                autoprefixer({grid: "autoplace"}) // add options if needed
             ],
         }
     }

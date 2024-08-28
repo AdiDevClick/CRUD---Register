@@ -91,7 +91,7 @@ export class YoutubePlayer
         const player = this.player[element.id]
         // console.log(element.id)
         // console.log(player)
-
+        
         const data = player.event.data
         if (player.event && data === 1 && !this.done) {
             this.carousel.setPromiseArray = []
@@ -105,6 +105,7 @@ export class YoutubePlayer
     onPlayerReady(event) {
         console.log(this.player)
         console.log(event.target)
+        console.log(event)
         event.target.playVideo()
         event.target.setPlaybackQuality('hd1080')
         event.target.pauseVideo()
@@ -117,6 +118,7 @@ export class YoutubePlayer
     //    the player should play for six seconds and then stop.
     onPlayerStateChange(event) {
         // this.player[event.target.o.id].event = event
+        console.log(this.player)
         this.player[event.target.l.id].event = event
         if (event.data === YT.PlayerState.BUFFERING) {
             event.target.setPlaybackQuality('hd1080')

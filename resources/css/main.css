@@ -16,7 +16,7 @@
     --fs-description: 1.35rem;
     --f-title-color: #232323;
     --f-color: #585858;
-    font-size: 62.5%;
+    /* font-size: 62.5%; */
     font-family: system-ui, sans-serif;
     /* END OF CAROUSEL */
     --navbar-color: #eeeeee;
@@ -32,8 +32,16 @@
     --input-focus-gradient: linear-gradient(318deg, #71C4FFFF 0%, #A100FF00 100%),radial-gradient(75% 75% at 50% 50%, #00FFFFFF 0%, #073AFFFF 81%);
     --input-background-color: #cccccc80;
     /* REM CONFIG */
-    font-size: 62.5%;
+    /* font-size: 62.5%; */
     --textfs: 1.6rem;
+    --step--2: clamp(0.7387rem, 0.7961rem + -0.0741vw, 0.7813rem);
+    --text-fs-body: clamp(0.9375rem, 0.9211rem + 0.0819vw, 0.9846rem);
+    --step-0: clamp(1.125rem, 1.0598rem + 0.3261vw, 1.3125rem);
+    --step-1: clamp(1.35rem, 1.211rem + 0.6949vw, 1.7496rem);
+    --step-2: clamp(1.62rem, 1.3723rem + 1.2386vw, 2.3322rem);
+    --step-3: clamp(1.944rem, 1.5389rem + 2.0257vw, 3.1088rem);
+    --step-4: clamp(2.3328rem, 1.7028rem + 3.1499vw, 4.144rem);
+    --step-5: clamp(2.7994rem, 1.8517rem + 4.7384vw, 5.524rem);
 }
 
 /*
@@ -85,7 +93,7 @@ from the local website :
     border-radius: 30px;
     border-top: 1px solid var(--site-color-01);
     border-bottom: 1px solid var(--site-color-01);
-    /* overflow-wrap: anywhere; */
+    /* overflow-wrap: break-word; */
     & p {
         position: absolute; /* pose problème sur la splash screen */
         display: flex;
@@ -202,6 +210,8 @@ body {
     /* @media screen and (max-width: 576px) {
         overflow: hidden;
     } */
+    font-size: var(--text-fs-body);
+
 }
 /* END OF BODY */
 
@@ -209,7 +219,8 @@ body {
 a, p {
     text-decoration: none;
     color: var(--navbar-color);
-    font-size: var(--textfs);
+    /* font-size: var(--text-fs-body); */
+    /* font-size: var(--textfs); */
     font-weight: 400;
 }
 
@@ -224,9 +235,9 @@ a:hover:not(.action-btn), a.active {
 }
 
 @keyframes fadeIn {
-    from {
+    /* from {
         opacity: 0;
-    }
+    } */
     to {
         opacity: 1;
     }
@@ -583,10 +594,10 @@ nav.nav {
 
 .navbar .links {
     display: flex;
-    gap: 2rem;
+    /* gap: 2rem; */
     cursor: pointer;
     flex-wrap: wrap;
-    /* align-items: center; */
+    align-items: center;
     justify-content: center;
 }
 
@@ -603,13 +614,16 @@ nav.nav {
 
 .navbar a.active::before {
     content: "";
-    position: relative;
-    clear: both;
+    position: absolute;
+    /* clear: both; */
+    opacity: 1;
     border-bottom: 2px solid burlywood;
-    animation: fadeIn 0.5s both;
-    animation: borderSlide 0.5s both;
-    visibility: inherit;
-    padding: 1px;
+    animation: borderSlide 0.3s both;
+    /* visibility: inherit; */
+    padding: 15px;
+    @starting-style {
+        opacity: 0;
+    }
 }
 
 .navbar.fadeOut a.active {
@@ -618,7 +632,9 @@ nav.nav {
 }
 
 .navbar a.active::after {
-    content: "";
+    /* content: ""; */
+    /* padding: 0; */
+
 }
 
 /* NAVBAR ANIMATION */
@@ -639,15 +655,15 @@ nav.nav {
 }
 
 @keyframes borderSlide {
-    0% {
+    /* 0% {
         opacity: 0;
-        width: 0%;
+        width: 0%; */
 
         /* border-bottom-width: 0%; */
         /* transform: translateX(0%); */
-    } 
-    100% {
-        opacity: 1;
+    /* }  */
+    to {
+        /* opacity: 1; */
         width: 50%;
 
         /* border-bottom-width: 50%; */
@@ -984,6 +1000,8 @@ main {
 
 /* WRAPPER */
 .wrapper {
+    --max-width-content: 1240px;
+    --width-crop: 1rem;
     /* white-space: nowrap; */
     margin-inline: auto; /* devrait etre deactivated */
     /* @media screen and (min-width: 556px) { */
@@ -1001,12 +1019,14 @@ main {
     align-content: space-around;
     /* min-height: 85vh; /* test pas ok */
     min-height: clamp(400px, 100vh - 288px + 5rem, 100vh); /* test */
-    padding: 10px;
-    width: calc(100% - 20px); /* devrait etre deactivated */
-    max-width: 100%;
+    /* padding: 10px; */
+    width: min(var(--max-width-content), 100%, calc(100% - (var(--width-crop) * 2)));
+    /* width: calc(100% - 20px); /* devrait etre deactivated */
+    /* max-width: 100%;
     @media screen and (max-width: 576px) {
         padding: 0;
     }
+    
     /* overflow: hidden; */
     /* position: relative; */
 }
@@ -1377,7 +1397,7 @@ input:focus::placeholder, input.input_error:focus::placeholder {
             margin: 0 auto;
         }
         /* right: 20%; */
-        margin-inline: 19%;
+        /* margin-inline: 19%; */
     }
 
     @media screen and (max-width: 576px) {
