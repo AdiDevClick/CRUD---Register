@@ -1,6 +1,6 @@
 // import postcss from 'postcss';
 // import postcssNesting from 'postcss-nesting';
-import 'postcss'
+
 import './css/main.css'
 import './css/index.css'
 
