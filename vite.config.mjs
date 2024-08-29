@@ -1,5 +1,7 @@
 import { defineConfig } from "vite"
 import autoprefixer from 'autoprefixer'
+import postcssNesting from 'postcss-nesting';
+
 export default defineConfig({
     server: {
         // origin: 'https://http://192.168.1.181:5173',
@@ -32,7 +34,15 @@ export default defineConfig({
     css: {
         postcss: {
             plugins: [
-                autoprefixer({grid: "autoplace"}) // add options if needed
+                autoprefixer({
+                    grid: 'autoplace',
+                    browsers: [
+                        '>1%',
+                        'last 5 versions',
+                        'not ie < 9', // React doesn't support IE8 anyway
+                      ],
+                }), // add options if needed
+                postcssNesting(),
             ],
         }
     }

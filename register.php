@@ -10,7 +10,7 @@ require_once(__DIR__ . "/logs/customErrorHandlers.php");
 
 $script = 'src="scripts/fadeInScroller.js" defer';
 $script2 = 'type="module" src="scripts/errorApp.js" defer';
-$title = "Clic'Répare - S'enregistrer";
+$title = "Maxi Recettes - S'enregistrer";
 
 ob_start();
 
