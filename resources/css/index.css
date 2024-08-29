@@ -2,7 +2,7 @@
 label {
     font-size: var(--textfs);
     text-wrap: pretty;
-    color: var(--navbar-color);
+    color: var(--global-text-color);
     &#add_image {
         cursor: pointer;
     }
@@ -15,7 +15,7 @@ label {
     max-width: fit-content;
     justify-content: center;
     /* background-color: #3b3b3b3b; */
-    background-color: var(--background-color);
+    background-color: var(--button-color);
     box-shadow: -5px 11px 31px -13px rgba(0,0,0,0.5);
     transition: all 0.3s ease;
 }
@@ -28,7 +28,7 @@ label {
 }
 
 .btn:hover {
-    color: var(--background-color);
+    color: var(--button-color);
     /* transition: opacity 1.3s all; */
     /* background-color: var(--input-background-color); */
     transition: all 0.3s ease;
@@ -79,7 +79,7 @@ label {
 }
 
 button:hover {
-    background-color: #3b3b3b;
+    background-color: var(--button-hover-color);
     cursor: pointer;
 }
 
@@ -145,7 +145,7 @@ select, .custom-ingredient {
 }
 
 select:hover {
-    color: #3b3b3b;
+    color: var(--button-hover-color);
 }
 
 input[type=password], select, input[type=number] {
@@ -258,7 +258,8 @@ form {
 }
 
 .form-logo {
-    filter: drop-shadow(16px 16px 20px rgb(255, 254, 254)) invert(70%);
+    filter: var(--logo-color);
+    /* filter: var(--logo-color); */
     display: flex;
     /* width: 30%; */
     /* width: 50px; */
@@ -1360,7 +1361,7 @@ hr {
     height: 25px;
     width: 30px;
     z-index: 4;
-    background-color: var(--navbar-color);
+    background-color: var(--global-text-color);
     &:hover {
         transition: scale 0.3s ease-in-out;
         scale: 1.1;
@@ -1391,7 +1392,7 @@ hr {
     /* left: 0; */
     /* background-color: #ccccccd1; */
     /* background-color: var(--input-background-color); */
-    background-color: var(--background-color);
+    background-color: var(--button-color);
     border-radius: 100vh;
     z-index: 3;
     &:active {
@@ -1459,7 +1460,7 @@ hr {
     .drawer__close {
         
         position: absolute;
-        color: var(--navbar-color);
+        color: var(--global-text-color);
         top: 10px;
         right: 15px;
         filter: invert(1);
@@ -1670,8 +1671,10 @@ hr {
         position: sticky;
         padding: 2rem 3rem;
         border-radius: 100vh;
-        border: 0.5px rgb(196, 186, 186) solid;
+        /* border: 0.5px rgb(196, 186, 186) solid; */
+        border: 0.5px var(--button-color) solid;
         outline: none;
+        background: var(--navbar-background-color);
 
         /* width: 1000px!important; */
         &:is(:has(.search.open)) {

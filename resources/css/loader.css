@@ -5,7 +5,8 @@
     aspect-ratio: 1;
     border-radius: 50%;
     border: 8px solid #0000;
-    border-right-color: #ffa50097;
+    /* border-right-color: #ffa50097; */
+    border-right-color: var(--button-color);
     position: relative;
     animation: l24 1s infinite linear;
 }

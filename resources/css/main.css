@@ -21,11 +21,21 @@
     /* END OF CAROUSEL */
     --navbar-color: #eeeeee;
     --navbar-text-color : #000;
+    
     --navbar-hoover-text-color : #a39191;
     --navbar-hoover-background-color : #555252;
     --site-color-01: #a39191;
     --site-color-01-hover: #555252;
-    --background-color: orange;
+    /* --background-color: orange; */
+
+    --button-color: orange;
+    --button-hover-color: #3b3b3b;
+    --navbar-background-color: transparent; 
+    --background-color: linear-gradient(95deg, rgba(33,36,37,1) 0%, rgba(11,13,13,1) 90%, rgba(0,0,0,1) 100%);
+    --global-text-color: #eeeeee;
+    --logo-color: drop-shadow(16px 16px 20px rgb(255, 254, 254)) invert(70%);
+    --card-color: rgba(243, 243, 243, 0.05);
+
     --border-color: #a391913b;
     --input-focus: #7aa8dd;
     /* --input-focus-gradient: linear-gradient(#7aa8dd, #94b2d4); */
@@ -68,7 +78,7 @@ from the local website :
 
 * {
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    color: var(--navbar-color);
+    color: var(--global-text-color);
     /* outline: 1px solid tomato; */
 }
 /* For testing purpose only */
@@ -82,6 +92,14 @@ from the local website :
 } */
 
 /* END OF For testing purpose only */
+
+.dark-theme {
+        --background-color : #eeeeee;
+        /* --global-text-color: #3b3b3b; */
+        --logo-color: unset;
+        --navbar-background-color: #3b3b3b;
+        --card-color: #3b3b3b;
+    }
 
 /* TYPEWRITTER */
 .hero {
@@ -104,7 +122,7 @@ from the local website :
 
         flex-wrap: wrap;
         font-size: 4rem;
-        color: var(--navbar-color);
+        color: var(--global-text-color);
         font-weight: 600;
         letter-spacing: 0.1rem;
         /* width: calc(100% - 20px); */
@@ -113,7 +131,7 @@ from the local website :
         padding: 0 20px;
         span {
             position: relative;
-            color: var(--background-color);
+            color: var(--button-color);
         }
         & span::before {
             content: "";
@@ -122,7 +140,7 @@ from the local website :
             position: absolute;
             height: 4rem;
             width: 20px;
-            background: var(--background-color);
+            background: var(--button-color);
             transform: translateY(-45%);
             animation: blink 0.7s infinite;
         }
@@ -181,6 +199,7 @@ from the local website :
 
 /* BODY */
 html, body {
+    
     margin: 0;
     padding: 0;
     scroll-behavior: smooth;
@@ -205,7 +224,7 @@ body {
     /* background: linear-gradient(95deg, rgba(0,0,0,1) 2%, rgba(35,49,49,1) 100%, rgba(72,86,90,1) 100%); */
     /* background: rgb(33,36,37); */
     /* background: linear-gradient(95deg, rgba(33,36,37,1) 0%, rgba(35,49,49,1) 49%, rgba(0,0,0,1) 100%); */
-    background: linear-gradient(95deg, rgba(33,36,37,1) 0%, rgba(11,13,13,1) 90%, rgba(0,0,0,1) 100%);
+    background: var(--background-color);
     /* background-size: 100vh; */
     /* @media screen and (max-width: 576px) {
         overflow: hidden;
@@ -218,7 +237,7 @@ body {
 /* TEXT/TITLES & PARAGRAPH */
 a, p {
     text-decoration: none;
-    color: var(--navbar-color);
+    color: var(--global-text-color);
     /* font-size: var(--text-fs-body); */
     /* font-size: var(--textfs); */
     font-weight: 400;
@@ -226,7 +245,8 @@ a, p {
 
 a:hover:not(.action-btn), a.active {
     color: var(--site-color-01-hover);
-    color: orange;
+    color: var(--button-color);
+    /* color: orange; */
     cursor: pointer;
     transform: scale(1.03);
     /* transform: scale(1.05); */
@@ -722,11 +742,11 @@ nav.nav {
 } */
 
 .action-btn {
-    background-color: var(--background-color);
+    background-color: var(--button-color);
     outline: none;
     border: none;
     padding: 0.5rem 1rem;
-    color: var(--navbar-color);
+    color: var(--global-text-color);
     border-radius: 20px;
     font-size: var(--textfs);
     font-weight: 600;
@@ -736,7 +756,7 @@ nav.nav {
 
 .action-btn:hover {
     scale: 1.05;
-    color: var(--navbar-color);
+    color: var(--global-text-color);
 }
 
 .action-btn:active {
@@ -888,7 +908,7 @@ footer {
         /* z-index: 3; */
 
         visibility: visible;
-        color: var(--navbar-color);
+        color: var(--global-text-color);
     }
 
     /* .toggle_btn-box {
@@ -926,7 +946,7 @@ footer {
         /* top: -50%; */
 
         &:hover {
-            background-color: orange;
+            background-color: var(--button-color);
             transition: height .2s;
             /* transition: all .2s; */
             height: 100%;
@@ -1052,7 +1072,9 @@ main {
     justify-content: center;
     align-items: center;
     /* background-color: rgba(54, 54, 54, .2); */
-    background-color: rgba(243, 243, 243, 0.05);
+    /* background-color: rgba(243, 243, 243, 0.05); */
+    /* background-color: var(--navbar-background-color); */
+    background-color: var(--card-color);
     border-radius: 5px;
     /* border-inline-start: 1px solid var(--site-color-01); */
     border-inline-start: 1px solid var(--border-color);
@@ -1193,7 +1215,7 @@ input:focus::placeholder, input.input_error:focus::placeholder {
 
 /* SEARCHBAR */
 .search, .account {
-    background: orange;
+    background: var(--button-color);
     background-position: 50%;
     background-repeat: no-repeat;
     border-radius: 80px;
@@ -1287,7 +1309,7 @@ input:focus::placeholder, input.input_error:focus::placeholder {
     & > input {
         /* visibility: hidden; */
         display: none;
-        background: orange;
+        background: var(--button-color);
         background-position: 50%;
         background-repeat: no-repeat;
         border: 0;
@@ -1431,7 +1453,7 @@ input:focus::placeholder, input.input_error:focus::placeholder {
 
         &:hover {
             scale: 1.1;
-            color : var(--background-color)
+            color : var(--button-color)
         }
     }
 }
