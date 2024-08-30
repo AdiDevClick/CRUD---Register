@@ -24,8 +24,8 @@ if ($url === 'about.php' || 'planningType.php' || 'todo.html' || 'carousel.html'
     $active = strip_tags('class="active"');
 }
 
-// $dev = true;
-$dev = false;
+$dev = true;
+// $dev = false;
 $vite = false;
 // $vite = true;
 
@@ -343,6 +343,11 @@ if (!$dev) {
                 } ?>
                 href="#">About
             </a></li>
+            <div class="toggle">
+                <label for="lightmode-toggle"></label>
+                <input type="checkbox" id="lightmode-toggle">
+            </div>
+            
         </div>
     </footer>
     <!-- end of footer -->
