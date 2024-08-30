@@ -94,13 +94,13 @@ from the local website :
 
 /* END OF For testing purpose only */
 
-.dark-theme {
-        --background-color : #eeeeee;
-        /* --global-text-color: #3b3b3b; */
-        --logo-color: unset;
-        --navbar-background-color: #3b3b3b;
-        --card-color: #3b3b3b;
-    }
+[data-set="light-theme"] {
+    --background-color : #eeeeee;
+    /* --global-text-color: #3b3b3b; */
+    --logo-color: unset;
+    --navbar-background-color: #3b3b3b;
+    --card-color: #3b3b3b;
+}
 
 /* TYPEWRITTER */
 .hero {
@@ -1174,7 +1174,7 @@ main {
     color:rgba(255, 144, 64, 0.562)
 }
 
-* img {
+* img, svg {
     /* object-fit: contain;
     display: block;
     width: 100%;

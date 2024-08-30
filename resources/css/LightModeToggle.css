@@ -6,22 +6,17 @@ Modify paddings / width / height variables to obtain the rounded shape
 
 .toggle {
     --padding : 1px;
-
-    --width: 50px;
-    --height: 20px;
-
-    --ratio: calc((50px / 20px) * 100);
-    --ratio: 2.5;
-
+    --width: 45;
+    --height: 20;
+    --ratio: calc(var(--width) / var(--height));
 
     width: 100%;
-    /* overflow: hidden; */
     padding: 5px;
     max-height: 40px;
     margin: 15px auto;
     > label[for=lightmode-toggle] {
-        width: var(--width);
-        height: var(--height);
+        width: calc(var(--width) * 1px);
+        height: calc(var(--height) * 1px);
         padding: var(--padding);
         background: #ebebeb;
         border-radius: 100vh;
@@ -30,21 +25,61 @@ Modify paddings / width / height variables to obtain the rounded shape
         position: relative;
         box-shadow: inset 0px 5px 15px rgba(0,0,0,0.4), inset 0px -5px 15px rgba(255,255,255,0.4);
         &:after {
-
             content: '';
+            left: var(--padding);
             /* width: calc((100% - (var(--padding) * 2)) / 3 + (var(--height-padding) * 2)); */
             width: calc((100% / var(--ratio)) - (var(--padding) * 2));
             height: calc(100% - (var(--padding) * 2));
             background: linear-gradient(180deg,#ffcc89,#d8860b);
             position: absolute;
-            /* margin: 1px auto; */
             border-radius: 100vh;
+            /* padding: 3px; */
             box-shadow: 0px 5px 10px rgba(0,0,0,0.2);
+        }
+        &:active::after {
+            width: calc(((var(--width) + (var(--width) * 0.05)) / 2) * 1px);
+        }
+        > svg {
+            justify-content: center;
+            position: absolute;
+            width: 12px;
+            top: 0;
+            margin-inline: calc(var(--padding) * 2.5);
+            z-index: 100;
+        }
+        > svg.sun g path {
+            fill:#fff;
+            transition: 0.3s;
+        }
+        > svg.moon {
+            right: var(--padding);
+            
+            & path {
+                fill:#7e7e7e;
+                transition: 0.3s;
+            }
+        }
+    &, &:after {
+            transition: all 0.3s, width 0.2s
         }
     }
     > input {
         width: 0;
         height: 0;
         visibility: hidden;
+        &:checked + label[for=lightmode-toggle] {
+            background: #242424;
+        }
+        &:checked + label[for=lightmode-toggle]:after {
+            left: calc((var(--width) * 1px) - var(--padding));
+            transform: translateX(-100%);
+            background: linear-gradient(180deg,#777,#3a3a3a);
+        }
+        &:checked + label[for=lightmode-toggle] > svg.sun g path {
+            fill:#7e7e7e;
+        }
+        &:checked + label[for=lightmode-toggle] > svg.moon path {
+            fill:#fff;
+        }
     }
 }

@@ -36,13 +36,13 @@ export default defineConfig({
             plugins: [
                 autoprefixer({
                     grid: 'autoplace',
-                    browsers: [
-                        '>1%',
-                        'last 5 versions',
+                    // browsers: [
+                        // '>1%',
+                        // 'last 5 versions',
                         //'not ie < 9',  React doesn't support IE8 anyway
-                    ],
+                    // ],
                 }), // add options if needed
-                postcssNesting(),
+                // postcssNesting(),
             ],
         }
     }

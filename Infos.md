@@ -4,7 +4,7 @@
 <br>
 
 ```
-Modification APACHE de redirection HTTPD dans le httpd.conf 
+Modification APACHE de la redirection HTTPD dans le httpd.conf 
 Cela permettra à la recherche de pouvoir se réactualiser facilement
 
 Si un utilisateur tente d'accéder à la navigation, cela créera une erreur 403
