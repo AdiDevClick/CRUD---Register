@@ -26,8 +26,8 @@ if ($url === 'about.php' || 'planningType.php' || 'todo.html' || 'carousel.html'
 
 $dev = true;
 // $dev = false;
-// $vite = false;
-$vite = true;
+$vite = false;
+// $vite = true;
 
 ?>
 
@@ -90,6 +90,7 @@ if (!$dev) {
         <link rel="stylesheet" href="<?php echo($rootUrl). $clicServer?>/resources/css/main.css"/>
         <link rel="stylesheet" href="<?php echo($rootUrl). $clicServer?>/resources/css/index.css"/>
         <script type="module" src="<?php echo($rootUrl). $clicServer?>/scripts/toaster.js" defer></script>
+        <script src="<?php echo($rootUrl). $clicServer?>/scripts/toggleLightMode.js" defer></script>
 <?php endif ?>
 
     <!-- <script type="module" src="<?php //echo($rootUrl). $clicServer?>/scripts/toaster.js" defer></script> -->

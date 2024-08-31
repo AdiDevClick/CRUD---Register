@@ -94,7 +94,7 @@ from the local website :
 
 /* END OF For testing purpose only */
 
-[data-set="light-theme"] {
+[light-theme] {
     --background-color : #eeeeee;
     /* --global-text-color: #3b3b3b; */
     --logo-color: unset;

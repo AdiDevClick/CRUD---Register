@@ -304,6 +304,11 @@ form {
     /* grid: minmax(400px, min-content) / repeat(auto-fill, 400px); */
     @media (min-width: 996px) {
         gap: 1.3rem;
+        /* flex-direction: column; */
+        /* align-items: baseline; */
+        /* min-width: 50px; */
+        padding: 5px;
+
     }
     /* @media screen and (max-width: 976px) {
         min-width: 50px;
@@ -313,7 +318,7 @@ form {
         gap: 0.5rem;
         padding: 5px;
         align-items: baseline;
-        min-width: 50px;
+        min-width: 30px;
     }
     
 }
