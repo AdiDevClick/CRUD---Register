@@ -24,6 +24,7 @@ export class IngredientsFrom {
     #template
     /** @type {HTMLElement} */
     #target
+    #targets = []
     /** @type {object} */
     #elements
     /** @type {HTMLButtonElement} */
@@ -45,6 +46,7 @@ export class IngredientsFrom {
     #touchPlugin
     #file
     #imagePreview
+    #input = []
 
     /**
      * @param {Ingredient[]} list
@@ -55,7 +57,8 @@ export class IngredientsFrom {
     constructor(list, options = {}) {
         this.#list = list
         this.#list = this.#list.filter((k, v) => k !== '')
-        const grid = document.querySelector('.card_container')
+        // const grid = document.querySelector('.card_container')
+        const grid = document.querySelector('.mobile-only')
 
         this.options = Object.assign ({}, {
             post: true,
@@ -68,7 +71,7 @@ export class IngredientsFrom {
         // this.options.get ? this.options.post = false : this.options.post = true
         // this.#template = document.querySelector('#ingredient-template')
         // this.#target = document.querySelector(".js-ingredient-group")
-        this.#touchPlugin = new DrawerTouchPlugin(grid)
+        if (grid) this.#touchPlugin = new DrawerTouchPlugin(grid)
     }
 
     /**
@@ -80,19 +83,25 @@ export class IngredientsFrom {
         this.#endpoint = this.#form.dataset.endpoint
         this.#template = document.querySelector(this.#form.dataset.template)
         this.#target = document.querySelector(this.#form.dataset.target)
+        this.#targets = document.querySelectorAll('.js-ingredient-group')
         this.#elements = JSON.parse(this.#form.dataset.elements)
         this.#file = this.#form.querySelector('.file-uploader')
         this.#imagePreview = this.#form.querySelector('.profile-picture')
         // this.#element = JSON.parse(`{"ingredient": ".js-value"}`)
 
         // this.#formValidationButton = this.#form.querySelector('#button')
-        this.#formButton = this.#form.querySelector('#add_custom')
-        
+        this.#formButton = this.#form.querySelector('.js-add-custom')
+        // this.#formButton = this.#form.querySelector('#add_custom')
+        console.log(this.#form.dataset)
+        console.log(this.#target )
         this.#list.forEach(ingredient => {
             if (ingredient === '') return
             this.ingre = ingredient
             const savedIngredient = new Ingredient(this)
             this.#ingredient = savedIngredient.element
+            // this.#target.forEach(target => {
+            //     target.prepend(this.#ingredient)
+            // });
             this.#target.prepend(this.#ingredient)
             // this.#onIngredientDelete(this.#ingredient)
         })
@@ -101,6 +110,7 @@ export class IngredientsFrom {
             useMyOwnListener: true
         })
         this.#form.addEventListener('submit', e => {
+            console.log(e.target)
             e.preventDefault()
             if (!this.#Errorhandler.checkInputs) {
                 this.#touchPlugin.resetStates
@@ -139,17 +149,46 @@ export class IngredientsFrom {
      */
     #addNewIngredient(e) {
         e.preventDefault()
-        let input = this.#form.querySelector('#custom_ingredient')
-
-        if (!this.#isInputChecked()) {
+        // let input = this.#form.querySelector('#custom_ingredient')
+        // let inputAllResolutions = this.#form.querySelector('#custom_ingredient_all_resolutions')
+        // const inputs = this.#form.querySelectorAll('.js-ingredient-input')
+        // this.#input = this.#form.querySelector('.js-ingredient-input')
+        const input = e.target.previousElementSibling
+        console.log(input)
+        // inputs.forEach(input => {
+        //     if (!this.#isInputChecked()) {
+        //         return
+        //     }
+        //     this.#input = input
+        //     console.log(input)
+        //     this.ingre = this.#input.value
+        //     // this.ingre = input.value
+        //     console.log(this.ingre)
+        //     this.#ingredient = new Ingredient(this)
+        //     this.#target.prepend(this.#ingredient.element)
+        //     this.#list.push(this.#ingredient.element.innerText)
+        //     this.onUpdate('ingredients', this.#list)
+        //     // this.#input.value = ''
+        //     // input.value = ''
+        //     this.ingre = ''
+        // })
+        if (!this.#isInputChecked(input)) {
             return
         }
+        // this.ingre = this.#input.value
         this.ingre = input.value
+        console.log(this.ingre)
         this.#ingredient = new Ingredient(this)
+        // this.#targets.forEach(target => {
+        //     console.log(target)
+        //     target.prepend(this.#ingredient.element.cloneNode(true))
+        // });
         this.#target.prepend(this.#ingredient.element)
         this.#list.push(this.#ingredient.element.innerText)
         this.onUpdate('ingredients', this.#list)
+        // this.#input.value = ''
         input.value = ''
+        // this.ingre = ''
 
         this.#formButton.removeEventListener('click', this.#addNewIngredient.bind(this))
     }
@@ -349,19 +388,26 @@ export class IngredientsFrom {
      * @returns {Boolean} True => Si aucune erreur n'est trouvée
      * @returns {Boolean} False => Si au moins une erreur a été trouvée
      */
-    #isInputChecked() {
+    #isInputChecked(input) {
         // this.#formIngredient = formDatas.get('custom_ingredient').toString().trim()
-        const body = this.#form.querySelector('#custom_ingredient')
-        const inputValue = body.value.toString().trim()
+        const body = this.#form.querySelector('.js-ingredient-input')
+        // const body = this.#form.querySelector('#custom_ingredient')
+        // const inputValue = body.value.toString().trim()
+        const inputValue = input.value.toString().trim()
+        // const inputValue = this.#input.value.toString().trim()
         if (inputValue === '') {
         // if (this.#formIngredient === '') {
             const message = "Veuillez renseigner l'ingrédient à ajouter"
             body.classList.add("error")
+            // this.#input.classList.add("error")
+            // this.#input.setAttribute('placeholder', 'Saissisez votre ingrédient...')
             body.setAttribute('placeholder', 'Saissisez votre ingrédient...')
             this.#error.push(message)
         } else {
             body.classList.remove("error")
             body.setAttribute('placeholder', 'Votre ingrédient...')
+            // this.#input.classList.remove("error")
+            // this.#input.setAttribute('placeholder', 'Votre ingrédient...')
         }
 
         if (this.#error.length >= 1) {
@@ -702,7 +748,8 @@ class AttachmentToThis {
         this.#deleter.innerText = ' DELETE '
         this.#closeButton.innerText = ' CLOSE '
         
-        document.querySelector('.recipe').prepend(this.#stop)
+        document.querySelector('.js-stop-appender').prepend(this.#stop)
+        // document.querySelector('.recipe').prepend(this.#stop)
         this.#container.append(this.#element)
 
         this.#element.append(this.#deleter)

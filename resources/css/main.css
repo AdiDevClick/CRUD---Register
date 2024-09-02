@@ -3,6 +3,7 @@
 @import "carousel.css";
 @import "loader.css";
 @import "LightModeToggle.css";
+@import "bubbleMenu.css";
 
 
 /**
@@ -1000,6 +1001,16 @@ footer {
     }
     .navbar {
         align-items: center;
+    }
+    .all-resolutions {
+        display: none;
+        visibility: hidden;
+    }
+}
+@media (min-width: 577px) {
+    .mobile-only {
+        display: none;
+        visibility: hidden;
     }
 }
 

@@ -104,6 +104,24 @@ ob_start()
 <?php else: ?>
     <?php session_unset()?>
 <?php endif ?>
+<section class="counter">
+    <div class="div">
+        <span class="number">350</span>
+        <p class="text">Recettes partagées</p>
+    </div>
+    <div class="div">
+        <span class="number">100</span>
+        <p class="text">Utilisateurs</p>
+    </div>
+    <div class="div">
+        <span class="number">5000</span>
+        <p class="text">Vues</p>
+    </div>
+    <div class="div">
+        <span class="number">200</span>
+        <p class="text">Utilisateurs quotidiens</p>
+    </div>
+</section>
 <section class="hero small">
     <div class="">
         <div class="">

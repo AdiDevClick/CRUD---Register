@@ -9,8 +9,8 @@ Default status : Dark Theme
 
 .toggle {
     --padding : 1px;
-    --width: 50;
-    --height: 25;
+    --width: 60;
+    --height: 30;
     --ratio: calc(var(--width) / var(--height));
     --dark: #7e7e7e;
     --light: #fff;
@@ -21,11 +21,12 @@ Default status : Dark Theme
     --input-shadow: inset 0px 5px 15px rgba(0,0,0,0.4), inset 0px -5px 15px rgba(255,255,255,0.4);
     --button-shadow: 0px 5px 10px rgba(0,0,0,0.2);
     
-    width: 100%;
+    /* width: 100%; */
     padding: 5px;
-    max-height: 40px;
-    margin: 15px auto;
+    /* max-height: 40px; */
+    margin: 20px auto;
     > label[for=lightmode-toggle] {
+        overflow: hidden;
         display: flex;
         justify-content: space-around;
         flex-direction: row-reverse;
@@ -34,14 +35,12 @@ Default status : Dark Theme
         padding: var(--padding);
         background: var(--light-input-background);
         border-radius: 100vh;
-        /* display: block; */
         cursor: pointer;
         position: relative;
         box-shadow: var(--input-shadow);
         &:after {
             content: '';
             left: var(--padding);
-            /* width: calc((100% - (var(--padding) * 2)) / 3 + (var(--height-padding) * 2)); */
             width: calc((100% / var(--ratio)) - (var(--padding) * 2));
             height: calc(100% - (var(--padding) * 2));
             background: var(--dark-button-background);
@@ -51,12 +50,9 @@ Default status : Dark Theme
         }
         &:active::after, &:hover::after, &:focus::after {
             width: calc(((var(--width) + (var(--width) * 0.03)) / 2) * 1px);
-            /* transform: scale(1.2, 1.05) perspective(100px);
-            transform-origin: left left; */
         }
         > svg {
             justify-content: center;
-            /* position: absolute; */
             position: relative;
             width: 12px;
             top: 0;
@@ -72,7 +68,6 @@ Default status : Dark Theme
             }
         }
         > svg.sun {
-            /* right: var(--padding); */
             & g path {
                 fill: var(--dark);
                 transition: 0.3s;
@@ -94,11 +89,8 @@ Default status : Dark Theme
             background: var(--dark-input-background);
         }
         &:is([checked]) + label[for=lightmode-toggle]::after {
-            /* left: calc((var(--width) * 1px) - var(--padding)); */
-            /* right: calc((0 - 1px) * 1); */
-            right: 0;
-            transform: translateX(calc(100% + var(--padding)));
-            transform-origin: right center;
+            left: calc((var(--width) * 1px) - var(--padding));
+            transform: translateX(-100% );
             background: var(--light-button-background);
         }
         &:is([checked]) + label[for=lightmode-toggle] {

@@ -82,6 +82,7 @@ if (!$dev) {
     <script type="module" src="http://localhost:5173/assets/@vite/client"></script>
     <script type="module" src="http://localhost:5173/assets/resources/main.js"></script>
     <script type="module" src="<?php echo($rootUrl). $clicServer?>/scripts/toaster.js" defer></script>
+    <script src="<?php echo($rootUrl). $clicServer?>/scripts/toggleLightMode.js" defer></script>
 <?php
 }
 ?>

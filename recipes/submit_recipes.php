@@ -107,10 +107,35 @@ ob_start();
 //if (isset($loggedUser['email']) && !isset($loggedUser['recipe'])):
 
 ?>
+<?php
+// $include = include '../templates/recipe_layout_mobile_only.php';
+// $includes = include '../templates/recipe_layout_all_resolutions.php';
+?>
 <?php if (isset($loggedUser['email'])  && !isset($_SESSION['REGISTERED_RECIPE'])): ?> 
         <?php //(isset($loggedUserState)):?>
     <h1>Partagez votre recette</h1>
-    <?php include '../templates/recipe_layout.php'?>
+    <!-- <script type="text/javascript">
+        if (window.innerWidth <= 576) {
+            // fetch('../templates/recipe_layout_mobile_only.php')
+            // .then((include) => include.text())
+            // .then((data) => document.documentElement.querySelector('main').innerHTML = data)
+            document.querySelector('main').innerHTML = fetch('../templates/recipe_layout_mobile_only.php');
+            // console.log(include)
+        } ;
+
+        if (window.innerWidth > 576) {
+            // fetch('../templates/recipe_layout_all_resolutions.php')
+            // .then((include) => include.text())
+            // .then((data) => document.documentElement.querySelector('main').innerHTML = data)
+            document.querySelector('main').innerHTML = fetch('../templates/recipe_layout_mobile_only.php');
+            // console.log(includes)
+
+        }
+
+    </script> -->
+    <?php include '../templates/recipe_layout_mobile_only.php'?>
+    <?php include '../templates/recipe_layout_all_resolutions.php'?>
+    <?php include '../templates/recipe_creation_menu.php'?>
 <!-- start of success message -->
 
 <?php elseif (isset($_SESSION['REGISTERED_RECIPE'])):?>

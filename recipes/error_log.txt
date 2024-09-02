@@ -1,0 +1,14 @@
+Errors : [2] include(../templates/recipe_layout.php): Failed to open stream: No such file or directory - C:\xampp\htdocs\Recettes\recipes\submit_update_recipes.inc.php:46
+Errors : [2] include(): Failed opening '../templates/recipe_layout.php' for inclusion (include_path='C:\xampp\php\PEAR') - C:\xampp\htdocs\Recettes\recipes\submit_update_recipes.inc.php:46
+Errors : [2] include(../templates/recipe_layout.php): Failed to open stream: No such file or directory - C:\xampp\htdocs\Recettes\recipes\submit_update_recipes.inc.php:46
+Errors : [2] include(): Failed opening '../templates/recipe_layout.php' for inclusion (include_path='C:\xampp\php\PEAR') - C:\xampp\htdocs\Recettes\recipes\submit_update_recipes.inc.php:46
+Errors : [2] include(../templates/recipe_layout.php): Failed to open stream: No such file or directory - C:\xampp\htdocs\Recettes\recipes\submit_update_recipes.inc.php:46
+Errors : [2] include(): Failed opening '../templates/recipe_layout.php' for inclusion (include_path='C:\xampp\php\PEAR') - C:\xampp\htdocs\Recettes\recipes\submit_update_recipes.inc.php:46
+Errors : [2] include(../templates/recipe_layout.php): Failed to open stream: No such file or directory - C:\xampp\htdocs\Recettes\recipes\submit_update_recipes.inc.php:46
+Errors : [2] include(): Failed opening '../templates/recipe_layout.php' for inclusion (include_path='C:\xampp\php\PEAR') - C:\xampp\htdocs\Recettes\recipes\submit_update_recipes.inc.php:46
+Errors : [2] include(../templates/recipe_layout.php): Failed to open stream: No such file or directory - C:\xampp\htdocs\Recettes\recipes\submit_update_recipes.inc.php:46
+Errors : [2] include(): Failed opening '../templates/recipe_layout.php' for inclusion (include_path='C:\xampp\php\PEAR') - C:\xampp\htdocs\Recettes\recipes\submit_update_recipes.inc.php:46
+Errors : [2] Undefined variable $include - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:118
+Errors : [2] Undefined variable $includes - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:119
+Errors : [2] Undefined variable $includes - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:119
+Errors : [2] Undefined variable $includes - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:119

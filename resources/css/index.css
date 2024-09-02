@@ -468,7 +468,7 @@ form {
             transform: unset;
         }
     } */
-    &#recipe_creation {
+    &#recipe_creation, &#recipe_creation_all_resolutions {
         .btn {
             width: 100%;
             max-width: unset;

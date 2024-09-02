@@ -21,13 +21,19 @@ if (queryString.toString().includes("create_recipes.php")) {
         }
     
         const ingredients = new IngredientsFrom(list)
-        ingredients.appendTo(document.querySelector('.js-form-fetch'))
+        const positions = document.querySelectorAll('.js-form-fetch')
+        positions.forEach(position => {
+            // const ingredients = new IngredientsFrom(list)
+            ingredients.appendTo(position)
+        })
+        // ingredients.appendTo(document.querySelector('.js-form-fetch'))
     
         if (list.length === 0) {
             throw new Error("Aucun ingrédient enregistré")
         }
     } catch (error) {
         new Toaster(error, 'Erreur')
+        console.log(error)
     }
 }
 
@@ -55,6 +61,8 @@ if (queryString.toString().includes("update_recipes.php")) {
         // }
     } catch (error) {
         new Toaster(error, 'Erreur')
+        console.log(error)
+
     }
 }
 

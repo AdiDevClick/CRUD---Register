@@ -1,4 +1,4 @@
-<section class="card_container">
+<section class="card_container mobile-only">
     <form
         id="preparation-form"
         action="update_recipes.php"
@@ -68,7 +68,7 @@
             <div class="opening_drawer_button show">
                 <img src='../img/add.svg' alt="image représentant une addition">
             </div>
-            <section class="card recipe" id="js-preparation">
+            <section class="card recipe js-stop-appender" id="js-preparation">
                 <div class="drawer">
                     <div class="drawer__button"></div>
                     <div class="drawer__close">
@@ -179,8 +179,8 @@
                         </div>
                         <div class="add_ingredient">
                             <label for="custom_ingredient" class="label">Votre ingrédient particulier</label>
-                            <input id="custom_ingredient" type="text" name="custom_ingredient" class="input" placeholder="Votre ingrédient...">
-                            <button name="add_custom" id="add_custom" type="button" class="btn">Ajouter un nouvel ingrédient</button>
+                            <input id="custom_ingredient" type="text" name="custom_ingredient" class="input js-ingredient-input" placeholder="Votre ingrédient...">
+                            <button name="add_custom" id="add_custom" type="button" class="btn js-add-custom">Ajouter un nouvel ingrédient</button>
                         </div>
                         <!-- File -->
                         <div class="img_preview">
