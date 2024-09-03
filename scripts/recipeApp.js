@@ -1,13 +1,40 @@
 import { DrawerTouchPlugin } from "./components/DrawerTouchPlugin.js"
 import { IngredientsFrom } from "./components/RecipePreparation.js"
 import { Toaster } from "./components/Toaster.js"
-import { fetchJSON } from "./functions/api.js"
+import { fetchJSON, fetchTemplate } from "./functions/api.js"
 
 const drawerButton = document.querySelector('.drawer__button')
 const recipe = document.querySelector('.recipe')
 // const grid = document.querySelector('.card_container')
 const drawer = document.querySelector('.drawer')
 
+let mobile = false
+
+if (window.innerWidth < 577) {
+    mobile = true
+} else {
+    mobile = false
+}
+
+if (!mobile) {
+    console.log('object')
+    const url = '../templates/Recipe_Layout_All_Resolutions.php'
+    const target = '.all-resolutions'
+    const allResolutionsData = includes(url, target)
+    // console.log(await test)
+    document.querySelector("main").append(await allResolutionsData)
+    
+} else {
+    const url = '../templates/Recipe_Layout_Mobile_Only.php'
+    const target = '.mobile-only'
+    const mobileData = includes(url, target)
+    // console.log(await test)
+    document.querySelector("main").append(await mobileData)
+}
+async function includes(url, target) {
+    const data = await fetchTemplate(url, target)
+    return data
+} 
 
 const queryString = document.location
 const urlParams = new URLSearchParams(queryString.search)

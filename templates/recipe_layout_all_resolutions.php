@@ -1,4 +1,7 @@
-<section class="card_container all-resolutions" disabled>
+<?php
+$getInfos = null;
+?>
+<section class="card_container all-resolutions">
     <form
         id="preparation-form-all-resolutions"
         action="update_recipes.php"
@@ -106,11 +109,12 @@
                 </div>
             </div>
             <!-- FIN DE LA CARTE PREPARATION -->
-            <div class="show_drawer">
                 
             
             
             <!-- DEBUT DE LA CARTE INGREDIENTS -->
+            <div class="show_drawer">
+
                 <div class="card-header-section">
                     <div class="icon form-logo">
                         <img src="../img/food.svg" alt="icône représentant un panier d'ingrédients" srcset="">
@@ -177,6 +181,8 @@
                 </div>
                 
             </div>
+            <!-- FIN DE LA CARTE INGREDIENTS -->
+
             <!-- File -->
             <div class="img_preview">
                 <label id="add_image" for="file" class="label"> Ajouter une image</label>

@@ -133,8 +133,8 @@ ob_start();
         }
 
     </script> -->
-    <?php include '../templates/recipe_layout_mobile_only.php'?>
-    <?php include '../templates/recipe_layout_all_resolutions.php'?>
+    <?php // include '../templates/recipe_layout_mobile_only.php'?>
+    <?php // include '../templates/recipe_layout_all_resolutions.php'?>
     <?php include '../templates/recipe_creation_menu.php'?>
 <!-- start of success message -->
 

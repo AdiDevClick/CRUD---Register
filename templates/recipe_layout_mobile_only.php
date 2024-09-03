@@ -1,3 +1,6 @@
+<?php
+$getInfos = null;
+?>
 <section class="card_container mobile-only">
     <form
         id="preparation-form"
