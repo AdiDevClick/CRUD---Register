@@ -1,5 +1,5 @@
 <?php
-$getInfos = null;
+    $getInfos = null;
 ?>
 <section class="card_container all-resolutions">
     <form

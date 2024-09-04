@@ -25,6 +25,78 @@ export function createElement(tagName, attributes = {}) {
 }
 
 /**
+ * Fonction pour retirer du DOM un HTMLElement contenu dans un commentaire
+ * @param {String} targetSelector représente une classe ou un élément HTML
+ * @param {HTMLElement} commentNode un objet HTML. Il retourne son nodeValue pour récupérer son contenu
+ */
+export function removeComment(targetSelector, commentNode) {
+    const targetElement = document.querySelector(targetSelector)
+    if (targetElement) {
+        const comments = Array.from(targetElement.childNodes).filter(node => 
+            node.nodeType === Node.COMMENT_NODE && node.nodeValue.trim() === commentNode.nodeValue.trim()
+            // node.nodeType === Node.COMMENT_NODE && node.nodeValue.trim() === commentText.trim()
+        );
+        comments.forEach(comment => targetElement.removeChild(comment))
+    } else {
+        console.error('Target element not found')
+    }
+}
+
+/**
+ * Fonction permettant d'insérer une balise commentaire avec un texte
+ * @param {String} targetSelector représente une classe ou un élément HTML
+ * @param {String} commentText
+ */
+export function insertComment(targetSelector, commentText) {
+    const targetElement = document.querySelector(targetSelector);
+    if (targetElement) {
+        const commentNode = document.createComment(commentText);
+        targetElement.appendChild(commentNode);
+    } else {
+        console.error('Target element not found');
+    }
+}
+
+/**
+ * Transforme et remplace un HTMLElement en un commentaire
+ * @param {String} targetSelector représente une classe ou un élément HTML
+ * Son outerHTML permettra d'insérer les balises autour de la target
+ */
+export function transformToComment(targetSelector) {
+    const targetElement = document.querySelector(targetSelector);
+    if (targetElement) {
+        const commentText = targetElement.outerHTML;
+        const commentNode = document.createComment(commentText);
+        targetElement.replaceWith(commentNode);
+    } else {
+        console.error('Target element not found');
+    }
+}
+
+/**
+ * Sélectionne un Node contenant dans une balise commentaire
+ * Puis cherche le un commentaire qui match le commentedNode
+ * Puis supprime les balises commentaires pour réactiver l'élément -
+ * @param {String} targetSelector représente une classe ou un élément HTML 
+ * @param {HTMLElement} commentedNode un objet HTML. Il retourne son nodeValue pour match son contenu
+ */
+export function restoreFromComment(targetSelector, commentedNode) {
+    const parentElement = document.querySelector(targetSelector)
+    // const parentElement = document.querySelector(targetSelector).parentNode
+    const commentNode = Array.from(parentElement.childNodes).find(node => 
+        node.nodeType === Node.COMMENT_NODE && node.nodeValue.trim() === commentedNode.nodeValue.trim()
+    )
+    if (commentNode) {
+        const parser = new DOMParser()
+        const doc = parser.parseFromString(commentNode.nodeValue, 'text/html')
+        const restoredElement = doc.body.firstChild
+        commentNode.replaceWith(restoredElement)
+    } else {
+        console.error('Comment node not found')
+    }
+}
+
+/**
  * Debounce une fonction de manière Asynchrone
  * Il faut spécifier la duration -
  * Cette fonction permet aussi de prendre en compte 

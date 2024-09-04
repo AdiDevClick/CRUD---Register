@@ -2,10 +2,13 @@ import { DrawerTouchPlugin } from "./components/DrawerTouchPlugin.js"
 import { IngredientsFrom } from "./components/RecipePreparation.js"
 import { Toaster } from "./components/Toaster.js"
 import { fetchJSON, fetchTemplate } from "./functions/api.js"
+import { transformToComment, restoreFromComment } from "./functions/dom.js"
 
 const drawerButton = document.querySelector('.drawer__button')
 const recipe = document.querySelector('.recipe')
 // const grid = document.querySelector('.card_container')
+const allRes = document.querySelector('.all-resolutions')
+const mobileOnly = document.querySelector('.mobile-only')
 const drawer = document.querySelector('.drawer')
 
 let mobile = false
@@ -17,12 +20,67 @@ if (window.innerWidth < 577) {
 }
 
 if (!mobile) {
-    console.log('object')
     const url = '../templates/Recipe_Layout_All_Resolutions.php'
     const target = '.all-resolutions'
-    const allResolutionsData = includes(url, target)
+
+
+    // async function fetchData(url) {
+    //     const response = await fetch(url);
+    //     if (!response.ok) {
+    //         throw new Error('Network response was not ok');
+    //     }
+    //     return response.text();
+    // }
+    
+    // fetchData(url).then(data => {
+    //     const parser = new DOMParser();
+    //     const doc = parser.parseFromString(data, 'text/html');
+    //     const targetElement = doc.querySelector(target);
+    //     if (targetElement) {
+    //         const commentedData = document.createComment(targetElement);
+    //         document.querySelector('main').appendChild(commentedData);
+    //     } else {
+    //         console.error('Target element not found');
+    //     }
+    // })
+
+    const allResolutionsData = await includes(url, target)
     // console.log(await test)
-    document.querySelector("main").append(await allResolutionsData)
+    // const newDiv = document.createElement('div')
+    // const append = await allResolutionsData
+    // newDiv.innerHTML = allResolutionsData
+    const commentedData = document.createComment(allResolutionsData.outerHTML)
+    // const test = `<!-- ${newDiv}`
+    document.querySelector("main").appendChild(commentedData)
+
+    // removeComment("main", commentedData)
+    restoreFromComment('main', commentedData)
+    transformToComment(target)
+    // restoreFromComment('main', commentedData)
+
+    // document.querySelector("main").append(test)
+    // document.querySelector("main").innerHTML = test
+    // document.querySelector("main").insertAdjacentHTML("beforebegin", append)
+    // document.querySelector("main").append(append)
+
+
+
+    // const append = document.querySelector("main").append(await allResolutionsData)
+    // const main = document.querySelector("main").innerHTML.includes('<!--')
+    // const test = `<code> <!-- ${append} `
+    // const test = document.createComment(`${await allResolutionsData}`) 
+    // const docu = new DOMParser().parseFromString("<xml></xml>", "application/xml");
+    // console.log(append)
+    // const comment = docu.createComment(append) 
+    // const comment = document.createComment(append) 
+
+    // const news = new XMLSerializer()
+    // if (main) {
+        // docu.querySelector("xml").appendChild(comment)
+        // document.querySelector("main").insertAdjacentHTML("beforebegin", test)
+        // console.log(news.serializeToString(docu));
+        // document.querySelector("main").appendChild(news.serializeToString(comment))
+    // }
     
 } else {
     const url = '../templates/Recipe_Layout_Mobile_Only.php'
@@ -31,6 +89,7 @@ if (!mobile) {
     // console.log(await test)
     document.querySelector("main").append(await mobileData)
 }
+
 async function includes(url, target) {
     const data = await fetchTemplate(url, target)
     return data
