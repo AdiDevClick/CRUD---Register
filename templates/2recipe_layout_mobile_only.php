@@ -2,7 +2,7 @@
     $getInfos = null;
 ?>
 <!-- <section class="card_container all-resolutions"> -->
-<!-- <section class="card_container mobile-only"> -->
+<section class="card_container mobile-only">
     <form
         id="preparation-form-all-resolutions"
         action="update_recipes.php"
@@ -69,7 +69,7 @@
             </div>
             
             <!-- DEBUT DE LA CARTE PREPARATION -->
-            <div>
+            <div class="show_drawer">
                 <div class="card-header-section">
                     <div class=" icon form-logo">
                         <img src="../img/cooking.svg" alt="icône représentant une cuisson" srcset="">
@@ -110,14 +110,8 @@
                 </div>
             </div>
             <!-- FIN DE LA CARTE PREPARATION -->
-            <!-- <section class=""> -->
                 
-            <div class="drawer">
-                <div class="drawer__button"></div>
-                <div class="drawer__close">
-                    <img src='../img/close.svg' alt="image représentant une fermeture">
-                </div>
-            </div>
+            
             
             <!-- DEBUT DE LA CARTE INGREDIENTS -->
             <div class="show_drawer">
@@ -207,7 +201,6 @@
                 <hr>
                 <button name="add_preparation" id="submit" type="submit" class="btn">Valider vos modifications</button>
             </div>
-            <!-- </section> -->
         </section>
     </form>
 </section>

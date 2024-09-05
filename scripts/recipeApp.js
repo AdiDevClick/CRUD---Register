@@ -44,18 +44,25 @@ if (!mobile) {
     //     }
     // })
 
-    const allResolutionsData = await includes(url, target)
     // console.log(await test)
     // const newDiv = document.createElement('div')
     // const append = await allResolutionsData
     // newDiv.innerHTML = allResolutionsData
-    const commentedData = document.createComment(allResolutionsData.outerHTML)
     // const test = `<!-- ${newDiv}`
-    document.querySelector("main").appendChild(commentedData)
+    // document.querySelector("main").appendChild(commentedData)
 
     // removeComment("main", commentedData)
-    restoreFromComment('main', commentedData)
-    transformToComment(target)
+
+    /*
+    * A Réactiver
+    */
+    // const allResolutionsData = await includes(url, target)
+
+    // const commentedData = document.createComment(allResolutionsData.outerHTML)
+    // restoreFromComment('main', commentedData)
+    // transformToComment(target)
+
+
     // restoreFromComment('main', commentedData)
 
     // document.querySelector("main").append(test)
@@ -85,9 +92,9 @@ if (!mobile) {
 } else {
     const url = '../templates/Recipe_Layout_Mobile_Only.php'
     const target = '.mobile-only'
-    const mobileData = includes(url, target)
+    // const mobileData = includes(url, target)
     // console.log(await test)
-    document.querySelector("main").append(await mobileData)
+    // document.querySelector("main").append(await mobileData)
 }
 
 async function includes(url, target) {

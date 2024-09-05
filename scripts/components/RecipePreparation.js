@@ -57,9 +57,9 @@ export class IngredientsFrom {
     constructor(list, options = {}) {
         this.#list = list
         this.#list = this.#list.filter((k, v) => k !== '')
-        // const grid = document.querySelector('.card_container')
-        const mobileGrid = document.querySelector('.mobile-only')
-        const grid = document.querySelector('.mobile-only')
+        const grid = document.querySelector('.card_container')
+        // const mobileGrid = document.querySelector('.mobile-only')
+        // const grid = document.querySelector('.mobile-only')
 
         this.options = Object.assign ({}, {
             post: true,
@@ -72,7 +72,8 @@ export class IngredientsFrom {
         // this.options.get ? this.options.post = false : this.options.post = true
         // this.#template = document.querySelector('#ingredient-template')
         // this.#target = document.querySelector(".js-ingredient-group")
-        if (mobileGrid) this.#touchPlugin = new DrawerTouchPlugin(mobileGrid)
+        if (grid) this.#touchPlugin = new DrawerTouchPlugin(grid)
+        // if (mobileGrid) this.#touchPlugin = new DrawerTouchPlugin(mobileGrid)
     }
 
     /**

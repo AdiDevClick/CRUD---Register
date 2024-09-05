@@ -1,7 +1,8 @@
 <?php
-$getInfos = null;
+    $getInfos = null;
 ?>
-<section class="card_container mobile-only">
+<section class="card_container">
+<!-- <section class="card_container mobile-only"> -->
     <form
         id="preparation-form"
         action="update_recipes.php"
