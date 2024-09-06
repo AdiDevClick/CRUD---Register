@@ -2,7 +2,7 @@ import { DrawerTouchPlugin } from "./components/DrawerTouchPlugin.js"
 import { IngredientsFrom } from "./components/RecipePreparation.js"
 import { Toaster } from "./components/Toaster.js"
 import { fetchJSON, fetchTemplate } from "./functions/api.js"
-import { transformToComment, restoreFromComment } from "./functions/dom.js"
+import { appendToAnotherLocation, transformToComment, restoreFromComment, restoreToDefaultPosition } from "./functions/dom.js"
 
 const drawerButton = document.querySelector('.drawer__button')
 const recipe = document.querySelector('.recipe')
@@ -56,9 +56,18 @@ if (!mobile) {
     /*
     * A Réactiver
     */
+
+    const elementsToReset = [
+        'form-recipe',
+        'recipe'
+    ]
     // const allResolutionsData = await includes(url, target)
 
     // const commentedData = document.createComment(allResolutionsData.outerHTML)
+    // restoreDefault('#recipe_creation_all_resolutions')
+    appendToAnotherLocation('#recipe_creation_all_resolutions')
+
+    restoreToDefaultPosition(elementsToReset)
     // restoreFromComment('main', commentedData)
     // transformToComment(target)
 

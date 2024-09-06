@@ -1,5 +1,5 @@
 <?php
-    $getInfos = null;
+    // $getInfos = null;
 ?>
 <section class="card_container">
 <!-- <section class="card_container mobile-only"> -->
@@ -81,7 +81,7 @@
                 </div>
                 <!-- DEBUT DE LA CARTE PREPARATION -->
                 <div class="show_drawer">
-                    <div>
+                    <div ok>
                         <div class="card-header-section">
                             <div class=" icon form-logo">
                                 <img src="../img/cooking.svg" alt="icône représentant une cuisson" srcset="">

@@ -74,13 +74,120 @@ export function transformToComment(targetSelector) {
 }
 
 /**
+ * Sélectionne un Node contenant des éléments HTML à déplacer
+ * @param {String} targetSelector représente une classe ou un élément HTML 
+ * @param {String} isClass représente une classe. Il retourne son nodeValue pour match son contenu
+ */
+export function appendToAnotherLocation(targetSelector, isClass = 'js-form-recipe') {
+    const parentElement = document.querySelector(targetSelector)
+    const newCardFormRecipeSection = createElement('section', {
+        class: "card form-recipe"
+    })
+    const newCardRecipeSection = createElement('section', {
+        class: "card recipe js-stop-appender"
+    })
+    const contentToMoveToNewCardFormRecipeSection = Array.from(parentElement.childNodes).filter(node => 
+        node.className === 'js-form-recipe'
+    )
+    const contentToMoveToNewCardRecipeSection = Array.from(parentElement.childNodes).find(node => 
+        node.className === 'js-append-to-drawer'
+    )
+    const contentToMoveToNewCardRecipeSection2 = Array.from(parentElement.childNodes).filter(node => 
+        node.className === 'img_preview' || node.className === 'add_ingredient'
+    )
+    if (contentToMoveToNewCardFormRecipeSection) {
+        contentToMoveToNewCardFormRecipeSection.forEach(element => {
+            newCardFormRecipeSection.append(element)
+        })
+
+        parentElement.querySelector('.show_drawer').prepend(contentToMoveToNewCardRecipeSection)
+        contentToMoveToNewCardRecipeSection2.forEach(element => {
+            parentElement.querySelector('.show_drawer').append(element)
+        })
+
+        newCardRecipeSection.append(parentElement.querySelector('.js-recipe'))
+        newCardRecipeSection.append(parentElement.querySelector('.show_drawer'))
+
+        parentElement.prepend(newCardFormRecipeSection)
+        parentElement.append(newCardRecipeSection)
+    } else {
+        console.error('Comment node not found')
+    }
+}
+
+/**
+ * Sélectionne un Node contenant des éléments HTML à déplacer vers
+ * leurs position de départ
+ * @param {String} targetSelector représente une classe ou un élément HTML 
+ * @param {String} isClass représente une classe. Il retourne son nodeValue pour match son contenu
+ */
+export function restoreToDefaultPosition(targetSelectors, isClass = 'js-form-recipe') {
+    // const parentElement = document.querySelectorAll(targetSelectors)
+    const parentElement = document.querySelector(".contact-grid")
+    // const parentElement = document.querySelector(targetSelectors)
+    let contentToMove = []
+    
+    targetSelectors.forEach(element => {
+        [...contentToMove] = Array.from(parentElement.childNodes).filter(node =>
+            // console.log(node.classList.contains("card"))
+            node.nodeType === Node.ELEMENT_NODE && node.classList.contains(`${element}`)
+            // node.nodeType === Node.ELEMENT_NODE && node.classList(element)
+        )
+    })
+    
+        // node.className
+        // targetSelectors.forEach(element => {
+        //     console.log(node.className)
+        // })
+        // targetSelectors.forEach(element => {
+        //     return node.className == element
+        // })
+    
+    // targetSelectors.forEach(element => {
+    //     Array.from(document.querySelector(element).childNodes).filter(node => 
+    //         contentToMove.push(node)
+    //     )
+    // })
+
+    // const contentToMoveToNewCardFormRecipeSection = Array.from(parentElement.childNodes).filter(node => 
+    //     console.log(node)
+    //     // console.log(document.querySelector(node).childNodes)
+    // )
+
+    if (contentToMove) {
+        console.log(contentToMove)
+        // contentToMoveToNewCardFormRecipeSection.forEach(element => {
+        //     newCardFormRecipeSection.append(element)
+        // })
+
+        // parentElement.querySelector('.show_drawer').prepend(contentToMoveToNewCardRecipeSection)
+        // contentToMoveToNewCardRecipeSection2.forEach(element => {
+        //     parentElement.querySelector('.show_drawer').append(element)
+        // })
+
+        // newCardRecipeSection.append(parentElement.querySelector('.js-recipe'))
+        // newCardRecipeSection.append(parentElement.querySelector('.show_drawer'))
+
+        // parentElement.prepend(newCardFormRecipeSection)
+        // parentElement.append(newCardRecipeSection)
+        // const parser = new DOMParser()
+        // const doc = parser.parseFromString(commentNode.nodeValue, 'text/html')
+        // const restoredElement = doc.body.firstChild
+        // contentToMove.replaceWith(restoredElement)
+        // parentElement.replaceWith(restoredElement)
+    } else {
+        console.error('Comment node not found')
+    }
+}
+
+/**
  * Sélectionne un Node contenant dans une balise commentaire
  * Puis cherche le un commentaire qui match le commentedNode
  * Puis supprime les balises commentaires pour réactiver l'élément -
  * @param {String} targetSelector représente une classe ou un élément HTML 
  * @param {HTMLElement} commentedNode un objet HTML. Il retourne son nodeValue pour match son contenu
  */
-export function restoreFromComment(targetSelector, commentedNode) {
+export function restoreFromComment(targetSelector, commentedNode = '') {
     const parentElement = document.querySelector(targetSelector)
     // const parentElement = document.querySelector(targetSelector).parentNode
     const commentNode = Array.from(parentElement.childNodes).find(node => 
