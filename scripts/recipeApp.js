@@ -2,7 +2,7 @@ import { DrawerTouchPlugin } from "./components/DrawerTouchPlugin.js"
 import { IngredientsFrom } from "./components/RecipePreparation.js"
 import { Toaster } from "./components/Toaster.js"
 import { fetchJSON, fetchTemplate } from "./functions/api.js"
-import { appendToAnotherLocation, transformToComment, restoreFromComment, restoreToDefaultPosition } from "./functions/dom.js"
+import { appendToAnotherLocation, transformToComment, restoreFromComment, restoreToDefaultPosition, unwrap } from "./functions/dom.js"
 
 const drawerButton = document.querySelector('.drawer__button')
 const recipe = document.querySelector('.recipe')
@@ -23,7 +23,20 @@ if (!mobile) {
     const url = '../templates/Recipe_Layout_All_Resolutions.php'
     const target = '.all-resolutions'
 
+    
+    const elementsToUnwrap = [
+        '.img_preview',
+        '#submit-recipe'
+    ]
+    // pour revenir à defaut
+    // unwrap('.card')
 
+    // const section = document.querySelector('#recipe_creation_all_resolutions')
+    // document.querySelector('.show_drawer').insertAdjacentElement('beforebegin', document.querySelector('.js-append-to-drawer'))
+    // elementsToUnwrap.forEach(element => {
+    //     section.append(document.querySelector(element))
+    // })
+    
     // async function fetchData(url) {
     //     const response = await fetch(url);
     //     if (!response.ok) {
@@ -57,17 +70,18 @@ if (!mobile) {
     * A Réactiver
     */
 
-    const elementsToReset = [
-        'form-recipe',
-        'recipe'
-    ]
     // const allResolutionsData = await includes(url, target)
 
     // const commentedData = document.createComment(allResolutionsData.outerHTML)
     // restoreDefault('#recipe_creation_all_resolutions')
-    appendToAnotherLocation('#recipe_creation_all_resolutions')
 
-    restoreToDefaultPosition(elementsToReset)
+    
+
+
+    
+
+
+    // restoreToDefaultPosition(elementsToReset)
     // restoreFromComment('main', commentedData)
     // transformToComment(target)
 
@@ -101,6 +115,9 @@ if (!mobile) {
 } else {
     const url = '../templates/Recipe_Layout_Mobile_Only.php'
     const target = '.mobile-only'
+
+    // pour la version mobile
+    appendToAnotherLocation('#recipe_creation_all_resolutions')
     // const mobileData = includes(url, target)
     // console.log(await test)
     // document.querySelector("main").append(await mobileData)

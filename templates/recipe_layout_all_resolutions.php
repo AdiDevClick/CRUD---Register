@@ -209,11 +209,11 @@
             </div>
             
             <!-- Send Button -->
-            <div class="add_ingredient">
+            <div class="add_ingredient" id="submit-recipe">
                 <hr>
                 <button name="add_preparation" id="submit" type="submit" class="btn">Valider vos modifications</button>
             </div>
-            </section>
+            <!-- </section> -->
         </section>
     </form>
 </section>

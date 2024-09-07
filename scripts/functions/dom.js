@@ -116,6 +116,17 @@ export function appendToAnotherLocation(targetSelector, isClass = 'js-form-recip
 }
 
 /**
+ * Permet de remonter d'un niveau le contenu de la target 
+ * @param {String} target représente une classe/id
+ */
+export function unwrap(target) {
+    const content = document.querySelectorAll(target)
+    content.forEach(element => {
+        element.outerHTML = element.innerHTML
+    })
+}
+
+/**
  * Sélectionne un Node contenant des éléments HTML à déplacer vers
  * leurs position de départ
  * @param {String} targetSelector représente une classe ou un élément HTML 
@@ -128,7 +139,7 @@ export function restoreToDefaultPosition(targetSelectors, isClass = 'js-form-rec
     let contentToMove = []
     
     targetSelectors.forEach(element => {
-        [...contentToMove] = Array.from(parentElement.childNodes).filter(node =>
+        contentToMove = Array.from(parentElement.childNodes).filter(node =>
             // console.log(node.classList.contains("card"))
             node.nodeType === Node.ELEMENT_NODE && node.classList.contains(`${element}`)
             // node.nodeType === Node.ELEMENT_NODE && node.classList(element)
