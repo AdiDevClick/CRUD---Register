@@ -18,7 +18,7 @@ if (window.innerWidth < 577) {
 } else {
     mobile = false
 }
-
+ 
 if (!mobile) {
     const url = '../templates/Recipe_Layout_All_Resolutions.php'
     const target = '.all-resolutions'

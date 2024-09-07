@@ -47,6 +47,23 @@ export class DrawerTouchPlugin {
     #grid
     /** @type {AbortController} */
     #controller
+    /** @type {MutationObserver} */
+    #handleMutation = (mutationsList, observer) => {
+        mutationsList.forEach(mutation => {
+            if (mutation.attributeName === 'class' && mutation.target.classList.contains('mobile')) {
+                this.#openListeners()
+                console.log('jactive les listeners')
+
+                // console.log(window.history.state)
+                // const doc = document.querySelector('#wrapper')
+                // console.log(doc)
+                // doc.addEventListener('animationend', (e) => console.log(e))
+            } else {
+                console.log('je demande le else')
+                this.#closeListeners()
+            }
+        })
+    }
 
     /**
      * @param {HTMLElement} container
@@ -65,33 +82,69 @@ export class DrawerTouchPlugin {
         this.#closeButton = this.container.querySelector('.drawer__close')
         // this.drawer.addEventListener('dragstart', e => e.preventDefault())
         this.#recipe.addEventListener('scroll', this.#onScroll.bind(this))
-
+        
+        this.#onWindowResize()
         this.#checkDisplay()
 
-        // if (this.#isMobile) {
-            this.#card.addEventListener('dragstart', e => e.preventDefault())
-            this.#card.addEventListener('mousedown', this.startDrag.bind(this), {passive: true})
-            this.#card.addEventListener('touchstart', this.startDrag.bind(this), {passive: true})
-            window.addEventListener('mousemove', this.drag.bind(this))
-            window.addEventListener('touchmove', this.drag.bind(this))
-            window.addEventListener('touchend', this.endDrag.bind(this))
-            window.addEventListener('mouseup', this.endDrag.bind(this))
-            window.addEventListener('touchcancel', this.endDrag.bind(this))
-            this.#showDrawerButton.addEventListener('click', this.#onOpen.bind(this))
-        // }
+        
+        if (this.#isMobile) {
+            this.#openListeners()
+            // this.#card.addEventListener('dragstart', e => e.preventDefault())
+            // this.#card.addEventListener('mousedown', this.startDrag.bind(this), {passive: true})
+            // this.#card.addEventListener('touchstart', this.startDrag.bind(this), {passive: true})
+            // window.addEventListener('mousemove', this.drag.bind(this))
+            // window.addEventListener('touchmove', this.drag.bind(this))
+            // window.addEventListener('touchend', this.endDrag.bind(this))
+            // window.addEventListener('mouseup', this.endDrag.bind(this))
+            // window.addEventListener('touchcancel', this.endDrag.bind(this))
+            // this.#showDrawerButton.addEventListener('click', this.#onOpen.bind(this))
+        }
         // this.drawer.addEventListener('mousedown', this.startDrag.bind(this), {passive: true})
         // this.drawer.addEventListener('touchstart', this.startDrag.bind(this), {passive: true})
         // if (this.#isTablet) {
-            this.#closeButton.addEventListener('click', this.#onClose.bind(this))
-            this.#steps.addEventListener('click', this.#onOpen.bind(this))
+            // this.#closeButton.addEventListener('click', this.#onClose.bind(this))
+            // this.#steps.addEventListener('click', this.#onOpen.bind(this))
         // }
         // this.#steps.addEventListener('click', this.#onClose.bind(this))
         // this.#card.addEventListener('click', this.#onClose.bind(this))
 
         // Evènements
         this.#moveCallbacks.forEach(cb => cb(this.#index))
-        this.#onWindowResize()
+
+        window.addEventListener("DOMContentLoaded", (e) => {
+            const observer = new MutationObserver(this.#handleMutation)
+            observer.observe(this.container, { attributes: true })
+        })
         window.addEventListener('resize', this.#onWindowResize.bind(this))
+    }
+
+    #openListeners() {
+        this.#card.addEventListener('dragstart', e => e.preventDefault())
+        this.#card.addEventListener('mousedown', this.startDrag.bind(this), {passive: true})
+        this.#card.addEventListener('touchstart', this.startDrag.bind(this), {passive: true})
+        window.addEventListener('mousemove', this.drag.bind(this))
+        window.addEventListener('touchmove', this.drag.bind(this))
+        window.addEventListener('touchend', this.endDrag.bind(this))
+        window.addEventListener('mouseup', this.endDrag.bind(this))
+        window.addEventListener('touchcancel', this.endDrag.bind(this))
+        this.#showDrawerButton.addEventListener('click', this.#onOpen.bind(this))
+        this.#closeButton.addEventListener('click', this.#onClose.bind(this))
+        this.#steps.addEventListener('click', this.#onOpen.bind(this))
+
+    }
+
+    #closeListeners() {
+        this.#card.removeEventListener('dragstart', e => e.preventDefault())
+        this.#card.removeEventListener('mousedown', this.startDrag.bind(this), {passive: true})
+        this.#card.removeEventListener('touchstart', this.startDrag.bind(this), {passive: true})
+        window.removeEventListener('mousemove', this.drag.bind(this))
+        window.removeEventListener('touchmove', this.drag.bind(this))
+        window.removeEventListener('touchend', this.endDrag.bind(this))
+        window.removeEventListener('mouseup', this.endDrag.bind(this))
+        window.removeEventListener('touchcancel', this.endDrag.bind(this))
+        this.#showDrawerButton.removeEventListener('click', this.#onOpen.bind(this))
+        this.#closeButton.removeEventListener('click', this.#onClose.bind(this))
+        this.#steps.removeEventListener('click', this.#onOpen.bind(this))
     }
 
     /**
@@ -108,18 +161,18 @@ export class DrawerTouchPlugin {
                 this.#isDesktop = false
             }
             if (index === 1) {
-                this.#card.classList.remove('opened')
-                this.#card.removeAttribute('style')
-                this.#steps.classList.contains('card') ? null : this.#steps.classList.add('card')
+                this.#card?.classList.remove('opened')
+                this.#card?.removeAttribute('style')
+                this.#steps?.classList.contains('card') ? null : this.#steps?.classList.add('card')
                 this.#isMobile = false
                 this.#isTablet = true
                 this.#isDesktop = false
             }
             if (index === 2) {
-                this.#card.classList.remove('opened')
-                this.#card.classList.remove('open')
-                this.#card.removeAttribute('style')
-                this.#steps.classList.contains('card') ? null : this.#steps.classList.add('card')
+                this.#card?.classList.remove('opened')
+                this.#card?.classList.remove('open')
+                this.#card?.removeAttribute('style')
+                this.#steps?.classList.contains('card') ? null : this.#steps?.classList.add('card')
                 this.#isMobile = false
                 this.#isTablet = false
                 this.#isDesktop = true
@@ -586,24 +639,28 @@ export class DrawerTouchPlugin {
             this.#isMobile = mobile
             // this.setStyle()
             this.#index = 0
+            this.container.classList.add('mobile')
             this.#card.classList.remove('open')
             this.#card.classList.remove('opened')
             this.#moveCallbacks.forEach(cb => cb(this.#index))
         } 
         if (tablet !== this.#isTablet) {
             this.#isTablet = tablet
+
             // this.setStyle()
             this.#index = 1
-            this.#card.classList.remove('open')
-            this.#card.classList.remove('opened')
+            this.container.classList.remove('mobile')
+            this.#card?.classList.remove('open')
+            this.#card?.classList.remove('opened')
             this.#moveCallbacks.forEach(cb => cb(this.#index))
         }
         if (desktop !== this.#isDesktop) {
             this.#isDesktop = desktop
+            this.container.classList.remove('mobile')
             // this.setStyle()
             this.#index = 2
-            this.#card.classList.remove('open')
-            this.#card.classList.remove('opened')
+            this.#card?.classList.remove('open')
+            this.#card?.classList.remove('opened')
             this.#moveCallbacks.forEach(cb => cb(this.#index))
         }
     }
