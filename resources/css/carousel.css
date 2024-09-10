@@ -292,8 +292,8 @@ STYLING FOR CAROUSEL
     }
 }
 
-button {
-    text-decoration: none;
+button, a[type=button] {
+    /* text-decoration: none; */
     border: 1px solid burlywood;
     /* border-style: dashed; */
 }

@@ -4,10 +4,10 @@ if(session_status() !== PHP_SESSION_ACTIVE || session_status() === PHP_SESSION_N
     session_start();
 }
 
-include_once("../includes/class-autoloader.inc.php");
-include_once('../logs/customErrorHandlers.php');
-include_once('../includes/variables.inc.php');
-include_once('../includes/functions.inc.php');
+include_once '../includes/class-autoloader.inc.php';
+include_once '../logs/customErrorHandlers.php';
+include_once '../includes/variables.inc.php';
+include_once '../includes/functions.inc.php';
 
 /**
  * Permet de filtrer quelles clés de l'array getInfos
@@ -123,9 +123,23 @@ ob_start()
 
 ?>
 <header>
-    <div class="hero">
-        <img src="<?= '../' . $recipe['img_path'] ?>" alt="">
-        <p><span><?= htmlspecialchars($recipe['title']) ?></span></p>
+    <div class="read_header">
+        <img class="read_header__bg-img" src="<?= '../' . $recipe['img_path'] ?>" alt="">
+        <div class="read_header__side-bg"></div>
+        <img class="read_header__inner-poster" src="<?= '../' . $recipe['img_path'] ?>" alt="">
+        <h1 class="read_header__title"><?= htmlspecialchars($recipe['title']) ?></h1>
+        <div class="read_header__description">Voici ma description rapide</div>
+        <div class="read_header__preview">
+            <div class="read_header__preview__time"><?= $recipe['total_time'] . ' ' . $recipe['total_time_length'] ?></div>
+            <div class="dot"></div>
+            <div class="read_header__preview__skills">Très facile</div>
+            <div class="dot"></div>
+            <div class="read_header__preview__price">Bon marché</div>
+        </div>
+        <div class="read_header__buttons">
+            <a type="button" class="btn" href="../index.php">add/j'aime</a>
+            <a type="button" class="btn" href="../index.php">partager</a>
+        </div>
     </div>
 </header>
 <div class="read_page">
@@ -153,7 +167,7 @@ ob_start()
                             echo '<p><span> Sixième étape </span></p>';
                         }
                 ?>
-                    <p><?php echo htmlspecialchars($value) ?></p>
+                    <p><?= htmlspecialchars($value) ?></p>
                 </div>
             <?php endif ?>
         <?php endforeach ?>
@@ -162,18 +176,26 @@ ob_start()
 <!-- </div> -->
 <!-- <body class="d-flex flex-column min-vh-100"> -->
     <aside class="read__aside">
-        <h1><?= htmlspecialchars($recipe['title']) ?></h1>
+        <h2><?= htmlspecialchars($recipe['title']) ?></h2>
         <div>
             <div class="read__preparations">
-                <p>Temps de cuisson :</p><p> <?php echo($recipe['oven_time'] . ' ' . $recipe['oven_time_length']) ?></p>
-                <p>Temps de repos :</p><p> <?php echo($recipe['resting_time'] . ' ' . $recipe['resting_time_length']) ?></p>
-                <p>Temps total :</p><p> <?php echo($recipe['total_time'] . ' ' . $recipe['total_time_length']) ?></p>
-                <p>Nombre de personne<?= $recipe['persons'] > 1 ? "s" : null ?> :</p><p> <?php echo($recipe['persons']); ?></p>
+                <div class="read__aside__item">
+                    <span class="read__aside__head">Temps de cuisson :</span><p class="read__aside__name"> <?= $recipe['oven_time'] . ' ' . $recipe['oven_time_length'] ?></p>
+                </div>
+                <div class="read__aside__item">
+                    <span class="read__aside__head">Temps de repos :</span><p class="read__aside__name"> <?= $recipe['resting_time'] . ' ' . $recipe['resting_time_length'] ?></p>
+                </div>
+                <div class="read__aside__item">
+                    <span class="read__aside__head">Temps total :</span><p class="read__aside__name"> <?= $recipe['total_time'] . ' ' . $recipe['total_time_length'] ?></p>
+                </div>
+                <div class="read__aside__item">
+                    <span class="read__aside__head">Nombre de personne<?= $recipe['persons'] > 1 ? "s" : null ?> :</span><p class="read__aside__name"> <?= $recipe['persons']; ?></p>
+                </div>
             </div>
             <div class="read__credits">
-                <p><i>Contribuée par <?php echo strip_tags(displayAuthor($recipe['author'])) ?></i></p>
+                <p><i>Contribuée par <span class="read__aside__head"><?= strip_tags(displayAuthor($recipe['author'])) ?></span></i></p>
                 <!-- <p><i>Contribuée par <?php //echo($recipe['author']);?></i></p> -->
-                <p><b>Evaluée par la communauté à <?php echo($recipe['rating']); ?> / 5</b></p>
+                <p><b>Evaluée par la communauté à <?= $recipe['rating'] ?><span class="read__aside__head"> / 5</span></b></p>
             </div>
         </div>
     </aside>

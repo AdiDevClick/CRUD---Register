@@ -109,19 +109,24 @@ from the local website :
     display: flex;
     align-items: center;
     justify-content: center;
-    min-height: 50vh;
+    /* min-height: 50vh; */
+    max-height: 75vh;
     border-radius: 30px;
     border-top: 1px solid var(--site-color-01);
     border-bottom: 1px solid var(--site-color-01);
     /* overflow-wrap: break-word; */
+    > img {
+        /* object-fit: cover; */
+        /* aspect-ratio: 1 / 1; */
+        /* object-position: left; */
+    }
     & p {
         position: absolute; /* pose problème sur la splash screen */
         display: flex;
-       
         overflow-wrap: break-word;
+        -webkit-hyphens: auto;
         hyphens: auto;
         /* max-width: 300px; */
-
         flex-wrap: wrap;
         font-size: 4rem;
         color: var(--global-text-color);
@@ -491,6 +496,7 @@ nav.nav {
             /* position: sticky; */
             margin-bottom: 100px;
             top: 100px;
+
             /* right: 0; */
             /* margin-inline: calc(3rem - 7px); */
             /* right: 15px; */
@@ -1032,7 +1038,8 @@ main {
 
 /* WRAPPER */
 .wrapper {
-    --max-width-content: 1240px;
+    --max-width-content: 2160px;
+    /* --max-width-content: 1240px; */
     --width-crop: 1rem;
     /* white-space: nowrap; */
     margin-inline: auto; /* devrait etre deactivated */
@@ -1087,7 +1094,8 @@ main {
     /* background-color: rgba(243, 243, 243, 0.05); */
     /* background-color: var(--navbar-background-color); */
     background-color: var(--card-color);
-    border-radius: 5px;
+    /* border-radius: 5px; */
+    border-radius: 20px;
     /* border-inline-start: 1px solid var(--site-color-01); */
     border-inline-start: 1px solid var(--border-color);
     /* border-inline: 2px solid var(--site-color-01); */
@@ -1137,7 +1145,13 @@ main {
 .card-header-section {
     /* display: flex;
     flex-wrap: wrap; */
-    display: inline-flex;
+    /* display: inline-flex; */
+
+    display: grid;
+    grid-auto-rows: 1fr;
+    gap: 1rem;
+    align-items: start;
+    text-align: center;
 
     /* align-items: center; */
     /* width: 100%; */
