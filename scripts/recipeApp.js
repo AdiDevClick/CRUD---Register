@@ -117,6 +117,7 @@ if (!mobile) {
     const target = '.mobile-only'
 
     // pour la version mobile
+    console.log('je load la page et jappend pour mobile')
     appendToAnotherLocation('#recipe_creation_all_resolutions')
     // const mobileData = includes(url, target)
     // console.log(await test)

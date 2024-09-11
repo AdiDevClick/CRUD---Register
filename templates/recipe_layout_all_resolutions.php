@@ -38,6 +38,11 @@
                 <label for="title" class="label">Titre de votre recette</label>
                 <input class="form" name="title" type="text" id="title" placeholder="Votre titre..." value="<?php $getInfos !== null && $getInfos['title'] ? print strip_tags($getInfos['title']) : null ?>">
             </div>
+            <!-- QUICK DESCRIPTION -->
+            <div class="js-form-recipe">
+                <label for="description" class="label">Courte description</label>
+                <textarea class="form" name="description" id="description" cols="60" rows="3" placeholder="Une courte description... Exemple : Une recette facile, peu épicée et économique !"><?php $getInfos !== null && $getInfos['description'] ? print strip_tags($getInfos['description']) : null ?></textarea>
+            </div>
             <!-- STEP 1 -->
             <div class="js-form-recipe">
                 <label for="step_1" class="label">Etape 1</label>

@@ -1,3 +1,5 @@
+import { appendToAnotherLocation, unwrap } from "../functions/dom.js"
+
 /**
  * Permet de rajouter la navigation tactile pour le drawer
  */
@@ -51,8 +53,9 @@ export class DrawerTouchPlugin {
     #handleMutation = (mutationsList, observer) => {
         mutationsList.forEach(mutation => {
             if (mutation.attributeName === 'class' && mutation.target.classList.contains('mobile')) {
-                this.#openListeners()
                 console.log('jactive les listeners')
+                appendToAnotherLocation('#recipe_creation_all_resolutions')
+                this.#openListeners()
 
                 // console.log(window.history.state)
                 // const doc = document.querySelector('#wrapper')
@@ -61,6 +64,19 @@ export class DrawerTouchPlugin {
             } else {
                 console.log('je demande le else')
                 this.#closeListeners()
+
+                const elementsToUnwrap = [
+                    '.img_preview',
+                    '#submit-recipe'
+                ]
+
+                unwrap('.card')
+
+                const section = document.querySelector('#recipe_creation_all_resolutions')
+                document.querySelector('.show_drawer').insertAdjacentElement('beforebegin', document.querySelector('.js-append-to-drawer'))
+                elementsToUnwrap.forEach(element => {
+                    section.append(document.querySelector(element))
+                })
             }
         })
     }
@@ -72,16 +88,17 @@ export class DrawerTouchPlugin {
         this.container = container
         // console.log(container)
         this.#grid = this.container.querySelector('.contact-grid')
-        this.#steps = this.container.querySelector('.form-recipe')
-        this.#recipe = this.container.querySelector('.show_drawer')
-        this.#card = this.container.querySelector('.recipe')
+        // this.#steps = this.container.querySelector('.form-recipe')
+        // this.#recipe = this.container.querySelector('.show_drawer')
+        // this.#card = this.container.querySelector('.recipe')
+
         // this.#card.style.display = 'none'
-        this.drawer = this.container.querySelector('.drawer')
-        this.#showDrawerButton = this.container.querySelector('.opening_drawer_button')
+        // this.drawer = this.container.querySelector('.drawer')
+        // this.#showDrawerButton = this.container.querySelector('.opening_drawer_button')
         this.#drawerBarButton = this.container.querySelector('.drawer__button')
-        this.#closeButton = this.container.querySelector('.drawer__close')
+        // this.#closeButton = this.container.querySelector('.drawer__close')
         // this.drawer.addEventListener('dragstart', e => e.preventDefault())
-        this.#recipe.addEventListener('scroll', this.#onScroll.bind(this))
+        // this.#recipe.addEventListener('scroll', this.#onScroll.bind(this))
         
         this.#onWindowResize()
         this.#checkDisplay()
@@ -119,32 +136,49 @@ export class DrawerTouchPlugin {
     }
 
     #openListeners() {
-        this.#card.addEventListener('dragstart', e => e.preventDefault())
-        this.#card.addEventListener('mousedown', this.startDrag.bind(this), {passive: true})
-        this.#card.addEventListener('touchstart', this.startDrag.bind(this), {passive: true})
-        window.addEventListener('mousemove', this.drag.bind(this))
-        window.addEventListener('touchmove', this.drag.bind(this))
-        window.addEventListener('touchend', this.endDrag.bind(this))
-        window.addEventListener('mouseup', this.endDrag.bind(this))
-        window.addEventListener('touchcancel', this.endDrag.bind(this))
-        this.#showDrawerButton.addEventListener('click', this.#onOpen.bind(this))
-        this.#closeButton.addEventListener('click', this.#onClose.bind(this))
-        this.#steps.addEventListener('click', this.#onOpen.bind(this))
+        console.log('jopen le listeners')
+        this.#controller = new AbortController()
 
+        this.#card = this.container.querySelector('.recipe')
+        this.#steps = this.container.querySelector('.form-recipe')
+        this.#showDrawerButton = this.container.querySelector('.opening_drawer_button')
+        this.drawer = this.container.querySelector('.drawer')
+        this.#recipe = this.container.querySelector('.show_drawer')
+        this.#closeButton = this.container.querySelector('.drawer__close')
+
+
+        this.#recipe.addEventListener('scroll', this.#onScroll.bind(this), {signal: this.#controller.signal})
+
+        this.#card.addEventListener('dragstart', e => e.preventDefault())
+        this.#card.addEventListener('mousedown', this.startDrag.bind(this), {passive: true, signal: this.#controller.signal})
+        this.#card.addEventListener('touchstart', this.startDrag.bind(this), {passive: true, signal: this.#controller.signal})
+        window.addEventListener('mousemove', this.drag.bind(this), {signal: this.#controller.signal})
+        window.addEventListener('touchmove', this.drag.bind(this), {signal: this.#controller.signal})
+        window.addEventListener('touchend', this.endDrag.bind(this), {signal: this.#controller.signal})
+        window.addEventListener('mouseup', this.endDrag.bind(this), {signal: this.#controller.signal})
+        window.addEventListener('touchcancel', this.endDrag.bind(this), {signal: this.#controller.signal})
+        this.#showDrawerButton.addEventListener('click', this.#onOpen.bind(this), {signal: this.#controller.signal})
+        this.#closeButton.addEventListener('click', this.#onClose.bind(this), {signal: this.#controller.signal})
+        this.#steps.addEventListener('click', this.#onOpen.bind(this), {signal: this.#controller.signal})
+        console.log(this.#closeButton)
     }
 
     #closeListeners() {
-        this.#card.removeEventListener('dragstart', e => e.preventDefault())
-        this.#card.removeEventListener('mousedown', this.startDrag.bind(this), {passive: true})
-        this.#card.removeEventListener('touchstart', this.startDrag.bind(this), {passive: true})
-        window.removeEventListener('mousemove', this.drag.bind(this))
-        window.removeEventListener('touchmove', this.drag.bind(this))
-        window.removeEventListener('touchend', this.endDrag.bind(this))
-        window.removeEventListener('mouseup', this.endDrag.bind(this))
-        window.removeEventListener('touchcancel', this.endDrag.bind(this))
-        this.#showDrawerButton.removeEventListener('click', this.#onOpen.bind(this))
-        this.#closeButton.removeEventListener('click', this.#onClose.bind(this))
-        this.#steps.removeEventListener('click', this.#onOpen.bind(this))
+        // this.#recipe.removeEventListener('scroll', this.#onScroll.bind(this))
+        
+        // this.#card.removeEventListener('dragstart', e => e.preventDefault())
+        // this.#card.removeEventListener('mousedown', this.startDrag.bind(this), {passive: true})
+        // this.#card.removeEventListener('touchstart', this.startDrag.bind(this), {passive: true})
+        // window.removeEventListener('mousemove', this.drag.bind(this))
+        // window.removeEventListener('touchmove', this.drag.bind(this))
+        // window.removeEventListener('touchend', this.endDrag.bind(this))
+        // window.removeEventListener('mouseup', this.endDrag.bind(this))
+        // window.removeEventListener('touchcancel', this.endDrag.bind(this))
+        // this.#showDrawerButton.removeEventListener('click', this.#onOpen.bind(this))
+        // this.#closeButton.removeEventListener('click', this.#onClose.bind(this))
+        // this.#steps.removeEventListener('click', this.#onOpen.bind(this))
+        this.#controller.abort()
+        console.log('signal abort')
     }
 
     /**
@@ -153,9 +187,9 @@ export class DrawerTouchPlugin {
     #checkDisplay() {
         this.#onMove(index => {
             if (index === 0) {
-                this.#card.classList.remove('open')
-                this.#card.removeAttribute('style')
-                this.#steps.classList.contains('card') ? this.#steps.classList.remove('card') : null
+                this.#card?.classList.remove('open')
+                this.#card?.removeAttribute('style')
+                this.#steps?.classList.contains('card') ? this.#steps.classList.remove('card') : null
                 this.#isMobile = true
                 this.#isTablet = false
                 this.#isDesktop = false
@@ -288,13 +322,16 @@ export class DrawerTouchPlugin {
     }
 
     #onClose(e) {
-        // console.log('je close')
+        console.log('je close')
         console.log(e.currentTarget)
         // this.#steps.removeEventListener('click', this.#onClose.bind(this))
         this.#card.removeEventListener('click', this.#onClose.bind(this))
-        this.#closeButton.removeEventListener('click', this.#onClose.bind(this))
+        // this.#closeButton.removeEventListener('click', this.#onClose.bind(this))
         if (this.#isMobile) {
+            console.log('je suis isMobile')
             if (!this.#card.classList.contains('opened')) return
+            console.log('je contiens opened donc je slide')
+
             this.#card.style.animation = 'slideToBottom 0.5s forwards'
             this.#card.classList.add('hidden')
             this.#card.addEventListener('animationend', () => {
@@ -638,15 +675,28 @@ export class DrawerTouchPlugin {
         if (mobile !== this.#isMobile) {
             this.#isMobile = mobile
             // this.setStyle()
+            // appendToAnotherLocation('#recipe_creation_all_resolutions')
+
             this.#index = 0
             this.container.classList.add('mobile')
-            this.#card.classList.remove('open')
-            this.#card.classList.remove('opened')
+            this.#card?.classList.remove('open')
+            this.#card?.classList.remove('opened')
             this.#moveCallbacks.forEach(cb => cb(this.#index))
         } 
         if (tablet !== this.#isTablet) {
             this.#isTablet = tablet
-
+            const elementsToUnwrap = [
+                '.img_preview',
+                '#submit-recipe'
+            ]
+            // pour revenir à defaut
+            // unwrap('.card')
+        
+            // const section = document.querySelector('#recipe_creation_all_resolutions')
+            // document.querySelector('.show_drawer').insertAdjacentElement('beforebegin', document.querySelector('.js-append-to-drawer'))
+            // elementsToUnwrap.forEach(element => {
+            //     section.append(document.querySelector(element))
+            // })
             // this.setStyle()
             this.#index = 1
             this.container.classList.remove('mobile')
@@ -656,6 +706,19 @@ export class DrawerTouchPlugin {
         }
         if (desktop !== this.#isDesktop) {
             this.#isDesktop = desktop
+            this.#isTablet = tablet
+            const elementsToUnwrap = [
+                '.img_preview',
+                '#submit-recipe'
+            ]
+            // pour revenir à defaut
+            // unwrap('.card')
+        
+            // const section = document.querySelector('#recipe_creation_all_resolutions')
+            // document.querySelector('.show_drawer').insertAdjacentElement('beforebegin', document.querySelector('.js-append-to-drawer'))
+            // elementsToUnwrap.forEach(element => {
+            //     section.append(document.querySelector(element))
+            // })
             this.container.classList.remove('mobile')
             // this.setStyle()
             this.#index = 2
