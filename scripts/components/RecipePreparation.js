@@ -752,7 +752,7 @@ class AttachmentToThis {
         this.#deleter.innerText = ' DELETE '
         this.#closeButton.innerText = ' CLOSE '
         
-        document.querySelector('.js-stop-appender').prepend(this.#stop)
+        document.querySelectorAll('.js-stop-appender').forEach(stop => stop.prepend(this.#stop))
         // document.querySelector('.recipe').prepend(this.#stop)
         this.#container.append(this.#element)
 

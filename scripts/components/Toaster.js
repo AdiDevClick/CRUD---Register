@@ -41,9 +41,12 @@ export class Toaster {
     constructor(message, type = 'Erreur') {
         this.#message = message
         this.#type = type
+        this.toasterContainer = document.querySelector('.toast-container')
+
         if (!this.toasterContainer) {
             this.#createNewToasterContainer()
             this.toasterContainer = document.querySelector('.toast-container')
+
             // this.#fetchTemplate(this.#dataEndpoint)
             // this.#fetchTemplate('../templates/toaster_template.html')
         }
@@ -140,14 +143,17 @@ export class Toaster {
         await wait(300)
         this.#progressBar.classList.remove('active')
         this.#alert.remove()
-        this.toasterContainer.remove()
         const onRemove = new CustomEvent('onRemove', {
             detail: this.#alert,
             cancelable: true,
             bubbles: false
         })
         this.toasterContainer.dispatchEvent(onRemove)
-        // this.#alert.removeEventListener('animationend', this.#removeAlert(e))
+        // Supprimer la condition pour supprimer toutes les alertes
+        // Leur timer ne sera pas terminé mais cela peut éviter un stack
+        // Trop important ou trop long...
+        if (this.toasterContainer.childNodes.length <= 0) this.toasterContainer.remove()
+        // this.#alert.addEventListener('animationend', this.toasterContainer.remove())
     }
 
     /**

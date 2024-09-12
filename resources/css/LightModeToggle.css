@@ -57,7 +57,7 @@ Default status : Dark Theme
             width: 12px;
             top: 0;
             justify-self: center;
-            z-index: 100;
+            z-index: 1;
             &:hover {
                 &.moon path {
                     fill: var(--dark);

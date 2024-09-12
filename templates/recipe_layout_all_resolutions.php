@@ -1,5 +1,5 @@
 <?php
-    // $getInfos = null;
+// $getInfos = null;
 ?>
 <!-- <section class="card_container all-resolutions"> -->
 <!-- <section class="card_container mobile-only"> -->
@@ -97,7 +97,9 @@
                 <div class="total_time">
                     <div class="time">
                         <label for="total_time" class="label">Temps total</label>
-                        <input id="total_time" type="text" name="total_time" class="input" value="<?php if ($getInfos !== null) echo htmlspecialchars((string)$getInfos['total_time'])?>">
+                        <input id="total_time" type="text" name="total_time" class="input" value="<?php if ($getInfos !== null) {
+                            echo htmlspecialchars((string)$getInfos['total_time']);
+                        }?>">
                         <select class="select" name="total_time_length" id="total_time_length" aria-placeholder="temps">
                             <option value="min" <?= $getInfos !== null && $getInfos['total_time_length'] === 'min' ? htmlspecialchars('selected') : null ?>>min</option>
                             <option value="heures" <?= $getInfos !== null && $getInfos['total_time_length'] === 'heures' ? htmlspecialchars('selected') : null ?>>heures</option>
@@ -105,7 +107,9 @@
                     </div>
                     <div class="time">
                         <label for="resting_time" class="label">Temps de repos</label>
-                        <input id="resting_time" type="text" name="resting_time" class="input" value="<?php if ($getInfos !== null) echo htmlspecialchars((string)$getInfos['resting_time'])?>">
+                        <input id="resting_time" type="text" name="resting_time" class="input" value="<?php if ($getInfos !== null) {
+                            echo htmlspecialchars((string)$getInfos['resting_time']);
+                        }?>">
                         <select class="select" name="resting_time_length" id="resting_time_length" aria-placeholder="test">
                             <option value="min" <?= $getInfos !== null && $getInfos['resting_time_length'] === 'min' ? htmlspecialchars('selected') : null ?>>min</option>
                             <option value="heures" <?= $getInfos !== null && $getInfos['resting_time_length'] === 'heures' ? htmlspecialchars('selected') : null ?>>heures</option>
@@ -113,7 +117,9 @@
                     </div>
                     <div class="time">
                         <label for="oven_time" class="label">Temps de cuisson</label>
-                        <input id="oven_time" type="text" name="oven_time" class="input" value="<?php if ($getInfos !== null) echo htmlspecialchars((string)$getInfos['oven_time'])?>">
+                        <input id="oven_time" type="text" name="oven_time" class="input" value="<?php if ($getInfos !== null) {
+                            echo htmlspecialchars((string)$getInfos['oven_time']);
+                        }?>">
                         <select class="select" name="oven_time_length" id="oven_time_length" aria-placeholder="test">
                             <option value="min" <?= $getInfos !== null && $getInfos['oven_time_length'] === 'min' ? htmlspecialchars('selected') : null ?>>min</option>
                             <option value="heures" <?= $getInfos !== null && $getInfos['oven_time_length'] === 'heures' ? htmlspecialchars('selected') : null ?>>heures</option>
@@ -204,7 +210,9 @@
             <!-- File -->
             <div à append juste au-dessus au même niveau que add_ingredient class="img_preview">
                 <label id="add_image" for="file" class="label"> Ajouter une image</label>
-                <div class="profile-picture" style="background-image: url('<?php if ($getInfos !== null) echo $getInfos['img_path']?>');">
+                <div class="profile-picture" style="background-image: url('<?php if ($getInfos !== null) {
+                    echo $getInfos['img_path'];
+                }?>');">
                     <h1 class="upload-icon">
                         <i class="fa fa-plus fa-2x" aria-hidden="true"></i>
                     </h1>

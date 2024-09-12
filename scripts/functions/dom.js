@@ -91,6 +91,7 @@ export function appendToAnotherLocation(targetSelector, isClass = 'js-form-recip
     }
     if (!newCardRecipeSection) {
         newCardRecipeSection = createElement('section', {
+            // class: "card recipe"
             class: "card recipe js-stop-appender"
         })
     }
