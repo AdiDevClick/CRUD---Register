@@ -1335,6 +1335,10 @@ hr {
     /* width: 100vw; */
     /* width: calc(100% + 100vh); */
     z-index: 1;
+    &::after {
+        content: '';
+        clear: both;
+    }
 }
 
 .custom-ingredient__interactive-elements {
