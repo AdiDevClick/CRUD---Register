@@ -130,29 +130,80 @@ export function appendToAnotherLocation(targetSelector, isClass = 'js-form-recip
 export function unwrap(target) {
     const content = document.querySelectorAll(target)
     content.forEach(element => {
-        element.outerHTML = element.innerHTML
+        debugger
+        for (const elements of element.childNodes) {
+            console.log(elements)
+            console.log(element.parentNode)
+            element.parentNode.append(elements)
+        }
+        // element.replaceWith(element.childNodes)
+        // element.outerHTML = element.innerHTML
+        // for (let i = 0; i < element.children; i++) {
+        //     element.parentElement.append(element.children[i])
+        // }
+        // element.parentElement.append(element.childNodes)
     })
 }
 
 /**
- * Sélectionne un Node contenant des éléments HTML à déplacer vers
- * leurs position de départ
- * @param {String} targetSelector représente une classe ou un élément HTML 
- * @param {String} isClass représente une classe. Il retourne son nodeValue pour match son contenu
+ * Permet de unwrap un élément HTML et d'append ses childNodes
+ * à un autre élément (ici ce sera "targetToAppendTo")
+ * @param {String} targetToAppendTo représente élément HTML déjà sélectionné
+ * @param {String} isClass représente une classe ou un ID. Il retourne ses childNodes
  */
-export function restoreToDefaultPosition(targetSelectors, isClass = 'js-form-recipe') {
-    // const parentElement = document.querySelectorAll(targetSelectors)
-    const parentElement = document.querySelector(".contact-grid")
-    // const parentElement = document.querySelector(targetSelectors)
-    let contentToMove = []
+export function restoreToDefaultPosition(targetToAppendTo, isClass) {
+    const parentElement = document.querySelectorAll(isClass)
+    // const contentToMove = Array.from(parentElement).map(child => {
+    //     return child.childNodes
+    // })
+    const contentToMove = Array.from(parentElement).filter(child => child)
+    // const contentToMove = [].slice.call(parentElement)
     
-    targetSelectors.forEach(element => {
-        contentToMove = Array.from(parentElement.childNodes).filter(node =>
-            // console.log(node.classList.contains("card"))
-            node.nodeType === Node.ELEMENT_NODE && node.classList.contains(`${element}`)
-            // node.nodeType === Node.ELEMENT_NODE && node.classList(element)
-        )
-    })
+    // while (parentElement.children instanceof HTMLElement) {
+    //     section.appendChild(parentElement.children);
+    // }
+    // let contentToMove = parentElement.forEach(element => {
+    //     // element.parentElement.append(element.childNodes)
+    //     [].slice.call(element.childNodes)
+    // })
+    // const contentToMove = [].slice.call(parentElement).forEach(node => node)
+    // const contentToMove = Array.from(parentElement).filter(child => child)
+    // let contentToMove
+    // parentElement.forEach(element => {
+        
+    // })
+    // let contentToMove = parentElement.forEach(element => {
+    //     [].slice.call(element.childNodes)
+    //     return element.childNodes
+    // })
+        // n.parentNode.closest(targetSelectors) === parent.closest(targetSelectors)
+    
+        //         node.nodeType === Node.ELEMENT_NODE
+        //         // node.nodeType === Node.ELEMENT_NODE && node.classList.contains(`${element}`)
+        //         // node.nodeType === Node.ELEMENT_NODE && node.classList(element)
+    // let contentToMove = [].slice.call(parentElement[0].children)
+    // console.log(contentToMove)
+    // contentToMove = parentElement.map(child => {
+        // console.log(child)
+        // Array.from(child.childNodes).filter(node =>
+        // node.nodeType === Node.ELEMENT_NODE
+    // })
+    // parentElement.forEach(element => {
+    //     contentToMove = Array.from(element.childNodes).filter(node =>
+    //         // console.log(node.nodeType === Node.ELEMENT_NODE)
+    //         node.nodeType === Node.ELEMENT_NODE
+    //         // node.nodeType === Node.ELEMENT_NODE && node.classList.contains(`${element}`)
+    //         // node.nodeType === Node.ELEMENT_NODE && node.classList(element)
+    //     )
+    // })
+    // console.log(contentToMove)
+    // targetSelectors.forEach(element => {
+    //     contentToMove = Array.from(parentElement.childNodes).filter(node =>
+    //         // console.log(node.classList.contains("card"))
+    //         node.nodeType === Node.ELEMENT_NODE && node.classList.contains(`${element}`)
+    //         // node.nodeType === Node.ELEMENT_NODE && node.classList(element)
+    //     )
+    // })
     
         // node.className
         // targetSelectors.forEach(element => {
@@ -174,7 +225,12 @@ export function restoreToDefaultPosition(targetSelectors, isClass = 'js-form-rec
     // )
 
     if (contentToMove) {
-        console.log(contentToMove)
+        contentToMove.forEach(element => {
+            while (element.children.length > 0) {
+                targetToAppendTo.appendChild(element.children[0]);
+            }
+            element.remove()
+        })
         // contentToMoveToNewCardFormRecipeSection.forEach(element => {
         //     newCardFormRecipeSection.append(element)
         // })

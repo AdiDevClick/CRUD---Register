@@ -1,4 +1,4 @@
-import { appendToAnotherLocation, unwrap } from "../functions/dom.js"
+import { appendToAnotherLocation, restoreToDefaultPosition, unwrap } from "../functions/dom.js"
 
 /**
  * Permet de rajouter la navigation tactile pour le drawer
@@ -50,33 +50,53 @@ export class DrawerTouchPlugin {
     /** @type {AbortController} */
     #controller
     /** @type {MutationObserver} */
+    #observer
+    /** @type {String} */
+    #mutationOldValue
+    /** @type {MutationCallback} */
     #handleMutation = (mutationsList, observer) => {
         mutationsList.forEach(mutation => {
+            console.log(this.#mutationOldValue)
+            if (mutationsList.length > 0) console.log(mutation.oldValue)
             if (mutation.attributeName === 'class' && mutation.target.classList.contains('mobile')) {
+                this.#mutationOldValue = mutation.oldValue
+                
                 console.log('jactive les listeners')
                 appendToAnotherLocation('#recipe_creation_all_resolutions')
                 this.#openListeners()
-
+                console.log(mutationsList)
+                console.log(this.container)
+                console.log(this.#observer)
                 // console.log(window.history.state)
                 // const doc = document.querySelector('#wrapper')
                 // console.log(doc)
                 // doc.addEventListener('animationend', (e) => console.log(e))
-            } else {
+                console.log(mutationsList)
+                return
+            } else if (mutation.attributeName === 'class' && this.#mutationOldValue !== '' && !mutation.target.classList.contains('mobile')) {
+                // debugger
                 console.log('je demande le else')
                 this.#closeListeners()
-
+                console.log(mutationsList)
+                console.log(this.container)
+                console.log(this.#observer)
+                this.#mutationOldValue = ''
                 const elementsToUnwrap = [
                     '.img_preview',
                     '#submit-recipe'
                 ]
-
-                unwrap('.card')
-
+                // debugger
+                // unwrap('.card')
                 const section = document.querySelector('#recipe_creation_all_resolutions')
+
+                restoreToDefaultPosition(section, '.card')
+
                 document.querySelector('.show_drawer').insertAdjacentElement('beforebegin', document.querySelector('.js-append-to-drawer'))
                 elementsToUnwrap.forEach(element => {
                     section.append(document.querySelector(element))
                 })
+                console.log(mutationsList)
+
             }
         })
     }
@@ -129,8 +149,8 @@ export class DrawerTouchPlugin {
         this.#moveCallbacks.forEach(cb => cb(this.#index))
 
         window.addEventListener("DOMContentLoaded", (e) => {
-            const observer = new MutationObserver(this.#handleMutation)
-            observer.observe(this.container, { attributes: true })
+            this.#observer = new MutationObserver(this.#handleMutation)
+            this.#observer.observe(this.container, { attributeOldValue: true})
         })
         window.addEventListener('resize', this.#onWindowResize.bind(this))
     }
@@ -177,7 +197,8 @@ export class DrawerTouchPlugin {
         // this.#showDrawerButton.removeEventListener('click', this.#onOpen.bind(this))
         // this.#closeButton.removeEventListener('click', this.#onClose.bind(this))
         // this.#steps.removeEventListener('click', this.#onOpen.bind(this))
-        this.#controller.abort()
+        if (this.#isMobile != this.#isMobile) this.#controller.abort("je dois tout fermer")
+        this.#resetStatusAndStyle()
         console.log('signal abort')
     }
 
@@ -282,19 +303,21 @@ export class DrawerTouchPlugin {
      */
     #resetStatusAndStyle() {
         this.#drawerBarButton.classList.contains('fullyOpened') ? this.#drawerBarButton.classList.remove('fullyOpened') : null
-        this.#card.classList.contains('open') ? this.#card.classList.remove('open') : null
-        this.#card.classList.contains('opened') ? this.#card.classList.remove('opened') : null
-        this.#card.classList.contains('fullyOpened') ? this.#card.classList.remove('fullyOpened') : null
-        this.#card.classList.contains('hidden') ? this.#card.classList.remove('hidden') : null
-        this.#card.removeAttribute('style')
-        this.#steps.removeAttribute('style')
+        this.#card?.classList.contains('open') ? this.#card.classList.remove('open') : null
+        this.#card?.classList.contains('opened') ? this.#card.classList.remove('opened') : null
+        this.#card?.classList.contains('fullyOpened') ? this.#card.classList.remove('fullyOpened') : null
+        this.#card?.classList.contains('hidden') ? this.#card.classList.remove('hidden') : null
+        this.#card?.removeAttribute('style')
+        this.#steps?.removeAttribute('style')
         this.#isOpened ? this.#isOpened = false : null
         this.#isFullyOpened ? this.#isFullyOpened = false : null
         // this.#isScrolledAtTop ? this.#isScrolledAtTop = false : null
         // this.#isFullyOpened ? this.#isFullyOpened : null
-        this.#showDrawerButton.classList.contains('hidden') ? this.#showDrawerButton.classList.remove('hidden') : null
-        this.#showDrawerButton.classList.add('show')
+        console.log(this.#showDrawerButton)
+        this.#showDrawerButton?.classList.contains('hidden') ? this.#showDrawerButton.classList.remove('hidden') : null
+        this.#showDrawerButton?.classList.add('show')
         // this.#closeButton.style.display = 'none'
+        this.#isScrolledAtTop = false
         this.#enableScrollBehavior()
     }
 
@@ -311,6 +334,7 @@ export class DrawerTouchPlugin {
      */
     #enableScrollBehavior() {
         document.documentElement.removeAttribute('style')
+        this.#isScrolledAtTop = false
     }
 
     #onScroll(e) {
@@ -440,9 +464,9 @@ export class DrawerTouchPlugin {
             }
         }
         console.log('Start drag => \n')
-        console.log(this.#isOpened)
-        console.log(this.#isFullyOpened)
-        console.log(this.#isScrolledAtTop)
+        console.log('isOpened => ', this.#isOpened)
+        console.log('isFullyOpened => ', this.#isFullyOpened)
+        console.log('isScrolledAtTop => ', this.#isScrolledAtTop)
         console.log('dans le start drag')
         if (this.#isFullyOpened && !this.#isScrolledAtTop) {
             return
@@ -648,8 +672,11 @@ export class DrawerTouchPlugin {
                     this.#card.style.animation = 'slideToFullTop 0.5s forwards'
                     this.#card.addEventListener('animationend', e => {
                         this.#isFullyOpened = true
-                        console.log(this.#isOpened)
-                        console.log(this.#isFullyOpened)
+                        console.log('End drag => \n')
+                        console.log('isOpened => ', this.#isOpened)
+                        console.log('isFullyOpened => ', this.#isFullyOpened)
+                        console.log('isScrolledAtTop => ', this.#isScrolledAtTop)
+                        console.log('dans le end drag')
                         this.#card.removeAttribute('style')
                         this.#card.classList.add('fullyOpened')
                         this.#drawerBarButton.classList.add('fullyOpened')
@@ -669,6 +696,7 @@ export class DrawerTouchPlugin {
      * du changement de la taille de la fenêtre
      */
     #onWindowResize() {
+        // debugger
         let mobile = window.innerWidth <= 576
         let tablet = window.innerWidth <= 996 && window.innerWidth > 576
         let desktop = window.innerWidth > 996
@@ -699,7 +727,7 @@ export class DrawerTouchPlugin {
             // })
             // this.setStyle()
             this.#index = 1
-            this.container.classList.remove('mobile')
+            if (this.container.classList.contains('mobile')) this.container.classList.remove('mobile')
             this.#card?.classList.remove('open')
             this.#card?.classList.remove('opened')
             this.#moveCallbacks.forEach(cb => cb(this.#index))
@@ -719,7 +747,8 @@ export class DrawerTouchPlugin {
             // elementsToUnwrap.forEach(element => {
             //     section.append(document.querySelector(element))
             // })
-            this.container.classList.remove('mobile')
+            if (this.container.classList.contains('mobile')) this.container.classList.remove('mobile')
+
             // this.setStyle()
             this.#index = 2
             this.#card?.classList.remove('open')

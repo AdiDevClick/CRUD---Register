@@ -1297,6 +1297,10 @@ hr {
     &:active {
         background-color: unset;
     }
+    &::after {
+        content: '';
+        clear: both;
+    }
 }
 /* .custom-ingredient__container {
     position: absolute;
