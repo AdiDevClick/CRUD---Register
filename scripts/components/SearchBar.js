@@ -161,18 +161,19 @@ export class SearchBar
          */
         window.onpopstate = (e) => {
             e.preventDefault()
-            if (window.location.hash === '#username') {
+            if (window.location.hash === '#username' || '#') {
                 closeMenu(e)
                 return
             }
             if (history && (window.location.origin+window.location.pathname === this.#oldUrl)) {
-                
                 this.#content.innerContent = []
                 const XMLS = new XMLSerializer()
-                this.#carousel.initialItemsArray.forEach(element => {
-                    const inp_xmls = XMLS.serializeToString(element)
-                    this.#content.innerContent.push(inp_xmls)
-                })
+                if (this.#carousel.initialItemsArray > 0) {
+                    this.#carousel.initialItemsArray.forEach(element => {
+                        const inp_xmls = XMLS.serializeToString(element)
+                        this.#content.innerContent.push(inp_xmls)
+                    })
+                }
                 this.#content.input = this.#input.id
                 this.#content.newUrl = this.#newUrl
                 this.#content.searchResultsLength = this.#searchResults.length

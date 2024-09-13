@@ -3,7 +3,29 @@
  * sections d'une création de recette
  */
 export class BubbleCreativePlugin {
-    constructor(parameters) {
-        
+
+    /** @type {NodeListOf.<HTMLElement>} */
+    #menuItems = []
+    /** @type {HTMLElement} */
+    #bubbleMenu
+    /** @type {Array} class to hide / show */
+    #elementsToShow = [
+        '.js-form-recipe',
+        '.show_drawer',
+        '.js-append-to-drawer',
+        '.img_preview',
+    ]
+    constructor(preparation) {
+        this.#bubbleMenu = document.querySelector('.bubble-menu')
+        this.#menuItems = document.querySelectorAll('.menu-item')
+
+        this.#menuItems.forEach(item => {
+            console.log(item)
+            item.addEventListener('click', this.#onClick)
+        })
+    }
+
+    #onClick(e) {
+        if (e.currentTarget.classList.contains('blue')) document.querySelector('.js-form-recipe').style.display = 'none'
     }
 }

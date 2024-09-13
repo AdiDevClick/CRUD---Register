@@ -1,5 +1,6 @@
 import { fetchJSON } from "../functions/api.js"
 import { createElement } from "../functions/dom.js"
+import { BubbleCreativePlugin } from "./BubbleCreativePlugin.js"
 import { DrawerTouchPlugin } from "./DrawerTouchPlugin.js"
 import { ErrorHandler } from "./ErrorHandler.js"
 import { Toaster } from "./Toaster.js"
@@ -76,7 +77,7 @@ export class IngredientsFrom {
         // this.#template = document.querySelector('#ingredient-template')
         // this.#target = document.querySelector(".js-ingredient-group")
         if (grid) this.#touchPlugin = new DrawerTouchPlugin(grid)
-        if (bubbleMenu) this.#bubbleCreativeMenu = new BubbleCreativePlugin(grid)
+        if (bubbleMenu) this.#bubbleCreativeMenu = new BubbleCreativePlugin(this)
         // if (mobileGrid) this.#touchPlugin = new DrawerTouchPlugin(mobileGrid)
     }
 
