@@ -239,7 +239,6 @@ export class DrawerTouchPlugin {
     #onOpen(e) {
         // console.log('jouvre')
         // console.log(e.currentTarget)
-        // this.#card.style.display = 'block'
         this.#showDrawerButton.removeEventListener('click', this.#onOpen.bind(this))
         this.#steps.removeEventListener('click', this.#onOpen.bind(this))
         this.#card.style.display = 'block'

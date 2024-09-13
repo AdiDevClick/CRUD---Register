@@ -44,6 +44,8 @@ export class IngredientsFrom {
     #Errorhandler
     /** @type {DrawerTouchPlugin} */
     #touchPlugin
+    /** @type {BubbleCreativePlugin} */
+    #bubbleCreativeMenu
     #file
     #imagePreview
     #input = []
@@ -58,6 +60,7 @@ export class IngredientsFrom {
         this.#list = list
         this.#list = this.#list.filter((k, v) => k !== '')
         const grid = document.querySelector('.card_container')
+        const bubbleMenu = document.querySelector('.bubble-menu')
         // const mobileGrid = document.querySelector('.mobile-only')
         // const grid = document.querySelector('.mobile-only')
 
@@ -73,6 +76,7 @@ export class IngredientsFrom {
         // this.#template = document.querySelector('#ingredient-template')
         // this.#target = document.querySelector(".js-ingredient-group")
         if (grid) this.#touchPlugin = new DrawerTouchPlugin(grid)
+        if (bubbleMenu) this.#bubbleCreativeMenu = new BubbleCreativePlugin(grid)
         // if (mobileGrid) this.#touchPlugin = new DrawerTouchPlugin(mobileGrid)
     }
 
