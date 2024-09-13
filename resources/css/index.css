@@ -823,7 +823,7 @@ form {
     height: 100vh;
     opacity: 1;
     /* overflow: auto; */
-    /* display: none; */
+    display: none;
     scroll-snap-type: y mandatory;
     overflow: visible;
     overflow-x: auto;
@@ -849,7 +849,7 @@ form {
     &.opened {
         /* top: 33%; */
         top: 23%;
-        /* display: block; */
+        display: block;
         bottom: 0;
         background-color: #28292a;
         position: fixed;
@@ -950,7 +950,7 @@ form {
     &::after {
         content: '';
         clear: both;
-        display: block;
+        /* display: block; */
     }
 
     @media screen and (min-width: 576px) and (max-width: 992px) {
@@ -1192,7 +1192,7 @@ form {
 }
 
 .form-recipe, .recipe {
-    display: block;
+    /* display: block; */
     will-change: transform;
     padding: 5%;
     width: 100%;
@@ -1777,6 +1777,7 @@ hr {
     align-items: center;
     justify-items: center;
     justify-content: center;
+    /* will-change: transform, opacity; */
     
     /* overflow: hidden; */
     /* border-radius: 100vh; */

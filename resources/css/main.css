@@ -1074,7 +1074,7 @@ main {
 /* CARDS */
 .card {
     &.form-recipe, &.recipe {
-        display: block;
+        /* display: block; */
         will-change: transform;
         padding: 5%;
     }

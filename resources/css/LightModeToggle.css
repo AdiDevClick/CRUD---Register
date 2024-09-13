@@ -23,6 +23,8 @@ Default status : Dark Theme
     
     /* width: 100%; */
     padding: 5px;
+    overflow: hidden;
+
     /* max-height: 40px; */
     margin: 20px auto;
     > label[for=lightmode-toggle] {
@@ -47,6 +49,7 @@ Default status : Dark Theme
             position: absolute;
             border-radius: 100vh;
             box-shadow: var(--button-shadow);
+            overflow: hidden;
         }
         &:active::after, &:hover::after, &:focus::after {
             width: calc(((var(--width) + (var(--width) * 0.03)) / 2) * 1px);

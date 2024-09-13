@@ -12,3 +12,5 @@ Errors : [2] Undefined variable $include - C:\xampp\htdocs\Recettes\recipes\subm
 Errors : [2] Undefined variable $includes - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:119
 Errors : [2] Undefined variable $includes - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:119
 Errors : [2] Undefined variable $includes - C:\xampp\htdocs\Recettes\recipes\submit_recipes.php:119
+Errors : [2] Undefined array key "custom_ingredient" - C:\xampp\htdocs\recettes\classes\Process_Ajax.class.php:42
+Errors : [2] Undefined array key "custom_ingredient" - C:\xampp\htdocs\recettes\classes\Process_Ajax.class.php:42
