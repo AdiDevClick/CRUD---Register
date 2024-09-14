@@ -1,6 +1,3 @@
-<?php
-// $getInfos = null;
-?>
 <!-- <section class="card_container all-resolutions"> -->
 <!-- <section class="card_container mobile-only"> -->
 <section class="card_container">
@@ -23,7 +20,8 @@
         data-elements='{
             "ingredient": ".js-value"
         }'
-        class="js-form-fetch" method="post"
+        class="js-form-fetch"
+        method="post"
     >
         <section class="contact-grid js-stop-appender" id="recipe_creation_all_resolutions">
             <!-- Error Message -->
@@ -85,7 +83,7 @@
             </div>
             <!-- END OF DRAWER BUTTONS -->
             <!-- DEBUT DE LA CARTE PREPARATION -->
-            <div class="js-append-to-drawer">
+            <div id="js-append-to-drawer" class="js-append-to-drawer">
                 <div class="card-header-section">
                     <div class=" icon form-logo">
                         <img src="../img/cooking.svg" alt="icône représentant une cuisson" srcset="">
@@ -137,7 +135,7 @@
             
             
             <!-- DEBUT DE LA CARTE INGREDIENTS -->
-            <div à faire monter au dessus de la div ok class="show_drawer">
+            <div id="show_drawer" à faire monter au dessus de la div ok class="show_drawer">
 
                 <div class="card-header-section">
                     <div class="icon form-logo">
@@ -158,7 +156,7 @@
                         <div class="ingredient-stack js-ingredient-group-all-resolution js-ingredient-group js-modal-stop"></div>
                         <div class="ingredient">
                             <select class="select js-select1" name="ingredient" id="ingredient1" aria-placeholder="test">
-                                <option type="text" class="test"></input>
+                                <option type="text" class="test">Selectionnez</input>
                                 <option value="oeuf" <?= $getInfos !== null && $getInfos['ingredient_1'] === 'oeuf' ? htmlspecialchars('selected') : null ?>>Oeuf</option>
                                 <option value="sel" <?= $getInfos !== null && $getInfos['ingredient_1'] === 'sel' ? htmlspecialchars('selected') : null ?>>Sel</option>
                                 <option value="sucre" <?= $getInfos !== null && $getInfos['ingredient_1'] === 'sucre' ? htmlspecialchars('selected') : null ?>>Sucre</option>
@@ -208,11 +206,15 @@
             <!-- FIN DE LA CARTE INGREDIENTS -->
 
             <!-- File -->
-            <div à append juste au-dessus au même niveau que add_ingredient class="img_preview">
+            <div id="img_preview" à append juste au-dessus au même niveau que add_ingredient class="img_preview">
                 <label id="add_image" for="file" class="label"> Ajouter une image</label>
-                <div class="profile-picture" style="background-image: url('<?php if ($getInfos !== null) {
-                    echo $getInfos['img_path'];
-                }?>');">
+                <div class="profile-picture" style="background-image: url('
+                    <?php 
+                        if ($getInfos !== null) {
+                            echo $getInfos['img_path'];
+                        }
+                    ?>
+                    ');">
                     <h1 class="upload-icon">
                         <i class="fa fa-plus fa-2x" aria-hidden="true"></i>
                     </h1>

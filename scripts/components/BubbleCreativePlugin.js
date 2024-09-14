@@ -16,6 +16,7 @@ export class BubbleCreativePlugin {
         '.img_preview',
     ]
     constructor(preparation) {
+        this.preparation = preparation
         this.#bubbleMenu = document.querySelector('.bubble-menu')
         this.#menuItems = document.querySelectorAll('.menu-item')
 
@@ -26,6 +27,25 @@ export class BubbleCreativePlugin {
     }
 
     #onClick(e) {
-        if (e.currentTarget.classList.contains('blue')) document.querySelector('.js-form-recipe').style.display = 'none'
+        if (e.currentTarget.classList.contains('blue')) {
+            console.log(e.currentTarget.dataset.set)
+            document.querySelectorAll(e.currentTarget.dataset.set).forEach(item => item.style.display = 'none')
+        } 
+        if (e.currentTarget.classList.contains('green')) {
+            console.log(e.currentTarget.dataset.set)
+            document.querySelectorAll(e.currentTarget.dataset.set).forEach(item => item.style.display = 'none')
+        }
+        if (e.currentTarget.classList.contains('purple')) {
+            console.log(e.currentTarget.dataset.set)
+            document.querySelectorAll(e.currentTarget.dataset.set).forEach(item => item.style.display = 'none')
+        }
+        if (e.currentTarget.classList.contains('red')) {
+            console.log(e.currentTarget.dataset.set)
+            document.querySelectorAll(e.currentTarget.dataset.set).forEach(item => item.style.display = 'none')
+        }
+        if (e.currentTarget.classList.contains('orange')) {
+            console.log(e.currentTarget.dataset.set)
+            document.querySelectorAll(e.currentTarget.dataset.set).forEach(item => item.style.display = 'none')
+        }
     }
 }
