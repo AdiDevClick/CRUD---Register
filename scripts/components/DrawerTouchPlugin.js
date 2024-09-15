@@ -329,6 +329,7 @@ export class DrawerTouchPlugin {
      */
     #disableScrollBehavior() {
         document.documentElement.style.overflow = 'hidden'
+        // document.documentElement.style.overflowX = 'hidden'
         document.documentElement.style.overscrollBehavior = 'none'
     }
 

@@ -28,24 +28,24 @@ export class BubbleCreativePlugin {
 
     #onClick(e) {
         if (e.currentTarget.classList.contains('blue')) {
-            console.log(e.currentTarget.dataset.set)
-            document.querySelectorAll(e.currentTarget.dataset.set).forEach(item => item.style.display = 'none')
+            console.log(e.currentTarget.dataset.target)
+            document.querySelectorAll(e.currentTarget.dataset.target).forEach(item => item.style.display = 'block')
         } 
         if (e.currentTarget.classList.contains('green')) {
-            console.log(e.currentTarget.dataset.set)
-            document.querySelectorAll(e.currentTarget.dataset.set).forEach(item => item.style.display = 'none')
+            console.log(e.currentTarget.dataset.target)
+            document.querySelectorAll(e.currentTarget.dataset.target).forEach(item => item.style.display = 'block')
         }
         if (e.currentTarget.classList.contains('purple')) {
-            console.log(e.currentTarget.dataset.set)
-            document.querySelectorAll(e.currentTarget.dataset.set).forEach(item => item.style.display = 'none')
+            console.log(e.currentTarget.dataset.target)
+            document.querySelectorAll(e.currentTarget.dataset.target).forEach(item => item.style.display = 'block')
         }
         if (e.currentTarget.classList.contains('red')) {
-            console.log(e.currentTarget.dataset.set)
-            document.querySelectorAll(e.currentTarget.dataset.set).forEach(item => item.style.display = 'none')
+            console.log(e.currentTarget.dataset.target)
+            document.querySelectorAll(e.currentTarget.dataset.target).forEach(item => item.style.display = 'block')
         }
         if (e.currentTarget.classList.contains('orange')) {
-            console.log(e.currentTarget.dataset.set)
-            document.querySelectorAll(e.currentTarget.dataset.set).forEach(item => item.style.display = 'none')
+            console.log(e.currentTarget.dataset.target)
+            document.querySelectorAll(e.currentTarget.dataset.target).forEach(item => item.style.display = 'block')
         }
     }
 }

@@ -34,27 +34,27 @@
             <!-- Title -->
             <div class="js-form-recipe">
                 <label for="title" class="label">Titre de votre recette</label>
-                <input class="form" name="title" type="text" id="title" placeholder="Votre titre..." value="<?php $getInfos !== null && $getInfos['title'] ? print strip_tags($getInfos['title']) : null ?>">
+                <input required class="form" name="title" type="text" id="title" placeholder="Votre titre..." value="<?php $getInfos !== null && $getInfos['title'] ? print strip_tags($getInfos['title']) : null ?>">
             </div>
             <!-- QUICK DESCRIPTION -->
             <div class="js-form-recipe">
                 <label for="description" class="label">Courte description</label>
-                <textarea class="form" name="description" id="description" cols="60" rows="3" placeholder="Une courte description... Exemple : Une recette facile, peu épicée et économique !"><?php $getInfos !== null && $getInfos['description'] ? print strip_tags($getInfos['description']) : null ?></textarea>
+                <textarea required name="description" id="description" cols="60" rows="3" placeholder="Une courte description... Exemple : Une recette facile, peu épicée et économique !"><?php $getInfos !== null && $getInfos['description'] ? print strip_tags($getInfos['description']) : null ?></textarea>
             </div>
             <!-- STEP 1 -->
             <div class="js-form-recipe">
                 <label for="step_1" class="label">Etape 1</label>
-                <textarea class="" name="step_1" id="step_1" cols="60" rows="3" placeholder="Renseignez votre première étape..."><?php $getInfos !== null && $getInfos['step_1'] ? print strip_tags($getInfos['step_1']) : null ?></textarea>
+                <textarea required class="" name="step_1" id="step_1" cols="60" rows="3" placeholder="Renseignez votre première étape..."><?php $getInfos !== null && $getInfos['step_1'] ? print strip_tags($getInfos['step_1']) : null ?></textarea>
             </div>
             <!-- STEP 2 -->
             <div class="js-form-recipe">
                 <label for="step_2" class="label">Etape 2</label>
-                <textarea name="step_2" id="step_2" cols="60" rows="3" placeholder="Renseignez  votre deuxième étape..."><?php $getInfos !== null && $getInfos['step_2'] ? print strip_tags($getInfos['step_2']) : null ?></textarea>
+                <textarea required name="step_2" id="step_2" cols="60" rows="3" placeholder="Renseignez  votre deuxième étape..."><?php $getInfos !== null && $getInfos['step_2'] ? print strip_tags($getInfos['step_2']) : null ?></textarea>
             </div>
             <!-- STEP 3 -->
             <div class="js-form-recipe">
                 <label for="step_3" class="label">Etape 3</label>
-                <textarea name="step_3" id="step_3" cols="60" rows="3" placeholder="Renseignez  votre troisième étape..."><?php $getInfos !== null && $getInfos['step_3'] ? print strip_tags($getInfos['step_3']) : null ?></textarea>
+                <textarea required name="step_3" id="step_3" cols="60" rows="3" placeholder="Renseignez  votre troisième étape..."><?php $getInfos !== null && $getInfos['step_3'] ? print strip_tags($getInfos['step_3']) : null ?></textarea>
             </div>
             <!-- STEP 4 -->
             <div class="js-form-recipe">
@@ -95,7 +95,7 @@
                 <div class="total_time">
                     <div class="time">
                         <label for="total_time" class="label">Temps total</label>
-                        <input id="total_time" type="text" name="total_time" class="input" value="<?php if ($getInfos !== null) {
+                        <input required id="total_time" type="text" name="total_time" class="input" value="<?php if ($getInfos !== null) {
                             echo htmlspecialchars((string)$getInfos['total_time']);
                         }?>">
                         <select class="select" name="total_time_length" id="total_time_length" aria-placeholder="temps">
@@ -105,7 +105,7 @@
                     </div>
                     <div class="time">
                         <label for="resting_time" class="label">Temps de repos</label>
-                        <input id="resting_time" type="text" name="resting_time" class="input" value="<?php if ($getInfos !== null) {
+                        <input required id="resting_time" type="text" name="resting_time" class="input" value="<?php if ($getInfos !== null) {
                             echo htmlspecialchars((string)$getInfos['resting_time']);
                         }?>">
                         <select class="select" name="resting_time_length" id="resting_time_length" aria-placeholder="test">
@@ -115,7 +115,7 @@
                     </div>
                     <div class="time">
                         <label for="oven_time" class="label">Temps de cuisson</label>
-                        <input id="oven_time" type="text" name="oven_time" class="input" value="<?php if ($getInfos !== null) {
+                        <input required id="oven_time" type="text" name="oven_time" class="input" value="<?php if ($getInfos !== null) {
                             echo htmlspecialchars((string)$getInfos['oven_time']);
                         }?>">
                         <select class="select" name="oven_time_length" id="oven_time_length" aria-placeholder="test">
@@ -125,7 +125,7 @@
                     </div>
                     <div class="persons time">
                         <label for="persons" class="label">Nombre de personnes</label>
-                        <input id="persons" type="text" name="persons" class="input" value="<?= $getInfos !== null && $getInfos['persons'] ? htmlspecialchars((string)$getInfos['persons']) : null ?>">
+                        <input required id="persons" type="text" name="persons" class="input" value="<?= $getInfos !== null && $getInfos['persons'] ? htmlspecialchars((string)$getInfos['persons']) : null ?>">
                     </div>
                 </div>
             </div>
@@ -209,16 +209,16 @@
             <div id="img_preview" à append juste au-dessus au même niveau que add_ingredient class="img_preview">
                 <label id="add_image" for="file" class="label"> Ajouter une image</label>
                 <div class="profile-picture" style="background-image: url('
-                    <?php 
+                    <?php
                         if ($getInfos !== null) {
                             echo $getInfos['img_path'];
                         }
-                    ?>
+            ?>
                     ');">
                     <h1 class="upload-icon">
                         <i class="fa fa-plus fa-2x" aria-hidden="true"></i>
                     </h1>
-                    <input class="file-uploader" type="file" id="file" name="file" class="form"/>
+                    <input required class="file-uploader" type="file" id="file" name="file" class="form"/>
                 </div>
                 <!-- <hr append en beforeend> -->
             </div>

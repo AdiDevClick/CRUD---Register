@@ -472,6 +472,13 @@ form {
         }
     } */
     &#recipe_creation, &#recipe_creation_all_resolutions {
+        > :is(.js-form-recipe):not(:has(textarea:valid, input:valid)),
+        /* > .js-form-recipe:not(:has(textarea:valid)).js-form-recipe:not(:has(input:valid)).js-form-recipe:not(:has(textarea:valid)), */
+        > .js-append-to-drawer:not(:has(input:valid)),
+        > .show_drawer:not(:has(input:valid)),
+        > .img_preview:not(:has(input:valid)) {
+            display: none;
+        }
         .btn {
             width: 100%;
             max-width: unset;
@@ -583,7 +590,8 @@ form {
         .form-recipe {
             width: 100%;
             margin-bottom: 0px;
-            padding: 20px 10px;
+            padding: 0;
+            /* padding: 20px 10px; */
         }
     }
 }
