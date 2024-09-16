@@ -1366,6 +1366,13 @@ hr {
         height: 100%; */
         /* position: absolute;
     } */
+    /* .interactive-elements__cancel::after {
+        content: "✖";
+        color: red;
+        /* width: 100%;
+        height: 100%; */
+        /* position: absolute;
+    } */
 }
 
 .interactive-elements__validate,
