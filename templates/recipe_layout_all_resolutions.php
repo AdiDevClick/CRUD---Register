@@ -195,9 +195,9 @@
                         </div>
                     </div>
                     <div class="add_ingredient">
-                        <label for="custom_ingredient_all_resolutions" class="label">Votre ingrédient particulier</label>
-                        <input id="custom_ingredient_all_resolutions" type="text" name="custom_ingredient_all_resolutions" class="input js-ingredient-input" placeholder="Votre ingrédient...">
-                        <button name="add_custom_all_resolution" id="add_custom_all_resolution" type="button" class="btn js-add-custom">Ajouter un nouvel ingrédient</button>
+                        <label for="custom_ingredient" class="label">Votre ingrédient particulier</label>
+                        <input id="custom_ingredient" type="text" name="custom_ingredient" class="input js-ingredient-input" placeholder="Votre ingrédient...">
+                        <button name="add_custom" id="add_custom" type="button" class="btn js-add-custom">Ajouter un nouvel ingrédient</button>
                     </div>
                     
                 </div>

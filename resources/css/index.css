@@ -472,12 +472,14 @@ form {
         }
     } */
     &#recipe_creation, &#recipe_creation_all_resolutions {
-        > :is(.js-form-recipe):not(:has(textarea:valid, input:valid)),
+        > .js-form-recipe:has(textarea:not(:required:valid), input:not(:required:valid)),
         /* > .js-form-recipe:not(:has(textarea:valid)).js-form-recipe:not(:has(input:valid)).js-form-recipe:not(:has(textarea:valid)), */
         > .js-append-to-drawer:not(:has(input:valid)),
-        > .show_drawer:not(:has(input:valid)),
+        > .show_drawer:not(:has(.custom-ingredient)),
+        /* > .show_drawer:not(:has(input:valid)), */
         > .img_preview:not(:has(input:valid)) {
             display: none;
+            opacity: 0;
         }
         .btn {
             width: 100%;
@@ -854,64 +856,45 @@ form {
     /* display: none; /* !important ipad air bug */
     /* width: 100px; */
     /* -webkit-appearance:none; */
-    
+    .add_ingredient {
+        padding-bottom: 30px;
+    }
     &.opened {
-        /* top: 33%; */
-        top: 23%;
-        display: block;
-        bottom: 0;
-        background-color: #28292a;
-        position: fixed;
-        scroll-snap-type: y mandatory;
-        max-height: 100%;
-        /* min-height: fit-content; */
-        z-index: 1000;
-        .show_drawer {
-            display: block;
-        }
+        top: 20%;
     }
 
     &.opened.fullyOpened {
-        /* top: 33%; */
         top: 0;
-        position: fixed;
-        z-index: 1000;
         overscroll-behavior-y: contain;
-        /* bottom: 0; */
-        /* background-color: #28292a; */
-        /* position: absolute; */
-        /* scroll-snap-type: y mandatory; */
-        /* max-height: 100%; */
-        /* min-height: fit-content; */
-        /* .show_drawer {
-            display: block;
-        } */
     }
 
-    &.open {
+    &.opened, &.open {
+        display: block;
+        position: fixed;
+        z-index: 1000;
+        max-height: 100%;
+        scroll-snap-type: y mandatory;
+        background-color: #28292a;
+        /* min-height: fit-content; */
+        &::after {
+            content: '';
+            clear: both;
+        }
         .show_drawer {
             display: block;
         }
-        .show_drawer ::after {
+    }
+
+    &.open {
+        /* .show_drawer {
+            display: block;
+        } */
+        /* .show_drawer::after {
             content: '';
             clear: both;
-            /* display: block; */
-        }
-        /* display: none; */
-        scroll-snap-type: y mandatory;
-        /* overscroll-behavior-y: contain; */
-        bottom: 0;
-        /* display: block; */
-        /* position: absolute; */
-        position: fixed;
-        /* white-space: nowrap; */
-        max-height: 100%;
-        min-height: fit-content;
-        /* display: inline-block; */
-        /* position: relative; */
-        /* position: inherit; */
-        z-index: 1000;
-        background-color: #28292a;
+        } */
+        /* min-height: fit-content; */
+        /* background-color: #28292a; */
         /* animation: slideToTop 1s forwards; */
         /* transform-origin:  50% bottom; */
         -webkit-transition: width 1s ease-in-out, transform 1s;
@@ -942,25 +925,18 @@ form {
             display: none;
             bottom: 0;
         }
-        /* z-index: 10000; */
         &::after {
             content: '';
             clear: both;
         }
-        /* overflow-y: auto; */
         position: relative;
-        /* display: none; */
-        /* height: 100vh; */
-        /* max-height: max-content; */
         height: 100%;
-        /* padding: 5%; */
     }
 
-    &::after {
+    /* &::after {
         content: '';
         clear: both;
-        /* display: block; */
-    }
+    } */
 
     @media screen and (min-width: 576px) and (max-width: 992px) {
         scroll-snap-type: y mandatory;
@@ -979,7 +955,6 @@ form {
         /* bottom: -100%; */
         left: 0;
         will-change: transform;
-        /* display: none; */
     }
 }
 
@@ -1106,7 +1081,8 @@ form {
         transform: translate3d(0, 0, 0);
     } */
     to {
-        transform: translate3d(0, 30%, 0);
+        transform: translate3d(0, 20%, 0);
+        /* transform: translate3d(0, 30%, 0); */
     }
 }
 
@@ -1121,7 +1097,8 @@ form {
         transform: translate3d(0, 0, 0);
     } */
     to {
-        transform: translate3d(0, -67%, 0);
+        transform: translate3d(0, -70%, 0);
+        /* transform: translate3d(0, -67%, 0); */
     }
 }
 @keyframes slideToFullTop {
@@ -1135,7 +1112,8 @@ form {
         transform: translate3d(0, 0, 0);
     } */
     to {
-        transform: translate3d(0, -22%, 0);
+        transform: translate3d(0, -20%, 0);
+        /* transform: translate3d(0, -22%, 0); */
     }
 }
 @keyframes slideToBottom {
@@ -1152,7 +1130,7 @@ form {
     } */
     to {
         opacity: 0;
-        transform: translate3d(0, 50%, 0);
+        transform: translate3d(0, 75%, 0);
     }
 }
 @keyframes slideToRight {
@@ -1381,6 +1359,13 @@ hr {
         content: '';
         clear: both;
     }
+    /* .interactive-elements__validate::after {
+        content: "✓";
+        color: green;
+        /* width: 100%;
+        height: 100%; */
+        /* position: absolute;
+    } */
 }
 
 .interactive-elements__validate,
@@ -2041,8 +2026,8 @@ hr {
         &.open {
             --space-from-top: 115px;
             transition:
-                top 0.3s cubic-bezier(0.39, 0.575, 0.565, 0.3),
-                height 0.3s linear;
+                top 0.3s cubic-bezier(0.39, 0.575, 0.565, 0.3);
+                /* height 0.3s linear; */
 
             /* overflow-y: auto; */
             /* overflow-x: hidden; */
@@ -2190,18 +2175,21 @@ hr {
 }
 
 @keyframes slideDown {
-    /* 0% {
-        transform: translateY(0);
-    } */
+    0% {
+        clip-path: inset(0 0 100% 0);
+        /* transform: translateY(0); */
+    }
     
     50% {
         transform: translateY(160px);
+        clip-path: inset(0 0 50% 0);
     }
     100% {
         transform: translateY(130px);
         /* transform: translateY(273px); */
         /* top: 273px; */
         /* top: 240px; */
+        clip-path: inset(0)
     }
     
 }

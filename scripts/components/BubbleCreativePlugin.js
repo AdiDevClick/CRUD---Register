@@ -24,28 +24,49 @@ export class BubbleCreativePlugin {
             console.log(item)
             item.addEventListener('click', this.#onClick)
         })
+        console.log(this.preparation.errorHandler)
     }
 
     #onClick(e) {
         if (e.currentTarget.classList.contains('blue')) {
             console.log(e.currentTarget.dataset.target)
-            document.querySelectorAll(e.currentTarget.dataset.target).forEach(item => item.style.display = 'block')
+            document.querySelectorAll(e.currentTarget.dataset.target).forEach(item => {
+                item.style.display = 'block'
+                item.style.opacity = '1'
+            })
+            e.currentTarget.classList.add('hidden')
         } 
         if (e.currentTarget.classList.contains('green')) {
             console.log(e.currentTarget.dataset.target)
-            document.querySelectorAll(e.currentTarget.dataset.target).forEach(item => item.style.display = 'block')
+            document.querySelectorAll(e.currentTarget.dataset.target).forEach(item => {
+                item.style.display = 'block'
+                item.style.opacity = '1'
+            })
+            e.currentTarget.classList.add('hidden')
         }
         if (e.currentTarget.classList.contains('purple')) {
             console.log(e.currentTarget.dataset.target)
-            document.querySelectorAll(e.currentTarget.dataset.target).forEach(item => item.style.display = 'block')
+            document.querySelectorAll(e.currentTarget.dataset.target).forEach(item => {
+                item.style.display = 'block'
+                item.style.opacity = '1'
+            })
+            e.currentTarget.classList.add('hidden')
         }
         if (e.currentTarget.classList.contains('red')) {
             console.log(e.currentTarget.dataset.target)
-            document.querySelectorAll(e.currentTarget.dataset.target).forEach(item => item.style.display = 'block')
+            document.querySelectorAll(e.currentTarget.dataset.target).forEach(item => {
+                item.style.display = 'block'
+                item.style.opacity = '1'
+            })
+            e.currentTarget.classList.add('hidden')
         }
         if (e.currentTarget.classList.contains('orange')) {
             console.log(e.currentTarget.dataset.target)
-            document.querySelectorAll(e.currentTarget.dataset.target).forEach(item => item.style.display = 'block')
+            document.querySelectorAll(e.currentTarget.dataset.target).forEach(item => {
+                item.style.display = 'block'
+                item.style.opacity = '1'
+            })
+            e.currentTarget.classList.add('hidden')
         }
     }
 }

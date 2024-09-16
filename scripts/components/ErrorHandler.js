@@ -30,12 +30,12 @@ export class ErrorHandler {
     /** @type {RegExpConstructor} */
     #emailInputRegex = new RegExp("([a-z0-9A-Z._-]+)@([a-z0-9A-Z_-]+)\\.([a-z\.]{2,6})$")
     /** @type {RegExpConstructor} */
-    #allowedSpecialChars = new RegExp('^[\\w\\s,.:;_?\'!\\"éèêëàâäôöûüçÀ-]+$')
+    #allowedSpecialChars = new RegExp('^[\\w\\s,.:;_?\'!\\"éèêëàâäôöûüùçÀ-]+$')
     /** @type {String} */
     #invalidEmailMessage = `Votre email est invalide 
                 exemple valide : monEmail@mail.fr`
     /** @type {Array} */
-    #inputs  = []
+    #inputsToListen  = []
     /** @type {Boolean} */
     #pwStatus = true
     /** @type {Boolean} */
@@ -81,11 +81,11 @@ export class ErrorHandler {
             )
         }
         if (!this.options.debouncing) this.options.debounceDelay = 50
-        this.#inputs = 'input, textarea'
+        this.#inputsToListen = 'input, textarea'
         // this.#inputs = `#password, #pwdRepeat, #email, #username, #age,
         // #title, #step_1, #step_2, #step_3, #step_4, #step_5, #step_6,
         // #total_time, #resting_time, #oven_time, #persons`
-        this.#listenInputs = Array.from(this.#form.querySelectorAll(this.#inputs))
+        this.#listenInputs = Array.from(this.#form.querySelectorAll(this.#inputsToListen))
         this.#listenInputs.forEach(input => {
             if (input.id === 'password') this.#password = input
             if (input.id === 'pwdRepeat') this.#pwdRepeat = input
@@ -416,5 +416,9 @@ export class ErrorHandler {
     /** @returns {Function} */
     get checkInputs() {
         return this.#isInputChecked()
+    }
+
+    get listenedInputs() {
+        return this.#listenInputs
     }
 }
