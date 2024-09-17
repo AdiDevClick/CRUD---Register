@@ -62,7 +62,7 @@ export class DrawerTouchPlugin {
                 this.#mutationOldValue = mutation.oldValue
                 
                 console.log('jactive les listeners')
-                appendToAnotherLocation('#recipe_creation_all_resolutions')
+                appendToAnotherLocation('#recipe_creation')
                 this.#openListeners()
                 // console.log(mutationsList)
                 // console.log(this.container)
@@ -87,7 +87,8 @@ export class DrawerTouchPlugin {
                 ]
                 // debugger
                 // unwrap('.card')
-                const section = document.querySelector('#recipe_creation_all_resolutions')
+                const section = document.querySelector('#recipe_creation')
+                // const section = document.querySelector('#recipe_creation_all_resolutions')
 
                 restoreToDefaultPosition(section, '.card')
 

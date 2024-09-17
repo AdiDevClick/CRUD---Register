@@ -80,6 +80,7 @@ export function transformToComment(targetSelector) {
  */
 export function appendToAnotherLocation(targetSelector, isClass = 'js-form-recipe') {
     console.log('jappend pour le mobile')
+    console.log(targetSelector)
     let newCardRecipeSection = document.querySelector('.card.recipe')
     const parentElement = document.querySelector(targetSelector)
     let newCardFormRecipeSection = document.querySelector('.form-recipe')

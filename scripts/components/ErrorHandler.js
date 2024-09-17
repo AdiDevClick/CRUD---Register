@@ -30,7 +30,10 @@ export class ErrorHandler {
     /** @type {RegExpConstructor} */
     #emailInputRegex = new RegExp("([a-z0-9A-Z._-]+)@([a-z0-9A-Z_-]+)\\.([a-z\.]{2,6})$")
     /** @type {RegExpConstructor} */
-    #allowedSpecialChars = new RegExp('^[\\w\\s,.:;_?\'!\\"éèêëàâäôöûüùçÀ-]+$')
+    #allowedSpecialChars = '/^[\\w\\s,.:;_?\'!\\"éèêëàâäôöûüùçÀ-]+$/'
+    // #allowedSpecialChars = new RegExp('^[\\w\\s,.:;_?\'!\\"éèêëàâäôöûüùçÀ-]+$')
+    /** @type {String} tested and not allowedSpecialChars char */
+    #wrongInput
     /** @type {String} */
     #invalidEmailMessage = `Votre email est invalide 
                 exemple valide : monEmail@mail.fr`
@@ -99,16 +102,24 @@ export class ErrorHandler {
             // Les listeners d'inputs n'ajoutent pas d'erreurs à l'#error array
             // ATTENTION !! : Ce script n'est pas bloquant !!
             input.addEventListener('input', debounce((e) => {
+                console.log(e)
+                // Checking if inputs are empty
                 this.#isEmptyInputs(e.target)
+                // Checking if passwords are same
                 this.#isExactPassword()
+                // Checking if the character used is allowed
                 this.#charsNotAllowed(e.target)
                 if (input.id === 'username') this.#isSpaceAllowed(input)
                 if (this.#isEmpty && this.#error.length > 1) {
                     this.#alert.innerText = 'Un ou plusieurs champs sont vides'
                     input.classList.add('input_error')
                     return
-                } else if (input.id !== "email" && input.id !== "password" && input.id !== "pwdRepeat" && !this.#isCharAllowed) {
-                    this.#alert.innerText = 'Ce charactère n\'est pas autorisé.'
+                } else if (input.id !=="file" &&
+                    input.id !== "email" &&
+                    input.id !== "password" &&
+                    input.id !== "pwdRepeat" &&
+                    !this.#isCharAllowed) {
+                    this.#alert.innerText = `Le caractère "${this.#wrongInput}" n\'est pas autorisé.`
                     input.classList.add("input_error")
                     input.style.borderBottom = "1px solid red"
                 } else if (input.id === "email" && !this.#emailInputRegex.test(input.value)) {
@@ -174,7 +185,13 @@ export class ErrorHandler {
      * @returns 
      */
     #charsNotAllowed(input) {
+        let test = input.value.matchAll(this.#allowedSpecialChars)
+        test = Array.from(test)
+        
+        let firstMatch = test[0]
+        console.log(firstMatch)
         if (!this.#allowedSpecialChars.test(input.value) && !this.#isEmpty) {
+            this.#wrongInput = input
             this.#isCharAllowed = false
         } else {
             this.#isCharAllowed = true

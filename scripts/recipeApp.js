@@ -118,7 +118,7 @@ if (!mobile) {
 
     // pour la version mobile
     console.log('je load la page et jappend pour mobile')
-    appendToAnotherLocation('#recipe_creation_all_resolutions')
+    appendToAnotherLocation('#recipe_creation')
     // const mobileData = includes(url, target)
     // console.log(await test)
     // document.querySelector("main").append(await mobileData)

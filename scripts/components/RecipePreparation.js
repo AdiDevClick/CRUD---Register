@@ -114,8 +114,9 @@ export class IngredientsFrom {
             whichInputCanBeEmpty: ['custom_ingredient', 'step_3', 'step_4', 'step_5', 'step_6', 'file', 'add_preparation'],
             useMyOwnListener: true
         })
-        console.log(this.#errorHandler)
         this.#form.addEventListener('submit', e => {
+            console.log(this.#errorHandler)
+
             console.log(e.target)
             e.preventDefault()
             if (!this.#errorHandler.checkInputs) {

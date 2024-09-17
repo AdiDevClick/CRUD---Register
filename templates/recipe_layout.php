@@ -23,7 +23,7 @@
         class="js-form-fetch"
         method="post"
     >
-        <section class="contact-grid js-stop-appender" id="recipe_creation_all_resolutions">
+        <section class="contact-grid js-stop-appender" id="recipe_creation">
             <!-- Error Message -->
             <?php if (!empty($err)) : ?>
                 <?php echo 'test' ?>
@@ -72,10 +72,10 @@
                 <textarea name="step_6" id="step_6" cols="60" rows="3" placeholder="Renseignez  votre sixième étape..."><?php $getInfos !== null && $getInfos['step_6'] ? print strip_tags($getInfos['step_6']) : null ?></textarea>
             </div>
             <!-- DRAWER BUTTONS -->
-            <div il faut append a cette div la card recipe class="opening_drawer_button show">
+            <div class="opening_drawer_button show">
                 <img src='../img/add.svg' alt="image représentant une addition">
             </div>
-            <div à rajouter class="drawer js-recipe">
+            <div class="drawer js-recipe">
                 <div class="drawer__button"></div>
                 <div class="drawer__close">
                     <img src='../img/close.svg' alt="image représentant une fermeture">
@@ -95,18 +95,7 @@
                 <div class="total_time">
                     <div class="time">
                         <label for="total_time" class="label">Temps total</label>
-<<<<<<< HEAD:templates/recipe_layout.php
-                        <input id="total_time" type="text" name="total_time" class="input" value="
-                        <?php 
-                            if ($getInfos !== null) {
-                                echo htmlspecialchars((string)$getInfos['total_time']);
-                            }
-                        ?>">
-=======
-                        <input required id="total_time" type="text" name="total_time" class="input" value="<?php if ($getInfos !== null) {
-                            echo htmlspecialchars((string)$getInfos['total_time']);
-                        }?>">
->>>>>>> aa8a3878fb7e1f50b4e03fe89203812df9c2396d:templates/recipe_layout_all_resolutions.php
+                        <input id="total_time" type="text" name="total_time" class="input" value="<?php if ($getInfos !== null) { echo htmlspecialchars((string)$getInfos['total_time']); } ?>">
                         <select class="select" name="total_time_length" id="total_time_length" aria-placeholder="temps">
                             <option value="min" <?= $getInfos !== null && $getInfos['total_time_length'] === 'min' ? htmlspecialchars('selected') : null ?>>min</option>
                             <option value="heures" <?= $getInfos !== null && $getInfos['total_time_length'] === 'heures' ? htmlspecialchars('selected') : null ?>>heures</option>
@@ -114,18 +103,7 @@
                     </div>
                     <div class="time">
                         <label for="resting_time" class="label">Temps de repos</label>
-<<<<<<< HEAD:templates/recipe_layout.php
-                        <input id="resting_time" type="text" name="resting_time" class="input" value="
-                        <?php 
-                            if ($getInfos !== null) {
-                                echo htmlspecialchars((string)$getInfos['resting_time']);
-                            }
-                        ?>">
-=======
-                        <input required id="resting_time" type="text" name="resting_time" class="input" value="<?php if ($getInfos !== null) {
-                            echo htmlspecialchars((string)$getInfos['resting_time']);
-                        }?>">
->>>>>>> aa8a3878fb7e1f50b4e03fe89203812df9c2396d:templates/recipe_layout_all_resolutions.php
+                        <input id="resting_time" type="text" name="resting_time" class="input" value="<?php if ($getInfos !== null) { echo htmlspecialchars((string)$getInfos['resting_time']); } ?>">
                         <select class="select" name="resting_time_length" id="resting_time_length" aria-placeholder="test">
                             <option value="min" <?= $getInfos !== null && $getInfos['resting_time_length'] === 'min' ? htmlspecialchars('selected') : null ?>>min</option>
                             <option value="heures" <?= $getInfos !== null && $getInfos['resting_time_length'] === 'heures' ? htmlspecialchars('selected') : null ?>>heures</option>
@@ -133,18 +111,7 @@
                     </div>
                     <div class="time">
                         <label for="oven_time" class="label">Temps de cuisson</label>
-<<<<<<< HEAD:templates/recipe_layout.php
-                        <input id="oven_time" type="text" name="oven_time" class="input" value="
-                        <?php 
-                            if ($getInfos !== null) {
-                                echo htmlspecialchars((string)$getInfos['oven_time']);
-                            }
-                        ?>">
-=======
-                        <input required id="oven_time" type="text" name="oven_time" class="input" value="<?php if ($getInfos !== null) {
-                            echo htmlspecialchars((string)$getInfos['oven_time']);
-                        }?>">
->>>>>>> aa8a3878fb7e1f50b4e03fe89203812df9c2396d:templates/recipe_layout_all_resolutions.php
+                        <input id="oven_time" type="text" name="oven_time" class="input" value="<?php if ($getInfos !== null) { echo htmlspecialchars((string)$getInfos['oven_time']); } ?>">
                         <select class="select" name="oven_time_length" id="oven_time_length" aria-placeholder="test">
                             <option value="min" <?= $getInfos !== null && $getInfos['oven_time_length'] === 'min' ? htmlspecialchars('selected') : null ?>>min</option>
                             <option value="heures" <?= $getInfos !== null && $getInfos['oven_time_length'] === 'heures' ? htmlspecialchars('selected') : null ?>>heures</option>
@@ -162,7 +129,7 @@
             
             
             <!-- DEBUT DE LA CARTE INGREDIENTS -->
-            <div id="show_drawer" à faire monter au dessus de la div ok class="show_drawer">
+            <div id="show_drawer" class="show_drawer">
 
                 <div class="card-header-section">
                     <div class="icon form-logo">
@@ -233,15 +200,16 @@
             <!-- FIN DE LA CARTE INGREDIENTS -->
 
             <!-- File -->
-            <div id="img_preview" à append juste au-dessus au même niveau que add_ingredient class="img_preview">
+            <div id="img_preview" class="img_preview">
                 <label id="add_image" for="file" class="label"> Ajouter une image</label>
-                <div class="profile-picture" style="background-image: url('
+                <div class="profile-picture" 
                     <?php
-                        if ($getInfos !== null) {
-                            echo $getInfos['img_path'];
-                        }
-            ?>
-                    ');">
+                        // if ($getInfos !== null) {
+                        //     echo '../' . $getInfos['img_path'];
+                        // }
+                        $getInfos == null ?: print 'style="background-image: url(../'. $getInfos['img_path'].' )"'
+                    ?>
+                    >
                     <h1 class="upload-icon">
                         <i class="fa fa-plus fa-2x" aria-hidden="true"></i>
                     </h1>

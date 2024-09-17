@@ -44,6 +44,7 @@ ob_start()
 <?php if ((isset($loggedUser['email']) || isset($_SESSION['LOGGED_USER'])) && !isset($_SESSION['UPDATED_RECIPE'])):?>
     <h1>Recette à éditer : <?= htmlspecialchars($getInfos['title'])?></h1>
     <?php include '../templates/recipe_layout.php'?>
+    <?php include '../templates/recipe_creation_menu.html'?>
     <!-- <section class="card_container">
     <form
         id="preparation-form"
