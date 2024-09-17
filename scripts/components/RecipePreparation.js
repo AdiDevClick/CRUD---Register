@@ -42,7 +42,7 @@ export class IngredientsFrom {
     /** @type {Boolean} */
     #isSentAlready = false
     /** @type {ErrorHandler} */
-    #Errorhandler
+    #errorHandler
     /** @type {DrawerTouchPlugin} */
     #touchPlugin
     /** @type {BubbleCreativePlugin} */
@@ -61,7 +61,6 @@ export class IngredientsFrom {
         this.#list = list
         this.#list = this.#list.filter((k, v) => k !== '')
         const grid = document.querySelector('.card_container')
-        const bubbleMenu = document.querySelector('.bubble-menu')
         // const mobileGrid = document.querySelector('.mobile-only')
         // const grid = document.querySelector('.mobile-only')
 
@@ -77,7 +76,6 @@ export class IngredientsFrom {
         // this.#template = document.querySelector('#ingredient-template')
         // this.#target = document.querySelector(".js-ingredient-group")
         if (grid) this.#touchPlugin = new DrawerTouchPlugin(grid)
-        if (bubbleMenu) this.#bubbleCreativeMenu = new BubbleCreativePlugin(this)
         // if (mobileGrid) this.#touchPlugin = new DrawerTouchPlugin(mobileGrid)
     }
 
@@ -112,14 +110,15 @@ export class IngredientsFrom {
             this.#target.prepend(this.#ingredient)
             // this.#onIngredientDelete(this.#ingredient)
         })
-        this.#Errorhandler = new ErrorHandler(this.#form, {
+        this.#errorHandler = new ErrorHandler(this.#form, {
             whichInputCanBeEmpty: ['custom_ingredient', 'step_3', 'step_4', 'step_5', 'step_6', 'file', 'add_preparation'],
             useMyOwnListener: true
         })
+        console.log(this.#errorHandler)
         this.#form.addEventListener('submit', e => {
             console.log(e.target)
             e.preventDefault()
-            if (!this.#Errorhandler.checkInputs) {
+            if (!this.#errorHandler.checkInputs) {
                 this.#touchPlugin.resetStates
                 return
             }
@@ -145,6 +144,9 @@ export class IngredientsFrom {
         //         this.#onRecipeUpdate(e)
         //     })
         // }
+        const bubbleMenu = document.querySelector('.bubble-menu')
+
+        if (bubbleMenu) this.#bubbleCreativeMenu = new BubbleCreativePlugin(this)
 
         this.#formButton.addEventListener('click', this.#addNewIngredient.bind(this))
     }
@@ -198,6 +200,14 @@ export class IngredientsFrom {
         // this.ingre = ''
 
         this.#formButton.removeEventListener('click', this.#addNewIngredient.bind(this))
+    }
+
+    /**
+     * Retourne le error handler
+     * @returns {Object.<ErrorHandler>}
+     */
+    get errorHandler() {
+        return this.#errorHandler
     }
 
     /** 
