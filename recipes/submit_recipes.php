@@ -134,8 +134,8 @@ ob_start();
 
     </script> -->
     <?php // include '../templates/recipe_layout_mobile_only.php'?>
-    <?php include '../templates/recipe_layout_all_resolutions.php'?>
-    <?php include '../templates/recipe_creation_menu.php'?>
+    <?php include '../templates/recipe_layout.php'?>
+    <?php include '../templates/recipe_creation_menu.html'?>
 <!-- start of success message -->
 
 <?php elseif (isset($_SESSION['REGISTERED_RECIPE'])):?>
