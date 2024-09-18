@@ -32,8 +32,8 @@ export class ErrorHandler {
     /** @type {RegExpConstructor} */
     // #allowedSpecialChars = '/^[\\w\\s,.:;_?\'!\\"éèêëàâäôöûüùçÀ-]+$/g '
     #allowedSpecialChars = new RegExp('^[\\w\\s,.:;_?\'!\\"éèêëàâäôöûüùçÀ-]+$')
-    /** @type {String} tested and not allowedSpecialChars char */
-    #wrongInput
+    /** @type {Array} tested and not allowedSpecialChars char */
+    #wrongInput = []
     /** @type {String} */
     #invalidEmailMessage = `Votre email est invalide 
                 exemple valide : monEmail@mail.fr`
@@ -120,7 +120,15 @@ export class ErrorHandler {
                     input.id !== "password" &&
                     input.id !== "pwdRepeat" &&
                     !this.#isCharAllowed) {
-                    this.#alert.innerText = `Le caractère "${this.#wrongInput}" n\'est pas autorisé.`
+                    // let element 
+                    // for (let i = 0; i < this.#wrongInput.length; i++) {
+                    // }
+                    // this.#alert.innerText = `Le caractère " ${
+                    //     for (let i = 0; i < this.#wrongInput.length; i++) {
+                    //         this.#wrongInput[i]
+                    //     }
+                    // } " n\'est pas autorisé.`
+                    this.#alert.innerText = `Les caractères suivants ne sont pas autorisés :  ${this.#wrongInput} `
                     input.classList.add("input_error")
                     input.style.borderBottom = "1px solid red"
                 } else if (input.id === "email" && !this.#emailInputRegex.test(input.value)) {
@@ -190,14 +198,30 @@ export class ErrorHandler {
         // test = Array.from(test)
         // let test = Array.from(input.value.matchAll(this.#allowedSpecialChars), (m) => `${this.#allowedSpecialChars.lastIndex} ${m[0]}`);
         // // let firstMatch = test[0]
+        
+
         if (!this.#allowedSpecialChars.test(inputEvent.target.value) && !this.#isEmpty) {
+            this.#wrongInput = Array.from(inputEvent.target.value).filter((input) => !input.match(this.#allowedSpecialChars))
+            this.#wrongInput = this.#wrongInput.filter((key, index) => key !== this.#wrongInput.indexOf(key))
+            // console.log(test)
+            // console.log(!this.#allowedSpecialChars.test(inputEvent.data))
+            // if (!inputEvent.target.value.match(this.#allowedSpecialChars)) console.log(inputEvent.target.value)
+            // if (this.#wrongInput.toString().includes(inputEvent.data)) return
+            // this.#wrongInput.push(` ${ inputEvent.data } `)
+        // }
+        // if (!this.#allowedSpecialChars.test(inputEvent.target.value) && !this.#isEmpty) {
             console.log(inputEvent)
-            
-            this.#wrongInput === '' ? this.#wrongInput = inputEvent.data : null
+            console.log(this.#wrongInput)
+            // const test = Array.from(inputEvent.target.value).filter((t) => console.log(t !== this.#allowedSpecialChars.toString().includes(t)))
+            // const test = Array.from(this.#allowedSpecialChars.toString().trim()).filter((t, m) => t !== inputEvent.target.value)
+            // const test = this.#allowedSpecialChars.toString().trim().match((t, m) => t !== inputEvent.target.value)
+            // this.#wrongInput === '' ? this.#wrongInput = inputEvent.data : null
+            // console.log(test)
             this.#isCharAllowed = false
         } else {
+            // this.#wrongInput = []
             this.#isCharAllowed = true
-            this.#wrongInput = ''
+            // this.#wrongInput = ''
             inputEvent.target.classList.remove('input_error')
         }
         return
