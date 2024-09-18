@@ -1943,7 +1943,7 @@ hr {
         &:not(.fadeOut) {
             animation: fadeOut 0.3s;
             .dropdown-menu.open {
-                animation: slideDown 0.3s forwards;
+                animation: slideDown 0.5s forwards;
                 /* A REMETTRE POUR LA TRANSITION */
                 /* top: 240px; */
                 /* transition: top .3s; */
@@ -1984,17 +1984,20 @@ hr {
         flex-direction: column;
         place-items: center; */
 
-        will-change: top;
+        /* will-change: top; */
         display: none; /* ne s'ouvre pas sur ipad il faut forcer le display block*/
         position: absolute;
         z-index: 1000;
         height: 0;
+        /* transform: scaleY(0); */
+        /* transform-origin: top; */
         max-height: 100px;
         top: 100px;
         background: rgba(255, 255, 255, 0.1);
         -webkit-backdrop-filter: blur(15px);
         backdrop-filter: blur(15px);
         border-radius: 10px;
+        /* transition: animation 0.5s ease; */
 
         /* a enlever ?*/
         /* display: flex!important;
@@ -2002,6 +2005,7 @@ hr {
         place-items: center; */
         /* fin du a enlever ?*/
         place-content: center;
+        /* animation: slideOut 0.5s; */
 
         overflow: hidden;
         -webkit-transition: height 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -2010,6 +2014,7 @@ hr {
         transition: 
             max-height 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275),
             height 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+            /* transform 0.3s ease; */
             0.3s linear;
         @media screen and (min-width: 577px) and (max-width: 992px) {
             display: block;
@@ -2020,22 +2025,27 @@ hr {
         @media screen and (max-width: 576px) {
             left: 0;
 
-            animation: slideOut 0.3s;
+            animation: slideOut 0.5s;
             /* transform-origin: 273px top; */
-
+            /* transform: scaleY(1);
+            transform-origin: bottom; */
             /* A REMETTRE POUR LA TRANSITION */
             /* top: 273px; */
             display: block;
-
+            /* height: 200px; */
             right : 0;
             position: fixed;
+            /* @starting-style {
+                display: none
+            } */
         }
         &.open {
             --space-from-top: 115px;
             transition:
+                /* transform 0.3s ease, */
                 top 0.3s cubic-bezier(0.39, 0.575, 0.565, 0.3);
                 /* height 0.3s linear; */
-
+            /* transform: scaleY(1); */
             /* overflow-y: auto; */
             /* overflow-x: hidden; */
             overflow: hidden;
@@ -2202,13 +2212,17 @@ hr {
 }
 @keyframes slideOut {
     0% {
+        /* clip-path: inset(0); */
         transform: translateY(130px);
+        /* transform: scaleY(1); */
     }
     
     50% {
         transform: translateY(200px);
+        /* clip-path: inset(0 0 50% 0); */
     }
     100% {
         transform: translateY(70px);
+        /* clip-path: inset(0 0 100% 0); */
     }
 }

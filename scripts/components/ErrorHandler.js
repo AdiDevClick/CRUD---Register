@@ -30,8 +30,8 @@ export class ErrorHandler {
     /** @type {RegExpConstructor} */
     #emailInputRegex = new RegExp("([a-z0-9A-Z._-]+)@([a-z0-9A-Z_-]+)\\.([a-z\.]{2,6})$")
     /** @type {RegExpConstructor} */
-    #allowedSpecialChars = '/^[\\w\\s,.:;_?\'!\\"éèêëàâäôöûüùçÀ-]+$/'
-    // #allowedSpecialChars = new RegExp('^[\\w\\s,.:;_?\'!\\"éèêëàâäôöûüùçÀ-]+$')
+    // #allowedSpecialChars = '/^[\\w\\s,.:;_?\'!\\"éèêëàâäôöûüùçÀ-]+$/g '
+    #allowedSpecialChars = new RegExp('^[\\w\\s,.:;_?\'!\\"éèêëàâäôöûüùçÀ-]+$')
     /** @type {String} tested and not allowedSpecialChars char */
     #wrongInput
     /** @type {String} */
@@ -66,7 +66,7 @@ export class ErrorHandler {
         this.#form = form
         this.options = Object.assign({}, {
             debouncing: true,
-            debounceDelay: 1000,
+            debounceDelay: 100,
             canBeEmpty: false,
             whichInputCanBeEmpty: ['step_3', 'step_4', 'step_5', 'step_6', 'file', 'resting_time'],
             useMyOwnListener: false,
@@ -108,7 +108,8 @@ export class ErrorHandler {
                 // Checking if passwords are same
                 this.#isExactPassword()
                 // Checking if the character used is allowed
-                this.#charsNotAllowed(e.target)
+                this.#charsNotAllowed(e)
+                // this.#charsNotAllowed(e.target)
                 if (input.id === 'username') this.#isSpaceAllowed(input)
                 if (this.#isEmpty && this.#error.length > 1) {
                     this.#alert.innerText = 'Un ou plusieurs champs sont vides'
@@ -184,18 +185,20 @@ export class ErrorHandler {
      * @param {EventTarget} input 
      * @returns 
      */
-    #charsNotAllowed(input) {
-        let test = input.value.matchAll(this.#allowedSpecialChars)
-        test = Array.from(test)
-        
-        let firstMatch = test[0]
-        console.log(firstMatch)
-        if (!this.#allowedSpecialChars.test(input.value) && !this.#isEmpty) {
-            this.#wrongInput = input
+    #charsNotAllowed(inputEvent) {
+        // let test = input.value.matchAll(this.#allowedSpecialChars)
+        // test = Array.from(test)
+        // let test = Array.from(input.value.matchAll(this.#allowedSpecialChars), (m) => `${this.#allowedSpecialChars.lastIndex} ${m[0]}`);
+        // // let firstMatch = test[0]
+        if (!this.#allowedSpecialChars.test(inputEvent.target.value) && !this.#isEmpty) {
+            console.log(inputEvent)
+            
+            this.#wrongInput === '' ? this.#wrongInput = inputEvent.data : null
             this.#isCharAllowed = false
         } else {
             this.#isCharAllowed = true
-            input.classList.remove('input_error')
+            this.#wrongInput = ''
+            inputEvent.target.classList.remove('input_error')
         }
         return
     }
