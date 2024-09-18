@@ -1,4 +1,4 @@
-import { alertMessage, createElement, debounce } from "../functions/dom.js"
+import { alertMessage, createElement, debounce, retrieveUniqueNotAllowedCharFromRegex } from "../functions/dom.js"
 
 export class ErrorHandler {
 
@@ -31,7 +31,7 @@ export class ErrorHandler {
     #emailInputRegex = new RegExp("([a-z0-9A-Z._-]+)@([a-z0-9A-Z_-]+)\\.([a-z\.]{2,6})$")
     /** @type {RegExpConstructor} */
     // #allowedSpecialChars = '/^[\\w\\s,.:;_?\'!\\"éèêëàâäôöûüùçÀ-]+$/g '
-    #allowedSpecialChars = new RegExp('^[\\w\\s,.:;_?\'!\\"éèêëàâäôöûüùçÀ-]+$')
+    #allowedSpecialChars = new RegExp('^[\\w\\s,.:;_?\'!\\"*()~&éèêëàâäôöûüùçÀ-]+$')
     /** @type {Array} tested and not allowedSpecialChars char */
     #wrongInput = []
     /** @type {String} */
@@ -128,9 +128,19 @@ export class ErrorHandler {
                     //         this.#wrongInput[i]
                     //     }
                     // } " n\'est pas autorisé.`
-                    this.#alert.innerText = `Les caractères suivants ne sont pas autorisés :  ${this.#wrongInput} `
+                    for (let [index, element] of Object.entries(this.#wrongInput)) {
+                        this.#wrongInput[index] = `  ${element} `
+                    }
+                    this.#alert.innerText = `Les caractères suivants ne sont pas autorisés : ${this.#wrongInput} `
                     input.classList.add("input_error")
                     input.style.borderBottom = "1px solid red"
+                    const styledInput = input.value.split('').map((char, index) => {
+                        if (this.#wrongInput.toString().includes(char)) {
+                            return `<span class="highlight">${char}</span>`
+                        }
+                        // return cshar
+                    }).join('')
+                    input.innerHTML = styledInput
                 } else if (input.id === "email" && !this.#emailInputRegex.test(input.value)) {
                     this.#alert.innerText = this.#invalidEmailMessage
                     input.classList.add("input_error")
@@ -201,8 +211,13 @@ export class ErrorHandler {
         
 
         if (!this.#allowedSpecialChars.test(inputEvent.target.value) && !this.#isEmpty) {
-            this.#wrongInput = Array.from(inputEvent.target.value).filter((input) => !input.match(this.#allowedSpecialChars))
-            this.#wrongInput = this.#wrongInput.filter((key, index) => key !== this.#wrongInput.indexOf(key))
+            // Retrieve every character that isn't allowed and only unique
+            this.#wrongInput = retrieveUniqueNotAllowedCharFromRegex(inputEvent.target.value, this.#allowedSpecialChars)
+            // this.#wrongInput = Array.from(inputEvent.target.value)
+            //     .filter( (value, index, self) =>
+            //         !value.match(this.#allowedSpecialChars) &&
+            //         index === self.findIndex( (t) => t === value ) )
+            // this.#wrongInput = this.#wrongInput.filter((key, index, self) => index === self.findIndex((t) => t === key))
             // console.log(test)
             // console.log(!this.#allowedSpecialChars.test(inputEvent.data))
             // if (!inputEvent.target.value.match(this.#allowedSpecialChars)) console.log(inputEvent.target.value)
@@ -352,7 +367,7 @@ export class ErrorHandler {
         // Permet de définir quelle input peut-être vide
         // Par défaut : aucune
         for (const [key, value] of data) {
-            arrayKey[key] = {value: value.toString().trim(), canBeEmpty: this.canBeEmpty, allowSpecialCharacters: this.allowSpecialCharacters}
+            arrayKey[key] = { value: value.toString().trim(), canBeEmpty: this.canBeEmpty, allowSpecialCharacters: this.allowSpecialCharacters }
             for (const keys of this.options.whichInputCanBeEmpty) {
                 if (key === keys) {
                     arrayKey[key].canBeEmpty = true

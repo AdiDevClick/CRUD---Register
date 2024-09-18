@@ -25,6 +25,24 @@ export function createElement(tagName, attributes = {}) {
 }
 
 /**
+ * Permet de récupérer les caractères qui ne sont pas autorisés -
+ * La fonction s'assure que les caractères renvoyés soient uniques -
+ * Très utile pour afficher dynamiquement lors d'une saisie utilisateur
+ * un message d'erreur contenant un caractère interdit -
+ * Etant donné la nature d'une Regexp, l'array sera réinitialisé lorsque l'input
+ * sera correcte -
+ * @param {String} value - Une chaîne de string type input value
+ * @param {RegExp} allowedCharsRegex - Une chaine Regexp normale
+ * @returns {Array}
+ */
+export function retrieveUniqueNotAllowedCharFromRegex(value, allowedCharsRegex) {
+    return Array.from(value)
+        .filter( (value, index, self) =>
+            !value.match(allowedCharsRegex) &&
+            index === self.findIndex( (t) => t === value ) )
+}
+
+/**
  * Fonction pour retirer du DOM un HTMLElement contenu dans un commentaire
  * @param {String} targetSelector représente une classe ou un élément HTML
  * @param {HTMLElement} commentNode un objet HTML. Il retourne son nodeValue pour récupérer son contenu

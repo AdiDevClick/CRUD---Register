@@ -2191,6 +2191,12 @@ hr {
     }
 }
 
+.highlight {
+    position: relative;
+    color: red;
+    font-weight: bold;
+}
+
 @keyframes slideDown {
     0% {
         clip-path: inset(0 0 100% 0);
