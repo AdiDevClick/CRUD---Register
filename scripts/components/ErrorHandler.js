@@ -49,6 +49,8 @@ export class ErrorHandler {
     #spaceNotAllowed = false
     /** @type {Array} */
     #listenInputs = []
+    /** @type {Number} */
+    #count = 0
 
     /**
      * @param {HTMLFormElement} form 
@@ -89,6 +91,7 @@ export class ErrorHandler {
         // #title, #step_1, #step_2, #step_3, #step_4, #step_5, #step_6,
         // #total_time, #resting_time, #oven_time, #persons`
         this.#listenInputs = Array.from(this.#form.querySelectorAll(this.#inputsToListen))
+        
         this.#listenInputs.forEach(input => {
             if (input.id === 'password') this.#password = input
             if (input.id === 'pwdRepeat') this.#pwdRepeat = input
@@ -100,7 +103,7 @@ export class ErrorHandler {
             }
             // Inputs will be debounced @ -> get debounceDelay
             // Les listeners d'inputs n'ajoutent pas d'erreurs à l'#error array
-            // ATTENTION !! : Ce script n'est pas bloquant !!
+            // !! ATTENTION !! : Ce script n'est pas bloquant !!
             input.addEventListener('input', debounce((e) => {
                 console.log(e)
                 // Checking if inputs are empty
@@ -111,7 +114,9 @@ export class ErrorHandler {
                 this.#charsNotAllowed(e)
                 // this.#charsNotAllowed(e.target)
                 if (input.id === 'username') this.#isSpaceAllowed(input)
-                if (this.#isEmpty && this.#error.length > 1) {
+                console.log(this.#count)
+                if (this.#count !== 0) {
+                // if (this.#isEmpty && this.#error.length > 1) {
                     this.#alert.innerText = 'Un ou plusieurs champs sont vides'
                     input.classList.add('input_error')
                     return
@@ -134,13 +139,13 @@ export class ErrorHandler {
                     this.#alert.innerText = `Les caractères suivants ne sont pas autorisés : ${this.#wrongInput} `
                     input.classList.add("input_error")
                     input.style.borderBottom = "1px solid red"
-                    const styledInput = input.value.split('').map((char, index) => {
-                        if (this.#wrongInput.toString().includes(char)) {
-                            return `<span class="highlight">${char}</span>`
-                        }
-                        // return cshar
-                    }).join('')
-                    input.innerHTML = styledInput
+                    // const styledInput = input.value.split('').map((char, index) => {
+                    //     if (this.#wrongInput.toString().includes(char)) {
+                    //         return `<span class="highlight">${char}</span>`
+                    //     }
+                    //     // return cshar
+                    // }).join('')
+                    // input.innerHTML = styledInput
                 } else if (input.id === "email" && !this.#emailInputRegex.test(input.value)) {
                     this.#alert.innerText = this.#invalidEmailMessage
                     input.classList.add("input_error")
@@ -200,45 +205,25 @@ export class ErrorHandler {
 
     /**
      * Vérifie que le caractère d'une input est autorisé
-     * @param {EventTarget} input 
+     * @param {EventTarget} inputEvent
      * @returns 
      */
     #charsNotAllowed(inputEvent) {
-        // let test = input.value.matchAll(this.#allowedSpecialChars)
-        // test = Array.from(test)
-        // let test = Array.from(input.value.matchAll(this.#allowedSpecialChars), (m) => `${this.#allowedSpecialChars.lastIndex} ${m[0]}`);
-        // // let firstMatch = test[0]
-        
-
         if (!this.#allowedSpecialChars.test(inputEvent.target.value) && !this.#isEmpty) {
-            // Retrieve every character that isn't allowed and only unique
+            // Retrieve every character that isn't allowed and only unique entries
             this.#wrongInput = retrieveUniqueNotAllowedCharFromRegex(inputEvent.target.value, this.#allowedSpecialChars)
-            // this.#wrongInput = Array.from(inputEvent.target.value)
-            //     .filter( (value, index, self) =>
-            //         !value.match(this.#allowedSpecialChars) &&
-            //         index === self.findIndex( (t) => t === value ) )
-            // this.#wrongInput = this.#wrongInput.filter((key, index, self) => index === self.findIndex((t) => t === key))
-            // console.log(test)
-            // console.log(!this.#allowedSpecialChars.test(inputEvent.data))
-            // if (!inputEvent.target.value.match(this.#allowedSpecialChars)) console.log(inputEvent.target.value)
-            // if (this.#wrongInput.toString().includes(inputEvent.data)) return
-            // this.#wrongInput.push(` ${ inputEvent.data } `)
-        // }
-        // if (!this.#allowedSpecialChars.test(inputEvent.target.value) && !this.#isEmpty) {
-            console.log(inputEvent)
-            console.log(this.#wrongInput)
-            // const test = Array.from(inputEvent.target.value).filter((t) => console.log(t !== this.#allowedSpecialChars.toString().includes(t)))
-            // const test = Array.from(this.#allowedSpecialChars.toString().trim()).filter((t, m) => t !== inputEvent.target.value)
-            // const test = this.#allowedSpecialChars.toString().trim().match((t, m) => t !== inputEvent.target.value)
-            // this.#wrongInput === '' ? this.#wrongInput = inputEvent.data : null
-            // console.log(test)
             this.#isCharAllowed = false
-        } else {
-            // this.#wrongInput = []
+            inputEvent.target.classList.remove('valid_input')
+            return
+            // inputEvent.target.parentNode.span = `<span class="highlight">${inputEvent.data}</span>`
+            // inputEvent.target.parentNode.firstElementChild.innerHTML = `<span class="highlight">${this.#wrongInput}</span>`
+            // console.log(inputEvent.target.parentNode)
+            // document.querySelector('.js-text').innerContent = `<span class="highlight">${inputEvent.data}</span>`
+        } 
             this.#isCharAllowed = true
-            // this.#wrongInput = ''
-            inputEvent.target.classList.remove('input_error')
-        }
+            // inputEvent.target.classList.remove('input_error')
+            // inputEvent.target.classList.add('valid_input')
+        // }
         return
     }
 
@@ -261,10 +246,23 @@ export class ErrorHandler {
      */
     #isEmptyInputs(input) {
         if (input.value.toString().trim() === '') {
-            this.#isEmpty = true
+            // if (!this.#isEmpty) {
+                this.#count++
+                this.#isEmpty = true
+                // input.classList.remove('valid_input')
+                input.classList.add('input_error')
+                console.log('je suis vide => ',input.value)
+                console.log(input)
+            // }
         } else {
-            this.#isEmpty = false
-            input.classList.remove('input_error')
+            // if (this.#isEmpty && input.value !== '') {
+                this.#count--
+                this.#isEmpty = false
+                input.classList.remove('input_error')
+                // input.classList.add('valid_input')
+                console.log(input)
+                console.log('je suis remplis => ',input.value)
+            // }
         }
         return
     }

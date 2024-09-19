@@ -30,7 +30,7 @@ export function createElement(tagName, attributes = {}) {
  * Très utile pour afficher dynamiquement lors d'une saisie utilisateur
  * un message d'erreur contenant un caractère interdit -
  * Etant donné la nature d'une Regexp, l'array sera réinitialisé lorsque l'input
- * sera correcte -
+ * sera correcte ou qu'une saisie sur une autre input est faite -
  * @param {String} value - Une chaîne de string type input value
  * @param {RegExp} allowedCharsRegex - Une chaine Regexp normale
  * @returns {Array}

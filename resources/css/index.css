@@ -96,7 +96,7 @@ input[type=text], input[type=email], .custom-ingredient {
     transition: all 0.3s ease; */
 }
 
-input[type=text], input[type=number], input[type=password], input[type=email], textarea, select, button, a[type=button] {
+input[type=text], div[type=text], input[type=number], input[type=password], input[type=email], textarea, select, button, a[type=button] {
     margin: 10px;
     padding: 10px;
     max-width: 100%;
@@ -171,12 +171,14 @@ textarea:focus, input:hover, textarea:hover, .custom-ingredient:hover, .custom-i
 }
 
 input[type=password].input_error,
+div[type=text].input_error,
 input[type=text].input_error,
 input[type=email].input_error,
 input[type=number].input_error,
 textarea.input_error {
     border-bottom: 1px solid red;
     border-inline: red;
+    position: relative;
     /* transition: all 0.2s ease; */
 }
 
@@ -193,7 +195,27 @@ input.input_error:not(:placeholder-shown) {
     /* border-bottom: 1px solid var(--input-focus); */
 }
 
-input {
+:is(input, textarea).input_error + span {
+    right: -20px;
+    /* top: 5px; */
+    top: 50%;
+    position: absolute;
+    &::before {
+        content: "✖";
+        color: red;
+    }
+}
+:is(input, textarea).valid_input + span {
+    right: -20px;
+    top: 50%;
+    position: absolute;
+    &::before {
+        content: "✓";
+        color: green;
+    }
+}
+
+input, div[type=text] {
     /* text-align: left; */
     /* border: 1px solid #ccc; */
     border: 1px solid var(--border-color);
@@ -471,6 +493,9 @@ form {
             transform: unset;
         }
     } */
+    .js-form-recipe {
+        position: relative;
+    }
     &#recipe_creation, &#recipe_creation_all_resolutions {
         > .js-form-recipe:has(textarea:not(:required:valid), input:not(:required:valid)),
         /* > .js-form-recipe:not(:has(textarea:valid)).js-form-recipe:not(:has(input:valid)).js-form-recipe:not(:has(textarea:valid)), */
@@ -494,6 +519,7 @@ form {
         /* grid-template-columns: repeat(2, 1fr); */
         align-items: unset;
         place-items: center;
+        padding: 20px;
         #title {
             margin-left: 0;
         }
