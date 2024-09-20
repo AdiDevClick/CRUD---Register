@@ -39,49 +39,41 @@
                     
                 </div> -->
                 <input required class="form" name="title" type="text" id="title" placeholder="Votre titre..." value="<?php $getInfos !== null && $getInfos['title'] ? print strip_tags($getInfos['title']) : null ?>">
-                <span></span>
             </div>
             <!-- QUICK DESCRIPTION -->
             <div class="js-form-recipe">
                 <label for="description" class="label">Courte description</label>
                 <textarea required name="description" id="description" cols="60" rows="3" placeholder="Une courte description... Exemple : Une recette facile, peu épicée et économique !"><?php $getInfos !== null && $getInfos['description'] ? print strip_tags($getInfos['description']) : null ?></textarea>
-                <span></span>
             </div>
             <!-- STEP 1 -->
             <div class="js-form-recipe">
                 <label for="step_1" class="label">Etape 1</label>
                 <textarea required class="" name="step_1" id="step_1" cols="60" rows="3" placeholder="Renseignez votre première étape..."><?php $getInfos !== null && $getInfos['step_1'] ? print strip_tags($getInfos['step_1']) : null ?></textarea>
-                <span></span>
             </div>
             <!-- STEP 2 -->
             <div class="js-form-recipe">
                 <label for="step_2" class="label">Etape 2</label>
                 <textarea required name="step_2" id="step_2" cols="60" rows="3" placeholder="Renseignez  votre deuxième étape..."><?php $getInfos !== null && $getInfos['step_2'] ? print strip_tags($getInfos['step_2']) : null ?></textarea>
-                <span></span>
             </div>
             <!-- STEP 3 -->
             <div class="js-form-recipe">
                 <label for="step_3" class="label">Etape 3</label>
                 <textarea required name="step_3" id="step_3" cols="60" rows="3" placeholder="Renseignez  votre troisième étape..."><?php $getInfos !== null && $getInfos['step_3'] ? print strip_tags($getInfos['step_3']) : null ?></textarea>
-                <span></span>
             </div>
             <!-- STEP 4 -->
             <div class="js-form-recipe">
                 <label for="step_4" class="label">Etape 4</label>
                 <textarea name="step_4" id="step_4" cols="60" rows="3" placeholder="Renseignez  votre quatrième étape..."><?php $getInfos !== null && $getInfos['step_4'] ? print strip_tags($getInfos['step_4']) : null ?></textarea>
-                <span></span>
             </div>
             <!-- STEP 5 -->
             <div class="js-form-recipe">
                 <label for="step_5" class="label">Etape 5</label>
                 <textarea name="step_5" id="step_5" cols="60" rows="3" placeholder="Renseignez  votre cinquième étape..."><?php $getInfos !== null && $getInfos['step_5'] ? print strip_tags($getInfos['step_5']) : null ?></textarea>
-                <span></span>
             </div>
             <!-- STEP 6 -->
             <div class="js-form-recipe">
                 <label for="step_6" class="label">Etape 6</label>
                 <textarea name="step_6" id="step_6" cols="60" rows="3" placeholder="Renseignez  votre sixième étape..."><?php $getInfos !== null && $getInfos['step_6'] ? print strip_tags($getInfos['step_6']) : null ?></textarea>
-                <span></span>
             </div>
             <!-- DRAWER BUTTONS -->
             <div class="opening_drawer_button show">
@@ -107,7 +99,9 @@
                 <div class="total_time">
                     <div class="time">
                         <label for="total_time" class="label">Temps total</label>
-                        <input id="total_time" type="text" name="total_time" class="input" value="<?php if ($getInfos !== null) { echo htmlspecialchars((string)$getInfos['total_time']); } ?>">
+                        <input id="total_time" type="text" name="total_time" class="input" value="<?php if ($getInfos !== null) {
+                            echo htmlspecialchars((string)$getInfos['total_time']);
+                        } ?>">
                         <select class="select" name="total_time_length" id="total_time_length" aria-placeholder="temps">
                             <option value="min" <?= $getInfos !== null && $getInfos['total_time_length'] === 'min' ? htmlspecialchars('selected') : null ?>>min</option>
                             <option value="heures" <?= $getInfos !== null && $getInfos['total_time_length'] === 'heures' ? htmlspecialchars('selected') : null ?>>heures</option>
@@ -115,7 +109,9 @@
                     </div>
                     <div class="time">
                         <label for="resting_time" class="label">Temps de repos</label>
-                        <input id="resting_time" type="text" name="resting_time" class="input" value="<?php if ($getInfos !== null) { echo htmlspecialchars((string)$getInfos['resting_time']); } ?>">
+                        <input id="resting_time" type="text" name="resting_time" class="input" value="<?php if ($getInfos !== null) {
+                            echo htmlspecialchars((string)$getInfos['resting_time']);
+                        } ?>">
                         <select class="select" name="resting_time_length" id="resting_time_length" aria-placeholder="test">
                             <option value="min" <?= $getInfos !== null && $getInfos['resting_time_length'] === 'min' ? htmlspecialchars('selected') : null ?>>min</option>
                             <option value="heures" <?= $getInfos !== null && $getInfos['resting_time_length'] === 'heures' ? htmlspecialchars('selected') : null ?>>heures</option>
@@ -123,7 +119,9 @@
                     </div>
                     <div class="time">
                         <label for="oven_time" class="label">Temps de cuisson</label>
-                        <input id="oven_time" type="text" name="oven_time" class="input" value="<?php if ($getInfos !== null) { echo htmlspecialchars((string)$getInfos['oven_time']); } ?>">
+                        <input id="oven_time" type="text" name="oven_time" class="input" value="<?php if ($getInfos !== null) {
+                            echo htmlspecialchars((string)$getInfos['oven_time']);
+                        } ?>">
                         <select class="select" name="oven_time_length" id="oven_time_length" aria-placeholder="test">
                             <option value="min" <?= $getInfos !== null && $getInfos['oven_time_length'] === 'min' ? htmlspecialchars('selected') : null ?>>min</option>
                             <option value="heures" <?= $getInfos !== null && $getInfos['oven_time_length'] === 'heures' ? htmlspecialchars('selected') : null ?>>heures</option>
@@ -220,7 +218,7 @@
                         //     echo '../' . $getInfos['img_path'];
                         // }
                         $getInfos == null ?: print 'style="background-image: url(../'. $getInfos['img_path'].' )"'
-                    ?>
+            ?>
                     >
                     <h1 class="upload-icon">
                         <i class="fa fa-plus fa-2x" aria-hidden="true"></i>

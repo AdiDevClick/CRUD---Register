@@ -39,7 +39,23 @@ export function retrieveUniqueNotAllowedCharFromRegex(value, allowedCharsRegex) 
     return Array.from(value)
         .filter( (value, index, self) =>
             !value.match(allowedCharsRegex) &&
-            index === self.findIndex( (t) => t === value ) )
+            index === self.findIndex( (v) => v === value
+            )
+        )
+}
+
+/**
+ * Permet de filtrer un tableau et de ne récupérer que des valeurs uniques -
+ * @param {Array} arr Array to filter
+ * @param {*} object Any
+ * @returns {Array} filtered array
+ */
+export function filterArrayToRetrieveUniqueValues(arr, object) {
+    return arr.filter( (value, index, self) =>
+            value !== object &&
+            index === self.findIndex( (v) => v === value
+            )
+        )
 }
 
 /**

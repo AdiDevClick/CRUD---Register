@@ -195,23 +195,36 @@ input.input_error:not(:placeholder-shown) {
     /* border-bottom: 1px solid var(--input-focus); */
 }
 
-:is(input, textarea).input_error + span {
-    right: -20px;
-    /* top: 5px; */
-    top: 50%;
+:is(input, textarea) + span {
     position: absolute;
+}
+
+:is(input, textarea).input_error + span {
+    /* right: -20px; */
+    /* top: 5px; */
+    /* top: 50%; */
+    bottom: 15px;
+    right: 10px;
+    grid-row: 1 / 1;
+    grid-column: 2 / 2;
     &::before {
         content: "✖";
         color: red;
     }
 }
 :is(input, textarea).valid_input + span {
-    right: -20px;
-    top: 50%;
-    position: absolute;
+    /* right: -20px;
+    top: 50%; */
+    /* bottom: 5px;
+    right: 5px; */
+    bottom: 15px;
+    right: 10px;
+    grid-row: 1 / 1;
+    grid-column: 2 / 2;
     &::before {
         content: "✓";
         color: green;
+        font-weight: 900;
     }
 }
 
@@ -219,7 +232,7 @@ input, div[type=text] {
     /* text-align: left; */
     /* border: 1px solid #ccc; */
     border: 1px solid var(--border-color);
-    width: 180px;
+    /* width: 180px; */
     /* font-size: small; */
     /* font-size: var(--textfs);; */
     border-inline: #ccc;
@@ -252,6 +265,12 @@ input:active {
     /* transition: opacity 3s 1s; */
     animation: fadeIn 1s;
     /* transition: all 3s; */
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #0000008a;
+    z-index: 1001;
 }
 /* END OF INPUTS*/
 
@@ -495,6 +514,7 @@ form {
     } */
     .js-form-recipe {
         position: relative;
+        width: 100%;
     }
     &#recipe_creation, &#recipe_creation_all_resolutions {
         > .js-form-recipe:has(textarea:not(:required:valid), input:not(:required:valid)),
@@ -519,9 +539,10 @@ form {
         /* grid-template-columns: repeat(2, 1fr); */
         align-items: unset;
         place-items: center;
-        padding: 20px;
+        /* padding: 20px; */
         #title {
             margin-left: 0;
+            width: 100%;
         }
         /* position: sticky; */
         /* z-index: 0; */
@@ -1243,7 +1264,8 @@ form {
     align-items: center;
     flex-wrap: wrap; */
     display: grid;
-    /* gap: 2rem; */
+    gap: 2rem;
+    position: relative;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: auto; /* For APF */
     align-content: center;
