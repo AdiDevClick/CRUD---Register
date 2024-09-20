@@ -70,7 +70,11 @@ export class ErrorHandler {
      * Il faut utiliser le nom de l'input - par défaut : ['step_3', 'step_4', 'step_5', 'step_6']
      * @param {Boolean} [options.debouncing=true] Permet de définir un délai après intéraction de l'utilisateur - par défaut : true
      * @param {Boolean} [options.canBeEmpty=false] Permet de définir si toutes les inputs peuvent être vides (non conseillé) - par défaut : false
-     * @param {Boolean} [options.useMyOwnListener=false] Permet de définir si l'on souhaite utiliser son propre eventListener dans son script - par défaut : false
+     * @param {Boolean} [options.useMyOwnListener=false] =>
+     * !! ATTENTION !!!
+     * Il est possible d'utiliser le getter isInputChecked pour vérifier les inputs sur son propre script -
+     * Permet de définir si l'on souhaite utiliser son propre submit eventListener dans son script -
+     * par défaut : false
      * @param {Boolean} [options.isSpecialCharactersAllowed=false] Permet de définir si l'on souhaite autoriser des caractères spéciaux pour l'input - par défaut : false
      * @param {Object} [options.debounceDelay=1000] Permet de définir un délai après intéraction de l'utilisateur - par défaut : 1s
      */
@@ -87,7 +91,7 @@ export class ErrorHandler {
         }, options)
         if (!this.#alert) {
             this.#alert = createElement('p', {
-                class: 'alert-error'
+                class: 'alert-error hidden'
             })
             // this.#alert = alertMessage(error.message)
             if (this.#form.id !== 'search-form') this.#form.insertAdjacentElement(
@@ -138,7 +142,7 @@ export class ErrorHandler {
                 // Checking if passwords are same
                 this.#isExactPassword()
                 // Checking if the character used is allowed
-                this.#charsNotAllowed(e)
+                this.#charsNotAllowed(e, isEmpty)
                 isANumber = this.#isANumber(e.target)
 
                 // this.#charsNotAllowed(e.target)
@@ -149,12 +153,13 @@ export class ErrorHandler {
                 // if (this.#isEmpty && this.#error.length > 1) {
                     // count++
                     // console.log('is empty => ', count)
-
-                    this.#count.push(input)
+                    this.#displayErrorMessage(emptyAlert, input)
+                    // this.#count.push(input)
                     // this.#count = this.#count + count
                     // console.log('global count in is empty => ', this.#count)
-                    this.#alert.innerText = emptyAlert
-                    input.classList.add('input_error')
+                    // this.#alert.classList.remove('hidden')
+                    // this.#alert.innerText = emptyAlert
+                    // input.classList.add('input_error')
                     return
                 } else if (input.id !=="file" &&
                     input.id !== "email" &&
@@ -173,11 +178,14 @@ export class ErrorHandler {
                         this.#wrongInput[index] = `  ${element} `
                     }
                     // count++
-                    this.#count.push(input)
+                    this.#displayErrorMessage(`Les caractères suivants ne sont pas autorisés : ${this.#wrongInput} `, input)
+
+                    // this.#count.push(input)
                     // this.#count = this.#count + count
-                    this.#alert.innerText = `Les caractères suivants ne sont pas autorisés : ${this.#wrongInput} `
-                    input.classList.add("input_error")
-                    input.style.borderBottom = "1px solid red"
+                    // this.#alert.classList.remove('hidden')
+                    // this.#alert.innerText = `Les caractères suivants ne sont pas autorisés : ${this.#wrongInput} `
+                    // input.classList.add("input_error")
+                    // input.style.borderBottom = "1px solid red"
                     // const styledInput = input.value.split('').map((char, index) => {
                     //     if (this.#wrongInput.toString().includes(char)) {
                     //         return `<span class="highlight">${char}</span>`
@@ -187,69 +195,29 @@ export class ErrorHandler {
                     // input.innerHTML = styledInput
                     // console.log('is charnotAllowed => ', count)
                 } else if (input.id === "email" && !this.#emailInputRegex.test(input.value)) {
-                    // count++
-                    this.#count.push(input)
-                    // this.#count = this.#count + count
-                    this.#alert.innerText = this.#invalidEmailMessage
-                    input.classList.add("input_error")
-                    input.style.borderBottom = "1px solid red"
-                    // console.log('is emailregex => ', count)
+                    this.#displayErrorMessage(this.#invalidEmailMessage, input)
                     return
-                } else if (!this.#pwStatus && input.id === "password") {
-                    // count++
-                    this.#count.push(input)
-                    // this.#count = this.#count + count
-                    this.#alert.innerText = this.#invalidPwMessage
-                    input.classList.add("input_error")
-                    // console.log('is pwstatus => ', count)
-                    return
-                } else if (!this.#pwStatus && input.id === "pwdRepeat") {
-                    // count++
-                    this.#count.push(input)
-                    // this.#count = this.#count + count
-                    this.#alert.innerText = this.#invalidPwMessage
-                    input.classList.add("input_error")
-                    // console.log('is pwstatusRepeat => ', count)
+                } else if (!this.#pwStatus && (input.id === "password" || input.id === "pwdRepeat")) {
+                    this.#displayErrorMessage(this.#invalidPwMessage, input)
+                    // this.#count.push(input)
+                    // this.#alert.classList.remove('hidden')
+                    // this.#alert.innerText = this.#invalidPwMessage
+                    // input.classList.add("input_error")
                     return
                 } else if (this.#spaceNotAllowed && input.id === 'username') {
-                    // count++
-                    this.#count.push(input)
-                    // this.#count = this.#count + count
-                    this.#alert.innerText = this.#noSpaceAllowedMessage
-                    input.classList.add("input_error")
-                    input.style.borderBottom = "1px solid red"
-                    // console.log('is spacenotallowed => ', count)
+                    this.#displayErrorMessage(this.#noSpaceAllowedMessage, input)
                     return
                 } else if (!isANumber) {
-                // } else if ((input.id === "persons" ||
-                //     input.id === "total_time" ||
-                //     input.id === "resting_time" ||
-                //     input.id === "oven_time") && !isANumber) {
-                    // count++
-                    debugger
-                    this.#count.push(input)
-                    // this.#count = this.#count + count
-                    this.#alert.innerText = this.#notANumberError
-                    input.classList.add("input_error")
-                    input.style.borderBottom = "1px solid red"
-                    console.log('is not a number => ', this.#count)
+                    this.#displayErrorMessage(this.#notANumberError, input)
                     return
                 } else {
-                    // count -1
-                    // console.log('else => ', count)
-
-                    // console.log('global count avant soustraction => ', this.#count)
-                    // this.#count === 0 ? null : this.#count = this.#count -1
-                    // this.#count = this.#count -1
-                    // this.#count = count
-                    input.removeAttribute('style')
-                    if (this.#tooltip.hasAttribute('style')) this.#tooltip.removeAttribute('style')
-                    // console.log('global count => ', this.#count)
+                    // input.removeAttribute('style')
+                    if (this.#tooltip?.hasAttribute('style')) this.#tooltip.removeAttribute('style')
                     this.#count = filterArrayToRetrieveUniqueValues(this.#count, input)
-                    // console.log('global count => ', this.#count)
-
+                    console.log(this.#count)
                     if (this.#count.length === 0) {
                     // if (this.#error.length === 0) {
+                        this.#alert.classList.add('hidden')
                         this.#alert.innerText = ''
                         this.#formButton.disabled = false
                         // input.classList.add("valid_input")
@@ -287,17 +255,29 @@ export class ErrorHandler {
         })
     }
 
+    #displayErrorMessage(message, element) {
+        this.#count.push(element)
+        this.#alert.classList.remove('hidden')
+        this.#alert.innerText = message
+        element.classList.add("input_error")
+        element.classList.remove("valid_input")
+        if (element === this.#password) this.#pwdRepeat.classList.add("input_error")
+        if (element === this.#pwdRepeat) this.#password.classList.add("input_error")
+        // element.style.borderBottom = "1px solid red"
+    }
+
     /**
      * Vérifie que le caractère d'une input est autorisé
      * @param {EventTarget} inputEvent
      * @returns 
      */
-    #charsNotAllowed(inputEvent) {
-        if (!this.#allowedSpecialChars.test(inputEvent.target.value) && !this.#isEmpty) {
+    #charsNotAllowed(inputEvent, isEmpty) {
+        if (!this.#allowedSpecialChars.test(inputEvent.target.value) && !isEmpty) {
+        // if (!this.#allowedSpecialChars.test(inputEvent.target.value) && !this.#isEmpty) {
             // Retrieve every character that isn't allowed and only unique entries
             this.#wrongInput = retrieveUniqueNotAllowedCharFromRegex(inputEvent.target.value, this.#allowedSpecialChars)
             this.#isCharAllowed = false
-            inputEvent.target.classList.remove('valid_input')
+            // inputEvent.target.classList.remove('valid_input')
             return
             // inputEvent.target.parentNode.span = `<span class="highlight">${inputEvent.data}</span>`
             // inputEvent.target.parentNode.firstElementChild.innerHTML = `<span class="highlight">${this.#wrongInput}</span>`
@@ -321,7 +301,7 @@ export class ErrorHandler {
             // Retrieve every character that isn't allowed and only unique entries
             this.#isNumber = false
             isANumber = false
-            inputEvent.classList.remove('valid_input')
+            // inputEvent.classList.remove('valid_input')
             this.#tooltip.style.visibility = 'visible'
             console.log('test')
 
@@ -369,7 +349,7 @@ export class ErrorHandler {
                 this.#isEmpty = true
                 isEmpty = true
                 // input.classList.remove('valid_input')
-                input.classList.remove("valid_input")
+                // input.classList.remove("valid_input")
                 input.classList.add('input_error')
                 console.log('je suis vide => ',input.value)
                 console.log(input)
@@ -440,12 +420,24 @@ export class ErrorHandler {
     #isExactPassword() {
         if (this.#password?.value !== this.#pwdRepeat?.value) {
             this.#pwStatus = false
-            this.#password.style.borderBottom = '1px solid red'
-            this.#pwdRepeat.style.borderBottom = '1px solid red'
+            // this.#password.classList.add('input_error')
+            // this.#pwdRepeat.classList.add('input_error')
+            this.#password.classList.remove('valid_input')
+            this.#pwdRepeat.classList.remove('valid_input')
+            // this.#password.style.borderBottom = '1px solid red'
+            // this.#pwdRepeat.style.borderBottom = '1px solid red'
+            console.log('count quand false => ', this.#count)
+
         } else {
             this.#pwStatus = true
-            this.#password?.removeAttribute('style')
-            this.#pwdRepeat?.removeAttribute('style')
+            // this.#password?.removeAttribute('style')
+            // this.#pwdRepeat?.removeAttribute('style')
+            this.#password?.classList.remove('input_error')
+            this.#pwdRepeat?.classList.remove('input_error')
+            this.#password?.classList.add('valid_input')
+            this.#pwdRepeat?.classList.add('valid_input')
+            this.#count = this.#count.filter( (value) => value !== (this.#password || this.#pwdRepeat))
+            console.log('count => ', this.#count)
         }
     }
 
