@@ -45,8 +45,8 @@ export class ErrorHandler {
     #noSpaceAllowedMessage = 'Veuillez ne pas utiliser d\'espace'
     /** @type {String} */
     #notANumberError = 'Seuls les nombres sont autorisés'
-    /** @type {Array} */
-    #inputsToListen  = []
+    /** @type {Array} input types to listen to */
+    #inputsToListen = 'input, textarea'
     /** @type {Boolean} */
     #pwStatus = true
     /** @type {Boolean} */
@@ -100,17 +100,12 @@ export class ErrorHandler {
             )
         }
         if (!this.options.debouncing) this.options.debounceDelay = 50
-        this.#inputsToListen = 'input, textarea'
-        // this.#inputs = `#password, #pwdRepeat, #email, #username, #age,
-        // #title, #step_1, #step_2, #step_3, #step_4, #step_5, #step_6,
-        // #total_time, #resting_time, #oven_time, #persons`
+        
         this.#listenInputs = Array.from(this.#form.querySelectorAll(this.#inputsToListen))
         
         this.#listenInputs.forEach(input => {
-            
             // Creating valid / invalid icon for earch inputs
             let icon
-
             if (!icon) {
                 icon = createElement('span')
                 input.insertAdjacentElement(
@@ -118,6 +113,7 @@ export class ErrorHandler {
                     icon
                 )
             }
+
             if (input.id === 'password') this.#password = input
             if (input.id === 'pwdRepeat') this.#pwdRepeat = input
             if (input.id === 'age') this.#age = input
@@ -255,6 +251,14 @@ export class ErrorHandler {
         })
     }
 
+    /**
+     * Permet d'enregistrer l'élément qui contient une erreur dans l'Array #count -
+     * Fera apparaître l'alerte avec le message passé dans les paramètres -
+     * Si l'élément est #password ou #pwdRepeat, les 2 éléments auront une classe d'érreur simultanément -
+     * L'élément en erreur recevra l'icone d'erreur -
+     * @param {String} message Message à afficher
+     * @param {HTMLElement} element Element HTML qui recevra/supprimera une classe
+     */
     #displayErrorMessage(message, element) {
         this.#count.push(element)
         this.#alert.classList.remove('hidden')
