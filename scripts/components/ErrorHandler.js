@@ -138,7 +138,7 @@ export class ErrorHandler {
                 this.#isExactPassword()
                 // Checking if the character used is allowed
                 this.#charsNotAllowed(e)
-                isANumber = this.#isANumber(e)
+                isANumber = this.#isANumber(e.target)
                 // this.#charsNotAllowed(e.target)
                 if (input.id === 'username') this.#isSpaceAllowed(input)
                 // console.log('count dans le input après les premiers checks => ', count)
@@ -218,7 +218,10 @@ export class ErrorHandler {
                     input.style.borderBottom = "1px solid red"
                     // console.log('is spacenotallowed => ', count)
                     return
-                } else if (isANumber) {
+                } else if ((input.id === "persons" ||
+                    input.id === "total_time" ||
+                    input.id === "resting_time" ||
+                    input.id === "oven_time") && !isANumber) {
                     // count++
                     this.#count.push(input)
                     // this.#count = this.#count + count
@@ -305,6 +308,7 @@ export class ErrorHandler {
 
     #isANumber(inputEvent) {
         let isANumber = false
+        console.log(inputEvent)
         if ((inputEvent.id === "persons" ||
             inputEvent.id === "total_time" ||
             inputEvent.id === "resting_time" ||
@@ -312,16 +316,19 @@ export class ErrorHandler {
             // Retrieve every character that isn't allowed and only unique entries
             this.#isNumber = false
             isANumber = false
-            inputEvent.target.classList.remove('valid_input')
+            inputEvent.classList.remove('valid_input')
+            console.log('test')
+
             // return
             // inputEvent.target.parentNode.span = `<span class="highlight">${inputEvent.data}</span>`
             // inputEvent.target.parentNode.firstElementChild.innerHTML = `<span class="highlight">${this.#wrongInput}</span>`
             // console.log(inputEvent.target.parentNode)
             // document.querySelector('.js-text').innerContent = `<span class="highlight">${inputEvent.data}</span>`
-        } else {
+        // } else {
+        }
             this.#isNumber = true
             isANumber = true
-        }
+        // }
             
             // inputEvent.target.classList.remove('input_error')
             // inputEvent.target.classList.add('valid_input')
