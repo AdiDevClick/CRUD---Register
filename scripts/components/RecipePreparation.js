@@ -162,6 +162,7 @@ export class IngredientsFrom {
         // let input = this.#form.querySelector('#custom_ingredient')
         // let inputAllResolutions = this.#form.querySelector('#custom_ingredient_all_resolutions')
         // const inputs = this.#form.querySelectorAll('.js-ingredient-input')
+        console.log(e.target)
         // this.#input = this.#form.querySelector('.js-ingredient-input')
         const input = e.target.previousElementSibling
         console.log(input)

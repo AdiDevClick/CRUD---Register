@@ -17,6 +17,8 @@ export class ErrorHandler {
     // #formPwdRepeat
     /** @type {HTMLElement} */
     #alert = document.querySelector('.alert-error')
+    /** @type {HTMLElement} */
+    #tooltip = document.querySelector('.tooltiptext')
     /** @type {String} */
     #password
     /** @type {String} */
@@ -129,7 +131,6 @@ export class ErrorHandler {
                 // console.log('count dans le input au tout début => ', count)
                 // let count = 0
                 // this.#count = count
-
                 const emptyAlert = 'Un ou plusieurs champs sont vides'
                 // console.log(e)
                 // Checking if inputs are empty
@@ -139,6 +140,7 @@ export class ErrorHandler {
                 // Checking if the character used is allowed
                 this.#charsNotAllowed(e)
                 isANumber = this.#isANumber(e.target)
+
                 // this.#charsNotAllowed(e.target)
                 if (input.id === 'username') this.#isSpaceAllowed(input)
                 // console.log('count dans le input après les premiers checks => ', count)
@@ -218,11 +220,13 @@ export class ErrorHandler {
                     input.style.borderBottom = "1px solid red"
                     // console.log('is spacenotallowed => ', count)
                     return
-                } else if ((input.id === "persons" ||
-                    input.id === "total_time" ||
-                    input.id === "resting_time" ||
-                    input.id === "oven_time") && !isANumber) {
+                } else if (!isANumber) {
+                // } else if ((input.id === "persons" ||
+                //     input.id === "total_time" ||
+                //     input.id === "resting_time" ||
+                //     input.id === "oven_time") && !isANumber) {
                     // count++
+                    debugger
                     this.#count.push(input)
                     // this.#count = this.#count + count
                     this.#alert.innerText = this.#notANumberError
@@ -239,6 +243,7 @@ export class ErrorHandler {
                     // this.#count = this.#count -1
                     // this.#count = count
                     input.removeAttribute('style')
+                    if (this.#tooltip.hasAttribute('style')) this.#tooltip.removeAttribute('style')
                     // console.log('global count => ', this.#count)
                     this.#count = filterArrayToRetrieveUniqueValues(this.#count, input)
                     // console.log('global count => ', this.#count)
@@ -317,6 +322,7 @@ export class ErrorHandler {
             this.#isNumber = false
             isANumber = false
             inputEvent.classList.remove('valid_input')
+            this.#tooltip.style.visibility = 'visible'
             console.log('test')
 
             // return
@@ -325,6 +331,7 @@ export class ErrorHandler {
             // console.log(inputEvent.target.parentNode)
             // document.querySelector('.js-text').innerContent = `<span class="highlight">${inputEvent.data}</span>`
         // } else {
+            return
         }
             this.#isNumber = true
             isANumber = true

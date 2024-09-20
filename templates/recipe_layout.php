@@ -78,6 +78,7 @@
             <!-- DRAWER BUTTONS -->
             <div class="opening_drawer_button show">
                 <img src='../img/add.svg' alt="image représentant une addition">
+                <span class="tooltiptext">Une erreur se trouve dans le tiroir de préparations</span>
             </div>
             <div class="drawer js-recipe">
                 <div class="drawer__button"></div>
