@@ -255,12 +255,14 @@ input:active {
 
 /* INPUT ERRORS */
 .alert-error {
+    /* visibility: hidden; */
     text-align: center;
+    align-content: center;
     color: #ffa500;
     /* opacity: 1; */
     /* border: red 1px solid; */
     max-width: 100%;
-    margin: 15px auto;
+    /* margin: 15px auto; */
     /* transition: all ease-in-out; */
     /* transition: opacity 3s 1s; */
     animation: fadeIn 1s;
@@ -271,6 +273,8 @@ input:active {
     right: 0;
     background: #3b3b3b;
     z-index: 1001;
+    height: 40px;
+    border-radius: 5px;
 }
 /* END OF INPUTS*/
 
