@@ -1,4 +1,4 @@
-import { alertClass, allowedSpecialChars, emailInputRegex, emptyAlert, inputErrorClass, inputsToListen, invalidEmailMessage, invalidPwMessage, noSpaceAllowedMessage, notANumberError } from "../configs/ErrorHandlerConfig.js"
+import { alertClass, allowedSpecialChars, emailInputRegex, emptyAlert, formButton, formIDToAvoidChecking, hiddenClass, inputErrorClass, inputsToListen, invalidEmailMessage, invalidPwMessage, noSpaceAllowedMessage, notANumberError, thisInputShouldBeInt } from "../configs/ErrorHandlerConfig.js"
 import { alertMessage, createElement, debounce, filterArrayToRetrieveUniqueValues, retrieveUniqueNotAllowedCharFromRegex } from "../functions/dom.js"
 
 export class ErrorHandler {
@@ -6,9 +6,11 @@ export class ErrorHandler {
     /** @type {Array} */
     #error = []
     /** @type {HTMLButtonElement} */
-    #formButton = document.querySelector('#submit')
+    #formButton = document.querySelector(formButton)
     /** @type {HTMLFormElement} */
     #form
+    /** @type {String} */
+    #formIDToAvoidChecking = formIDToAvoidChecking
     // #formName
     // #formEmail
     // #formAge
@@ -20,6 +22,8 @@ export class ErrorHandler {
     #alert = document.querySelector('.alert-error')
     /** @type {HTMLElement} */
     #tooltip = document.querySelector('.tooltiptext')
+    /** @type {Array.<HTMLElement>} */
+    #thisInputIDShouldBeInt = Array.from(document.querySelectorAll(thisInputShouldBeInt))
     /** @type {String} */
     #password
     /** @type {String} */
@@ -58,6 +62,8 @@ export class ErrorHandler {
     #alertClass = alertClass
     /** @type {String} */
     #inputErrorClass = inputErrorClass
+    /** @type {String} */
+    #hiddenClass = hiddenClass
     // #emptyAlert = 'Un ou plusieurs champs sont vides'
     /** @type {Array} input types to listen to */
     #inputsToListen = inputsToListen
@@ -109,7 +115,7 @@ export class ErrorHandler {
             this.#alert = createElement('p', {
                 class: `${this.#alertClass}`
             })
-            if (this.#form.id !== 'search-form') this.#form.insertAdjacentElement(
+            if (this.#form.id !== this.#formIDToAvoidChecking) this.#form.insertAdjacentElement(
                 'afterbegin',
                 this.#alert
             )
@@ -152,7 +158,7 @@ export class ErrorHandler {
                 // Checking if the character used is allowed
                 this.#charsNotAllowed(e, isEmpty)
                 isANumber = this.#isANumber(e.target)
-
+                this.#triggerToolTip(isEmpty)
                 if (input.id === 'username') this.#isSpaceAllowed(input)
                 // console.log('count dans le input après les premiers checks => ', count)
                 if (isEmpty) {
@@ -171,7 +177,7 @@ export class ErrorHandler {
 
                     // this.#count.push(input)
                     // this.#count = this.#count + count
-                    // this.#alert.classList.remove('hidden')
+                    // this.#alert.classList.remove(this.#hiddenClass)
                     // this.#alert.innerText = `Les caractères suivants ne sont pas autorisés : ${this.#wrongInput} `
                     // input.classList.add(this.#inputErrorClass)
                     // input.style.borderBottom = "1px solid red"
@@ -205,7 +211,7 @@ export class ErrorHandler {
                     console.log(this.#count)
                     if (this.#count.length === 0) {
                     // if (this.#error.length === 0) {
-                        this.#alert.classList.add('hidden')
+                        this.#alert.classList.add(this.#hiddenClass)
                         this.#alert.innerText = ''
                         this.#formButton.disabled = false
                         // input.classList.add("valid_input")
@@ -255,7 +261,7 @@ export class ErrorHandler {
      */
     #displayErrorMessage(message, element) {
         this.#count.push(element)
-        this.#alert.classList.remove('hidden')
+        this.#alert.classList.remove(this.#hiddenClass)
         this.#alert.innerText = message
         element.classList.add(this.#inputErrorClass)
         element.classList.remove("valid_input")
@@ -290,13 +296,12 @@ export class ErrorHandler {
     }
 
     #isANumber(inputEvent) {
-        const intInputIDs = Array.from(document.querySelectorAll('#persons, #total_time, #resting_time, #oven_time'))
+        // const intInputIDs = Array.from(document.querySelectorAll('#persons, #total_time, #resting_time, #oven_time'))
         let isANumber = false
-        console.log(intInputIDs)
-        let inputShouldbeInt = intInputIDs.filter( (value) => value.id === inputEvent.id)
+        let inputShouldBeInt = this.#thisInputIDShouldBeInt.filter( (value) => value.id === inputEvent.id)
         // intInputIDs.forEach(input => {
-        if (inputShouldbeInt[0]) inputShouldbeInt = inputShouldbeInt[0]
-        if (inputEvent.id === inputShouldbeInt.id && isNaN(inputEvent.value)) {
+        if (inputShouldBeInt[0]) inputShouldBeInt = inputShouldBeInt[0]
+        if (inputEvent.id === inputShouldBeInt.id && isNaN(inputEvent.value)) {
             this.#isNumber = false
             isANumber = false
             // inputEvent.classList.remove('valid_input')
@@ -310,6 +315,18 @@ export class ErrorHandler {
             // inputEvent.target.classList.remove('input_error')
             // inputEvent.target.classList.add('valid_input')
         return isANumber
+    }
+
+    /**
+     * Affiche le tooltip si une input du drawer est en erreur
+     * @param {Boolean} isEmpty 
+     */
+    #triggerToolTip(isEmpty) {
+        for (const input of this.#thisInputIDShouldBeInt) {
+            if (input.classList.contains('input_error') || isEmpty) {
+                this.#tooltip.style.visibility = 'visible'
+            }
+        }
     }
 
     // #isInvalidInput(inputs) {
@@ -382,7 +399,7 @@ export class ErrorHandler {
     }
 
     /**
-     * Supprime une erreur de l'array
+     * Supprime une erreur de l'array -
      * Ne prend pas en compte la position dans l'array mais la phrase d'erreur
      * @param {String} error 
      * @returns 
@@ -402,9 +419,9 @@ export class ErrorHandler {
     // }
 
     /**
-     * Vérifie que les inputs password & pwdRepeat soient similaires
-     * Créera une border rouge si ce n'est pas le cas
-     * Un status "#pwStatus" sera créé
+     * Vérifie que les inputs password & pwdRepeat soient similaires -
+     * Créera une border rouge si ce n'est pas le cas -
+     * Un status "#pwStatus" sera créé -
      */
     #isExactPassword() {
         if (this.#password?.value !== this.#pwdRepeat?.value) {
@@ -432,9 +449,9 @@ export class ErrorHandler {
 
     /**
      * Le submit n'est pas prevent par défaut -
-     * Si une erreur est trouvée, il sera preventDefault et le bouton d'envoi ne sera pas réactivé
-     * Les listeners d'inputs n'ajoutent pas d'erreurs à l'#error array
-     * Un toaster sera envoyé sous le formulaire si une erreur est trouvée
+     * Si une erreur est trouvée, il sera preventDefault et le bouton d'envoi ne sera pas réactivé -
+     * Les listeners d'inputs n'ajoutent pas d'erreurs à l'#error array -
+     * Un toaster sera envoyé sous le formulaire si une erreur est trouvée -
      * @param {SubmitEvent} form 
      * @returns 
      */
@@ -458,7 +475,7 @@ export class ErrorHandler {
     }
 
     /**
-     * Vérifie les inputs et renvoie True / False
+     * Vérifie les inputs et renvoie True / False -
      * Trim toutes les inputs trouvées et les convertis dans un nouvel Array -
      * Il faut utiliser le nom de l'input pour la récupérer dans le cas où l'on souhaite
      * faire quelque chose de spécifique avec -
@@ -538,33 +555,44 @@ export class ErrorHandler {
             this.#removeError(this.#noSpaceAllowedMessage)
         }
         if (this.#error.length > 1 && count > 1) {
-            for (const error of this.#error) {
-                this.#alert.innerText = 'Un ou plusieurs champs doivent être renseignés'
-                this.#alert.classList.remove('hidden')
-                this.#removeError(error)
-                // this.#error = this.#error.filter((t) => t !== error)
-            }
+            this.#displayAlertFromArray(this.#error, this.#emptyAlert)
+            // for (const error of this.#error) {
+            //     this.#alert.innerText = this.#emptyAlert
+            //     this.#alert.classList.remove(this.#hiddenClass)
+            //     this.#removeError(error)
+            //     // this.#error = this.#error.filter((t) => t !== error)
+            // }
             return false
         } else if (this.#error.length === 1) {
-            for (const error of this.#error) {
-                this.#alert.innerText = error 
-                this.#alert.classList.remove('hidden')
-                this.#removeError(error)
-                // this.#error = this.#error.filter((t) => t !== error)
-            }
+            this.#displayAlertFromArray(this.#error)
+            // for (const error of this.#error) {
+            //     this.#alert.innerText = error
+            //     this.#alert.classList.remove(this.#hiddenClass)
+            //     this.#removeError(error)
+            //     // this.#error = this.#error.filter((t) => t !== error)
+            // }
             return false
         } else if (this.#error.length > 0 && specialCount > 0) {
-            for (const error of this.#error) {
-                this.#alert.innerText = 'Les caractères spéciaux ne sont pas autorisés'
-                this.#alert.classList.remove('hidden')
-                this.#removeError(error)
-                // this.#error = this.#error.filter((t) => t !== error)
-            }
+            this.#displayAlertFromArray(this.#error, 'Les caractères spéciaux ne sont pas autorisés')
+            // for (const error of this.#error) {
+            //     this.#alert.innerText = 'Les caractères spéciaux ne sont pas autorisés'
+            //     this.#alert.classList.remove(this.#hiddenClass)
+            //     this.#removeError(error)
+            //     // this.#error = this.#error.filter((t) => t !== error)
+            // }
             return false
         } else if (this.#error.length === 0) {
-            this.#alert.classList.add('hidden')
-            this.#alert.innerText = '' 
+            this.#alert.classList.add(this.#hiddenClass)
+            this.#alert.innerText = ''
             return true
+        }
+    }
+
+    #displayAlertFromArray(arr, message = null) {
+        for (const element of arr) {
+            this.#alert.innerText = message ? message : element
+            this.#alert.classList.remove(this.#hiddenClass)
+            this.#removeError(element)
         }
     }
 
