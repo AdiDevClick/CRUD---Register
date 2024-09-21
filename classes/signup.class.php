@@ -73,7 +73,7 @@ class Signup extends Mysql
                 //exit();
             }
             $insertUsers = null;
-            exit;
+            // exit;
         } catch (Error $e) {
             CheckInput::insertErrorMessageInArray($e->getMessage());
             // die('Erreur : ' . $e->getMessage() . ' Quelque chose ne va pas...') ;

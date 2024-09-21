@@ -6,6 +6,8 @@ if(session_status() !== PHP_SESSION_ACTIVE || session_status() === PHP_SESSION_N
 
 require_once(__DIR__ . "/includes/class-autoloader.inc.php");
 require_once(__DIR__ . "/includes/variables.inc.php");
+require_once(__DIR__ . "/logs/customErrorHandlers.php");
+
 // require_once("templates/toaster_template.html");
 
 $data = $_SERVER['REQUEST_METHOD'] === 'POST';
@@ -25,11 +27,13 @@ if (($data && isset($_POST['submit']))) {
     $signup->setUsers();
     $err = CheckInput::getErrorMessages();
     if (count($err) > 0) {
-        // print_r($err);
         session_destroy();
     } else {
-        header('Location: index.php?register=success');
-        session_destroy();
+        if (isset($_SESSION['REGISTERED_USER'])) {
+            unset($_SESSION['REGISTERED_USER']);
+            header('Location: index.php?register=success');
+            session_destroy();
+        }
     }
 }
 $loggedUser = LoginController::checkLoggedStatus();
@@ -147,13 +151,13 @@ $errorMessage = CheckInput::showErrorMessage();
 <?php //ob_start()?>
 <?php //$content = ob_get_contents()?>
 
-<?php //elseif (isset($_SESSION['REGISTERED_USER'])):?>
+<?php // elseif (isset($_SESSION['REGISTERED_USER'])):?>
     <?php //require_once('signup_success.php')?>
     <?php //$signup->displaySignupSuccess($getDatas)?>
-    <?php //unset($_SESSION['REGISTERED_USER'])?>
+    <?php // unset($_SESSION['REGISTERED_USER'])?>
         <?php //else:?>
-            <?php //session_destroy()?>
-            <?php //header('Location, index.php')?>
+            <?php // session_destroy()?>
+            <?php // header('Location, index.php?register=success')?>
             <?php //exit()?>
 <!-- End of display success message  -->
 <?php endif ?>
