@@ -116,10 +116,11 @@ export class IngredientsFrom {
         })
         this.#form.addEventListener('submit', e => {
             console.log(this.#errorHandler)
-
             console.log(e.target)
             e.preventDefault()
             if (!this.#errorHandler.checkInputs) {
+                // Si une erreur est détectée lors de l'envoi en mode mobile
+                // et que le drawer est ouvert, il sera fermé.
                 this.#touchPlugin.resetStates
                 return
             }
@@ -368,6 +369,12 @@ export class IngredientsFrom {
         }
     }
 
+    /**
+     * 
+     * @param {*} form 
+     * @param {*} formData 
+     * @returns {Boolean}
+     */
     #modifyFormDataValues(form, formData) {
         let status = true
         for (let [key, value] of formData) {
@@ -393,11 +400,16 @@ export class IngredientsFrom {
         return status
     }
 
+    /**
+     * Sauvegarde dans le localStorage les ingrédients ajoutés
+     * par l'utilisateur -
+     * Si le boutton submit est disabled, il sera réactivé -
+     */
     #saveIngredientListToStorage() {
         this.#preparationList.formData = this.#ingredientList
         this.#preparationList.ingredients = this.#list
         this.onUpdate('preparationList', this.#preparationList)
-        const success = 'Votre préparation a été validée'
+        // const success = 'Votre préparation a été validée'
         this.#formButton.disabled = false
     }
 
