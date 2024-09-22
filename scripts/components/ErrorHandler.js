@@ -15,7 +15,7 @@ export class ErrorHandler {
     #alert = document.querySelector('.alert-error')
     /** @type {HTMLElement} */
     #tooltip = document.querySelector('.tooltiptext')
-    /** @type {Array.<HTMLElement>} */
+    /** @type {Array < HTMLElement >} */
     #thisInputIDShouldBeInt = Array.from(document.querySelectorAll(thisInputShouldBeInt))
     /** @type {String} */
     #password
@@ -489,6 +489,11 @@ export class ErrorHandler {
         }
     }
 
+    /**
+     * Iterate the array and display alert message
+     * @param {Array} arr
+     * @param {String} message
+     */
     #displayAlertFromArray(arr, message = null) {
         for (const element of arr) {
             this.#alert.innerText = message ? message : element
@@ -517,6 +522,7 @@ export class ErrorHandler {
         return this.#isInputChecked()
     }
 
+    /** @returns {Array < String >} */
     get listenedInputs() {
         return this.#listenInputs
     }
