@@ -11,13 +11,6 @@ export class ErrorHandler {
     #form
     /** @type {String} */
     #formIDToAvoidChecking = formIDToAvoidChecking
-    // #formName
-    // #formEmail
-    // #formAge
-    // /** @type {String} */
-    // #formPassword
-    // /** @type {String} */
-    // #formPwdRepeat
     /** @type {HTMLElement} */
     #alert = document.querySelector('.alert-error')
     /** @type {HTMLElement} */
@@ -36,26 +29,18 @@ export class ErrorHandler {
     #age
     /** @type {RegExpConstructor} */
     #emailInputRegex = emailInputRegex
-    // #emailInputRegex = new RegExp("([a-z0-9A-Z._-]+)@([a-z0-9A-Z_-]+)\\.([a-z\.]{2,6})$")
     /** @type {RegExpConstructor} */
-    // #allowedSpecialChars = '/^[\\w\\s,.:;_?\'!\\"éèêëàâäôöûüùçÀ-]+$/g '
     #allowedSpecialChars = allowedSpecialChars
-    // #allowedSpecialChars = new RegExp('^[\\w\\s,.:;_?\'!\\"*()~&éèêëàâäôöûüùçÀ-]+$')
     /** @type {Array} tested and not allowedSpecialChars char */
     #wrongInput = []
     /** @type {String} */
     #invalidEmailMessage = invalidEmailMessage
-    // #invalidEmailMessage = `Votre email est invalide 
-    //             exemple valide : monEmail@mail.fr`
     /** @type {String} */
     #invalidPwMessage = invalidPwMessage
-    // #invalidPwMessage = 'Vos mots de passes ne sont pas identiques'
     /** @type {String} */
     #noSpaceAllowedMessage = noSpaceAllowedMessage
-    // #noSpaceAllowedMessage = 'Veuillez ne pas utiliser d\'espace'
     /** @type {String} */
     #notANumberError = notANumberError
-    // #notANumberError = 'Seuls les nombres sont autorisés'
     /** @type {String} */
     #emptyAlert = emptyAlert
     /** @type {String} */
@@ -64,10 +49,8 @@ export class ErrorHandler {
     #inputErrorClass = inputErrorClass
     /** @type {String} */
     #hiddenClass = hiddenClass
-    // #emptyAlert = 'Un ou plusieurs champs sont vides'
     /** @type {Array} input types to listen to */
     #inputsToListen = inputsToListen
-    // #inputsToListen = 'input, textarea'
     /** @type {Boolean} */
     #pwStatus = true
     /** @type {Boolean} */
@@ -160,7 +143,6 @@ export class ErrorHandler {
                 isANumber = this.#isANumber(e.target)
                 this.#triggerToolTip(isEmpty)
                 if (input.id === 'username') this.#isSpaceAllowed(input)
-                // console.log('count dans le input après les premiers checks => ', count)
                 if (isEmpty) {
                     this.#displayErrorMessage(this.#emptyAlert, input)
                     return
@@ -174,21 +156,6 @@ export class ErrorHandler {
                         this.#wrongInput[index] = `  ${element} `
                     }
                     this.#displayErrorMessage(`Les caractères suivants ne sont pas autorisés : ${this.#wrongInput} `, input)
-
-                    // this.#count.push(input)
-                    // this.#count = this.#count + count
-                    // this.#alert.classList.remove(this.#hiddenClass)
-                    // this.#alert.innerText = `Les caractères suivants ne sont pas autorisés : ${this.#wrongInput} `
-                    // input.classList.add(this.#inputErrorClass)
-                    // input.style.borderBottom = "1px solid red"
-                    // const styledInput = input.value.split('').map((char, index) => {
-                    //     if (this.#wrongInput.toString().includes(char)) {
-                    //         return `<span class="highlight">${char}</span>`
-                    //     }
-                    //     // return cshar
-                    // }).join('')
-                    // input.innerHTML = styledInput
-                    // console.log('is charnotAllowed => ', count)
                 } else if (input.id === "email" && !this.#emailInputRegex.test(input.value)) {
                     this.#displayErrorMessage(this.#invalidEmailMessage, input)
                     return
@@ -267,7 +234,6 @@ export class ErrorHandler {
         element.classList.remove("valid_input")
         if (element === this.#password) this.#pwdRepeat.classList.add(this.#inputErrorClass)
         if (element === this.#pwdRepeat) this.#password.classList.add(this.#inputErrorClass)
-        // element.style.borderBottom = "1px solid red"
     }
 
     /**
@@ -277,26 +243,16 @@ export class ErrorHandler {
      */
     #charsNotAllowed(inputEvent, isEmpty) {
         if (!this.#allowedSpecialChars.test(inputEvent.target.value) && !isEmpty) {
-        // if (!this.#allowedSpecialChars.test(inputEvent.target.value) && !this.#isEmpty) {
             // Retrieve every character that isn't allowed and only unique entries
             this.#wrongInput = retrieveUniqueNotAllowedCharFromRegex(inputEvent.target.value, this.#allowedSpecialChars)
             this.#isCharAllowed = false
-            // inputEvent.target.classList.remove('valid_input')
             return
-            // inputEvent.target.parentNode.span = `<span class="highlight">${inputEvent.data}</span>`
-            // inputEvent.target.parentNode.firstElementChild.innerHTML = `<span class="highlight">${this.#wrongInput}</span>`
-            // console.log(inputEvent.target.parentNode)
-            // document.querySelector('.js-text').innerContent = `<span class="highlight">${inputEvent.data}</span>`
         } 
             this.#isCharAllowed = true
-            // inputEvent.target.classList.remove('input_error')
-            // inputEvent.target.classList.add('valid_input')
-        // }
         return
     }
 
     #isANumber(inputEvent) {
-        // const intInputIDs = Array.from(document.querySelectorAll('#persons, #total_time, #resting_time, #oven_time'))
         let isANumber = false
         let inputShouldBeInt = this.#thisInputIDShouldBeInt.filter( (value) => value.id === inputEvent.id)
         // intInputIDs.forEach(input => {
@@ -311,9 +267,6 @@ export class ErrorHandler {
             this.#isNumber = true
             isANumber = true
         }
-            
-            // inputEvent.target.classList.remove('input_error')
-            // inputEvent.target.classList.add('valid_input')
         return isANumber
     }
 
@@ -349,33 +302,12 @@ export class ErrorHandler {
     #isEmptyInputs(input) {
         let isEmpty = false
         if (input.value.toString().trim() === '' || input.value.toString().trim() === ' ') {
-            // if (!this.#isEmpty) {
-                // count++
-                // this.#count++
-                this.#isEmpty = true
-                isEmpty = true
-                // input.classList.remove('valid_input')
-                // input.classList.remove("valid_input")
-                // input.classList.add('input_error')
-                console.log('je suis vide => ',input.value)
-                console.log(input)
-            // }
+            this.#isEmpty = true
+            isEmpty = true
         } else {
-            // if (this.#isEmpty) {
-
-            // if (this.#isEmpty && (input.value.toString().trim() !== '' || input.value.toString().trim() === ' ')) {
-                // count--
-                // this.#count--
-                this.#isEmpty = false
-                isEmpty = false
-                // input.classList.remove('input_error')
-                input.classList.add("valid_input")
-                // input.classList.add('valid_input')
-                console.log(input)
-                console.log('je suis remplis => ',input.value)
-            // }
-                
-            // if (count === 0) this.#isEmpty = false
+            this.#isEmpty = false
+            isEmpty = false
+            input.classList.add("valid_input")
         }
         return isEmpty
     }
@@ -393,7 +325,6 @@ export class ErrorHandler {
             return
         } else if (!input.value.toString().includes(' ')) {
             this.#spaceNotAllowed = false
-            // input.classList.remove('input_error')
             return
         }
     }
@@ -426,24 +357,15 @@ export class ErrorHandler {
     #isExactPassword() {
         if (this.#password?.value !== this.#pwdRepeat?.value) {
             this.#pwStatus = false
-            // this.#password.classList.add('input_error')
-            // this.#pwdRepeat.classList.add('input_error')
             this.#password.classList.remove('valid_input')
             this.#pwdRepeat.classList.remove('valid_input')
-            // this.#password.style.borderBottom = '1px solid red'
-            // this.#pwdRepeat.style.borderBottom = '1px solid red'
-            console.log('count quand false => ', this.#count)
-
         } else {
             this.#pwStatus = true
-            // this.#password?.removeAttribute('style')
-            // this.#pwdRepeat?.removeAttribute('style')
             this.#password?.classList.remove('input_error')
             this.#pwdRepeat?.classList.remove('input_error')
             this.#password?.classList.add('valid_input')
             this.#pwdRepeat?.classList.add('valid_input')
             this.#count = this.#count.filter( (value) => value !== (this.#password || this.#pwdRepeat))
-            console.log('count => ', this.#count)
         }
     }
 
@@ -456,7 +378,6 @@ export class ErrorHandler {
      * @returns 
      */
     async #onSubmit(form) {
-        // form.preventDefault()
         this.#formButton.disabled = true
         try {
             if (!this.#isInputChecked()) {
@@ -542,44 +463,24 @@ export class ErrorHandler {
             }
         }
         if (!this.#pwStatus) {
-            // const message = 'Vos mots de passes ne sont pas identiques'
             this.#password.classList.add(this.#inputErrorClass)
             this.#error.push(this.#invalidPwMessage)
         } else {
             this.#removeError(this.#invalidPwMessage)
         }
         if (this.#spaceNotAllowed) {
-            // const message = 'Veuillez ne pas utiliser d\'espace'
             this.#error.push(this.#noSpaceAllowedMessage)
         } else {
             this.#removeError(this.#noSpaceAllowedMessage)
         }
         if (this.#error.length > 1 && count > 1) {
             this.#displayAlertFromArray(this.#error, this.#emptyAlert)
-            // for (const error of this.#error) {
-            //     this.#alert.innerText = this.#emptyAlert
-            //     this.#alert.classList.remove(this.#hiddenClass)
-            //     this.#removeError(error)
-            //     // this.#error = this.#error.filter((t) => t !== error)
-            // }
             return false
         } else if (this.#error.length === 1) {
             this.#displayAlertFromArray(this.#error)
-            // for (const error of this.#error) {
-            //     this.#alert.innerText = error
-            //     this.#alert.classList.remove(this.#hiddenClass)
-            //     this.#removeError(error)
-            //     // this.#error = this.#error.filter((t) => t !== error)
-            // }
             return false
         } else if (this.#error.length > 0 && specialCount > 0) {
             this.#displayAlertFromArray(this.#error, 'Les caractères spéciaux ne sont pas autorisés')
-            // for (const error of this.#error) {
-            //     this.#alert.innerText = 'Les caractères spéciaux ne sont pas autorisés'
-            //     this.#alert.classList.remove(this.#hiddenClass)
-            //     this.#removeError(error)
-            //     // this.#error = this.#error.filter((t) => t !== error)
-            // }
             return false
         } else if (this.#error.length === 0) {
             this.#alert.classList.add(this.#hiddenClass)
