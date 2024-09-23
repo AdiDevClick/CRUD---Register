@@ -202,8 +202,9 @@ export class DrawerTouchPlugin {
     #onOpen(e) {
         this.#showDrawerButton.removeEventListener('click', this.#onOpen.bind(this))
         this.#steps.removeEventListener('click', this.#onOpen.bind(this))
-        this.#card.style.display = 'block'
+        
         if (this.#isMobile && e.currentTarget !== this.#steps) {
+            this.#card.style.display = 'block'
             // IMPORTANT in case of reset
             this.#recipe.scrollTo(50, 0)
             this.#disableScrollBehavior()
@@ -291,6 +292,7 @@ export class DrawerTouchPlugin {
         // this.#closeButton.style.display = 'none'
         this.#isScrolledAtTop = false
         this.#enableScrollBehavior()
+        console.log(this.drawer.style.display)
     }
 
     /**

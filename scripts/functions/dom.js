@@ -117,6 +117,7 @@ export function appendToAnotherLocation(targetSelector, isClass = 'js-form-recip
     console.log(targetSelector)
     let newCardRecipeSection = document.querySelector('.card.recipe')
     const parentElement = document.querySelector(targetSelector)
+    console.log(parentElement)
     let newCardFormRecipeSection = document.querySelector('.form-recipe')
     
     if (!newCardFormRecipeSection) {
@@ -131,7 +132,7 @@ export function appendToAnotherLocation(targetSelector, isClass = 'js-form-recip
         })
     }
     const contentToMoveToNewCardFormRecipeSection = Array.from(parentElement.childNodes).filter(node => 
-        node.className === 'js-form-recipe'
+        (node.className === 'js-form-recipe') || (node.className === 'js-form-recipe plus')
     )
     const contentToMoveToNewCardRecipeSection = Array.from(parentElement.childNodes).find(node => 
         node.className === 'js-append-to-drawer'
@@ -140,6 +141,7 @@ export function appendToAnotherLocation(targetSelector, isClass = 'js-form-recip
         node.className === 'img_preview' || node.className === 'add_ingredient'
     )
     if (contentToMoveToNewCardFormRecipeSection) {
+        console.log(contentToMoveToNewCardFormRecipeSection)
         contentToMoveToNewCardFormRecipeSection.forEach(element => {
             newCardFormRecipeSection.append(element)
         })

@@ -22,7 +22,9 @@ export class IngredientsFrom {
     /** @type {string} */
     #endpoint
     /** @type {HTMLTemplateElement} */
-    #template
+    #ingredientTemplate
+    /** @type {HTMLTemplateElement} */
+    #recipeStepsTemplate
     /** @type {HTMLElement} */
     #target
     #targets = []
@@ -86,14 +88,14 @@ export class IngredientsFrom {
     appendTo(element) {
         this.#form = element
         this.#endpoint = this.#form.dataset.endpoint
-        this.#template = document.querySelector(this.#form.dataset.template)
+        this.#ingredientTemplate = document.querySelector(this.#form.dataset.template)
+        this.#recipeStepsTemplate = document.querySelector(this.#form.dataset.steps_template)
         this.#target = document.querySelector(this.#form.dataset.target)
         this.#targets = document.querySelectorAll('.js-ingredient-group')
         this.#elements = JSON.parse(this.#form.dataset.elements)
         this.#file = this.#form.querySelector('.file-uploader')
         this.#imagePreview = this.#form.querySelector('.profile-picture')
         // this.#element = JSON.parse(`{"ingredient": ".js-value"}`)
-
         // this.#formValidationButton = this.#form.querySelector('#button')
         this.#formButton = this.#form.querySelector('.js-add-custom')
         // this.#formButton = this.#form.querySelector('#add_custom')
@@ -203,6 +205,13 @@ export class IngredientsFrom {
         // this.ingre = ''
 
         this.#formButton.removeEventListener('click', this.#addNewIngredient.bind(this))
+    }
+
+    /**
+     * @returns {HTMLTemplateElement}
+     */
+    get ingredientTemplate() {
+        return this.#ingredientTemplate
     }
 
     /**
@@ -514,7 +523,9 @@ class Ingredient {
         this.#ingredientList = ingredient
         this.#ingredient = ingredient.ingredient
         if (this.#ingredient === '') return
-        this.#template = document.querySelector('#ingredient-template')
+        console.log(this.#ingredientList)
+        // this.#template = document.querySelector('#ingredient-template')
+        this.#template = this.#ingredientList.ingredientTemplate
         this.#count = ingredient.count
 
         this.element = this.#template.content.firstElementChild.cloneNode(true)

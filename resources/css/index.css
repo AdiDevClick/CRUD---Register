@@ -2268,6 +2268,50 @@ hr {
     }
 }
 
+.plus {
+    text-align: center;
+    background: green;
+    border-radius: 100vh;
+    cursor: pointer;
+    display: flex;
+    width: auto !important;
+    margin: 10px;
+    padding: 5px;
+    overflow: hidden;
+    height: min(45px, 35px);
+    flex-wrap: wrap;
+    flex-direction: row;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    > span {
+        height: 100%;
+        width: 100%;
+        text-align: center;
+        clear: both;
+    }
+    > span::before {
+        content: "Ajouter une étape";
+        text-align: center;
+        display: block;
+        line-height: 18px;
+        font-size: 20px;
+        position: relative;
+        clear: both;
+        padding: 1px;
+        width: 100%;
+        height: 100%;
+        align-content: center;
+    }
+    transition: scale 0.3s;
+    &:hover {
+        scale: 1.03;
+    }
+    &:is(:active, :focus) {
+        scale: 0.95;
+    }
+}
+
 .highlight {
     position: relative;
     color: red;

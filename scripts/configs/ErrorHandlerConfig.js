@@ -1,70 +1,118 @@
 ////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////
-            /**
-             * ERROR HANDLER CONFIG FILE
-             */
-////////////////////////////////////////////////////////////
+/**
+ **************  ERROR HANDLER CONFIG FILE
+ */
 ////////////////////////////////////////////////////////////
                     /** FORM */
+////////////////////////////////////////////////////////////
 
-/** @type {String} Configurate form.id element to avoid checking */
+/**
+ * Configurate form.id element to avoid checking
+ * @type {String}
+ */
 export const formIDToAvoidChecking = 'search-form'
-
-/** @type {String} Configurate form submit button ID to target and listen */
+/**
+ * Configurate form submit button ID to target and listen
+ * @type {String}
+ */
 export const formButton = '#submit'
 
 ////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////
                     /** MESSAGES */
+////////////////////////////////////////////////////////////
 
-/**  @type {String} Configurate invalid email error message */
+/**
+ * Configurate invalid email error message
+ * @type {String}
+ */
 export const invalidEmailMessage = `Votre email est invalide 
                 exemple valide : monEmail@mail.fr`
-
-/**  @type {String} Configurate password invalid error message */
+/**
+ * Configurate password invalid error message
+ * @type {String}
+ */
 export const invalidPwMessage = 'Vos mots de passes ne sont pas identiques'
-
-/**  @type {String} Configurate no space allowed error message */
+/**
+ * Configurate no space allowed error message
+ * @type {String}
+ */
 export const noSpaceAllowedMessage = 'Veuillez ne pas utiliser d\'espace'
-
-/**  @type {String} Configurate only integer allowed error message */
+/**
+ * Configurate only integer allowed error message
+ * @type {String}
+ */
 export const notANumberError = 'Seuls les nombres sont autorisés'
-
-/**  @type {String} Configurate empty inputs error message */
+/**
+ * Configurate empty inputs error message
+ * @type {String}
+ */
 export const emptyAlert = 'Un ou plusieurs champs doivent être renseignés'
 
 ////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////
                 /** INPUTS TO LISTEN TO */
-
-/**  @type {String} Configurate elements to be checked */
-export const inputsToListen = 'input, textarea'
-
-/**  @type {String} Configurate elements that should be INTEGERS only */
-export const thisInputShouldBeInt = '#persons, #total_time, #resting_time, #oven_time'
-
 ////////////////////////////////////////////////////////////
+
+/**
+ * Configurate elements to be checked
+ * @type {String}
+ */
+export const inputsToListen = 'input, textarea'
+/**
+ * Configurate elements that should be INTEGERS only
+ * @type {String}
+ */
+export const thisInputShouldBeInt = '#persons, #total_time, #resting_time, #oven_time'
+/**
+ * Configurate elements that will not receive the check / wrong icons
+ * @type {String}
+ */
+export const inputsNotToAppend = '#custom_ingredient'
+
 ////////////////////////////////////////////////////////////
                     /** REGEX */
+////////////////////////////////////////////////////////////
 
-/**  @type {RegExp} Configurate which characters are allowed */
+/**
+ * Configurate which characters are allowed
+ * @type {RegExp}
+ */
 export const allowedSpecialChars = new RegExp('^[\\w\\s,.:;_?\'!\\"*()~&éèêëàâäôöûüùçÀ-]+$')
-
-/**  @type {RegExp} Configurate Email : Can only be email@email.co */
+/**
+ * Configurate Email : Can only be email@email.co
+ * @type {RegExp}
+ */
 export const emailInputRegex = new RegExp("([a-z0-9A-Z._-]+)@([a-z0-9A-Z_-]+)\\.([a-z\.]{2,6})$")
 
 ////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////
                     /** ALERT */
+////////////////////////////////////////////////////////////
 
-/**  @type {String} Configurate alert element class when created */
-export const alertClass = 'alert-error hidden'
-
-/**  @type {String} Configurate input element error class when an error occurs */
+/**
+ * Configurate alert element class when created with hidden class
+ * @type {String}
+ */
+export const hiddenAlertClass = 'alert-error hidden'
+/**
+ * Configurate alert element class to target
+ * @type {String}
+ */
+export const alertClass = 'alert-error'
+/**
+ * Configurate input element error class when an error occurs
+ * @type {String}
+ */
 export const inputErrorClass = 'input_error'
-
-/**  @type {String} Configurate hidden class name for alert to be removed / added */
+/**
+ * Configurate hidden class name for alert to be removed / added
+ * @type {String}
+ */
 export const hiddenClass = 'hidden'
+/**
+ * Configurate tooltip class name for tooltip to be shown
+ * @type {String}
+ */
+export const tooltip = '.tooltiptext'
 
 ////////////////////////////////////////////////////////////
+                    /** END OF CONFIG */
 ////////////////////////////////////////////////////////////
