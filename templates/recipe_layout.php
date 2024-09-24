@@ -57,22 +57,22 @@
                 <textarea name="step_2" id="step_2" cols="60" rows="3" placeholder="Renseignez  votre deuxième étape..."><?php $getInfos !== null && $getInfos['step_2'] ? print strip_tags($getInfos['step_2']) : null ?></textarea>
             </div>
             <!-- STEP 3 -->
-            <div class="js-form-recipe hidden">
+            <div class="js-form-recipe">
                 <label for="step_3" class="label">Etape 3</label>
                 <textarea name="step_3" id="step_3" cols="60" rows="3" placeholder="Renseignez  votre troisième étape..."><?php $getInfos !== null && $getInfos['step_3'] ? print strip_tags($getInfos['step_3']) : null ?></textarea>
             </div>
             <!-- STEP 4 -->
-            <div class="js-form-recipe hidden">
+            <div class="js-form-recipe">
                 <label for="step_4" class="label">Etape 4</label>
                 <textarea name="step_4" id="step_4" cols="60" rows="3" placeholder="Renseignez  votre quatrième étape..."><?php $getInfos !== null && $getInfos['step_4'] ? print strip_tags($getInfos['step_4']) : null ?></textarea>
             </div>
             <!-- STEP 5 -->
-            <div class="js-form-recipe hidden">
+            <div class="js-form-recipe">
                 <label for="step_5" class="label">Etape 5</label>
                 <textarea name="step_5" id="step_5" cols="60" rows="3" placeholder="Renseignez  votre cinquième étape..."><?php $getInfos !== null && $getInfos['step_5'] ? print strip_tags($getInfos['step_5']) : null ?></textarea>
             </div>
             <!-- STEP 6 -->
-            <div class="js-form-recipe hidden">
+            <div class="js-form-recipe">
                 <label for="step_6" class="label">Etape 6</label>
                 <textarea name="step_6" id="step_6" cols="60" rows="3" placeholder="Renseignez  votre sixième étape..."><?php $getInfos !== null && $getInfos['step_6'] ? print strip_tags($getInfos['step_6']) : null ?></textarea>
             </div>

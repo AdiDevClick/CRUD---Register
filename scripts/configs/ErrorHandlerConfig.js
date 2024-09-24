@@ -82,6 +82,11 @@ export const allowedSpecialChars = new RegExp('^[\\w\\s,.:;_?\'!\\"*()~&éèêë
  * @type {RegExp}
  */
 export const emailInputRegex = new RegExp("([a-z0-9A-Z._-]+)@([a-z0-9A-Z_-]+)\\.([a-z\.]{2,6})$")
+/**
+ * Configurate Username : Can only be : my-user_name99 / myusername99 / my-username99 / my_user_name_99 - no space
+ * @type {RegExp}
+ */
+export const userInputRegex = new RegExp('^[a-zA-Z0-9_-]{1,32}$')
 
 ////////////////////////////////////////////////////////////
                     /** ALERT */
