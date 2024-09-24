@@ -48,14 +48,46 @@ export function retrieveUniqueNotAllowedCharFromRegex(value, allowedCharsRegex) 
  * Permet de filtrer un tableau et de ne récupérer que des valeurs uniques -
  * @param {Array} arr Array to filter
  * @param {*} object Any
+ * @param {String} [property=null] Si une propriété de l'objet a été définie, passer son nom -
+ * Exemple : Array[0]key.property
  * @returns {Array} filtered array
  */
-export function filterArrayToRetrieveUniqueValues(arr, object) {
+export function filterArrayToRetrieveUniqueValues(arr, object, property = null) {
     return arr.filter( (value, index, self) =>
-            value !== object &&
-            index === self.findIndex( (v) => v === value
-            )
+        // value !== object &&
+        // index === self.findIndex( (v) => v === value
+        // )
+        (property ? value[property] !== object : value !== object) &&
+        index === self.findIndex( (v) => v === value
         )
+    )
+}
+
+// function returnValue(arr, property) {
+//     console.log(arr[property])
+//     const myElements = Object.keys(arr)
+//     console.log(myElements[property])
+//     for (const element of Object.keys(arr)) {
+//         const elem = arr[property]
+//         return elem
+//     }
+// }
+
+/**
+ * Ajoute une clé et son boolean à un objet
+ * @param {Array} arr 
+ * @param {String} value 
+ * @param {String} property 
+ * @param {Boolean} bool 
+ */
+export function setObjectPropertyTo(arr, object, value, property, bool = true) {
+    console.log(object)
+    for (const keys of arr) {
+        if (value === keys) {
+            object[property] = bool
+            console.log(object)
+        }
+    }
 }
 
 /**
