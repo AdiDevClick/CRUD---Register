@@ -47,25 +47,25 @@ export function retrieveUniqueNotAllowedCharFromRegex(value, allowedCharsRegex) 
 /**
  * Permet de filtrer un tableau et de ne récupérer que des valeurs uniques -
  * @param {Array} arr Array to filter
- * @param {*} object Any object - L'objet sera transformé en Array s'il ne l'est pas déjà -
+ * @param {*} objects Any object - L'objet sera transformé en Array s'il ne l'est pas déjà -
  * @param {String} [property=null] Si une propriété de l'objet a été définie, passer son nom -
  * Exemple : Array[0]key.property
  * @returns {Array} filtered array
  */
-export function filterArrayToRetrieveUniqueValues(arr = [], objects = [], property = null) {
+export function filterArrayToRetrieveUniqueValues(arr = [], objects, property = null) {
     objects = Array.isArray(objects) ? objects : [objects]
     return arr.filter( (value, index, self) =>
         // value !== object &&
         // index === self.findIndex( (v) => v === value
         // )
 
-        (property ? value[property] !== objects.some((object) => value[property] !== object) : objects.filter((object) => value !== object)) &&
+        (property ? objects.every((object) => object !== value[property]) : objects.every((object) => value !== object)) &&
         index === self.findIndex( (v) => v === value
         )
         
     )
 }
-
+ 
 // function returnValue(arr, property) {
 //     console.log(arr[property])
 //     const myElements = Object.keys(arr)
