@@ -47,19 +47,22 @@ export function retrieveUniqueNotAllowedCharFromRegex(value, allowedCharsRegex) 
 /**
  * Permet de filtrer un tableau et de ne récupérer que des valeurs uniques -
  * @param {Array} arr Array to filter
- * @param {*} object Any
+ * @param {*} object Any object - L'objet sera transformé en Array s'il ne l'est pas déjà -
  * @param {String} [property=null] Si une propriété de l'objet a été définie, passer son nom -
  * Exemple : Array[0]key.property
  * @returns {Array} filtered array
  */
-export function filterArrayToRetrieveUniqueValues(arr, object, property = null) {
+export function filterArrayToRetrieveUniqueValues(arr = [], objects = [], property = null) {
+    objects = Array.isArray(objects) ? objects : [objects]
     return arr.filter( (value, index, self) =>
         // value !== object &&
         // index === self.findIndex( (v) => v === value
         // )
-        (property ? value[property] !== object : value !== object) &&
+
+        (property ? value[property] !== objects.some((object) => value[property] !== object) : objects.filter((object) => value !== object)) &&
         index === self.findIndex( (v) => v === value
         )
+        
     )
 }
 
@@ -74,18 +77,19 @@ export function filterArrayToRetrieveUniqueValues(arr, object, property = null) 
 // }
 
 /**
- * Ajoute une clé et son boolean à un objet
- * @param {Array} arr 
- * @param {String} value 
- * @param {String} property 
- * @param {Boolean} bool 
+ * Modification d'un objet -
+ * Ajoute une clé et sa valeur à cet objet
+ * en comparant le nom de la clé -
+ * @param {Array} arr
+ * @param {Object} object
+ * @param {String} objectKey
+ * @param {String} propertyToSet
+ * @param {Boolean} bool
  */
-export function setObjectPropertyTo(arr, object, value, property, bool = true) {
-    console.log(object)
+export function setObjectPropertyTo(arr, object, objectKey, propertyToSet, bool = true) {
     for (const keys of arr) {
-        if (value === keys) {
-            object[property] = bool
-            console.log(object)
+        if (objectKey === keys) {
+            object[propertyToSet] = bool
         }
     }
 }
@@ -101,7 +105,7 @@ export function removeComment(targetSelector, commentNode) {
         const comments = Array.from(targetElement.childNodes).filter(node => 
             node.nodeType === Node.COMMENT_NODE && node.nodeValue.trim() === commentNode.nodeValue.trim()
             // node.nodeType === Node.COMMENT_NODE && node.nodeValue.trim() === commentText.trim()
-        );
+        )
         comments.forEach(comment => targetElement.removeChild(comment))
     } else {
         console.error('Target element not found')

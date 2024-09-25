@@ -292,7 +292,6 @@ export class DrawerTouchPlugin {
         // this.#closeButton.style.display = 'none'
         this.#isScrolledAtTop = false
         this.#enableScrollBehavior()
-        console.log(this.drawer.style.display)
     }
 
     /**

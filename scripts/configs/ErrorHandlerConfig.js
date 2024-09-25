@@ -103,6 +103,11 @@ export const hiddenAlertClass = 'alert-error hidden'
  */
 export const alertClass = 'alert-error'
 /**
+ * Configurate alert element id to target
+ * @type {String}
+ */
+export const alertID = '#alert-error'
+/**
  * Configurate input element error class when an error occurs
  * @type {String}
  */

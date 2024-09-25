@@ -68,9 +68,9 @@ $errorMessage = CheckInput::showErrorMessage();
                     <!-- <form action="submit_register.php" method="post"> -->
                         <?php if (!empty($err)) : ?>
                             <?php //echo 'test'?>
-                            <div>
-                                <p class="alert-error"><?php echo(strip_tags($errorMessage)) ?></p>
-                            </div>
+                            <!-- <div> -->
+                                <p id="alert-error" class="alert-error"><?php echo(strip_tags($errorMessage)) ?></p>
+                            <!-- </div> -->
                         <?php endif ?>
                         <!-- Username -->
                         <div class="form form-hidden">

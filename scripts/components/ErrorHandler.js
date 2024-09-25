@@ -1,4 +1,4 @@
-import { alertClass, allowedSpecialChars, emailInputRegex, emptyAlert, formButton, formIDToAvoidChecking, hiddenAlertClass, hiddenClass, inputErrorClass, inputsNotToAppend, inputsToListen, invalidEmailMessage, invalidPwMessage, noSpaceAllowedMessage, notANumberError, thisInputShouldBeInt, tooltip, userInputRegex } from "../configs/ErrorHandlerConfig.js"
+import { alertClass, alertID, allowedSpecialChars, emailInputRegex, emptyAlert, formButton, formIDToAvoidChecking, hiddenAlertClass, hiddenClass, inputErrorClass, inputsNotToAppend, inputsToListen, invalidEmailMessage, invalidPwMessage, noSpaceAllowedMessage, notANumberError, thisInputShouldBeInt, tooltip, userInputRegex } from "../configs/ErrorHandlerConfig.js"
 import { alertMessage, createElement, debounce, filterArrayToRetrieveUniqueValues, retrieveUniqueNotAllowedCharFromRegex, setObjectPropertyTo } from "../functions/dom.js"
 
 export class ErrorHandler {
@@ -12,7 +12,7 @@ export class ErrorHandler {
     /** @type {String} */
     #formIDToAvoidChecking = formIDToAvoidChecking
     /** @type {HTMLElement} */
-    #alert = document.querySelector(alertClass)
+    #alert = document.querySelector(alertID)
     /** @type {HTMLElement} */
     #tooltip = document.querySelector(tooltip)
     /** @type {Array < HTMLElement >} */
@@ -49,6 +49,8 @@ export class ErrorHandler {
     #alertClass = hiddenAlertClass
     /** @type {String} */
     #inputErrorClass = inputErrorClass
+    /** @type {String} */
+    #alertText
     /** @type {String} */
     #hiddenClass = hiddenClass
     /** @type {Array} input types to listen to */
@@ -98,34 +100,27 @@ export class ErrorHandler {
             isSpecialCharactersAllowed: false,
             whichInputAllowSpecialCharacters: ['Mot de Passe', 'Mot de Passe de confirmation', 'Email', 'file'],
         }, options)
+        if (this.#alert) this.#alertText = this.#alert.innerText
         if (!this.#alert) {
             this.#alert = createElement('p', {
-                class: `${this.#alertClass}`
+                class: `${this.#alertClass}`,
+                id: alertClass
             })
             if (this.#form.id !== this.#formIDToAvoidChecking) this.#form.insertAdjacentElement(
                 'afterbegin',
                 this.#alert
             )
         }
+        console.log(this.#alert.innerText)
+
         if (!this.options.debouncing) this.options.debounceDelay = 50
         this.#listenInputs = Array.from(this.#form.querySelectorAll(this.#inputsToListen))
         
         this.#listenInputs.forEach(input => {
             // Setting which input can be empty
-            setObjectPropertyTo(this.options.whichInputCanBeEmpty, input, 'input.name', 'canBeEmpty', true)
-            // for (const keys of this.options.whichInputCanBeEmpty) {
-            //     if (input.name === keys) {
-            //         input.canBeEmpty = true
-            //         console.log(input)
-            //     }
-            // }
+            setObjectPropertyTo(this.options.whichInputCanBeEmpty, input, input.name, 'canBeEmpty', true)
             // Setting which input can accept special char
-            for (const keys of this.options.whichInputAllowSpecialCharacters) {
-                if (input.name === keys) {
-                    input.allowSpecialCharacters = true
-                    console.log(input)
-                }
-            }
+            setObjectPropertyTo(this.options.whichInputAllowSpecialCharacters, input, input.name, 'allowSpecialCharacters', true)
             // Creating valid / invalid icon for each inputs
             const noIconInput = this.activeInput(this.#inputsNotToAppend, input)
             let icon
@@ -148,8 +143,9 @@ export class ErrorHandler {
             }
             // Inputs will be debounced @ -> get debounceDelay
             // Les listeners d'inputs n'ajoutent pas d'erreurs à l'#error array
-            // !! ATTENTION !! : Ce script n'est pas bloquant, le bouton d'envoi n'est désactivé
-            // qu'en cas d'écoute du submit !!
+            // !! ATTENTION !! : Ce script n'est pas bloquant -
+            // 
+            // Le bouton d'envoi n'est désactivé qu'en cas d'écoute du submit !!
             input.addEventListener('input', debounce((e) => {
                 // Checking if input is empty
                 this.isEmptyInputs(e.target)
@@ -163,16 +159,10 @@ export class ErrorHandler {
                 this.triggerToolTip()
                 if (input.id === 'username') this.isSpaceAllowed(input)
                 
- 
                 if (input.isEmpty) {
                     this.#displayErrorMessage(this.#emptyAlert, input)
                     return
-                } else if (input.id !=="file" &&
-                    input.id !== "email" &&
-                    input.id !== "password" &&
-                    input.id !== "pwdRepeat" &&
-                    !input.isCharAllowed) {
-                        
+                } else if (!input.isCharAllowed) {
                     for (let [index, element] of Object.entries(this.#wrongInput)) {
                         this.#wrongInput[index] = `  ${element} `
                     }
@@ -186,7 +176,7 @@ export class ErrorHandler {
                 } else if (this.#spaceNotAllowed && input.id === 'username') {
                     this.#displayErrorMessage(this.#noSpaceAllowedMessage, input)
                     return
-                } else if (!input.isANumber) {
+                } else if (input.isANumber === false) {
                     this.#displayErrorMessage(this.#notANumberError, input)
                     return
                 } else {
@@ -198,8 +188,13 @@ export class ErrorHandler {
 
                 }
                 console.log(this.#count)
-                
-                if (this.#count.length === 0) {
+                console.log("text alert => ", this.#alertText)
+                console.log("innerText => ", this.#alert.innerText)
+                if (this.#alertText !== null && undefined) {
+                // if (this.#count.length === 0 && (this.#email.classList.contains('input_error') || this.#name.classList.contains('input_error'))) {
+                    this.#alert.innerText = this.#alertText
+                    this.#alertText = null
+                } else if (this.#count.length === 0) {
                     // if (this.#error.length === 0) {
                     this.#alert.classList.add(this.#hiddenClass)
                     this.#alert.innerText = ''
@@ -259,7 +254,6 @@ export class ErrorHandler {
         element.classList.remove("valid_input")
         if (element === this.#password) this.#pwdRepeat.classList.add(this.#inputErrorClass)
         if (element === this.#pwdRepeat) this.#password.classList.add(this.#inputErrorClass)
-            console.log(this.#count)
     }
 
     /**
@@ -268,8 +262,9 @@ export class ErrorHandler {
      * @returns 
      */
     #charsNotAllowed(input) {
-        if (!this.#allowedSpecialChars.test(input.value) && !input.isEmpty) {
+        if (!input.allowSpecialCharacters && !this.#allowedSpecialChars.test(input.value) && !input.isEmpty) {
             // Retrieve every character that isn't allowed and only unique entries
+            console.log(input)
             this.#wrongInput = retrieveUniqueNotAllowedCharFromRegex(input.value, this.#allowedSpecialChars)
             input.isCharAllowed = false
             // this.#isCharAllowed = false
@@ -287,6 +282,7 @@ export class ErrorHandler {
      */
     #isANumber(input) {
         let inputShouldBeInt = this.activeInput(this.#thisInputIDShouldBeInt, input)
+        if (input.id !== inputShouldBeInt.id) return
         if (input.id === inputShouldBeInt.id && isNaN(input.value)) {
             this.#isNumber = false
             input.isANumber = false
@@ -360,7 +356,7 @@ export class ErrorHandler {
      * @returns 
      */
     #isEmptyInputs(input) {
-        if (!input.canBeEmpty && (input.value.toString().trim() === '' || input.value.toString().trim() === ' ')) {
+        if (!input.canBeEmpty && (input.value.toString().trim() === '' || input.value.toString().trim() === ' ') || !input.value) {
             // this.#isEmpty = true
             input.isEmpty = true
             console.log(input)
@@ -386,6 +382,7 @@ export class ErrorHandler {
         if (input.id !== 'username') return
         if (input.value.toString().trim().includes(' ')) {
             this.#spaceNotAllowed = true
+            input.value = input.value.toString().trim()
             return
         } else if (!input.value.toString().includes(' ')) {
             this.#spaceNotAllowed = false
@@ -422,24 +419,22 @@ export class ErrorHandler {
      * Créera une border rouge si ce n'est pas le cas -
      * Un status "#pwStatus" sera créé -
      */
-    #isExactPassword(input) {
-        // debugger
-        // console.log(this.#password.isEmpty, this.#password.isEmpty)
-        if (this.#password?.value !== this.#pwdRepeat?.value || this.#password?.isEmpty || this.#pwdRepeat?.isEmpty) {
-            console.log('pas empty')
-            this.#pwStatus = false
-            this.#password.classList.remove('valid_input')
-            this.#pwdRepeat.classList.remove('valid_input')
-        } else {
-            console.log('empty')
-            this.#pwStatus = true
-            this.#password?.classList.remove('input_error')
-            this.#pwdRepeat?.classList.remove('input_error')
-            this.#password?.classList.add('valid_input')
-            this.#pwdRepeat?.classList.add('valid_input')
+    #isExactPassword() {
+        debugger
+        if (this.#password && this.#pwdRepeat) {
+            if (((this.#password.value !== this.#pwdRepeat.value) || (this.#pwdRepeat.value !== this.#password.value)) || this.#password.isEmpty || this.#pwdRepeat.isEmpty || !this.#password.value || !this.#pwdRepeat.value) {
+                this.#pwStatus = false
+                this.#password.classList.remove('valid_input')
+                this.#pwdRepeat.classList.remove('valid_input')
+            } else {
+                this.#pwStatus = true
+                this.#password.classList.remove('input_error')
+                this.#pwdRepeat.classList.remove('input_error')
+                this.#password.classList.add('valid_input')
+                this.#pwdRepeat.classList.add('valid_input')
+                this.#count = filterArrayToRetrieveUniqueValues(this.#count, [this.#password, this.#pwdRepeat], 'input')
+            }
             console.log(this.#count)
-            // this.#count = this.#count.filter( (value) => value !== (this.#password || this.#pwdRepeat))
-            this.#count = filterArrayToRetrieveUniqueValues(this.#count, (this.#password || this.#pwdRepeat), 'input')
         }
     }
 
@@ -494,17 +489,12 @@ export class ErrorHandler {
         // Permet de définir aussi quelle input peut contenir des caractères spéciaux
         // Par défaut : aucune
         for (const [key, value] of data) {
+            // Setting default option values
             arrayKey[key] = { value: value.toString().trim(), canBeEmpty: this.canBeEmpty, allowSpecialCharacters: this.allowSpecialCharacters }
-            for (const keys of this.options.whichInputCanBeEmpty) {
-                if (key === keys) {
-                    arrayKey[key].canBeEmpty = true
-                }
-            }
-            for (const keys of this.options.whichInputAllowSpecialCharacters) {
-                if (key === keys) {
-                    arrayKey[key].allowSpecialCharacters = true
-                }
-            }
+            // Setting which input can be empty
+            setObjectPropertyTo(this.options.whichInputCanBeEmpty, arrayKey[key], key, 'canBeEmpty', true)
+            // Setting which input can accept special char
+            setObjectPropertyTo(this.options.whichInputAllowSpecialCharacters, arrayKey[key], key, 'allowSpecialCharacters', true)
         }
         for (const key in arrayKey) {
             if (!arrayKey[key].canBeEmpty && arrayKey[key].value === '') {
@@ -547,7 +537,8 @@ export class ErrorHandler {
         }
         // Not identical passwords
         if (!this.#pwStatus) {
-            this.#password.classList.add(this.#inputErrorClass)
+            console.log(this.#pwStatus)
+            // this.#password.classList.add(this.#inputErrorClass)
             this.#error.push(this.#invalidPwMessage)
         } else {
             this.#removeError(this.#invalidPwMessage)

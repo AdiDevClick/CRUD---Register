@@ -124,6 +124,9 @@ export class IngredientsFrom {
                 // Si une erreur est détectée lors de l'envoi en mode mobile
                 // et que le drawer est ouvert, il sera fermé.
                 this.#touchPlugin.resetStates
+                // Afficher le tooltip en fonction du paramétrage :
+                // Si une input de type INT est en erreur ou empty
+                this.#errorHandler.triggerToolTip(e)
                 return
             }
             this.#onSubmit(e)
