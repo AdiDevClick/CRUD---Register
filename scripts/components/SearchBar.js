@@ -161,33 +161,38 @@ export class SearchBar
          */
         window.onpopstate = (e) => {
             e.preventDefault()
-            if (window.location.hash === '#username' || '#') {
+            if (window.location.hash === '#username' || window.location.hash.startsWith('#')) {
                 closeMenu(e)
+                console.log('closing menu cause username || #')
                 return
             }
             if (history && (window.location.origin+window.location.pathname === this.#oldUrl)) {
-                this.#content.innerContent = []
-                const XMLS = new XMLSerializer()
-                if (this.#carousel.initialItemsArray > 0) {
-                    this.#carousel.initialItemsArray.forEach(element => {
-                        const inp_xmls = XMLS.serializeToString(element)
-                        this.#content.innerContent.push(inp_xmls)
-                    })
-                }
-                this.#content.input = this.#input.id
-                this.#content.newUrl = this.#newUrl
-                this.#content.searchResultsLength = this.#searchResults.length
+                if (this.#input) {
+                    console.log('same as old adress')
+                    this.#content.innerContent = []
+                    const XMLS = new XMLSerializer()
+                    if (this.#carousel.initialItemsArray > 0) {
+                        this.#carousel.initialItemsArray.forEach(element => {
+                            const inp_xmls = XMLS.serializeToString(element)
+                            this.#content.innerContent.push(inp_xmls)
+                        })
+                    }
+                    this.#content.input = this.#input.id
+                    this.#content.newUrl = this.#newUrl
+                    this.#content.searchResultsLength = this.#searchResults.length
 
-                this.#content.params = {}
+                    this.#content.params = {}
 
-                for (const [key, value] of this.#url.searchParams) {
-                    this.#content.params[key] = value
+                    for (const [key, value] of this.#url.searchParams) {
+                        this.#content.params[key] = value
+                    }
+                    localStorage.setItem('forwardContent', JSON.stringify(this.#content))
+                    this.#observer.unobserve(this.#loader)
+                    location.reload()
                 }
-                localStorage.setItem('forwardContent', JSON.stringify(this.#content))
-                this.#observer.unobserve(this.#loader)
-                location.reload()
             }
             if (history !== null && (window.location.origin+window.location.pathname !== this.#oldUrl)) {
+                console.log('adress is different')
                 const content = localStorage.getItem('forwardContent')
                 this.#content = JSON.parse(content)
 
@@ -215,7 +220,7 @@ export class SearchBar
 
                 this.#onReady("1")
             }
-            console.log('object')
+            console.log('else popstate line 223')
         }
 
         //           //
@@ -225,11 +230,11 @@ export class SearchBar
         //           //
         window.addEventListener('beforeunload', (e) => {
             if (window.location.href.toString().includes('recherche')) {
+                console.log('before unload')
             // if (window.location.href.toString().includes('search')) {
                 // e.preventDefault()
                 this.#content.innerContent = []
                 const XMLS = new XMLSerializer()
-                console.log(this.#carousel.initialItemsArray)
                 this.#carousel.initialItemsArray.forEach(element => {
                     const inp_xmls = XMLS.serializeToString(element)
                     this.#content.innerContent.push(inp_xmls)
