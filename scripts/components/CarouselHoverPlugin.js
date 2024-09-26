@@ -4,24 +4,38 @@ import { Carousel } from "./Carousel.js"
 /**
  * Permet de rajouter une fonction hoover qui prend en compte des videos
  */
-export class CarouselHoverPlugin {
-
+export class CarouselHoverPlugin
+// export class CarouselHoverPlugin extends Carousel
+{
     #hovered = false
     #eventAction
-    player
-
+    // static #isInternalConstructing = false;
     /**
      * @param {Carousel} carousel 
      */
     constructor(carousel) {
+        console.log(carousel)
+        console.log('CarouselHoverPlugin initialisé');
+        // if (!CarouselHoverPlugin.#isInternalConstructing) {
+        //     throw new TypeError("PrivateConstructor is not constructable");
+        // }
+        // CarouselHoverPlugin.#isInternalConstructing = false
+        // super()
+
         this.carousel = carousel
         carousel.items.forEach(item => {
-                this.#createEventListenerFromMouse(item, 'mousemove' , 'mouseDebounce', false, this.#onHover.bind(this))
-                this.#debounceMouse(item, 'mouseDebounce')
-                item.addEventListener('mouseleave', e => this.#onPointerOut(e))
+            this.#createEventListenerFromMouse(item, 'mousemove' , 'mouseDebounce', false, this.#onHover.bind(this))
+            this.#debounceMouse(item, 'mouseDebounce')
+            item.addEventListener('mouseleave', e => this.#onPointerOut(e))
             return
         })
     }
+
+    // static create() {
+    //     CarouselHoverPlugin.#isInternalConstructing = true
+    //     const instance = new CarouselHoverPlugin()
+    //     return instance
+    // }
 
     /**
      * Permet de pause l'animation lors d'un mouse hover

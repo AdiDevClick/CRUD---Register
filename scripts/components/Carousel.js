@@ -1,9 +1,10 @@
-import { createElement, debounce, wait, waitAndFail } from "../functions/dom.js"
 import { CarouselTouchPlugin } from "./CarouselTouchPlugin.js"
-import { CarouselHoverPlugin } from "./CarouselHoverPlugin.js"
+// import { CarouselHoverPlugin } from "./CarouselHoverPlugin.js"
 import { YoutubePlayer } from "./YoutubePlayerPlugin.js"
+import { createElement, debounce, wait, waitAndFail } from "../functions/dom.js"
 
-export class Carousel 
+
+export class Carousel
 {
 
     /**
@@ -124,6 +125,8 @@ export class Carousel
     /** @type {Number} */
     #alreadyHoveredEndTime = 0
     #case
+    static #isInternalConstructing = false;
+
 
     /**
      * @param {HTMLElement} element 
@@ -143,6 +146,13 @@ export class Carousel
      * @param {boolean} [options.grid=false] Permet de définir un affichage de type "GRID" - par défaut : false
      */
     constructor(element, options = {}) {
+        console.log('je tente la création');
+        if (!Carousel.#isInternalConstructing) {
+            throw new TypeError("Carousel PrivateConstructor is not constructable");
+        }
+        Carousel.#isInternalConstructing = false
+        console.log('Carousel initialisé');
+
         this.element = element
         this.options = Object.assign({}, {
             slidesToScroll: 1,
@@ -213,13 +223,33 @@ export class Carousel
         if (this.options.infinite) {
             this.container.addEventListener('transitionend', this.#resetInfinite.bind(this))
         }
-
         if (this.options.automaticScrolling) {
-            new CarouselHoverPlugin(this)
+            this.#loadModule()
+            // new CarouselHoverPlugin(this)
+            // CarouselHoverPlugin.create
         }
         this.#player = new YoutubePlayer(this)
 
         if (!this.options.grid) new CarouselTouchPlugin(this)
+    }
+
+    static create(element, options = {}) {
+        Carousel.#isInternalConstructing = true
+        const instance = new Carousel(element, options)
+        return instance
+    }
+
+    async #loadModule() {
+        try {
+            const module = await import('./CarouselHoverPlugin.js')
+            const CarouselHoverPlugin = module.CarouselHoverPlugin
+            new CarouselHoverPlugin(this)
+            // new CarouselHoverPlugin(this)
+            // CarouselHoverPlugin.create
+            console.log('ok')
+        } catch (error) {
+            console.error("Erreur lors du chargement du module CarouselHoverPlugin :", error);
+        }
     }
 
     /**

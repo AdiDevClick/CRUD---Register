@@ -60,12 +60,11 @@ export function filterArrayToRetrieveUniqueValues(arr = [], objects, property = 
         // )
 
         (property ? objects.every((object) => object !== value[property]) : objects.every((object) => value !== object)) &&
-        index === self.findIndex( (v) => v === value
+            index === self.findIndex( (v) => v === value
         )
-        
     )
 }
- 
+
 // function returnValue(arr, property) {
 //     console.log(arr[property])
 //     const myElements = Object.keys(arr)
