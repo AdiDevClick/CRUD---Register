@@ -90,7 +90,7 @@ export class YoutubePlayer
     onPointerOut(element) {
         const player = this.player[element.id]
         // console.log(element.id)
-        // console.log(player)
+        console.log(player)
         
         const data = player.event.data
         if (player.event && data === 1 && !this.done) {
@@ -130,6 +130,10 @@ export class YoutubePlayer
         }
     }
 
+    /**
+     * Création de l'iFrame -
+     * Sauvegarde de l'objet dans "this.player"
+     */
     onYouTubeIframeAPIReady() {
         for (const container in this.player) {
             const player = new YT.Player(container, {
