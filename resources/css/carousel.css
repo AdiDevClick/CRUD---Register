@@ -12,10 +12,12 @@ STYLING FOR CAROUSEL
     transition: transform .3s;
     transform: translate3d(0, -1px, 0);
     &:hover {
+        transition: opacity 0.3s ease, scale 0.3s ease;
+
         transform: translate3d(0, -10px, 0);
         & .item__body {
             opacity: 0.2;
-            transition: opacity 0.3s ease;
+            /* transition: opacity 0.3s ease; */
         }
         & .item__image {
             transform: scale(1.02);
