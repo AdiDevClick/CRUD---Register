@@ -52,7 +52,7 @@ export class YoutubePlayer
             const firstScriptTag = document.getElementsByTagName('script')[0]
             firstScriptTag.parentNode.insertBefore(tag, firstScriptTag)
         } else {
-            this.onYouTubeIframeAPIReady()
+            this.onYouTubeIframeAPIReady.bind(this)
             // console.log(e => this.loadVideo()) 
             // window.onYouTubeIframeAPIReady = this.onYouTubeIframeAPIReady.bind(this)
         }
@@ -103,14 +103,16 @@ export class YoutubePlayer
 
     // 4. The API will call this function when the video player is ready.
     onPlayerReady(event) {
-        console.log(this.player)
-        console.log(event.target)
-        console.log(event)
+        // console.log(this.player)
+        // console.log(event.target.options)
+        // console.log(event)
+        // console.log(event.target.getInternalApiInterface)
         event.target.playVideo()
         event.target.setPlaybackQuality('hd1080')
         event.target.pauseVideo()
         // this.player[event.target.o.id].event = event
-        this.player[event.target.l.id].event = event
+        this.player[event.target.options.videoId].event = event
+        // this.player[event.target.l.id].event = event
     }
 
     // 5. The API calls this function when the player's state changes.
@@ -119,7 +121,10 @@ export class YoutubePlayer
     onPlayerStateChange(event) {
         // this.player[event.target.o.id].event = event
         console.log(this.player)
-        this.player[event.target.l.id].event = event
+        console.log('\n event =>', event)
+        // this.player[event.target.l.id].event = event
+        this.player[event.target.options.videoId].event = event
+
         if (event.data === YT.PlayerState.BUFFERING) {
             event.target.setPlaybackQuality('hd1080')
         }
