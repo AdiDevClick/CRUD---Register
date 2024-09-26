@@ -2,7 +2,7 @@ import { fetchJSON } from "../functions/api.js"
 import { createElement, debounce, wait, waitAndFail } from "../functions/dom.js"
 import { resetURL } from "../functions/url.js"
 import { closeMenu } from "../script.js"
-import { Carousel } from "./Carousel.js"
+// import { Carousel } from "./Carousel.js"
 import { Toaster } from "./Toaster.js"
 
 export class SearchBar
@@ -229,6 +229,7 @@ export class SearchBar
                 // e.preventDefault()
                 this.#content.innerContent = []
                 const XMLS = new XMLSerializer()
+                console.log(this.#carousel.initialItemsArray)
                 this.#carousel.initialItemsArray.forEach(element => {
                     const inp_xmls = XMLS.serializeToString(element)
                     this.#content.innerContent.push(inp_xmls)
@@ -602,22 +603,38 @@ export class SearchBar
      * envoyés par la DataBase -
      * @param {*} restyleNumber 
      */
-    #onReady(restyleNumber) {
+    async #onReady(restyleNumber) {
         const updateStyle = (restyleNumber === '0') ? true : false
 
-        if (!updateStyle) {
-            this.#carousel = new Carousel(document.querySelector('#carousel1'), {
-                visibleSlides: 3,
-                automaticScrolling: false,
-                loop: false,
-                pagination: false,
-                grid: true
-            })
-            return
-        } else {
-            this.#carousel.restyle
-            return
-        }
+        // document.addEventListener("DOMContentLoaded", async (e) => {
+            if (!updateStyle) {
+                try {
+                    const module = await import('./Carousel.js')
+                    const Carousel = module.Carousel
+                    // this.#carousel = new Carousel("", "")
+                    // this.#carousel = new Carousel(document.querySelector('#carousel1'), {
+                    //     visibleSlides: 3,
+                    //     automaticScrolling: false,
+                    //     loop: false,
+                    //     pagination: false,
+                    //     grid: true
+                    // })
+                    this.#carousel =  Carousel.create(document.querySelector('#carousel1'), {
+                        visibleSlides: 3,
+                        automaticScrolling: true,
+                        loop: false,
+                        pagination: false,
+                        grid: false
+                    })
+                } catch (error) {
+                    console.error("Erreur lors du chargement du module Carousel :", error);
+                }
+                return
+            } else {
+                this.#carousel.restyle
+                return
+            }
+        // })
     }
 
     // /**
