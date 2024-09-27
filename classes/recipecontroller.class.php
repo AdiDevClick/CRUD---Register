@@ -18,7 +18,9 @@ class RecipeController extends Recipe
                 throw new Error("LGGDUSROFF  : Veuillez vous identifier avant de partager une recette.") ;
             } else {
 
-                if ($this->optionnalData === 'creation') array_pop($this->getData);
+                if ($this->optionnalData === 'creation') {
+                    array_pop($this->getData);
+                }
 
                 $checkInput = new CheckInput(
                     $this->getData
@@ -29,6 +31,7 @@ class RecipeController extends Recipe
                 // print_r($this->getData);
 
                 $title = $checkInput->test_input($this->getData['title']);
+                $description = $checkInput->test_input($this->getData['description']);
                 $step_1 = $checkInput->test_input($this->getData["step_1"]);
                 $step_2 = $checkInput->test_input($this->getData["step_2"]);
                 $step_3 = $checkInput->test_input($this->getData["step_3"]);
@@ -76,6 +79,7 @@ class RecipeController extends Recipe
                 if (empty($checkInput->getErrorsArray())) {
                     $id = $this->setRecipeTest(
                         $title,
+                        $description,
                         $step_1,
                         $step_2,
                         $step_3,
@@ -338,6 +342,7 @@ class RecipeController extends Recipe
                     $this->getData
                 );
                 $title = $checkInput->test_input($this->getData['title']);
+                $description = $checkInput->test_input($this->getData['description']);
                 $step_1 = $checkInput->test_input($this->getData["step_1"]);
                 $step_2 = $checkInput->test_input($this->getData["step_2"]);
                 $step_3 = $checkInput->test_input($this->getData["step_3"]);
@@ -358,6 +363,7 @@ class RecipeController extends Recipe
                 $ingredient6 = $checkInput->test_input($this->getData["ingredient6"] ?? null);
                 $persons = $checkInput->test_input($this->getData["persons"]);
                 $custom_ingredients = $checkInput->test_input($this->getData["custom_ingredients"]);
+                $youtubeID = $checkInput->test_input($this->getData["youtubeID"]);
                 $id = $checkInput->test_input($this->getData["recipe_id"]);
                 // $file = $checkInput->test_input($this->getData["file"]);
                 $checkInput->checkInputs();
@@ -374,6 +380,7 @@ class RecipeController extends Recipe
                 if (empty($checkInput->getErrorsArray())) {
                     $update_Status = $this->updateRecipes(
                         $title,
+                        $description,
                         $step_1,
                         $step_2,
                         $step_3,
@@ -394,6 +401,7 @@ class RecipeController extends Recipe
                         $ingredient6,
                         $persons,
                         $custom_ingredients,
+                        $youtubeID,
                         $id
                     );
 

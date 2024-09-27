@@ -4,6 +4,7 @@ class Recipe extends Mysql
 {
     protected function setRecipeTest(
         string $title = null,
+        string $description = null,
         string $step_1 = null,
         string $step_2 = null,
         string $step_3 = null,
@@ -29,6 +30,7 @@ class Recipe extends Mysql
         $sqlQuery =
         'INSERT INTO recipes(
             title,
+            description,
             step_1,
             step_2,
             step_3,
@@ -53,6 +55,7 @@ class Recipe extends Mysql
             is_enabled)
         VALUES (
             :title,
+            :description,
             :step_1,
             :step_2,
             :step_3,
@@ -81,6 +84,7 @@ class Recipe extends Mysql
 
         if (!$insertRecipe->execute([
             'title' => $title,
+            'description' => $description,
             'step_1' => $step_1,
             'step_2' => $step_2,
             'step_3' => $step_3,
@@ -264,7 +268,7 @@ class Recipe extends Mysql
 
         // echo $_SESSION['LAST_ID'];
         // $reset = $optionnal['_reset'];
-        $sqlRecipe = "SELECT r.recipe_id, r.title, r.author, i.img_path,
+        $sqlRecipe = "SELECT r.recipe_id, r.title, r.author, i.img_path, i.youtubeID,
                 MATCH title
                     AGAINST(:word IN BOOLEAN MODE) AS score
                 FROM recipes r
@@ -367,6 +371,7 @@ class Recipe extends Mysql
 
     protected function updateRecipes(
         string $title = null,
+        string $description = null,
         string $step_1 = null,
         string $step_2 = null,
         string $step_3 = null,
@@ -387,36 +392,73 @@ class Recipe extends Mysql
         string $ingredient6 = null,
         string $persons = null,
         string $custom_ingredients = null,
+        string $youtubeID = null,
         int $id
     ) {
-        $sqlQuery = 'UPDATE recipes SET
-            title = :title,
-            step_1 = :step_1,
-            step_2 = :step_2,
-            step_3 = :step_3,
-            step_4 = :step_4,
-            step_5 = :step_5,
-            step_6 = :step_6,
-            total_time = :total_time,
-            total_time_length = :total_time_length,
-            resting_time = :resting_time,
-            resting_time_length = :resting_time_length,
-            oven_time = :oven_time,
-            oven_time_length = :oven_time_length,
-            ingredient_1 = :ingredient_1,
-            ingredient_2 = :ingredient_2,
-            ingredient_3 = :ingredient_3,
-            ingredient_4 = :ingredient_4,
-            ingredient_5 = :ingredient_5,
-            ingredient_6 = :ingredient_6,
-            persons = :persons,
-            custom_ingredients = :custom_ingredients
-        WHERE recipe_id = :recipe_id;';
+        $sqlQuery = 'UPDATE recipes
+            JOIN images ON recipes.recipe_id = images.recipe_id
+            SET
+                recipes.title = :title,
+                recipes.description = :description,
+                recipes.step_1 = :step_1,
+                recipes.step_2 = :step_2,
+                recipes.step_3 = :step_3,
+                recipes.step_4 = :step_4,
+                recipes.step_5 = :step_5,
+                recipes.step_6 = :step_6,
+                recipes.total_time = :total_time,
+                recipes.total_time_length = :total_time_length,
+                recipes.resting_time = :resting_time,
+                recipes.resting_time_length = :resting_time_length,
+                recipes.oven_time = :oven_time,
+                recipes.oven_time_length = :oven_time_length,
+                recipes.ingredient_1 = :ingredient_1,
+                recipes.ingredient_2 = :ingredient_2,
+                recipes.ingredient_3 = :ingredient_3,
+                recipes.ingredient_4 = :ingredient_4,
+                recipes.ingredient_5 = :ingredient_5,
+                recipes.ingredient_6 = :ingredient_6,
+                recipes.persons = :persons,
+                recipes.custom_ingredients = :custom_ingredients,
+                images.youtubeID = :youtubeID
+            WHERE recipes.recipe_id = :recipe_id;';
+        // $sqlQuery = 'UPDATE recipes SET
+        //     title = :title,
+        //     description = :description,
+        //     step_1 = :step_1,
+        //     step_2 = :step_2,
+        //     step_3 = :step_3,
+        //     step_4 = :step_4,
+        //     step_5 = :step_5,
+        //     step_6 = :step_6,
+        //     total_time = :total_time,
+        //     total_time_length = :total_time_length,
+        //     resting_time = :resting_time,
+        //     resting_time_length = :resting_time_length,
+        //     oven_time = :oven_time,
+        //     oven_time_length = :oven_time_length,
+        //     ingredient_1 = :ingredient_1,
+        //     ingredient_2 = :ingredient_2,
+        //     ingredient_3 = :ingredient_3,
+        //     ingredient_4 = :ingredient_4,
+        //     ingredient_5 = :ingredient_5,
+        //     ingredient_6 = :ingredient_6,
+        //     persons = :persons,
+        //     custom_ingredients = :custom_ingredients
+        // WHERE recipe_id = :recipe_id;
+        // UPDATE images SET
+        //     youtubeID = :youtubeID
+        // WHERE recipe_id = :recipe_id;';
+        // $sqlQuery2 = 'UPDATE images SET
+        //     youtubeID = :youtubeID
+        // WHERE recipe_id = :recipe_id;';
         // echo 'test';
         $updateRecipeStatement = $this->connect()->prepare($sqlQuery);
-        // print_r($updateRecipeStatement);
+        // $updateRecipeStatement2 = $this->connect()->prepare($sqlQuery2);
+        // print_r($updateRecipeStatement2);
         if (!$updateRecipeStatement->execute([
             'title' => $title,
+            'description' => $description,
             'step_1' => $step_1,
             'step_2' => $step_2,
             'step_3' => $step_3,
@@ -437,12 +479,21 @@ class Recipe extends Mysql
             'ingredient_6' => $ingredient6,
             'persons' => $persons,
             'custom_ingredients' => $custom_ingredients,
+            'youtubeID' => $youtubeID,
             'recipe_id' => $id
         ])) {
             $updateRecipeStatement = null;
             //throw new Error((string)header("Location: ".Functions::getUrl()."?error=stmt-failed"));
             throw new Error("stmt Failed");
         }
+        // if (!$updateRecipeStatement2->execute([
+        //     'youtubeID' => $youtubeID,
+        //     'recipe_id' => $id
+        // ])) {
+        //     $updateRecipeStatement2 = null;
+        //     //throw new Error((string)header("Location: ".Functions::getUrl()."?error=stmt-failed"));
+        //     throw new Error("stmt Failed");
+        // }
         $status = 'success';
         if ($updateRecipeStatement->rowCount() == 0) {
             $updateRecipeStatement = null;
@@ -456,6 +507,10 @@ class Recipe extends Mysql
             //header("Location :" .Functions::getUrl(). "?error=recipe-not-found");
             //exit();
         }
+        // if ($updateRecipeStatement2->rowCount() == 0) {
+        //     $updateRecipeStatement2 = null;
+        //     $status = 'RCPUPDTSTMTEXECNT';
+        // }
         return ['update_status' => $status];
     }
 
@@ -638,13 +693,13 @@ class Recipe extends Mysql
         return $recipe;
     }
 
-/* if (!isset($getData['id']) && is_numeric($getData['id']))
-{
-    echo ('Il faut un identifiant de recette pour la modifier.');
-    return;
-} */
+    /* if (!isset($getData['id']) && is_numeric($getData['id']))
+    {
+        echo ('Il faut un identifiant de recette pour la modifier.');
+        return;
+    } */
 
-protected function getRecipesTitles2(string $recipes, array $optionnal): array
+    protected function getRecipesTitles2(string $recipes, array $optionnal): array
     {
         $limit = $optionnal['limit'];
         $optionnal['resetState'] == 1 ? $_SESSION['LAST_ID'] = 0 : null;

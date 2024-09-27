@@ -26,8 +26,8 @@ if ($url === 'about.php' || 'planningType.php' || 'todo.html' || 'carousel.html'
 
 $dev = true;
 // $dev = false;
-$vite = false;
-// $vite = true;
+// $vite = false;
+$vite = true;
 
 ?>
 
@@ -332,7 +332,13 @@ if (!$dev) {
             data-limit="5"
             data-form=".search-form"
             data-id='{"recipe_id": "#id"}'
-            data-elements='{"title": ".js-title", "author": ".js-author", "img_path": ".js-img", "href": ".js-href"}'
+            data-elements='{
+            "title": ".js-title",
+            "author": ".js-author",
+            "img_path": ".js-img",
+            "href": ".js-href",
+            "youtubeID": ".js-youtube-player"
+            }'
             class="align-center hidden js-infinite-pagination">
             <div class="loader" role="status"></div>
         </div>
@@ -443,12 +449,12 @@ if (!$dev) {
     </footer>
     <!-- end of footer -->
 </body>
-<template id="search-template">
+<!-- <template id="search-template"> -->
     <!-- <article class="title">Carousel 1 -->
         <!-- <div id="carousel1"> -->
-            <article class="item_container">
-                <div class="item__image">
-                    <img class="js-img"  src=<?= $rootUrl. $clicServer ?> alt="">
+            <!-- <article class="item_container"> -->
+                <!-- <div class="item__image">
+                    <img class="js-img"  src="" alt="">
                     <div class="player" id="UzRY3BsWFYg"></div>
                 </div>
                 <div class="item__body">
@@ -463,16 +469,11 @@ if (!$dev) {
                     </div>
                 </div>
                 <a class="file-uploader js-href"></button>
-            </article>
+            </article> -->
         <!-- </div> -->
     <!-- </article> -->
-    <!-- <article class="mb-4" id="1">
-        <div class="mb-1"><strong class="js-title">John Doe</strong></div>
-        <p class="js-author">Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem vel temporibus quos, 
-            accusantium culpa, praesentium delectus architecto quaerat animi magni explicabo debitis, 
-            velit quod libero. Quas nesciunt ut repellendus praesentium.</p>
-    </article> -->
-</template>
+<!-- </template> -->
 </html>
 
 <?php require_once(dirname(__DIR__) . DIRECTORY_SEPARATOR . "templates" . DIRECTORY_SEPARATOR . "toaster_template.html") ?>
+<?php require_once(dirname(__DIR__) . DIRECTORY_SEPARATOR . "templates" . DIRECTORY_SEPARATOR . "search_result_template.html") ?>

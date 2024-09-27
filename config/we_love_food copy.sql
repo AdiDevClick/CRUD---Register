@@ -26,6 +26,8 @@ CREATE TABLE IF NOT EXISTS `images` (
   `recipe_id` int(11) NOT NULL,
   `img_path` text NOT NULL,
   `img_name` text NOT NULL,
+  `video_path` text NOT NULL,
+  `video_name` text NOT NULL,
   `created_at` DATETIME NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`image_id`),
   FOREIGN KEY (`recipe_id`) REFERENCES recipes(recipe_id)

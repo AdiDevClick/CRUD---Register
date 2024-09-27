@@ -25,6 +25,20 @@ $session = 'REGISTERED_RECIPE';
 // print_r(isset($_GET)) ;
 // print_r ($dataTest);
 
+/**
+ * Dans le cas d'une recherche, on utilise $_SESSION['LAST_ID'] pour sauvegarder l'état de la recherche -
+ * Script JS : 'SearchBar.js' -
+ * Fetch les éléments depuis la Database -
+ * 4 options peuvent être passées : query, _reset, _page, _limit -
+ * _reset : Permet de remettre le compteur $_SESSION['LAST_ID'] = 0 -
+ *          S'effectue automatiquement par JS quand une nouvelle recherche est amorcée par l'utilisateur -
+ * _page :  Le numéro page ne DOIT PAS être modifiée, elle est gérée par JS et
+ *          s'incrémente au fur et à mesure que ne nouveaux éléments sont chargés -
+ * _limit : Permet de limiter le nombre d'éléments fetch par demande utilisateurs -
+ *          Il est préférable de ne pas aller en dessous de 5 -
+ * query :  Est défini dans les searchParams par JS dès que l'utilisateur effectue une recherche -
+ *          N'est pas modifiable -
+ */
 if (isset($_GET['query'])) {
     // header('Content-Type: application/json; charset=utf-8');
     // $content = file_get_contents("php://input");
@@ -42,6 +56,13 @@ if (isset($_GET['query'])) {
         'resetState' => $_GET['_reset']
     ];
     $getRecipe = new RecipeView($getSearchRequest, $optionnalData);
+    // Retourne un array d'objets contenant :
+    // author: "email",
+    // img_path: "img/path/to/images"
+    // recipe_id: int
+    // score: int
+    // title: "titre de ma recette"
+    // youtubeID: "idvideoyoutube"
     $recipe = $getRecipe->getRecipesTitle();
     // foreach ($recipe as $key) {
     //     echo json_encode(array("title"=> $key));

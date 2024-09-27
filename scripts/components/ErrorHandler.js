@@ -95,10 +95,10 @@ export class ErrorHandler {
             debouncing: true,
             debounceDelay: 50,
             canBeEmpty: false,
-            whichInputCanBeEmpty: ['step_3', 'step_4', 'step_5', 'step_6', 'file', 'resting_time'],
+            whichInputCanBeEmpty: ['step_3', 'step_4', 'step_5', 'step_6', 'file', 'video_file', 'video_link', 'resting_time'],
             useMyOwnListener: false,
             isSpecialCharactersAllowed: false,
-            whichInputAllowSpecialCharacters: ['Mot de Passe', 'Mot de Passe de confirmation', 'Email', 'file'],
+            whichInputAllowSpecialCharacters: ['Mot de Passe', 'Mot de Passe de confirmation', 'Email', 'file', 'video_file'],
         }, options)
         if (this.#alert) this.#alertText = this.#alert.innerText
         if (!this.#alert) {

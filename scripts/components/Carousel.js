@@ -1,6 +1,6 @@
-import { CarouselTouchPlugin } from "./CarouselTouchPlugin.js"
+// import { CarouselTouchPlugin } from "./CarouselTouchPlugin.js"
 // import { CarouselHoverPlugin } from "./CarouselHoverPlugin.js"
-import { YoutubePlayer } from "./YoutubePlayerPlugin.js"
+// import { YoutubePlayer } from "./YoutubePlayerPlugin.js"
 import { createElement, debounce, wait, waitAndFail } from "../functions/dom.js"
 
 
@@ -223,14 +223,15 @@ export class Carousel
         if (this.options.infinite) {
             this.container.addEventListener('transitionend', this.#resetInfinite.bind(this))
         }
-        if (this.options.automaticScrolling) {
-            this.#loadModule()
-            // new CarouselHoverPlugin(this)
-            // CarouselHoverPlugin.create
-        }
-        this.#player = new YoutubePlayer(this)
+        // if (this.options.automaticScrolling) {
+        // Plugin loader
+            this.#loadModules()
+        //     // new CarouselHoverPlugin(this)
+        //     // CarouselHoverPlugin.create
+        // }
+        // this.#player = new YoutubePlayer(this)
 
-        if (!this.options.grid) new CarouselTouchPlugin(this)
+        // if (!this.options.grid) new CarouselTouchPlugin(this)
     }
 
     static create(element, options = {}) {
@@ -239,16 +240,33 @@ export class Carousel
         return instance
     }
 
-    async #loadModule() {
+    /**
+     * Charge les plugins quand nécessaires seulement -
+     * Les plugins : Hover / Touch / Youtube iFrame
+     */
+    async #loadModules() {
+        let module
         try {
-            const module = await import('./CarouselHoverPlugin.js')
-            const CarouselHoverPlugin = module.CarouselHoverPlugin
-            new CarouselHoverPlugin(this)
-            // new CarouselHoverPlugin(this)
-            // CarouselHoverPlugin.create
-            console.log('ok')
+            if (this.options.automaticScrolling) {
+                module = await import('./CarouselHoverPlugin.js')
+                const CarouselHoverPlugin = module.CarouselHoverPlugin
+                new CarouselHoverPlugin(this)
+                // new CarouselHoverPlugin(this)
+                // CarouselHoverPlugin.create
+                console.log('CarouselHoverPlugin ok')
+            }
+            module = await import('./YoutubePlayerPlugin.js')
+            const YoutubePlayer = module.YoutubePlayer
+            this.#player = new YoutubePlayer(this)
+            console.log('YoutubePlayer ok');
+            if (!this.options.grid) {
+                module = await import('./CarouselTouchPlugin.js')
+                const CarouselTouchPlugin = module.CarouselTouchPlugin
+                new CarouselTouchPlugin(this)
+                console.log('CarouselTouchPlugin ok');
+            }
         } catch (error) {
-            console.error("Erreur lors du chargement du module CarouselHoverPlugin :", error);
+            console.error("Erreur lors du chargement du module ${}:", error);
         }
     }
 
@@ -836,7 +854,7 @@ export class Carousel
     }
 
     /** @type {HTMLElement} item */
-    appendToContainer(item) {
+    async appendToContainer(item) {
         // Sauvegarde de l'item
         this.initialItemsArray.push(item)
         // Fin de sauvegarde
@@ -848,7 +866,10 @@ export class Carousel
         //     this.#paginate(i)
         // }
         // this.#player.refreshPlayers()
+        const module = await import('./YoutubePlayerPlugin.js')
+        const YoutubePlayer = module.YoutubePlayer
         this.#player = new YoutubePlayer(this)
+        console.log('YoutubePlayer ok')
         // this.setStyle()
     }
 

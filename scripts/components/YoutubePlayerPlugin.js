@@ -1,9 +1,10 @@
+import { createElement } from "../functions/dom.js";
 import { Carousel } from "./Carousel.js"
 
 export class YoutubePlayer 
 {
 
-    player = []
+    player = {}
     event = []
     done = true
 
@@ -11,26 +12,52 @@ export class YoutubePlayer
      * @param {Carousel} carousel
      */
     constructor(carousel) {
+        console.log('YoutubePlayer initialisé');
         this.carousel = carousel
         this.videoContainer = carousel.container
 
         const containers = this.videoContainer.querySelectorAll('.player')
         for (const container of containers) {
             this.player[container.id] = {
-                element: container, 
+                element: container,
                 id: container.id
             }
         }
-
         this.#iFrameCreation()
+        // for (let i = 0; i < this.player.length; i++) {
+        //     console.log(this.player[i])
+        //     const foundPlayer = this.videoContainer.getElementById(this.player[i].id)
+        //     console.log(foundPlayer)
+        //     if (foundPlayer) {
+        //         this.player[i].addEventListener('mouseenter', this.onHover(foundPlayer))
+        //         this.player[i].addEventListener('mouseleave', this.onPointerOut(foundPlayer))
+        //     }
+        // }
+        for (const player in this.player) {
+            const foundPlayer = this.videoContainer.querySelector(`#${player}`)
 
-        carousel.items.forEach(item => {
-            const foundPlayer = item.querySelector('.player')
-            if (foundPlayer) {
-                item.addEventListener('mouseenter', e => this.onHover(foundPlayer))
-                item.addEventListener('mouseleave', e => this.onPointerOut(foundPlayer))
+            if (foundPlayer.id) {
+                foundPlayer.addEventListener('mouseenter', e => this.onHover(foundPlayer))
+                foundPlayer.addEventListener('mouseleave', e => this.onPointerOut(foundPlayer))
             }
-        })
+        }
+        
+        // this.player.forEach(player => {
+        //     console.log(player)
+        //     const foundPlayer = player.querySelector('.player')
+        //     if (foundPlayer.id) {
+        //         player.addEventListener('mouseenter', e => this.onHover(foundPlayer))
+        //         player.addEventListener('mouseleave', e => this.onPointerOut(foundPlayer))
+        //     }
+        // })
+
+        // carousel.items.forEach(item => {
+        //     const foundPlayer = item.querySelector('.player')
+        //     if (foundPlayer.id) {
+        //         item.addEventListener('mouseenter', e => this.onHover(foundPlayer))
+        //         item.addEventListener('mouseleave', e => this.onPointerOut(foundPlayer))
+        //     }
+        // })
     }
 
     #iFrameCreation() {
@@ -68,12 +95,25 @@ export class YoutubePlayer
     // }
 
     /**
-     * Permet de pause l'animation lors d'un mouse hover
+     * Permet de pause l'animation lors d'un mouse hover -
+     * La vidéo sera mise sur LECTURE -
      * @param {PointerEvent} e 
      */
     onHover(element) {
+        console.log(element)
+        console.log('pointer in => \n', element)
+        let backgroundBlur = document.querySelector('.js-background')
+        if (!backgroundBlur) {
+            backgroundBlur = createElement('div', {
+                class: "dropdown-menu-background js-background"
+            })
+            this.videoContainer.insertAdjacentElement('beforebegin', backgroundBlur)
+        }
+        backgroundBlur.style.visibility = 'visible'
+        backgroundBlur.style.zIndex = '10'
+        let data
         const player = this.player[element.id]
-        const data = player.event.data
+        if (player.event) data = player.event.data
         if (player.event && data !== 1 && this.done) {
             if (this.carousel.getLoadingBar) this.carousel.getLoadingBar.style.animationPlayState = 'paused'
             this.done = false
@@ -88,11 +128,12 @@ export class YoutubePlayer
      * @param {PointerEvent} e 
      */
     onPointerOut(element) {
+        console.log('pointer out => \n', element)
+        let backgroundBlur = document.querySelector('.js-background')
+        backgroundBlur.style.visibility = 'hidden'
+        let data
         const player = this.player[element.id]
-        // console.log(element.id)
-        console.log(player)
-        
-        const data = player.event.data
+        if (player.event) data = player.event.data
         if (player.event && data === 1 && !this.done) {
             this.carousel.setPromiseArray = []
             player.player.pauseVideo()

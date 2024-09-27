@@ -93,7 +93,10 @@ export class SearchBar
     #carousel = {}
 
     /**
-     * @param {HTMLElement} element
+     * !! ATTENTION !! Le loader est immédiatement supprimé des pages lors du chargement de celles-ci -
+     * Cela évite qu'il soit append un peu partout et qu'il interfère avec le contenu
+     * @param {HTMLElement} element - La recherche se faisant en infinite scrolling
+     * Il faut passer l'emplacement d'un loader -
      * @param {Object} options
      */
     constructor(element, options = {}) 
@@ -114,7 +117,6 @@ export class SearchBar
             class: "searched-recipes",
             id: "carousel1"
         })
-
         // this.#target = document.querySelector(element.dataset.target)
         this.#endpoint = this.#searchForm.dataset.endpoint
         this.#limit = element.dataset.limit
@@ -135,6 +137,7 @@ export class SearchBar
             // this.#newSearch(e)
             // this.#input = e.target
         })
+        // Ecoute de chaques saisies d'inputs
         this.#searchForm.addEventListener('input', debounce((e) => {
             this.#newSearch(e)
             this.#input = e.target
@@ -220,7 +223,7 @@ export class SearchBar
 
                 this.#onReady("1")
             }
-            console.log('else popstate line 223')
+            console.log('else popstate')
         }
 
         //           //
@@ -542,10 +545,12 @@ export class SearchBar
                 this.#resetStatusAndDestroyObs(this.#loader, 'Tout le contenu a été chargé')
                 return
             }
+            console.log(this.#searchResults)
             this.#searchResults.forEach(result => {
                 const elementTemplate = this.#template.content.firstElementChild.cloneNode(true)
                 elementTemplate.setAttribute('id', result.recipe_id)
                 for (const [key, selector] of Object.entries(this.#elements)) {
+                    console.log(key)
                     if (key === 'img_path' && result[key]) {
                         elementTemplate.querySelector(selector).src = this.#url.origin+/recettes/+result[key]
                     } else if (key === 'img_path' && result[key] === null || undefined) {
@@ -554,6 +559,11 @@ export class SearchBar
                         elementTemplate.querySelector(selector).innerText = result[key]
                     }
                     if (key === 'href') elementTemplate.querySelector(selector).href = this.#url.origin+'/recettes/recipes/read.php?id='+result.recipe_id
+                    if (key === 'youtubeID') {
+                        console.log('key => \n', key)
+                        const elem = elementTemplate.querySelector(selector).id = result[key]
+                        console.log(elem)
+                    }
                 }
                 
                 if (this.#url.searchParams.get('_reset') === '0') {
@@ -626,10 +636,10 @@ export class SearchBar
                     // })
                     this.#carousel =  Carousel.create(document.querySelector('#carousel1'), {
                         visibleSlides: 3,
-                        automaticScrolling: true,
+                        automaticScrolling: false,
                         loop: false,
                         pagination: false,
-                        grid: false
+                        grid: true
                     })
                 } catch (error) {
                     console.error("Erreur lors du chargement du module Carousel :", error);

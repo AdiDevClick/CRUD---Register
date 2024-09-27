@@ -14,16 +14,17 @@ export class CarouselHoverPlugin
      * @param {Carousel} carousel 
      */
     constructor(carousel) {
-        console.log(carousel)
         console.log('CarouselHoverPlugin initialisé');
         // if (!CarouselHoverPlugin.#isInternalConstructing) {
         //     throw new TypeError("PrivateConstructor is not constructable");
         // }
         // CarouselHoverPlugin.#isInternalConstructing = false
         // super()
-
         this.carousel = carousel
+        console.log(this.carousel.options.automaticScrolling)
+
         carousel.items.forEach(item => {
+            console.log(item)
             this.#createEventListenerFromMouse(item, 'mousemove' , 'mouseDebounce', false, this.#onHover.bind(this))
             this.#debounceMouse(item, 'mouseDebounce')
             item.addEventListener('mouseleave', e => this.#onPointerOut(e))

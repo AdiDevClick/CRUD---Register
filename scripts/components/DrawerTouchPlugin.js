@@ -212,12 +212,12 @@ export class DrawerTouchPlugin {
             this.drawer.style.display = 'block'
             this.#closeButton.removeAttribute('style')
             if (e.currentTarget === this.#showDrawerButton) {
+                // Utiliser la fonction de vibration des appareils compatibles
                 if ("vibrate" in navigator) {
                     navigator.vibrate(20)
                 } else {
                     console.log('Vibration API not supported')
                 }
-
                 this.#clickedElement = 'card'
                 this.#card.classList.add('open')
                 this.translate('-80')

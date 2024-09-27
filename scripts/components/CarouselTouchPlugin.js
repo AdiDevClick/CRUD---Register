@@ -12,7 +12,7 @@ export class CarouselTouchPlugin {
      * @param {Carousel} carousel 
      */
     constructor(carousel) {
-
+        console.log("CarouselTouchPlugin initialisé")
         carousel.container.addEventListener('dragstart', e => e.preventDefault())
         carousel.container.addEventListener('mousedown', this.startDrag.bind(this), {passive: false})
         carousel.container.addEventListener('touchstart', this.startDrag.bind(this))

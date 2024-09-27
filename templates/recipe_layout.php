@@ -220,7 +220,7 @@
             </div>
             <!-- FIN DE LA CARTE INGREDIENTS -->
 
-            <!-- File -->
+            <!-- FILE -->
             <div id="img_preview" class="img_preview">
                 <label id="add_image" for="file" class="label"> Ajouter une image</label>
                 <div class="profile-picture" 
@@ -238,6 +238,28 @@
                 </div>
                 <!-- <hr append en beforeend> -->
             </div>
+
+            <!-- VIDEO -->
+            <div id="video_preview" class="img_preview">
+                <label id="add_video" for="video_file" class="label"> Ajouter une vidéo</label>
+                <div class="profile-picture"
+                    <?php
+                        // if ($getInfos !== null) {
+                        //     echo '../' . $getInfos['img_path'];
+                        // }
+                        $getInfos == null ?: print 'style="background-image: url(../'. $getInfos['video_path'].' )"'
+            ?>
+                    >
+                    <h1 class="upload-icon">
+                        <i class="fa fa-plus fa-2x" aria-hidden="true"></i>
+                    </h1>
+                    <input class="file-uploader" type="file" id="video_file" name="video_file" class="form"/>
+                </div>
+                <!-- <hr append en beforeend> -->
+                <label id="video_link_label" for="video_link" class="label"> Youtube Vidéo ID</label>
+                <input type="text" id="video_link" name="video_link" class="form" value="<?php $getInfos !== null && $getInfos['youtubeID'] ? print strip_tags($getInfos['youtubeID']) : null ?>"/>
+            </div>
+
             
             <!-- Send Button -->
             <div class="add_ingredient" id="submit-recipe">

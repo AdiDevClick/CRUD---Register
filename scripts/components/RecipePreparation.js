@@ -113,7 +113,7 @@ export class IngredientsFrom {
             // this.#onIngredientDelete(this.#ingredient)
         })
         this.#errorHandler = new ErrorHandler(this.#form, {
-            whichInputCanBeEmpty: ['custom_ingredient', 'step_3', 'step_4', 'step_5', 'step_6', 'file', 'add_preparation'],
+            whichInputCanBeEmpty: ['custom_ingredient', 'step_3', 'step_4', 'step_5', 'step_6', 'file', 'video_file', 'video_link', 'add_preparation'],
             useMyOwnListener: true
         })
         this.#form.addEventListener('submit', e => {
