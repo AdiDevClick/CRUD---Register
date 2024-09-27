@@ -20,6 +20,7 @@ class Process_Ajax
         if ($this->Post_Data) {
             $this->getDatas = [
                 'title' => $this->Post_Data['title'],
+                'description' => $this->Post_Data['description'],
                 'step_1' => $this->Post_Data['step_1'],
                 'step_2' => $this->Post_Data['step_2'],
                 'step_3' => $this->Post_Data['step_3'],
@@ -40,6 +41,7 @@ class Process_Ajax
                 'ingredient5' => $this->Post_Data['ingredient5'],
                 'ingredient6' => $this->Post_Data['ingredient6'],
                 'custom_ingredients' => $this->Post_Data['custom_ingredient'],
+                'youtubeID' => $this->Post_Data['video_link'],
                 // 'file' => $this->Post_Files['file']['name'],
                 // $this->Get_Id ?: 'recipe_id' => $this->Get_Id
                 'recipe_id' => $this->Get_Id
