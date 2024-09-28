@@ -11,16 +11,17 @@ STYLING FOR CAROUSEL
     box-shadow: -5px 4px 50px -1px rgba(0,0,0,0.35);
     transition: transform .3s, opacity 1.5s, scale 0.3s;
     transform: translate3d(0, -1px, 0);
+    border-radius: 20px;
     &:hover {
         z-index: 10;
         transform: translate3d(0, -10px, 0);
         & .item__body {
-            opacity: 0.1;
+            opacity: 0.05;
             transition: opacity 0.3s ease;
 
         }
         & .item__image {
-            transform: scale(1.1);
+            transform: scale(1.2);
             transition: transform 0.3s;
         }
     }

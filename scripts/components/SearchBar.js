@@ -545,7 +545,6 @@ export class SearchBar
                 this.#resetStatusAndDestroyObs(this.#loader, 'Tout le contenu a été chargé')
                 return
             }
-            console.log(this.#searchResults)
             this.#searchResults.forEach(result => {
                 const elementTemplate = this.#template.content.firstElementChild.cloneNode(true)
                 elementTemplate.setAttribute('id', result.recipe_id)
@@ -559,10 +558,10 @@ export class SearchBar
                         elementTemplate.querySelector(selector).innerText = result[key]
                     }
                     if (key === 'href') elementTemplate.querySelector(selector).href = this.#url.origin+'/recettes/recipes/read.php?id='+result.recipe_id
-                    if (key === 'youtubeID') {
-                        console.log('key => \n', key)
-                        const elem = elementTemplate.querySelector(selector).id = result[key]
-                        console.log(elem)
+                    if (key === 'youtubeID' && result[key] !== null) {
+                        const elem = elementTemplate.querySelector(selector)
+                        elem.classList.add('player')
+                        elem.id = result[key]
                     }
                 }
                 

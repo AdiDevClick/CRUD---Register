@@ -868,6 +868,9 @@ export class Carousel
         // this.#player.refreshPlayers()
         const module = await import('./YoutubePlayerPlugin.js')
         const YoutubePlayer = module.YoutubePlayer
+        console.log(this.#player)
+        // this.#player.deleteIFrames
+        // this.#player.onYouTubeIframeAPIReady(newItem)
         this.#player = new YoutubePlayer(this)
         console.log('YoutubePlayer ok')
         // this.setStyle()
