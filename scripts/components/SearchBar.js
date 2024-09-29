@@ -554,15 +554,14 @@ export class SearchBar
                         elementTemplate.querySelector(selector).src = this.#url.origin+/recettes/+result[key]
                     } else if (key === 'img_path' && result[key] === null || undefined) {
                         elementTemplate.querySelector(selector).src = this.#url.origin+/recettes/+'img/img1.jpeg'
+                    } else if (key === 'youtubeID' && result[key] !== null) {
+                        const elem = elementTemplate.querySelector(selector)
+                        elem.classList.add('player')
+                        elem.id = result[key]
                     } else {
                         elementTemplate.querySelector(selector).innerText = result[key]
                     }
                     if (key === 'href') elementTemplate.querySelector(selector).href = this.#url.origin+'/recettes/recipes/read.php?id='+result.recipe_id
-                    if (key === 'youtubeID' && result[key] !== null) {
-                        const elem = elementTemplate.querySelector(selector)
-                        elem.classList.add('player')
-                        elem.id = result[key]
-                    }
                 }
                 
                 if (this.#url.searchParams.get('_reset') === '0') {
