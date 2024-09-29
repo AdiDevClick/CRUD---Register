@@ -116,7 +116,6 @@ export class YoutubePlayer
      * @param {HTMLElement} element
      */
     #onPointerOut(e, element) {
-        console.log('out')
         e.preventDefault()
         // if (this.player[element.id].element.tagName === 'IFRAME') return
 
