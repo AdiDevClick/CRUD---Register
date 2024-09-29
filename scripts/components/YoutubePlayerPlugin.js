@@ -2,7 +2,7 @@ import { createElement } from "../functions/dom.js";
 import { Carousel } from "./Carousel.js"
 // import * as errorMiddleware from "../../logs/errorMiddleware.js";
 
-export class YoutubePlayer 
+export class YoutubePlayerPlugin
 {
 
     player = []
