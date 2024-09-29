@@ -1,7 +1,7 @@
 // import { CarouselTouchPlugin } from "./CarouselTouchPlugin.js"
 // import { CarouselHoverPlugin } from "./CarouselHoverPlugin.js"
 // import { YoutubePlayer } from "./YoutubePlayerPlugin.js"
-import { createElement, debounce, wait, waitAndFail } from "../functions/dom.js"
+import { createElement, debounce, importThisModule, wait, waitAndFail } from "../functions/dom.js"
 
 
 export class Carousel
@@ -180,10 +180,7 @@ export class Carousel
         this.root.append(this.container)
         this.element.append(this.root)
         this.items = children.map(child => {
-            this.initialItemsArray.push(child)
-            const item = createElement('div', {class: 'carousel__item'})
-            item.append(child)
-            this.container.append(item)
+            const item = this.#constructNewCarouselItem(child)
             return item
         })
 
@@ -224,8 +221,8 @@ export class Carousel
             this.container.addEventListener('transitionend', this.#resetInfinite.bind(this))
         }
         // if (this.options.automaticScrolling) {
-        // Plugin loader
-            this.#loadModules()
+        // Plugins loader
+        this.#loadModules()
         //     // new CarouselHoverPlugin(this)
         //     // CarouselHoverPlugin.create
         // }
@@ -244,29 +241,19 @@ export class Carousel
      * Charge les plugins quand nécessaires seulement -
      * Les plugins : Hover / Touch / Youtube iFrame
      */
-    async #loadModules() {
-        let module
+    #loadModules() {
         try {
             if (this.options.automaticScrolling) {
-                module = await import('./CarouselHoverPlugin.js')
-                const CarouselHoverPlugin = module.CarouselHoverPlugin
-                new CarouselHoverPlugin(this)
+                importThisModule('CarouselHoverPlugin', this)
                 // new CarouselHoverPlugin(this)
                 // CarouselHoverPlugin.create
-                console.log('CarouselHoverPlugin ok')
             }
-            module = await import('./YoutubePlayerPlugin.js')
-            const YoutubePlayer = module.YoutubePlayer
-            this.#player = new YoutubePlayer(this)
-            console.log('YoutubePlayer ok');
+            importThisModule('YoutubePlayerPlugin', this)
             if (!this.options.grid) {
-                module = await import('./CarouselTouchPlugin.js')
-                const CarouselTouchPlugin = module.CarouselTouchPlugin
-                new CarouselTouchPlugin(this)
-                console.log('CarouselTouchPlugin ok');
+                importThisModule('CarouselTouchPlugin', this)
             }
         } catch (error) {
-            console.error("Erreur lors du chargement du module ${}:", error);
+            console.log(error)
         }
     }
 
@@ -798,8 +785,6 @@ export class Carousel
 
     /** @param {moveCallback} */
     #onMove(callback) {
-            console.log('object')
-
         this.#moveCallbacks.push(callback)
     }
     
@@ -810,13 +795,6 @@ export class Carousel
     #onWindowResize() {
         this.#resizeObserver = new ResizeObserver(this.#handleResize)
         this.#resizeObserver.observe(this.root)
-        // let mobile = window.innerWidth < 800
-        // if (mobile !== this.#isMobile) {
-        //     this.#isMobile = mobile
-        //     this.setStyle()
-        //     this.#moveCallbacks.forEach(cb => cb(this.currentItem))
-        // }
-        
     }
 
     translate(percent) {
@@ -853,34 +831,53 @@ export class Carousel
         return this.root.offsetWidth
     }
 
-    /** @type {HTMLElement} item */
-    async appendToContainer(item) {
+    /**
+     * Rajoute un item à l'initialArray pour pouvoir
+     * l'insérer dynamiquement dans le Carousel -
+     * Transforme l'élément en paramètre puis l'ajoute au carousel -
+     * Si une vidéo est trouvée, elle sera automatiquement transformée en iFrame -
+     * @param {HTMLElement} item Une nouvelle carte à display
+     */
+    appendToContainer(item) {
         // Sauvegarde de l'item
-        this.initialItemsArray.push(item)
+        // this.initialItemsArray.push(item)
         // Fin de sauvegarde
-        const newItem = createElement('div', {class: 'carousel__item'})
-        newItem.append(item)
-        this.container.append(newItem)
+        // const newItem = createElement('div', {class: 'carousel__item'})
+        // newItem.append(item)
+        // this.container.append(newItem)
+        const newItem = this.#constructNewCarouselItem(item)
         this.items.push(newItem)
         // for (let i = 0; i < this.items.length - 2 * this.#offset; i = i + this.#slidesToScroll) {
         //     this.#paginate(i)
         // }
-        // this.#player.refreshPlayers()
-        const module = await import('./YoutubePlayerPlugin.js')
-        const YoutubePlayer = module.YoutubePlayer
-        console.log(this.#player)
+
         // this.#player.deleteIFrames
-        // this.#player.onYouTubeIframeAPIReady(newItem)
-        this.#player = new YoutubePlayer(this)
-        console.log('YoutubePlayer ok')
+        // this.#player.APIReady
+        this.#player = importThisModule('YoutubePlayerPlugin', this)
         // this.setStyle()
+    }
+
+    /**
+     * Construit un nouvel élément de carrousel,
+     * l'ajoute au conteneur et le sauvegarde dans le tableau initial -
+     * @param {HTMLElement} item L'élément à ajouter au carrousel -
+     * @returns {HTMLElement} L'élément ajouté au conteneur -
+     */
+    #constructNewCarouselItem(item) {
+        // Sauvegarde de l'item dans l'Array initial du constructeur
+        this.initialItemsArray.push(item)
+        // Fin de sauvegarde
+        const newItem = createElement('div', { class: 'carousel__item' })
+        newItem.append(item)
+        this.container.append(newItem)
+        return newItem
     }
 
     get getScrollingStatus() {
         return this.#scrolling
     }
 
-    /** @param {Set} status */
+    /** @param {Boolean} status */
     set setScrollingStatus(status) {
         this.#scrolling = status
     }
@@ -897,8 +894,12 @@ export class Carousel
         return this.#resolvedPromisesArray
     }
 
-    set setPromiseArray(status) {
-        this.#resolvedPromisesArray = status
+    /**
+     * Permet de réinitialiser l'array de promesses -
+     * @param {Array} array
+     */
+    set setPromiseArray(array) {
+        this.#resolvedPromisesArray = array
     }
 
     get getLoadingBar() {
@@ -913,6 +914,7 @@ export class Carousel
         return this.#status
     }
 
+    /** @param {String} status */
     set setStatus(status) {
         this.#status = status
     }
@@ -921,6 +923,7 @@ export class Carousel
         return this.#hovered
     }
 
+    /** @param {Boolean} status */
     set setHoverStatus(status) {
         this.#hovered = status
     }
@@ -941,6 +944,7 @@ export class Carousel
         return this.#alreadyHovered
     }
 
+    /** @param {Boolean} status */
     set thisIsAlreadyHovered(status) {
         return this.#alreadyHovered = status
     }
