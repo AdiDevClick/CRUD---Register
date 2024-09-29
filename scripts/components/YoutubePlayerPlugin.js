@@ -1,22 +1,26 @@
-import { createElement } from "../functions/dom.js";
 import { Carousel } from "./Carousel.js"
 // import * as errorMiddleware from "../../logs/errorMiddleware.js";
 
 export class YoutubePlayerPlugin
 {
 
-    player = []
-    event = []
-    done = true
+    /** @type {Array} Array d'objets */
+    #player = []
+    /** @type {Boolean} */
+    #done = true
     /** @type {AbortController} */
     #controller 
+    /** @type {Object<Carousel>} Carousel */
+    #carousel
+    /** @type {HTMLElement} */
+    #videoContainer
 
     /**
      * @param {Carousel} carousel
      */
     constructor(carousel) {
-        this.carousel = carousel
-        this.videoContainer = carousel.container
+        this.#carousel = carousel
+        this.#videoContainer = carousel.container
         // Transformation de la div en iFrame
         this.#iFrameCreation()
         // Evènements
@@ -28,10 +32,10 @@ export class YoutubePlayerPlugin
      * les informations essentielles de l'API -
      */
     #identifyPlayers() {
-        const containers = this.videoContainer.querySelectorAll('.player')
+        const containers = this.#videoContainer.querySelectorAll('.player')
         for (const container of containers) {
-            if (!this.player[container.id] && container.tagName !== 'IFRAME') {
-                this.player[container.id] = {
+            if (!this.#player[container.id] && container.tagName !== 'IFRAME') {
+                this.#player[container.id] = {
                     element: container,
                     id: container.id
                 }
@@ -53,28 +57,28 @@ export class YoutubePlayerPlugin
             tag.loading = 'lazy'
             tag.referrerPolicy = 'no-referrer'
             // tag.type =  'image/svg+xml'
-            // this.videoContainer.addEventListener('load', e => {
-                window.onYouTubeIframeAPIReady = this.onYouTubeIframeAPIReady.bind(this)
+            // this.#videoContainer.addEventListener('load', e => {
+                window.onYouTubeIframeAPIReady = this.#onYouTubeIframeAPIReady.bind(this)
             // }, {once: true})
             const firstScriptTag = document.getElementsByTagName('script')[0]
             firstScriptTag.parentNode.insertBefore(tag, firstScriptTag)
         } else {
-            this.onYouTubeIframeAPIReady()
+            this.#onYouTubeIframeAPIReady()
         }
     }
 
     /**
-     * Renvoi le this.player.event ayant retourné une erreur -
+     * Renvoi le this.#layer.event ayant retourné une erreur -
      * @param {Object} e 
      */
-    onPlayerError(e) {
+    #onPlayerError(e) {
         console.log('error => \n', e)
 
         // console.log(errorMiddleware)
     }
 
     // get getPlayId() {
-    //     return this.id.push(this.player.id)
+    //     return this.id.push(this.#player.id)
     // }
 
     /**
@@ -84,7 +88,7 @@ export class YoutubePlayerPlugin
      */
     #onHover(e, element, item) {
         e.preventDefault()
-        if (!this.player[element.id]) return
+        if (!this.#player[element.id]) return
         // if (element.tagName === 'DIV') return
         // if (element.tagName === 'IFRAME') return
 
@@ -93,20 +97,20 @@ export class YoutubePlayerPlugin
         //     backgroundBlur = createElement('div', {
         //         class: "dropdown-menu-background js-background"
         //     })
-        //     this.videoContainer.insertAdjacentElement('afterbegin', backgroundBlur)
+        //     this.#videoContainer.insertAdjacentElement('afterbegin', backgroundBlur)
         // }
         // backgroundBlur.style.visibility = 'visible'
         // backgroundBlur.style.zIndex = '10'
         let data
-        const player = this.player[element.id]
+        const player = this.#player[element.id]
         if (player.event) data = player.event.data
-        if (player.event && data !== 1 && this.done) {
-            if (this.carousel.getLoadingBar) this.carousel.getLoadingBar.style.animationPlayState = 'paused'
-            this.done = false
+        if (player.event && data !== 1 && this.#done) {
+            if (this.#carousel.getLoadingBar) this.#carousel.getLoadingBar.style.animationPlayState = 'paused'
+            this.#done = false
             player.player.playVideo()
             player.event.target.setPlaybackQuality('hd1080')
         }
-        this.done = false
+        this.#done = false
         item.addEventListener('mouseleave', e => this.#onPointerOut(e, element), { once: true, signal: this.#controller.signal })
     }
 
@@ -117,34 +121,34 @@ export class YoutubePlayerPlugin
      */
     #onPointerOut(e, element) {
         e.preventDefault()
-        // if (this.player[element.id].element.tagName === 'IFRAME') return
+        // if (this.#player[element.id].element.tagName === 'IFRAME') return
 
         // let backgroundBlur = document.querySelector('.js-background')
         // backgroundBlur.style.visibility = 'hidden'
         let data
-        const player = this.player[element.id]
+        const player = this.#player[element.id]
         if (player.event) data = player.event.data
-        if (player.event && data === 1 && !this.done) {
-            this.carousel.setPromiseArray = []
+        if (player.event && data === 1 && !this.#done) {
+            this.#carousel.setPromiseArray = []
             player.player.pauseVideo()
-            this.done = true
+            this.#done = true
         }
-        this.done = true
+        this.#done = true
     }
 
     // 4. The API will call this function when the video player is ready.
-    onPlayerReady(event) {
+    #onPlayerReady(event) {
         event.target.playVideo()
         event.target.setPlaybackQuality('hd1080')
         event.target.pauseVideo()
-        this.player[event.target.options.videoId].event = event
+        this.#player[event.target.options.videoId].event = event
     }
 
     // 5. The API calls this function when the player's state changes.
     //    The function indicates that when playing a video (state=1),
     //    the player should play for six seconds and then stop.
-    onPlayerStateChange(event) {
-        this.player[event.target.options.videoId].event = event
+    #onPlayerStateChange(event) {
+        this.#player[event.target.options.videoId].event = event
         if (event.data === YT.PlayerState.BUFFERING) {
             event.target.setPlaybackQuality('hd1080')
         }
@@ -152,11 +156,11 @@ export class YoutubePlayerPlugin
 
     /**
      * Création de l'iFrame -
-     * Sauvegarde de l'objet dans "this.player"
+     * Sauvegarde de l'objet dans "this.#player"
      */
-    onYouTubeIframeAPIReady() {
+    #onYouTubeIframeAPIReady() {
         this.#identifyPlayers()
-        for (const container in this.player) {
+        for (const container in this.#player) {
             const player = new YT.Player(container, {
                 // width: '360',
                 width: '100%',
@@ -179,15 +183,15 @@ export class YoutubePlayerPlugin
                     // fs: 0,              // Hide the full screen button
                 },
                 events: {
-                    'onReady': this.onPlayerReady.bind(this),
-                    'onStateChange': this.onPlayerStateChange.bind(this),
-                    'onError': this.onPlayerError.bind(this),
+                    'onReady': this.#onPlayerReady.bind(this),
+                    'onStateChange': this.#onPlayerStateChange.bind(this),
+                    'onError': this.#onPlayerError.bind(this),
                     'onPlaybackQualityChange': e => {
                         e.target.setPlaybackQuality('hd1080')
                     }
                 }
             })
-            this.player[container].player = player
+            this.#player[container].player = player
         }
     }
 
@@ -205,7 +209,7 @@ export class YoutubePlayerPlugin
             // this.#controller = new AbortController()
         }
 
-        this.carousel.items.forEach(item => {
+        this.#carousel.items.forEach(item => {
             // !! IMPORTANT !! Reduit la hauteur de la zone hover pour une meilleure détection
             const hoveredItem = item.querySelector('.js-href')
             // Retourne si l'on a trouvé une vidéo
@@ -217,12 +221,12 @@ export class YoutubePlayerPlugin
     }
 
     get videoStatus() {
-        return this.done
+        return this.#done
     }
     /** Supprime tous les players et les events */
     get deleteIFrames() {
-        for (const container in this.player) {
-            this.player[container].player.destroy()
+        for (const container in this.#player) {
+            this.#player[container].player.destroy()
         }
         this.#controller.abort()
     }
@@ -232,6 +236,6 @@ export class YoutubePlayerPlugin
     }
     /** Retourne la création  */
     get APIReady() {
-        return this.onYouTubeIframeAPIReady()
+        return this.#onYouTubeIframeAPIReady()
     }
 }
