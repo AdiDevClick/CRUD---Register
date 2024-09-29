@@ -55,7 +55,7 @@ export class CarouselTouchPlugin {
     drag(e) {
         if (this.origin) {
             const pressionPoint = e.touches ? e.touches[0] : e
-            const translate = {x: pressionPoint.screenX - this.origin.x, y: pressionPoint.screenY - this.origin.y}
+            const translate = { x: pressionPoint.screenX - this.origin.x, y: pressionPoint.screenY - this.origin.y }
             if (e.touches && Math.abs(translate.x) > Math.abs(translate.y)) {
                 if (e.cancelable) e.preventDefault()
                 e.stopPropagation()
