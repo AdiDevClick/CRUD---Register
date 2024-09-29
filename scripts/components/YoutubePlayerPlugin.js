@@ -167,7 +167,7 @@ export class YoutubePlayer
                 // height: '720',
                 videoId: container,
                 playerVars: {
-                    'mute': '0',            // Mute sound
+                    'mute': '1',            // Mute sound
                     'autoplay': '0',        // Auto-play the video on load
                     'controls': '0' ,       // Show pause/play buttons in player
                     'showinfo': '0',        // Hide the video title
