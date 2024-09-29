@@ -352,6 +352,25 @@ export function restoreFromComment(targetSelector, commentedNode = '') {
 }
 
 /**
+ * Importe un module en passante un objet si necessaire -
+ * !! IMPORTANT !! Le nom du module DOIT être le même que le nom du fichier -
+ * @param {String} className Nom de la classe/fichier à importer -
+ * @param {Object} object Un objet à passer au constructeur de la classe importée -
+ * @throws {Error} Lance une erreur si l'importation ou l'instanciation échoue -
+ * @returns {Promise} Une promesse qui se résout lorsque le module est importé et instancié.
+ */
+export async function importThisModule(className, object = {}) {
+    try {
+        const importedModule = await import(`../components/${className}.js`)
+        const ModuleClass = importedModule.default || importedModule[className]
+        const module = new ModuleClass(object)
+        return module
+    } catch (error) {
+        throw new Error(`Erreur lors du chargement du module : ${className} `)
+    }
+}
+
+/**
  * Debounce une fonction de manière Asynchrone
  * Il faut spécifier la duration -
  * Cette fonction permet aussi de prendre en compte 
