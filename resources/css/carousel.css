@@ -16,12 +16,13 @@ STYLING FOR CAROUSEL
         z-index: 10;
         transform: translate3d(0, -10px, 0);
         & .item__body {
-            opacity: 0.05;
+            opacity: 0;
+            /* height: 0; */
+            /* opacity: 0.05; */
             transition: opacity 0.3s ease;
-
         }
         & .item__image {
-            transform: scale(1.2);
+            transform: translateY(10px) scale(1.2);
             transition: transform 0.3s;
         }
     }
@@ -82,6 +83,7 @@ STYLING FOR CAROUSEL
         transition: transform .3s;
         transform: translate3d(0, 0, 0);
         .carousel__item {
+            /* float: right; */
             float: left!important;
         }
     }
