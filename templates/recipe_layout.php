@@ -81,8 +81,8 @@
             </div>
             <template id="recipe-input-template">
                 <div class="js-form-recipe">
-                    <label for="step_2" class="label">Etape 2</label>
-                    <textarea name="step_2" id="step_2" cols="60" rows="3" placeholder="Renseignez  votre deuxième étape..."><?php $getInfos !== null && $getInfos['step_2'] ? print strip_tags($getInfos['step_2']) : null ?></textarea>
+                    <label for="" class=""></label>
+                    <textarea name="" id="" cols="60" rows="3" placeholder="Renseignez  votre deuxième étape..."></textarea>
                 </div>
             </template>
             <!-- DRAWER BUTTONS -->

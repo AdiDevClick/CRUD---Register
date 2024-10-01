@@ -74,11 +74,16 @@ export class IngredientsFrom {
         //     options
         // }
         this.options.get ? this.options.post = false : null
+        grid.querySelector('.plus').addEventListener('click', this.#addSteps)
         // this.options.get ? this.options.post = false : this.options.post = true
         // this.#template = document.querySelector('#ingredient-template')
         // this.#target = document.querySelector(".js-ingredient-group")
         if (grid) this.#touchPlugin = new DrawerTouchPlugin(grid)
         // if (mobileGrid) this.#touchPlugin = new DrawerTouchPlugin(mobileGrid)
+    }
+
+    #addSteps(event) {
+        console.log(event)
     }
 
     /**
@@ -305,7 +310,6 @@ export class IngredientsFrom {
         const form = e.target
         let data = new FormData(form)
         let url = this.options.get ? this.#url : 'Process_PreparationList.php'
-        // console.log(url)
         // Modification de la clé 'custom_ingredient'
         // pour pouvoir faire passer la liste dynamique des ingrédients
         // ajoutés par l'utilisateur au format JSON dans la

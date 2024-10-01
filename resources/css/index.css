@@ -1502,31 +1502,7 @@ hr {
         /* justify-content: center; */
         /* filter: invert(67%) sepia(15%) saturate(6319%) hue-rotate(360deg) brightness(104%) contrast(107%) */
     }
-    & .tooltiptext {
-        visibility: hidden;
-        width: 120px;
-        background-color: black;
-        color: #fff;
-        text-align: center;
-        border-radius: 6px;
-        padding: 5px 0;
-        position: absolute;
-        z-index: 1;
-        bottom: 130%;
-        left: 50%;
-        margin-left: -60px;
-      }
-    & .tooltiptext::after {
-        content: "";
-        /* background: #474444; */
-        position: absolute;
-        top: 100%;
-        left: 50%;
-        margin-left: -5px;
-        border-width: 5px;
-        border-style: solid;
-        border-color: black transparent transparent transparent;
-    }
+    
 }
 
 .drawer {
@@ -2259,6 +2235,31 @@ hr {
     to {
         transform: scale(10);
         opacity: 0;
+    }
+}
+.tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 130%;
+    left: 50%;
+    margin-left: -60px;
+    & .tooltiptext::after {
+        content: "";
+        /* background: #474444; */
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        margin-left: -5px;
+        border-width: 5px;
+        border-style: solid;
+        border-color: black transparent transparent transparent;
     }
 }
 
