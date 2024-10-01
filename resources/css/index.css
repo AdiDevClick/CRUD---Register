@@ -241,7 +241,7 @@ input, div[type=text] {
     border-inline: #ccc;
     background-color: #ffffff1a;
     @media screen and (max-width: 876px) {
-        width: unset;
+        /* width: unset; */
     }
 }
 
