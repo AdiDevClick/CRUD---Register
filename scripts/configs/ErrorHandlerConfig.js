@@ -43,6 +43,11 @@ export const noSpaceAllowedMessage = 'Veuillez ne pas utiliser d\'espace'
  */
 export const notANumberError = 'Seuls les nombres sont autorisés'
 /**
+ * Configurate only integer allowed error message
+ * @type {String}
+ */
+export const wrongNumber = 'Seuls les nombres au-dessus de 0 sont autorisés'
+/**
  * Configurate empty inputs error message
  * @type {String}
  */
