@@ -1,4 +1,4 @@
-import { alertClass, alertID, allowedSpecialChars, emailInputRegex, emptyAlert, formButton, formIDToAvoidChecking, hiddenAlertClass, hiddenClass, inputErrorClass, inputsNotToAppend, inputsToListen, invalidEmailMessage, invalidPwMessage, noSpaceAllowedMessage, notANumberError, thisInputShouldBeInt, tooltip, userInputRegex } from "../configs/ErrorHandlerConfig.js"
+import { alertClass, alertID, allowedSpecialChars, emailInputRegex, emptyAlert, formButton, formIDToAvoidChecking, hiddenAlertClass, hiddenClass, inputErrorClass, inputsNotToAppend, inputsToListen, invalidEmailMessage, invalidPwMessage, noSpaceAllowedMessage, notANumberError, thisInputShouldBeInt, tooltip, userInputRegex, wrongNumber } from "../configs/ErrorHandlerConfig.js"
 import { alertMessage, createElement, debounce, filterArrayToRetrieveUniqueValues, retrieveUniqueNotAllowedCharFromRegex, setObjectPropertyTo } from "../functions/dom.js"
 
 export class ErrorHandler {
@@ -43,6 +43,8 @@ export class ErrorHandler {
     #noSpaceAllowedMessage = noSpaceAllowedMessage
     /** @type {String} */
     #notANumberError = notANumberError
+    /** @type {String} */
+    #wrongNumber = wrongNumber
     /** @type {String} */
     #emptyAlert = emptyAlert
     /** @type {String} */
@@ -179,6 +181,9 @@ export class ErrorHandler {
                 } else if (input.isANumber === false) {
                     this.#displayErrorMessage(this.#notANumberError, input)
                     return
+                } else if (input.isANumber && input.value <= 0) {
+                    this.#displayErrorMessage(this.#wrongNumber, input)
+                    return
                 } else {
                     // input.classList.add("valid_input")
                     input.classList.remove(this.#inputErrorClass)
@@ -287,6 +292,7 @@ export class ErrorHandler {
             this.#isNumber = false
             input.isANumber = false
             // inputEvent.classList.remove('valid_input')
+            // Affiche le tooltip lorsqu'une erreur est détéctée
             if (this.#tooltip) this.#tooltip.style.visibility = 'visible'
             return
         } else {
