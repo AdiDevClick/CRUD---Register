@@ -238,7 +238,8 @@ input, div[type=text] {
     /* width: 180px; */
     /* font-size: small; */
     /* font-size: var(--textfs);; */
-    border-inline: #ccc;
+    /* border-inline: #ccc; */
+    border-inline: #ccc0 solid 1px;
     background-color: #ffffff1a;
     @media screen and (max-width: 876px) {
         /* width: unset; */
@@ -1924,7 +1925,7 @@ hr {
     & > .navbar {
         position: relative;
         display: grid;
-        grid-column: search / burger;
+        grid-column: search-start / burger-end;
         grid-row: center;
         grid-template-columns: subgrid;
         grid-template-rows: subgrid;
@@ -1938,7 +1939,6 @@ hr {
         border: 0.5px var(--button-color) solid;
         outline: none;
         background: var(--navbar-background-color);
-
         /* width: 1000px!important; */
         &:is(:has(.search.open)) {
             border: none transparent;
@@ -2018,6 +2018,11 @@ hr {
             grid-column: menu;
             justify-self: center;
         }
+        padding: 0 var(--padding-inline);
+        .navbar {
+            padding: 0 var(--padding-inline);
+            /* min-width: 400px */
+        }
         /* min-height: 100%; */
         &.fadeOut {
             /* transition: none; */
@@ -2038,12 +2043,16 @@ hr {
     }
     @media screen and (max-width: 400px) {
         padding: 0 var(--padding-inline);
-
         .navbar {
             padding: 0 var(--padding-inline);
-            min-width: 220px
+            /* min-width: 220px */
         }
     }
+    /* @media screen and (max-width: 576px) {
+        .navbar {
+            min-width: 400px
+        }
+    } */
     &.fadeOut {
         .search {
             transition: none;
