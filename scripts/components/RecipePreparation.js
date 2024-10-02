@@ -1,7 +1,7 @@
 import { fetchJSON } from "../functions/api.js"
-import { createElement } from "../functions/dom.js"
+import { createElement, importThisModule } from "../functions/dom.js"
 import { BubbleCreativePlugin } from "./BubbleCreativePlugin.js"
-import { DrawerTouchPlugin } from "./DrawerTouchPlugin.js"
+// import { DrawerTouchPlugin } from "./DrawerTouchPlugin.js"
 import { ErrorHandler } from "./ErrorHandler.js"
 import { Toaster } from "./Toaster.js"
 
@@ -93,11 +93,18 @@ export class IngredientsFrom {
         // this.#target = document.querySelector(".js-ingredient-group")
 
         // Loading plugins
-        if (this.#gridContainer) this.#touchPlugin = new DrawerTouchPlugin(this.#gridContainer)
+        if (this.#gridContainer) this.#touchPlugin = importThisModule('DrawerTouchPlugin', this.#gridContainer)
+        // if (this.#gridContainer) this.#touchPlugin = new DrawerTouchPlugin(this.#gridContainer)
         // if (mobileGrid) this.#touchPlugin = new DrawerTouchPlugin(mobileGrid)
     }
 
-    // #addSteps(event) {
+    /**
+     * Rajoute des textarea à la demande de l'utilisateur -
+     * Un nombre de 4 peut être rajouté au maximum -
+     * @param {MouseEvent} event
+     * @param {Number} count Permet de définir le nombre de textareas rajoutés -
+     * @returns
+     */
     #addSteps(event, count) {
         event.preventDefault()
         const recipeStepsTemplate = this.#gridContainer.querySelector('#recipe-input-template').content.firstElementChild.cloneNode(true)
@@ -113,16 +120,16 @@ export class IngredientsFrom {
             label.innerText = `Etape ${newIdNumber}`
             switch (newIdNumber) {
                 case 3:
-                    label.control.placeholder = `Renseignez votre troisième étape`
+                    textarea.placeholder = `Renseignez votre troisième étape`
                     break
                 case 4:
-                    label.control.placeholder = `Renseignez votre quatrième étape`
+                    textarea.placeholder = `Renseignez votre quatrième étape`
                     break
                 case 5:
-                    label.control.placeholder = `Renseignez votre cinquième étape`
+                    textarea.placeholder = `Renseignez votre cinquième étape`
                     break
                 case 6:
-                    label.control.placeholder = `Renseignez votre sixième étape`
+                    textarea.placeholder = `Renseignez votre sixième étape`
                     break
                 default:
                     null
