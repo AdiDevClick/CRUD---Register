@@ -1,6 +1,9 @@
 import { alertClass, alertID, allowedSpecialChars, emailInputRegex, emptyAlert, formButton, formIDToAvoidChecking, hiddenAlertClass, hiddenClass, inputErrorClass, inputsNotToAppend, inputsToListen, invalidEmailMessage, invalidPwMessage, noSpaceAllowedMessage, notANumberError, thisInputShouldBeInt, tooltip, userInputRegex, wrongNumber } from "../configs/ErrorHandlerConfig.js"
 import { alertMessage, createElement, debounce, filterArrayToRetrieveUniqueValues, retrieveUniqueNotAllowedCharFromRegex, setObjectPropertyTo } from "../functions/dom.js"
 
+
+//TODO : un mutation obs pour permettre de vérifier l'ajout d'inputs
+
 export class ErrorHandler {
 
     /** @type {Array} */
@@ -160,7 +163,37 @@ export class ErrorHandler {
                 // Should we display the tooltip ?
                 this.triggerToolTip()
                 if (input.id === 'username') this.isSpaceAllowed(input)
-                
+                // switch (e.target) {
+                //     case e.target.isEmpty:
+                //         console.log('test')
+                //         this.#displayErrorMessage(this.#emptyAlert, input)
+                //         break
+                //     case !input.isCharAllowed:
+                //         for (let [index, element] of Object.entries(this.#wrongInput)) {
+                //             this.#wrongInput[index] = `  ${element} `
+                //         }
+                //         this.#displayErrorMessage(`Les caractères suivants ne sont pas autorisés : ${this.#wrongInput} `, input)
+                //         break
+                //     case input.id === "email" && !this.#emailInputRegex.test(input.value):
+                //         this.#displayErrorMessage(this.#invalidEmailMessage, input)
+                //         break
+                //     case !this.#pwStatus && (input.id === "password" || input.id === "pwdRepeat"):
+                //         this.#displayErrorMessage(this.#invalidPwMessage, input)
+                //         break
+                //     case this.#spaceNotAllowed && input.id === 'username':
+                //         this.#displayErrorMessage(this.#noSpaceAllowedMessage, input)
+                //         break
+                //     case input.isANumber === false:
+                //         this.#displayErrorMessage(this.#notANumberError, input)
+                //         break
+                //     case input.isANumber && input.value <= 0:
+                //         this.#displayErrorMessage(this.#wrongNumber, input)
+                //         break
+                //     default:
+                //         input.classList.remove(this.#inputErrorClass)
+                //         this.#count = filterArrayToRetrieveUniqueValues(this.#count, input, 'input')
+                //         break
+                // }
                 if (input.isEmpty) {
                     this.#displayErrorMessage(this.#emptyAlert, input)
                     return
