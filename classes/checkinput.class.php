@@ -30,7 +30,8 @@ class CheckInput extends Validate
         $canBeEmpty = [
             'custom_ingredients', 'step_6', 'step_5',
             'step_4', 'step_3', 'step_2', 'file',
-            'img_on_server', 'img_status', 'resting_time'
+            'img_on_server', 'img_status', 'resting_time',
+            'youtubeID'
         ];
         // self::$inputData = $this->getDatas;
         //$errorMessage = "";
