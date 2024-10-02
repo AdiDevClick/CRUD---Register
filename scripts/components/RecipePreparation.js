@@ -26,6 +26,10 @@ export class IngredientsFrom {
     /** @type {HTMLTemplateElement} */
     #recipeStepsTemplate
     /** @type {HTMLElement} */
+    #gridContainer
+    /** @type {HTMLButtonElement} */
+    #addStepsButton
+    /** @type {HTMLElement} */
     #target
     #targets = []
     /** @type {object} */
@@ -62,7 +66,10 @@ export class IngredientsFrom {
     constructor(list, options = {}) {
         this.#list = list
         this.#list = this.#list.filter((k, v) => k !== '')
-        const grid = document.querySelector('.card_container')
+        this.#gridContainer = document.querySelector('.card_container')
+        this.#addStepsButton = this.#gridContainer.querySelector('.plus')
+        // this.#recipeStepsTemplate = document.querySelector(document.dataset.steps_template)
+
         // const mobileGrid = document.querySelector('.mobile-only')
         // const grid = document.querySelector('.mobile-only')
 
@@ -74,16 +81,59 @@ export class IngredientsFrom {
         //     options
         // }
         this.options.get ? this.options.post = false : null
-        grid.querySelector('.plus').addEventListener('click', this.#addSteps)
-        // this.options.get ? this.options.post = false : this.options.post = true
+
+        // Evènements
+        let count = 0
+        this.#addStepsButton.addEventListener('click', e => {
+            count = this.#addSteps(e, count)
+        })
+
+            // this.options.get ? this.options.post = false : this.options.post = true
         // this.#template = document.querySelector('#ingredient-template')
         // this.#target = document.querySelector(".js-ingredient-group")
-        if (grid) this.#touchPlugin = new DrawerTouchPlugin(grid)
+
+        // Loading plugins
+        if (this.#gridContainer) this.#touchPlugin = new DrawerTouchPlugin(this.#gridContainer)
         // if (mobileGrid) this.#touchPlugin = new DrawerTouchPlugin(mobileGrid)
     }
 
-    #addSteps(event) {
-        console.log(event)
+    // #addSteps(event) {
+    #addSteps(event, count) {
+        event.preventDefault()
+        const recipeStepsTemplate = this.#gridContainer.querySelector('#recipe-input-template').content.firstElementChild.cloneNode(true)
+        const forAttribute = event.currentTarget.previousSibling.firstElementChild.htmlFor
+        while (count < 3) {
+            let newIdNumber = forAttribute.split('_')[1]
+            if (newIdNumber) newIdNumber++
+            const textarea = recipeStepsTemplate.querySelector('textarea')
+            textarea.id = 'step_'+newIdNumber
+            textarea.name = 'step_'+newIdNumber
+            const label = recipeStepsTemplate.querySelector('label')
+            label.htmlFor = 'step_'+newIdNumber
+            label.innerText = `Etape ${newIdNumber}`
+            switch (newIdNumber) {
+                case 3:
+                    label.control.placeholder = `Renseignez votre troisième étape`
+                    break
+                case 4:
+                    label.control.placeholder = `Renseignez votre quatrième étape`
+                    break
+                case 5:
+                    label.control.placeholder = `Renseignez votre cinquième étape`
+                    break
+                case 6:
+                    label.control.placeholder = `Renseignez votre sixième étape`
+                    break
+                default:
+                    null
+                    break
+            }
+            event.currentTarget.insertAdjacentElement('beforebegin', recipeStepsTemplate)
+            count++
+            return count
+        }
+        this.#addStepsButton.disabled = true
+        this.#addStepsButton.classList.add('hidden')
     }
 
     /**
@@ -94,7 +144,6 @@ export class IngredientsFrom {
         this.#form = element
         this.#endpoint = this.#form.dataset.endpoint
         this.#ingredientTemplate = document.querySelector(this.#form.dataset.template)
-        this.#recipeStepsTemplate = document.querySelector(this.#form.dataset.steps_template)
         this.#target = document.querySelector(this.#form.dataset.target)
         this.#targets = document.querySelectorAll('.js-ingredient-group')
         this.#elements = JSON.parse(this.#form.dataset.elements)
