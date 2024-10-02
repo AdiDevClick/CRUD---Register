@@ -102,7 +102,7 @@ export class IngredientsFrom {
         event.preventDefault()
         const recipeStepsTemplate = this.#gridContainer.querySelector('#recipe-input-template').content.firstElementChild.cloneNode(true)
         const forAttribute = event.currentTarget.previousSibling.firstElementChild.htmlFor
-        while (count < 3) {
+        while (count < 4) {
             let newIdNumber = forAttribute.split('_')[1]
             if (newIdNumber) newIdNumber++
             const textarea = recipeStepsTemplate.querySelector('textarea')
