@@ -34,7 +34,7 @@ Rajouter le nom des fichiers à lire dans le directory index :
 <br>
 
 ```
-S'assurer que NodeJs est installé sur la machine
+S'assurer que NodeJs soit installé sur la machine
 ```
 <br>
 
@@ -94,57 +94,91 @@ https://redstapler.co/pure-css-minimal-dark-mode-toggle-button/
 <br>
 <br>
 
-Input => IN (inputs)
-	Email => EM (email)
-	Pass => PW (password)
-	User => USR (user)
-	Age => AG (age)
-	Repeat => RPT (password repeat)
-	Comment = CMT
+# Les codes d'erreurs SERVEUR
 
-Statement => STMT 
-	Execution => EXE (exécution du stmt database)
-	DBCheck => DBCH
-	Insertion DB => INSRT
-	RowCount => CNT (user exists / data already exists / no changes)
+<br>
 
-Signup => SGN
-	Taken => TKN (email taken or pw doesn't match)
-	Password not matching => PWM (password doesn't match)
+```
+Compréhension des types d'erreurs
+```
+<br>
 
-Login => LGN
+### Les erreurs d'inputs:
+1. `Email => EM (email)`
+	- `Pass => PW (password)`
+	- `User => USR (user)`
+	- `Age => AG (age)`
+	- `Repeat => RPT (password repeat)`
+	- `Comment = CMT`
 
-Get User DB data => GET
-	Recipe => RCP
-	Check => CHK
-	Data from inputs, url => DATA
+<br>
+
+### Les erreurs de statement:
+1. `Execution => EXE (exécution du stmt database)`
+	- `DBCheck => DBCH`
+	- `Insertion DB => INSRT`
+	- `RowCount => CNT (user exists / data already exists / no changes)`
+
+<br>
+
+### Les erreurs de login:
+1. `Login => LGN`
+
+<br>
+
+### Les erreurs de signup:
+1. `Signup => SGN`
+	- `Taken => TKN (email taken or pw doesn't match)`
+	- `Password not matching => PWM (password doesn't match)`
+
+<br>
+
+### Les erreurs de récupération de données dans la database :
+1. `Get User DB data => GET`
+	- `Recipe => RCP`
+	- `Check => CHK`
+	- `Data from inputs, url => DATA`
+
+<br>
+
+### Les erreurs d'identification de l'utilisateur :
+1. `Logged User => LGGDUSR`
+	- `Not Logged => OFF`
+
+<br>
+
+### Les erreurs de création de recette :
+1. `Recipe Creation => RCPCREATE`
+	- `Not Logged => OFF`
+
+<br>
+
+### Les erreurs de mise à jour de recette :
+1. `Recipe Update => RCPUPDT`
+	- `Update DB with new datas => STMT`
+
+<br>
 
 
-Logged User => LGGDUSR
-	Not Logged => OFF
+### Les codes erreur :
 
-Recipe Creation => RCPCREATE
+<br>
 
-Recipe Update => RCPUPDT
-	Update DB with new datas => STMT
-
-
-Codes erreur :
-"STMTSGNDBCHCNT - Cet utilisateur existe déjà"
-"STMTSGNDBCHCNTEM - Cet email existe déjà"
-"STMTSGNEXEDBCH - Failed"
-"STMTSGNINSRTUSR - Failed"
-"SGNTKN : On n'a pas pu check les inputs"
-"SGNPWM : Les mots de passes ne sont pas identiques"
-"STMTLGNGETUSR - Failed"
-"STMTLGNGETRCP - Failed"
-"STMTLGNGETPW - Failed"
-"STMTLGNGETPWCNT - L'utilisateur n'a pas été trouvé"
-"STMTRCPGETPWCNT - L'utilisateur n'a pas été trouvé"
-"STMTRCPGETUSR - Failed"
-"RCPLGGDUSROFF - Veuillez vous identifier avant de partager une recette."
-"RCPDATACHK - Vous n'avez pas sélectionné la bonne recette"
-"RCPUPDTSTMTEXECNT - Aucun changement opéré"
+	- STMTSGNDBCHCNT - Cet utilisateur existe déjà
+	- STMTSGNDBCHCNTEM - Cet email existe déjà
+	- STMTSGNEXEDBCH - Failed
+	- STMTSGNINSRTUSR - Failed
+	- SGNTKN : On n'a pas pu check les inputs
+	- SGNPWM : Les mots de passes ne sont pas identiques
+	- STMTLGNGETUSR - Failed
+	- STMTLGNGETRCP - Failed
+	- STMTLGNGETPW - Failed
+	- STMTLGNGETPWCNT - L'utilisateur n'a pas été trouvé
+	- STMTRCPGETPWCNT - L'utilisateur n'a pas été trouvé
+	- STMTRCPGETUSR - Failed
+	- RCPLGGDUSROFF - Veuillez vous identifier avant de partager une recette.
+	- RCPDATACHK - Vous n'avez pas sélectionné la bonne recette
+	- RCPUPDTSTMTEXECNT - Aucun changement opéré
 
 
 URL utiles :
@@ -164,4 +198,13 @@ JSON AJAX course :
 2: https://www.youtube.com/watch?v=crtwSmleWMA
 3: https://www.youtube.com/watch?v=crtwSmleWMA
 
+# Les fonctions générales utiles :
 
+<br>
+
+Importer dynamiquement une classe :
+```
+Fichier: dom.js
+Fonction: importThisModule(className, object = {})
+```
+<br>
