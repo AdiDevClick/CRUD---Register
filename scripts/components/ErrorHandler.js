@@ -76,6 +76,30 @@ export class ErrorHandler {
     #listenInputs = []
     /** @type {Array} */
     #count = []
+    /** @type {MutationObserver} */
+    #observer
+    /**
+     * Vérifie les inputs compatibles nouvellements créées -
+     * On utilise this.#inputsToListen pour passer les inputs qui doivent être filtrées -
+     * @type {MutationObserver}
+     */
+    #handleObserver = (mutationsList, observer) => {
+        mutationsList.forEach(mutation => {
+            const addedNodes = mutation.addedNodes[0].children
+            for (const node of addedNodes) {
+                if (this.#inputsToListen.includes(node.type)) {
+                    // Setting which input can be empty
+                    setObjectPropertyTo(this.options.whichInputCanBeEmpty, node, node.name, 'canBeEmpty', true)
+                    // Setting which input can accept special char
+                    setObjectPropertyTo(this.options.whichInputAllowSpecialCharacters, node, node.name, 'allowSpecialCharacters', true)
+                    // Creating valid / invalid icon for each inputs
+                    this.#createIconContainer(node)
+                    // Main dynamic checker
+                    this.#dynamicCheck(node)
+                }
+            }
+        })
+    }
 
     /**
      * @param {HTMLFormElement} form 
@@ -127,17 +151,7 @@ export class ErrorHandler {
             // Setting which input can accept special char
             setObjectPropertyTo(this.options.whichInputAllowSpecialCharacters, input, input.name, 'allowSpecialCharacters', true)
             // Creating valid / invalid icon for each inputs
-            const noIconInput = this.activeInput(this.#inputsNotToAppend, input)
-            let icon
-            if (!icon) {
-                if (input.id !== noIconInput.id) {
-                    icon = createElement('span')
-                    input.insertAdjacentElement(
-                        'afterend',
-                        icon
-                    )
-                }
-            }
+            this.#createIconContainer(input)
             if (input.id === 'password') this.#password = input
             if (input.id === 'pwdRepeat') this.#pwdRepeat = input
             if (input.id === 'age') this.#age = input
@@ -146,133 +160,110 @@ export class ErrorHandler {
                 this.#email = input
                 if (input.classList.contains('form__field')) input.setAttribute('placeholder', '')
             }
-            // Inputs will be debounced @ -> get debounceDelay
-            // Les listeners d'inputs n'ajoutent pas d'erreurs à l'#error array
-            // !! ATTENTION !! : Ce script n'est pas bloquant -
-            // 
-            // Le bouton d'envoi n'est désactivé qu'en cas d'écoute du submit !!
-            input.addEventListener('input', debounce((e) => {
-                // Checking if input is empty
-                this.isEmptyInputs(e.target)
-                // Checking if passwords are same
-                this.isExactPassword(e.target)
-                // Checking if the character used is allowed
-                this.#charsNotAllowed(e.target)
-                // Checking if the character used is INT
-                this.isANumber(e.target)
-                // Should we display the tooltip ?
-                this.triggerToolTip()
-                if (input.id === 'username') this.isSpaceAllowed(input)
-                // switch (e.target) {
-                //     case e.target.isEmpty:
-                //         console.log('test')
-                //         this.#displayErrorMessage(this.#emptyAlert, input)
-                //         break
-                //     case !input.isCharAllowed:
-                //         for (let [index, element] of Object.entries(this.#wrongInput)) {
-                //             this.#wrongInput[index] = `  ${element} `
-                //         }
-                //         this.#displayErrorMessage(`Les caractères suivants ne sont pas autorisés : ${this.#wrongInput} `, input)
-                //         break
-                //     case input.id === "email" && !this.#emailInputRegex.test(input.value):
-                //         this.#displayErrorMessage(this.#invalidEmailMessage, input)
-                //         break
-                //     case !this.#pwStatus && (input.id === "password" || input.id === "pwdRepeat"):
-                //         this.#displayErrorMessage(this.#invalidPwMessage, input)
-                //         break
-                //     case this.#spaceNotAllowed && input.id === 'username':
-                //         this.#displayErrorMessage(this.#noSpaceAllowedMessage, input)
-                //         break
-                //     case input.isANumber === false:
-                //         this.#displayErrorMessage(this.#notANumberError, input)
-                //         break
-                //     case input.isANumber && input.value <= 0:
-                //         this.#displayErrorMessage(this.#wrongNumber, input)
-                //         break
-                //     default:
-                //         input.classList.remove(this.#inputErrorClass)
-                //         this.#count = filterArrayToRetrieveUniqueValues(this.#count, input, 'input')
-                //         break
-                // }
-                if (input.isEmpty) {
-                    this.#displayErrorMessage(this.#emptyAlert, input)
-                    return
-                } else if (!input.isCharAllowed) {
-                    for (let [index, element] of Object.entries(this.#wrongInput)) {
-                        this.#wrongInput[index] = `  ${element} `
-                    }
-                    this.#displayErrorMessage(`Les caractères suivants ne sont pas autorisés : ${this.#wrongInput} `, input)
-                } else if (input.id === "email" && !this.#emailInputRegex.test(input.value)) {
-                    this.#displayErrorMessage(this.#invalidEmailMessage, input)
-                    return
-                } else if (!this.#pwStatus && (input.id === "password" || input.id === "pwdRepeat")) {
-                    this.#displayErrorMessage(this.#invalidPwMessage, input)
-                    return
-                } else if (this.#spaceNotAllowed && input.id === 'username') {
-                    this.#displayErrorMessage(this.#noSpaceAllowedMessage, input)
-                    return
-                } else if (input.isANumber === false) {
-                    this.#displayErrorMessage(this.#notANumberError, input)
-                    return
-                } else if (input.isANumber && input.value <= 0) {
-                    this.#displayErrorMessage(this.#wrongNumber, input)
-                    return
-                } else {
-                    // input.classList.add("valid_input")
-                    input.classList.remove(this.#inputErrorClass)
-                    // input.removeAttribute('style')
-                    // if (this.#tooltip?.hasAttribute('style')) this.#tooltip.removeAttribute('style')
-                    this.#count = filterArrayToRetrieveUniqueValues(this.#count, input, 'input')
-
-                }
-                console.log(this.#count)
-                console.log("text alert => ", this.#alertText)
-                console.log("innerText => ", this.#alert.innerText)
-                if (this.#alertText !== null && undefined) {
-                // if (this.#count.length === 0 && (this.#email.classList.contains('input_error') || this.#name.classList.contains('input_error'))) {
-                    this.#alert.innerText = this.#alertText
-                    this.#alertText = null
-                } else if (this.#count.length === 0) {
-                    // if (this.#error.length === 0) {
-                    this.#alert.classList.add(this.#hiddenClass)
-                    this.#alert.innerText = ''
-                    this.#formButton.disabled = false
-                    // input.classList.add("valid_input")
-                } else {
-                    this.#alert.innerText = this.#count[0].alert
-                }
-            }, (this.debounceDelay)))
-        }, {once: true})
-
-
-        // this.#password.addEventListener('input', e => {
-        //     // e.preventDefault()
-        //     console.log(this.#password.value)
-        // })
-        // this.#pwdRepeat.addEventListener('keydown', e => {
-        //     // e.preventDefault()
-        //     console.log(e.key)
-        // })
-        // this.#email.addEventListener('keydown', e => {
-        //     // e.preventDefault()
-        //     console.log(e.key)
-        // })
-        // this.#name.addEventListener('keydown', e => {
-        //     // e.preventDefault()
-        //     console.log(e.key)
-        // })
-
-        // this.#age.addEventListener('keydown', e => {
-        //     // e.preventDefault()
-        //     console.log(e.key)
-        // })
-
+            // Main dynamic checker
+            this.#dynamicCheck(input)
+        })
+        TODO : 
+        window.addEventListener('DOMContentLoaded', (e) => {
+            const test = document.querySelector('.form-recipe')
+            this.#observer = new MutationObserver(this.#handleObserver)
+            this.#observer.observe(test, { childList: true })
+        })
         // If you want a generic submit checker
         if (this.options.useMyOwnListener) return
         this.#form.addEventListener('submit', e => {
             this.onSubmit(e)
             // e.currentTarget.reset()
         })
+    }
+
+    /**
+     * Inputs will be debounced @ -> get debounceDelay
+     * Les listeners d'inputs n'ajoutent pas d'erreurs à l'#error array
+     * !! ATTENTION !! : Ce script n'est pas bloquant -
+     * Le bouton d'envoi n'est désactivé qu'en cas d'écoute du submit !!
+     * @param {HTMLInputElement} element 
+     */
+    #dynamicCheck(input) {
+        input.addEventListener('input', debounce((e) => {
+            // Checking if input is empty
+            this.isEmptyInputs(e.target)
+            // Checking if passwords are same
+            this.isExactPassword(e.target)
+            // Checking if the character used is allowed
+            this.#charsNotAllowed(e.target)
+            // Checking if the character used is INT
+            this.isANumber(e.target)
+            // Should we display the tooltip ?
+            this.triggerToolTip()
+            if (input.id === 'username') this.isSpaceAllowed(input)
+            if (input.isEmpty) {
+                this.#displayErrorMessage(this.#emptyAlert, input)
+                return
+            } else if (!input.isCharAllowed) {
+                for (let [index, element] of Object.entries(this.#wrongInput)) {
+                    this.#wrongInput[index] = `  ${element} `
+                }
+                this.#displayErrorMessage(`Les caractères suivants ne sont pas autorisés : ${this.#wrongInput} `, input)
+            } else if (input.id === "email" && !this.#emailInputRegex.test(input.value)) {
+                this.#displayErrorMessage(this.#invalidEmailMessage, input)
+                return
+            } else if (!this.#pwStatus && (input.id === "password" || input.id === "pwdRepeat")) {
+                this.#displayErrorMessage(this.#invalidPwMessage, input)
+                return
+            } else if (this.#spaceNotAllowed && input.id === 'username') {
+                this.#displayErrorMessage(this.#noSpaceAllowedMessage, input)
+                return
+            } else if (input.isANumber === false) {
+                this.#displayErrorMessage(this.#notANumberError, input)
+                return
+            } else if (input.isANumber && input.value <= 0) {
+                this.#displayErrorMessage(this.#wrongNumber, input)
+                return
+            } else {
+                // input.classList.add("valid_input")
+                input.classList.remove(this.#inputErrorClass)
+                // input.removeAttribute('style')
+                // if (this.#tooltip?.hasAttribute('style')) this.#tooltip.removeAttribute('style')
+                this.#count = filterArrayToRetrieveUniqueValues(this.#count, input, 'input')
+
+            }
+            console.log(this.#count)
+            console.log("text alert => ", this.#alertText)
+            console.log("innerText => ", this.#alert.innerText)
+            if (this.#alertText !== null && undefined) {
+            // if (this.#count.length === 0 && (this.#email.classList.contains('input_error') || this.#name.classList.contains('input_error'))) {
+                this.#alert.innerText = this.#alertText
+                this.#alertText = null
+            } else if (this.#count.length === 0) {
+                // if (this.#error.length === 0) {
+                this.#alert.classList.add(this.#hiddenClass)
+                this.#alert.innerText = ''
+                this.#formButton.disabled = false
+                // input.classList.add("valid_input")
+            } else {
+                this.#alert.innerText = this.#count[0].alert
+            }
+        }, (this.debounceDelay)))
+    }
+
+    /**
+     * Si le conteneur d'icône (valide / invalide) input n'existe pas,
+     * Il sera créé et rajouté à l'élément -
+     * @param {HTMLInputElement} input 
+     */
+    #createIconContainer(input) {
+        const noIconInput = this.activeInput(this.#inputsNotToAppend, input)
+        let icon
+        if (!icon) {
+            if (input.id !== noIconInput.id) {
+                icon = createElement('span')
+                input.insertAdjacentElement(
+                    'afterend',
+                    icon
+                )
+            }
+        }
     }
 
     /**
@@ -395,7 +386,7 @@ export class ErrorHandler {
      * @returns 
      */
     #isEmptyInputs(input) {
-        if (!input.canBeEmpty && (input.value.toString().trim() === '' || input.value.toString().trim() === ' ') || !input.value) {
+        if ((!input.canBeEmpty && (input.value.toString().trim() === '' || input.value.toString().trim() === ' ')) || !input.value) {
             // this.#isEmpty = true
             input.isEmpty = true
             console.log(input)
