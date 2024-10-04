@@ -1328,7 +1328,7 @@ hr {
     margin: 30px auto;
 }
 
-.custom-ingredient {
+.custom-ingredient[type=text] {
     position: relative;
     display: inline-flex;
     text-align: center;
@@ -1351,6 +1351,9 @@ hr {
     &::after {
         content: '';
         clear: both;
+    }
+    @media screen and (max-width: 976px) {
+        margin: 5px;
     }
 }
 /* .custom-ingredient__container {
