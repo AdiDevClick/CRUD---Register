@@ -1,24 +1,40 @@
-import { alertClass, alertID, allowedSpecialChars, emailInputRegex, emptyAlert, formButton, formIDToAvoidChecking, hiddenAlertClass, hiddenClass, inputErrorClass, inputsNotToAppend, inputsToListen, invalidEmailMessage, invalidPwMessage, noSpaceAllowedMessage, notANumberError, thisInputShouldBeInt, tooltip, userInputRegex, wrongNumber } from "../configs/ErrorHandlerConfig.js"
+import { alertClass, alertID, allowedSpecialChars, emailInputRegex, emptyAlert, formButton, formIDToAvoidChecking, hiddenAlertClass, hiddenClass, inputErrorClass, inputsNotToAppend, inputsToListen, invalidEmailMessage, invalidPwMessage, noSpaceAllowedMessage, notANumberError, thisInputShouldBeInt, tooltip, userInputRegex, wrongNumber } from "../configs/ErrorHandler.config.js"
 import { alertMessage, createElement, debounce, filterArrayToRetrieveUniqueValues, retrieveUniqueNotAllowedCharFromRegex, setObjectPropertyTo } from "../functions/dom.js"
 
 
-//TODO : un mutation obs pour permettre de vérifier l'ajout d'inputs
-
+/**
+ * @todo {userInputRegex} à setup pour le username
+ */
 export class ErrorHandler {
 
     /** @type {Array} */
     #error = []
-    /** @type {HTMLButtonElement} */
+    /** 
+     * @link {import("../configs/ErrorHandler.config.js")}
+     * @type {HTMLButtonElement}
+     */
     #formButton = document.querySelector(formButton)
     /** @type {HTMLFormElement} */
     #form
-    /** @type {String} */
+    /** 
+     * @see {import("../configs/ErrorHandler.config.js")}
+     * @type {String}
+     */
     #formIDToAvoidChecking = formIDToAvoidChecking
-    /** @type {HTMLElement} */
+    /** 
+     * @see {import("../configs/ErrorHandler.config.js")}
+     * @type {HTMLElement}
+     */
     #alert = document.querySelector(alertID)
-    /** @type {HTMLElement} */
+    /** 
+     * @see {import("../configs/ErrorHandler.config.js")}
+     * @type {HTMLElement}
+     */
     #tooltip = document.querySelector(tooltip)
-    /** @type {Array < HTMLElement >} */
+    /** 
+     * @see {import("../configs/ErrorHandler.config.js")}
+     * @type {Array < HTMLElement >}
+     */
     #thisInputIDShouldBeInt = Array.from(document.querySelectorAll(thisInputShouldBeInt))
     /** @type {String} */
     #password
@@ -30,38 +46,80 @@ export class ErrorHandler {
     #name
     /** @type {Number} */
     #age
-    /** @type {RegExpConstructor} */
+    /**
+     * @see {import("../configs/ErrorHandler.config.js")}
+     * @type {RegExpConstructor} 
+     */
     #emailInputRegex = emailInputRegex
-    /** @type {RegExpConstructor} */
+    /**
+     * @see {import("../configs/ErrorHandler.config.js")}
+     * @type {RegExpConstructor} 
+     */
     #allowedSpecialChars = allowedSpecialChars
-    /** @type {RegExpConstructor} */
+    /**
+     * @see {import("../configs/ErrorHandler.config.js")}
+     * @type {RegExpConstructor} 
+     */
     #userInputRegex = userInputRegex
     /** @type {Array} tested and not allowedSpecialChars char */
     #wrongInput = []
-    /** @type {String} */
+    /**
+     * @see {import("../configs/ErrorHandler.config.js")}
+     * @type {String}
+     */
     #invalidEmailMessage = invalidEmailMessage
-    /** @type {String} */
+    /**
+     * @see {import("../configs/ErrorHandler.config.js")}
+     * @type {String}
+     */
     #invalidPwMessage = invalidPwMessage
-    /** @type {String} */
+    /**
+     * @see {import("../configs/ErrorHandler.config.js")}
+     * @type {String}
+     */
     #noSpaceAllowedMessage = noSpaceAllowedMessage
-    /** @type {String} */
+    /**
+     * @see {import("../configs/ErrorHandler.config.js")}
+     * @type {String}
+     */
     #notANumberError = notANumberError
-    /** @type {String} */
+    /**
+     * @see {import("../configs/ErrorHandler.config.js")}
+     * @type {String}
+     */
     #wrongNumber = wrongNumber
-    /** @type {String} */
+    /**
+     * @see {import("../configs/ErrorHandler.config.js")}
+     * @type {String}
+     */
     #emptyAlert = emptyAlert
-    /** @type {String} */
+    /**
+     * @see {import("../configs/ErrorHandler.config.js")}
+     * @type {String}
+     */
     #alertClass = hiddenAlertClass
-    /** @type {String} */
+    /**
+     * @see {import("../configs/ErrorHandler.config.js")}
+     * @type {String}
+     */
     #inputErrorClass = inputErrorClass
+    /**
+     * @see {import("../configs/ErrorHandler.config.js")}
+     * @type {String}
+     */
+    #hiddenClass = hiddenClass
+    /**
+     * @see {import("../configs/ErrorHandler.config.js")}
+     * @type {Array} input types to listen to
+     */
+    #inputsToListen = inputsToListen
+    /**
+     * @see {import("../configs/ErrorHandler.config.js")}
+     * @type {Array} input that will not append the (valid / invalid) icon
+     */
+    #inputsNotToAppend = Array.from(document.querySelectorAll(inputsNotToAppend))
     /** @type {String} */
     #alertText
-    /** @type {String} */
-    #hiddenClass = hiddenClass
-    /** @type {Array} input types to listen to */
-    #inputsToListen = inputsToListen
-    /** @type {Array} input that will not append the valid / invalid icon */
-    #inputsNotToAppend = Array.from(document.querySelectorAll(inputsNotToAppend))
     /** @type {Boolean} */
     #pwStatus = true
     /** @type {Boolean} */
@@ -74,7 +132,13 @@ export class ErrorHandler {
     #spaceNotAllowed = false
     /** @type {Array} */
     #listenInputs = []
-    /** @type {Array} */
+    /**
+     * Utilisé pour retourner les erreurs lors de la saisie dynamique -
+     * L'array contient les inputs qui renvoient une erreur de saisie
+     * pour chaque frappe de l'utilisateur -
+     * Il est ensuite filtré pour ne ressortir qu'un seul type d'erreur par inputs
+     * @type {Array}
+     */
     #count = []
     /** @type {MutationObserver} */
     #observer
@@ -163,11 +227,11 @@ export class ErrorHandler {
             // Main dynamic checker
             this.#dynamicCheck(input)
         })
-        TODO : 
+        // TODO : form recipe dynamique
         window.addEventListener('DOMContentLoaded', (e) => {
-            const test = document.querySelector('.form-recipe')
+            const target = document.querySelector('.form-recipe')
             this.#observer = new MutationObserver(this.#handleObserver)
-            this.#observer.observe(test, { childList: true })
+            this.#observer.observe(target, { childList: true })
         })
         // If you want a generic submit checker
         if (this.options.useMyOwnListener) return

@@ -58,20 +58,55 @@ export const emptyAlert = 'Un ou plusieurs champs doivent être renseignés'
 ////////////////////////////////////////////////////////////
 
 /**
- * Configurate elements to be checked
+ * Configurate elements to be checked -
+ * Separate them with commas -
+ * Default inputs configuration -
  * @type {String}
  */
 export const inputsToListen = 'input, textarea'
 /**
- * Configurate elements that should be INTEGERS only
+ * Configurate elements that should be INTEGERS only -
+ * Separate them with commas -
+ * Default inputs configuration -
  * @type {String}
  */
 export const thisInputShouldBeInt = '#persons, #total_time, #resting_time, #oven_time'
 /**
  * Configurate elements that will not receive the check / wrong icons
+ * Separate them with commas
  * @type {String}
  */
 export const inputsNotToAppend = '#custom_ingredient'
+/**
+ * Configurate elements that can be Empty -
+ * !! ATTENTION !! All elements MUST refer to the attribute name of each inputs -
+ * An array of strings separated by commas -
+ * Default inputs configuration -
+ * You can either change this default settings or
+ * force new ones when you construct inside the options object -
+ * @type {Array < String >}
+ */
+export const inputsCanBeEmpty = ['step_3', 'step_4', 'step_5', 'step_6', 'file', 'video_file', 'video_link', 'resting_time']
+/**
+ * Configurate elements that can contain special chars -
+ * !! ATTENTION !! All elements MUST refer to the attribute name of each inputs -
+ * An array of strings separated by commas -
+ * Default inputs configuration -
+ * You can either change this default settings or
+ * force new ones when you construct inside the options object -
+ * @type {Array < String >}
+ */
+export const inputsCanContainSpecialChars = ['Mot de Passe', 'Mot de Passe de confirmation', 'Email', 'file', 'video_file']
+
+////////////////////////////////////////////////////////////
+                /** INPUTS NOT TO LISTEN TO */
+////////////////////////////////////////////////////////////
+// TODO
+/**
+ * Configurate elements to be checked
+ * @type {String}
+ */
+export const defaultInput = 'input, textarea'
 
 ////////////////////////////////////////////////////////////
                     /** REGEX */
