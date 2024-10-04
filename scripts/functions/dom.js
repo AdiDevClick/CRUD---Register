@@ -86,6 +86,7 @@ export function filterArrayToRetrieveUniqueValues(arr = [], objects, property = 
  * @param {Boolean} bool
  */
 export function setObjectPropertyTo(arr, object, objectKey, propertyToSet, bool = true) {
+    arr = Array.isArray(arr) ? arr : [arr]
     for (const keys of arr) {
         if (objectKey === keys) {
             object[propertyToSet] = bool
