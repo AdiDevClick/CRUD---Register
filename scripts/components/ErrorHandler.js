@@ -1,4 +1,4 @@
-import { alertClass, alertID, allowedSpecialChars, emailInputRegex, emptyAlert, formButton, formIDToAvoidChecking, hiddenAlertClass, hiddenClass, inputErrorClass, inputsNotToAppend, inputsToListen, invalidEmailMessage, invalidPwMessage, noSpaceAllowedMessage, notANumberError, thisInputShouldBeInt, tooltip, userInputRegex, wrongNumber } from "../configs/ErrorHandler.config.js"
+import { alertClass, alertID, allowedSpecialChars, emailInputRegex, emptyAlert, formButton, formIDToAvoidChecking, hiddenAlertClass, hiddenClass, inputErrorClass, inputsCanBeEmpty, inputsCanContainSpecialChars, inputsNotToAppend, inputsToListen, invalidEmailMessage, invalidPwMessage, noSpaceAllowedMessage, notANumberError, thisInputShouldBeInt, tooltip, userInputRegex, wrongNumber } from "../configs/ErrorHandler.config.js"
 import { alertMessage, createElement, debounce, filterArrayToRetrieveUniqueValues, retrieveUniqueNotAllowedCharFromRegex, setObjectPropertyTo } from "../functions/dom.js"
 
 
@@ -9,30 +9,30 @@ export class ErrorHandler {
 
     /** @type {Array} */
     #error = []
-    /** 
-     * @link {import("../configs/ErrorHandler.config.js")}
+    /**
+     * @module ErrorHandler.config.js~formButton
      * @type {HTMLButtonElement}
      */
     #formButton = document.querySelector(formButton)
     /** @type {HTMLFormElement} */
     #form
-    /** 
-     * @see {import("../configs/ErrorHandler.config.js")}
+    /**
+     * @see module:../configs/ErrorHandler.config.js
      * @type {String}
      */
     #formIDToAvoidChecking = formIDToAvoidChecking
-    /** 
-     * @see {import("../configs/ErrorHandler.config.js")}
+    /**
+     * @module ErrorHandler.config.js
      * @type {HTMLElement}
      */
     #alert = document.querySelector(alertID)
-    /** 
-     * @see {import("../configs/ErrorHandler.config.js")}
+    /**
+     * @module ErrorHandler.config.js
      * @type {HTMLElement}
      */
     #tooltip = document.querySelector(tooltip)
-    /** 
-     * @see {import("../configs/ErrorHandler.config.js")}
+    /**
+     * @module ErrorHandler.config.js
      * @type {Array < HTMLElement >}
      */
     #thisInputIDShouldBeInt = Array.from(document.querySelectorAll(thisInputShouldBeInt))
@@ -47,74 +47,88 @@ export class ErrorHandler {
     /** @type {Number} */
     #age
     /**
-     * @see {import("../configs/ErrorHandler.config.js")}
+     * @module ErrorHandler.config.js
      * @type {RegExpConstructor} 
      */
     #emailInputRegex = emailInputRegex
     /**
-     * @see {import("../configs/ErrorHandler.config.js")}
+     * @module ErrorHandler.config.js
      * @type {RegExpConstructor} 
      */
     #allowedSpecialChars = allowedSpecialChars
     /**
-     * @see {import("../configs/ErrorHandler.config.js")}
+     * @module ErrorHandler.config.js
      * @type {RegExpConstructor} 
      */
     #userInputRegex = userInputRegex
-    /** @type {Array} tested and not allowedSpecialChars char */
+    /** 
+     * Tested and not allowedSpecialChars char
+     * @type {Array}
+     */
     #wrongInput = []
     /**
-     * @see {import("../configs/ErrorHandler.config.js")}
+     * @module ErrorHandler.config.js
      * @type {String}
      */
     #invalidEmailMessage = invalidEmailMessage
     /**
-     * @see {import("../configs/ErrorHandler.config.js")}
+     * @module ErrorHandler.config.js
      * @type {String}
      */
     #invalidPwMessage = invalidPwMessage
     /**
-     * @see {import("../configs/ErrorHandler.config.js")}
+     * @module ErrorHandler.config.js
      * @type {String}
      */
     #noSpaceAllowedMessage = noSpaceAllowedMessage
     /**
-     * @see {import("../configs/ErrorHandler.config.js")}
+     * @module ErrorHandler.config.js
      * @type {String}
      */
     #notANumberError = notANumberError
     /**
-     * @see {import("../configs/ErrorHandler.config.js")}
+     * @module ErrorHandler.config.js
      * @type {String}
      */
     #wrongNumber = wrongNumber
     /**
-     * @see {import("../configs/ErrorHandler.config.js")}
+     * @module ErrorHandler.config.js
      * @type {String}
      */
     #emptyAlert = emptyAlert
     /**
-     * @see {import("../configs/ErrorHandler.config.js")}
+     * @module ErrorHandler.config.js
      * @type {String}
      */
     #alertClass = hiddenAlertClass
     /**
-     * @see {import("../configs/ErrorHandler.config.js")}
+     * @module ErrorHandler.config.js
      * @type {String}
      */
     #inputErrorClass = inputErrorClass
     /**
-     * @see {import("../configs/ErrorHandler.config.js")}
+     * @module ErrorHandler.config.js
      * @type {String}
      */
     #hiddenClass = hiddenClass
     /**
-     * @see {import("../configs/ErrorHandler.config.js")}
-     * @type {Array} input types to listen to
+     * Input types to listen to
+     * @module ErrorHandler.config.js
+     * @type {Array}
      */
     #inputsToListen = inputsToListen
     /**
-     * @see {import("../configs/ErrorHandler.config.js")}
+     * @module ErrorHandler.config.js
+     * @type {Array < String >} input names that can be empty
+     */
+    #inputsCanBeEmpty = inputsCanBeEmpty
+    /**
+     * @module ErrorHandler.config.js
+     * @type {Array < String >} input names that can accept special chars
+     */
+    #inputsCanContainSpecialChars = inputsCanContainSpecialChars
+    /**
+     * @module ErrorHandler.config.js
      * @type {Array} input that will not append the (valid / invalid) icon
      */
     #inputsNotToAppend = Array.from(document.querySelectorAll(inputsNotToAppend))
@@ -188,10 +202,10 @@ export class ErrorHandler {
             debouncing: true,
             debounceDelay: 50,
             canBeEmpty: false,
-            whichInputCanBeEmpty: ['step_3', 'step_4', 'step_5', 'step_6', 'file', 'video_file', 'video_link', 'resting_time'],
+            whichInputCanBeEmpty: this.#inputsCanBeEmpty,
             useMyOwnListener: false,
             isSpecialCharactersAllowed: false,
-            whichInputAllowSpecialCharacters: ['Mot de Passe', 'Mot de Passe de confirmation', 'Email', 'file', 'video_file'],
+            whichInputAllowSpecialCharacters: this.#inputsCanContainSpecialChars,
         }, options)
         if (this.#alert) this.#alertText = this.#alert.innerText
         if (!this.#alert) {
@@ -290,23 +304,26 @@ export class ErrorHandler {
                 // input.removeAttribute('style')
                 // if (this.#tooltip?.hasAttribute('style')) this.#tooltip.removeAttribute('style')
                 this.#count = filterArrayToRetrieveUniqueValues(this.#count, input, 'input')
-
             }
             console.log(this.#count)
             console.log("text alert => ", this.#alertText)
             console.log("innerText => ", this.#alert.innerText)
             if (this.#alertText !== null && undefined) {
+                // !! IMPORTANT !! In case of submit and an error occured
             // if (this.#count.length === 0 && (this.#email.classList.contains('input_error') || this.#name.classList.contains('input_error'))) {
                 this.#alert.innerText = this.#alertText
                 this.#alertText = null
+                console.log('je reset le texte')
             } else if (this.#count.length === 0) {
                 // if (this.#error.length === 0) {
                 this.#alert.classList.add(this.#hiddenClass)
                 this.#alert.innerText = ''
                 this.#formButton.disabled = false
+                console.log('ca fail je reset car count 0')
                 // input.classList.add("valid_input")
             } else {
-                this.#alert.innerText = this.#count[0].alert
+                console.log('ca fail display de la last error')
+                this.#alert.innerText = this.#count[this.#count.length - 1].alert
             }
         }, (this.debounceDelay)))
     }
@@ -355,7 +372,8 @@ export class ErrorHandler {
      * @returns 
      */
     #charsNotAllowed(input) {
-        if (!input.allowSpecialCharacters && !this.#allowedSpecialChars.test(input.value) && !input.isEmpty) {
+        if (!input.allowSpecialCharacters && !this.#allowedSpecialChars.test(input.value)) {
+        // if (!input.allowSpecialCharacters && !this.#allowedSpecialChars.test(input.value) && !input.isEmpty) {
             // Retrieve every character that isn't allowed and only unique entries
             console.log(input)
             this.#wrongInput = retrieveUniqueNotAllowedCharFromRegex(input.value, this.#allowedSpecialChars)
@@ -450,12 +468,16 @@ export class ErrorHandler {
      * @returns 
      */
     #isEmptyInputs(input) {
-        if ((!input.canBeEmpty && (input.value.toString().trim() === '' || input.value.toString().trim() === ' ')) || !input.value) {
+        // if (input.value !== '' || !input.value) return
+        if (!input.canBeEmpty && (input.value.toString().trim() === '' || !input.value)) {
             // this.#isEmpty = true
             input.isEmpty = true
-            console.log(input)
+            console.log(input.value.toString().trim() === ' ')
+            console.log(input.value.toString().trim() === '')
         } else {
             // this.#isEmpty = false
+            console.log(input.value === '')
+            console.log(!input.value)
             input.isEmpty = false
             input.classList.add("valid_input")
         }
