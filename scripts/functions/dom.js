@@ -77,18 +77,25 @@ export function filterArrayToRetrieveUniqueValues(arr = [], objects, property = 
 
 /**
  * Modification d'un objet -
- * Ajoute une clé et sa valeur à cet objet
- * en comparant le nom de la clé -
- * @param {Array} arr
- * @param {Object} object
- * @param {String} objectKey
- * @param {String} propertyToSet
- * @param {Boolean} bool
+ * Ajoute une propriété et sa valeur à cet objet
+ * en comparant le nom de la propriété -
+ * Si un boolean est passé à l'Array et qu'il est true, la propriété à ajouter
+ * à l'objet sera alors directement ajoutée sans comparaison -
+ * @param {Array} arr - Il sera converti automatiquement si ce n'est pas un array qui est passé -
+ * @param {Object} object - Objet à modifier, ex : input
+ * @param {String} objectProperty - La propriété de l'objet à comparer, ex : input.isNotEmpty
+ * @param {String} propertyToSet - La nouvelle propriété à ajouter, ex : input.newProperty
+ * @param {Boolean} [bool=true]
  */
-export function setObjectPropertyTo(arr, object, objectKey, propertyToSet, bool = true) {
+export function setObjectPropertyTo(arr, object, objectProperty, propertyToSet, bool = true) {
     arr = Array.isArray(arr) ? arr : [arr]
     for (const keys of arr) {
-        if (objectKey === keys) {
+        // In case the arr gives a boolean
+        if (keys) {
+            object[propertyToSet] = bool
+            return
+        }
+        if (objectProperty === keys) {
             object[propertyToSet] = bool
         }
     }
