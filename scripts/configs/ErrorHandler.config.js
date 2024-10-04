@@ -8,6 +8,7 @@
 
 /**
  * Configurate form.id element to avoid checking
+ * @module ErrorHandler
  * @type {String}
  */
 export const formIDToAvoidChecking = 'search-form'
@@ -116,7 +117,8 @@ export const defaultInput = 'input, textarea'
  * Configurate which characters are allowed
  * @type {RegExp}
  */
-export const allowedSpecialChars = new RegExp('^[\\w\\s,.:;_?\'!\\"*()~&éèêëàâäôöûüùçÀ-]+$')
+export const allowedSpecialChars = new RegExp('^[\\w\\s,.:;_?\'!\\"*()~&éèêëàâäôöûüùçÀ-]*$')
+// export const allowedSpecialChars = new RegExp('^[\\w\\s,.:;_?\'!\\"*()~&éèêëàâäôöûüùçÀ-]+$')
 /**
  * Configurate Email : Can only be email@email.co
  * @type {RegExp}
