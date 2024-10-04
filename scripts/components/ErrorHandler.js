@@ -4,6 +4,14 @@ import { alertMessage, createElement, debounce, filterArrayToRetrieveUniqueValue
 
 /**
  * @todo {userInputRegex} à setup pour le username
+ * @todo password :
+ *  lowercase: 1, // password must contain lowercase
+    uppercase: 3, // Requires at least 3 uppercase letter
+    digit: 1, // Requires at least 1 digit
+    letter: true, // password must contain letter (uppercase | lowercase)
+    length: "8:", // Requires a minimum length of 8 characters
+    special char: "1:", // Requires a minimum of 1 special char
+    @todo terminer l'implémentation du strong password 
  */
 export class ErrorHandler {
 
@@ -61,6 +69,7 @@ export class ErrorHandler {
      * @type {RegExpConstructor} 
      */
     #userInputRegex = userInputRegex
+    #passwordInputRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\[\]{};':"\\|,.<>\/?~`]).{8,32}$/
     /** 
      * Tested and not allowedSpecialChars char
      * @type {Array}
@@ -202,6 +211,7 @@ export class ErrorHandler {
             debouncing: true,
             debounceDelay: 50,
             canBeEmpty: false,
+            strongPassword: true,
             whichInputCanBeEmpty: this.#inputsCanBeEmpty,
             useMyOwnListener: false,
             isSpecialCharactersAllowed: false,
@@ -230,7 +240,11 @@ export class ErrorHandler {
             setObjectPropertyTo(this.options.whichInputAllowSpecialCharacters, input, input.name, 'allowSpecialCharacters', true)
             // Creating valid / invalid icon for each inputs
             this.#createIconContainer(input)
-            if (input.id === 'password') this.#password = input
+            if (input.id === 'password') {
+                // Setting if strong password is required
+                setObjectPropertyTo(this.options.strongPassword, input, input.name, 'strongPassword', true)
+                this.#password = input
+            }
             if (input.id === 'pwdRepeat') this.#pwdRepeat = input
             if (input.id === 'age') this.#age = input
             if (input.id === 'username') this.#name = input
@@ -244,8 +258,10 @@ export class ErrorHandler {
         // TODO : form recipe dynamique
         window.addEventListener('DOMContentLoaded', (e) => {
             const target = document.querySelector('.form-recipe')
-            this.#observer = new MutationObserver(this.#handleObserver)
-            this.#observer.observe(target, { childList: true })
+            if (target) {
+                this.#observer = new MutationObserver(this.#handleObserver)
+                this.#observer.observe(target, { childList: true })
+            }
         })
         // If you want a generic submit checker
         if (this.options.useMyOwnListener) return
@@ -266,6 +282,8 @@ export class ErrorHandler {
         input.addEventListener('input', debounce((e) => {
             // Checking if input is empty
             this.isEmptyInputs(e.target)
+            // Checking if the password matches validation
+            this.#validateThisInput(e.target, e.target.strongPassword, this.#passwordInputRegex, 'isValidPassword')
             // Checking if passwords are same
             this.isExactPassword(e.target)
             // Checking if the character used is allowed
@@ -274,6 +292,7 @@ export class ErrorHandler {
             this.isANumber(e.target)
             // Should we display the tooltip ?
             this.triggerToolTip()
+            console.log(e.target.isValidPassword)
             if (input.id === 'username') this.isSpaceAllowed(input)
             if (input.isEmpty) {
                 this.#displayErrorMessage(this.#emptyAlert, input)
@@ -386,6 +405,22 @@ export class ErrorHandler {
         return
     }
 
+    #validateThisInput(input, inputProperty, RegExp, newProperty) {
+        if (inputProperty && !RegExp.test(input.value)) {
+            // Retrieve every character that isn't allowed and only unique entries
+            console.log(input)
+            this.#wrongInput = retrieveUniqueNotAllowedCharFromRegex(input.value, this.#allowedSpecialChars)
+            input[newProperty] = false
+            // this.#isCharAllowed = false
+            console.log(input.value)
+            return
+        }
+        input[newProperty] = true
+        console.log('ok')
+            // this.#isCharAllowed = true
+        return
+    }
+
     /**
      * Vérifie que la valeur de l'élément HTML passée en paramètre est de type INT
      * @param {HTMLElement} input
@@ -397,6 +432,7 @@ export class ErrorHandler {
         if (input.id === inputShouldBeInt.id && isNaN(input.value)) {
             this.#isNumber = false
             input.isANumber = false
+            input.value = ''
             // inputEvent.classList.remove('valid_input')
             // Affiche le tooltip lorsqu'une erreur est détéctée
             if (this.#tooltip) this.#tooltip.style.visibility = 'visible'
@@ -472,12 +508,8 @@ export class ErrorHandler {
         if (!input.canBeEmpty && (input.value.toString().trim() === '' || !input.value)) {
             // this.#isEmpty = true
             input.isEmpty = true
-            console.log(input.value.toString().trim() === ' ')
-            console.log(input.value.toString().trim() === '')
         } else {
             // this.#isEmpty = false
-            console.log(input.value === '')
-            console.log(!input.value)
             input.isEmpty = false
             input.classList.add("valid_input")
         }
@@ -529,6 +561,10 @@ export class ErrorHandler {
     //     }
     //     return arr
     // }
+
+    #validateInputFormat(input) {
+
+    }
 
     /**
      * Vérifie que les inputs password & pwdRepeat soient similaires -
