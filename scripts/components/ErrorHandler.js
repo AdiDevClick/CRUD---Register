@@ -3,6 +3,7 @@ import { alertMessage, createElement, debounce, filterArrayToRetrieveUniqueValue
 
 
 /**
+ * @todo .form-recipe dynamique pour la creation de l'obs
  * @todo {userInputRegex} à setup pour le username
  * @todo password :
  *  lowercase: 1, // password must contain lowercase
@@ -11,7 +12,9 @@ import { alertMessage, createElement, debounce, filterArrayToRetrieveUniqueValue
     letter: true, // password must contain letter (uppercase | lowercase)
     length: "8:", // Requires a minimum length of 8 characters
     special char: "1:", // Requires a minimum of 1 special char
-    @todo terminer l'implémentation du strong password 
+    @todo terminer l'implémentation du strong password :
+    utiliser la liste des mots de passe commun
+    @todo faire en sorte que l'option canBeEmpty s'applique au dynamique aussi
  */
 export class ErrorHandler {
 
@@ -196,6 +199,9 @@ export class ErrorHandler {
      * Il faut utiliser le nom de l'input - par défaut : ['step_3', 'step_4', 'step_5', 'step_6']
      * @param {Boolean} [options.debouncing=true] Permet de définir un délai après intéraction de l'utilisateur - par défaut : true
      * @param {Boolean} [options.canBeEmpty=false] Permet de définir si toutes les inputs peuvent être vides (non conseillé) - par défaut : false
+     * @param {Boolean} [options.strongPassword=true] => 
+     * Permet de définir si les mots de passes saisis doivent être forts - par défaut : true
+     * Une liste de mots de passes communs sera alors pris en compte -
      * @param {Boolean} [options.useMyOwnListener=false] =>
      * !! ATTENTION !!!
      * Il est possible d'utiliser le getter isInputChecked pour vérifier les inputs sur son propre script -
@@ -245,7 +251,10 @@ export class ErrorHandler {
                 setObjectPropertyTo(this.options.strongPassword, input, input.name, 'strongPassword', true)
                 this.#password = input
             }
-            if (input.id === 'pwdRepeat') this.#pwdRepeat = input
+            if (input.id === 'pwdRepeat') {
+                setObjectPropertyTo(this.options.strongPassword, input, input.name, 'strongPassword', true)
+                this.#pwdRepeat = input
+            }
             if (input.id === 'age') this.#age = input
             if (input.id === 'username') this.#name = input
             if (input.id === 'email') {
@@ -302,10 +311,14 @@ export class ErrorHandler {
                     this.#wrongInput[index] = `  ${element} `
                 }
                 this.#displayErrorMessage(`Les caractères suivants ne sont pas autorisés : ${this.#wrongInput} `, input)
+                return
             } else if (input.id === "email" && !this.#emailInputRegex.test(input.value)) {
                 this.#displayErrorMessage(this.#invalidEmailMessage, input)
                 return
             } else if (!this.#pwStatus && (input.id === "password" || input.id === "pwdRepeat")) {
+                this.#displayErrorMessage(this.#invalidPwMessage, input)
+                return
+            } else if (!input.isValidPassword && (input.id === "password" || input.id === "pwdRepeat")) {
                 this.#displayErrorMessage(this.#invalidPwMessage, input)
                 return
             } else if (this.#spaceNotAllowed && input.id === 'username') {
@@ -400,6 +413,7 @@ export class ErrorHandler {
             // this.#isCharAllowed = false
             return
         }
+        console.log(input.isCharAllowed)
         input.isCharAllowed = true
             // this.#isCharAllowed = true
         return
