@@ -91,7 +91,8 @@ export function setObjectPropertyTo(arr, object, objectProperty, propertyToSet, 
     arr = Array.isArray(arr) ? arr : [arr]
     for (const keys of arr) {
         // In case the arr gives a boolean
-        if (keys) {
+        if (keys === true) {
+            console.log('Cest un true')
             object[propertyToSet] = bool
             return
         }
