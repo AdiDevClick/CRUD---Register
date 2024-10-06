@@ -1,8 +1,10 @@
-import { alertClass, alertID, allowedSpecialChars, emailInputRegex, emptyAlert, formButton, formIDToAvoidChecking, hiddenAlertClass, hiddenClass, inputErrorClass, inputsCanBeEmpty, inputsCanContainSpecialChars, inputsNotToAppend, inputsToListen, invalidEmailMessage, invalidPwMessage, noSpaceAllowedMessage, notANumberError, thisInputShouldBeInt, tooltip, userInputRegex, wrongNumber } from "../configs/ErrorHandler.config.js"
+import { alertClass, alertID, allowedSpecialChars, emailInputRegex, emptyAlert, formButton, formIDToAvoidChecking, hiddenAlertClass, hiddenClass, inputErrorClass, inputsCanBeEmpty, inputsCanContainSpecialChars, inputsNotToAppend, inputsToListen, invalidEmailMessage, invalidPwMessage, noSpaceAllowedMessage, notANumberError, notIdenticalPasswords, thisInputShouldBeInt, tooltip, userInputRegex, wrongNumber } from "../configs/ErrorHandler.config.js"
 import { alertMessage, createElement, debounce, filterArrayToRetrieveUniqueValues, retrieveUniqueNotAllowedCharFromRegex, setObjectPropertyTo } from "../functions/dom.js"
 
 
 /**
+ * @todo rendre la regex strongpw configurable
+ * @todo rendre le tooltip dynamique
  * @todo .form-recipe dynamique pour la creation de l'obs
  * @todo {userInputRegex} à setup pour le username
  * @todo password :
@@ -88,6 +90,11 @@ export class ErrorHandler {
      * @type {String}
      */
     #invalidPwMessage = invalidPwMessage
+    /**
+     * @module ErrorHandler.config.js
+     * @type {String}
+     */
+    #notIdenticalPasswords = notIdenticalPasswords
     /**
      * @module ErrorHandler.config.js
      * @type {String}
@@ -222,6 +229,7 @@ export class ErrorHandler {
             useMyOwnListener: false,
             isSpecialCharactersAllowed: false,
             whichInputAllowSpecialCharacters: this.#inputsCanContainSpecialChars,
+            createTooltips: true
         }, options)
         if (this.#alert) this.#alertText = this.#alert.innerText
         if (!this.#alert) {
@@ -316,7 +324,7 @@ export class ErrorHandler {
                 this.#displayErrorMessage(this.#invalidEmailMessage, input)
                 return
             } else if (!this.#pwStatus && (input.id === "password" || input.id === "pwdRepeat")) {
-                this.#displayErrorMessage(this.#invalidPwMessage, input)
+                this.#displayErrorMessage(this.#notIdenticalPasswords, input)
                 return
             } else if (!input.isValidPassword && (input.id === "password" || input.id === "pwdRepeat")) {
                 this.#displayErrorMessage(this.#invalidPwMessage, input)
@@ -367,6 +375,20 @@ export class ErrorHandler {
      */
     #createIconContainer(input) {
         const noIconInput = this.activeInput(this.#inputsNotToAppend, input)
+        let icon
+        if (!icon) {
+            if (input.id !== noIconInput.id) {
+                icon = createElement('span')
+                input.insertAdjacentElement(
+                    'afterend',
+                    icon
+                )
+            }
+        }
+    }
+
+    #createTooltipContainer(input) {
+        const noTooltipInput = this.activeInput(this.#inputsNotToAppend, input)
         let icon
         if (!icon) {
             if (input.id !== noIconInput.id) {
@@ -705,9 +727,9 @@ export class ErrorHandler {
         if (!this.#pwStatus) {
             console.log(this.#pwStatus)
             // this.#password.classList.add(this.#inputErrorClass)
-            this.#error.push(this.#invalidPwMessage)
+            this.#error.push(this.#notIdenticalPasswords)
         } else {
-            this.#removeError(this.#invalidPwMessage)
+            this.#removeError(this.#notIdenticalPasswords)
         }
         // Space not allowed
         if (this.#spaceNotAllowed) {
