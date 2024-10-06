@@ -265,7 +265,7 @@ input:active {
     color: #ffa500;
     /* opacity: 1; */
     /* border: red 1px solid; */
-    max-width: 100%;
+    max-width: 70%;
     /* margin: 15px auto; */
     /* transition: all ease-in-out; */
     /* transition: opacity 3s 1s; */
@@ -278,7 +278,8 @@ input:active {
     background: #3b3b3b;
     z-index: 1001;
     height: 40px;
-    border-radius: 5px;
+    border-radius: 100vh;
+    margin: 1% auto;
 }
 /* END OF INPUTS*/
 
