@@ -32,7 +32,13 @@ export const invalidEmailMessage = `Votre email est invalide
  * Configurate password invalid error message
  * @type {String}
  */
-export const invalidPwMessage = 'Vos mots de passes ne sont pas identiques'
+export const invalidPwMessage = "Votre mot de passe n'est pas asser fort"
+/**
+/**
+ * Configurate password invalid error message
+ * @type {String}
+ */
+export const notIdenticalPasswords = 'Vos mots de passes ne sont pas identiques'
 /**
  * Configurate no space allowed error message
  * @type {String}
