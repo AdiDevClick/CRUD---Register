@@ -1,9 +1,8 @@
-import { alertClass, alertID, allowedSpecialChars, emailInputRegex, emptyAlert, formButton, formIDToAvoidChecking, hiddenAlertClass, hiddenClass, inputErrorClass, inputsCanBeEmpty, inputsCanContainSpecialChars, inputsNotToAppend, inputsToListen, invalidEmailMessage, invalidPwMessage, noSpaceAllowedMessage, notANumberError, notIdenticalPasswords, thisInputShouldBeInt, tooltip, userInputRegex, wrongNumber } from "../configs/ErrorHandler.config.js"
+import { alertClass, alertID, allowedSpecialChars, emailInputRegex, emptyAlert, formButton, formIDToAvoidChecking, hiddenAlertClass, hiddenClass, inputErrorClass, inputsCanBeEmpty, inputsCanContainSpecialChars, inputsNotToAppend, inputsToListen, invalidEmailMessage, invalidPwMessage, noSpaceAllowedMessage, notANumberError, notIdenticalPasswords, strongPasswordInputRegex, thisInputShouldBeInt, tooltip, userInputRegex, wrongNumber } from "../configs/ErrorHandler.config.js"
 import { alertMessage, createElement, debounce, filterArrayToRetrieveUniqueValues, retrieveUniqueNotAllowedCharFromRegex, setObjectPropertyTo } from "../functions/dom.js"
 
 
 /**
- * @todo rendre la regex strongpw configurable
  * @todo rendre le tooltip dynamique
  * @todo .form-recipe dynamique pour la creation de l'obs
  * @todo {userInputRegex} à setup pour le username
@@ -74,7 +73,8 @@ export class ErrorHandler {
      * @type {RegExpConstructor} 
      */
     #userInputRegex = userInputRegex
-    #passwordInputRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\[\]{};':"\\|,.<>\/?~`]).{8,32}$/
+    #passwordInputRegex = strongPasswordInputRegex
+    // #passwordInputRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\[\]{};':"\\|,.<>\/?~`]).{8,32}$/
     /** 
      * Tested and not allowedSpecialChars char
      * @type {Array}
@@ -165,6 +165,8 @@ export class ErrorHandler {
     #spaceNotAllowed = false
     /** @type {Array} */
     #listenInputs = []
+    /** @type {HTMLElement} */
+    #pwTooltip
     /**
      * Utilisé pour retourner les erreurs lors de la saisie dynamique -
      * L'array contient les inputs qui renvoient une erreur de saisie
@@ -182,17 +184,19 @@ export class ErrorHandler {
      */
     #handleObserver = (mutationsList, observer) => {
         mutationsList.forEach(mutation => {
-            const addedNodes = mutation.addedNodes[0].children
-            for (const node of addedNodes) {
-                if (this.#inputsToListen.includes(node.type)) {
-                    // Setting which input can be empty
-                    setObjectPropertyTo(this.options.whichInputCanBeEmpty, node, node.name, 'canBeEmpty', true)
-                    // Setting which input can accept special char
-                    setObjectPropertyTo(this.options.whichInputAllowSpecialCharacters, node, node.name, 'allowSpecialCharacters', true)
-                    // Creating valid / invalid icon for each inputs
-                    this.#createIconContainer(node)
-                    // Main dynamic checker
-                    this.#dynamicCheck(node)
+            if (mutation.addedNodes.length > 0) {
+                const addedNodes = mutation.addedNodes[0].children
+                for (const node of addedNodes) {
+                    if (this.#inputsToListen.includes(node.type)) {
+                        // Setting which input can be empty
+                        setObjectPropertyTo(this.options.whichInputCanBeEmpty, node, node.name, 'canBeEmpty', true)
+                        // Setting which input can accept special char
+                        setObjectPropertyTo(this.options.whichInputAllowSpecialCharacters, node, node.name, 'allowSpecialCharacters', true)
+                        // Creating valid / invalid icon for each inputs
+                        this.#createIconContainer(node)
+                        // Main dynamic checker
+                        this.#dynamicCheck(node)
+                    }
                 }
             }
         })
@@ -248,18 +252,21 @@ export class ErrorHandler {
         this.#listenInputs = Array.from(this.#form.querySelectorAll(this.#inputsToListen))
         
         this.#listenInputs.forEach(input => {
+            let tooltip
             // Setting which input can be empty
             setObjectPropertyTo(this.options.whichInputCanBeEmpty, input, input.name, 'canBeEmpty', true)
             // Setting which input can accept special char
             setObjectPropertyTo(this.options.whichInputAllowSpecialCharacters, input, input.name, 'allowSpecialCharacters', true)
             // Creating valid / invalid icon for each inputs
-            this.#createIconContainer(input)
             if (input.id === 'password') {
+                this.#pwTooltip = this.#createTooltipContainer(input)
                 // Setting if strong password is required
                 setObjectPropertyTo(this.options.strongPassword, input, input.name, 'strongPassword', true)
                 this.#password = input
             }
             if (input.id === 'pwdRepeat') {
+                // tooltip = this.#createTooltipContainer(input)
+                // Setting if strong password is required
                 setObjectPropertyTo(this.options.strongPassword, input, input.name, 'strongPassword', true)
                 this.#pwdRepeat = input
             }
@@ -269,8 +276,10 @@ export class ErrorHandler {
                 this.#email = input
                 if (input.classList.contains('form__field')) input.setAttribute('placeholder', '')
             }
+            this.#createIconContainer(input)
+
             // Main dynamic checker
-            this.#dynamicCheck(input)
+            this.#dynamicCheck(input, tooltip)
         })
         // TODO : form recipe dynamique
         window.addEventListener('DOMContentLoaded', (e) => {
@@ -279,6 +288,7 @@ export class ErrorHandler {
                 this.#observer = new MutationObserver(this.#handleObserver)
                 this.#observer.observe(target, { childList: true })
             }
+            // console.log('contentloaded')
         })
         // If you want a generic submit checker
         if (this.options.useMyOwnListener) return
@@ -295,7 +305,7 @@ export class ErrorHandler {
      * Le bouton d'envoi n'est désactivé qu'en cas d'écoute du submit !!
      * @param {HTMLInputElement} element 
      */
-    #dynamicCheck(input) {
+    #dynamicCheck(input, tooltip) {
         input.addEventListener('input', debounce((e) => {
             // Checking if input is empty
             this.isEmptyInputs(e.target)
@@ -326,8 +336,12 @@ export class ErrorHandler {
             } else if (!this.#pwStatus && (input.id === "password" || input.id === "pwdRepeat")) {
                 this.#displayErrorMessage(this.#notIdenticalPasswords, input)
                 return
-            } else if (!input.isValidPassword && (input.id === "password" || input.id === "pwdRepeat")) {
+            } else if (!input.isValidPassword) {
+            // } else if (!input.isValidPassword && (input.id === "password" || input.id === "pwdRepeat")) {
                 this.#displayErrorMessage(this.#invalidPwMessage, input)
+                console.log(this.#pwTooltip)
+                // tooltip.innerText = 'test'
+                this.#pwTooltip.style.visibility = 'visible'
                 return
             } else if (this.#spaceNotAllowed && input.id === 'username') {
                 this.#displayErrorMessage(this.#noSpaceAllowedMessage, input)
@@ -341,6 +355,8 @@ export class ErrorHandler {
             } else {
                 // input.classList.add("valid_input")
                 input.classList.remove(this.#inputErrorClass)
+                if (this.#pwTooltip) this.#pwTooltip.style.visibility = 'hidden'
+
                 // input.removeAttribute('style')
                 // if (this.#tooltip?.hasAttribute('style')) this.#tooltip.removeAttribute('style')
                 this.#count = filterArrayToRetrieveUniqueValues(this.#count, input, 'input')
@@ -389,16 +405,33 @@ export class ErrorHandler {
 
     #createTooltipContainer(input) {
         const noTooltipInput = this.activeInput(this.#inputsNotToAppend, input)
-        let icon
-        if (!icon) {
-            if (input.id !== noIconInput.id) {
-                icon = createElement('span')
+        let tooltip = document.querySelector('#tooltip-pw')
+        if (!tooltip) {
+            if (input.id !== noTooltipInput.id) {
+                tooltip = createElement('div', {
+                    class: 'tooltiptext',
+                    id: 'tooltip-pw'
+                })
+                const context = createElement('p')
+                context.innerText = 'Votre mot de passe doit contenir au moins :'
+                const lowerCase = createElement('p', { id: 'lowercase' })
+                lowerCase.innerText = '1 minuscule'
+                const upperCase = createElement('p', { id: 'uppercase' })
+                upperCase.innerText = '1 majuscule'
+                const digit = createElement('p', { id: 'digit' })
+                digit.innerText = '1 chiffre'
+                const specialChar = createElement('p', { id: 'specialchar' })
+                specialChar.innerText = '1 minuscule'
+                const length = createElement('p', { id: 'length' })
+                length.innerText = 'Il doit contenir entre 8 et 32 caractères'
+                tooltip.append(context, lowerCase, upperCase, digit, specialChar, length)
                 input.insertAdjacentElement(
                     'afterend',
-                    icon
+                    tooltip
                 )
             }
         }
+        return tooltip
     }
 
     /**
@@ -442,15 +475,72 @@ export class ErrorHandler {
     }
 
     #validateThisInput(input, inputProperty, RegExp, newProperty) {
-        if (inputProperty && !RegExp.test(input.value)) {
-            // Retrieve every character that isn't allowed and only unique entries
-            console.log(input)
-            this.#wrongInput = retrieveUniqueNotAllowedCharFromRegex(input.value, this.#allowedSpecialChars)
+        const erreurs = []
+        if (inputProperty) {
+            let lowerCase = document.querySelector('#lowercase')
+            let upperCase = document.querySelector('#uppercase')
+            let digit = document.querySelector('#digit')
+            let specialChar = document.querySelector('#specialchar')
+            let length = document.querySelector('#length')
+            if (!/(?=.*[a-z])/.test(input.value)) {
+                lowerCase.classList.add('input_error')
+                lowerCase.classList.remove('valid_input')
+                // lowerCase.classList.add('red')
+                erreurs.push("Le mot de passe doit contenir au moins une lettre minuscule.")
+                // console.log(lowerCase)
+            } else {
+                lowerCase.classList.remove('input_error')
+                lowerCase.classList.add('valid_input')
+            }
+            if (!/(?=.*[A-Z])/.test(input.value)) {
+                upperCase.classList.add('input_error')
+                upperCase.classList.remove('valid_input')
+                erreurs.push("Le mot de passe doit contenir au moins une lettre majuscule.")
+                // upperCase.classList.add('red')
+            } else {
+                upperCase.classList.remove('input_error')
+                upperCase.classList.add('valid_input')
+            }
+            if (!/(?=.*\d)/.test(input.value)) {
+                digit.classList.add('input_error')
+                digit.classList.remove('valid_input')
+                erreurs.push("Le mot de passe doit contenir au moins un chiffre.")
+                // digit.classList.add('red')
+            } else {
+                digit.classList.remove('input_error')
+                digit.classList.add('valid_input')
+            }
+            if (!/(?=.*[!@#$%^&*()_+\[\]{};':"\\|,.<>\/?~`])/.test(input.value)) {
+                specialChar.classList.add('input_error')
+                specialChar.classList.remove('valid_input')
+                erreurs.push("Le mot de passe doit contenir au moins un caractère spécial.")
+                // specialChar.classList.add('red')
+            } else {
+                specialChar.classList.remove('input_error')
+                specialChar.classList.add('valid_input')
+            }
+            if (!/.{8,32}/.test(input.value)) {
+                length.classList.add('input_error')
+                length.classList.remove('valid_input')
+                erreurs.push("Le mot de passe doit contenir entre 8 et 32 caractères.")
+                // length.classList.add('red')
+            } else {
+                length.classList.remove('input_error')
+                length.classList.add('valid_input')
+            }
             input[newProperty] = false
-            // this.#isCharAllowed = false
-            console.log(input.value)
-            return
+            console.log(erreurs)
+            if (erreurs.length > 0) return
         }
+        // if (inputProperty && !RegExp.test(input.value)) {
+        //     // Retrieve every character that isn't allowed and only unique entries
+        //     console.log(input)
+        //     // this.#wrongInput = retrieveUniqueNotAllowedCharFromRegex(input.value, this.#allowedSpecialChars)
+        //     input[newProperty] = false
+        //     // this.#isCharAllowed = false
+        //     console.log(input.value)
+        //     return
+        // }
         input[newProperty] = true
         console.log('ok')
             // this.#isCharAllowed = true
