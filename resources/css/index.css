@@ -198,7 +198,62 @@ input.input_error:not(:placeholder-shown) {
     /* border-bottom: 1px solid var(--input-focus); */
 }
 
-:is(input, textarea) + span {
+:is(input, textarea) {
+    & + span {
+        position: absolute;
+    }
+    &.input_error + span {
+        bottom: 15px;
+        right: 10px;
+        grid-row: 1 / 1;
+        grid-column: 2 / 2;
+        &::before {
+            content: "✖";
+            color: red;
+        }
+    }
+    &.valid_input + span {
+        bottom: 15px;
+        right: 10px;
+        grid-row: 1 / 1;
+        grid-column: 2 / 2;
+        &::before {
+            content: "✓";
+            color: green;
+            font-weight: 900;
+        }
+    }
+}
+
+:is(div).tooltiptext {
+    & p.input_error {
+        bottom: 15px;
+        right: 10px;
+        grid-row: 1 / 1;
+        grid-column: 2 / 2;
+        color: red;
+        &::before {
+            content: "✖";
+            color: red;
+            margin: 5px;
+        }
+    }
+    & p.valid_input {
+        bottom: 15px;
+        right: 10px;
+        grid-row: 1 / 1;
+        grid-column: 2 / 2;
+        color: green;
+        &::before {
+            content: "✓";
+            color: green;
+            margin: 5px;
+            font-weight: 900;
+        }
+    }
+}
+
+/* :is(input, textarea) + span {
     position: absolute;
 }
 
@@ -206,7 +261,7 @@ input.input_error:not(:placeholder-shown) {
     /* right: -20px; */
     /* top: 5px; */
     /* top: 50%; */
-    bottom: 15px;
+    /* bottom: 15px;
     right: 10px;
     grid-row: 1 / 1;
     grid-column: 2 / 2;
@@ -215,12 +270,13 @@ input.input_error:not(:placeholder-shown) {
         color: red;
     }
 }
+
 :is(input, textarea).valid_input + span {
     /* right: -20px;
     top: 50%; */
     /* bottom: 5px;
     right: 5px; */
-    bottom: 15px;
+    /* bottom: 15px;
     right: 10px;
     grid-row: 1 / 1;
     grid-column: 2 / 2;
@@ -229,7 +285,7 @@ input.input_error:not(:placeholder-shown) {
         color: green;
         font-weight: 900;
     }
-}
+} */
 
 input, div[type=text] {
     /* text-align: left; */
@@ -2243,7 +2299,8 @@ hr {
 }
 .tooltiptext {
     visibility: hidden;
-    width: 120px;
+    /* width: 120px; */
+    min-width: 120px;
     background-color: black;
     color: #fff;
     text-align: center;
