@@ -135,6 +135,16 @@ export const emailInputRegex = new RegExp("([a-z0-9A-Z._-]+)@([a-z0-9A-Z_-]+)\\.
  * @type {RegExp}
  */
 export const userInputRegex = new RegExp('^[a-zA-Z0-9_-]{1,32}$')
+/**
+ * Configurate Password and checks that at least :
+ * 1 uppercase letter
+ * 1 diggit
+ * 1 special char
+ * A minimum of 8 chars
+ * A maximum of 32 chars
+ * @type {RegExp}
+ */
+export const strongPasswordInputRegex = new RegExp(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\[\]{};':"\\|,.<>\/?~`]).{8,32}$/)
 
 ////////////////////////////////////////////////////////////
                     /** ALERT */
