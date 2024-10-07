@@ -128,10 +128,10 @@ export class DrawerTouchPlugin {
         // Evènements
         this.#moveCallbacks.forEach(cb => cb(this.#index))
 
-        window.addEventListener("DOMContentLoaded", (e) => {
+        // window.addEventListener("DOMContentLoaded", (e) => {
             this.#observer = new MutationObserver(this.#handleMutation)
             this.#observer.observe(this.container, { attributeOldValue: true})
-        })
+        // })
         window.addEventListener('resize', this.#onWindowResize.bind(this))
     }
 
