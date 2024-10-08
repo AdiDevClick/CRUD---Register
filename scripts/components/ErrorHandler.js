@@ -1,21 +1,12 @@
-import { alertClass, alertID, allowedSpecialChars, emailInputRegex, emptyAlert, formButton, formIDToAvoidChecking, hiddenAlertClass, hiddenClass, inputErrorClass, inputsCanBeEmpty, inputsCanContainSpecialChars, inputsNotToAppend, inputsToListen, invalidEmailMessage, invalidPwMessage, noSpaceAllowedMessage, notANumberError, notIdenticalPasswords, strongPasswordInputRegex, thisInputShouldBeInt, tooltip, userInputRegex, wrongNumber } from "../configs/ErrorHandler.config.js"
+import { alertClass, alertID, allowedSpecialChars, emailInputRegex, emptyAlert, formButton, formIDToAvoidChecking, hiddenAlertClass, hiddenClass, inputErrorClass, inputsCanBeEmpty, inputsCanContainSpecialChars, inputsNotToAppend, inputsToListen, inputValidClass, invalidEmailMessage, invalidPwMessage, noSpaceAllowedMessage, notANumberError, notIdenticalPasswords, pwCannotBeUsername, sectionToWatch, strongPasswordInputRegex, strongPwDigitInputRegex, strongPwLengthInputRegex, strongPwLowerCaseInputRegex, strongPwSpecialCharInputRegex, strongPwUpperCaseInputRegex, thisInputShouldBeInt, tooltip, userInputRegex, wrongNumber } from "../configs/ErrorHandler.config.js"
 import { alertMessage, createElement, debounce, filterArrayToRetrieveUniqueValues, retrieveUniqueNotAllowedCharFromRegex, setObjectPropertyTo } from "../functions/dom.js"
 
 
 /**
  * @todo rendre le tooltip dynamique
- * @todo .form-recipe dynamique pour la creation de l'obs
  * @todo {userInputRegex} à setup pour le username
- * @todo password :
- *  lowercase: 1, // password must contain lowercase
-    uppercase: 3, // Requires at least 3 uppercase letter
-    digit: 1, // Requires at least 1 digit
-    letter: true, // password must contain letter (uppercase | lowercase)
-    length: "8:", // Requires a minimum length of 8 characters
-    special char: "1:", // Requires a minimum of 1 special char
-    @todo terminer l'implémentation du strong password :
+ * @todo terminer l'implémentation du strong password :
     utiliser la liste des mots de passe commun
-    @todo faire en sorte que l'option canBeEmpty s'applique au dynamique aussi
  */
 export class ErrorHandler {
 
@@ -99,6 +90,11 @@ export class ErrorHandler {
      * @module ErrorHandler.config.js
      * @type {String}
      */
+    #pwCannotBeUsername = pwCannotBeUsername
+    /**
+     * @module ErrorHandler.config.js
+     * @type {String}
+     */
     #noSpaceAllowedMessage = noSpaceAllowedMessage
     /**
      * @module ErrorHandler.config.js
@@ -125,6 +121,11 @@ export class ErrorHandler {
      * @type {String}
      */
     #inputErrorClass = inputErrorClass
+    /**
+     * @module ErrorHandler.config.js
+     * @type {String}
+     */
+    #inputValidClass = inputValidClass
     /**
      * @module ErrorHandler.config.js
      * @type {String}
@@ -175,6 +176,11 @@ export class ErrorHandler {
      * @type {Array}
      */
     #count = []
+    /**
+     * @module ErrorHandler.config.js
+     * @type {String}
+     */
+    #sectionToWatch = sectionToWatch
     /** @type {MutationObserver} */
     #observer
     /**
@@ -221,6 +227,7 @@ export class ErrorHandler {
      * Il est recommandé d'utiliser son propre Listener pour permettre de gérer le submit -
      * @param {Boolean} [options.isSpecialCharactersAllowed=false] Permet de définir si l'on souhaite autoriser des caractères spéciaux pour l'input - par défaut : false
      * @param {Object} [options.debounceDelay=1000] Permet de définir un délai après intéraction de l'utilisateur - par défaut : 1s
+     * @param {Boolean} [options.createTooltips=true] Permet de créer des tooltips pour informer l'utilisateur - par défaut : true
      */
     constructor(form, options = {}) {
         this.#form = form
@@ -252,13 +259,13 @@ export class ErrorHandler {
         this.#listenInputs = Array.from(this.#form.querySelectorAll(this.#inputsToListen))
         
         this.#listenInputs.forEach(input => {
-            let tooltip
             // Setting which input can be empty
             setObjectPropertyTo(this.options.whichInputCanBeEmpty, input, input.name, 'canBeEmpty', true)
             // Setting which input can accept special char
             setObjectPropertyTo(this.options.whichInputAllowSpecialCharacters, input, input.name, 'allowSpecialCharacters', true)
             // Creating valid / invalid icon for each inputs
             if (input.id === 'password') {
+                // Creating tooltip for password input
                 this.#pwTooltip = this.#createTooltipContainer(input)
                 // Setting if strong password is required
                 setObjectPropertyTo(this.options.strongPassword, input, input.name, 'strongPassword', true)
@@ -279,16 +286,16 @@ export class ErrorHandler {
             this.#createIconContainer(input)
 
             // Main dynamic checker
-            this.#dynamicCheck(input, tooltip)
+            this.#dynamicCheck(input)
         })
-        // TODO : form recipe dynamique
+        
+        // Evènements
         window.addEventListener('DOMContentLoaded', (e) => {
-            const target = document.querySelector('.form-recipe')
+            const target = document.querySelector(this.#sectionToWatch)
             if (target) {
                 this.#observer = new MutationObserver(this.#handleObserver)
                 this.#observer.observe(target, { childList: true })
             }
-            // console.log('contentloaded')
         })
         // If you want a generic submit checker
         if (this.options.useMyOwnListener) return
@@ -305,12 +312,14 @@ export class ErrorHandler {
      * Le bouton d'envoi n'est désactivé qu'en cas d'écoute du submit !!
      * @param {HTMLInputElement} element 
      */
-    #dynamicCheck(input, tooltip) {
+    #dynamicCheck(input) {
         input.addEventListener('input', debounce((e) => {
             // Checking if input is empty
             this.isEmptyInputs(e.target)
-            // Checking if the password matches validation
-            this.#validateThisInput(e.target, e.target.strongPassword, this.#passwordInputRegex, 'isValidPassword')
+            // Checking if the password isn't from common list
+
+            // Checking if the password matches validation regex
+            this.#validateThisPassword(e.target, e.target.strongPassword, 'isValidPassword')
             // Checking if passwords are same
             this.isExactPassword(e.target)
             // Checking if the character used is allowed
@@ -339,9 +348,10 @@ export class ErrorHandler {
             } else if (!input.isValidPassword) {
             // } else if (!input.isValidPassword && (input.id === "password" || input.id === "pwdRepeat")) {
                 this.#displayErrorMessage(this.#invalidPwMessage, input)
-                console.log(this.#pwTooltip)
-                // tooltip.innerText = 'test'
                 this.#pwTooltip.style.visibility = 'visible'
+                return
+            } else if ((input.id === "password" || input.id === "pwdRepeat") && (input.value === username.value)) {
+                this.#displayErrorMessage(this.#pwCannotBeUsername, input)
                 return
             } else if (this.#spaceNotAllowed && input.id === 'username') {
                 this.#displayErrorMessage(this.#noSpaceAllowedMessage, input)
@@ -412,7 +422,9 @@ export class ErrorHandler {
                     class: 'tooltiptext',
                     id: 'tooltip-pw'
                 })
-                const context = createElement('p')
+                const context = createElement('p', {
+                    style: 'color: #ffa500;'
+                })
                 context.innerText = 'Votre mot de passe doit contenir au moins :'
                 const lowerCase = createElement('p', { id: 'lowercase' })
                 lowerCase.innerText = '1 minuscule'
@@ -421,9 +433,9 @@ export class ErrorHandler {
                 const digit = createElement('p', { id: 'digit' })
                 digit.innerText = '1 chiffre'
                 const specialChar = createElement('p', { id: 'specialchar' })
-                specialChar.innerText = '1 minuscule'
+                specialChar.innerText = '1 caractère spécial'
                 const length = createElement('p', { id: 'length' })
-                length.innerText = 'Il doit contenir entre 8 et 32 caractères'
+                length.innerText = 'Il doit contenir entre 8 et 128 caractères'
                 tooltip.append(context, lowerCase, upperCase, digit, specialChar, length)
                 input.insertAdjacentElement(
                     'afterend',
@@ -447,8 +459,9 @@ export class ErrorHandler {
         this.#count.push( { input: element, alert: message } )
         this.#alert.classList.remove(this.#hiddenClass)
         this.#alert.innerText = message
-        element.classList.add(this.#inputErrorClass)
-        element.classList.remove("valid_input")
+        // element.classList.add(this.#inputErrorClass)
+        // element.classList.remove("valid_input")
+        this.#addErrorClass(element)
         if (element === this.#password) this.#pwdRepeat.classList.add(this.#inputErrorClass)
         if (element === this.#pwdRepeat) this.#password.classList.add(this.#inputErrorClass)
     }
@@ -474,60 +487,50 @@ export class ErrorHandler {
         return
     }
 
-    #validateThisInput(input, inputProperty, RegExp, newProperty) {
-        const erreurs = []
+    #validateThisPassword(input, inputProperty, newProperty) {
         if (inputProperty) {
+            const erreurs = []
             let lowerCase = document.querySelector('#lowercase')
             let upperCase = document.querySelector('#uppercase')
             let digit = document.querySelector('#digit')
             let specialChar = document.querySelector('#specialchar')
             let length = document.querySelector('#length')
-            if (!/(?=.*[a-z])/.test(input.value)) {
-                lowerCase.classList.add('input_error')
-                lowerCase.classList.remove('valid_input')
-                // lowerCase.classList.add('red')
+            if (!strongPwLowerCaseInputRegex.test(input.value)) {
+                this.#addErrorClass(lowerCase)
                 erreurs.push("Le mot de passe doit contenir au moins une lettre minuscule.")
-                // console.log(lowerCase)
             } else {
-                lowerCase.classList.remove('input_error')
-                lowerCase.classList.add('valid_input')
+                this.#setValidClass(lowerCase)
             }
-            if (!/(?=.*[A-Z])/.test(input.value)) {
-                upperCase.classList.add('input_error')
-                upperCase.classList.remove('valid_input')
+            if (!strongPwUpperCaseInputRegex.test(input.value)) {
+                this.#addErrorClass(upperCase)
                 erreurs.push("Le mot de passe doit contenir au moins une lettre majuscule.")
-                // upperCase.classList.add('red')
             } else {
-                upperCase.classList.remove('input_error')
-                upperCase.classList.add('valid_input')
+                this.#setValidClass(upperCase)
             }
-            if (!/(?=.*\d)/.test(input.value)) {
-                digit.classList.add('input_error')
-                digit.classList.remove('valid_input')
+            if (!strongPwDigitInputRegex.test(input.value)) {
+                this.#addErrorClass(digit)
                 erreurs.push("Le mot de passe doit contenir au moins un chiffre.")
-                // digit.classList.add('red')
             } else {
-                digit.classList.remove('input_error')
-                digit.classList.add('valid_input')
+                this.#setValidClass(digit)
             }
-            if (!/(?=.*[!@#$%^&*()_+\[\]{};':"\\|,.<>\/?~`])/.test(input.value)) {
-                specialChar.classList.add('input_error')
-                specialChar.classList.remove('valid_input')
+            if (!strongPwSpecialCharInputRegex.test(input.value)) {
+                this.#addErrorClass(specialChar)
                 erreurs.push("Le mot de passe doit contenir au moins un caractère spécial.")
-                // specialChar.classList.add('red')
             } else {
-                specialChar.classList.remove('input_error')
-                specialChar.classList.add('valid_input')
+                this.#setValidClass(specialChar)
             }
-            if (!/.{8,32}/.test(input.value)) {
-                length.classList.add('input_error')
-                length.classList.remove('valid_input')
-                erreurs.push("Le mot de passe doit contenir entre 8 et 32 caractères.")
-                // length.classList.add('red')
+            if (!strongPwLengthInputRegex.test(input.value)) {
+                this.#addErrorClass(length)
+                erreurs.push("Le mot de passe doit contenir entre 8 et 128 caractères.")
             } else {
-                length.classList.remove('input_error')
-                length.classList.add('valid_input')
+                this.#setValidClass(length)
             }
+            // if (input.value === username.value) {
+            //     this.#addErrorClass(length)
+            //     erreurs.push("Le mot de passe ne peut pas être votre identifiant.")
+            // } else {
+            //     this.#setValidClass(length)
+            // }
             input[newProperty] = false
             console.log(erreurs)
             if (erreurs.length > 0) return
@@ -542,9 +545,28 @@ export class ErrorHandler {
         //     return
         // }
         input[newProperty] = true
-        console.log('ok')
             // this.#isCharAllowed = true
         return
+    }
+
+    /**
+     * Permet d'ajouter la classe d'erreur définie dans le fichier config
+     * Cela supprimera la classe de validation
+     * @param {HTMLElement} input 
+     */
+    #addErrorClass(input) {
+        input.classList.add(this.#inputErrorClass)
+        input.classList.remove(this.#inputValidClass)   
+    }
+
+    /**
+     * Permet d'ajouter la classe de validation définie dans le fichier config
+     * Cela supprimera la classe d'erreur
+     * @param {HTMLElement} input 
+     */
+    #setValidClass(input) {
+        input.classList.remove(this.#inputErrorClass)
+        input.classList.add(this.#inputValidClass)   
     }
 
     /**
@@ -706,10 +728,12 @@ export class ErrorHandler {
                 this.#pwdRepeat.classList.remove('valid_input')
             } else {
                 this.#pwStatus = true
-                this.#password.classList.remove('input_error')
-                this.#pwdRepeat.classList.remove('input_error')
-                this.#password.classList.add('valid_input')
-                this.#pwdRepeat.classList.add('valid_input')
+                this.#setValidClass(this.#password)
+                this.#setValidClass(this.#pwdRepeat)
+                // this.#password.classList.remove('input_error')
+                // this.#pwdRepeat.classList.remove('input_error')
+                // this.#password.classList.add('valid_input')
+                // this.#pwdRepeat.classList.add('valid_input')
                 this.#count = filterArrayToRetrieveUniqueValues(this.#count, [this.#password, this.#pwdRepeat], 'input')
             }
             console.log(this.#count)
