@@ -32,13 +32,18 @@ export const invalidEmailMessage = `Votre email est invalide
  * Configurate password invalid error message
  * @type {String}
  */
-export const invalidPwMessage = "Votre mot de passe n'est pas asser fort"
+export const invalidPwMessage = "Votre mot de passe n'est pas assez fort"
 /**
 /**
  * Configurate password invalid error message
  * @type {String}
  */
 export const notIdenticalPasswords = 'Vos mots de passes ne sont pas identiques'
+/**
+ * Configurate password cannot be same as username message
+ * @type {String}
+ */
+export const pwCannotBeUsername = 'Votre mot de passe doit être différent de votre identifiant'
 /**
  * Configurate no space allowed error message
  * @type {String}
@@ -116,6 +121,17 @@ export const inputsCanContainSpecialChars = ['Mot de Passe', 'Mot de Passe de co
 export const defaultInput = 'input, textarea'
 
 ////////////////////////////////////////////////////////////
+                /** DYNAMIC SECTION TO WATCH */
+////////////////////////////////////////////////////////////
+
+/**
+ * Defines which area to watch in order to dynamically
+ * check newly created inputs values -
+ * @type {String}
+ */
+export const sectionToWatch = '.form-recipe'
+
+////////////////////////////////////////////////////////////
                     /** REGEX */
 ////////////////////////////////////////////////////////////
 
@@ -137,14 +153,20 @@ export const emailInputRegex = new RegExp("([a-z0-9A-Z._-]+)@([a-z0-9A-Z_-]+)\\.
 export const userInputRegex = new RegExp('^[a-zA-Z0-9_-]{1,32}$')
 /**
  * Configurate Password and checks that at least :
+ * 1 lowercase letter
  * 1 uppercase letter
- * 1 diggit
+ * 1 digit
  * 1 special char
  * A minimum of 8 chars
- * A maximum of 32 chars
+ * A maximum of 128 chars
  * @type {RegExp}
  */
-export const strongPasswordInputRegex = new RegExp(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\[\]{};':"\\|,.<>\/?~`]).{8,32}$/)
+export const strongPasswordInputRegex = new RegExp(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\[\]{};':"\\|,.<>\/?~`]).{8,128}$/)
+export const strongPwLowerCaseInputRegex = /(?=.*[a-z])/
+export const strongPwUpperCaseInputRegex = /(?=.*[A-Z])/
+export const strongPwDigitInputRegex = /(?=.*\d)/
+export const strongPwSpecialCharInputRegex = /(?=.*[!@#$%^&*()_+\[\]{};':"\\|,.<>\/?~`])/
+export const strongPwLengthInputRegex = /.{8,128}/
 
 ////////////////////////////////////////////////////////////
                     /** ALERT */
@@ -170,6 +192,11 @@ export const alertID = '#alert-error'
  * @type {String}
  */
 export const inputErrorClass = 'input_error'
+/**
+ * Configurate input element valid class when input is correctly set
+ * @type {String}
+ */
+export const inputValidClass = 'valid_input'
 /**
  * Configurate hidden class name for alert to be removed / added
  * @type {String}
