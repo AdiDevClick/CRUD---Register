@@ -226,6 +226,10 @@ input.input_error:not(:placeholder-shown) {
 }
 
 :is(div).tooltiptext {
+    bottom: 100%;
+    left: 20%;
+    padding: 15px 10px;
+    text-align: left;
     & p.input_error {
         bottom: 15px;
         right: 10px;
@@ -321,7 +325,8 @@ input:active {
     color: #ffa500;
     /* opacity: 1; */
     /* border: red 1px solid; */
-    max-width: 70%;
+    /* max-width: 70%; */
+    max-width: fit-content;
     /* margin: 15px auto; */
     /* transition: all ease-in-out; */
     /* transition: opacity 3s 1s; */
@@ -333,9 +338,12 @@ input:active {
     right: 0;
     background: #3b3b3b;
     z-index: 1001;
-    height: 40px;
+    /* height: 40px; */
+    min-height: 40px;
     border-radius: 100vh;
     margin: 1% auto;
+    padding: 10px;
+
 }
 /* END OF INPUTS*/
 
