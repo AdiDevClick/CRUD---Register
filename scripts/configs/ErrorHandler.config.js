@@ -43,7 +43,7 @@ export const notIdenticalPasswords = 'Vos mots de passes ne sont pas identiques'
  * Configurate password cannot be same as username message
  * @type {String}
  */
-export const pwCannotBeUsername = 'Votre mot de passe doit être différent de votre identifiant'
+export const pwCannotBeUsername = 'Pour des raisons de sécurité, votre mot de passe doit être différent de votre identifiant'
 /**
  * Configurate no space allowed error message
  * @type {String}
