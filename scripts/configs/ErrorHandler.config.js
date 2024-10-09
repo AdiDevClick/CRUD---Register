@@ -45,6 +45,11 @@ export const notIdenticalPasswords = 'Vos mots de passes ne sont pas identiques'
  */
 export const pwCannotBeUsername = 'Pour des raisons de sécurité, votre mot de passe doit être différent de votre identifiant'
 /**
+ * Configurate password security breached message
+ * @type {String}
+ */
+export const pwIsTooCommon = 'Ce mot de passe a été identifié lors d\'une faille de sécurité. Pour votre sécurité, veuiller en créer un nouveau'
+/**
  * Configurate no space allowed error message
  * @type {String}
  */
