@@ -1,5 +1,5 @@
 import { commonPasswords } from "../configs/CommonPasswords.js"
-import { alertClass, alertID, allowedSpecialChars, emailInputRegex, emptyAlert, formButton, formIDToAvoidChecking, hiddenAlertClass, hiddenClass, inputErrorClass, inputsCanBeEmpty, inputsCanContainSpecialChars, inputsNotToAppend, inputsToListen, inputValidClass, invalidEmailMessage, invalidPwMessage, noSpaceAllowedMessage, notANumberError, notIdenticalPasswords, pwCannotBeUsername, pwIsTooCommon, sectionToWatch, strongPasswordInputRegex, strongPwDigitInputRegex, strongPwLengthInputRegex, strongPwLowerCaseInputRegex, strongPwSpecialCharInputRegex, strongPwUpperCaseInputRegex, thisInputShouldBeInt, tooltip, userInputRegex, wrongNumber } from "../configs/ErrorHandler.config.js"
+import { alertClass, alertID, allowedSpecialChars, emailInputRegex, emptyAlert, formButton, formIDToAvoidChecking, hiddenAlertClass, hiddenClass, inputErrorClass, inputsCanBeEmpty, inputsCanContainSpecialChars, inputsNotToAppend, inputsToListen, inputValidClass, invalidEmailMessage, invalidPwMessage, noSpaceAllowedMessage, notANumberError, notIdenticalPasswords, pwCannotBeUsername, pwIsTooCommon, sectionToWatch, strongPwDigitInputRegex, strongPwLengthInputRegex, strongPwLowerCaseInputRegex, strongPwSpecialCharInputRegex, strongPwUpperCaseInputRegex, thisInputShouldBeInt, tooltip, userInputRegex, wrongNumber } from "../configs/ErrorHandler.config.js"
 import { alertMessage, createElement, debounce, filterArrayToRetrieveUniqueValues, retrieveUniqueNotAllowedCharFromRegex, setObjectPropertyTo } from "../functions/dom.js"
 
 
@@ -63,7 +63,7 @@ export class ErrorHandler {
      * @type {RegExpConstructor} 
      */
     #userInputRegex = userInputRegex
-    #passwordInputRegex = strongPasswordInputRegex
+    // #passwordInputRegex = strongPasswordInputRegex
     // #passwordInputRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\[\]{};':"\\|,.<>\/?~`]).{8,32}$/
     /** 
      * Tested and not allowedSpecialChars char
@@ -318,6 +318,7 @@ export class ErrorHandler {
      */
     #dynamicCheck(input) {
         input.addEventListener('input', debounce((e) => {
+            console.log('je suis dans le debounce')
             // Checking if input is empty
             this.isEmptyInputs(e.target)
             // Checking if the password matches validation regex
@@ -530,11 +531,17 @@ export class ErrorHandler {
         }
     }
 
-    #createTooltipContainer(input) {
-        const noTooltipInput = this.activeInput(this.#inputsNotToAppend, input)
+    /**
+     * Permet de créer un tooltip pour le mot de passe -
+     * Il indiquera les prérequis pour le strong password -
+     * @param {HTMLElement} element - L'élément sur lequel il sera rataché
+     * @returns {HTMLElement} tooltip
+     */
+    #createTooltipContainer(element) {
+        const noTooltipInput = this.activeInput(this.#inputsNotToAppend, element)
         let tooltip = document.querySelector('#tooltip-pw')
         if (!tooltip) {
-            if (input.id !== noTooltipInput.id) {
+            if (element.id !== noTooltipInput.id) {
                 tooltip = createElement('div', {
                     class: 'tooltiptext',
                     id: 'tooltip-pw'
@@ -554,7 +561,7 @@ export class ErrorHandler {
                 const length = createElement('p', { id: 'length' })
                 length.innerText = 'Il doit contenir entre 8 et 128 caractères'
                 tooltip.append(context, lowerCase, upperCase, digit, specialChar, length)
-                input.insertAdjacentElement(
+                element.insertAdjacentElement(
                     'afterend',
                     tooltip
                 )
@@ -598,7 +605,6 @@ export class ErrorHandler {
             // this.#isCharAllowed = false
             return
         }
-        console.log(input.isCharAllowed)
         input.isCharAllowed = true
             // this.#isCharAllowed = true
         return
@@ -942,7 +948,7 @@ export class ErrorHandler {
             if (key === 'email') {
                 if (!this.#emailInputRegex.test(arrayKey[key].value)) {
                     this.#email.classList.add(this.#inputErrorClass)
-                    this.#email.style.borderBottom = '1px solid red'
+                    // this.#email.style.borderBottom = '1px solid red'
                     if (!this.#email.classList.contains('form__field')) {
                         this.#email.setAttribute('placeholder', 'monEmail@mail.com')
                     } else {

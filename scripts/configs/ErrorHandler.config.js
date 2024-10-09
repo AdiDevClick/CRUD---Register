@@ -166,7 +166,7 @@ export const userInputRegex = new RegExp('^[a-zA-Z0-9_-]{1,32}$')
  * A maximum of 128 chars
  * @type {RegExp}
  */
-export const strongPasswordInputRegex = new RegExp(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\[\]{};':"\\|,.<>\/?~`]).{8,128}$/)
+// export const strongPasswordInputRegex = new RegExp(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\[\]{};':"\\|,.<>\/?~`]).{8,128}$/)
 export const strongPwLowerCaseInputRegex = /(?=.*[a-z])/
 export const strongPwUpperCaseInputRegex = /(?=.*[A-Z])/
 export const strongPwDigitInputRegex = /(?=.*\d)/
