@@ -1,4 +1,5 @@
-import { alertClass, alertID, allowedSpecialChars, emailInputRegex, emptyAlert, formButton, formIDToAvoidChecking, hiddenAlertClass, hiddenClass, inputErrorClass, inputsCanBeEmpty, inputsCanContainSpecialChars, inputsNotToAppend, inputsToListen, inputValidClass, invalidEmailMessage, invalidPwMessage, noSpaceAllowedMessage, notANumberError, notIdenticalPasswords, pwCannotBeUsername, sectionToWatch, strongPasswordInputRegex, strongPwDigitInputRegex, strongPwLengthInputRegex, strongPwLowerCaseInputRegex, strongPwSpecialCharInputRegex, strongPwUpperCaseInputRegex, thisInputShouldBeInt, tooltip, userInputRegex, wrongNumber } from "../configs/ErrorHandler.config.js"
+import { commonPasswords } from "../configs/CommonPasswords.js"
+import { alertClass, alertID, allowedSpecialChars, emailInputRegex, emptyAlert, formButton, formIDToAvoidChecking, hiddenAlertClass, hiddenClass, inputErrorClass, inputsCanBeEmpty, inputsCanContainSpecialChars, inputsNotToAppend, inputsToListen, inputValidClass, invalidEmailMessage, invalidPwMessage, noSpaceAllowedMessage, notANumberError, notIdenticalPasswords, pwCannotBeUsername, pwIsTooCommon, sectionToWatch, strongPasswordInputRegex, strongPwDigitInputRegex, strongPwLengthInputRegex, strongPwLowerCaseInputRegex, strongPwSpecialCharInputRegex, strongPwUpperCaseInputRegex, thisInputShouldBeInt, tooltip, userInputRegex, wrongNumber } from "../configs/ErrorHandler.config.js"
 import { alertMessage, createElement, debounce, filterArrayToRetrieveUniqueValues, retrieveUniqueNotAllowedCharFromRegex, setObjectPropertyTo } from "../functions/dom.js"
 
 
@@ -91,6 +92,11 @@ export class ErrorHandler {
      * @type {String}
      */
     #pwCannotBeUsername = pwCannotBeUsername
+    /**
+     * @module ErrorHandler.config.js
+     * @type {String}
+     */
+    #pwIsTooCommon = pwIsTooCommon
     /**
      * @module ErrorHandler.config.js
      * @type {String}
@@ -316,8 +322,6 @@ export class ErrorHandler {
         input.addEventListener('input', debounce((e) => {
             // Checking if input is empty
             this.isEmptyInputs(e.target)
-            // Checking if the password isn't from common list
-
             // Checking if the password matches validation regex
             this.#validateThisPassword(e.target, e.target.strongPassword, 'isValidPassword')
             // Checking if passwords are same
@@ -328,8 +332,34 @@ export class ErrorHandler {
             this.isANumber(e.target)
             // Should we display the tooltip ?
             this.triggerToolTip()
-            console.log(e.target.isValidPassword)
             if (input.id === 'username') this.isSpaceAllowed(input)
+            if (input.id === "password" || input.id === "pwdRepeat") {
+                // Checking common password list
+                const isCommonPassword = commonPasswords.includes(input.value)
+                // const isCommonPassword = filterArrayToRetrieveUniqueValues(input.value, commonPasswords)
+                if (isCommonPassword) {
+                // if (isCommonPassword.length === 0) {
+                    this.#displayErrorMessage(this.#pwIsTooCommon, input)
+                    return
+                }
+                // Checking for strong password
+                if (!input.isValidPassword) {
+                    this.#displayErrorMessage(this.#invalidPwMessage, input)
+                    this.#pwTooltip.style.visibility = 'visible'
+                    return
+                }
+                // Checking for identical password et pwdRepeat
+                if (!this.#pwStatus) {
+                    console.log('je suis dans le pwstatus')
+                    this.#displayErrorMessage(this.#notIdenticalPasswords, input)
+                    return
+                }
+                // Checking that password isn't the same as username
+                if (input.value === username.value) {
+                    this.#displayErrorMessage(this.#pwCannotBeUsername, input)
+                    return
+                }
+            }
             if (input.isEmpty) {
                 this.#displayErrorMessage(this.#emptyAlert, input)
                 return
@@ -341,17 +371,6 @@ export class ErrorHandler {
                 return
             } else if (input.id === "email" && !this.#emailInputRegex.test(input.value)) {
                 this.#displayErrorMessage(this.#invalidEmailMessage, input)
-                return
-            } else if (!this.#pwStatus && (input.id === "password" || input.id === "pwdRepeat")) {
-                this.#displayErrorMessage(this.#notIdenticalPasswords, input)
-                return
-            } else if (!input.isValidPassword) {
-            // } else if (!input.isValidPassword && (input.id === "password" || input.id === "pwdRepeat")) {
-                this.#displayErrorMessage(this.#invalidPwMessage, input)
-                this.#pwTooltip.style.visibility = 'visible'
-                return
-            } else if ((input.id === "password" || input.id === "pwdRepeat") && (input.value === username.value)) {
-                this.#displayErrorMessage(this.#pwCannotBeUsername, input)
                 return
             } else if (this.#spaceNotAllowed && input.id === 'username') {
                 this.#displayErrorMessage(this.#noSpaceAllowedMessage, input)
@@ -393,6 +412,106 @@ export class ErrorHandler {
             }
         }, (this.debounceDelay)))
     }
+    // /**
+    //  * Inputs will be debounced @ -> get debounceDelay
+    //  * Les listeners d'inputs n'ajoutent pas d'erreurs à l'#error array
+    //  * !! ATTENTION !! : Ce script n'est pas bloquant -
+    //  * Le bouton d'envoi n'est désactivé qu'en cas d'écoute du submit !!
+    //  * @param {HTMLInputElement} element 
+    //  */
+    // #dynamicCheck(input) {
+    //     input.addEventListener('input', debounce((e) => {
+    //         // Checking if input is empty
+    //         this.isEmptyInputs(e.target)
+    //         // Checking if the password isn't from common list
+
+    //         // Checking if the password matches validation regex
+    //         this.#validateThisPassword(e.target, e.target.strongPassword, 'isValidPassword')
+    //         // Checking if passwords are same
+    //         this.isExactPassword(e.target)
+    //         // Checking if the character used is allowed
+    //         this.#charsNotAllowed(e.target)
+    //         // Checking if the character used is INT
+    //         this.isANumber(e.target)
+    //         // Should we display the tooltip ?
+    //         this.triggerToolTip()
+    //         console.log(e.target.isValidPassword)
+    //         if (input.id === 'username') this.isSpaceAllowed(input)
+    //         if (input.id === "password" || input.id === "pwdRepeat") {
+    //             const isCommonPassword = filterArrayToRetrieveUniqueValues(commonPasswords, input.value)
+    //             if (isCommonPassword.length > 0) {
+    //                 this.#displayErrorMessage(this.#pwIsTooCommon, input)
+    //                 return
+    //             }
+    //         }
+    //         if (input.isEmpty) {
+    //             this.#displayErrorMessage(this.#emptyAlert, input)
+    //             return
+    //         } else if (!input.isCharAllowed) {
+    //             for (let [index, element] of Object.entries(this.#wrongInput)) {
+    //                 this.#wrongInput[index] = `  ${element} `
+    //             }
+    //             this.#displayErrorMessage(`Les caractères suivants ne sont pas autorisés : ${this.#wrongInput} `, input)
+    //             return
+    //         } else if ((input.id === "password" || input.id === "pwdRepeat") && (input.value === commonPasswords)) {
+    //             console.log(input.value)
+    //             // this.#displayErrorMessage(this.#pwCannotBeUsername, input)
+    //             return
+    //         } else if (!input.isValidPassword) {
+    //             // } else if (!input.isValidPassword && (input.id === "password" || input.id === "pwdRepeat")) {
+    //             console.log('je suis visible')
+    //             this.#displayErrorMessage(this.#invalidPwMessage, input)
+    //             this.#pwTooltip.style.visibility = 'visible'
+    //             return
+    //         } else if (input.id === "email" && !this.#emailInputRegex.test(input.value)) {
+    //             this.#displayErrorMessage(this.#invalidEmailMessage, input)
+    //             return
+    //         } else if (!this.#pwStatus && (input.id === "password" || input.id === "pwdRepeat")) {
+    //             this.#displayErrorMessage(this.#notIdenticalPasswords, input)
+    //             return
+    //         } else if ((input.id === "password" || input.id === "pwdRepeat") && (input.value === username.value)) {
+    //             this.#displayErrorMessage(this.#pwCannotBeUsername, input)
+    //             return
+    //         } else if (this.#spaceNotAllowed && input.id === 'username') {
+    //             this.#displayErrorMessage(this.#noSpaceAllowedMessage, input)
+    //             return
+    //         } else if (input.isANumber === false) {
+    //             this.#displayErrorMessage(this.#notANumberError, input)
+    //             return
+    //         } else if (input.isANumber && input.value <= 0) {
+    //             this.#displayErrorMessage(this.#wrongNumber, input)
+    //             return
+    //         } else {
+    //             // input.classList.add("valid_input")
+    //             input.classList.remove(this.#inputErrorClass)
+    //             if (this.#pwTooltip) this.#pwTooltip.style.visibility = 'hidden'
+
+    //             // input.removeAttribute('style')
+    //             // if (this.#tooltip?.hasAttribute('style')) this.#tooltip.removeAttribute('style')
+    //             this.#count = filterArrayToRetrieveUniqueValues(this.#count, input, 'input')
+    //         }
+    //         console.log(this.#count)
+    //         console.log("text alert => ", this.#alertText)
+    //         console.log("innerText => ", this.#alert.innerText)
+    //         if (this.#alertText !== null && undefined) {
+    //             // !! IMPORTANT !! In case of submit and an error occured
+    //         // if (this.#count.length === 0 && (this.#email.classList.contains('input_error') || this.#name.classList.contains('input_error'))) {
+    //             this.#alert.innerText = this.#alertText
+    //             this.#alertText = null
+    //             console.log('je reset le texte')
+    //         } else if (this.#count.length === 0) {
+    //             // if (this.#error.length === 0) {
+    //             this.#alert.classList.add(this.#hiddenClass)
+    //             this.#alert.innerText = ''
+    //             this.#formButton.disabled = false
+    //             console.log('ca fail je reset car count 0')
+    //             // input.classList.add("valid_input")
+    //         } else {
+    //             console.log('ca fail display de la last error')
+    //             this.#alert.innerText = this.#count[this.#count.length - 1].alert
+    //         }
+    //     }, (this.debounceDelay)))
+    // }
 
     /**
      * Si le conteneur d'icône (valide / invalide) input n'existe pas,
@@ -533,6 +652,7 @@ export class ErrorHandler {
             // }
             input[newProperty] = false
             console.log(erreurs)
+            console.log(input.isValidPassword)
             if (erreurs.length > 0) return
         }
         // if (inputProperty && !RegExp.test(input.value)) {
