@@ -237,7 +237,7 @@ body {
         overflow: hidden;
     } */
     font-size: var(--text-fs-body);
-
+    overflow-x: hidden;
 }
 /* END OF BODY */
 
