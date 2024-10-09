@@ -6,8 +6,6 @@ import { alertMessage, createElement, debounce, filterArrayToRetrieveUniqueValue
 /**
  * @todo rendre le tooltip dynamique
  * @todo {userInputRegex} à setup pour le username
- * @todo terminer l'implémentation du strong password :
-    utiliser la liste des mots de passe commun
  */
 export class ErrorHandler {
 
