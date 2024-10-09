@@ -1,7 +1,7 @@
 /**
  * Liste de mots de passes à éviter
  */
-export const commonPassword = [
+export const commonPasswords = [
     'password',
     '123456',
     '123456789',
