@@ -5,6 +5,7 @@ import { alertMessage, createElement, debounce, filterArrayToRetrieveUniqueValue
 
 /**
  * @todo rendre le tooltip dynamique
+ * @todo rendre le submit checker en accord avec le dynamic
  * @todo {userInputRegex} à setup pour le username
  */
 export class ErrorHandler {
@@ -285,12 +286,18 @@ export class ErrorHandler {
             if (input.id === 'username') this.#name = input
             if (input.id === 'email') {
                 this.#email = input
-                if (input.classList.contains('form__field')) input.setAttribute('placeholder', '')
+                if (input.classList.contains('form__field')) {
+                    input.setAttribute('placeholder', '')
+                } else {
+                    input.setAttribute('placeholder', 'monEmail@mail.com')
+                }
             }
             this.#createIconContainer(input)
 
             // Main dynamic checker
-            this.#dynamicCheck(input)
+            input.addEventListener('input', debounce((e) => {
+                this.#dynamicCheck(e.target)
+            }, (this.debounceDelay)))
         })
         
         // Evènements
@@ -317,18 +324,24 @@ export class ErrorHandler {
      * @param {HTMLInputElement} element 
      */
     #dynamicCheck(input) {
-        input.addEventListener('input', debounce((e) => {
+        console.log(input)
+        // input.addEventListener('input', debounce((e) => {
             console.log('je suis dans le debounce')
             // Checking if input is empty
-            this.isEmptyInputs(e.target)
+            this.isEmptyInputs(input)
+            // this.isEmptyInputs(e.target)
             // Checking if the password matches validation regex
-            this.#validateThisPassword(e.target, e.target.strongPassword, 'isValidPassword')
+            this.#validateThisPassword(input, input.strongPassword, 'isValidPassword')
+            // this.#validateThisPassword(e.target, e.target.strongPassword, 'isValidPassword')
             // Checking if passwords are same
-            this.isExactPassword(e.target)
+            this.isExactPassword(input)
+            // this.isExactPassword(e.target)
             // Checking if the character used is allowed
-            this.#charsNotAllowed(e.target)
+            this.#charsNotAllowed(input)
+            // this.#charsNotAllowed(e.target)
             // Checking if the character used is INT
-            this.isANumber(e.target)
+            this.isANumber(input)
+            // this.isANumber(e.target)
             // Should we display the tooltip ?
             this.triggerToolTip()
             if (input.id === 'username') this.isSpaceAllowed(input)
@@ -409,7 +422,7 @@ export class ErrorHandler {
                 console.log('ca fail display de la last error')
                 this.#alert.innerText = this.#count[this.#count.length - 1].alert
             }
-        }, (this.debounceDelay)))
+        // }, (this.debounceDelay)))
     }
     // /**
     //  * Inputs will be debounced @ -> get debounceDelay
@@ -583,8 +596,6 @@ export class ErrorHandler {
         this.#count.push( { input: element, alert: message } )
         this.#alert.classList.remove(this.#hiddenClass)
         this.#alert.innerText = message
-        // element.classList.add(this.#inputErrorClass)
-        // element.classList.remove("valid_input")
         this.#addErrorClass(element)
         if (element === this.#password) this.#pwdRepeat.classList.add(this.#inputErrorClass)
         if (element === this.#pwdRepeat) this.#password.classList.add(this.#inputErrorClass)
@@ -597,7 +608,6 @@ export class ErrorHandler {
      */
     #charsNotAllowed(input) {
         if (!input.allowSpecialCharacters && !this.#allowedSpecialChars.test(input.value)) {
-        // if (!input.allowSpecialCharacters && !this.#allowedSpecialChars.test(input.value) && !input.isEmpty) {
             // Retrieve every character that isn't allowed and only unique entries
             console.log(input)
             this.#wrongInput = retrieveUniqueNotAllowedCharFromRegex(input.value, this.#allowedSpecialChars)
@@ -610,6 +620,14 @@ export class ErrorHandler {
         return
     }
 
+    /**
+     * Vérifie que les conditions de strong password soient réunies.
+     * Rajoute une nouvelle propriété à l'input.
+     * @param {HTMLElement} input
+     * @param {PropertyKey} inputProperty - Vérifie que la clé existe et est true.
+     * @param {String} newProperty - Ajoute cette nouvelle propriété à l'input.
+     * @returns
+     */
     #validateThisPassword(input, inputProperty, newProperty) {
         if (inputProperty) {
             const erreurs = []
@@ -655,8 +673,6 @@ export class ErrorHandler {
             //     this.#setValidClass(length)
             // }
             input[newProperty] = false
-            console.log(erreurs)
-            console.log(input.isValidPassword)
             if (erreurs.length > 0) return
         }
         // if (inputProperty && !RegExp.test(input.value)) {
@@ -879,13 +895,14 @@ export class ErrorHandler {
     async #onSubmit(form) {
         this.#formButton.disabled = true
         try {
-            if (!this.#isInputChecked()) {
+            if (!this.#isInputChecked(form)) {
                 form.preventDefault()
                 this.#formButton.disabled = true
                 return
             }
             this.#formButton.disabled = false
         } catch (error) {
+            console.log(error)
             const alert = alertMessage(error.message)
             this.#form.insertAdjacentElement(
                 'beforeend',
@@ -906,6 +923,103 @@ export class ErrorHandler {
      * Ce script est bloquant -
      * @returns
      */
+    // #isInputChecked(event) {
+    //     event.preventDefault()
+    //     console.log(event)
+    //     let arrayKey = []
+    //     let count = 0
+    //     let specialCount = 0
+    //     const data = new FormData(this.#form)
+    //     // Permet de définir quelle input peut-être vide
+    //     // Permet de définir aussi quelle input peut contenir des caractères spéciaux
+    //     // Par défaut : aucune
+    //     console.log(data.entries())
+    //     for (const [key, value] of data) {
+    //         // Setting default option values
+    //         arrayKey[key] = { value: value.toString().trim(), canBeEmpty: this.canBeEmpty, allowSpecialCharacters: this.allowSpecialCharacters }
+    //         // Setting which input can be empty
+    //         setObjectPropertyTo(this.options.whichInputCanBeEmpty, arrayKey[key], key, 'canBeEmpty', true)
+    //         // Setting which input can accept special char
+    //         setObjectPropertyTo(this.options.whichInputAllowSpecialCharacters, arrayKey[key], key, 'allowSpecialCharacters', true)
+    //         console.log(arrayKey[key])
+        
+    //     }
+    //     for (const key in arrayKey) {
+    //         console.log(arrayKey[key])
+    //         console.log(key)
+    //         this.#dynamicCheck(arrayKey[key])
+    //         // if (!arrayKey[key].canBeEmpty && arrayKey[key].value === '') {
+    //         //     this.#error.push(`Veuillez renseigner votre ${key}`)
+    //         //     count++
+    //         //     this.#listenInputs.forEach(input => {
+    //         //         if (key === input.name) {
+    //         //             input.classList.add(this.#inputErrorClass)
+    //         //         }
+    //         //     })
+    //         // } else {
+    //         //     this.#removeError(`Veuillez renseigner votre ${key}`)
+    //         // }
+    //         // if (!arrayKey[key].allowSpecialCharacters && arrayKey[key].value !== '' && !this.#allowedSpecialChars.test(arrayKey[key].value)) {
+    //         //     this.#error.push(`Les caractères spéciaux ne sont pas autorisés pour le ${key}`)
+    //         //     specialCount++
+    //         //     this.#listenInputs.forEach(input => {
+    //         //         if (key === input.name) {
+    //         //             input.classList.add(this.#inputErrorClass)
+    //         //         }
+    //         //     })
+    //         // } else {
+    //         //     this.#removeError(`Les caractères spéciaux ne sont pas autorisés pour le ${key}`)
+    //         // }
+    //         // if (key === 'email') {
+    //         //     if (!this.#emailInputRegex.test(arrayKey[key].value)) {
+    //         //         this.#email.classList.add(this.#inputErrorClass)
+    //         //         // this.#email.style.borderBottom = '1px solid red'
+    //         //         if (!this.#email.classList.contains('form__field')) {
+    //         //             this.#email.setAttribute('placeholder', 'monEmail@mail.com')
+    //         //         } else {
+    //         //             this.#email.setAttribute('placeholder', '')
+    //         //         }
+    //         //         this.#error.push(this.#invalidEmailMessage)
+    //         //     } else {
+    //         //         this.#email.removeAttribute('style')
+    //         //         this.#removeError(this.#invalidEmailMessage)
+    //         //     }
+    //         // }
+    //     }
+
+    //     // Not identical passwords
+    //     // if (!this.#pwStatus) {
+    //     //     console.log(this.#pwStatus)
+    //     //     // this.#password.classList.add(this.#inputErrorClass)
+    //     //     this.#error.push(this.#notIdenticalPasswords)
+    //     // } else {
+    //     //     this.#removeError(this.#notIdenticalPasswords)
+    //     // }
+    //     // // Space not allowed
+    //     // if (this.#spaceNotAllowed) {
+    //     //     this.#error.push(this.#noSpaceAllowedMessage)
+    //     // } else {
+    //     //     this.#removeError(this.#noSpaceAllowedMessage)
+    //     // }
+    //     // // More than 1 error found
+    //     // if (this.#error.length > 1 && count > 1) {
+    //     //     this.#displayAlertFromArray(this.#error, this.#emptyAlert)
+    //     //     return false
+    //     // // Only 1 error found
+    //     // } else if (this.#error.length === 1) {
+    //     //     this.#displayAlertFromArray(this.#error)
+    //     //     return false
+    //     // // Found errors related to wrong characters
+    //     // } else if (this.#error.length > 0 && specialCount > 0) {
+    //     //     this.#displayAlertFromArray(this.#error, 'Les caractères spéciaux ne sont pas autorisés')
+    //     //     return false
+    //     // // No more errors found
+    //     // } else if (this.#error.length === 0) {
+    //     //     this.#alert.classList.add(this.#hiddenClass)
+    //     //     this.#alert.innerText = ''
+    //     //     return true
+    //     // }
+    // }
     #isInputChecked() {
         let arrayKey = []
         let count = 0
