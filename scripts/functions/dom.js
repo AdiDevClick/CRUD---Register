@@ -47,7 +47,8 @@ export function retrieveUniqueNotAllowedCharFromRegex(value, allowedCharsRegex) 
 /**
  * Permet de filtrer un tableau et de ne récupérer que des valeurs uniques -
  * Cette fonction peut aussi être utilisée pour comparer et vérifier si une valeur existe
- * dans l'Array passé en paramètre -
+ * dans l'Array passé en paramètre {objects}. La valeur à vérifier devra alors être passée dans le paramètre {arr}.
+ * Si elle existe, le array retourné sera vide -
  * @param {Array | String} arr - Array to filter - La value sera transformé en Array si elle ne l'est pas déjà.
  * @param {{} | String} objects - Any object or value - L'objet sera transformé en Array s'il ne l'est pas déjà.
  * @param {String} [property=null] - Si une propriété de l'objet a été définie, passer son nom.
