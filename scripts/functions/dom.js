@@ -86,22 +86,43 @@ export function filterArrayToRetrieveUniqueValues(arr, objects, property = null)
  * Si un boolean est passé à l'Array et qu'il est true, la propriété à ajouter
  * à l'objet sera alors directement ajoutée sans comparaison -
  * @param {Array} arr - Il sera converti automatiquement si ce n'est pas un array qui est passé -
- * @param {Object} object - Objet à modifier, ex : input
- * @param {String} objectProperty - La propriété de l'objet à comparer, ex : input.isNotEmpty
- * @param {String} propertyToSet - La nouvelle propriété à ajouter, ex : input.newProperty
- * @param {Boolean} [bool=true]
+ * @param {Object} objectToModify - Objet à modifier, ex : input.
+ * @param {String} objectProperty - La propriété de l'objet à comparer, ex : input.isNotEmpty.
+ * @param {String} propertyToSet - La nouvelle propriété à ajouter, ex : input.newProperty.
+ * @param {Boolean | String} value - La valeur que l'on souhaite associerà la nouvelle propriété.
  */
-export function setObjectPropertyTo(arr, object, objectProperty, propertyToSet, bool = true) {
+export function setObjectPropertyTo(arr, objectToModify, objectProperty, propertyToSet, value) {
     arr = Array.isArray(arr) ? arr : [arr]
+    // console.log(test === 'test')
+    // console.log(objectProperty)
+    // if (objectProperty === 'insert') {
+    //     // console.log(value)
+    //     objectToModify[propertyToSet] = value
+    //     return
+    // }
     for (const keys of arr) {
         // In case the arr gives a boolean
         if (keys === true) {
-            console.log('Cest un true')
-            object[propertyToSet] = bool
+            // if (teste == 'test') {
+            //     console.log('Cest un true', value)
+            //     console.log(objectToModify)
+            //     console.log(propertyToSet)
+            // } 
+            objectToModify[propertyToSet] = value
             return
         }
         if (objectProperty === keys) {
-            object[propertyToSet] = bool
+            // console.log(teste)
+            
+            // if (teste == 'test') {
+            //     console.log(objectProperty)
+            //     console.log(keys)
+            //     console.log('cest test qui est setup')
+            // }
+
+            console.log("ca match, je rajoute ", keys)
+            // console.log(objectToModify, propertyToSet)
+            objectToModify[propertyToSet] = value
         }
     }
 }
