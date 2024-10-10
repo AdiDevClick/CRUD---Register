@@ -923,104 +923,9 @@ export class ErrorHandler {
      * Ce script est bloquant -
      * @returns
      */
-    // #isInputChecked(event) {
-    //     event.preventDefault()
-    //     console.log(event)
-    //     let arrayKey = []
-    //     let count = 0
-    //     let specialCount = 0
-    //     const data = new FormData(this.#form)
-    //     // Permet de définir quelle input peut-être vide
-    //     // Permet de définir aussi quelle input peut contenir des caractères spéciaux
-    //     // Par défaut : aucune
-    //     console.log(data.entries())
-    //     for (const [key, value] of data) {
-    //         // Setting default option values
-    //         arrayKey[key] = { value: value.toString().trim(), canBeEmpty: this.canBeEmpty, allowSpecialCharacters: this.allowSpecialCharacters }
-    //         // Setting which input can be empty
-    //         setObjectPropertyTo(this.options.whichInputCanBeEmpty, arrayKey[key], key, 'canBeEmpty', true)
-    //         // Setting which input can accept special char
-    //         setObjectPropertyTo(this.options.whichInputAllowSpecialCharacters, arrayKey[key], key, 'allowSpecialCharacters', true)
-    //         console.log(arrayKey[key])
-        
-    //     }
-    //     for (const key in arrayKey) {
-    //         console.log(arrayKey[key])
-    //         console.log(key)
-    //         this.#dynamicCheck(arrayKey[key])
-    //         // if (!arrayKey[key].canBeEmpty && arrayKey[key].value === '') {
-    //         //     this.#error.push(`Veuillez renseigner votre ${key}`)
-    //         //     count++
-    //         //     this.#listenInputs.forEach(input => {
-    //         //         if (key === input.name) {
-    //         //             input.classList.add(this.#inputErrorClass)
-    //         //         }
-    //         //     })
-    //         // } else {
-    //         //     this.#removeError(`Veuillez renseigner votre ${key}`)
-    //         // }
-    //         // if (!arrayKey[key].allowSpecialCharacters && arrayKey[key].value !== '' && !this.#allowedSpecialChars.test(arrayKey[key].value)) {
-    //         //     this.#error.push(`Les caractères spéciaux ne sont pas autorisés pour le ${key}`)
-    //         //     specialCount++
-    //         //     this.#listenInputs.forEach(input => {
-    //         //         if (key === input.name) {
-    //         //             input.classList.add(this.#inputErrorClass)
-    //         //         }
-    //         //     })
-    //         // } else {
-    //         //     this.#removeError(`Les caractères spéciaux ne sont pas autorisés pour le ${key}`)
-    //         // }
-    //         // if (key === 'email') {
-    //         //     if (!this.#emailInputRegex.test(arrayKey[key].value)) {
-    //         //         this.#email.classList.add(this.#inputErrorClass)
-    //         //         // this.#email.style.borderBottom = '1px solid red'
-    //         //         if (!this.#email.classList.contains('form__field')) {
-    //         //             this.#email.setAttribute('placeholder', 'monEmail@mail.com')
-    //         //         } else {
-    //         //             this.#email.setAttribute('placeholder', '')
-    //         //         }
-    //         //         this.#error.push(this.#invalidEmailMessage)
-    //         //     } else {
-    //         //         this.#email.removeAttribute('style')
-    //         //         this.#removeError(this.#invalidEmailMessage)
-    //         //     }
-    //         // }
-    //     }
-
-    //     // Not identical passwords
-    //     // if (!this.#pwStatus) {
-    //     //     console.log(this.#pwStatus)
-    //     //     // this.#password.classList.add(this.#inputErrorClass)
-    //     //     this.#error.push(this.#notIdenticalPasswords)
-    //     // } else {
-    //     //     this.#removeError(this.#notIdenticalPasswords)
-    //     // }
-    //     // // Space not allowed
-    //     // if (this.#spaceNotAllowed) {
-    //     //     this.#error.push(this.#noSpaceAllowedMessage)
-    //     // } else {
-    //     //     this.#removeError(this.#noSpaceAllowedMessage)
-    //     // }
-    //     // // More than 1 error found
-    //     // if (this.#error.length > 1 && count > 1) {
-    //     //     this.#displayAlertFromArray(this.#error, this.#emptyAlert)
-    //     //     return false
-    //     // // Only 1 error found
-    //     // } else if (this.#error.length === 1) {
-    //     //     this.#displayAlertFromArray(this.#error)
-    //     //     return false
-    //     // // Found errors related to wrong characters
-    //     // } else if (this.#error.length > 0 && specialCount > 0) {
-    //     //     this.#displayAlertFromArray(this.#error, 'Les caractères spéciaux ne sont pas autorisés')
-    //     //     return false
-    //     // // No more errors found
-    //     // } else if (this.#error.length === 0) {
-    //     //     this.#alert.classList.add(this.#hiddenClass)
-    //     //     this.#alert.innerText = ''
-    //     //     return true
-    //     // }
-    // }
-    #isInputChecked() {
+    #isInputChecked(event) {
+        event.preventDefault()
+        console.log(event)
         let arrayKey = []
         let count = 0
         let specialCount = 0
@@ -1028,86 +933,208 @@ export class ErrorHandler {
         // Permet de définir quelle input peut-être vide
         // Permet de définir aussi quelle input peut contenir des caractères spéciaux
         // Par défaut : aucune
+        // console.log(data.entries())
+        
         for (const [key, value] of data) {
             // Setting default option values
             arrayKey[key] = { value: value.toString().trim(), canBeEmpty: this.canBeEmpty, allowSpecialCharacters: this.allowSpecialCharacters }
             // Setting which input can be empty
-            setObjectPropertyTo(this.options.whichInputCanBeEmpty, arrayKey[key], key, 'canBeEmpty', true)
+            if (!this.options.canBeEmpty) {
+                setObjectPropertyTo(this.options.whichInputCanBeEmpty, arrayKey[key], key, 'canBeEmpty', true)
+            }
             // Setting which input can accept special char
             setObjectPropertyTo(this.options.whichInputAllowSpecialCharacters, arrayKey[key], key, 'allowSpecialCharacters', true)
-        }
-        for (const key in arrayKey) {
-            if (!arrayKey[key].canBeEmpty && arrayKey[key].value === '') {
-                this.#error.push(`Veuillez renseigner votre ${key}`)
-                count++
-                this.#listenInputs.forEach(input => {
-                    if (key === input.name) {
-                        input.classList.add(this.#inputErrorClass)
-                    }
-                })
-            } else {
-                this.#removeError(`Veuillez renseigner votre ${key}`)
+            // Setting strong password option
+            if (key.includes('Mot de Passe' || 'Mot de Passe de confirmation')) {
+                setObjectPropertyTo(this.options.strongPassword, arrayKey[key], key, 'strongPassword', true)
             }
-            if (!arrayKey[key].allowSpecialCharacters && arrayKey[key].value !== '' && !this.#allowedSpecialChars.test(arrayKey[key].value)) {
-                this.#error.push(`Les caractères spéciaux ne sont pas autorisés pour le ${key}`)
-                specialCount++
-                this.#listenInputs.forEach(input => {
-                    if (key === input.name) {
-                        input.classList.add(this.#inputErrorClass)
-                    }
-                })
-            } else {
-                this.#removeError(`Les caractères spéciaux ne sont pas autorisés pour le ${key}`)
-            }
-            if (key === 'email') {
-                if (!this.#emailInputRegex.test(arrayKey[key].value)) {
-                    this.#email.classList.add(this.#inputErrorClass)
-                    // this.#email.style.borderBottom = '1px solid red'
-                    if (!this.#email.classList.contains('form__field')) {
-                        this.#email.setAttribute('placeholder', 'monEmail@mail.com')
-                    } else {
-                        this.#email.setAttribute('placeholder', '')
-                    }
-                    this.#error.push(this.#invalidEmailMessage)
-                } else {
-                    this.#email.removeAttribute('style')
-                    this.#removeError(this.#invalidEmailMessage)
+            // Setting input ID related to the data
+            for (let i = 0; i < this.#listenInputs.length; i++) {
+                if (key.includes(this.#listenInputs[i].name)) {
+                    setObjectPropertyTo(true, arrayKey[key], key, 'id', `#${this.#listenInputs[i].id}`)
                 }
             }
         }
+            // if (key === input.name) {
+            //     input.classList.add(this.#inputErrorClass)
+            // }
+        // }
+        // for (const input in this.#listenInputs) {
+        /** @todo Rendre le script bloquant et montrer les erreurs pour l'utilisateur */
+            for (const key in arrayKey) {
+                this.#validateThisPassword(arrayKey[key], arrayKey[key].strongPassword, 'isValidPassword')
+                // console.log(arrayKey[key])
+                
+            }
+        // }
+        console.log(arrayKey)
+            
+        // for (const key in arrayKey) {
+            // console.log(key)
+            // this.#validateThisPassword(arrayKey[key], arrayKey[key].strongPassword, 'isValidPassword')
+            // console.log(arrayKey[key])
+
+            // this.#dynamicCheck(arrayKey[key])
+            // if (!arrayKey[key].canBeEmpty && arrayKey[key].value === '') {
+            //     this.#error.push(`Veuillez renseigner votre ${key}`)
+            //     count++
+            //     this.#listenInputs.forEach(input => {
+            //         if (key === input.name) {
+            //             input.classList.add(this.#inputErrorClass)
+            //         }
+            //     })
+            // } else {
+            //     this.#removeError(`Veuillez renseigner votre ${key}`)
+            // }
+            // if (!arrayKey[key].allowSpecialCharacters && arrayKey[key].value !== '' && !this.#allowedSpecialChars.test(arrayKey[key].value)) {
+            //     this.#error.push(`Les caractères spéciaux ne sont pas autorisés pour le ${key}`)
+            //     specialCount++
+            //     this.#listenInputs.forEach(input => {
+            //         if (key === input.name) {
+            //             input.classList.add(this.#inputErrorClass)
+            //         }
+            //     })
+            // } else {
+            //     this.#removeError(`Les caractères spéciaux ne sont pas autorisés pour le ${key}`)
+            // }
+            // if (key === 'email') {
+            //     if (!this.#emailInputRegex.test(arrayKey[key].value)) {
+            //         this.#email.classList.add(this.#inputErrorClass)
+            //         // this.#email.style.borderBottom = '1px solid red'
+            //         if (!this.#email.classList.contains('form__field')) {
+            //             this.#email.setAttribute('placeholder', 'monEmail@mail.com')
+            //         } else {
+            //             this.#email.setAttribute('placeholder', '')
+            //         }
+            //         this.#error.push(this.#invalidEmailMessage)
+            //     } else {
+            //         this.#email.removeAttribute('style')
+            //         this.#removeError(this.#invalidEmailMessage)
+            //     }
+            // }
+        // }
+
         // Not identical passwords
-        if (!this.#pwStatus) {
-            console.log(this.#pwStatus)
-            // this.#password.classList.add(this.#inputErrorClass)
-            this.#error.push(this.#notIdenticalPasswords)
-        } else {
-            this.#removeError(this.#notIdenticalPasswords)
-        }
-        // Space not allowed
-        if (this.#spaceNotAllowed) {
-            this.#error.push(this.#noSpaceAllowedMessage)
-        } else {
-            this.#removeError(this.#noSpaceAllowedMessage)
-        }
-        // More than 1 error found
-        if (this.#error.length > 1 && count > 1) {
-            this.#displayAlertFromArray(this.#error, this.#emptyAlert)
-            return false
-        // Only 1 error found
-        } else if (this.#error.length === 1) {
-            this.#displayAlertFromArray(this.#error)
-            return false
-        // Found errors related to wrong characters
-        } else if (this.#error.length > 0 && specialCount > 0) {
-            this.#displayAlertFromArray(this.#error, 'Les caractères spéciaux ne sont pas autorisés')
-            return false
-        // No more errors found
-        } else if (this.#error.length === 0) {
-            this.#alert.classList.add(this.#hiddenClass)
-            this.#alert.innerText = ''
-            return true
-        }
+        // if (!this.#pwStatus) {
+        //     console.log(this.#pwStatus)
+        //     // this.#password.classList.add(this.#inputErrorClass)
+        //     this.#error.push(this.#notIdenticalPasswords)
+        // } else {
+        //     this.#removeError(this.#notIdenticalPasswords)
+        // }
+        // // Space not allowed
+        // if (this.#spaceNotAllowed) {
+        //     this.#error.push(this.#noSpaceAllowedMessage)
+        // } else {
+        //     this.#removeError(this.#noSpaceAllowedMessage)
+        // }
+        // // More than 1 error found
+        // if (this.#error.length > 1 && count > 1) {
+        //     this.#displayAlertFromArray(this.#error, this.#emptyAlert)
+        //     return false
+        // // Only 1 error found
+        // } else if (this.#error.length === 1) {
+        //     this.#displayAlertFromArray(this.#error)
+        //     return false
+        // // Found errors related to wrong characters
+        // } else if (this.#error.length > 0 && specialCount > 0) {
+        //     this.#displayAlertFromArray(this.#error, 'Les caractères spéciaux ne sont pas autorisés')
+        //     return false
+        // // No more errors found
+        // } else if (this.#error.length === 0) {
+        //     this.#alert.classList.add(this.#hiddenClass)
+        //     this.#alert.innerText = ''
+        //     return true
+        // }
     }
+    // #isInputChecked() {
+    //     let arrayKey = []
+    //     let count = 0
+    //     let specialCount = 0
+    //     const data = new FormData(this.#form)
+    //     // Permet de définir quelle input peut-être vide
+    //     // Permet de définir aussi quelle input peut contenir des caractères spéciaux
+    //     // Par défaut : aucune
+    //     for (const [key, value] of data) {
+    //         // Setting default option values
+    //         arrayKey[key] = { value: value.toString().trim(), canBeEmpty: this.canBeEmpty, allowSpecialCharacters: this.allowSpecialCharacters }
+    //         // Setting which input can be empty
+    //         setObjectPropertyTo(this.options.whichInputCanBeEmpty, arrayKey[key], key, 'canBeEmpty', true)
+    //         // Setting which input can accept special char
+    //         setObjectPropertyTo(this.options.whichInputAllowSpecialCharacters, arrayKey[key], key, 'allowSpecialCharacters', true)
+    //     }
+    //     for (const key in arrayKey) {
+    //         if (!arrayKey[key].canBeEmpty && arrayKey[key].value === '') {
+    //             this.#error.push(`Veuillez renseigner votre ${key}`)
+    //             count++
+    //             this.#listenInputs.forEach(input => {
+    //                 if (key === input.name) {
+    //                     input.classList.add(this.#inputErrorClass)
+    //                 }
+    //             })
+    //         } else {
+    //             this.#removeError(`Veuillez renseigner votre ${key}`)
+    //         }
+    //         if (!arrayKey[key].allowSpecialCharacters && arrayKey[key].value !== '' && !this.#allowedSpecialChars.test(arrayKey[key].value)) {
+    //             this.#error.push(`Les caractères spéciaux ne sont pas autorisés pour le ${key}`)
+    //             specialCount++
+    //             this.#listenInputs.forEach(input => {
+    //                 if (key === input.name) {
+    //                     input.classList.add(this.#inputErrorClass)
+    //                 }
+    //             })
+    //         } else {
+    //             this.#removeError(`Les caractères spéciaux ne sont pas autorisés pour le ${key}`)
+    //         }
+    //         if (key === 'email') {
+    //             if (!this.#emailInputRegex.test(arrayKey[key].value)) {
+    //                 this.#email.classList.add(this.#inputErrorClass)
+    //                 // this.#email.style.borderBottom = '1px solid red'
+    //                 if (!this.#email.classList.contains('form__field')) {
+    //                     this.#email.setAttribute('placeholder', 'monEmail@mail.com')
+    //                 } else {
+    //                     this.#email.setAttribute('placeholder', '')
+    //                 }
+    //                 this.#error.push(this.#invalidEmailMessage)
+    //             } else {
+    //                 this.#email.removeAttribute('style')
+    //                 this.#removeError(this.#invalidEmailMessage)
+    //             }
+    //         }
+    //     }
+    //     // Not identical passwords
+    //     if (!this.#pwStatus) {
+    //         console.log(this.#pwStatus)
+    //         // this.#password.classList.add(this.#inputErrorClass)
+    //         this.#error.push(this.#notIdenticalPasswords)
+    //     } else {
+    //         this.#removeError(this.#notIdenticalPasswords)
+    //     }
+    //     // Space not allowed
+    //     if (this.#spaceNotAllowed) {
+    //         this.#error.push(this.#noSpaceAllowedMessage)
+    //     } else {
+    //         this.#removeError(this.#noSpaceAllowedMessage)
+    //     }
+    //     // More than 1 error found
+    //     if (this.#error.length > 1 && count > 1) {
+    //         this.#displayAlertFromArray(this.#error, this.#emptyAlert)
+    //         return false
+    //     // Only 1 error found
+    //     } else if (this.#error.length === 1) {
+    //         this.#displayAlertFromArray(this.#error)
+    //         return false
+    //     // Found errors related to wrong characters
+    //     } else if (this.#error.length > 0 && specialCount > 0) {
+    //         this.#displayAlertFromArray(this.#error, 'Les caractères spéciaux ne sont pas autorisés')
+    //         return false
+    //     // No more errors found
+    //     } else if (this.#error.length === 0) {
+    //         this.#alert.classList.add(this.#hiddenClass)
+    //         this.#alert.innerText = ''
+    //         return true
+    //     }
+    // }
 
     /**
      * Parcours l'array et affiche le message avec l'élément HTML alert
