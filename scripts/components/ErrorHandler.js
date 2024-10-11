@@ -360,7 +360,6 @@ export class ErrorHandler {
             }
             // Checking for identical password et pwdRepeat
             if (!this.#pwStatus) {
-                console.log('je suis dans le pwstatus')
                 this.#displayErrorMessage(this.#notIdenticalPasswords, input)
                 return false
             }
@@ -386,9 +385,11 @@ export class ErrorHandler {
             this.#displayErrorMessage(this.#noSpaceAllowedMessage, input)
             return false
         } else if (input.isANumber === false) {
+            console.log('not a number')
             this.#displayErrorMessage(this.#notANumberError, input)
             return false
         } else if (input.isANumber && input.value <= 0) {
+            console.log('value should be +')
             this.#displayErrorMessage(this.#wrongNumber, input)
             return false
         } else {
@@ -669,12 +670,6 @@ export class ErrorHandler {
             } else {
                 this.#setValidClass(length)
             }
-            // if (input.value === username.value) {
-            //     this.#addErrorClass(length)
-            //     erreurs.push("Le mot de passe ne peut pas être votre identifiant.")
-            // } else {
-            //     this.#setValidClass(length)
-            // }
             input[newProperty] = false
             if (erreurs.length > 0) return
             // if (erreurs.length > 0) return false
@@ -876,10 +871,7 @@ export class ErrorHandler {
                 this.#pwStatus = true
                 this.#setValidClass(this.#password)
                 this.#setValidClass(this.#pwdRepeat)
-                // this.#password.classList.remove('input_error')
-                // this.#pwdRepeat.classList.remove('input_error')
-                // this.#password.classList.add('valid_input')
-                // this.#pwdRepeat.classList.add('valid_input')
+                // Retrieve only 1 type au char to display to the user
                 this.#count = filterArrayToRetrieveUniqueValues(this.#count, [this.#password, this.#pwdRepeat], 'input')
             }
             console.log(this.#count)
