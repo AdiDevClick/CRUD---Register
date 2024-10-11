@@ -5,7 +5,6 @@ import { alertMessage, createElement, debounce, filterArrayToRetrieveUniqueValue
 
 /**
  * @todo rendre le tooltip dynamique
- * @todo rendre le submit checker en accord avec le dynamic
  * @todo {userInputRegex} à setup pour le username
  */
 export class ErrorHandler {
