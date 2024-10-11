@@ -139,7 +139,6 @@ export const sectionToWatch = '.form-recipe'
 ////////////////////////////////////////////////////////////
                     /** REGEX */
 ////////////////////////////////////////////////////////////
-
 /**
  * Configurate which characters are allowed
  * @type {RegExp}
@@ -156,6 +155,10 @@ export const emailInputRegex = new RegExp("([a-z0-9A-Z._-]+)@([a-z0-9A-Z_-]+)\\.
  * @type {RegExp}
  */
 export const userInputRegex = new RegExp('^[a-zA-Z0-9_-]{1,32}$')
+
+////////////////////////////////////////////////////////////
+                    /** PASSWORD */
+////////////////////////////////////////////////////////////
 /**
  * Configurate Password and checks that at least :
  * 1 lowercase letter
@@ -172,6 +175,13 @@ export const strongPwUpperCaseInputRegex = /(?=.*[A-Z])/
 export const strongPwDigitInputRegex = /(?=.*\d)/
 export const strongPwSpecialCharInputRegex = /(?=.*[!@#$%^&*()_+\[\]{};':"\\|,.<>\/?~`])/
 export const strongPwLengthInputRegex = /.{8,128}/
+
+/** Set the input name and ID of your password */
+export const passwordInputName = 'Mot de Passe'
+export const passwordInputID = 'password'
+/** Set the input name and ID of your password repeat */
+export const pwRepeatInputName = 'Mot de Passe de confirmation'
+export const pwRepeatInputID = 'pwdRepeat'
 
 ////////////////////////////////////////////////////////////
                     /** ALERT */
