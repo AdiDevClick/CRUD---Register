@@ -691,10 +691,18 @@ nav.nav {
         /* border-bottom-width: 0%; */
         /* transform: translateX(0%); */
     /* }  */
+    from {
+        /* scale: 0; */
+        transform: scaleX(0);
+        /* width: 0; */
+        /* border-bottom-width: 0%; */
+        /* transform: translateX(0%); */
+    }
     to {
         /* opacity: 1; */
-        width: 50%;
-
+        /* width: 50%; */
+        /* scale: 1; */
+        transform: scaleX(1);
         /* border-bottom-width: 50%; */
         /* transform: translateX(50%); */
     }
