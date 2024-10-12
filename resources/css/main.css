@@ -650,6 +650,7 @@ nav.nav {
     animation: borderSlide 0.3s both;
     /* visibility: inherit; */
     padding: 15px;
+    width: 50%;
     @starting-style {
         opacity: 0;
     }
