@@ -178,10 +178,10 @@ export class IngredientsFrom {
             useMyOwnListener: true
         })
         this.#form.addEventListener('submit', e => {
-            console.log(this.#errorHandler)
-            console.log(e.target)
+            // console.log(this.#errorHandler)
+            // console.log(e.target)
             e.preventDefault()
-            if (!this.#errorHandler.checkInputs) {
+            if (!this.#errorHandler.checkInputs(e)) {
                 // Si une erreur est détectée lors de l'envoi en mode mobile
                 // et que le drawer est ouvert, il sera fermé.
                 this.#touchPlugin.resetStates
@@ -363,6 +363,7 @@ export class IngredientsFrom {
      * @param {SubmitEvent} e
      */
     async #onSubmit(e) {
+        console.log(e)
         const form = e.target
         let data = new FormData(form)
         let url = this.options.get ? this.#url : 'Process_PreparationList.php'

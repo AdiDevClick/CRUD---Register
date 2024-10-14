@@ -2364,7 +2364,7 @@ hr {
     cursor: pointer;
     display: flex;
     width: auto !important;
-    margin: 10px;
+    margin: 20px 10px;
     padding: 5px;
     overflow: hidden;
     height: min(45px, 35px);

@@ -323,7 +323,7 @@ export class ErrorHandler {
      * @param {HTMLInputElement} element 
      */
     #dynamicCheck(input) {
-        console.log(input)
+        // console.log(input)
         // input.addEventListener('input', debounce((e) => {
         // Checking if input is empty
         this.isEmptyInputs(input)
@@ -944,15 +944,21 @@ export class ErrorHandler {
             if (key.includes('Mot de Passe' || 'Mot de Passe de confirmation')) {
                 setObjectPropertyTo(this.options.strongPassword, arrayKey[key], key, 'strongPassword', true)
             }
+            // console.log(this.#listenInputs)
             // Setting input ID related to the data
             for (let i = 0; i < this.#listenInputs.length; i++) {
+                // console.log(this.#listenInputs[i].name)
                 if (key.includes(this.#listenInputs[i].name)) {
+                    // console.log(key)
                     setObjectPropertyTo(true, arrayKey[key], key, 'id', `#${this.#listenInputs[i].id}`)
                 }
             }
         }
+        // console.log(arrayKey)
+        // console.log(event)
         for (const key in arrayKey) {
             const element = event.target.querySelector(arrayKey[key].id)
+            // console.log(element)
             // if (!this.#isEmptyInputs(element)) {
             //     this.#displayErrorMessage(this.#emptyAlert, element)
             //     errors.push(this.#emptyAlert)
@@ -982,8 +988,10 @@ export class ErrorHandler {
             //     return true
             // }
             // this.#dynamicCheck(element)
-            const validation = this.#dynamicCheck(element)
-            errors.push(validation)
+            if (element) {
+                const validation = this.#dynamicCheck(element)
+                errors.push(validation)
+            }
         }
         if (errors.includes(false)) {
             return false
@@ -1110,7 +1118,10 @@ export class ErrorHandler {
 
     /** @returns {Function} */
     get checkInputs() {
-        return this.#isInputChecked()
+        return (event) => {
+            event.preventDefault()
+            return this.#isInputChecked(event)
+        }
     }
 
     /** @returns {Array < String >} */
