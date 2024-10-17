@@ -1,0 +1,69 @@
+.steps-buttons {
+    .step-button-open {
+        display: none;
+    }
+    background: var(--button-color);
+    border-radius: 100%;
+    width: 80px;
+    height: 80px;
+    position: absolute;
+    color: #FFFFFF;
+    text-align: center;
+    align-content: center;
+    &:hover {
+       .step-button__long-arrow {
+            animation: slideToTheRight .5s ease-out forwards;
+       }
+    }
+    .step-button__long-arrow {
+        display: block;
+        transform: translateY(0);
+        transition: transform ease-out 200ms, -webkit-transform ease-out 200ms;
+        margin: auto 40%;
+        width: 20px;
+        height: 20px;
+        /* top: 50%;
+        left: 50%; */
+        border-top: 2px solid white;
+        border-left: 2px solid white;
+        /* align-content: center; */
+        &.right {
+        /* & :is(.step-button__long-arrow__right) { */
+            transform: rotate(135deg);
+        }
+        &.left {
+            transform: rotate(-45deg);
+        }
+        &::after {
+            content: "";
+            display: block;
+            width: 2px;
+            height: 35px;
+            background-color: white;
+            transform: rotate(-45deg) translate(12px, 4px);
+            left: 0;
+            top: 0;
+        }
+        /* &:hover, &:hover::after {
+            transform: translateY(15px);
+        } */
+    }
+    &::after {
+        content: '';
+        position: absolute;
+        border-radius: 100vh;
+        display: block;
+        width: 120%;
+        height: 120%;
+        border: 2px solid white;
+        top: 0;
+        left: 0;
+        /* padding: 10%; */
+    }
+}
+
+@keyframes slideToTheRight {
+    to {
+        transform: rotate(135deg) translate3d(-15%, -3px, 0)
+    }
+}

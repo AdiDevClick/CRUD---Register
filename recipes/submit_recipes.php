@@ -136,6 +136,7 @@ ob_start();
     <?php // include '../templates/recipe_layout_mobile_only.php'?>
     <?php include '../templates/recipe_layout.php'?>
     <?php include '../templates/recipe_creation_menu.html'?>
+    <?php include '../templates/step_button.html'?>
 <!-- start of success message -->
 
 <?php elseif (isset($_SESSION['REGISTERED_RECIPE'])):?>
