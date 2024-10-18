@@ -94,7 +94,7 @@ STYLING FOR CAROUSEL
     }
     .carousel__next, .carousel__prev {
         position: absolute;
-        background: white url(img/rightsmall.svg) center center no-repeat;
+        background: white url(../img/rightsmall.svg) center center no-repeat;
         background-size: 70% 70%;
         border-radius: 100vh;
         top: 50%;
@@ -113,7 +113,7 @@ STYLING FOR CAROUSEL
         animation-delay: 2s;
     }
     .carousel__prev {
-        background-image: url(img/leftsmall.svg);
+        background-image: url(../img/leftsmall.svg);
         left: -20px;
     }
     .carousel__next:hover, > .carousel__prev:hover {
