@@ -1,16 +1,19 @@
 .steps-buttons {
+    --button-size: 80px;
+    --progress-bar-width: 30px;
+    --font-size: 1rem;
+
     .step-button-open {
         display: none;
     }
     background: var(--button-color);
-    border-radius: 100%;
+    border-radius: 50%;
     aspect-ratio: 1;
     border: 0;
     /* border: 8px solid red; */
     /* border-right-color: var(--button-color); */
 
-    width: 80px;
-    height: 80px;
+    width: var(--button-size);
     position: relative;
     /* display: inline-block; */
     color: #FFFFFF;
@@ -64,7 +67,7 @@
         content: '';
         position: absolute;
         aspect-ratio: 1;
-        border-radius: 100vh;
+        border-radius: 50%;
         display: block;
         /* width: 100%;
         height: 100%; */
@@ -148,22 +151,40 @@
 }
 
 :root {
-    --progress-bar-width: 80px;
-    --progress-bar-height: 80px;
+    --button-size: 80px;
+    /* --progress-bar-height: 80px; */
+    --progress-bar-width: 30px;
     --font-size: 1rem;
 }
 
 .circular-progress {
-    width: var(--progress-bar-width);
-    height: var(--progress-bar-height);
+    width: var(--button-size);
+    /* height: var(--progress-bar-height); */
+    aspect-ratio: 1;
     border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
+    align-content: center;
     background-color: white;
+    position: relative;
     /* background-clip: content-box;
     padding: 5px */
-
+    &::after {
+        content: '';
+        display: inline-block;
+        position: absolute;
+        border: 3px solid transparent;
+        background-color: blue;
+        /* aspect-ratio: 1;
+        border-radius: 50%;
+        inset: 0;
+        margin: 0; */
+        width: 80%;
+        /* height: 80%;  */
+        aspect-ratio: 1;
+        border-radius: 50%; 
+    }
     &:hover {
         .step-button__long-arrow {
             animation: slideToTheRight .5s ease-out forwards;
@@ -176,8 +197,9 @@
 }
 .inner-circle {
     position: absolute;
-    width: calc(var(--progress-bar-width) - 30px);
-    height: calc(var(--progress-bar-height) - 30px);
+    width: calc(var(--button-size) - var(--progress-bar-width));
+    /* height: calc(var(--progress-bar-height) - 30px); */
+    aspect-ratio: 1;
     border-radius: 50%;
     background-color: var(--button-color);
     &::after {
@@ -185,13 +207,17 @@
         display: inline-block;
         position: absolute;
         border: 3px solid red;
+        /* background-color: var(--button-color); */
+        /* width: 100%; */
         aspect-ratio: 1;
         border-radius: 50%;
-        inset: 0;
-        margin: 0;
+        /* inset: 0;
+        margin: 0; */
         /* width: 100%;
         height: 100%;
         border-radius: 50%; */
+        inset: 0;
+        margin: -10px;
     }
 }
 
@@ -211,6 +237,8 @@
     height: 20px;
     border-top: 2px solid white;
     border-left: 2px solid white;
+    inset: 0 5px;
+    position: relative;
     /* inset: 0;
     margin: auto; */
     &.right {
