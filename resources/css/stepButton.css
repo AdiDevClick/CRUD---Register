@@ -269,7 +269,7 @@
         circle {
             /* fill: purple; */
             stroke: purple;
-            stroke-dasharray: 1400;
+            stroke-dasharray: 200;
         }
     }
     #Arrow1 {
