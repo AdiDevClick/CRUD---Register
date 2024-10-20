@@ -158,7 +158,8 @@
 
 @keyframes slideToTheLeft {
     to {
-        transform: translate3d(0, 0, 0)
+        opacity: 1;
+        transform: translate(0)
     }
 }
 
@@ -316,38 +317,35 @@
     }
     border-radius: 50%;
     aspect-ratio: 1;
-    border: 0;
+    /* border: 0; */
     width: var(--button-size);
-    position: relative;
-    color: red;
+    /* position: relative; */
+    /* color: red; */
     text-align: center;
     align-content: center;
     z-index: 2;
     display: grid;
-    place-content: center;
+    place-self: center;
     transform: translate(0);
-    /* transition: transform ease-out 200ms; */
-    /* animation: slideToTheLeft .5s ease-out forwards; */
-    
-    svg {
-        /* transition: transform ease-out 200ms; */
-        transform: translate(0);
-        place-self: center;
-    }
+
     &:not(:hover) {
+        
+        #ellipse31 {
+            /* fill: transparent; */
+        }
         #Arrow3 {
-            /* animation: none; */
-            /* animation: slideToTheLeft .5s ease-out forwards; */
+            /* animation: slideToTheLeft 500ms ease-out forwards; */
+            transform: translateX(0);
+            transition: transform ease-out 200ms;
         }
     }
     &:hover {
-        .step-button__long-arrow {
-            animation: slideToTheRight .5s ease-out forwards;
-        }
-        #Arrow3 {
-            /* transform: translateX(12px); */
-            /* transition: transform ease-out 200ms; */
-            animation: slideToTheRight2 .5s ease-out forwards;
+        svg {
+            #Arrow3 {
+                transform: translateX(12px);
+                transition: transform ease-out 500ms;
+                /* animation: slideToTheRight2 .5s ease-out forwards; */
+            }
         }
     }
     &::after {
@@ -360,9 +358,14 @@
         border-radius: 50%;
         scale: 1;
         /* margin: -10px; */
-        width: 70px;
+        width: 90px;
         z-index: -1;
         background-color: blue;
+        inset: -8px;
+        
+        /* background-clip: content-box;
+        padding: 10px; */
+
         /* background-clip: content-box;
         margin: 5px; */
     }
