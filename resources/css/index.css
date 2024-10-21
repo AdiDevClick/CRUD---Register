@@ -594,6 +594,12 @@ form {
     .js-form-recipe {
         position: relative;
         width: 100%;
+        &.full {
+            grid-column: 1 / 3;
+            > p {
+                color: var(--button-color);
+            }
+        }
     }
     &#recipe_creation, &#recipe_creation_all_resolutions {
         > .js-form-recipe:has(textarea:not(:required:valid), input:not(:required:valid)),

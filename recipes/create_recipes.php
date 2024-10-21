@@ -56,7 +56,9 @@ include_once('../includes/variables.inc.php');
 
 $script = 'src="' . $rootUrl . $clicServer .'/scripts/fadeInScroller.js" defer';
 $script2 = 'type="module" src="' . $rootUrl . $clicServer .'/scripts/recipeApp.js" defer';
-$title = "Clic'Répare - Partagez votre recette";
+$pageTitle = "Partagez votre recette";
+
+$title = "Clic'Répare - $pageTitle";
 
 // ob_start();
 require_once('../recipes/submit_recipes.php');

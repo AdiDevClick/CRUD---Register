@@ -32,6 +32,9 @@
                     <p class="alert-error"><?php echo(strip_tags($errorMessage)) ?></p>
                 </div>
             <?php endif ?>
+            <div class="js-form-recipe full">
+                <p> Renseignez le titre ainsi qu’une courte description </p>
+            </div>
             <!-- Title -->
             <div class="js-form-recipe">
                 <label for="title" class="label">Titre de votre recette</label>
@@ -45,6 +48,9 @@
             <div class="js-form-recipe">
                 <label for="description" class="label">Courte description</label>
                 <textarea name="description" id="description" cols="60" rows="3" placeholder="Une courte description... Exemple : Une recette facile, peu épicée et économique !"><?php $getInfos !== null && $getInfos['description'] ? print strip_tags($getInfos['description']) : null ?></textarea>
+            </div>
+            <div class="js-form-recipe full">
+                <p> Complétez le contenu de votre recette. Il est possible d’ajouter jusqu’à 6 étapes </p>
             </div>
             <!-- STEP 1 -->
             <div class="js-form-recipe">
@@ -76,7 +82,7 @@
                 <label for="step_6" class="label">Etape 6</label>
                 <textarea name="step_6" id="step_6" cols="60" rows="3" placeholder="Renseignez  votre sixième étape..."><?php $getInfos !== null && $getInfos['step_6'] ? print strip_tags($getInfos['step_6']) : null ?></textarea>
             </div> -->
-            <div class="js-form-recipe plus">
+            <div class="js-form-recipe plus full">
                 <span></span>
             </div>
             <template id="recipe-input-template">

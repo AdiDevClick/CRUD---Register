@@ -56,37 +56,18 @@ export class DrawerTouchPlugin {
     /** @type {MutationCallback} */
     #handleMutation = (mutationsList, observer) => {
         mutationsList.forEach(mutation => {
-            console.log(this.#mutationOldValue)
-            if (mutationsList.length > 0) console.log(mutation.oldValue)
             if (mutation.attributeName === 'class' && mutation.target.classList.contains('mobile')) {
                 this.#mutationOldValue = mutation.oldValue
-                
-                console.log('jactive les listeners')
                 appendToAnotherLocation('#recipe_creation')
                 this.#openListeners()
-                // console.log(mutationsList)
-                // console.log(this.container)
-                // console.log(this.#observer)
-                // console.log(window.history.state)
-                // const doc = document.querySelector('#wrapper')
-                // console.log(doc)
-                // doc.addEventListener('animationend', (e) => console.log(e))
-                // console.log(mutationsList)
                 return
             } else if (mutation.attributeName === 'class' && this.#mutationOldValue !== '' && !mutation.target.classList.contains('mobile')) {
-                // debugger
-                // console.log('je demande le else')
                 this.#closeListeners()
-                // console.log(mutationsList)
-                // console.log(this.container)
-                // console.log(this.#observer)
                 this.#mutationOldValue = ''
                 const elementsToUnwrap = [
                     '.img_preview',
                     '#submit-recipe'
                 ]
-                // debugger
-                // unwrap('.card')
                 const section = document.querySelector('#recipe_creation')
                 // const section = document.querySelector('#recipe_creation_all_resolutions')
 
@@ -96,8 +77,6 @@ export class DrawerTouchPlugin {
                 elementsToUnwrap.forEach(element => {
                     section.append(document.querySelector(element))
                 })
-                // console.log(mutationsList)
-
             }
         })
     }
@@ -234,7 +213,6 @@ export class DrawerTouchPlugin {
                     this.#card.removeAttribute('style')
                     this.#drawerBarButton.style.display = 'block'
                 }, {once: true})
-                console.log('jouvre')
                 this.#steps.addEventListener('click', this.#onClose.bind(this), {once : true})
             }
         }
@@ -320,38 +298,15 @@ export class DrawerTouchPlugin {
     }
 
     #onClose(e) {
-        // console.log('je close')
-        // console.log(e.currentTarget)
         // this.#steps.removeEventListener('click', this.#onClose.bind(this))
         this.#card.removeEventListener('click', this.#onClose.bind(this))
         // this.#closeButton.removeEventListener('click', this.#onClose.bind(this))
         if (this.#isMobile) {
-            console.log('je suis isMobile')
             if (!this.#card.classList.contains('opened')) return
-            console.log('je contiens opened donc je slide')
 
             this.#card.style.animation = 'slideToBottom 0.5s forwards'
             this.#card.classList.add('hidden')
             this.#card.addEventListener('animationend', () => {
-                // this.#drawerBarButton.classList.contains('fullyOpened') ? this.#drawerBarButton.classList.remove('fullyOpened') : null
-                // this.#card.classList.contains('open') ? this.#card.classList.remove('open') : null
-                // this.#card.classList.contains('opened') ? this.#card.classList.remove('opened') : null
-                // this.#card.classList.contains('fullyOpened') ? this.#card.classList.remove('fullyOpened') : null
-                // this.#card.classList.contains('hidden') ? this.#card.classList.remove('hidden') : null
-                // this.#card.removeAttribute('style')
-                // this.#steps.removeAttribute('style')
-                // this.#isOpened ? this.#isOpened = false : null
-                // this.#isFullyOpened ? this.#isFullyOpened : null
-                // this.#showDrawerButton.classList.contains('hidden') ? this.#showDrawerButton.classList.remove('hidden') : null
-                // this.#showDrawerButton.classList.add('show')
-                // this.#enableScrollBehavior()
-                
-                
-                console.log(this.#isOpened)
-                console.log(this.#isFullyOpened)
-                console.log(this.#isScrolledAtTop)
-                console.log('object')
-                // document.documentElement.removeAttribute('style')
                 this.#resetStatusAndStyle()
             }, {once: true})
         }
@@ -593,7 +548,6 @@ export class DrawerTouchPlugin {
      */
     async endDrag(e) {
         if (!this.#isMobile) return
-        // console.log('end')
         if (this.origin && this.lastTranslate) {
             let translateY = Math.abs(this.lastTranslate.y / this.drawerHeigth)
             let translateX = Math.abs(this.lastTranslate.x / this.drawerWidth)
@@ -658,16 +612,10 @@ export class DrawerTouchPlugin {
                     this.#card.style.animation = 'slideToFullTop 0.5s forwards'
                     this.#card.addEventListener('animationend', e => {
                         this.#isFullyOpened = true
-                        // console.log('End drag => \n')
-                        // console.log('isOpened => ', this.#isOpened)
-                        // console.log('isFullyOpened => ', this.#isFullyOpened)
-                        // console.log('isScrolledAtTop => ', this.#isScrolledAtTop)
-                        // console.log('dans le end drag')
                         this.#card.removeAttribute('style')
                         this.#card.classList.add('fullyOpened')
                         this.#drawerBarButton.classList.add('fullyOpened')
                     }, {once: true})
-                    console.log('je vais max slide')
                     this.#saveLastTranslate(this.lastTranslate)
                 }
             } else {

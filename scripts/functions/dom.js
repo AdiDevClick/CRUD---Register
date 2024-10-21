@@ -182,11 +182,8 @@ export function transformToComment(targetSelector) {
  * @param {String} isClass représente une classe. Il retourne son nodeValue pour match son contenu
  */
 export function appendToAnotherLocation(targetSelector, isClass = 'js-form-recipe') {
-    console.log('jappend pour le mobile')
-    console.log(targetSelector)
     let newCardRecipeSection = document.querySelector('.card.recipe')
     const parentElement = document.querySelector(targetSelector)
-    console.log(parentElement)
     let newCardFormRecipeSection = document.querySelector('.form-recipe')
     
     if (!newCardFormRecipeSection) {
@@ -201,7 +198,7 @@ export function appendToAnotherLocation(targetSelector, isClass = 'js-form-recip
         })
     }
     const contentToMoveToNewCardFormRecipeSection = Array.from(parentElement.childNodes).filter(node => 
-        (node.className === 'js-form-recipe') || (node.className === 'js-form-recipe plus')
+        (node.className === 'js-form-recipe') || (node.className === 'js-form-recipe full') || (node.className === 'js-form-recipe plus full')
     )
     const contentToMoveToNewCardRecipeSection = Array.from(parentElement.childNodes).find(node => 
         node.className === 'js-append-to-drawer'
@@ -212,6 +209,7 @@ export function appendToAnotherLocation(targetSelector, isClass = 'js-form-recip
     if (contentToMoveToNewCardFormRecipeSection) {
         console.log(contentToMoveToNewCardFormRecipeSection)
         contentToMoveToNewCardFormRecipeSection.forEach(element => {
+            console.log(element)
             newCardFormRecipeSection.append(element)
         })
 

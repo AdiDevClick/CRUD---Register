@@ -272,34 +272,93 @@
     }
 }
 
-.circular-progress {
-    width: 100px;
-    height: 100px;
-    .test {
-        stroke: white;
+@property --data-percentage {
+    syntax: "<number>+";
+    inherits: false;
+    initial-value: 200 1400;
+}
+
+/* Avec SVG dasharray */
+.circular-progress-button-container {
+    --button-size: 80px;
+    --progress-bar-width: 30px;
+    --progress-bar-color: purple;
+    --font-size: 1rem;
+    /* --data-percentage: 10 1400; */
+    --show: none;
+    --inner-circle-border-color: red;
+    --inner-circle-stroke-color: pink;
+    --arrow-color: cyan;
+    --arrow-border-color: blue;
+
+    width: var(--button-size);
+    aspect-ratio: 1;
+    display: grid;
+    place-items: center;
+    margin: 10% auto;
+
+    > input {
+        display: none;
     }
-    #progress-bar {
-        circle {
-            /* fill: purple; */
-            stroke: purple;
-            stroke-dasharray: 200;
+
+    .circular-progress-button {
+        display: grid;
+        place-items: center;
+
+        &[data-arrowflip=flip] {
+            .arrow {
+                transform: translate(100%) scaleX(-1);
+            }
+        }
+
+        &::after {
+            display: var(--show);
+            content: attr(aria-valuenow) "%";
+            position: absolute;
+            font-size: var(--font-size);
+        }
+
+        .progress-bar-color {
+            stroke: var(--progress-bar-color);
+            stroke-dasharray: var(--data-percentage, 0 1400);
+            stroke-dashoffset: 0;
+            transition: --data-percentage 300ms linear;
+        }
+
+        .arrow {
+            fill: var(--arrow-color);
+            stroke: var(--arrow-border-color);
+            transform: translateX(0);
+            transition: transform ease-out 200ms;
+        }
+
+        .inner-circle-border {
+            stroke: var(--inner-circle-stroke-color);
+        }
+
+        .inner-circle {
+            fill: var(--inner-circle-border-color);
         }
     }
-    #Arrow1 {
-        fill: cyan;
-        stroke: cyan;
+
+    &:hover {
+        /* .progress-bar-color {
+            stroke-dasharray: var(--data-percentage, 200 1400);
+        } */
+
+        [data-arrowflip="none"] {
+            #arrow {
+                transform: translateX(10%);
+                transition: transform ease-out 500ms;
+            }
+        }
+        [data-arrowflip="flip"] {
+            #arrow {
+                transform: translate(90%) scaleX(-1);
+                transition: transform ease-out 500ms;
+            }
+        }
     }
-    #ellipse1 {
-        stroke: red;
-        fill: red;
-    }
-    #ellipse2 {
-        stroke: green;
-        fill: green;
-    }
-    /* stroke: white; */
-    /* display: block; */
-    /* content: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAxIiBoZWlnaHQ9IjEwMCIgdmlld0JveD0iMCAwIDEwMSAxMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxnIGlkPSJGaXJzdCBTdGVwPVN0ZXAgMSI+CjxnIGlkPSJwcm9ncmVzcy1iYXIiPgo8Y2lyY2xlIGN4PSI1MC41IiBjeT0iNTAiIGZpbGw9Im5vbmUiCiAgICByPSI0OSIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2U9InJlZCIKICAgIHN0cm9rZS1kYXNoYXJyYXk9IjU2MCAxNDAwIgogICAgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIgogICAgc3Ryb2tlLWRhc2hvZmZzZXQ9IjEiIC8+CjwvZz4KPGcgaWQ9IkVsbGlwc2UgMiI+CjxjaXJjbGUgY3g9IjUwLjUiIGN5PSI1MCIgcj0iNDEiIGZpbGw9IiNGRkE1MDAiLz4KPGNpcmNsZSBjeD0iNTAuNSIgY3k9IjUwIiByPSI0MC41IiBzdHJva2U9IiNBMzkxOTEiIHN0cm9rZS1vcGFjaXR5PSIwLjIzIi8+CjwvZz4KPHBhdGggaWQ9IkFycm93IDEiIGQ9Ik02Mi4yMDcxIDUwLjcwNzFDNjIuNTk3NiA1MC4zMTY2IDYyLjU5NzYgNDkuNjgzNCA2Mi4yMDcxIDQ5LjI5MjlMNTUuODQzMSA0Mi45Mjg5QzU1LjQ1MjYgNDIuNTM4NCA1NC44MTk1IDQyLjUzODQgNTQuNDI4OSA0Mi45Mjg5QzU0LjAzODQgNDMuMzE5NSA1NC4wMzg0IDQzLjk1MjYgNTQuNDI4OSA0NC4zNDMxTDYwLjA4NTggNTBMNTQuNDI4OSA1NS42NTY5QzU0LjAzODQgNTYuMDQ3NCA1NC4wMzg0IDU2LjY4MDUgNTQuNDI4OSA1Ny4wNzExQzU0LjgxOTUgNTcuNDYxNiA1NS40NTI2IDU3LjQ2MTYgNTUuODQzMSA1Ny4wNzExTDYyLjIwNzEgNTAuNzA3MVpNMzkuNSA1MUw2MS41IDUxTDYxLjUgNDlMMzkuNSA0OUwzOS41IDUxWiIgZmlsbD0id2hpdGUiLz4KPC9nPgo8L3N2Zz4="); */
 }
 
 .progress-bar {
@@ -360,7 +419,9 @@
         /* margin: -10px; */
         width: 90px;
         z-index: -1;
-        background-color: blue;
+        background-color: conic-gradient(
+            
+        );
         inset: -8px;
         
         /* background-clip: content-box;
