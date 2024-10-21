@@ -108,7 +108,7 @@ export class IngredientsFrom {
     #addSteps(event, count) {
         event.preventDefault()
         const recipeStepsTemplate = this.#gridContainer.querySelector('#recipe-input-template').content.firstElementChild.cloneNode(true)
-        const forAttribute = event.currentTarget.previousSibling.firstElementChild.htmlFor
+        const forAttribute = event.currentTarget.previousElementSibling.firstElementChild.htmlFor
         while (count < 4) {
             let newIdNumber = forAttribute.split('_')[1]
             if (newIdNumber) newIdNumber++
