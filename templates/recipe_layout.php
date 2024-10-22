@@ -1,6 +1,6 @@
 <!-- <section class="card_container all-resolutions"> -->
 <!-- <section class="card_container mobile-only"> -->
-<section class="card_container">
+<section class="card_container container">
     <form
         id="preparation-form-all-resolutions"
         action="update_recipes.php"
