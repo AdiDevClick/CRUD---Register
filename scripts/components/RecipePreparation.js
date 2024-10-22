@@ -86,6 +86,10 @@ export class IngredientsFrom {
         let count = 0
         this.#addStepsButton.addEventListener('click', e => {
             count = this.#addSteps(e, count)
+            if (count >= 4) {
+                this.#addStepsButton.disabled = true
+                this.#addStepsButton.classList.add('hidden')
+            }
         })
 
             // this.options.get ? this.options.post = false : this.options.post = true
@@ -139,8 +143,8 @@ export class IngredientsFrom {
             count++
             return count
         }
-        this.#addStepsButton.disabled = true
-        this.#addStepsButton.classList.add('hidden')
+        // this.#addStepsButton.disabled = true
+        // this.#addStepsButton.classList.add('hidden')
     }
 
     /**
