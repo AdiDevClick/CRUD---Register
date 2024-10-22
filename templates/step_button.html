@@ -22,57 +22,60 @@
     </label>
 </div>
 
-<div class="circular-progress-button-container">
-    <!-- <svg width="101" height="100" viewBox="0 0 101 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <g id="First Step=Step 1">
-            <g id="progress-bar" class="test">
-                <circle cx="50.5" cy="50" fill="none"
-                    r="49" stroke-width="2" stroke="red"
-                    stroke-dasharray="560 1400"
-                    stroke-linecap="round"
-                    stroke-dashoffset="1"
-                />
-            </g>
-            <g id="ellipse">
-                <circle id="ellipse1" cx="50.5" cy="50" r="41" fill="#FFA500"/>
-                <circle id="ellipse2" cx="50.5" cy="50" r="40.5" stroke="#A39191" stroke-opacity="0.23"/>
-            </g>
-            <path id="Arrow1" d="M62.2071 50.7071C62.5976 50.3166 62.5976 49.6834 62.2071 49.2929L55.8431 42.9289C55.4526 42.5384 54.8195 42.5384 54.4289 42.9289C54.0384 43.3195 54.0384 43.9526 54.4289 44.3431L60.0858 50L54.4289 55.6569C54.0384 56.0474 54.0384 56.6805 54.4289 57.0711C54.8195 57.4616 55.4526 57.4616 55.8431 57.0711L62.2071 50.7071ZM39.5 51L61.5 51L61.5 49L39.5 49L39.5 51Z" fill="white"/>
-        </g>
-    </svg> -->
-    <!-- <p class="percentage"></p> -->
-    <input type="checkbox" href="#" class="step-button-open" name="step-button" id="step-button"/>
-    <label class="circular-progress-button" for="step-button"
-        data-show="none"
-        data-percentage="20 1400"
-        data-arrowflip="none"
-        data-inner-circle-color="lightgrey"
-        data-progress-color="crimson"
-        data-bg-color="black"
-        role="progressbar"
-        aria-valuenow="10"
-        aria-live="polite"
-    >
-        <svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <g id="progressive-bar-button">
-                <g id="progress-bar">
-                    <circle class="progress-bar-color" cx="50.5" cy="50" fill="none"
-                        r="48" stroke-width="2" stroke="red"
+<template id="circular-progress-button">
+    <div class="circular-progress-button-container">
+        <!-- <svg width="101" height="100" viewBox="0 0 101 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <g id="First Step=Step 1">
+                <g id="progress-bar" class="test">
+                    <circle cx="50.5" cy="50" fill="none"
+                        r="49" stroke-width="2" stroke="red"
                         stroke-dasharray="560 1400"
                         stroke-linecap="round"
                         stroke-dashoffset="1"
                     />
                 </g>
-                <g id="inner-circle">
-                    <circle class="inner-circle-border" cx="50.5" cy="50" r="41" fill="#FFA500"/>
-                    <circle class="inner-circle" cx="50.5" cy="50" r="40.5" stroke="#A39191" stroke-opacity="0.23"/>
+                <g id="ellipse">
+                    <circle id="ellipse1" cx="50.5" cy="50" r="41" fill="#FFA500"/>
+                    <circle id="ellipse2" cx="50.5" cy="50" r="40.5" stroke="#A39191" stroke-opacity="0.23"/>
                 </g>
-                <path id="arrow" class="arrow" d="M62.2071 50.7071C62.5976 50.3166 62.5976 49.6834 62.2071 49.2929L55.8431 42.9289C55.4526 42.5384 54.8195 42.5384 54.4289 42.9289C54.0384 43.3195 54.0384 43.9526 54.4289 44.3431L60.0858 50L54.4289 55.6569C54.0384 56.0474 54.0384 56.6805 54.4289 57.0711C54.8195 57.4616 55.4526 57.4616 55.8431 57.0711L62.2071 50.7071ZM39.5 51L61.5 51L61.5 49L39.5 49L39.5 51Z" fill="white"/>
+                <path id="Arrow1" d="M62.2071 50.7071C62.5976 50.3166 62.5976 49.6834 62.2071 49.2929L55.8431 42.9289C55.4526 42.5384 54.8195 42.5384 54.4289 42.9289C54.0384 43.3195 54.0384 43.9526 54.4289 44.3431L60.0858 50L54.4289 55.6569C54.0384 56.0474 54.0384 56.6805 54.4289 57.0711C54.8195 57.4616 55.4526 57.4616 55.8431 57.0711L62.2071 50.7071ZM39.5 51L61.5 51L61.5 49L39.5 49L39.5 51Z" fill="white"/>
             </g>
-        </svg>
-        <!-- <span class="step-button__long-arrow__right"></span> -->
-    </label>
-</div>
+        </svg> -->
+        <!-- <p class="percentage"></p> -->
+        <input type="checkbox" href="#" class="step-button-open" name="step-button" id="step-button"/>
+        <label class="circular-progress-button" for="step-button"
+            data-show="none"
+            data-percentage="20 1400"
+            data-arrowflip="none"
+            data-inner-circle-color="lightgrey"
+            data-progress-color="crimson"
+            data-bg-color="black"
+            role="progressbar"
+            aria-valuenow="10"
+            aria-live="polite"
+        >
+            <svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <g id="progressive-bar-button">
+                    <g id="progress-bar">
+                        <circle class="progress-bar-color" cx="50.5" cy="50" fill="none"
+                            r="48" stroke-width="2" stroke="red"
+                            stroke-dasharray="560 1400"
+                            stroke-linecap="round"
+                            stroke-dashoffset="1"
+                        />
+                    </g>
+                    <g id="inner-circle">
+                        <circle class="inner-circle-border" cx="50.5" cy="50" r="41" fill="#FFA500"/>
+                        <circle class="inner-circle" cx="50.5" cy="50" r="40.5" stroke="#A39191" stroke-opacity="0.23"/>
+                    </g>
+                    <path id="arrow" class="arrow" d="M62.2071 50.7071C62.5976 50.3166 62.5976 49.6834 62.2071 49.2929L55.8431 42.9289C55.4526 42.5384 54.8195 42.5384 54.4289 42.9289C54.0384 43.3195 54.0384 43.9526 54.4289 44.3431L60.0858 50L54.4289 55.6569C54.0384 56.0474 54.0384 56.6805 54.4289 57.0711C54.8195 57.4616 55.4526 57.4616 55.8431 57.0711L62.2071 50.7071ZM39.5 51L61.5 51L61.5 49L39.5 49L39.5 51Z" fill="white"/>
+                </g>
+            </svg>
+            <!-- <span class="step-button__long-arrow__right"></span> -->
+        </label>
+    </div>
+</template>
+
 
 <div class="circular-progress3"
     data-inner-circle-color="lightgrey"
