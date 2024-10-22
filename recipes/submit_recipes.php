@@ -114,17 +114,16 @@ ob_start();
 <?php if (isset($loggedUser['email'])  && !isset($_SESSION['REGISTERED_RECIPE'])): ?> 
         <?php //(isset($loggedUserState)):?>
     <h1>Partagez votre recette</h1>
-    <div class="tabulation">
-        <ul>
-            <li>
-                <a href=#><?= $pageTitle ?></a>
-            </li>
-            <li>
-                <a href="http://">Recette</a>
-            </li>
-        </ul>
+    <ul class="tabulation">
+        <li>
+            <a href=#><?= $pageTitle ?></a>
+        </li>
+        <li class="li-arrow"></li>
+        <li>
+            <a href="http://">Recette</a>
+        </li>
+    </ul>
         
-    </div>
     <!-- <script type="text/javascript">
         if (window.innerWidth <= 576) {
             // fetch('../templates/recipe_layout_mobile_only.php')
