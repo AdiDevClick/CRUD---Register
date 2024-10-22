@@ -328,8 +328,8 @@
         .arrow {
             fill: var(--arrow-color);
             stroke: var(--arrow-border-color);
-            transform: translateX(0);
-            transition: transform ease-out 200ms;
+            /* transform: translateX(0);
+            transition: transform ease-out 200ms; */
         }
 
         .inner-circle-border {
@@ -357,6 +357,13 @@
                 transform: translate(90%) scaleX(-1);
                 transition: transform ease-out 500ms;
             }
+        }
+    }
+
+    &:not(:hover) {
+        #arrow {
+            transform: translateX(0);
+            transition: transform ease-out 200ms;
         }
     }
 }
