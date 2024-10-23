@@ -86,9 +86,13 @@ export class IngredientsFrom {
         let count = 0
         this.#addStepsButton.addEventListener('click', e => {
             count = this.#addSteps(e, count)
+            console.log(e.currentTarget)
+
             if (count >= 4) {
+                e.preventDefault()
                 this.#addStepsButton.disabled = true
                 this.#addStepsButton.classList.add('hidden')
+                this.#addStepsButton.remove()
             }
         })
 
@@ -110,7 +114,7 @@ export class IngredientsFrom {
      * @returns
      */
     #addSteps(event, count) {
-        event.preventDefault()
+        // event.preventDefault()
         const recipeStepsTemplate = this.#gridContainer.querySelector('#recipe-input-template').content.firstElementChild.cloneNode(true)
         const forAttribute = event.currentTarget.previousElementSibling.firstElementChild.htmlFor
         while (count < 4) {
@@ -139,6 +143,7 @@ export class IngredientsFrom {
                     null
                     break
             }
+            event.currentTarget.hash = textarea.id
             event.currentTarget.insertAdjacentElement('beforebegin', recipeStepsTemplate)
             count++
             return count
