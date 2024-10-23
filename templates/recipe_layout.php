@@ -86,13 +86,14 @@
                 <span></span>
             </a>
             <?php include '../templates/step_button.html'?>
+            <?php include '../templates/recipe_step_template.html'?>
 
-            <template id="recipe-input-template">
+            <!-- <template id="recipe-input-template">
                 <div class="js-form-recipe">
                     <label for="" class="label"></label>
                     <textarea name="" id="" cols="60" rows="3" placeholder="Renseignez  votre deuxième étape..."></textarea>
                 </div>
-            </template>
+            </template> -->
             <!-- DRAWER BUTTONS -->
             <div class="opening_drawer_button show">
                 <img src='../img/add.svg' alt="image représentant une addition">
