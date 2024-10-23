@@ -32,6 +32,7 @@
     /* --background-color: orange; */
 
     --button-color: orange;
+    --button-color-a-hover: rgba(255, 166, 0, 0.747);
     --button-hover-color: #3b3b3b;
     --navbar-background-color: transparent; 
     --background-color: linear-gradient(95deg, rgba(33,36,37,1) 0%, rgba(11,13,13,1) 90%, rgba(0,0,0,1) 100%);
@@ -260,6 +261,12 @@ a:hover:not(.action-btn), a.active {
     /* transform: scale(1.05); */
     transition: transform .1s ease-in-out;
     animation: fadeIn 0.3s all;
+}
+
+a.active:hover {
+    color: var(--navbar-hoover-text-color);
+    color: var(--button-color-a-hover);
+    /* color: var(--site-color-01-hover); */
 }
 
 @keyframes fadeIn {

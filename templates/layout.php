@@ -20,9 +20,10 @@ header('Cache-Control: private, must-revalidate');
 //     $clicServer = 'recettes';
 // }
 
-if ($url === 'about.php' || 'planningType.php' || 'todo.html' || 'carousel.html' || 'contact.php' || 'index.php') {
-    $active = strip_tags('class="active"');
-}
+// if ($url === 'about.php' || 'planningType.php' || 'todo.html' || 'carousel.html' || 'contact.php' || 'index.php') {
+//     $active = strip_tags('class="active"');
+// }
+$active = strip_tags('class="active"');
 
 $dev = true;
 // $dev = false;
@@ -39,9 +40,9 @@ $vite = false;
     <!-- <meta cache-control="private"> -->
     <!-- <meta http-equiv="Cache-Control" content="private, must-revalidate"> -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="<?php echo($rootUrl). $clicServer?>/css/resetfirefox.css">
+    <link rel="stylesheet" href="<?= $rootUrl . $clicServer?>/css/resetfirefox.css">
     <!-- <link rel="stylesheet" href="<?php //echo($rootUrl). $clicServer?>/css/resetchromium.css"> -->
-    <link rel="stylesheet" href="<?php echo($rootUrl). $clicServer?>/css/reset.css">
+    <link rel="stylesheet" href="<?= $rootUrl . $clicServer?>/css/reset.css">
     <!-- <link
         href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" 
         rel="stylesheet"
@@ -51,8 +52,8 @@ $vite = false;
     crossorigin="anonymous"
     referrerpolicy="no-referrer"/>
     <!-- <script type="module" src="<?php //echo($rootUrl). $clicServer?>/scripts/toaster.js" defer></script> -->
-    <script src="<?php echo($rootUrl). $clicServer?>/scripts/script.js" type="module" defer></script>
-    <script src="<?php echo($rootUrl). $clicServer?>/scripts/searchApp.js" type="module" defer></script>
+    <script src="<?= $rootUrl . $clicServer?>/scripts/script.js" type="module" defer></script>
+    <script src="<?= $rootUrl . $clicServer?>/scripts/searchApp.js" type="module" defer></script>
 
     <!-- <link rel="stylesheet" href="<?php //echo($rootUrl). $clicServer?>/resources/css/main.css"/> -->
     <!-- <link rel="stylesheet" href="<?php //echo($rootUrl). $clicServer?>/resources/css/index.css"/> -->
@@ -71,27 +72,27 @@ if (!$dev) {
     //     $manifest = json_decode(file_get_contents('./public/assets/.vite/manifest.json'), true);
     //     // var_dump($manifest);
     ?>
-        <script src="<?php echo($rootUrl) . $clicServer?>/public/assets/<?= $manifest['resources/main.js']['file']?>" type="module"></script>
+        <script src="<?= $rootUrl . $clicServer?>/public/assets/<?= $manifest['resources/main.js']['file']?>" type="module"></script>
         <!-- <script src="./public/assets/<?php //$manifest['resources/main.js']['file']?>" type="module"></script> -->
-        <script src="<?php echo($rootUrl) . $clicServer?>/public/assets/<?= $manifest['scripts/toaster.js']['file']?>" type="module"></script>
+        <script src="<?= $rootUrl . $clicServer?>/public/assets/<?= $manifest['scripts/toaster.js']['file']?>" type="module"></script>
         <!-- <link rel="stylesheet" href="./public/assets/<?php //$manifest['resources/main.js']['css'][0]?>"> -->
-        <link rel="stylesheet" href="<?php echo($rootUrl) . $clicServer?>/public/assets/<?= $manifest['resources/main.js']['css'][0]?>">
+        <link rel="stylesheet" href="<?= $rootUrl . $clicServer?>/public/assets/<?= $manifest['resources/main.js']['css'][0]?>">
 <?php
 } elseif ($dev && $vite) {
     ?>
     <script type="module" src="http://localhost:5173/assets/@vite/client"></script>
     <script type="module" src="http://localhost:5173/assets/resources/main.js"></script>
-    <script type="module" src="<?php echo($rootUrl). $clicServer?>/scripts/toaster.js" defer></script>
-    <script src="<?php echo($rootUrl). $clicServer?>/scripts/toggleLightMode.js" defer></script>
+    <script type="module" src="<?= $rootUrl . $clicServer?>/scripts/toaster.js" defer></script>
+    <script src="<?= $rootUrl . $clicServer?>/scripts/toggleLightMode.js" defer></script>
 <?php
 }
 ?>
 
 <?php if (!$vite) : ?>
-        <link rel="stylesheet" href="<?php echo($rootUrl). $clicServer?>/resources/css/main.css"/>
-        <link rel="stylesheet" href="<?php echo($rootUrl). $clicServer?>/resources/css/index.css"/>
-        <script type="module" src="<?php echo($rootUrl). $clicServer?>/scripts/toaster.js" defer></script>
-        <script src="<?php echo($rootUrl). $clicServer?>/scripts/toggleLightMode.js" defer></script>
+        <link rel="stylesheet" href="<?= $rootUrl . $clicServer?>/resources/css/main.css"/>
+        <link rel="stylesheet" href="<?= $rootUrl . $clicServer?>/resources/css/index.css"/>
+        <script type="module" src="<?= $rootUrl . $clicServer?>/scripts/toaster.js" defer></script>
+        <script src="<?= $rootUrl . $clicServer?>/scripts/toggleLightMode.js" defer></script>
 <?php endif ?>
 
     <!-- <script type="module" src="<?php //echo($rootUrl). $clicServer?>/scripts/toaster.js" defer></script> -->
@@ -112,21 +113,21 @@ if (!$dev) {
         <!-- <nav class="nav"> -->
         <nav class="navbar-grid">
             <!-- <div class="dropdown-menu-background"> -->
-            
                 <div class="dropdown-menu">
-                        <li><a
-                        <?php
-                            if ($url === 'index.php') {
-                                echo strip_tags('class="active"');
-                            } else {
-                                null;
-                            }
+                    <li><a
+                    <?php
+                        if ($url === 'index.php') {
+                            // echo strip_tags('class="active"');
+                            echo $active;
+                        } else {
+                            null;
+                        }
 ?>
-                        href="<?php echo($rootUrl). $clicServer.'/index.php' ?>">Accueil</a></li>
-                        <li><a
-                        <?php
+                    href="<?= $rootUrl . $clicServer.'/index.php' ?>">Accueil</a></li>
+                    <li><a
+                    <?php
     if ($url === 'about.php') {
-        echo strip_tags('class="active"');
+        // echo strip_tags('class="active"'echo $active;
     } else {
         null;
     }
@@ -135,53 +136,54 @@ if (!$dev) {
                         <li><a
                         <?php
     if ($url === 'planningType.php') {
-        echo strip_tags('class="active"');
+        // echo strip_tags('class="active"'echo $active;
     } else {
         null;
     }
 ?>
-                        href="<?php echo($rootUrl). $clicServer.'/planning/planningType.php' ?>">Planning</a></li>
+                        href="<?= $rootUrl . $clicServer.'/planning/planningType.php' ?>">Planning</a></li>
                         <li><a
                         <?php
     if ($url === 'todo.html') {
-        echo strip_tags('class="active"');
+        // echo strip_tags('class="active"'echo $active;
     } else {
         null;
     }
 ?>
-                        href="<?php echo($rootUrl). $clicServer.'/todo.html' ?>">Ma ToDo list</a></li>
+    href="<?= $rootUrl . $clicServer.'/todo.html' ?>">Ma ToDo list</a></li>
+    <li><a
+    <?php
+        if ($url === 'carousel.html') {
+            // echo strip_tags('class="active"')echo $active;
+        } else {
+            null;
+        }
+?>
+                        href="<?= $rootUrl . $clicServer.'/carousel.html' ?>">Carousel Exemple</a></li>
                         <li><a
                         <?php
-    if ($url === 'carousel.html') {
-        echo strip_tags('class="active"');
-    } else {
-        null;
-    }
+if ($url === 'contact.php') {
+    // echo strip_tags('class="active"echo $active;
+} else {
+    null;
+}
 ?>
-                        href="<?php echo($rootUrl). $clicServer.'/carousel.html' ?>">Carousel Exemple</a></li>
-                        <li><a
-                        <?php
-    if ($url === 'contact.php') {
-        echo strip_tags('class="active"');
-    } else {
-        null;
-    }
-?>
-                        href="<?php echo($rootUrl). $clicServer.'/contact.php' ?>">Contact</a></li>
+                        href="<?= $rootUrl . $clicServer.'/contact.php' ?>">Contact</a></li>
                     <?php //$setLoggedStatus?>
                     <?php //if(!isset($_SESSION['LOGGED_USER'])):?>
                     <?php if(!isset($_COOKIE['EMAIL'])): ?>
                     <?php //if(!isset($loggedUser['email'][0])):?>
-                        <li><a class="" href="<?php echo($rootUrl). $clicServer.'/index.php#username' ?>">Se connecter</a></li>
-                        <li><a class="action_btn" href="<?php echo($rootUrl). $clicServer.'/register.php' ?>">S'enregistrer</a></li>
+                        <li><a class="" href="<?= $rootUrl . $clicServer.'/index.php#username' ?>">Se connecter</a></li>
+                        <li><a class="action_btn" href="<?= $rootUrl . $clicServer.'/register.php' ?>">S'enregistrer</a></li>
                     <?php endif?>
                     <?php if(isset($_COOKIE['EMAIL'])): ?>
                     <?php //if(isset($_SESSION['LOGGED_USER'])):?>
                     <?php //if(isset($loggedUser['email'][0])):?>
                         <li><a <?php if ($url === 'create_recipes.php') {
-                            echo strip_tags('class="active"');
-                        }?> class="" href="<?php echo($rootUrl). $clicServer.'/recipes/create_recipes.php' ?>">Créer une recette</a></li>
-                        <li><a class="" href="<?php echo($rootUrl). $clicServer.'/deconnexion.php' ?>">Se déconnecter</a></li>
+                            // echo strip_tags('class="active"');
+                            echo $active;
+                        }?> class="" href="<?= $rootUrl . $clicServer.'/recipes/create_recipes.php' ?>">Créer une recette</a></li>
+                        <li><a class="" href="<?= $rootUrl . $clicServer.'/deconnexion.php' ?>">Se déconnecter</a></li>
                     <?php endif?>
                 </div>
             <!-- </div> -->
@@ -236,29 +238,33 @@ if (!$dev) {
                 <ul class="links">
                     <li><a
                     <?php if ($url === 'index.php') {
-                        echo strip_tags('class="active"');
+                        echo $active;
+                        // echo strip_tags('class="active"');
                     } else {
                         null;
                     }?>
-                    href="<?php echo($rootUrl). $clicServer.'/index.php' ?>">Accueil</a></li>
+                    href="<?= $rootUrl . $clicServer.'/index.php' ?>">Accueil</a></li>
                     
                     <li><a
                     <?php if ($url === 'planningType.php') {
-                        echo strip_tags('class="active"');
+                        // echo strip_tags('class="active"');
+                        echo $active;
                     } else {
                         null;
                     } ?>
-                    href="<?php echo($rootUrl). $clicServer.'/planning/planningType.php' ?>">Planning</a></li>
+                    href="<?= $rootUrl . $clicServer.'/planning/planningType.php' ?>">Planning</a></li>
                     <li><a
                     <?php if ($url === 'carousel.html') {
-                        echo strip_tags('class="active"');
+                        // echo strip_tags('class="active"');
+                        echo $active;
                     } else {
                         null;
                     } ?>
-                    href="<?php echo($rootUrl). $clicServer.'/carousel.html' ?>">Carousel Exemple</a></li>
+                    href="<?= $rootUrl . $clicServer.'/carousel.html' ?>">Carousel Exemple</a></li>
                     <li><a
                     <?php if ($url === 'todo.html') {
-                        echo strip_tags('class="active"');
+                        // echo strip_tags('class="active"');
+                        echo $active;
                     } else {
                         null;
                     } ?>
@@ -266,16 +272,17 @@ if (!$dev) {
                     
                     <?php //$setLoggedStatus?>
                     <?php if(!isset($_COOKIE['EMAIL'])): ?>
-                        <li><a class="" href="<?php echo($rootUrl). $clicServer.'/index.php#username' ?>">Se connecter</a></li>
+                        <li><a class="" href="<?= $rootUrl . $clicServer.'/index.php#username' ?>">Se connecter</a></li>
                         <!-- <li><a class="" href="<?php //echo($rootUrl). 'recettes/register.php'?>">S'enregistrer</a></li> -->
                     <?php endif?>
                     <?php if(isset($_COOKIE['EMAIL'])): ?>
                     <?php //if(isset($_SESSION['LOGGED_USER'])):?>
                     <?php //if(isset($loggedUser['email'][0])):?>
                         <li><a <?php if ($url === 'create_recipes.php') {
-                            echo strip_tags('class="active"');
-                        }?> class="" href="<?php echo($rootUrl). $clicServer.'/recipes/create_recipes.php' ?>">Créer une recette</a></li>
-                        <li><a class="" href="<?php echo($rootUrl). $clicServer.'/deconnexion.php' ?>">Se déconnecter</a></li>
+                            // echo strip_tags('class="active"');
+                            echo $active;
+                        }?> class="" href="<?= $rootUrl . $clicServer.'/recipes/create_recipes.php' ?>">Créer une recette</a></li>
+                        <li><a class="" href="<?= $rootUrl . $clicServer.'/deconnexion.php' ?>">Se déconnecter</a></li>
                     <?php endif?>
                     
                 </ul>
@@ -295,9 +302,10 @@ if (!$dev) {
                         </div>
                         <ul class="sub-menu">
                             <li><a <?php if ($url === 'create_recipes.php') {
-                                echo strip_tags('class="active"');
-                            }?> class="" href="<?php echo($rootUrl). $clicServer.'/recipes/create_recipes.php' ?>">Créer une recette</a></li>
-                            <li><a class="" href="<?php echo($rootUrl). $clicServer.'/deconnexion.php' ?>">Se déconnecter</a></li>
+                                // echo strip_tags('class="active"');
+                                echo $active;
+                            }?> class="" href="<?= $rootUrl. $clicServer.'/recipes/create_recipes.php' ?>">Créer une recette</a></li>
+                            <li><a class="" href="<?= $rootUrl . $clicServer.'/deconnexion.php' ?>">Se déconnecter</a></li>
                         </ul>
                     </section>
 
@@ -351,15 +359,17 @@ if (!$dev) {
             <p>© 2023 Copyright <a class="" href="https://github.com/AdiDevClick/">Adi Dev Click</a></p>
             <li><a
                 <?php if ($url === 'contact.php') {
-                    echo strip_tags('class="active"');
+                    // echo strip_tags('class="active"');
+                    echo $active;
                 } else {
                     null;
                 } ?>
-                href="<?php echo($rootUrl). $clicServer.'/contact.php' ?>">Contact
+                href="<?= $rootUrl . $clicServer.'/contact.php' ?>">Contact
             </a></li>
             <li><a
                 <?php if ($url === 'about.php') {
-                    echo strip_tags('class="active"');
+                    // echo strip_tags('class="active"');
+                    echo $active;
                 } else {
                     null;
                 } ?>

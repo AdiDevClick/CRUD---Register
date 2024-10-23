@@ -3,8 +3,12 @@ import { createElement } from "../functions/dom.js"
 class ProgressiveStepButton {
     
     #r
-    constructor(circumference) {
-        this.#r = circumference
+    #template
+    #button 
+    constructor(element, width) {
+        this.#r = Math.round(width / 2)
+        this.#button = element
+        this.#template = document.querySelector(element.data.template)
     }
 
     /**
@@ -16,6 +20,14 @@ class ProgressiveStepButton {
             class: 'circular-progress-button-container'
         })
         document.body.append(buttonDivContainer)
+    }
+
+    #addClassToElement(className) {
+        this.#button.classList.add(className)
+    }
+
+    #setProgression(progress) {
+        this.#button.classList.add(className)
     }
 
     #calculateDasharray(r) {

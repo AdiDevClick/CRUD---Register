@@ -120,7 +120,7 @@ ob_start();
         </li>
         <li class="li-arrow"></li>
         <li>
-            <a href="http://">Recette</a>
+            <a class="active" href="http://">Recette</a>
         </li>
     </ul>
         
