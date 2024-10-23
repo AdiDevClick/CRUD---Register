@@ -597,23 +597,27 @@ form {
         display: flex;
         flex-direction: column;
         gap: 15px;
+
         &.full {
             grid-column: 1 / 3;
             > p {
                 color: var(--button-color);
             }
         }
+
         &:has(#title, #description) {
             grid-column: 1 / 3;
             width: 75%;
             place-self: baseline;
         }
+
         &:has(:is(input, textarea)) {
             input, textarea {
                 margin: 0;
             }
         }
     }
+
     &#recipe_creation, &#recipe_creation_all_resolutions {
         > .js-form-recipe:has(textarea:not(:required:valid), input:not(:required:valid)),
         /* > .js-form-recipe:not(:has(textarea:valid)).js-form-recipe:not(:has(input:valid)).js-form-recipe:not(:has(textarea:valid)), */
@@ -621,8 +625,8 @@ form {
         > .show_drawer:not(:has(.custom-ingredient)),
         /* > .show_drawer:not(:has(input:valid)), */
         > .img_preview:not(:has(input:valid)) {
-            display: none;
-            opacity: 0;
+            /* display: none;
+            opacity: 0; */
         }
         .btn {
             width: 100%;
@@ -2403,7 +2407,7 @@ hr {
     min-height: 31px;
     /* flex-wrap: wrap;
     flex-direction: row; */
-    /* align-content: center; */
+    align-content: center;
     justify-content: center;
     align-items: center;
     > span {
