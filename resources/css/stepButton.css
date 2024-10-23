@@ -295,7 +295,15 @@
     aspect-ratio: 1;
     display: grid;
     place-items: center;
-    margin: 10% auto;
+    /* margin: 10% auto; */
+
+    &.right-corner {
+        place-self: end;
+    }
+
+    &.left-corner {
+        place-self: baseline;
+    }
 
     > input {
         display: none;
@@ -305,7 +313,7 @@
         display: grid;
         place-items: center;
 
-        &[data-arrowflip=flip] {
+        &[data-arrowflip="flip"] {
             .arrow {
                 transform: translate(100%) scaleX(-1);
             }
@@ -341,7 +349,7 @@
         }
     }
 
-    &:hover {
+    &:is(:hover, :active, :focus) {
         /* .progress-bar-color {
             stroke-dasharray: var(--data-percentage, 200 1400);
         } */
@@ -360,11 +368,14 @@
         }
     }
 
-    &:not(:hover) {
+    &:not(:hover, :active, :focus) {
         #arrow {
-            transform: translateX(0);
+            /* transform: translateX(0); */
             transition: transform ease-out 200ms;
         }
+    }
+    @media screen and (max-width: 576px) {
+        display: none;
     }
 }
 
