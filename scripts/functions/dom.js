@@ -197,8 +197,15 @@ export function appendToAnotherLocation(targetSelector, isClass = 'js-form-recip
             class: "card recipe js-stop-appender"
         })
     }
-    const contentToMoveToNewCardFormRecipeSection = Array.from(parentElement.childNodes).filter(node => 
-        (node.className === 'js-form-recipe') || (node.className === 'js-form-recipe full') || (node.className === 'js-form-recipe plus full')
+    const contentToMoveToNewCardFormRecipeSection = Array.from(parentElement.childNodes)
+        .filter(node => {
+            if (node.tagName === 'DIV' || node.tagName === 'A') {
+                return (node.classList.contains('js-form-recipe')) ||
+                // (node.className === 'js-form-recipe full') ||
+                // (node.className === 'js-form-recipe plus full') ||
+                (node.classList.contains('circular-progress-button-container'))
+            }
+        }
     )
     const contentToMoveToNewCardRecipeSection = Array.from(parentElement.childNodes).find(node => 
         node.className === 'js-append-to-drawer'
@@ -224,7 +231,7 @@ export function appendToAnotherLocation(targetSelector, isClass = 'js-form-recip
         parentElement.prepend(newCardFormRecipeSection)
         parentElement.append(newCardRecipeSection)
     } else {
-        console.error('Comment node not found')
+        console.error('Node not found')
     }
 }
 
