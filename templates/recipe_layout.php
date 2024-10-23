@@ -82,9 +82,11 @@
                 <label for="step_6" class="label">Etape 6</label>
                 <textarea name="step_6" id="step_6" cols="60" rows="3" placeholder="Renseignez  votre sixième étape..."><?php $getInfos !== null && $getInfos['step_6'] ? print strip_tags($getInfos['step_6']) : null ?></textarea>
             </div> -->
-            <div class="js-form-recipe plus full">
+            <a href="#step_2" class="js-form-recipe plus full" >
                 <span></span>
-            </div>
+            </a>
+            <?php include '../templates/step_button.html'?>
+
             <template id="recipe-input-template">
                 <div class="js-form-recipe">
                     <label for="" class="label"></label>
