@@ -4,6 +4,7 @@ import { BubbleCreativePlugin } from "./BubbleCreativePlugin.js"
 // import { DrawerTouchPlugin } from "./DrawerTouchPlugin.js"
 import { ErrorHandler } from "./ErrorHandler.js"
 import { Toaster } from "./Toaster.js"
+import { ProgressiveCircleButton } from "./ProgressiveCircleButton.js"
 
 
 /**
@@ -56,6 +57,10 @@ export class IngredientsFrom {
     #file
     #imagePreview
     #input = []
+    /** @type {HTMLInputElement} */
+    #previewsButton
+    /** @type {HTMLInputElement} */
+    #nextButton
 
     /**
      * @param {Ingredient[]} list
@@ -86,8 +91,6 @@ export class IngredientsFrom {
         let count = 0
         this.#addStepsButton.addEventListener('click', e => {
             count = this.#addSteps(e, count)
-            console.log(e.currentTarget)
-
             if (count >= 4) {
                 e.preventDefault()
                 this.#addStepsButton.disabled = true
@@ -95,7 +98,12 @@ export class IngredientsFrom {
                 this.#addStepsButton.remove()
             }
         })
+        
+        this.#previewsButton = new ProgressiveCircleButton('left-corner', 'flip')
+        this.#nextButton = new ProgressiveCircleButton('right-corner')
 
+        const target = document.querySelector('.contact-grid')
+        target.append(this.#previewsButton.button, this.#nextButton.button)
             // this.options.get ? this.options.post = false : this.options.post = true
         // this.#template = document.querySelector('#ingredient-template')
         // this.#target = document.querySelector(".js-ingredient-group")
@@ -114,7 +122,6 @@ export class IngredientsFrom {
      * @returns
      */
     #addSteps(event, count) {
-        // event.preventDefault()
         const recipeStepsTemplate = this.#gridContainer.querySelector('#recipe-input-template').content.firstElementChild.cloneNode(true)
         const forAttribute = event.currentTarget.previousElementSibling.firstElementChild.htmlFor
         while (count < 4) {

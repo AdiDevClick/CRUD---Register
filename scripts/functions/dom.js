@@ -214,9 +214,7 @@ export function appendToAnotherLocation(targetSelector, isClass = 'js-form-recip
         node.className === 'img_preview' || node.className === 'add_ingredient'
     )
     if (contentToMoveToNewCardFormRecipeSection) {
-        console.log(contentToMoveToNewCardFormRecipeSection)
         contentToMoveToNewCardFormRecipeSection.forEach(element => {
-            console.log(element)
             newCardFormRecipeSection.append(element)
         })
 

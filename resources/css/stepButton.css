@@ -355,13 +355,13 @@
         } */
 
         [data-arrowflip="none"] {
-            #arrow {
+            .arrow {
                 transform: translateX(10%);
                 transition: transform ease-out 500ms;
             }
         }
         [data-arrowflip="flip"] {
-            #arrow {
+            .arrow {
                 transform: translate(90%) scaleX(-1);
                 transition: transform ease-out 500ms;
             }
