@@ -108,6 +108,20 @@ export class IngredientsFrom {
         // this.#template = document.querySelector('#ingredient-template')
         // this.#target = document.querySelector(".js-ingredient-group")
 
+        console.log(this.#previewsButton)
+        this.#previewsButton.button.addEventListener('mouseover', e => {
+            this.#previewsButton.dashOffset = 100
+        })
+        this.#previewsButton.button.addEventListener('mouseout', e => {
+            this.#previewsButton.dashOffset = 0
+        })
+        this.#nextButton.button.addEventListener('mouseover', e => {
+            this.#nextButton.dashOffset = 100
+        })
+        this.#nextButton.button.addEventListener('mouseout', e => {
+            this.#nextButton.dashOffset = 10
+        })
+
         // Loading plugins
         if (this.#gridContainer) this.#touchPlugin = importThisModule('DrawerTouchPlugin', this.#gridContainer)
         // if (this.#gridContainer) this.#touchPlugin = new DrawerTouchPlugin(this.#gridContainer)
@@ -551,6 +565,9 @@ export class IngredientsFrom {
         localStorage.setItem(storageName, JSON.stringify(items))
     }
 
+    /**
+     * @param {string} url
+     */
     set setUpdateAdress(url) {
         this.#url = url
     }

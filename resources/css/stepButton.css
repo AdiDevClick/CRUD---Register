@@ -278,6 +278,12 @@
     initial-value: 200 1400;
 }
 
+@property --data-dashoffset {
+    syntax: "<number>+";
+    inherits: false;
+    initial-value: 1;
+}
+
 /* Avec SVG dasharray */
 .circular-progress-button-container {
     --button-size: 80px;
@@ -315,7 +321,9 @@
 
         &[data-arrowflip="flip"] {
             .arrow {
+                /* transform: scaleX(-1); */
                 transform: translate(100%) scaleX(-1);
+                /* transform-origin: center; */
             }
         }
 
@@ -327,10 +335,16 @@
         }
 
         .progress-bar-color {
+            /* transform: rotate(270deg);
+            transform-origin: center center; */
+            /* transform: rotate(270deg);
+            transform-origin: 50.5% 50%; */
             stroke: var(--progress-bar-color);
+            /* stroke-dasharray: var(--data-percentage); */
             stroke-dasharray: var(--data-percentage, 0 1400);
-            stroke-dashoffset: 0;
-            transition: --data-percentage 300ms linear;
+            stroke-dashoffset: var(--data-dashoffset, 1);
+            /* stroke-dashoffset: var(--data-dashoffset, 0); */
+            transition: --data-percentage 300ms linear, --data-dashoffset 300ms linear;
         }
 
         .arrow {
@@ -369,7 +383,7 @@
     }
 
     &:not(:hover, :active, :focus) {
-        #arrow {
+        .arrow {
             /* transform: translateX(0); */
             transition: transform ease-out 200ms;
         }
