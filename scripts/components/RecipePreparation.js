@@ -111,16 +111,23 @@ export class IngredientsFrom {
         console.log(this.#previewsButton)
         this.#previewsButton.button.addEventListener('mouseover', e => {
             this.#previewsButton.dashOffset = 100
+            
         })
         this.#previewsButton.button.addEventListener('mouseout', e => {
+            // this.#previewsButton.button.removeEventListener('mouseover', e)
             this.#previewsButton.dashOffset = 0
-        })
+        }, {once: true})
+        
         this.#nextButton.button.addEventListener('mouseover', e => {
             this.#nextButton.dashOffset = 100
+            
         })
+
         this.#nextButton.button.addEventListener('mouseout', e => {
+            // this.#nextButton.button.removeEventListener('mouseover', e)
             this.#nextButton.dashOffset = 10
-        })
+        }, {once: true})
+        
 
         // Loading plugins
         if (this.#gridContainer) this.#touchPlugin = importThisModule('DrawerTouchPlugin', this.#gridContainer)

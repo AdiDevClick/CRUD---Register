@@ -27,8 +27,8 @@ $active = strip_tags('class="active"');
 
 $dev = true;
 // $dev = false;
-// $vite = false;
-$vite = true;
+$vite = false;
+// $vite = true;
 
 ?>
 

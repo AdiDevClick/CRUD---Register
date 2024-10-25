@@ -2,16 +2,18 @@ import { createElement } from "../functions/dom.js"
 
 export class ProgressiveCircleButton {
     
-    #template
-    #button
+    // #template
+    /** @type {HTMLElement} */
+    #buttonContainer
     /** @type {Number} */
-    #buttonTemplate
+    // #buttonTemplate
     /** @type {Number} */
     #dashArray
     /** @type {Number} */
     #dashOffset
     /** @type {String} */
-    #flipArrowData
+    // #flipArrowData
+    /** @type {HTMLLabelElement} */
     #label
     /** @type {SVGCircleElement} */
     #circle
@@ -19,30 +21,57 @@ export class ProgressiveCircleButton {
     #progress = 0
     /** @type {Number} */
     #radius
+    /** @type {MutationObserver} */
+    #mutationObserver
+    #handleMutation = (mutationsList, observers) => {
+        mutationsList.forEach(mutation => {
+            if (mutation.attributeName === 'aria-valuenow') {
+                console.log(mutation)
+        }
+        })
+    }
 
-    constructor(position, flip='none') {
-        this.#button = document.querySelector('#circular-progress-button').content.firstElementChild.cloneNode(true)
-        // this.#button = this.#buttonTemplate
+    /**
+     * @constructor
+     * @param {String} positionClass - Définit la position par CSS - ex : 'right-corner'
+     * @param {String} [flip="none"] - Définit la direction de la flèche du innerCircle, default : "none"
+     */
+    constructor(positionClass, flip="none") {
+        // Main element container
+        this.#buttonContainer = document.querySelector('#circular-progress-button').content.firstElementChild.cloneNode(true)
+        // this.#buttonContainer = this.#buttonTemplate
 
-        this.#setIDs(position)
-        this.#addClassToElement(position)
+        // Setting IDs & Class
+        this.#setIDs(positionClass)
+        this.#addClassToElement(positionClass)
 
-        // Setting values attributes on the SVG
-        this.#label = this.#button.querySelector('label')
-        this.#circle = this.#button.querySelector('.progress-bar-color')
+        // Elements
+        this.#label = this.#buttonContainer.querySelector('label')
+        this.#circle = this.#buttonContainer.querySelector('.progress-bar-color')
+
         // Sets if the inner arrow should be left or right. flip = left / none = right
         this.#label.dataset.arrowflip = flip
+        
+        // Setting values attributes on the Label & SVG
         this.#label.setAttribute('role', 'progressbar')
         this.#label.setAttribute('aria-live', 'polite')
 
-        const width = this.#button.querySelector('svg').width.baseVal.value
+        const width = this.#buttonContainer.querySelector('svg').width.baseVal.value
         
         this.#radius = Math.round((width / 2) - 1)
         this.#circle.r.baseVal.value = this.#radius
         // this.#template = document.querySelector(element.data.template)
 
+        // Calculation
         this.#updateProgression()
+
         this.#setStyle()
+
+        // Events
+        window.addEventListener('DOMContentLoaded', e => {
+            this.#mutationObserver = new MutationObserver(this.#handleMutation)
+            this.#mutationObserver.observe(this.#buttonContainer, { attributes: true, subtree: true, attributeOldValue: true })
+        })
     }
 
     /**
@@ -57,7 +86,9 @@ export class ProgressiveCircleButton {
     }
 
     /**
-     * 
+     * Ajoute les propriétés dynamique du CSS au cercle du SVG -
+     * Renvoi aux propriétés du stepButton.css.
+     * Une animation / transformation linéaire sera jouée
      */
     #setStyle() {
         this.#circle.style.setProperty('--data-percentage', this.#dashArray)
@@ -65,14 +96,18 @@ export class ProgressiveCircleButton {
     }
 
     /**
-     * 
+     * Calcule le dash offset pour permettre
+     * d'utiliser this.#progress comme un pourcentage
      */
     #updateProgression() {
+        // Aria setting
         this.#label.setAttribute('aria-valuenow', this.#progress)
 
+        // Circumference
         this.#dashArray = this.#calculateDasharray(this.#radius)
         this.#circle.setAttribute('stroke-dasharray', this.#dashArray)
 
+        // Offset start
         this.#dashOffset = this.#calculateDashoffset(this.#progress, this.#dashArray)
         this.#circle.setAttribute('stroke-dashoffset', this.#dashOffset)
     }
@@ -82,11 +117,11 @@ export class ProgressiveCircleButton {
      * @param {String} className
      */
     #addClassToElement(className) {
-        this.#button.classList.add(className)
+        this.#buttonContainer.classList.add(className)
     }
 
     // #setProgression(progress) {
-    //     this.#button.classList.add(className)
+    //     this.#buttonContainer.classList.add(className)
     // }
 
     /**
@@ -94,8 +129,10 @@ export class ProgressiveCircleButton {
      * @param {String} id
      */
     #setIDs(id) {
-        this.#button.querySelectorAll('[id]').forEach(child => {
+        this.#buttonContainer.querySelectorAll('[id]').forEach(child => {
             child.id = child.id+'-'+id
+            if (child.for) child.for = child.for+'-'+id
+            console.log(child.id)
         })
     }
 
@@ -109,7 +146,8 @@ export class ProgressiveCircleButton {
     }
 
     /**
-     * Calcule le SVG dash offset en fonction de la circonférence du cercle
+     * Calcule et renvoi le SVG dash offset en fonction
+     * de la circonférence du cercle
      * @param {Number} percentageShown
      * @param {Number} circumference
      * @returns {Number}
@@ -123,7 +161,7 @@ export class ProgressiveCircleButton {
      * @returns {HTMLElement}
      */
     get button() {
-        return this.#button
+        return this.#buttonContainer
     }
 
     /**
