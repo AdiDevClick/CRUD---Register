@@ -13,30 +13,48 @@ export class ProgressiveCircleButton {
     #dashOffset
     /** @type {String} */
     // #flipArrowData
+    /** @type {HTMLInputElement} */
+    #input
     /** @type {HTMLLabelElement} */
     #label
     /** @type {SVGCircleElement} */
     #circle
+    /** @type {SVGPathElement} */
+    #arrow
+    /** @type {SVGTextElement} */
+    #shareText
     /** @type {Number} */
     #progress = 0
     /** @type {Number} */
     #radius
     /** @type {MutationObserver} */
     #mutationObserver
+    /** @type {MutationCallback} */
     #handleMutation = (mutationsList, observers) => {
         mutationsList.forEach(mutation => {
             if (mutation.attributeName === 'aria-valuenow') {
-                console.log(mutation)
-        }
+                this.#oldMutationValue = mutation.oldValue
+            }
         })
     }
+    /** @type {Number} */
+    #oldMutationValue
 
     /**
      * @constructor
      * @param {String} positionClass - Définit la position par CSS - ex : 'right-corner'
-     * @param {String} [flip="none"] - Définit la direction de la flèche du innerCircle, default : "none"
+     * @param {String} [options.flip="none"] - Default = "none". Définit la direction de la flèche du innerCircle.
+     * Utilisez le string en liaison du CSS; ici, 'flip' permettra de la retourner
+     * @param {String} [options.progressStart=0] - Default = 0. Permet de définir un #progress sur
+     * une valeur définie lors de la création.
      */
-    constructor(positionClass, flip="none") {
+    constructor(positionClass, options = {}) {
+        this.options = Object.assign ({}, {
+            progressStart: 0,
+            flip: 'none'
+        }, options)
+
+        this.#progress = this.options.progressStart
         // Main element container
         this.#buttonContainer = document.querySelector('#circular-progress-button').content.firstElementChild.cloneNode(true)
         // this.#buttonContainer = this.#buttonTemplate
@@ -46,11 +64,17 @@ export class ProgressiveCircleButton {
         this.#addClassToElement(positionClass)
 
         // Elements
+        this.#input = this.#buttonContainer.querySelector('input')
         this.#label = this.#buttonContainer.querySelector('label')
         this.#circle = this.#buttonContainer.querySelector('.progress-bar-color')
+        this.#arrow = this.#buttonContainer.querySelector('.arrow')
+        this.#shareText = this.#buttonContainer.querySelector('.share')
+
+        // Defaults the shareText to hidden state
+        this.#shareText.style.display = 'none'
 
         // Sets if the inner arrow should be left or right. flip = left / none = right
-        this.#label.dataset.arrowflip = flip
+        this.#label.dataset.arrowflip = this.options.flip
         
         // Setting values attributes on the Label & SVG
         this.#label.setAttribute('role', 'progressbar')
@@ -58,7 +82,7 @@ export class ProgressiveCircleButton {
 
         const width = this.#buttonContainer.querySelector('svg').width.baseVal.value
         
-        this.#radius = Math.round((width / 2) - 1)
+        this.#radius = Math.round((width / 2) - 2)
         this.#circle.r.baseVal.value = this.#radius
         // this.#template = document.querySelector(element.data.template)
 
@@ -131,8 +155,8 @@ export class ProgressiveCircleButton {
     #setIDs(id) {
         this.#buttonContainer.querySelectorAll('[id]').forEach(child => {
             child.id = child.id+'-'+id
-            if (child.for) child.for = child.for+'-'+id
-            console.log(child.id)
+            if (child.htmlFor) child.htmlFor = child.htmlFor+'-'+id
+            if (child.name) child.name = child.name+'-'+id
         })
     }
 
@@ -165,6 +189,14 @@ export class ProgressiveCircleButton {
     }
 
     /**
+     * Retourne l'input associée au template
+     * @returns {HTMLInputElement}
+     */
+    get input() {
+        return this.#input
+    }
+
+    /**
      * @param {number} setting
      * @returns
      */
@@ -173,14 +205,45 @@ export class ProgressiveCircleButton {
     }
 
     /**
-     * Permet de modifier dynamiquement la progression
+     * Permet de modifier dynamiquement la progression en modifiant le dashOffset du SVG
      * @param {number} progress
      * @returns
      */
-    set dashOffset(progress) {
+    set progressBar(progress) {
         this.#progress = progress
-        // this.#label.setAttribute('aria-valuenow', this.#progress)
         this.#updateProgression()
         this.#setStyle()
+    }
+
+    /**
+     * Récupère la oldValue du mutateur
+     * @returns
+     */
+    get oldOffsetValue() {
+        return this.#oldMutationValue
+    }
+
+    /**
+     * Permet de cacher / montrer le texte du SVG
+     * pour laisser place à la flèche
+     */
+    set showText(status) {
+        return this.#shareText.style.display = status
+    }
+
+    /**
+     * Permet de cacher / montrer la flèche du SVG
+     * pour laisser place au texte
+     */
+    set showArrow(status) {
+        return this.#arrow.style.display = status
+    }
+
+    /**
+     * Récupère l'actuelle progression
+     * @returns
+     */
+    get getCurrentProgress() {
+        return this.#progress
     }
 }

@@ -1,4 +1,4 @@
-import { appendToAnotherLocation, restoreToDefaultPosition, unwrap } from "../functions/dom.js"
+import { appendToAnotherLocation, restoreToDefaultPosition, unwrap } from "../../functions/dom.js"
 
 /**
  * Permet de rajouter la navigation tactile pour le drawer
@@ -53,64 +53,102 @@ export class DrawerTouchPlugin {
     #observer
     /** @type {String} */
     #mutationOldValue
-    /** @type {MutationCallback} */
+    /**
+     * Si une classe "mobile" est ajoutée ou retirée,
+     * l'UI sera transformée.
+     * @type {MutationCallback}
+     * @param {MutationRecord} mutationsList
+     * @param {MutationObserver} observer
+     */
     #handleMutation = (mutationsList, observer) => {
         mutationsList.forEach(mutation => {
             if (mutation.attributeName === 'class' && mutation.target.classList.contains('mobile')) {
+                // Save the old mutation value
                 this.#mutationOldValue = mutation.oldValue
-                appendToAnotherLocation('#recipe_creation')
+                // Append content in predefined order
+                appendToAnotherLocation('#recipe_creation', this.container)
+                // Hide the tab index
+                this.preparation.tabulation.style.display = 'none'
+                // Start event listeners
                 this.#openListeners()
                 return
             } else if (mutation.attributeName === 'class' && this.#mutationOldValue !== '' && !mutation.target.classList.contains('mobile')) {
+                // 1 - Close listeners to avoid unecessary issues
                 this.#closeListeners()
                 this.#mutationOldValue = ''
+
+                // 2 - Show the tab index
+                this.preparation.tabulation.removeAttribute('style')
+
+                // 3 - Targets to unwrap after reorder
                 const elementsToUnwrap = [
-                    '.img_preview',
+                    '.js-four',
+                    '.js-five',
                     '#submit-recipe'
                 ]
-                const section = document.querySelector('#recipe_creation')
-                // const section = document.querySelector('#recipe_creation_all_resolutions')
 
+                // 3.1 - Container for the targets to unwrap and reorder to
+                const section = this.container.querySelector('#recipe_creation')
+
+                // 4 - Reorder positions
                 restoreToDefaultPosition(section, '.card')
+                this.container.querySelector('.show_drawer').insertAdjacentElement('beforebegin', this.container.querySelector('.js-append-to-drawer'))
 
-                document.querySelector('.show_drawer').insertAdjacentElement('beforebegin', document.querySelector('.js-append-to-drawer'))
+                // 5 - Unwrap the targets to the end of the section
                 elementsToUnwrap.forEach(element => {
-                    section.append(document.querySelector(element))
+                    Array.from(this.container.querySelectorAll(element)).forEach(el => {
+                        section.append(el)
+                    })
                 })
+
+                // 6 - Verify which step the user was at in the previews desktop / tablet mode
+                const currentStep = this.preparation.currentSubmitionStep-1
+
+                // 7 - Retrieve datas for each steps
+                const datas = this.preparation.datas
+                const elementsToHide = datas.filter( ( t,i ) => i != currentStep)
+                const elementsToShow = datas.filter( ( t,i ) => i == currentStep)
+
+                for (const element of elementsToHide) {
+                    if (element.class !== '.js-five') {
+                        this.container.querySelectorAll(element.class).forEach(element => {
+                            element.classList.add('hidden')
+                            element.style.display = 'none'
+                        })
+                    }
+                }
+                for (const element of elementsToShow) {
+                    this.container.querySelectorAll(element.class).forEach(element => {
+                        element.classList.remove('hidden')
+                        element.removeAttribute('style')
+                    })
+                }
             }
         })
     }
 
     /**
-     * @param {HTMLElement} container
+     * @typedef {Object} Ingredient
+     * @property {HTMLElement} gridContainer - L'élément HTML qui sert de conteneur de la grille.
+     * @param {Ingredient} container
      */
     constructor(container) {
-        this.container = container
+        console.log('LOADING OK')
+        this.preparation = container
+        this.container = this.preparation.gridContainer
         this.#grid = this.container.querySelector('.contact-grid')
         this.#drawerBarButton = this.container.querySelector('.drawer__button')
-        
+
+        // Check if the class "mobile" is found on the container
+        // Mutate the UI depending on the device
+        this.#observer = new MutationObserver(this.#handleMutation)
+        this.#observer.observe(this.container, { attributeOldValue: true})
+
         this.#onWindowResize()
         this.#checkDisplay()
-        
-        if (this.#isMobile) {
-            this.#openListeners()
-        }
-        // this.drawer.addEventListener('mousedown', this.startDrag.bind(this), {passive: true})
-        // this.drawer.addEventListener('touchstart', this.startDrag.bind(this), {passive: true})
-        // if (this.#isTablet) {
-            // this.#closeButton.addEventListener('click', this.#onClose.bind(this))
-            // this.#steps.addEventListener('click', this.#onOpen.bind(this))
-        // }
-        // this.#steps.addEventListener('click', this.#onClose.bind(this))
-        // this.#card.addEventListener('click', this.#onClose.bind(this))
 
         // Evènements
         this.#moveCallbacks.forEach(cb => cb(this.#index))
-
-        // window.addEventListener("DOMContentLoaded", (e) => {
-            this.#observer = new MutationObserver(this.#handleMutation)
-            this.#observer.observe(this.container, { attributeOldValue: true})
-        // })
         window.addEventListener('resize', this.#onWindowResize.bind(this))
     }
 
@@ -140,13 +178,21 @@ export class DrawerTouchPlugin {
         this.#steps.addEventListener('click', this.#onOpen.bind(this), {signal: this.#controller.signal})
     }
 
+    /**
+     * Supprime tous les EventListeners lorsque l'UI passe en mode tablette/desktop
+     * Réinitialise tous les styles
+     */
     #closeListeners() {
         if (this.#isMobile != this.#isMobile) this.#controller.abort("Fermeture de tous les listeners")
         this.#resetStatusAndStyle()
     }
 
     /**
-     * Permet d'attribuer le status de mobile/tablette/desktop
+     * Permet d'attribuer le status de mobile/tablette/desktop.
+     * Index 0 = mobile
+     * Index 1 = tablette
+     * Index 2 = desktop
+     * Ajoute ou supprime des classes pour que l'UI s'applique correctement.
      */
     #checkDisplay() {
         this.#onMove(index => {
@@ -167,8 +213,7 @@ export class DrawerTouchPlugin {
                 this.#isDesktop = false
             }
             if (index === 2) {
-                this.#card?.classList.remove('opened')
-                this.#card?.classList.remove('open')
+                this.#card?.classList.remove('opened', 'open')
                 this.#card?.removeAttribute('style')
                 this.#steps?.classList.contains('card') ? null : this.#steps?.classList.add('card')
                 this.#isMobile = false
@@ -229,7 +274,6 @@ export class DrawerTouchPlugin {
             if (!this.#steps.classList.contains('opened')) {
                 
                 if (e.currentTarget === this.#steps && !this.#card.classList.contains('open')) {
-                    // console.log('test')
                     this.#clickedElement = 'steps'
                     this.#steps.classList.add('open')
                     this.#steps.style.animation = 'scaleOutSteps 0.5s forwards'
@@ -262,7 +306,6 @@ export class DrawerTouchPlugin {
         this.#isFullyOpened ? this.#isFullyOpened = false : null
         // this.#isScrolledAtTop ? this.#isScrolledAtTop = false : null
         // this.#isFullyOpened ? this.#isFullyOpened : null
-        // console.log(this.#showDrawerButton)
         this.drawer.style.display === 'block' ? this.drawer.removeAttribute('style') : null
 
         this.#showDrawerButton?.classList.contains('hidden') ? this.#showDrawerButton.classList.remove('hidden') : null
@@ -289,6 +332,10 @@ export class DrawerTouchPlugin {
         this.#isScrolledAtTop = false
     }
 
+    /**
+     * Vérifie si la carte a été défilée tout en haut
+     * @param {Event} e Scroll event
+     */
     #onScroll(e) {
         if (e.target.scrollTop === 0) {
             this.#isScrolledAtTop = true
@@ -567,9 +614,7 @@ export class DrawerTouchPlugin {
                     this.#card.style.animation = 'slideToBottom 0.5s forwards'
                     this.#card.classList.add('hidden')
                     this.#card.addEventListener('animationend', () => {
-                        this.#card.classList.remove('open')
-                        this.#card.classList.remove('opened')
-                        this.#card.classList.remove('hidden')
+                        this.#card.classList.remove('open', 'opened', 'hidden')
                         this.#card.removeAttribute('style')
                         this.#card.style.display = 'none'
                         this.#isOpened = false
@@ -641,67 +686,78 @@ export class DrawerTouchPlugin {
     }
     
     /**
-     * Permet de spécifier le type de display en fonction 
+     * Permet de spécifier le type de display en fonction
      * du changement de la taille de la fenêtre
      */
     #onWindowResize() {
-        // debugger
         let mobile = window.innerWidth <= 576
         let tablet = window.innerWidth <= 996 && window.innerWidth > 576
         let desktop = window.innerWidth > 996
+
+        const firstGroupElements = [
+            '.js-two',
+            '.js-three',
+            '.js-four'
+        ]
+
+        const elementsToShow = '.js-one'
+
         if (mobile !== this.#isMobile) {
             this.#isMobile = mobile
-            // this.setStyle()
-            // appendToAnotherLocation('#recipe_creation_all_resolutions')
-
             this.#index = 0
             this.container.classList.add('mobile')
-            this.#card?.classList.remove('open')
-            this.#card?.classList.remove('opened')
+            this.#card?.classList.remove('open', 'opened')
+            // this.#card?.classList.remove('opened')
             this.#moveCallbacks.forEach(cb => cb(this.#index))
-        } 
+            
+            // When we enter mobile mode, display the hidden elements from firstGroupElements
+            firstGroupElements.forEach(element => {
+                const target = this.container.querySelector(element)
+                if (target.classList.contains('hidden')) {
+                    target.classList.remove('hidden')
+                    target.removeAttribute('style')
+                }
+            })
+
+            // Additionnaly, we display the elementsToShow
+            this.container.querySelectorAll(elementsToShow).forEach(element => {
+                if (element.classList.contains('hidden')) {
+                    element.classList.remove('hidden')
+                    element.removeAttribute('style')
+                }
+            })
+        }
+
         if (tablet !== this.#isTablet) {
             this.#isTablet = tablet
-            const elementsToUnwrap = [
-                '.img_preview',
-                '#submit-recipe'
-            ]
-            // pour revenir à defaut
-            // unwrap('.card')
-        
-            // const section = document.querySelector('#recipe_creation_all_resolutions')
-            // document.querySelector('.show_drawer').insertAdjacentElement('beforebegin', document.querySelector('.js-append-to-drawer'))
-            // elementsToUnwrap.forEach(element => {
-            //     section.append(document.querySelector(element))
-            // })
-            // this.setStyle()
             this.#index = 1
+
             if (this.container.classList.contains('mobile')) this.container.classList.remove('mobile')
-            this.#card?.classList.remove('open')
-            this.#card?.classList.remove('opened')
+            
+                firstGroupElements.forEach(element => {
+                const target = this.container.querySelector(element)
+                if (!target.classList.contains('hidden')) target.classList.add('hidden')
+                target.style.display = 'none'
+            })
+
+            this.#card?.classList.remove('open', 'opened')
             this.#moveCallbacks.forEach(cb => cb(this.#index))
         }
+
         if (desktop !== this.#isDesktop) {
             this.#isDesktop = desktop
             this.#isTablet = tablet
-            const elementsToUnwrap = [
-                '.img_preview',
-                '#submit-recipe'
-            ]
-            // pour revenir à defaut
-            // unwrap('.card')
-        
-            // const section = document.querySelector('#recipe_creation_all_resolutions')
-            // document.querySelector('.show_drawer').insertAdjacentElement('beforebegin', document.querySelector('.js-append-to-drawer'))
-            // elementsToUnwrap.forEach(element => {
-            //     section.append(document.querySelector(element))
-            // })
+
             if (this.container.classList.contains('mobile')) this.container.classList.remove('mobile')
 
-            // this.setStyle()
+                firstGroupElements.forEach(element => {
+                const target = this.container.querySelector(element)
+                if (!target.classList.contains('hidden')) target.classList.add('hidden')
+                target.style.display = 'none'
+            })
+
             this.#index = 2
-            this.#card?.classList.remove('open')
-            this.#card?.classList.remove('opened')
+            this.#card?.classList.remove('open', 'opened')
             this.#moveCallbacks.forEach(cb => cb(this.#index))
         }
     }
@@ -725,10 +781,19 @@ export class DrawerTouchPlugin {
     }
 
     get resetStates() {
+        if (!this.#isMobile) return
         this.#card.style.animation = 'slideToBottom 0.5s forwards'
         this.#card.addEventListener('animationend', () => {
             this.#resetStatusAndStyle()
-        }, {once: true})
+        }, { once: true } )
         return
-    }    
+    }
+
+    /**
+     * Récupère le conteneur HTML du constructeur
+     * @return
+     */
+    // get _container() {
+    //     return this.container
+    // }
 }

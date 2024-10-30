@@ -636,7 +636,11 @@ export class Carousel
     }
 
     /**
-     * @returns {@function | delayAnimation}
+     * Permet de définir la durée d'animation de la loading bar.
+     * Si le #click est false, la durée sera celle enregistrée dans le #autoSlideDuration.
+     * Si le #click est true, la durée du afterClickDelay sera ajoutée à #autoSlideDuration.
+     * @function this.#delayAnimation()
+     * @returns {Function}
      */
     get getAnimationDelay() {
         if (!this.#click) {

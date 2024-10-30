@@ -1,12 +1,12 @@
-import { DrawerTouchPlugin } from "./components/DrawerTouchPlugin.js"
-import { IngredientsFrom } from "./components/RecipePreparation.js"
+import { DrawerTouchPlugin } from "./components/RecipePreparation/DrawerTouchPlugin.js"
+import { IngredientsFrom } from "./components/RecipePreparation/RecipePreparation.js"
 import { Toaster } from "./components/Toaster.js"
 import { fetchJSON, fetchTemplate } from "./functions/api.js"
 import { appendToAnotherLocation, transformToComment, restoreFromComment, restoreToDefaultPosition, unwrap } from "./functions/dom.js"
 
 const drawerButton = document.querySelector('.drawer__button')
 const recipe = document.querySelector('.recipe')
-// const grid = document.querySelector('.card_container')
+const grid = document.querySelector('.card_container')
 const allRes = document.querySelector('.all-resolutions')
 const mobileOnly = document.querySelector('.mobile-only')
 const drawer = document.querySelector('.drawer')
@@ -18,7 +18,7 @@ if (window.innerWidth < 577) {
 } else {
     mobile = false
 }
- 
+
 if (!mobile) {
     const url = '../templates/Recipe_Layout_All_Resolutions.php'
     const target = '.all-resolutions'
@@ -118,7 +118,11 @@ if (!mobile) {
 
     // pour la version mobile
     console.log('je load la page et jappend pour mobile')
-    appendToAnotherLocation('#recipe_creation')
+
+    // appendToAnotherLocation('#recipe_creation', grid)
+
+
+
     // const mobileData = includes(url, target)
     // console.log(await test)
     // document.querySelector("main").append(await mobileData)

@@ -120,7 +120,19 @@ ob_start();
         </li>
         <li class="li-arrow"></li>
         <li>
-            <a class="active" href="http://">Recette</a>
+            <a class="active js-one" href="http://">Recette</a>
+        </li>
+        <li class="li-arrow"></li>
+        <li>
+            <a class="greyed js-two" href="http://">Préparation</a>
+        </li>
+        <li class="li-arrow"></li>
+        <li>
+            <a class="greyed js-three" href="http://">Ingrédient</a>
+        </li>
+        <li class="li-arrow"></li>
+        <li>
+            <a class="greyed js-four" href="http://">Images</a>
         </li>
     </ul>
         

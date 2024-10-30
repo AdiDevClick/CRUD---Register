@@ -178,56 +178,84 @@ export function transformToComment(targetSelector) {
 
 /**
  * Sélectionne un Node contenant des éléments HTML à déplacer
- * @param {String} targetSelector représente une classe ou un élément HTML 
- * @param {String} isClass représente une classe. Il retourne son nodeValue pour match son contenu
+ * @param {String} targetSelector représente une classe ou un élément HTML.
+ * @param {HTMLElement} container représente un conteneur. Permet de réduire le champs du querySelector.
+ * @param {String} isClass représente un conteneur. Il retourne son nodeValue pour match son contenu.
  */
-export function appendToAnotherLocation(targetSelector, isClass = 'js-form-recipe') {
-    let newCardRecipeSection = document.querySelector('.card.recipe')
-    const parentElement = document.querySelector(targetSelector)
-    let newCardFormRecipeSection = document.querySelector('.form-recipe')
+export function appendToAnotherLocation(targetSelector, container , isClass = 'js-form-recipe') {
+    let newCardRecipeSection = container.querySelector('.card.recipe')
+    const parentElement = container.querySelector(targetSelector)
+    let newCardFormRecipeSection = container.querySelector('.form-recipe')
     
+    // Creates recipe steps container
     if (!newCardFormRecipeSection) {
         newCardFormRecipeSection = createElement('section', {
         class: "form-recipe"
         })
     }
+
+    // Creates drawer steps container
     if (!newCardRecipeSection) {
         newCardRecipeSection = createElement('section', {
             // class: "card recipe"
             class: "card recipe js-stop-appender"
         })
     }
-    const contentToMoveToNewCardFormRecipeSection = Array.from(parentElement.childNodes)
+
+    // Retrieve every recipe steps
+    const firstContentToMoveToNewCardFormRecipeSection = Array.from(parentElement.childNodes)
         .filter(node => {
             if (node.tagName === 'DIV' || node.tagName === 'A') {
-                return (node.classList.contains('js-form-recipe')) ||
-                // (node.className === 'js-form-recipe full') ||
-                // (node.className === 'js-form-recipe plus full') ||
-                (node.classList.contains('circular-progress-button-container'))
+                return (node.classList.contains('js-one'))
+                // return (node.classList.contains('js-one')) ||
+                // (node.classList.contains('circular-progress-button-container'))
             }
         }
     )
-    const contentToMoveToNewCardRecipeSection = Array.from(parentElement.childNodes).find(node => 
-        node.className === 'js-append-to-drawer'
+
+    // 
+    const secondContentToMoveToNewCardRecipeSection = Array.from(parentElement.childNodes)
+        .find(node => {
+            if (node.tagName === 'DIV') {
+                return (node.classList.contains('js-two'))
+            }
+        }
     )
-    const contentToMoveToNewCardRecipeSection2 = Array.from(parentElement.childNodes).filter(node => 
-        node.className === 'img_preview' || node.className === 'add_ingredient'
+
+    //
+    const thirdContentToMoveToNewCardRecipeSection = Array.from(parentElement.childNodes)
+        .find(node => {
+            if (node.tagName === 'DIV') {
+                return (node.classList.contains('js-four'))
+            }
+            // node.className === 'js-three'
+            // node.className === 'img_preview' || node.className === 'add_ingredient'
+        }
     )
-    if (contentToMoveToNewCardFormRecipeSection) {
-        contentToMoveToNewCardFormRecipeSection.forEach(element => {
+
+    // Retrieve the submit button
+    const fourthContentToMoveToNewCardRecipeSection = parentElement.querySelector('#submit-recipe')
+
+    if (firstContentToMoveToNewCardFormRecipeSection) {
+        const drawer = parentElement.querySelector('.show_drawer')
+        firstContentToMoveToNewCardFormRecipeSection.forEach(element => {
             newCardFormRecipeSection.append(element)
         })
 
-        parentElement.querySelector('.show_drawer').prepend(contentToMoveToNewCardRecipeSection)
-        contentToMoveToNewCardRecipeSection2.forEach(element => {
-            parentElement.querySelector('.show_drawer').append(element)
-        })
+        drawer.prepend(secondContentToMoveToNewCardRecipeSection)
+        drawer.append(thirdContentToMoveToNewCardRecipeSection, fourthContentToMoveToNewCardRecipeSection)
+        // parentElement.querySelector('.show_drawer').append(fourthContentToMoveToNewCardRecipeSection)
+
 
         newCardRecipeSection.append(parentElement.querySelector('.js-recipe'))
         newCardRecipeSection.append(parentElement.querySelector('.show_drawer'))
 
         parentElement.prepend(newCardFormRecipeSection)
         parentElement.append(newCardRecipeSection)
+
+        // thirdContentToMoveToNewCardRecipeSection.forEach(element => {
+        //     document.querySelector('.show_drawer').append(element)
+        // })
     } else {
         console.error('Node not found')
     }
@@ -240,10 +268,7 @@ export function appendToAnotherLocation(targetSelector, isClass = 'js-form-recip
 export function unwrap(target) {
     const content = document.querySelectorAll(target)
     content.forEach(element => {
-        debugger
         for (const elements of element.childNodes) {
-            console.log(elements)
-            console.log(element.parentNode)
             element.parentNode.append(elements)
         }
         // element.replaceWith(element.childNodes)
@@ -389,22 +414,41 @@ export function restoreFromComment(targetSelector, commentedNode = '') {
 }
 
 /**
- * Importe un module en passante un objet si necessaire -
+ * Importe un module en passant un objet si necessaire -
  * !! IMPORTANT !! Le nom du module DOIT être le même que le nom du fichier -
  * @param {String} className Nom de la classe/fichier à importer -
  * @param {Object} object Un objet à passer au constructeur de la classe importée -
+ * @param {string} pathName Le nom de la classe parente en cas de plugin -
  * @throws {Error} Lance une erreur si l'importation ou l'instanciation échoue -
  * @returns {Promise} Une promesse qui se résout lorsque le module est importé et instancié.
  */
-export async function importThisModule(className, object = {}) {
-    try {
-        const importedModule = await import(`../components/${className}.js`)
-        const ModuleClass = importedModule.default || importedModule[className]
-        const module = new ModuleClass(object)
-        return module
-    } catch (error) {
-        throw new Error(`Erreur lors du chargement du module : ${className} `)
+export async function importThisModule(className, object = {}, pathName = className) {
+    // Sets different possible paths
+    const paths = [
+        `../components/${className}.js`,
+        `../components/${pathName}/${className}.js`
+    ]
+    // Iterate each path
+    for (const path of paths) {
+        try {
+            const importedModule = await import(path)
+            if (!importedModule.ok) {
+                new Error(`Erreur lors du chargement du module : ${className}`, { cause: path })
+            }
+            const ModuleClass = importedModule.default || importedModule[className]
+            if (typeof ModuleClass !== 'function') {
+                throw new Error(`La classe importée n'est pas une fonction constructeur : ${ModuleClass}`);
+            }
+            const module = new ModuleClass(object)
+            return module
+        } catch (error) {
+            // Continue to the next path if the module is not found
+            if (error.code !== 'MODULE_NOT_FOUND') {
+                console.error(`Erreur lors du chargement du module depuis ${path}:`, { cause: error.message })
+            }
+        }
     }
+    throw new Error(`Module non trouvé : ${className}`)
 }
 
 /**

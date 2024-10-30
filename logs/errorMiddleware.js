@@ -9,7 +9,7 @@ export const errorLoggerMiddleware = (err, req, res, next) => {
 
 export const returnErrorMiddleware = (err, req, res, next) => {
     res.status(err.statusCode || 500)
-       .send(err.message)
+        .send(err.message)
 }
 
 /**

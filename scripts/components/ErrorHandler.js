@@ -153,9 +153,10 @@ export class ErrorHandler {
     #inputsCanContainSpecialChars = inputsCanContainSpecialChars
     /**
      * @module ErrorHandler.config.js
-     * @type {Array} input that will not append the (valid / invalid) icon
+     * @type {Array} inputs that will not append the (valid / invalid) icon
      */
-    #inputsNotToAppend = Array.from(document.querySelectorAll(inputsNotToAppend))
+    #inputsNotToAppend
+    // #inputsNotToAppend = Array.from(document.querySelectorAll(inputsNotToAppend))
     /** @type {String} */
     #alertText
     /** @type {Boolean} */
@@ -232,6 +233,8 @@ export class ErrorHandler {
      * @param {Boolean} [options.isSpecialCharactersAllowed=false] Permet de définir si l'on souhaite autoriser des caractères spéciaux pour l'input - par défaut : false
      * @param {Object} [options.debounceDelay=1000] Permet de définir un délai après intéraction de l'utilisateur - par défaut : 1s
      * @param {Boolean} [options.createTooltips=true] Permet de créer des tooltips pour informer l'utilisateur - par défaut : true
+     * @param {Object} [options.inputsNotToAppendIcon=inputsNotToAppend] Permet de définir l'id des inputs qui ne doivent
+     * pas créer d'icônes de validation - par défaut : inputsNotToAppend du fichier config
      */
     constructor(form, options = {}) {
         this.#form = form
@@ -244,7 +247,8 @@ export class ErrorHandler {
             useMyOwnListener: false,
             isSpecialCharactersAllowed: false,
             whichInputAllowSpecialCharacters: this.#inputsCanContainSpecialChars,
-            createTooltips: true
+            createTooltips: true,
+            inputsNotToAppendIcon: inputsNotToAppend
         }, options)
         if (this.#alert) this.#alertText = this.#alert.innerText
         if (!this.#alert) {
@@ -257,7 +261,6 @@ export class ErrorHandler {
                 this.#alert
             )
         }
-        console.log(this.#alert.innerText)
 
         if (!this.options.debouncing) this.options.debounceDelay = 50
         this.#listenInputs = Array.from(this.#form.querySelectorAll(this.#inputsToListen))
@@ -291,6 +294,8 @@ export class ErrorHandler {
                     input.setAttribute('placeholder', 'monEmail@mail.com')
                 }
             }
+
+            // Create side icons
             this.#createIconContainer(input)
 
             // Main dynamic checker
@@ -324,22 +329,16 @@ export class ErrorHandler {
      */
     #dynamicCheck(input) {
         // console.log(input)
-        // input.addEventListener('input', debounce((e) => {
         // Checking if input is empty
         this.isEmptyInputs(input)
-        // this.isEmptyInputs(e.target)
         // Checking if the password matches validation regex
         this.#validateThisPassword(input, input.strongPassword, 'isValidPassword')
-        // this.#validateThisPassword(e.target, e.target.strongPassword, 'isValidPassword')
         // Checking if passwords are same
         this.isExactPassword(input)
-        // this.isExactPassword(e.target)
         // Checking if the character used is allowed
         this.#charsNotAllowed(input)
-        // this.#charsNotAllowed(e.target)
         // Checking if the character used is INT
         this.isANumber(input)
-        // this.isANumber(e.target)
         // Should we display the tooltip ?
         this.triggerToolTip()
         if (input.id === 'username') this.isSpaceAllowed(input)
@@ -535,6 +534,8 @@ export class ErrorHandler {
      * @param {HTMLInputElement} input 
      */
     #createIconContainer(input) {
+        this.#inputsNotToAppend = Array.from(document.querySelectorAll(this.options.inputsNotToAppendIcon ? this.options.inputsNotToAppendIcon : inputsNotToAppend))
+        // const noIconInput = this.activeInput(this.options.inputsNotToAppendIcon, input)
         const noIconInput = this.activeInput(this.#inputsNotToAppend, input)
         let icon
         if (!icon) {
@@ -696,7 +697,7 @@ export class ErrorHandler {
      */
     #addErrorClass(input) {
         input.classList.add(this.#inputErrorClass)
-        input.classList.remove(this.#inputValidClass)   
+        input.classList.remove(this.#inputValidClass)
     }
 
     /**
@@ -706,7 +707,7 @@ export class ErrorHandler {
      */
     #setValidClass(input) {
         input.classList.remove(this.#inputErrorClass)
-        input.classList.add(this.#inputValidClass)   
+        input.classList.add(this.#inputValidClass)
     }
 
     /**
@@ -924,6 +925,22 @@ export class ErrorHandler {
      */
     #isInputChecked(event) {
         // event.preventDefault()
+        let isArray = false
+        let target = []
+        
+        if (event instanceof HTMLElement) target = event
+        if (event instanceof (NodeList || Array)) {
+            for (const element of event) {
+                target.push(element)
+            }
+            isArray = true
+        } else {
+            isArray = false
+            target = event.target
+        }
+
+        // console.log(target)
+
         const arrayKey = []
         const errors = []
         const data = new FormData(this.#form)
@@ -933,6 +950,7 @@ export class ErrorHandler {
         // console.log(data.entries())
         for (const [key, value] of data) {
             // Setting default option values
+            // console.log(key, value)
             arrayKey[key] = { value: value.toString().trim(), canBeEmpty: this.canBeEmpty, allowSpecialCharacters: this.allowSpecialCharacters }
             // Setting which input can be empty
             if (!this.options.canBeEmpty) {
@@ -956,9 +974,22 @@ export class ErrorHandler {
         }
         // console.log(arrayKey)
         // console.log(event)
+        
+        console.log(target)
+
         for (const key in arrayKey) {
-            const element = event.target.querySelector(arrayKey[key].id)
-            // console.log(element)
+            let element
+            if (isArray) {
+                for (const el of target) {
+                    element = Array.from(el.querySelector(arrayKey[key].id)).filter(t => t)
+                    console.log(element)
+                }
+                // target.forEach(el => {
+                //     element = el.querySelector(arrayKey[key].id)
+                // })
+            } else {
+                element = target.querySelector(arrayKey[key].id)
+            }
             // if (!this.#isEmptyInputs(element)) {
             //     this.#displayErrorMessage(this.#emptyAlert, element)
             //     errors.push(this.#emptyAlert)
@@ -989,7 +1020,9 @@ export class ErrorHandler {
             // }
             // this.#dynamicCheck(element)
             if (element) {
+                console.log(element)
                 const validation = this.#dynamicCheck(element)
+                console.log(validation)
                 errors.push(validation)
             }
         }
@@ -998,6 +1031,67 @@ export class ErrorHandler {
         } else {
             return true
         }
+    }
+
+    /**
+     * Vérifie un groupe d'inputs et renvoie True / False -
+     * Trim toutes les inputs trouvées et les convertis dans un nouvel Array -
+     * Il faut utiliser le nom de l'input pour la récupérer dans le cas où l'on souhaite
+     * faire quelque chose de spécifique avec -
+     * Ce script est bloquant -
+     * @returns
+     */
+    #checkBatchOfInputs(array) {
+        const arrayKey = []
+        const errors = []
+        const data = new FormData(this.#form)
+        // Permet de définir quelle input peut-être vide
+        // Permet de définir aussi quelle input peut contenir des caractères spéciaux
+        // Par défaut : aucune
+        for (const [key, value] of data) {
+            // Setting default option values
+            arrayKey[key] = { value: value.toString().trim(), canBeEmpty: this.canBeEmpty, allowSpecialCharacters: this.allowSpecialCharacters }
+            // Setting which input can be empty
+            if (!this.options.canBeEmpty) {
+                setObjectPropertyTo(this.options.whichInputCanBeEmpty, arrayKey[key], key, 'canBeEmpty', true)
+            }
+            // Setting which input can accept special char
+            setObjectPropertyTo(this.options.whichInputAllowSpecialCharacters, arrayKey[key], key, 'allowSpecialCharacters', true)
+            // Setting strong password option
+            if (key.includes('Mot de Passe' || 'Mot de Passe de confirmation')) {
+                setObjectPropertyTo(this.options.strongPassword, arrayKey[key], key, 'strongPassword', true)
+            }
+            // Setting input ID related to the data
+            for (let i = 0; i < this.#listenInputs.length; i++) {
+                if (key.includes(this.#listenInputs[i].name)) {
+                    setObjectPropertyTo(true, arrayKey[key], key, 'id', `#${this.#listenInputs[i].id}`)
+                }
+            }
+        }
+        // for (const elem of array) {
+            for (const key in arrayKey) {
+                array.forEach(elems => {
+                    let element
+
+                    elems.childNodes.forEach(el => {
+                        if (!arrayKey[key].id) return
+                        if (el.id !== arrayKey[key].id.split('#')[1]) return
+                            element = el
+                        return
+                    })
+
+                    if (element) {
+                        const validation = this.#dynamicCheck(element)
+                        errors.push(validation)
+                    }
+                })
+            }
+            if (errors.includes(false)) {
+                return false
+            } else {
+                return true
+            }
+        // }
     }
     // #isInputChecked() {
     //     let arrayKey = []
@@ -1119,8 +1213,20 @@ export class ErrorHandler {
     /** @returns {Function} */
     get checkInputs() {
         return (event) => {
-            event.preventDefault()
+            // if (event instanceof HTMLElement) null
+            // if (event instanceof (NodeList || Array)) {
+            //     null
+            // } else {
+                event.preventDefault()
+            // }
             return this.#isInputChecked(event)
+        }
+    }
+
+    /** @returns {Function} */
+    get checkBatchOfInputs() {
+        return (array) => {
+            return this.#checkBatchOfInputs(array)
         }
     }
 

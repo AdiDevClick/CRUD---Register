@@ -7,7 +7,9 @@ import { Carousel } from "./Carousel.js"
 export class CarouselHoverPlugin
 // export class CarouselHoverPlugin extends Carousel
 {
+    /** @type {Boolean} */
     #hovered = false
+    /** @type {MouseEvent} */
     #eventAction
     // static #isInternalConstructing = false;
     /**
@@ -21,7 +23,6 @@ export class CarouselHoverPlugin
         // CarouselHoverPlugin.#isInternalConstructing = false
         // super()
         this.carousel = carousel
-        console.log(this.carousel.options.automaticScrolling)
 
         carousel.items.forEach(item => {
             console.log(item)
@@ -74,12 +75,12 @@ export class CarouselHoverPlugin
 
     /**
      * Permet de créer un EventListener pour une action Souris contenant un CustomEvent
-     * @param {HTMLElement} object 
-     * @param {EventListenerOptions} eventToListen
-     * @param {CustomElementConstructor} customEvent
-     * @param {number} animationDelay 
-     * @function funct une fonction associée à l'évènement
-     * @param {FunctionStringCallback} args Les arguments de la fonction si nécessaire 
+     * @param {HTMLElement} object - Objet à écouter
+     * @param {EventListenerOptions} eventToListen - Evènement à trigger
+     * @param {CustomElementConstructor} customEvent - Nom du CustomEvent à insérer
+     * @param {Boolean} [animationDelay=false] - Si true, la loading bar sera delay . Default : false
+     * @param {Function} [funct=null] - Une fonction associée à l'évènement
+     * @param {FunctionStringCallback} [args=null] Les arguments de la fonction si nécessaire
      */
     #createEventListenerFromMouse(object, eventToListen , customEvent, animationDelay = false, funct = null, args = null) {
         object.addEventListener(eventToListen, (e) => {

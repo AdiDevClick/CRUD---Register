@@ -269,6 +269,18 @@ a.active:hover {
     /* color: var(--site-color-01-hover); */
 }
 
+a.greyed {
+    color: var(--button-hover-color);
+    opacity: 1;
+    cursor: pointer;
+    transform: scale(1.03);
+    transition: transform .1s ease-in-out, opacity 0.3 ease;
+    /* animation: fadeIn 0.3s all; */
+    &:hover {
+        color: var(--button-color-a-hover);
+    }
+}
+
 @keyframes fadeIn {
     /* from {
         opacity: 0;
@@ -1171,10 +1183,12 @@ main {
 
     display: grid;
     grid-auto-rows: 1fr;
-    gap: 1rem;
+    /* gap: 1rem; */
     align-items: start;
     text-align: center;
 
+    /* gap: 0 !important; */
+    row-gap: 0!important;
     /* align-items: center; */
     /* width: 100%; */
     /* justify-content: space-around; */

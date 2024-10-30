@@ -143,9 +143,11 @@ select, .custom-ingredient {
     color: #ffffff;
     background-color: #000;
     width: 20rem;
-    margin-bottom: 0 auto;
+    /* margin-bottom: 0 auto; */
     padding: 10px;
     cursor: pointer;
+    /* margin: 0 auto; */
+    /* margin-inline: auto; */
 }
 
 select:hover {
@@ -153,10 +155,10 @@ select:hover {
 }
 
 input[type=password], select, input[type=number] {
-    padding: 12px 20px;
+    /* padding: 12px 20px; */
     display: inline-block;
     text-align: center;
-    padding: 10px;
+    /* padding: 10px; */
     border-radius: 10px;
     max-width: 100%;
     font-size: larger;
@@ -206,11 +208,15 @@ input.input_error:not(:placeholder-shown) {
         bottom: 15px;
         right: 10px;
         grid-row: 1 / 1;
-        grid-column: 2 / 2;
+        grid-column: 1 / 2;
         &::before {
             content: "✖";
             color: red;
         }
+        /* &+select {
+            grid-column: 3 / 3;
+            right: unset;
+        } */
     }
     &.valid_input + span {
         bottom: 15px;
@@ -349,7 +355,7 @@ input:active {
 
 /* FORM PROPERTIES */
 form {
-    max-width: 100%;
+    /* max-width: 100%; */
     @media (max-width: 976px) {
         min-width: 50px;
     }
@@ -407,7 +413,7 @@ form {
     align-items: center;
     align-content: center;
     min-height: 20px;
-    max-width: 100%;
+    /* max-width: 100%; */
     width: 100%;
     flex-direction: row;
     flex-wrap: nowrap;
@@ -421,7 +427,9 @@ form {
         gap: 1.3rem;
         /* Non défaut */
         flex-direction: column;
-        min-width: 400px;
+        &:not(.first-column) {
+            min-width: 400px;
+        }
         /* padding-left: 15px; */
         align-items: baseline;
         /* FIN du non défaut */
@@ -591,6 +599,73 @@ form {
             transform: unset;
         }
     } */
+    .add_ingredient {
+        display: none;
+    }
+
+    .full {
+        grid-column: 1 / 3;
+        width: 100%;
+        display: grid;
+        grid-auto-columns: 1fr;
+        row-gap: 2rem;
+        column-gap: 2rem;
+        place-self: center;
+        align-items: center;
+        > :not(.total_time, .three-columns) {
+            /* display: grid; */
+            display: grid;
+            row-gap: 2rem;
+            > * {
+                margin: unset;
+            }
+            /* * {
+                row-gap: 1rem;
+            } */
+        }
+        > button {
+            place-self: center;
+        }
+
+        > p {
+            color: var(--button-color);
+        }
+
+        &, * {
+            min-width: unset;
+        }
+    }
+
+    .three-columns {
+        grid-column: 1 / 3;
+        width: 100%;
+        > p {
+            color: var(--button-color);
+        }
+
+        > #submit-recipe {
+            display: grid;
+            row-gap: 2rem;
+        }
+        /* &, * {
+            min-width: unset;
+        } */
+    }
+
+    .first-column {
+        grid-column: 1 / 2;
+        /* &, * {
+            min-width: unset;
+        } */
+    }
+    
+    .second-column {
+        grid-column: 2 / 3;
+        /* &, * {
+            min-width: unset;
+        } */
+    }
+
     .js-form-recipe {
         position: relative;
         width: 100%;
@@ -598,12 +673,12 @@ form {
         flex-direction: column;
         gap: 15px;
 
-        &.full {
+        /* &.full {
             grid-column: 1 / 3;
             > p {
                 color: var(--button-color);
             }
-        }
+        } */
 
         &:has(#title, #description) {
             grid-column: 1 / 3;
@@ -617,6 +692,8 @@ form {
             }
         }
     }
+
+    
 
     &#recipe_creation, &#recipe_creation_all_resolutions {
         > .js-form-recipe:has(textarea:not(:required:valid), input:not(:required:valid)),
@@ -655,7 +732,7 @@ form {
     row-gap: 45px;
     column-gap: 30px;
     /* padding: 45px; */
-    margin: 45px auto;
+    /* margin: 45px auto; */
     justify-content: center;
     /* grid: minmax(50px, min-content) / repeat(auto-fill, minmax(400px, 650px)); */
     /* grid-template-columns: repeat(2, auto); */
@@ -666,7 +743,24 @@ form {
     align-items: center;
     align-content: center;
     justify-items: end;
-    
+
+    @media screen and (min-width: 576px) {
+        &:not(#recovery-page) {
+            /* transform: translateX(-70px); */
+        }
+        .js-append-to-drawer {
+            display: grid;
+            row-gap: 45px;
+            & .card-header-section {
+                /* display: flex;
+                justify-content: center; */
+                > .form-logo {
+                    margin: unset;
+                }
+            }
+        }
+    }
+
     @media screen and (min-width: 576px) and (max-width: 992px) {
         /* margin: 15px; */
         .recipe {
@@ -739,9 +833,20 @@ form {
             /* display: none; */
         }
         /* début du test */
-        .recipe {
-            /* top: 100vh; */
+        .js-four {
+            margin-top: 2rem;
+            > *:not(.three-columns) {
+                grid-column: 1 / 3;
+                display: grid;
+                row-gap: 2rem;
+                > * {
+                    margin: unset;
+                }
+            }
 
+            hr {
+                place-self: center;
+            }
         }
         /* fin du test*/
         .form-recipe {
@@ -1019,6 +1124,7 @@ form {
     /* -webkit-appearance:none; */
     .add_ingredient {
         padding-bottom: 30px;
+        width: min(100%, 650px);
     }
     &.opened {
         top: 20%;
@@ -1043,6 +1149,8 @@ form {
         }
         .show_drawer {
             display: block;
+            /* display: grid; */
+            row-gap: 45px;
         }
     }
 
@@ -1373,51 +1481,84 @@ form {
 }
 
 /* RECIPE CREATION */
+
+
 .time {
     /* display: flex;
     align-items: center;
     flex-wrap: wrap; */
     display: grid;
-    gap: 2rem;
+    gap: 1rem;
     position: relative;
-    grid-template-columns: repeat(3, 1fr);
+    /* grid-template-columns: repeat(3, 1fr); */
+    grid-template-columns: 5.5fr 1fr 1fr;
+    /* grid-template-columns: 3.5fr 1fr 1fr; */
     grid-template-rows: auto; /* For APF */
     align-content: center;
     justify-items: start;
     align-items: center;
-    & input {
+
+    /* > label {
+        width: 100%;
+        border-bottom: 1px grey solid;
+    } */
+
+    > input {
         width: 40px;
+        place-self: center;
+        /* margin-inline: unset; */
     }
-    & select {
+    > select {
         text-align: center;
         width: fit-content;
+        place-self: end;
+        align-self: center;
+        margin: unset;
     }
+}
+
+.first-column-bottom-border {
+    grid-column: 1 / 2;
+    border-bottom: grey 1px solid;
+    width: 100%;
+    height: 100%;
+    align-content: center;
 }
 
 .persons {
     margin-bottom: 15px;
+
+    @media screen and (max-width: 576px) {
+        grid-template-columns: 3fr 1fr;
+        > .input {
+            place-self: end;
+            margin-inline: unset;
+        }
+    }
 }
 
-/* .ingredients .label {
-    padding-bottom: 15px;
-    column-gap: 40px;
-} */
+.ingredients {
+    > .add_ingredient {
+        width: min(100%, 650px);
+    }
+}
 .ingredient {
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     display: grid;
-    grid-gap: 5px;
+    gap: 10px;
     & > select {
-        margin-left: 0;
+        margin: unset;
+        /* margin-left: 0; */
         width: 100%;
     }
 }
 .ingredient-stack {
     display: flex;
     flex-wrap: wrap;
-    max-width: 100%;
+    /* max-width: 100%; */
     width: 100%;
-    margin-top: 15px;
-    gap: 5px;
+    /* margin-top: 15px; */
+    gap: 10px;
     min-height: fit-content;
     /* position: relative; */
 }
@@ -1453,7 +1594,7 @@ hr {
         clear: both;
     }
     @media screen and (max-width: 976px) {
-        margin: 5px;
+        margin: unset;
     }
 }
 /* .custom-ingredient__container {
@@ -1913,7 +2054,8 @@ hr {
 
 .container {
     width: min(100%, 1000px);
-    margin-inline: auto;
+    /* margin-inline: auto; */
+    margin: 80px auto;
 }
 
 .inline-flex {
@@ -2396,6 +2538,7 @@ hr {
     text-align: center;
     background: green;
     border-radius: 100vh;
+    border: none;
     cursor: pointer;
     display: flex;
     width: 50% !important;
@@ -2410,6 +2553,9 @@ hr {
     align-content: center;
     justify-content: center;
     align-items: center;
+    transition: 0.3s ease;
+    padding: unset;
+
     > span {
         height: 100%;
         width: 100%;
@@ -2429,9 +2575,15 @@ hr {
         height: 100%;
         align-content: center;
     }
-    transition: scale 0.3s;
     &:hover {
         scale: 1.03;
+        background-color: var(--button-hover-color);
+        border: 1px solid burlywood;
+        color: var(--button-color);
+        /* transition: 0.3s ease; */
+        > span::before {
+            color: var(--button-color);
+        }
     }
     &:is(:active, :focus) {
         scale: 0.95;
@@ -2443,6 +2595,7 @@ hr {
 
 .tabulation {
     display: inline-flex;
+    flex-wrap: wrap;
 }
 
 .li-arrow {

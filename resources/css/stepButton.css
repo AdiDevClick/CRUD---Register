@@ -288,27 +288,34 @@
 .circular-progress-button-container {
     --button-size: 80px;
     --progress-bar-width: 30px;
-    --progress-bar-color: purple;
-    --font-size: 1rem;
+    --progress-bar-color: green;
+
+    --share-text-text-color: var(--button-hover-color);
+    --share-text-font-size: large;
+    --share-text-font-size-hover: 1rem;
+    --share-text-font-weigth: 700;
     /* --data-percentage: 10 1400; */
     --show: none;
-    --inner-circle-border-color: red;
-    --inner-circle-stroke-color: pink;
-    --arrow-color: cyan;
-    --arrow-border-color: blue;
+    --inner-circle-border-color: var(--button-color);
+    --inner-circle-stroke-color: burlywood;
+    --arrow-color: var(--button-hover-color);
+    --arrow-border-color: var(--border-color);
 
     width: var(--button-size);
     aspect-ratio: 1;
     display: grid;
     place-items: center;
+    cursor: pointer;
     /* margin: 10% auto; */
 
     &.right-corner {
         place-self: end;
+        grid-column: 2 / 3;
     }
 
     &.left-corner {
         place-self: baseline;
+        grid-column: 1 / 2;
     }
 
     > input {
@@ -331,7 +338,7 @@
             display: var(--show);
             content: attr(aria-valuenow) "%";
             position: absolute;
-            font-size: var(--font-size);
+            font-size: var(--share-text-font-size);
         }
 
         .progress-bar-color {
@@ -361,6 +368,14 @@
         .inner-circle {
             fill: var(--inner-circle-border-color);
         }
+
+        .share {
+            fill: var(--share-text-text-color);
+            font-size: var(--share-text-font-size);
+            font-weight: var(--share-text-font-weigth);
+            /* transition: transform 300ms ease; */
+            transition: font-size 300ms ease;
+        }
     }
 
     &:is(:hover, :active, :focus) {
@@ -379,6 +394,10 @@
                 transform: translate(90%) scaleX(-1);
                 transition: transform ease-out 500ms;
             }
+        }
+        .share {
+            font-size: var(--share-text-font-size-hover);
+            /* transform: translateY(-1px) */
         }
     }
 
