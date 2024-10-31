@@ -33,11 +33,11 @@
                 </div>
             <?php endif ?>
             <div class="full js-one">
-                <div class="three-columns js-one">
+                <div class="three-columns">
                     <p>Renseignez le titre ainsi qu’une courte description.</p>
                 </div>
                 <!-- Title -->
-                <div class="js-form-recipe js-one">
+                <div class="js-form-recipe">
                     <label for="title" class="label">Titre de votre recette</label>
                     <!-- <div contenteditable="true" type="text" class="form js-text">
                         <span>test</span>
@@ -46,20 +46,20 @@
                     <input class="form" name="title" type="text" id="title" placeholder="Votre titre..." value="<?php $getInfos !== null && $getInfos['title'] ? print strip_tags($getInfos['title']) : null ?>">
                 </div>
                 <!-- QUICK DESCRIPTION -->
-                <div class="js-form-recipe js-one">
+                <div class="js-form-recipe">
                     <label for="description" class="label">Courte description</label>
                     <textarea name="description" id="description" cols="60" rows="3" placeholder="Une courte description... Exemple : Une recette facile, peu épicée et économique !"><?php $getInfos !== null && $getInfos['description'] ? print strip_tags($getInfos['description']) : null ?></textarea>
                 </div>
-                <div class="three-columns js-one">
+                <div class="three-columns">
                     <p>Complétez le contenu de votre recette.<br>Il est possible d’ajouter jusqu’à 6 étapes.</p>
                 </div>
                 <!-- STEP 1 -->
-                <div class="js-form-recipe js-one">
+                <div class="js-form-recipe">
                     <label for="step_1" class="label">Etape 1</label>
                     <textarea class="" name="step_1" id="step_1" cols="60" rows="3" placeholder="Renseignez votre première étape..."><?php $getInfos !== null && $getInfos['step_1'] ? print strip_tags($getInfos['step_1']) : null ?></textarea>
                 </div>
                 <!-- STEP 2 -->
-                <div class="js-form-recipe js-one">
+                <div class="js-form-recipe">
                     <label for="step_2" class="label">Etape 2</label>
                     <textarea name="step_2" id="step_2" cols="60" rows="3" placeholder="Renseignez  votre deuxième étape..."><?php $getInfos !== null && $getInfos['step_2'] ? print strip_tags($getInfos['step_2']) : null ?></textarea>
                 </div>
@@ -83,7 +83,7 @@
                     <label for="step_6" class="label">Etape 6</label>
                     <textarea name="step_6" id="step_6" cols="60" rows="3" placeholder="Renseignez  votre sixième étape..."><?php $getInfos !== null && $getInfos['step_6'] ? print strip_tags($getInfos['step_6']) : null ?></textarea>
                 </div> -->
-                <a href="#step_2" class="plus three-columns js-one" >
+                <a href="#step_2" class="plus three-columns" >
                     <span></span>
                 </a>
                 <?php include '../templates/recipe_step_template.html'?>
