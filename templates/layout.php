@@ -24,8 +24,14 @@ header('Cache-Control: private, must-revalidate');
 //     $active = strip_tags('class="active"');
 // }
 $active = strip_tags('class="active"');
-echo $rootUrl;
-
+$list_Items = [
+    'index.php' => 'Accueil',
+    'about.php' => 'About',
+    'planningType.php' => 'Planning',
+    'todo.html' => 'Ma ToDo list',
+    'carousel.html' => 'Carousel Exemple',
+    'contac.php' => 'Contact'
+];
 $dev = true;
 // $dev = false;
 $vite = false;
@@ -115,6 +121,15 @@ if (!$dev) {
         <nav class="navbar-grid">
             <!-- <div class="dropdown-menu-background"> -->
                 <div class="dropdown-menu">
+                    <?php
+                        foreach ($list_Items as $key => $value) {
+                            echo $key . $value;
+                            echo "<li><a"
+                                . $url === $key ? $active : null .
+                                "href=". $rootUrl . $clicServer . '/' . $key . ">" . $value ."
+                                </a></li>";
+                        }
+                    ?>
                     <li><a
                     <?php
                         if ($url === 'index.php') {
