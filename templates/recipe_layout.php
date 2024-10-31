@@ -32,7 +32,7 @@
                     <p class="alert-error"><?php echo(strip_tags($errorMessage)) ?></p>
                 </div>
             <?php endif ?>
-            <div class="js-one">
+            <div class="full js-one">
                 <div class="three-columns js-one">
                     <p>Renseignez le titre ainsi qu’une courte description.</p>
                 </div>
@@ -289,7 +289,7 @@
                     <p>Le cas échéant, définissez un ID Youtube de votre vidéo</p>
                 </div>
                 <!-- <hr append en beforeend> -->
-                <div>
+                <div class="js-form-recipe">
                     <label id="video_link_label" for="video_link" class="label"> Youtube Vidéo ID</label>
                     <input type="text" placeholder="Youtube Vidéo ID" id="video_link" name="video_link" class="form" value="<?php $getInfos !== null && $getInfos['youtubeID'] ? print strip_tags($getInfos['youtubeID']) : null ?>"/>
                 </div>
