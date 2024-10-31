@@ -34,6 +34,30 @@
     }
     return $users;
 } */
+
+/**
+ * Crer les items du menu
+ * @param string $page
+ * @param string $rootUrl
+ * @param string $serverPath
+ * @param string $menuType Default = 'mobile'
+ * @return void
+ */
+function createMenuItems(string $page, string $rootUrl, string $serverPath, string $menuType = 'mobile'): void {
+    $active = strip_tags('class="active"');
+    $list_Items = [
+        'index.php' => 'Accueil',
+        '#' => 'About',
+        'planning/planningType.php' => 'Planning',
+        'todo.html' => 'Ma ToDo list',
+        'carousel.html' => 'Carousel Exemple',
+    ];
+    if ($menuType === 'mobile') $list_Items['contact.php'] = 'Contact';
+    foreach ($list_Items as $key => $value) {
+        echo '<li><a ' . ($page === $key ? $active : null) . 'href=" '. $rootUrl . $serverPath . '/' . $key . '">' . $value . '</a></li>';
+    }
+}
+
 function makeDir($path)
 {
     return is_dir($path) || mkdir($path, 0777, true);
