@@ -613,7 +613,8 @@ form {
         row-gap: 2rem;
         column-gap: 2rem;
         place-self: center;
-        align-items: center;
+        align-items: baseline;
+        /* align-items: center; */
         > :not(.total_time, .three-columns) {
             display: grid;
             row-gap: 2rem;
