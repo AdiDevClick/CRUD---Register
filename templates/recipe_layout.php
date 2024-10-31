@@ -32,60 +32,63 @@
                     <p class="alert-error"><?php echo(strip_tags($errorMessage)) ?></p>
                 </div>
             <?php endif ?>
-            <div class="three-columns js-one">
-                <p>Renseignez le titre ainsi qu’une courte description.</p>
-            </div>
-            <!-- Title -->
-            <div class="js-form-recipe js-one">
-                <label for="title" class="label">Titre de votre recette</label>
-                <!-- <div contenteditable="true" type="text" class="form js-text">
-                    <span>test</span>
-                    
+            <div class="js-one">
+                <div class="three-columns js-one">
+                    <p>Renseignez le titre ainsi qu’une courte description.</p>
+                </div>
+                <!-- Title -->
+                <div class="js-form-recipe js-one">
+                    <label for="title" class="label">Titre de votre recette</label>
+                    <!-- <div contenteditable="true" type="text" class="form js-text">
+                        <span>test</span>
+                        
+                    </div> -->
+                    <input class="form" name="title" type="text" id="title" placeholder="Votre titre..." value="<?php $getInfos !== null && $getInfos['title'] ? print strip_tags($getInfos['title']) : null ?>">
+                </div>
+                <!-- QUICK DESCRIPTION -->
+                <div class="js-form-recipe js-one">
+                    <label for="description" class="label">Courte description</label>
+                    <textarea name="description" id="description" cols="60" rows="3" placeholder="Une courte description... Exemple : Une recette facile, peu épicée et économique !"><?php $getInfos !== null && $getInfos['description'] ? print strip_tags($getInfos['description']) : null ?></textarea>
+                </div>
+                <div class="three-columns js-one">
+                    <p>Complétez le contenu de votre recette.<br>Il est possible d’ajouter jusqu’à 6 étapes.</p>
+                </div>
+                <!-- STEP 1 -->
+                <div class="js-form-recipe js-one">
+                    <label for="step_1" class="label">Etape 1</label>
+                    <textarea class="" name="step_1" id="step_1" cols="60" rows="3" placeholder="Renseignez votre première étape..."><?php $getInfos !== null && $getInfos['step_1'] ? print strip_tags($getInfos['step_1']) : null ?></textarea>
+                </div>
+                <!-- STEP 2 -->
+                <div class="js-form-recipe js-one">
+                    <label for="step_2" class="label">Etape 2</label>
+                    <textarea name="step_2" id="step_2" cols="60" rows="3" placeholder="Renseignez  votre deuxième étape..."><?php $getInfos !== null && $getInfos['step_2'] ? print strip_tags($getInfos['step_2']) : null ?></textarea>
+                </div>
+                <!-- STEP 3 -->
+                <!-- <div class="js-form-recipe">
+                    <label for="step_3" class="label">Etape 3</label>
+                    <textarea name="step_3" id="step_3" cols="60" rows="3" placeholder="Renseignez  votre troisième étape..."><?php $getInfos !== null && $getInfos['step_3'] ? print strip_tags($getInfos['step_3']) : null ?></textarea>
                 </div> -->
-                <input class="form" name="title" type="text" id="title" placeholder="Votre titre..." value="<?php $getInfos !== null && $getInfos['title'] ? print strip_tags($getInfos['title']) : null ?>">
+                <!-- STEP 4 -->
+                <!-- <div class="js-form-recipe">
+                    <label for="step_4" class="label">Etape 4</label>
+                    <textarea name="step_4" id="step_4" cols="60" rows="3" placeholder="Renseignez  votre quatrième étape..."><?php $getInfos !== null && $getInfos['step_4'] ? print strip_tags($getInfos['step_4']) : null ?></textarea>
+                </div> -->
+                <!-- STEP 5 -->
+                <!-- <div class="js-form-recipe">
+                    <label for="step_5" class="label">Etape 5</label>
+                    <textarea name="step_5" id="step_5" cols="60" rows="3" placeholder="Renseignez  votre cinquième étape..."><?php $getInfos !== null && $getInfos['step_5'] ? print strip_tags($getInfos['step_5']) : null ?></textarea>
+                </div> -->
+                <!-- STEP 6 -->
+                <!-- <div class="js-form-recipe">
+                    <label for="step_6" class="label">Etape 6</label>
+                    <textarea name="step_6" id="step_6" cols="60" rows="3" placeholder="Renseignez  votre sixième étape..."><?php $getInfos !== null && $getInfos['step_6'] ? print strip_tags($getInfos['step_6']) : null ?></textarea>
+                </div> -->
+                <a href="#step_2" class="plus three-columns js-one" >
+                    <span></span>
+                </a>
+                <?php include '../templates/recipe_step_template.html'?>
             </div>
-            <!-- QUICK DESCRIPTION -->
-            <div class="js-form-recipe js-one">
-                <label for="description" class="label">Courte description</label>
-                <textarea name="description" id="description" cols="60" rows="3" placeholder="Une courte description... Exemple : Une recette facile, peu épicée et économique !"><?php $getInfos !== null && $getInfos['description'] ? print strip_tags($getInfos['description']) : null ?></textarea>
-            </div>
-            <div class="three-columns js-one">
-                <p>Complétez le contenu de votre recette.<br>Il est possible d’ajouter jusqu’à 6 étapes.</p>
-            </div>
-            <!-- STEP 1 -->
-            <div class="js-form-recipe js-one">
-                <label for="step_1" class="label">Etape 1</label>
-                <textarea class="" name="step_1" id="step_1" cols="60" rows="3" placeholder="Renseignez votre première étape..."><?php $getInfos !== null && $getInfos['step_1'] ? print strip_tags($getInfos['step_1']) : null ?></textarea>
-            </div>
-            <!-- STEP 2 -->
-            <div class="js-form-recipe js-one">
-                <label for="step_2" class="label">Etape 2</label>
-                <textarea name="step_2" id="step_2" cols="60" rows="3" placeholder="Renseignez  votre deuxième étape..."><?php $getInfos !== null && $getInfos['step_2'] ? print strip_tags($getInfos['step_2']) : null ?></textarea>
-            </div>
-            <!-- STEP 3 -->
-            <!-- <div class="js-form-recipe">
-                <label for="step_3" class="label">Etape 3</label>
-                <textarea name="step_3" id="step_3" cols="60" rows="3" placeholder="Renseignez  votre troisième étape..."><?php $getInfos !== null && $getInfos['step_3'] ? print strip_tags($getInfos['step_3']) : null ?></textarea>
-            </div> -->
-            <!-- STEP 4 -->
-            <!-- <div class="js-form-recipe">
-                <label for="step_4" class="label">Etape 4</label>
-                <textarea name="step_4" id="step_4" cols="60" rows="3" placeholder="Renseignez  votre quatrième étape..."><?php $getInfos !== null && $getInfos['step_4'] ? print strip_tags($getInfos['step_4']) : null ?></textarea>
-            </div> -->
-            <!-- STEP 5 -->
-            <!-- <div class="js-form-recipe">
-                <label for="step_5" class="label">Etape 5</label>
-                <textarea name="step_5" id="step_5" cols="60" rows="3" placeholder="Renseignez  votre cinquième étape..."><?php $getInfos !== null && $getInfos['step_5'] ? print strip_tags($getInfos['step_5']) : null ?></textarea>
-            </div> -->
-            <!-- STEP 6 -->
-            <!-- <div class="js-form-recipe">
-                <label for="step_6" class="label">Etape 6</label>
-                <textarea name="step_6" id="step_6" cols="60" rows="3" placeholder="Renseignez  votre sixième étape..."><?php $getInfos !== null && $getInfos['step_6'] ? print strip_tags($getInfos['step_6']) : null ?></textarea>
-            </div> -->
-            <a href="#step_2" class="plus three-columns js-one" >
-                <span></span>
-            </a>
-            <?php include '../templates/recipe_step_template.html'?>
+            
 
             <!-- <template id="recipe-input-template">
                 <div class="js-form-recipe">

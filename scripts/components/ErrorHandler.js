@@ -1042,6 +1042,7 @@ export class ErrorHandler {
      * @returns
      */
     #checkBatchOfInputs(array) {
+        console.log(array)
         const arrayKey = []
         const errors = []
         const data = new FormData(this.#form)
@@ -1073,12 +1074,19 @@ export class ErrorHandler {
                 array.forEach(elems => {
                     let element
 
-                    elems.childNodes.forEach(el => {
-                        if (!arrayKey[key].id) return
-                        if (el.id !== arrayKey[key].id.split('#')[1]) return
-                            element = el
-                        return
-                    })
+                    // elems.childNodes.forEach(el => {
+                        for (const el in elems.childNodes) {
+                            console.log(el)
+                            if (!arrayKey[key].id) return
+                            if (el.id !== arrayKey[key].id.split('#')[1]) return
+                                element = el
+                            return
+                        }
+                        // if (!arrayKey[key].id) return
+                        // if (el.id !== arrayKey[key].id.split('#')[1]) return
+                        //     element = el
+                        // return
+                    // })
 
                     if (element) {
                         const validation = this.#dynamicCheck(element)
@@ -1226,6 +1234,7 @@ export class ErrorHandler {
     /** @returns {Function} */
     get checkBatchOfInputs() {
         return (array) => {
+            // array = Array.isArray(array) ? array : [array]
             return this.#checkBatchOfInputs(array)
         }
     }

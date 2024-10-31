@@ -204,8 +204,14 @@ export function appendToAnotherLocation(targetSelector, container , isClass = 'j
 
     // Retrieve every recipe steps
     const firstContentToMoveToNewCardFormRecipeSection = Array.from(parentElement.childNodes)
-        .filter(node => {
-            if (node.tagName === 'DIV' || node.tagName === 'A') {
+        .find(node => {
+        // .filter(node => {
+            // if (node.tagName === 'DIV' || node.tagName === 'A') {
+            //     return (node.classList.contains('js-one'))
+            //     // return (node.classList.contains('js-one')) ||
+            //     // (node.classList.contains('circular-progress-button-container'))
+            // }
+            if (node.tagName === 'DIV') {
                 return (node.classList.contains('js-one'))
                 // return (node.classList.contains('js-one')) ||
                 // (node.classList.contains('circular-progress-button-container'))
@@ -238,9 +244,12 @@ export function appendToAnotherLocation(targetSelector, container , isClass = 'j
 
     if (firstContentToMoveToNewCardFormRecipeSection) {
         const drawer = parentElement.querySelector('.show_drawer')
-        firstContentToMoveToNewCardFormRecipeSection.forEach(element => {
-            newCardFormRecipeSection.append(element)
-        })
+        // firstContentToMoveToNewCardFormRecipeSection.forEach(element => {
+        //     newCardFormRecipeSection.append(element)
+        // })
+
+        newCardFormRecipeSection.append(firstContentToMoveToNewCardFormRecipeSection)
+
 
         drawer.prepend(secondContentToMoveToNewCardRecipeSection)
         drawer.append(thirdContentToMoveToNewCardRecipeSection, fourthContentToMoveToNewCardRecipeSection)
