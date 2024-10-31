@@ -207,7 +207,7 @@ input.input_error:not(:placeholder-shown) {
     &.input_error + span {
         bottom: 15px;
         right: 10px;
-        grid-row: 1 / 1;
+        /* grid-row: 1 / 1; */
         grid-column: 1 / 2;
         &::before {
             content: "✖";
@@ -220,9 +220,10 @@ input.input_error:not(:placeholder-shown) {
     }
     &.valid_input + span {
         bottom: 15px;
-        right: 10px;
-        grid-row: 1 / 1;
-        grid-column: 2 / 2;
+        /* right: 10px; */
+        right: -12px;
+        /* grid-row: 1 / 1; */
+        grid-column: auto / 3;
         &::before {
             content: "✓";
             color: green;
@@ -607,13 +608,13 @@ form {
         grid-column: 1 / 3;
         width: 100%;
         display: grid;
+        position: relative;
         grid-auto-columns: 1fr;
         row-gap: 2rem;
         column-gap: 2rem;
         place-self: center;
         align-items: center;
         > :not(.total_time, .three-columns) {
-            /* display: grid; */
             display: grid;
             row-gap: 2rem;
             > * {
@@ -680,7 +681,7 @@ form {
             }
         } */
 
-        &:has(#title, #description) {
+        &:has(#title, #description, #video_link) {
             grid-column: 1 / 3;
             width: 75%;
             place-self: baseline;
@@ -690,6 +691,9 @@ form {
             input, textarea {
                 margin: 0;
             }
+        }
+        @media screen and (max-width: 576px) {
+            grid-column: 1 / 3;
         }
     }
 
@@ -857,9 +861,10 @@ form {
             gap: 30px;
             padding: 0;
             /* padding: 20px 10px; */
-            .js-form-recipe:has(#title, #description) {
-                width: 100%;
-            }
+            
+        }
+        .js-form-recipe:has(#title, #description, #video_link) {
+            width: 100%;
         }
     }
 }
@@ -1491,7 +1496,8 @@ form {
     gap: 1rem;
     position: relative;
     /* grid-template-columns: repeat(3, 1fr); */
-    grid-template-columns: 5.5fr 1fr 1fr;
+    /* grid-template-columns: 5.5fr 1fr 1fr; */
+    grid-template-columns: 4.5fr 1fr 1fr;
     /* grid-template-columns: 3.5fr 1fr 1fr; */
     grid-template-rows: auto; /* For APF */
     align-content: center;
