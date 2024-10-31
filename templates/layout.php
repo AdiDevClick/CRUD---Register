@@ -24,6 +24,7 @@ header('Cache-Control: private, must-revalidate');
 //     $active = strip_tags('class="active"');
 // }
 $active = strip_tags('class="active"');
+echo $rootUrl;
 
 $dev = true;
 // $dev = false;
@@ -117,7 +118,6 @@ if (!$dev) {
                     <li><a
                     <?php
                         if ($url === 'index.php') {
-                            // echo strip_tags('class="active"');
                             echo $active;
                         } else {
                             null;
@@ -127,7 +127,7 @@ if (!$dev) {
                     <li><a
                     <?php
     if ($url === 'about.php') {
-        // echo strip_tags('class="active"'echo $active;
+        echo $active;
     } else {
         null;
     }
@@ -136,7 +136,7 @@ if (!$dev) {
                         <li><a
                         <?php
     if ($url === 'planningType.php') {
-        // echo strip_tags('class="active"'echo $active;
+        echo $active;
     } else {
         null;
     }
@@ -145,7 +145,7 @@ if (!$dev) {
                         <li><a
                         <?php
     if ($url === 'todo.html') {
-        // echo strip_tags('class="active"'echo $active;
+        echo $active;
     } else {
         null;
     }
@@ -154,7 +154,7 @@ if (!$dev) {
     <li><a
     <?php
         if ($url === 'carousel.html') {
-            // echo strip_tags('class="active"')echo $active;
+            echo $active;
         } else {
             null;
         }
@@ -163,7 +163,7 @@ if (!$dev) {
                         <li><a
                         <?php
 if ($url === 'contact.php') {
-    // echo strip_tags('class="active"echo $active;
+    echo $active;
 } else {
     null;
 }
@@ -180,7 +180,6 @@ if ($url === 'contact.php') {
                     <?php //if(isset($_SESSION['LOGGED_USER'])):?>
                     <?php //if(isset($loggedUser['email'][0])):?>
                         <li><a <?php if ($url === 'create_recipes.php') {
-                            // echo strip_tags('class="active"');
                             echo $active;
                         }?> class="" href="<?= $rootUrl . $clicServer.'/recipes/create_recipes.php' ?>">Créer une recette</a></li>
                         <li><a class="" href="<?= $rootUrl . $clicServer.'/deconnexion.php' ?>">Se déconnecter</a></li>
