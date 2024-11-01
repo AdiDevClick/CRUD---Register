@@ -7,6 +7,7 @@ if(session_status() !== PHP_SESSION_ACTIVE || session_status() === PHP_SESSION_N
 require_once(__DIR__ . "/includes/class-autoloader.inc.php");
 require_once(__DIR__ . "/includes/variables.inc.php");
 require_once(__DIR__ . "/logs/customErrorHandlers.php");
+require_once(__DIR__ . "/includes/functions.inc.php");
 
 // require_once("templates/toaster_template.html");
 
