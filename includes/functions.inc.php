@@ -1,5 +1,6 @@
 <?php
 
+
 /***
  *
  */
@@ -36,28 +37,68 @@
 } */
 
 /**
- * Crer les items du menu
- * @param string $page
- * @param string $rootUrl
- * @param string $serverPath
- * @param string $menuType Default = 'mobile'
- * @return void
+ * Crer les items du menu.
+ * - Retourne un <li> element avec un <a> à l'intérieur.
+ * - Le lien aura un href avec l'url du serveur.
+ * @param string $page - Le nom de la page à afficher avec son extension.
+ * - ex : index.php
+ * @param array $items - Un array multidimensionnel.
+ * - ex : ['planning/planningType.php' => [
+ *  'value' => 'Planning',
+ *  'page' => 'planningType.php'
+ * ],
+ * @param string $menuType - Default = 'mobile'.
+ * - optionnal = 'desktop', 'footer', 'submenu'
+ * @return string
  */
-function createMenuItems(string $page, string $rootUrl, string $serverPath, string $menuType = 'mobile'): void {
-    $active = strip_tags('class="active"');
+function createMenuItems(string $page, array $items = null, string $menuType = 'mobile'): string
+{
+    include dirname(__DIR__) . DIRECTORY_SEPARATOR . "includes" . DIRECTORY_SEPARATOR ."variables.inc.php";
+
+    $menuItems = '';
+    $active = strip_tags("active");
     $list_Items = [
-        'index.php' => 'Accueil',
-        '#' => 'About',
-        'planning/planningType.php' => 'Planning',
-        'todo.html' => 'Ma ToDo list',
-        'carousel.html' => 'Carousel Exemple',
+        'index.php' => ['value' => 'Accueil'],
+        'planning/planningType.php' => [
+            'value' => 'Planning',
+            'page' => 'planningType.php'
+        ],
+        'todo.html' => ['value' => 'Ma ToDo list'],
+        'carousel.html' => ['value' => 'Carousel Exemple']
     ];
-    if ($menuType === 'mobile') $list_Items['contact.php'] = 'Contact';
-    foreach ($list_Items as $key => $value) {
-        echo '<li><a ' . ($page === $key ? $active : null) . 'href=" '. $rootUrl . $serverPath . '/' . $key . '">' . $value . '</a></li>';
+
+    if ($menuType === 'mobile') {
+        $list_Items['contact.php'] = ['value' => 'Contact'];
+        $list_Items['register.php'] = ['value' => 'S\'enregistrer'];
     }
+
+    if ($menuType === 'footer') {
+        $list_Items = [
+            'contact.php' => ['value' => 'Contact'],
+            '#' => ['value' => 'About']
+        ];
+    }
+
+    if ($menuType === 'submenu') {
+        $list_Items = [];
+    }
+
+    if ($items) {
+        $list_Items = array_merge($list_Items, $items);
+    }
+
+    foreach ($list_Items as $key => $value) {
+        $class = ((isset($value['page']) && $page === $value['page']) || $page === $key ? $active . ' ' : '') . ($value['class'] ?? '');
+        $menuItems .= '<li><a class="' . $class . '" href=" '. $rootUrl . $clicServer . '/' . $key . '">' . $value['value'] . '</a></li>';
+    }
+    return $menuItems;
 }
 
+/**
+ * Permet de créer un dossier en prenant en compte le path en param
+ * @param mixed $path
+ * @return bool
+ */
 function makeDir($path)
 {
     return is_dir($path) || mkdir($path, 0777, true);
