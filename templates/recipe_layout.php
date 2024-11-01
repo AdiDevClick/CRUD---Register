@@ -1,5 +1,8 @@
-<!-- <section class="card_container all-resolutions"> -->
 <!-- <section class="card_container mobile-only"> -->
+<?php
+    require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . "includes" . DIRECTORY_SEPARATOR ."functions.inc.php";
+?>
+
 <section class="card_container container">
     <form
         id="preparation-form-all-resolutions"
@@ -27,9 +30,8 @@
         <section class="contact-grid js-stop-appender" id="recipe_creation">
             <!-- Error Message -->
             <?php if (!empty($err)) : ?>
-                <?php echo 'test' ?>
                 <div>
-                    <p class="alert-error"><?php echo(strip_tags($errorMessage)) ?></p>
+                    <p class="alert-error"><?= strip_tags($errorMessage) ?></p>
                 </div>
             <?php endif ?>
             <div class="full js-one">
@@ -39,10 +41,6 @@
                 <!-- Title -->
                 <div class="js-form-recipe">
                     <label for="title" class="label">Titre de votre recette</label>
-                    <!-- <div contenteditable="true" type="text" class="form js-text">
-                        <span>test</span>
-                        
-                    </div> -->
                     <input class="form" name="title" type="text" id="title" placeholder="Votre titre..." value="<?php $getInfos !== null && $getInfos['title'] ? print strip_tags($getInfos['title']) : null ?>">
                 </div>
                 <!-- QUICK DESCRIPTION -->
@@ -63,39 +61,12 @@
                     <label for="step_2" class="label">Etape 2</label>
                     <textarea name="step_2" id="step_2" cols="60" rows="3" placeholder="Renseignez  votre deuxième étape..."><?php $getInfos !== null && $getInfos['step_2'] ? print strip_tags($getInfos['step_2']) : null ?></textarea>
                 </div>
-                <!-- STEP 3 -->
-                <!-- <div class="js-form-recipe">
-                    <label for="step_3" class="label">Etape 3</label>
-                    <textarea name="step_3" id="step_3" cols="60" rows="3" placeholder="Renseignez  votre troisième étape..."><?php $getInfos !== null && $getInfos['step_3'] ? print strip_tags($getInfos['step_3']) : null ?></textarea>
-                </div> -->
-                <!-- STEP 4 -->
-                <!-- <div class="js-form-recipe">
-                    <label for="step_4" class="label">Etape 4</label>
-                    <textarea name="step_4" id="step_4" cols="60" rows="3" placeholder="Renseignez  votre quatrième étape..."><?php $getInfos !== null && $getInfos['step_4'] ? print strip_tags($getInfos['step_4']) : null ?></textarea>
-                </div> -->
-                <!-- STEP 5 -->
-                <!-- <div class="js-form-recipe">
-                    <label for="step_5" class="label">Etape 5</label>
-                    <textarea name="step_5" id="step_5" cols="60" rows="3" placeholder="Renseignez  votre cinquième étape..."><?php $getInfos !== null && $getInfos['step_5'] ? print strip_tags($getInfos['step_5']) : null ?></textarea>
-                </div> -->
-                <!-- STEP 6 -->
-                <!-- <div class="js-form-recipe">
-                    <label for="step_6" class="label">Etape 6</label>
-                    <textarea name="step_6" id="step_6" cols="60" rows="3" placeholder="Renseignez  votre sixième étape..."><?php $getInfos !== null && $getInfos['step_6'] ? print strip_tags($getInfos['step_6']) : null ?></textarea>
-                </div> -->
+                <!-- ADD STEPS BUTTON -->
                 <a href="#step_2" class="plus three-columns" >
                     <span></span>
                 </a>
                 <?php include '../templates/recipe_step_template.html'?>
             </div>
-            
-
-            <!-- <template id="recipe-input-template">
-                <div class="js-form-recipe">
-                    <label for="" class="label"></label>
-                    <textarea name="" id="" cols="60" rows="3" placeholder="Renseignez  votre deuxième étape..."></textarea>
-                </div>
-            </template> -->
             <!-- DRAWER BUTTONS -->
             <div class="opening_drawer_button show">
                 <img src='../img/add.svg' alt="image représentant une addition">
@@ -119,40 +90,17 @@
                     </div>
                 </div>
                 <div class="three-columns">
-                <!-- <div class="three-columns js-two"> -->
                     <p>Définissez les informations de temps de préparation et le nombre de personnes.</p>
                 </div>
                 <div class="total_time full">
-                    <div class="time ">
-                        <label for="total_time" class="label first-column-bottom-border">Temps total</label>
-                        <input id="total_time" type="text" name="total_time" class="input" value="<?php if ($getInfos !== null) {
-                            echo htmlspecialchars((string)$getInfos['total_time']);
-                        } ?>">
-                        <select class="select" name="total_time_length" id="total_time_length" aria-placeholder="temps">
-                            <option value="min" <?= $getInfos !== null && $getInfos['total_time_length'] === 'min' ? htmlspecialchars('selected') : null ?>>min</option>
-                            <option value="heures" <?= $getInfos !== null && $getInfos['total_time_length'] === 'heures' ? htmlspecialchars('selected') : null ?>>heures</option>
-                        </select>
-                    </div>
-                    <div class="time">
-                        <label for="resting_time" class="label first-column-bottom-border">Temps de repos</label>
-                        <input id="resting_time" type="text" name="resting_time" class="input" value="<?php if ($getInfos !== null) {
-                            echo htmlspecialchars((string)$getInfos['resting_time']);
-                        } ?>">
-                        <select class="select" name="resting_time_length" id="resting_time_length" aria-placeholder="test">
-                            <option value="min" <?= $getInfos !== null && $getInfos['resting_time_length'] === 'min' ? htmlspecialchars('selected') : null ?>>min</option>
-                            <option value="heures" <?= $getInfos !== null && $getInfos['resting_time_length'] === 'heures' ? htmlspecialchars('selected') : null ?>>heures</option>
-                        </select>
-                    </div>
-                    <div class="time">
-                        <label for="oven_time" class="label first-column-bottom-border">Temps de cuisson</label>
-                        <input id="oven_time" type="text" name="oven_time" class="input" value="<?php if ($getInfos !== null) {
-                            echo htmlspecialchars((string)$getInfos['oven_time']);
-                        } ?>">
-                        <select class="select" name="oven_time_length" id="oven_time_length" aria-placeholder="test">
-                            <option value="min" <?= $getInfos !== null && $getInfos['oven_time_length'] === 'min' ? htmlspecialchars('selected') : null ?>>min</option>
-                            <option value="heures" <?= $getInfos !== null && $getInfos['oven_time_length'] === 'heures' ? htmlspecialchars('selected') : null ?>>heures</option>
-                        </select>
-                    </div>
+                    <?php
+                        $inputs = [
+                            'total_time' => 'Temps Total',
+                            'resting_time' => 'Temps de repos',
+                            'oven_time' => 'Temps de cuisson',
+                        ];
+echo createDivWithSelectAndInputs($inputs, $getInfos);
+?>
                     <div class="persons time">
                         <label for="persons" class="label first-column-bottom-border">Nombre de personnes</label>
                         <input id="persons" type="text" name="persons" class="input" value="<?= $getInfos !== null && $getInfos['persons'] ? htmlspecialchars((string)$getInfos['persons']) : null ?>">
@@ -160,14 +108,9 @@
                 </div>
             </div>
             <!-- FIN DE LA CARTE PREPARATION -->
-            <!-- <section class=""> -->
-                
-            
             
             <!-- DEBUT DE LA CARTE INGREDIENTS -->
-            <!-- <div id="show_drawer" class="show_drawer full"> -->
             <div id="show_drawer" class="js-three show_drawer three-columns hidden">
-
                 <div class="three-columns card-header-section">
                     <div class="icon form-logo">
                         <img src="../img/food.svg" alt="icône représentant un panier d'ingrédients" srcset="">
@@ -183,7 +126,6 @@
                                 <p contenteditable="false" class="js-value"></p>
                             </div>
                         </template>
-                        <!-- <p class="label">Vos ingrédients</p> -->
                         <div class="three-columns">
                             <p>Les ingrédients particuliers que vous ajouterez dans la section du bas apparaîtront ici.
                             <br>Il est possible de les supprimer ou de les éditer en cliquant dessus.</p>
@@ -239,9 +181,7 @@
                         <button name="add_custom" id="add_custom" type="button" class="three-columns plus js-add-custom">Ajouter un nouvel ingrédient</button>
                         <!-- <button name="add_custom" id="add_custom" type="button" class="btn js-add-custom">Ajouter un nouvel ingrédient</button> -->
                     </div>
-                    
                 </div>
-                
             </div>
             <!-- FIN DE LA CARTE INGREDIENTS -->
 
@@ -254,11 +194,8 @@
                     <label id="add_image" for="file" class="label"> Ajouter une image</label>
                     <div class="profile-picture" 
                         <?php
-                            // if ($getInfos !== null) {
-                            //     echo '../' . $getInfos['img_path'];
-                            // }
-                            $getInfos == null ?: print 'style="background-image: url(../'. $getInfos['img_path'].' )"'
-                ?>
+        $getInfos == null ?: print 'style="background-image: url(../'. $getInfos['img_path'].' )"'
+?>
                         >
                         <h1 class="upload-icon">
                             <i class="fa fa-plus fa-2x" aria-hidden="true"></i>
@@ -272,11 +209,8 @@
                     <label id="add_video" for="video_file" class="label"> Ajouter une vidéo</label>
                     <div class="profile-picture"
                         <?php
-                            // if ($getInfos !== null) {
-                            //     echo '../' . $getInfos['img_path'];
-                            // }
-                            $getInfos == null ?: print 'style="background-image: url(../'. $getInfos['video_path'].' )"'
-                ?>
+    $getInfos == null ?: print 'style="background-image: url(../'. $getInfos['video_path'].' )"'
+?>
                         >
                         <h1 class="upload-icon">
                             <i class="fa fa-plus fa-2x" aria-hidden="true"></i>
