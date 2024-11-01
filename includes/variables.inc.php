@@ -1,11 +1,16 @@
-<?php declare(strict_types=1);
+<?php
 
+declare(strict_types=1);
+
+/**
+ * Checks serveur path
+ */
+
+// Path
+$clicServer = '';
+// Page name
 $url = Functions::getUrl();
+// Domain name
 $rootUrl = Functions::getRootUrl();
-// $rootUrl = (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . '/';
-if ($rootUrl === 'https://adi.ezaya.fr/') {
-    $clicServer = 'ClicRepare';
-} else {
-    $clicServer = 'recettes';
-}
 
+($rootUrl === 'https://adi.ezaya.fr/') ? $clicServer = 'ClicRepare' : $clicServer = 'recettes';
