@@ -4,15 +4,12 @@ if(session_status() !== PHP_SESSION_ACTIVE || session_status() === PHP_SESSION_N
     session_start();
 }
 
-require_once(__DIR__ . "/includes/class-autoloader.inc.php");
-require_once(__DIR__ . "/logs/customErrorHandlers.php");
-require_once(__DIR__ . "/includes/variables.inc.php");
+require_once __DIR__ . DIRECTORY_SEPARATOR . "includes" . DIRECTORY_SEPARATOR ."class-autoloader.inc.php";
+require_once __DIR__ . DIRECTORY_SEPARATOR . "logs" . DIRECTORY_SEPARATOR ."customErrorHandlers.php";
+require_once __DIR__ . DIRECTORY_SEPARATOR . "includes" . DIRECTORY_SEPARATOR ."variables.inc.php";
+require_once __DIR__ . DIRECTORY_SEPARATOR . "includes" . DIRECTORY_SEPARATOR ."functions.inc.php";
 
-// $url = new Functions;
-// $url->getThisRootUrl()->getThisActualServer($url->getThisRootUrl());
-// echo $url;
-
-$script = 'src="'. $rootUrl . $clicServer .'/scripts/fadeInScroller.js" defer';
+$script = 'src="'. strip_tags($rootUrl) . $clicServer .'/scripts/fadeInScroller.js" defer';
 $title = "Clic'Répare - Contact?";
 
 ob_start()
@@ -57,5 +54,5 @@ ob_start()
     
 <!-- Fin du Main -->
 <?php $content = ob_get_clean();
-require('templates/layout.php')
+require 'templates/layout.php'
 ?>
