@@ -95,6 +95,36 @@ function createMenuItems(string $page, array $items = null, string $menuType = '
 }
 
 /**
+ * Renvoi une DIV contenant un LABEL, une INPUT et un SELECT avec OPTION (min / heures)
+ * @param array $data Un array correspondant à :
+ * - La clé : ID de l'input.
+ * - La valeur : Le texte du label visible pour l'utilisateur.
+ * @param array $getInfos L'array à récupérer du serveur
+ * @return string
+ */
+function createDivWithSelectAndInputs(array $data, array $getInfos = null): string
+{
+    $divItems = '';
+    foreach ($data as $key => $value) {
+        $inputValue = $getInfos !== null ? htmlspecialchars((string)$getInfos[$key]) : '';
+        $inputLength = strip_tags($key).'_length';
+
+        $selectedMin = ($getInfos !== null && $getInfos[$inputLength] === 'min') ? 'selected' : '';
+        $selectedHours = ($getInfos !== null && $getInfos[$inputLength] === 'heures') ? 'selected' : '';
+
+        $divItems .= '<div class="time">';
+        $divItems .= '<label for="' . strip_tags($key) . '" class="label first-column-bottom-border">' . strip_tags($value) . '</label>';
+        $divItems .= '<input id="' . strip_tags($key) . '" type="text" name="' . strip_tags($key) .'" class="input" value="' . strip_tags($inputValue) . '">';
+        $divItems .= '<select class="select" name="' . strip_tags($inputLength) . '" id="' . strip_tags($inputLength) .'" aria-placeholder="temps">';
+        $divItems .= '<option value="min" ' . strip_tags($selectedMin) . '>min</option>';
+        $divItems .= '<option value="heures" ' .  strip_tags($selectedHours) . '>heures</option>';
+        $divItems .= '</select>';
+        $divItems .= '</div>';
+    }
+    return $divItems;
+}
+
+/**
  * Permet de créer un dossier en prenant en compte le path en param
  * @param mixed $path
  * @return bool
