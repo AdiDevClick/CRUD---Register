@@ -208,3 +208,6 @@ Fichier: dom.js
 Fonction: importThisModule(className, object = {})
 ```
 <br>
+
+TODO : fix l'échappement de ' dans la db pour les ingrédients
+TODO : fix l'image doit être insérée par défaut pour pouvoir update la recette convenablement

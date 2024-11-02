@@ -569,9 +569,9 @@ export class IngredientsFrom {
             // this.#onIngredientDelete(this.#ingredient)
         })
         this.#errorHandler = new ErrorHandler(this.#form, {
-            whichInputCanBeEmpty: ['custom_ingredient', 'step_3', 'step_4', 'step_5', 'step_6', 'file', 'video_file', 'video_link', 'add_preparation'],
+            whichInputCanBeEmpty: ['custom_ingredients', 'step_3', 'step_4', 'step_5', 'step_6', 'file', 'video_file', 'video_link', 'add_preparation'],
             useMyOwnListener: true,
-            inputsNotToAppendIcon: `#custom_ingredient, #${this.#nextButton.button.firstElementChild.id}, #${this.#previewsButton.button.firstElementChild.id}`
+            inputsNotToAppendIcon: `#custom_ingredients, #${this.#nextButton.button.firstElementChild.id}, #${this.#previewsButton.button.firstElementChild.id}`
         })
         console.log(this.#touchPlugin)
 
@@ -877,8 +877,8 @@ export class IngredientsFrom {
     #modifyFormDataValues(form, formData) {
         let status = true
         for (let [key, value] of formData) {
-            if (key === 'custom_ingredient') {
-                formData.set('custom_ingredient', this.#list)
+            if (key === 'custom_ingredients') {
+                formData.set('custom_ingredients', this.#list)
             }
             if (key === 'file' && value.name) {
                 // check file type

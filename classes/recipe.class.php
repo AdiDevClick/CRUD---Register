@@ -2,31 +2,26 @@
 
 class Recipe extends Mysql
 {
-    protected function setRecipeTest(
-        string $title = null,
-        string $description = null,
-        string $step_1 = null,
-        string $step_2 = null,
-        string $step_3 = null,
-        string $step_4 = null,
-        string $step_5 = null,
-        string $step_6 = null,
-        int $total_time = null,
-        string $total_time_length = null,
-        int $resting_time = null,
-        string $resting_time_length = null,
-        int $oven_time = null,
-        string $oven_time_length = null,
-        string $ingredient = null,
-        string $ingredient2 = null,
-        string $ingredient3 = null,
-        string $ingredient4 = null,
-        string $ingredient5 = null,
-        string $ingredient6 = null,
-        string $persons = null,
-        string $custom_ingredients = null,
-        string $loggedUser
-    ) {
+    /**
+     * Insère les données dans la TABLE recipes
+     * @param string $user Email de l'utilisateur.
+     * @param array $data Un tableau de données à faire passer à la TABLE recipes
+     * @throws \Error
+     * @return bool|string
+     */
+    protected function setRecipes(string $user, array $data): bool|string
+    {
+        // Valeurs par défaut pour les étapes non présentes dans le tableau
+        $steps = ['step_3', 'step_4', 'step_5', 'step_6'];
+        foreach ($steps as $step) { 
+            if (!isset($data[$step])) {
+                $data[$step] = '';
+            }
+        }
+
+        $data['is_enabled'] = 1;
+        $data['author'] = $user;
+
         $sqlQuery =
         'INSERT INTO recipes(
             title,
@@ -80,44 +75,15 @@ class Recipe extends Mysql
             :is_enabled);';
         $PDO_Instance = $this->connect();
         $insertRecipe = $PDO_Instance->prepare($sqlQuery);
-        // $insertRecipe = $this->connect()->prepare($sqlQuery);
 
-        if (!$insertRecipe->execute([
-            'title' => $title,
-            'description' => $description,
-            'step_1' => $step_1,
-            'step_2' => $step_2,
-            'step_3' => $step_3,
-            'step_4' => $step_4,
-            'step_5' => $step_5,
-            'step_6' => $step_6,
-            'total_time' => $total_time,
-            'total_time_length' => $total_time_length,
-            'resting_time' => $resting_time,
-            'resting_time_length' => $resting_time_length,
-            'oven_time' => $oven_time,
-            'oven_time_length' => $oven_time_length,
-            'ingredient_1' => $ingredient,
-            'ingredient_2' => $ingredient2,
-            'ingredient_3' => $ingredient3,
-            'ingredient_4' => $ingredient4,
-            'ingredient_5' => $ingredient5,
-            'ingredient_6' => $ingredient6,
-            'persons' => $persons,
-            'custom_ingredients' => $custom_ingredients,
-            'author' => $loggedUser,
-            'is_enabled' => 1,
-        ])) {
+        if (!$insertRecipe->execute($data)) {
             $insertRecipe = null;
-            throw new Error("stmt Failed");
+            throw new Error(message: "stmt Failed");
         }
+
+        // Retrieve the newly created recipe_ID and returns it
         $id = $PDO_Instance->lastInsertId();
         return $id;
-        // $recipe = $getRecipesIdStatement->fetch(PDO::FETCH_ASSOC);
-        // print_r($insertRecipe);
-        // $sqlQuery = 'SELECT LAST_INSERT_ID() FROM `recipes`;';
-        // $insertRecipe = $this->connect()->prepare($sqlQuery);
-        // $insertRecipe->execute();
     }
 
     /**
@@ -127,35 +93,35 @@ class Recipe extends Mysql
      * @throws Error
      * @return array
      */
-    protected function setRecipes(string $title, string $step_1, string $step_2, string $step_3, string $step_4, string $step_5, string $step_6, string $loggedUser): void
-    {
-        $sqlQuery =
-        'INSERT INTO recipes(title, step_1, step_2, step_3, step_4, step_5, step_6, author, is_enabled) 
-        VALUES (:title, :step_1, :step_2, :step_3, :step_4, :step_5, :step_6, :author, :is_enabled);';
+    // protected function setRecipesTest(string $title, string $step_1, string $step_2, string $step_3, string $step_4, string $step_5, string $step_6, string $loggedUser): void
+    // {
+    //     $sqlQuery =
+    //     'INSERT INTO recipes(title, step_1, step_2, step_3, step_4, step_5, step_6, author, is_enabled) 
+    //     VALUES (:title, :step_1, :step_2, :step_3, :step_4, :step_5, :step_6, :author, :is_enabled);';
 
-        $insertRecipe = $this->connect()->prepare($sqlQuery);
+    //     $insertRecipe = $this->connect()->prepare($sqlQuery);
 
-        if (!$insertRecipe->execute([
-            'title' => $title,
-            'step_1' => $step_1,
-            'step_2' => $step_2,
-            'step_3' => $step_3,
-            'step_4' => $step_4,
-            'step_5' => $step_5,
-            'step_6' => $step_6,
-            'author' => $loggedUser,
-            'is_enabled' => 1,
-        ])) {
-            $insertRecipe = null;
-            //throw new Error((string)header("Location: ".Functions::getUrl()."?error=stmt-failed"));
-            throw new Error("stmt Failed");
-            //header("Location : ".$url->getThisUrl(). "?error=user-not-found");
-        }
-        /* $usersStatement = null;
-        header("Location : ".Functions::getUrl(). "?error=stmt-failed");
-        exit(); */
-        exit;
-    }
+    //     if (!$insertRecipe->execute([
+    //         'title' => $title,
+    //         'step_1' => $step_1,
+    //         'step_2' => $step_2,
+    //         'step_3' => $step_3,
+    //         'step_4' => $step_4,
+    //         'step_5' => $step_5,
+    //         'step_6' => $step_6,
+    //         'author' => $loggedUser,
+    //         'is_enabled' => 1,
+    //     ])) {
+    //         $insertRecipe = null;
+    //         //throw new Error((string)header("Location: ".Functions::getUrl()."?error=stmt-failed"));
+    //         throw new Error("stmt Failed");
+    //         //header("Location : ".$url->getThisUrl(). "?error=user-not-found");
+    //     }
+    //     /* $usersStatement = null;
+    //     header("Location : ".Functions::getUrl(). "?error=stmt-failed");
+    //     exit(); */
+    //     exit;
+    // }
 
     /**
      * Summary of getRecipes
@@ -369,32 +335,21 @@ class Recipe extends Mysql
         // exit;
     }
 
-    protected function updateRecipes(
-        string $title = null,
-        string $description = null,
-        string $step_1 = null,
-        string $step_2 = null,
-        string $step_3 = null,
-        string $step_4 = null,
-        string $step_5 = null,
-        string $step_6 = null,
-        int $total_time = null,
-        string $total_time_length = null,
-        int $resting_time = null,
-        string $resting_time_length = null,
-        int $oven_time = null,
-        string $oven_time_length = null,
-        string $ingredient = null,
-        string $ingredient2 = null,
-        string $ingredient3 = null,
-        string $ingredient4 = null,
-        string $ingredient5 = null,
-        string $ingredient6 = null,
-        string $persons = null,
-        string $custom_ingredients = null,
-        string $youtubeID = null,
-        int $id
-    ) {
+    /**
+     * Permet d'update la TABLE recettes
+     * @param array $data Les données des inputs
+     * @throws \Error
+     * @return array
+     */
+    protected function updateRecipes(array $data): array
+    {
+        // Valeurs par défaut pour les étapes non présentes dans le tableau
+        $steps = ['step_3', 'step_4', 'step_5', 'step_6'];
+        foreach ($steps as $step) {
+            if (!isset($data[$step])) { 
+                $data[$step] = null;
+            }
+        }
         $sqlQuery = 'UPDATE recipes
             JOIN images ON recipes.recipe_id = images.recipe_id
             SET
@@ -420,80 +375,23 @@ class Recipe extends Mysql
                 recipes.ingredient_6 = :ingredient_6,
                 recipes.persons = :persons,
                 recipes.custom_ingredients = :custom_ingredients,
-                images.youtubeID = :youtubeID
+                images.youtubeID = :video_link
             WHERE recipes.recipe_id = :recipe_id;';
-        // $sqlQuery = 'UPDATE recipes SET
-        //     title = :title,
-        //     description = :description,
-        //     step_1 = :step_1,
-        //     step_2 = :step_2,
-        //     step_3 = :step_3,
-        //     step_4 = :step_4,
-        //     step_5 = :step_5,
-        //     step_6 = :step_6,
-        //     total_time = :total_time,
-        //     total_time_length = :total_time_length,
-        //     resting_time = :resting_time,
-        //     resting_time_length = :resting_time_length,
-        //     oven_time = :oven_time,
-        //     oven_time_length = :oven_time_length,
-        //     ingredient_1 = :ingredient_1,
-        //     ingredient_2 = :ingredient_2,
-        //     ingredient_3 = :ingredient_3,
-        //     ingredient_4 = :ingredient_4,
-        //     ingredient_5 = :ingredient_5,
-        //     ingredient_6 = :ingredient_6,
-        //     persons = :persons,
-        //     custom_ingredients = :custom_ingredients
-        // WHERE recipe_id = :recipe_id;
-        // UPDATE images SET
-        //     youtubeID = :youtubeID
-        // WHERE recipe_id = :recipe_id;';
-        // $sqlQuery2 = 'UPDATE images SET
-        //     youtubeID = :youtubeID
-        // WHERE recipe_id = :recipe_id;';
-        // echo 'test';
+
         $updateRecipeStatement = $this->connect()->prepare($sqlQuery);
-        // $updateRecipeStatement2 = $this->connect()->prepare($sqlQuery2);
-        // print_r($updateRecipeStatement2);
-        if (!$updateRecipeStatement->execute([
-            'title' => $title,
-            'description' => $description,
-            'step_1' => $step_1,
-            'step_2' => $step_2,
-            'step_3' => $step_3,
-            'step_4' => $step_4,
-            'step_5' => $step_5,
-            'step_6' => $step_6,
-            'total_time' => $total_time,
-            'total_time_length' => $total_time_length,
-            'resting_time' => $resting_time,
-            'resting_time_length' => $resting_time_length,
-            'oven_time' => $oven_time,
-            'oven_time_length' => $oven_time_length,
-            'ingredient_1' => $ingredient,
-            'ingredient_2' => $ingredient2,
-            'ingredient_3' => $ingredient3,
-            'ingredient_4' => $ingredient4,
-            'ingredient_5' => $ingredient5,
-            'ingredient_6' => $ingredient6,
-            'persons' => $persons,
-            'custom_ingredients' => $custom_ingredients,
-            'youtubeID' => $youtubeID,
-            'recipe_id' => $id
-        ])) {
+        // try {
+        //     //code...
+        // } catch (\Throwable $th) {
+        //     //throw $th;
+        // }
+
+        if (!$updateRecipeStatement->execute($data)) {
             $updateRecipeStatement = null;
+            // echo('fauked');
             //throw new Error((string)header("Location: ".Functions::getUrl()."?error=stmt-failed"));
             throw new Error("stmt Failed");
         }
-        // if (!$updateRecipeStatement2->execute([
-        //     'youtubeID' => $youtubeID,
-        //     'recipe_id' => $id
-        // ])) {
-        //     $updateRecipeStatement2 = null;
-        //     //throw new Error((string)header("Location: ".Functions::getUrl()."?error=stmt-failed"));
-        //     throw new Error("stmt Failed");
-        // }
+
         $status = 'success';
         if ($updateRecipeStatement->rowCount() == 0) {
             $updateRecipeStatement = null;
@@ -502,15 +400,10 @@ class Recipe extends Mysql
             // echo json_encode(['update_status' => 'RCPUPDTSTMTEXECNT']);
             $status = 'RCPUPDTSTMTEXECNT';
             // throw new Error("RCPUPDTSTMTEXECNT - Vous n'avez fait aucun changement.");
-
             // throw new Error("Cette recette ne peut pas être mise à jour, elle n'existe pas.");
             //header("Location :" .Functions::getUrl(). "?error=recipe-not-found");
             //exit();
         }
-        // if ($updateRecipeStatement2->rowCount() == 0) {
-        //     $updateRecipeStatement2 = null;
-        //     $status = 'RCPUPDTSTMTEXECNT';
-        // }
         return ['update_status' => $status];
     }
 
@@ -641,9 +534,9 @@ class Recipe extends Mysql
         }
 
         $image = $getRecipeStatement->fetchAll(PDO::FETCH_ASSOC);
-        // print_r($image);
-        if (isset($image[0]) && file_exists($image[0]['img_path'])) {
-            unlink($image[0]['img_path']);
+
+        if (isset($image[0]) && file_exists(dirname(__DIR__, 1) .'/'. $image[0]['img_path'])) {
+            unlink(dirname(__DIR__, 1) .'/'. $image[0]['img_path']);
         }
 
         $sqlQuery = 'DELETE FROM images WHERE recipe_id = :id;';

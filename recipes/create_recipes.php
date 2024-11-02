@@ -14,7 +14,7 @@ $script = 'src="' . strip_tags($rootUrl) . $clicServer .'/scripts/fadeInScroller
 $script2 = 'type="module" src="' . strip_tags($rootUrl) . $clicServer .'/scripts/recipeApp.js" defer';
 $pageTitle = "Partagez votre recette";
 
-$title = "Clic'Répare - $pageTitle";
+$title = "We Love Food - $pageTitle";
 
 require_once '../recipes/submit_recipes.php';
 

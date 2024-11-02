@@ -68,6 +68,7 @@ $data = $_SERVER['REQUEST_METHOD'] == 'POST';
  */
 if(isset($_GET['id']) && is_numeric($_GET['id'])) {
     $getDatas = $_GET['id'];
+
     //$idDatas = new RecipeView($getDatas);
     $checkId = new RecipeView($getDatas);
     //$idDatas->checkId();

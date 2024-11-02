@@ -48,7 +48,7 @@ if ($data && isset($_POST)) {
             // de réencoder en JSON si nécessaire lors d'un renvoi vers JavaScript ou autre -
             // 'persons' => json_encode($dataTest)
             ];
-
+        echo 'je suis là';
         $checkId = new RecipeView($getDatas);
         if ($checkId->checkId()) {
             $checkId->updateRecipeInfoById();

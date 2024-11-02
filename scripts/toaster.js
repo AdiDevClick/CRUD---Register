@@ -153,7 +153,7 @@ if (failed === 'recipe-creation') {
 if (failed === 'update-recipe') {
     errAlert = true
     type = 'Erreur'
-    message = 'Veuillez vous enregistrer ou vous identifier avant de pouvoir modifier cette recette'
+    message = 'Cette recette ne vous appartient pas, vous ne pouvez la modifier'
     resetURL('register.php', 'failed', urlParams)
 }
 

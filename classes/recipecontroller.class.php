@@ -9,15 +9,14 @@ class RecipeController extends Recipe
         //
     }
 
-    protected function insertRecipes2()
+    protected function insertRecipe()
     {
         try {
-            // print_r($this->getData);
             $loggedUser = LoginController::checkLoggedStatus();
             if  (!isset($loggedUser)) {
                 throw new Error("LGGDUSROFF  : Veuillez vous identifier avant de partager une recette.") ;
             } else {
-
+                // Delete data recipe_id in case of a recipe creation
                 if ($this->optionnalData === 'creation') {
                     array_pop($this->getData);
                 }
@@ -25,83 +24,17 @@ class RecipeController extends Recipe
                 $checkInput = new CheckInput(
                     $this->getData
                 );
-                // if (isset($_FILES['file']) && $_FILES['file']['error'] == 0) {
-                // print_r($_FILES);
-                // }
-                // print_r($this->getData);
-
-                $title = $checkInput->test_input($this->getData['title']);
-                $description = $checkInput->test_input($this->getData['description']);
-                $step_1 = $checkInput->test_input($this->getData["step_1"]);
-                $step_2 = $checkInput->test_input($this->getData["step_2"]);
-                $step_3 = $checkInput->test_input($this->getData["step_3"] ?? null);
-                $step_4 = $checkInput->test_input($this->getData["step_4"] ?? null);
-                $step_5 = $checkInput->test_input($this->getData["step_5"] ?? null);
-                $step_6 = $checkInput->test_input($this->getData["step_6"] ?? null);
-                $total_time = $checkInput->test_input($this->getData["total_time"]);
-                $total_time_length = $checkInput->test_input($this->getData["total_time_length"]);
-                $resting_time = $checkInput->test_input($this->getData["resting_time"]);
-                $resting_time_length = $checkInput->test_input($this->getData["resting_time_length"]);
-                $oven_time = $checkInput->test_input($this->getData["oven_time"]);
-                $oven_time_length = $checkInput->test_input($this->getData["oven_time_length"]);
-                $ingredient = $checkInput->test_input($this->getData["ingredient"] ?? null);
-                $ingredient2 = $checkInput->test_input($this->getData["ingredient2"] ?? null);
-                $ingredient3 = $checkInput->test_input($this->getData["ingredient3"] ?? null);
-                $ingredient4 = $checkInput->test_input($this->getData["ingredient4"] ?? null);
-                $ingredient5 = $checkInput->test_input($this->getData["ingredient5"] ?? null);
-                $ingredient6 = $checkInput->test_input($this->getData["ingredient6"] ?? null);
-                $persons = $checkInput->test_input($this->getData["persons"]);
-                $custom_ingredients = $checkInput->test_input($this->getData["custom_ingredients"]);
-                // $title = $this->getData["title"];
-                // $step_1 = $this->getData["step_1"];
-                // $step_2 = $this->getData["step_2"];
-                // $step_3 = $this->getData["step_3"];
-                // $step_4 = $this->getData["step_4"];
-                // $step_5 = $this->getData["step_5"];
-                // $step_6 = $this->getData["step_6"];
-                // $total_time = $this->getData["total_time"];
-                // $total_time_length = $this->getData["total_time_length"];
-                // $resting_time = $this->getData["resting_time"];
-                // $resting_time_length = $this->getData["resting_time_length"];
-                // $oven_time = $this->getData["oven_time"];
-                // $oven_time_length = $this->getData["oven_time_length"];
-                // $ingredient = $this->getData["ingredient"];
-                // $ingredient2 = $this->getData["ingredient2"];
-                // $ingredient3 = $this->getData["ingredient3"];
-                // $ingredient4 = $this->getData["ingredient4"];
-                // $ingredient5 = $this->getData["ingredient5"];
-                // $ingredient6 = $this->getData["ingredient6"];
-                // $persons = $this->getData["persons"];
-                // $custom_ingredients = $this->getData["custom_ingredients"];
+                
+                foreach ($this->getData as $key => $value) {
+                    if ($key !== 'video_link') {
+                        $sanitized_Datas[$key] = $checkInput->test_input($value);
+                    }
+                }
 
                 $checkInput->checkInputs();
 
                 if (empty($checkInput->getErrorsArray())) {
-                    $id = $this->setRecipeTest(
-                        $title,
-                        $description,
-                        $step_1,
-                        $step_2,
-                        $step_3,
-                        $step_4,
-                        $step_5,
-                        $step_6,
-                        $total_time,
-                        $total_time_length,
-                        $resting_time,
-                        $resting_time_length,
-                        $oven_time,
-                        $oven_time_length,
-                        $ingredient,
-                        $ingredient2,
-                        $ingredient3,
-                        $ingredient4,
-                        $ingredient5,
-                        $ingredient6,
-                        $persons,
-                        $custom_ingredients,
-                        $loggedUser['email']
-                    );
+                    $id = $this->setRecipes($loggedUser['email'], $sanitized_Datas);
                     $data = $id;
                     // $data = ['recipeId' => $id, 'fileName' => $this->getData['file'], 'filePath' => $this->getData['file_path']];
                     // return $data;
@@ -126,6 +59,7 @@ class RecipeController extends Recipe
                     // return;
                 }
 
+                // Sets email info inside user Session
                 $registeredRecipe = [
                     'email' => $loggedUser['email']
                 ];
@@ -283,6 +217,7 @@ class RecipeController extends Recipe
     {
         try {
             if (!isset($recipeId)) {
+
                 $this->checkIds();
                 $recipeId = [
                     'recipeId' => $this->getData
@@ -300,6 +235,8 @@ class RecipeController extends Recipe
     {
         try {
             if (!isset($recipeId)) {
+                // echo 'test';
+
                 $this->checkIds();
                 $recipeId = [
                     'recipeInfos' => $this->getData
@@ -334,95 +271,47 @@ class RecipeController extends Recipe
     protected function updateRecipesInfosById()
     {
         try {
+            $loggedUser = LoginController::checkLoggedStatus();
+            if  (!isset($loggedUser)) {
+                throw new Error("LGGDUSROFF  : Veuillez vous identifier avant de pouvoir mettre à jour une recette.") ;
+            }
             if (!isset($recipeId)) {
-                // if ($this->checkIds()) {
+                // Checks if the content is legit
+                // TO BE FIXED
                 $this->checkIds();
-                // print_r($this->getData);
+
                 $checkInput = new CheckInput(
                     $this->getData
                 );
-                $title = $checkInput->test_input($this->getData['title']);
-                $description = $checkInput->test_input($this->getData['description']);
-                $step_1 = $checkInput->test_input($this->getData["step_1"]);
-                $step_2 = $checkInput->test_input($this->getData["step_2"]);
-                $step_3 = $checkInput->test_input($this->getData["step_3"] ?? null);
-                $step_4 = $checkInput->test_input($this->getData["step_4"] ?? null);
-                $step_5 = $checkInput->test_input($this->getData["step_5"] ?? null);
-                $step_6 = $checkInput->test_input($this->getData["step_6"]  ?? null);
-                $total_time = $checkInput->test_input($this->getData["total_time"]);
-                $total_time_length = $checkInput->test_input($this->getData["total_time_length"]);
-                $resting_time = $checkInput->test_input($this->getData["resting_time"]);
-                $resting_time_length = $checkInput->test_input($this->getData["resting_time_length"]);
-                $oven_time = $checkInput->test_input($this->getData["oven_time"]);
-                $oven_time_length = $checkInput->test_input($this->getData["oven_time_length"]);
-                $ingredient = $checkInput->test_input($this->getData["ingredient"] ?? null);
-                $ingredient2 = $checkInput->test_input($this->getData["ingredient2"] ?? null);
-                $ingredient3 = $checkInput->test_input($this->getData["ingredient3"] ?? null);
-                $ingredient4 = $checkInput->test_input($this->getData["ingredient4"] ?? null);
-                $ingredient5 = $checkInput->test_input($this->getData["ingredient5"] ?? null);
-                $ingredient6 = $checkInput->test_input($this->getData["ingredient6"] ?? null);
-                $persons = $checkInput->test_input($this->getData["persons"]);
-                $custom_ingredients = $checkInput->test_input($this->getData["custom_ingredients"]);
-                $youtubeID = $checkInput->test_input($this->getData["youtubeID"]);
-                $id = $checkInput->test_input($this->getData["recipe_id"]);
-                // $file = $checkInput->test_input($this->getData["file"]);
-                $checkInput->checkInputs();
-                // exit;
-                /* $title = $checkInput->test_input($this->getData["title"]);
-                $recipe = $checkInput->test_input($this->getData["recipe"]);
-                $checkInput->checkInputs(); */
-                /* $title = $checkInput->test_input($title);
-                $recipe = $checkInput->test_input($recipe);
-                $checkInput->checkInputs(); */
-                // echo $id;
-                // print_r($this->getData);
-                // return;
-                if (empty($checkInput->getErrorsArray())) {
-                    $update_Status = $this->updateRecipes(
-                        $title,
-                        $description,
-                        $step_1,
-                        $step_2,
-                        $step_3,
-                        $step_4,
-                        $step_5,
-                        $step_6,
-                        $total_time,
-                        $total_time_length,
-                        $resting_time,
-                        $resting_time_length,
-                        $oven_time,
-                        $oven_time_length,
-                        $ingredient,
-                        $ingredient2,
-                        $ingredient3,
-                        $ingredient4,
-                        $ingredient5,
-                        $ingredient6,
-                        $persons,
-                        $custom_ingredients,
-                        $youtubeID,
-                        $id
-                    );
 
-                    $update_Status['update_status'] === 'success' ? null : $id = ['recipe_id' => $id, 'status' => $update_Status];
+                // Sanitize every value
+                foreach ($this->getData as $key => $value) {
+                    $sanitized_Datas[$key] = $checkInput->test_input($value);
+                }
+                $checkInput->checkInputs();
+                
+                if (empty($checkInput->getErrorsArray())) {
+                    $update_Status = $this->updateRecipes($sanitized_Datas);
+                    $update_Status['update_status'] === 'success' ?
+                        null :
+                        $id = [
+                            'recipe_id' => $sanitized_Datas['recipe_id'],
+                            'status' => $update_Status,
+                            'query_type' => 'update'
+                        ];
                     // echo json_encode(['update_status' => 'success']);
                 } else {
                     echo json_encode($checkInput->getErrorsArray());
                 }
+
+                // Sets infos inside the User Session
                 $recipeId = [
                     'updatedRecipeInfos' => $this->getData
                     // 'updatedRecipeInfos' => $id
                 ];
                 $_SESSION['UPDATED_RECIPE'] = $recipeId;
-                //return $this->updateRecipes($this->getData, $this->getData, $this->getData);
-                //return $this->updateRecipes($title, $recipe, $id);
-                // echo $id . ' < id';
                 return $id;
-                // return $recipeId;
-                // }
             }
-            //unset($recipeId);
         } catch (Error $e) {
             die('Erreur : ' . $e->getMessage() . " Nous n'avons pas pu mettre à jour cette recette ");
         }
@@ -511,6 +400,11 @@ class RecipeController extends Recipe
         }
     }
 
+    /**
+     * Vérifie que les données ont bien été envoyées normalement
+     * @throws \Error
+     * @return bool
+     */
     protected function checkIds(): bool
     {
         //$errorMessage = "";
@@ -523,7 +417,7 @@ class RecipeController extends Recipe
             $status = false;
             throw new Error("RCPDATACHK - Vous n'avez pas sélectionné la bonne recette") ;
         } else {
-            //echo "c'est ok pour l'id" ;
+            // echo "c'est ok pour l'id" ;
         }
         return $status;
     }

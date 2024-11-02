@@ -170,11 +170,11 @@ if (!$dev) {
                 
                 <ul class="links">
                     <?php
-                        if (!isset($_COOKIE['EMAIL'])) {
-                            echo createMenuItems($url, $unregisteredItems, 'desktop');
-                        } else {
-                            echo createMenuItems($url, $registeredItems, 'desktop');
-                        }
+    if (!isset($_COOKIE['EMAIL'])) {
+        echo createMenuItems($url, $unregisteredItems, 'desktop');
+    } else {
+        echo createMenuItems($url, $registeredItems, 'desktop');
+    }
 ?>
                 </ul>
 

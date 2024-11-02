@@ -2,14 +2,14 @@
 
 class RecipeView extends RecipeController
 {
-    public function insertRecipe()
-    {
-        return $this->insertRecipes();
-    }
+    // public function insertRecipe()
+    // {
+    //     return $this->insertRecipes();
+    // }
 
-    public function insertRecipeTest()
+    public function setRecipe()
     {
-        return $this->insertRecipes2();
+        return $this->insertRecipe();
     }
 
     public function insertComment($getDatas)
@@ -19,6 +19,7 @@ class RecipeView extends RecipeController
 
     public function fetchAverageRatingCommentsById($getDatas)
     {
+
         return $this->getAverageRatingCommentsById($getDatas);
     }
 
@@ -50,6 +51,7 @@ class RecipeView extends RecipeController
 
     public function getRecipesTitle()
     {
+
         $recipe = $this->fetchRecipesTitle();
         return $recipe;
     }

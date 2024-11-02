@@ -53,6 +53,7 @@ if(isset($_GET) && ($getDatas = $_GET['id'])) {
     $getDatas = $_GET['id'];
     $idDatas = new RecipeView($getDatas);
     //$idDatas->checkId();
+
     $getInfos = $idDatas->getRecipeInfoById();
 } else {
     header('Location: ../index.php?error=noId');

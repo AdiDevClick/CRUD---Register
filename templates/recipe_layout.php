@@ -2,6 +2,27 @@
 <?php
     require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . "includes" . DIRECTORY_SEPARATOR ."functions.inc.php";
 ?>
+<ul class="tabulation">
+    <li>
+        <a href=#><?= $pageTitle ?></a>
+    </li>
+    <li class="li-arrow"></li>
+    <li>
+        <a class="active js-one" href="http://">Recette</a>
+    </li>
+    <li class="li-arrow"></li>
+    <li>
+        <a class="greyed js-two" href="http://">Préparation</a>
+    </li>
+    <li class="li-arrow"></li>
+    <li>
+        <a class="greyed js-three" href="http://">Ingrédient</a>
+    </li>
+    <li class="li-arrow"></li>
+    <li>
+        <a class="greyed js-four" href="http://">Images</a>
+    </li>
+</ul>
 
 <section class="card_container container">
     <form
@@ -51,16 +72,10 @@
                 <div class="three-columns">
                     <p>Complétez le contenu de votre recette.<br>Il est possible d’ajouter jusqu’à 6 étapes.</p>
                 </div>
-                <!-- STEP 1 -->
-                <div class="js-form-recipe">
-                    <label for="step_1" class="label">Etape 1</label>
-                    <textarea class="" name="step_1" id="step_1" cols="60" rows="3" placeholder="Renseignez votre première étape..."><?php $getInfos !== null && $getInfos['step_1'] ? print strip_tags($getInfos['step_1']) : null ?></textarea>
-                </div>
-                <!-- STEP 2 -->
-                <div class="js-form-recipe">
-                    <label for="step_2" class="label">Etape 2</label>
-                    <textarea name="step_2" id="step_2" cols="60" rows="3" placeholder="Renseignez  votre deuxième étape..."><?php $getInfos !== null && $getInfos['step_2'] ? print strip_tags($getInfos['step_2']) : null ?></textarea>
-                </div>
+                <!-- STEPS 1 TO 6 -->
+                <?php
+                    echo createDivWithTextArea($getInfos);
+                ?>
                 <!-- ADD STEPS BUTTON -->
                 <a href="#step_2" class="plus three-columns" >
                     <span></span>
@@ -94,11 +109,11 @@
                 </div>
                 <div class="total_time full">
                     <?php
-                        $inputs = [
-                            'total_time' => 'Temps Total',
-                            'resting_time' => 'Temps de repos',
-                            'oven_time' => 'Temps de cuisson',
-                        ];
+        $inputs = [
+            'total_time' => 'Temps Total',
+            'resting_time' => 'Temps de repos',
+            'oven_time' => 'Temps de cuisson',
+        ];
 echo createDivWithSelectAndInputs($inputs, $getInfos);
 ?>
                     <div class="persons time">
@@ -138,46 +153,46 @@ echo createDivWithSelectAndInputs($inputs, $getInfos);
                     </div>
                     <div class="full add_ingredient">
                         <div class="ingredient three-columns">
-                            <select class="select js-select1" name="ingredient" id="ingredient1" aria-placeholder="test">
+                            <select class="select js-select1" name="ingredient_1" id="ingredient_1" aria-placeholder="test">
                                 <option type="text" class="test">Selectionnez</input>
                                 <option value="oeuf" <?= $getInfos !== null && $getInfos['ingredient_1'] === 'oeuf' ? htmlspecialchars('selected') : null ?>>Oeuf</option>
                                 <option value="sel" <?= $getInfos !== null && $getInfos['ingredient_1'] === 'sel' ? htmlspecialchars('selected') : null ?>>Sel</option>
                                 <option value="sucre" <?= $getInfos !== null && $getInfos['ingredient_1'] === 'sucre' ? htmlspecialchars('selected') : null ?>>Sucre</option>
                                 <option value="beurre" <?= $getInfos !== null && $getInfos['ingredient_1'] === 'beurre' ? htmlspecialchars('selected') : null ?>>Beurre</option>
                             </select>
-                            <select class="select js-select2" name="ingredient2" id="ingredient2" aria-placeholder="test">
+                            <select class="select js-select2" name="ingredient_2" id="ingredient_2" aria-placeholder="test">
                                 <option value="oeuf" <?= $getInfos !== null && $getInfos['ingredient_2'] === 'oeuf' ? htmlspecialchars('selected') : null ?>>Oeuf</option>
                                 <option value="sel" <?= $getInfos !== null && $getInfos['ingredient_2'] === 'sel' ? htmlspecialchars('selected') : null ?>>Sel</option>
                                 <option value="sucre" <?= $getInfos !== null && $getInfos['ingredient_2'] === 'sucre' ? htmlspecialchars('selected') : null ?>>Sucre</option>
                                 <option value="beurre" <?= $getInfos !== null && $getInfos['ingredient_2'] === 'beurre' ? htmlspecialchars('selected') : null ?>>Beurre</option>
                             </select>
-                            <select class="select js-select3" name="ingredient3" id="ingredient3" aria-placeholder="test">
+                            <select class="select js-select3" name="ingredient_3" id="ingredient_3" aria-placeholder="test">
                                 <option value="oeuf" <?= $getInfos !== null && $getInfos['ingredient_3'] === 'oeuf' ? htmlspecialchars('selected') : null ?>>Oeuf</option>
                                 <option value="sel" <?= $getInfos !== null && $getInfos['ingredient_3'] === 'sel' ? htmlspecialchars('selected') : null ?>>Sel</option>
                                 <option value="sucre" <?= $getInfos !== null && $getInfos['ingredient_3'] === 'sucre' ? htmlspecialchars('selected') : null ?>>Sucre</option>
                                 <option value="beurre" <?= $getInfos !== null && $getInfos['ingredient_3'] === 'beurre' ? htmlspecialchars('selected') : null ?>>Beurre</option>
                             </select>
-                            <select class="select js-select4" name="ingredient4" id="ingredient4" aria-placeholder="test">
+                            <select class="select js-select4" name="ingredient_4" id="ingredient_4" aria-placeholder="test">
                                 <option value="oeuf" <?= $getInfos !== null && $getInfos['ingredient_4'] === 'oeuf' ? htmlspecialchars('selected') : null ?>>Oeuf</option>
                                 <option value="sel" <?= $getInfos !== null && $getInfos['ingredient_4'] === 'sel' ? htmlspecialchars('selected') : null ?>>Sel</option>
                                 <option value="sucre" <?= $getInfos !== null && $getInfos['ingredient_4'] === 'sucre' ? htmlspecialchars('selected') : null ?>>Sucre</option>
                                 <option value="beurre" <?= $getInfos !== null && $getInfos['ingredient_4'] === 'beurre' ? htmlspecialchars('selected') : null ?>>Beurre</option>
                             </select>
-                            <select class="select js-select5" name="ingredient5" id="ingredient5" aria-placeholder="test">
+                            <select class="select js-select5" name="ingredient_5" id="ingredient_5" aria-placeholder="test">
                                 <option value="oeuf" <?= $getInfos !== null && $getInfos['ingredient_5'] === 'oeuf' ? htmlspecialchars('selected') : null ?>>Oeuf</option>
                                 <option value="sel" <?= $getInfos !== null && $getInfos['ingredient_5'] === 'sel' ? htmlspecialchars('selected') : null ?>>Sel</option>
                                 <option value="sucre" <?= $getInfos !== null && $getInfos['ingredient_5'] === 'sucre' ? htmlspecialchars('selected') : null ?>>Sucre</option>
                                 <option value="beurre" <?= $getInfos !== null && $getInfos['ingredient_5'] === 'beurre' ? htmlspecialchars('selected') : null ?>>Beurre</option>
                             </select>
-                            <select class="select js-select6" name="ingredient6" id="ingredient6" aria-placeholder="test">
+                            <select class="select js-select6" name="ingredient_6" id="ingredient_6" aria-placeholder="test">
                                 <option value="oeuf" <?= $getInfos !== null && $getInfos['ingredient_6'] === 'oeuf' ? htmlspecialchars('selected') : null ?>>Oeuf</option>
                                 <option value="sel" <?= $getInfos !== null && $getInfos['ingredient_6'] === 'sel' ? htmlspecialchars('selected') : null ?>>Sel</option>
                                 <option value="sucre" <?= $getInfos !== null && $getInfos['ingredient_6'] === 'sucre' ? htmlspecialchars('selected') : null ?>>Sucre</option>
                                 <option value="beurre" <?= $getInfos !== null && $getInfos['ingredient_6'] === 'beurre' ? htmlspecialchars('selected') : null ?>>Beurre</option>
                             </select>
                         </div>
-                        <label for="custom_ingredient" class="label three-columns">Votre ingrédient particulier</label>
-                        <input id="custom_ingredient" type="text" name="custom_ingredient" class="three-columns input js-ingredient-input" placeholder="Votre ingrédient...">
+                        <label for="custom_ingredients" class="label three-columns">Votre ingrédient particulier</label>
+                        <input id="custom_ingredients" type="text" name="custom_ingredients" class="three-columns input js-ingredient-input" placeholder="Votre ingrédient...">
                         <button name="add_custom" id="add_custom" type="button" class="three-columns plus js-add-custom">Ajouter un nouvel ingrédient</button>
                         <!-- <button name="add_custom" id="add_custom" type="button" class="btn js-add-custom">Ajouter un nouvel ingrédient</button> -->
                     </div>

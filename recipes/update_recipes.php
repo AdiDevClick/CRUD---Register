@@ -1,17 +1,23 @@
 <?php
 
+declare(strict_types=1);
+
 if(session_status() !== PHP_SESSION_ACTIVE || session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-include_once("../includes/class-autoloader.inc.php");
-include_once('../logs/customErrorHandlers.php');
-include_once('../includes/variables.inc.php');
+require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . "includes" . DIRECTORY_SEPARATOR ."class-autoloader.inc.php";
+require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . "logs" . DIRECTORY_SEPARATOR ."customErrorHandlers.php";
+require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . "includes" . DIRECTORY_SEPARATOR ."variables.inc.php";
+// include_once("../includes/class-autoloader.inc.php");
+// include_once('../logs/customErrorHandlers.php');
+// include_once('../includes/variables.inc.php');
 
-$script2 = 'type="module" src="' . $rootUrl . $clicServer .'/scripts/recipeApp.js" defer';
-$title = "We Love Food - Mise à jour de votre recette";
-// ob_start();
+$script2 = 'type="module" src="' . strip_tags($rootUrl) . $clicServer .'/scripts/recipeApp.js" defer';
+$pageTitle = "Mise à jour de votre recette";
 
-require("../recipes/submit_update_recipes.inc.php");
-// $content = ob_get_clean();
-require('../templates/layout.php');
+$title = "We Love Food - $pageTitle";
+
+require_once '../recipes/submit_update_recipes.inc.php';
+
+require '../templates/layout.php';

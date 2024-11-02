@@ -6,6 +6,8 @@ if(session_status() !== PHP_SESSION_ACTIVE || session_status() === PHP_SESSION_N
     session_start();
 }
 // $_SESSION['LAST_ID'] !== 0 || null ? null : $_SESSION['LAST_ID'] = 0;
+
+// Sets last search index in database
 $_SESSION['LAST_ID'] ?? $_SESSION['LAST_ID'] = 0;
 
 include_once("../includes/class-autoloader.inc.php");
@@ -113,9 +115,12 @@ if ($data && isset($_POST)) {
     header('Content-Type: application/json; charset=utf-8');
     $content = file_get_contents("php://input");
     $dataTest = json_decode($content, true);
+    // voir si on récupère les fichiers du dessus
     $process_Ingredients = new Process_Ajax($dataTest ?? $_POST, $_FILES, $is_Post, $getIdDatas ?? null);
-    // return;
+    
+    // Remove session user cookies
     unset($_SESSION[$session]);
+
     $err = CheckInput::getErrorMessages();
 
     if (count($err) > 0) {

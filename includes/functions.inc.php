@@ -99,7 +99,7 @@ function createMenuItems(string $page, array $items = null, string $menuType = '
  * @param array $data Un array correspondant à :
  * - La clé : ID de l'input.
  * - La valeur : Le texte du label visible pour l'utilisateur.
- * @param array $getInfos L'array à récupérer du serveur
+* @param array $getInfos Si existant, l'array d'informations à récupérer du serveur
  * @return string
  */
 function createDivWithSelectAndInputs(array $data, array $getInfos = null): string
@@ -125,8 +125,61 @@ function createDivWithSelectAndInputs(array $data, array $getInfos = null): stri
 }
 
 /**
- * Permet de créer un dossier en prenant en compte le path en param
- * @param mixed $path
+ * Renvoi une DIV contenant un TEXTAREA et son LABEL
+ * @param array $getInfos Si existant, l'array d'informations à récupérer du serveur
+ * @return string
+ */
+function createDivWithTextArea(array $getInfos = null): string
+{
+    $divItems = '';
+    if (isset($getInfos)) {
+        foreach ($getInfos as $key => $value) {
+            if (str_starts_with($key ,'step_') && !empty($value)) {
+                $textareaValue = htmlspecialchars((string)$getInfos[$key]);
+                // Extraire le chiffre de la chaîne $value
+                preg_match('/step_(\d+)/', $key, $matches);
+                $stepNumber = $matches[1] ?? '';
+                $step = '';
+                if ($stepNumber == '1') {
+                    $step = 'première';
+                } else if ($stepNumber == '2') {
+                    $step = 'deuxième';
+                } else if ($stepNumber == '3') {
+                    $step = 'troisième';
+                } else if ($stepNumber == '4') {
+                    $step = 'quatrième';
+                } else if ($stepNumber == '5') {
+                    $step = 'cinquième';
+                } else if ($stepNumber == '6') {
+                    $step = 'sixième';
+                }
+                
+                $divItems .= '<div class="js-form-recipe">';
+                $divItems .= '<label for="' . strip_tags($key) . '" class="label">Etape ' . $stepNumber . '</label>';
+                $divItems .= '<textarea id="' . strip_tags($key) . '" cols="60" rows="3" name="' . strip_tags($key) .'" placeholder="Renseignez votre ' . $step . ' étape">' . strip_tags($textareaValue) . '</textarea>';
+                $divItems .= '</div>';
+            }
+        }
+    } else {
+        $step = '';
+        for ($i=1; $i < 3 ; $i++) { 
+            if ($i == '1') {
+                $step = 'première';
+            } else if ($i == '2') {
+                $step = 'deuxième';
+            }
+            $divItems .= '<div class="js-form-recipe">';
+            $divItems .= '<label for="step_' . strip_tags($i) . '" class="label">Etape ' . strip_tags($i) . '</label>';
+            $divItems .= '<textarea id="step_' . strip_tags($i) . '" cols="60" rows="3" name="step_' . strip_tags($i) .'" placeholder="Renseignez votre ' . $step . ' étape"></textarea>';
+            $divItems .= '</div>';
+        }
+    }
+    return $divItems;
+}
+
+/**
+ * Permet de créer un dossier en prenant en compte le path en paramètre
+ * @param mixed $path Destination du fichier
  * @return bool
  */
 function makeDir($path)

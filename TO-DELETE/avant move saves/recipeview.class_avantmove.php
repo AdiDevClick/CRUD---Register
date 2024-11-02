@@ -6,9 +6,9 @@ class RecipeView extends RecipeController
     {
         return $this->insertRecipes();
     }
-    public function insertRecipeTest()
+    public function setRecipe()
     {
-        return $this->insertRecipeTest();
+        return $this->insertRecipe();
     }
 
     public function insertComment($getDatas)
