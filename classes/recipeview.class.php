@@ -56,15 +56,20 @@ class RecipeView extends RecipeController
         return $recipe;
     }
 
-    public function getRecipeId()
+    // public function getRecipeAuthorAndTitle()
+    // {
+    //     return $this->fetchesRecipeAuthorAndTitle();
+    // }
+
+    public function retrieveFromTable(array $params, string $sessionName)
     {
-        return $this->fetchesRecipeId();
+        return $this->fetchFromTable($params, $sessionName);
     }
 
-    public function getRecipeInfoById()
-    {
-        return $this->fetchesRecipeInfosById();
-    }
+    // public function getRecipeInfoById()
+    // {
+    //     return $this->fetchesRecipeInfosById();
+    // }
     public function fetchIngredientsById()
     {
         $result = $this->fetchesIngredientsInfosById();
