@@ -33,17 +33,29 @@ class Process_Ajax
             // ];
             $setRecipe = new RecipeView($this->getDatas, 'creation');
 
-            // Is it :
-            // POST(true) ? => Insert recipe in DB / deletion of the recipe_id key
-            // POST(false) ? This is an update request => Update DB from the recipe_id
-            $this->is_Post ? $recipeId = $setRecipe->setRecipe() : $recipeId = $setRecipe->updateRecipeInfoById();
-            
-            $this->send_Status = 'success';
+            // POST(true) ?
+            // Insert file in DB
+            if ($this->is_Post) {
+                $recipeId = $setRecipe->setRecipe();
+                // If no picture is chosen by the user during creation, one is added by default
+                if (empty($this->Post_Files['file']['name'])) {
+                    $default = true;
+                    $this->insert_Default_File($setRecipe, (int) $recipeId);
+                }
+                // Insert File in Table
+                if ($this->Post_Files['file'] && $this->Post_Files['file']['error'] == 0) {
+                    $this->insert_File($setRecipe, $this->Post_Files, (int) $recipeId);
+                }
+            }
 
-            // If no picture is chosen by the user, one is added by default
-            if ($this->is_Post && empty($this->Post_Files['file']['name'])) {
-                echo 'aucun fichier ajouté par l\`utilisateur';
-                $this->insert_Default_File($setRecipe, $recipeId);
+            // POST(false) ?
+            // This is an update request => Update DB from the recipe_id
+            if (!$this->is_Post) {
+                $recipeId = $setRecipe->updateRecipeInfoById();
+                // Insert File in Table
+                if ($this->Post_Files['file'] && $this->Post_Files['file']['error'] == 0) {
+                    $this->insert_File($setRecipe, $this->Post_Files, $this->Get_Id);
+                }
             }
 
             // Error during update
@@ -54,10 +66,16 @@ class Process_Ajax
             }
 
             // Insert File in Table
-            if ($this->Post_Files['file'] && $this->Post_Files['file']['error'] == 0) {
-                $this->insert_File($setRecipe, $this->Post_Files, $recipeId);
-            }
-            echo json_encode(['status' => $this->send_Status, 'img_status' => $this->isImageSent, 'is_on_server' => $this->isImageAlreadyOnServer]);
+            // if ($this->Post_Files['file'] && $this->Post_Files['file']['error'] == 0) {
+            //     // die(print_r($recipeId));
+            //     $this->insert_File($setRecipe, $this->Post_Files, $recipeId);
+            // }
+            echo json_encode([
+                'status' => $this->send_Status,
+                'img_status' => $this->isImageSent,
+                'is_on_server' => $this->isImageAlreadyOnServer,
+                'default_image' => $default ?? false
+            ]);
         }
     }
 
@@ -65,10 +83,10 @@ class Process_Ajax
      * Insertion d'un fichier dans la TABLE images
      * @param mixed $constructor_Data Instanciation du constructeur
      * @param array $file Fichier à récupérer
-     * @param mixed $datas
+     * @param int $datas
      * @return void
      */
-    private function insert_File($constructor_Data, array $file, mixed $datas)
+    private function insert_File($constructor_Data, array $file, int $id)
     {
         // On vérifie que le fichier ne pèse pas plus d'10Mo
         if ($file['file']['size'] < 10 * 1024 * 1024) {
@@ -78,34 +96,30 @@ class Process_Ajax
             $extension = strtolower($fileinfo['extension']);
             // On vérifie les extensions autorisée
             $allowedExtensions = ['jpg', 'jpeg', 'gif', 'png'];
-            // Nouveau nom
-            $new_name = time() . '.' . $extension;
             // Création du path qui sera utilisé dans la table
-            $database_Dir = 'uploads/'. $loggedUser['email'] . '/recipes_images/' . $datas;
-            $file_In_Database = $database_Dir . '/' . $new_name;
-            // Création du path qui sera utilisé pour déplacer le fichier
-            $file_Upload_Dir = '../uploads/'. $loggedUser['email'] . '/recipes_images/' . $datas . '/';
-            $file_In_Upload_Dir = $file_Upload_Dir . '/' . $new_name;
+            $data = $this->setPath(time() . '.' . $extension, $id, $loggedUser['email']);
             
             try {
-                if (isset($datas) && in_array($extension, $allowedExtensions)) {
+                if (isset($id) && in_array($extension, $allowedExtensions)) {
                     // Création du dossier si besoin
-                    makeDir($file_Upload_Dir);
+                    makeDir($data['disk_dir']);
                     // Déplacement du fichier temporaire et le renomme
-                    move_uploaded_file($file['file']['tmp_name'], $file_In_Upload_Dir);
+                    move_uploaded_file($file['file']['tmp_name'], $data['disk_dir_path']);
                     $this->isImageSent = true;
                     $image_Data = [
-                        'recipeId' => $datas,
-                        'fileName' => $new_name,
-                        'filePath' => $file_In_Database
+                        'recipeId' => $id,
+                        'fileName' => $data['name'],
+                        'filePath' => $data['database_dir']
                     ];
                     // Delete data inside row
-                    $constructor_Data->deleteImage($datas);
+                    $constructor_Data->deleteImage($id);
+
                     // Insert new data inside row
                     $constructor_Data->insertImage($image_Data);
                     $this->send_Status = 'success';
                 } else {
                     $this->isImageSent = false;
+                    $this->send_Status = 'failed';
                     // echo "Votre fichier n'est pas compatible";
                 }
             } catch (\Throwable $error) {
@@ -122,41 +136,74 @@ class Process_Ajax
      * Insère une image par défaut dans le cas où
      * l'utilisateur n'en choisit aucune.
      * @param mixed $constructor_Data Instanciation du constructeur
-     * @param int $data Le recipe_id
+     * @param int $id Le recipe_id
      * @return void
      */
-    private function insert_Default_File($constructor_Data, int $data): void
+    private function insert_Default_File($constructor_Data, int $id): void
     {
         // Récupération du user email
         $loggedUser = LoginController::checkLoggedStatus();
         // Création du path qui sera utilisé dans la table
-        $new_name = 'default.jpeg';
-        $database_Dir = 'uploads/'. $loggedUser['email'] . '/recipes_images/' . $data;
+        $data = $this->setPath('default.jpeg', $id, $loggedUser['email']);
+
+        if (copy('../img/default-upload-file/default.jpeg', $data['disk_dir_path'])) {
+            $image_Data = [
+                'recipeId' => $id,
+                'fileName' => $data['name'],
+                'filePath' => $data['database_dir']
+            ];
+            // Delete data inside row table if exists
+            $constructor_Data->deleteImage($id);
+            // Insert new data inside row table
+            $constructor_Data->insertImage($image_Data);
+            $this->isImageSent = true;
+            // Success message
+            $this->send_Status = 'success';
+        } else {
+            $this->isImageSent = false;
+            $this->send_Status = 'failed';
+            // echo "Échec de la copie du fichier.";
+        }
+    }
+
+    /**
+     * Définit les chemins pour le stockage et la base de données d'une image de recette.
+     *
+     * Cette fonction crée les chemins pour le stockage du fichier sur le disque et dans la base de données.
+     * Elle crée également le dossier de destination sur le disque si celui-ci n'existe pas déjà.
+     * 
+     * @param string $name Le nom du fichier image.
+     * @param int $id L'identifiant de la recette.
+     * @param string $user Le nom d'utilisateur.
+     * @return array Un tableau associatif contenant les chemins pour la base de données et le disque.
+     * - 'database_dir' : Le chemin du fichier dans la base de données.
+     * - 'disk_dir' : Le chemin du dossier sur le disque où le fichier sera stocké.
+     * - 'disk_dir_path' : Le chemin complet du fichier sur le disque.
+     * - 'name' : Le nom du fichier.
+     * */
+    private function setPath(string $name, int $id, string $user): array {
+        // Création du path qui sera utilisé dans la table
+        $new_name = $name;
+        $database_Dir = 'uploads/'. $user . '/recipes_images/' . $id;
         $file_In_Database = $database_Dir . '/' . $new_name;
+
         // Création du path qui sera utilisé pour déplacer le fichier
-        $file_Upload_Dir = '../uploads/'. $loggedUser['email'] . '/recipes_images/' . $data . '/';
+        $file_Upload_Dir = '../uploads/'. $user . '/recipes_images/' . $id . '/';
         $file_In_Upload_Dir = $file_Upload_Dir . '/' . $new_name;
-        // Création du dossier si besoin
+        
+        // Vérifie si le dossier existe, sinon le crée
         if (!file_exists($file_Upload_Dir)) {
             makeDir($file_Upload_Dir);
         }
-        if (copy('../img/default-upload-file/default.jpeg', $file_In_Upload_Dir)) {
-            echo "Le fichier a été copié avec succès.";
-            $image_Data = [
-                'recipeId' => $data,
-                'fileName' => $new_name,
-                'filePath' => $file_In_Database
-            ];
-            // Delete data inside row table if exists
-            $constructor_Data->deleteImage($data);
-            // Insert new data inside row table
-            $constructor_Data->insertImage($image_Data);
 
-            $this->isImageSent = true;
-        } else {
-            echo "Échec de la copie du fichier.";
-        }
-        // Success message
-        $this->send_Status = 'success';
+        // Retourne les informations sur les chemins créés
+        $datas = [
+            'database_dir'=> $file_In_Database,
+            'disk_dir'=> $file_Upload_Dir,
+            'disk_dir_path'=> $file_In_Upload_Dir,
+            'name' => $new_name
+        ];
+
+        return $datas;
     }
 }
