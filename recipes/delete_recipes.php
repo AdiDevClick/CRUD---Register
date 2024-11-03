@@ -9,16 +9,20 @@ include_once('../logs/customErrorHandlers.php');
 
 $serverData = $_SERVER['REQUEST_METHOD'] === 'POST';
 $loggedUser = LoginController::checkLoggedStatus();
-$sessionName = 'ID_RECIPE';
-
+$sessionName = 'DELETE_RECIPE';
+$params = [
+    'fields' => ['r.title', 'r.author'],
+    'table'=> ['recipes r']
+];
+// unset($_SESSION[$sessionName]);
 /**
  * Grabing URL ID from index page and fetching rows datas
  */
 if(isset($_GET['id']) && is_numeric($_GET['id'])) {
-    $getDatas = $_GET['id'];
-    $id = new RecipeView($getDatas);
+    $getID = $_GET['id'];
+    $id = new RecipeView($getID);
     // Grab author & title and create session
-    $recipeInfos = $id->retrieveFromRecipesTable(['author', 'title'], $id->getSelfData(), $sessionName);
+    $recipeInfos = $id->retrieveFromTable($params, $sessionName);
 }
 /**
  * Lors d'un submit si la recette existe
@@ -27,10 +31,11 @@ if ($serverData && isset($_POST['submit'])) {
     $postID = $_POST['id'];
     // Retrieve session data
     $sessionID = $_SESSION[$sessionName][$sessionName] ?? null;
+    
     // Grab author & title
     if (is_numeric($postID) && (is_numeric($sessionID) && $sessionID == $postID)) {
         $id = new RecipeView($postID);
-        $recipeInfos = $id->retrieveFromRecipesTable(['author', 'title'], $id->getSelfData(), $sessionName);
+        $recipeInfos = $id->retrieveFromTable($params, $sessionName);
     }
     // If POST ID && GET ID && SessionID aren't same it will fail
     try {
@@ -51,10 +56,11 @@ if ($serverData && isset($_POST['submit'])) {
 }
 // If it belongs to the user, display delete button
 
+$title = "Suppression de votre recette";
 ob_start();
 ?>
 <?php if ($recipeInfos['author'] === $loggedUser['email']) : ?>
-    <?php $title = "We Love Food - Suppression de votre recette"?>
+    
     <section class="container">
         <div class="form-flex">
             <?php //if (isset($_GET['title'])) :?>
@@ -63,7 +69,7 @@ ob_start();
             <div class="form">
                 <form action="delete_recipes.php" method="post">
                     <div class="visually-hidden">
-                        <input type="hidden" class="input" name="id" id="id" value="<?= strip_tags($getDatas)?>"/>
+                        <input type="hidden" class="input" name="id" id="id" value="<?= strip_tags($getID)?>"/>
                     </div>
                     <button type="submit" name="submit" class="btn btn-alert">Supprimer définitivement</button>
                 </form>
