@@ -2,6 +2,92 @@
 
 class Recipe extends Mysql
 {
+
+    /**
+     * Récupère dynamiquement une ou plusieurs ROWS depuis la TABLE 'Recipes'
+     * @param array $params Tableau contenant les champs, les jointures et la table.
+     * ```php
+     * Exemple :
+     *  $params = [
+     *      'fields' => [
+     *          'r.title',
+     *          'r.author',
+     *          'i.img_id'
+     *      ],
+     *      'join' => [
+     *          'images i' => 'r.recipe_id = i.recipe_id'
+     *      ],
+     *      'table' => [
+     *          'recipes r'
+     *      ]
+     *  ];
+     * ```
+     * @param int $recipeId ID de la recette
+     * @throws \Error si la requête échoue ou si aucune ligne n'est trouvée
+     * @return mixed Tableau associatif contenant les informations de la recette
+     */
+    protected function getFromTable(array $params, int $recipeId)
+    {
+        // Extract array $params's fields
+        $fields = implode(', ', $params['fields']);
+        $fromTable = implode(', ', $params['table']);
+
+        // Extract alias from the table name (assuming only one table in 'table' array)
+        $tableAlias = explode(' ', $params['table'][0])[1];
+        
+        // Construct JOIN dynamic clause if $params['join'] is NOT NULL
+        $joinClause = '';
+        $includeDateFormat = false;
+        if (!empty($params['join'])) {
+            foreach ($params['join'] as $table => $condition) {
+                $joinClause .= "LEFT JOIN $table ON $condition ";
+                if ($table === 'images i') $includeDateFormat = true;
+            }
+        }
+
+        // Adds DATE_FORMAT to the request if 'images i' is set
+        if ($includeDateFormat) {
+            $fields .= ", DATE_FORMAT(i.created_at, '%d/%m/%Y') as image_date";
+        }
+        
+        // SQL Request Construction
+        $sqlQuery = "SELECT $fields
+            FROM $fromTable
+            $joinClause
+            WHERE $tableAlias.recipe_id = :recipe_id;";
+
+        // Prepare Statement
+        $getRecipeStatement = $this->connect()->prepare($sqlQuery);
+        
+        // Binds the ID
+        // $getRecipeStatement->bindParam(':recipe_id', $recipeId, PDO::PARAM_INT);
+        
+        // Execute SQLRequest searching by the ID from params
+        if (!$getRecipeStatement->execute(['recipe_id' => $recipeId])) {
+            $getRecipeStatement = null;
+            // if ($this->optionnalData === 'reply_Client') echo json_encode(['status' => 'failed']);
+            //throw new Error((string)header("Location: ".Functions::getUrl()."?error=stmt-failed"));
+            throw new Error("stmt Failed");
+        }
+
+        // If no row exists, fail
+        if ($getRecipeStatement->rowCount() == 0) {
+            $getRecipeStatement = null;
+            // if ($this->optionnalData === 'reply_Client') echo json_encode(['recipe_id' => $recipeId]);
+            // Send a first Error
+            throw new Error("Cette recette n'existe pas");
+        }
+        
+        // Grab results
+        $recipeInfos = $getRecipeStatement->fetch(PDO::FETCH_ASSOC);
+        
+        // If it's an UPDATE RECIPE Request - JS Client submit handler
+        if ($this->optionnalData === 'reply_Client') return json_encode($recipeInfos);
+        
+        return $recipeInfos;
+    }
+
+
     /**
      * Insère les données dans la TABLE recipes
      * @param string $user Email de l'utilisateur.
@@ -13,7 +99,7 @@ class Recipe extends Mysql
     {
         // Valeurs par défaut pour les étapes non présentes dans le tableau
         $steps = ['step_3', 'step_4', 'step_5', 'step_6'];
-        foreach ($steps as $step) { 
+        foreach ($steps as $step) {
             if (!isset($data[$step])) {
                 $data[$step] = '';
             }
@@ -96,7 +182,7 @@ class Recipe extends Mysql
     // protected function setRecipesTest(string $title, string $step_1, string $step_2, string $step_3, string $step_4, string $step_5, string $step_6, string $loggedUser): void
     // {
     //     $sqlQuery =
-    //     'INSERT INTO recipes(title, step_1, step_2, step_3, step_4, step_5, step_6, author, is_enabled) 
+    //     'INSERT INTO recipes(title, step_1, step_2, step_3, step_4, step_5, step_6, author, is_enabled)
     //     VALUES (:title, :step_1, :step_2, :step_3, :step_4, :step_5, :step_6, :author, :is_enabled);';
 
     //     $insertRecipe = $this->connect()->prepare($sqlQuery);
@@ -150,9 +236,15 @@ class Recipe extends Mysql
         return $recipes;
     }
 
+    /**
+     * Récupère le TITLE et AUTHOR de la recette
+     * @param int $recipeId ID de la recette
+     * @throws \Error
+     * @return mixed
+     */
     protected function getRecipesId(int $recipeId)
     {
-        $sqlRecipe = 'SELECT title, recipe_id FROM recipes WHERE recipe_id = :id;';
+        $sqlRecipe = 'SELECT title, author FROM recipes WHERE recipe_id = :id;';
         $getRecipesIdStatement = $this->connect()->prepare($sqlRecipe);
         if (!$getRecipesIdStatement->execute([
             'id' => $recipeId,
@@ -173,6 +265,12 @@ class Recipe extends Mysql
         return $recipe;
     }
 
+    /**
+     * Recherche la recette avec TOUTES ses informations grâce à l'ID
+     * @param int $recipeId ID de la recette
+     * @throws \Error
+     * @return mixed
+     */
     protected function getRecipesInfosById(int $recipeId)
     {
         // $sqlRecipe = 'SELECT title, recipe_id, step_1, step_2, step_3, step_4, step_5, step_6,
@@ -180,7 +278,7 @@ class Recipe extends Mysql
         // total_time, total_time_length, resting_time, resting_time_length, oven_time, oven_time_length, persons, custom_ingredients
         // FROM recipes WHERE recipe_id = :recipe_id;';
         $sqlRecipe =
-        'SELECT *, DATE_FORMAT(i.created_at, "%d/%m/%Y") as image_date 
+        'SELECT *, DATE_FORMAT(i.created_at, "%d/%m/%Y") as image_date
         FROM recipes r
         LEFT JOIN images i
         ON r.recipe_id = i.recipe_id
@@ -203,6 +301,12 @@ class Recipe extends Mysql
         $recipe = $getRecipesIdStatement->fetch(PDO::FETCH_ASSOC);
         return $recipe;
     }
+
+    /**
+     * Récupère les ingrédients personnalisés
+     * @param int $recipeId
+     * @return never
+     */
     protected function getIngredientsInfosById(int $recipeId)
     {
         $sqlRecipe = 'SELECT custom_ingredients
@@ -346,7 +450,7 @@ class Recipe extends Mysql
         // Valeurs par défaut pour les étapes non présentes dans le tableau
         $steps = ['step_3', 'step_4', 'step_5', 'step_6'];
         foreach ($steps as $step) {
-            if (!isset($data[$step])) { 
+            if (!isset($data[$step])) {
                 $data[$step] = null;
             }
         }
@@ -536,7 +640,18 @@ class Recipe extends Mysql
         $image = $getRecipeStatement->fetchAll(PDO::FETCH_ASSOC);
 
         if (isset($image[0]) && file_exists(dirname(__DIR__, 1) .'/'. $image[0]['img_path'])) {
-            unlink(dirname(__DIR__, 1) .'/'. $image[0]['img_path']);
+            // unlink(dirname(__DIR__, 1) .'/'. $image[0]['img_path']);
+            if (!unlink(dirname(__DIR__, 1) .'/'. $image[0]['img_path'])) {
+                throw new Error("Failed to delete image file.");
+            }
+            
+            // Deletes folder
+            $dirPath = dirname(__DIR__, 1) .'/'. dirname($image[0]['img_path']);
+            if (is_dir($dirPath) && count(scandir($dirPath)) == 2) {
+                if (!rmdir($dirPath)) {
+                    throw new Error("Failed to delete directory.");
+                }
+            }
         }
 
         $sqlQuery = 'DELETE FROM images WHERE recipe_id = :id;';
@@ -547,10 +662,6 @@ class Recipe extends Mysql
             $deleteRecipeStatement = null;
             throw new Error("stmt Failed");
         }
-        // if ($deleteRecipeStatement->rowCount() == 0) {
-        //     $deleteRecipeStatement = null;
-        //     throw new Error("Cette recette ne peut pas être supprimée, elle n'existe pas.");
-        // }
     }
 
     /**
