@@ -4,9 +4,39 @@ class RecipeController extends Recipe
 {
     public function __construct(
         private $getData,
-        private $optionnalData = null,
+        protected $optionnalData = null,
     ) {
         //
+    }
+
+    /**
+     * Récupère dynamiquement des ROWS de la TABLE recipes
+     * @param array $params ex : ['user', 'id', 'title']
+     * @param int $recipeId L'ID de la recette
+     * @param string $sessionName Lenom de la session qui sera créée
+     * @return mixed
+     */
+    protected function fetchFromTable(array $params, string $sessionName) {
+        try {
+            if (!isset($id)) {
+                // Checks if a correct ID type is passed
+                $this->checkIds();
+                $recipeInfos = $this->getFromTable($params, $this->getData);
+                // Saves the ID in Session
+                $id = [
+                    $sessionName => $this->getData
+                ];
+                $_SESSION[$sessionName] = $id;
+                return $recipeInfos;
+            }
+            unset($id);
+        } catch (Error $e) {
+            // This grabs the first Error from Recipe then concatenates the additionnel message
+            die('Erreur : ' . $e->getMessage() . " Nous n'avons pas pu récupérer cette recette ");
+        }
+    }
+    public function getSelfData() {
+        return (int) $this->getData;
     }
 
     protected function insertRecipe()
@@ -24,7 +54,7 @@ class RecipeController extends Recipe
                 $checkInput = new CheckInput(
                     $this->getData
                 );
-                
+
                 foreach ($this->getData as $key => $value) {
                     if ($key !== 'video_link') {
                         $sanitized_Datas[$key] = $checkInput->test_input($value);
@@ -72,95 +102,101 @@ class RecipeController extends Recipe
             die('Erreur : '. $e->getMessage() . ' , Insertion de la recette dans la DB impossible') ;
         }
     }
-    protected function insertRecipes()
-    {
-        try {
-            $loggedUser = LoginController::checkLoggedStatus();
-            if  (!isset($loggedUser)) {
-                throw new Error("LGGDUSROFF  : Veuillez vous identifier avant de partager une recette.") ;
-            } else {
-                // print_r($this->getData);
+    // protected function insertRecipes()
+    // {
+    //     try {
+    //         $loggedUser = LoginController::checkLoggedStatus();
+    //         if  (!isset($loggedUser)) {
+    //             throw new Error("LGGDUSROFF  : Veuillez vous identifier avant de partager une recette.") ;
+    //         } else {
+    //             // print_r($this->getData);
 
-                $checkInput = new CheckInput(
-                    $this->getData
-                );
+    //             $checkInput = new CheckInput(
+    //                 $this->getData
+    //             );
 
-                $title = $checkInput->test_input($this->getData["title"]);
-                $step_1 = $checkInput->test_input($this->getData["step_1"]);
-                $step_2 = $checkInput->test_input($this->getData["step_2"]);
-                $step_3 = $checkInput->test_input($this->getData["step_3"]);
-                $step_4 = $checkInput->test_input($this->getData["step_4"]);
-                $step_5 = $checkInput->test_input($this->getData["step_5"]);
-                $step_6 = $checkInput->test_input($this->getData["step_6"]);
+    //             $title = $checkInput->test_input($this->getData["title"]);
+    //             $step_1 = $checkInput->test_input($this->getData["step_1"]);
+    //             $step_2 = $checkInput->test_input($this->getData["step_2"]);
+    //             $step_3 = $checkInput->test_input($this->getData["step_3"]);
+    //             $step_4 = $checkInput->test_input($this->getData["step_4"]);
+    //             $step_5 = $checkInput->test_input($this->getData["step_5"]);
+    //             $step_6 = $checkInput->test_input($this->getData["step_6"]);
 
-                $checkInput->checkInputs();
+    //             $checkInput->checkInputs();
 
-                // echo $loggedUser['email'][0];
-                // echo 'array dans le recipectroller';
-                // print_r($loggedUser);
-                //$this->insertUser($this->nom, $this->email, $this->password, $this->age);
-                if (empty($checkInput->getErrorsArray())) {
-                    $this->setRecipes($title, $step_1, $step_2, $step_3, $step_4, $step_5, $step_6, $loggedUser['email']);
-                    // $this->insertUser($this->getDatas['username'], $this->getDatas['email'], $this->getDatas['password'], $this->getDatas['age']);
-                } else {
-                    $checkInput->getErrorsArray();
-                    return;
-                }
+    //             // echo $loggedUser['email'][0];
+    //             // echo 'array dans le recipectroller';
+    //             // print_r($loggedUser);
+    //             //$this->insertUser($this->nom, $this->email, $this->password, $this->age);
+    //             if (empty($checkInput->getErrorsArray())) {
+    //                 $this->setRecipes($title, $step_1, $step_2, $step_3, $step_4, $step_5, $step_6, $loggedUser['email']);
+    //                 // $this->insertUser($this->getDatas['username'], $this->getDatas['email'], $this->getDatas['password'], $this->getDatas['age']);
+    //             } else {
+    //                 $checkInput->getErrorsArray();
+    //                 return;
+    //             }
 
-                $registeredRecipe = [
-                    'email' => $loggedUser['email']
-                ];
+    //             $registeredRecipe = [
+    //                 'email' => $loggedUser['email']
+    //             ];
 
-                $_SESSION['REGISTERED_RECIPE'] = $registeredRecipe;
-                //header("Location: ".Functions::getUrl()."?error=none") ; */
-                return $registeredRecipe;
-                /* $registeredRecipe = [
-                        'email' => $this->getData['title'],
-                        //'username' => $user['full_name'],
-                        ]; */
-                /* setcookie(
-                            'REGISTERED_USER',
-                            $this->getData['email'],
-                            [
-                                'expires' => time() + 0 * 0 * 10,
-                                'secure' => true,
-                                'httponly' => true,
-                            ]
-                );  */
-                //session_start();
-                //$_SESSION['REGISTERED_RECIPE'] = $registeredRecipe;
-                //header("Location: ".Functions::getUrl()."?error=none") ; */
-                //return $registeredRecipe;
-            }
-            /* if ($this->emailTaken()) {
-                $registeredUser = [
-                'email' => $this->getData['email'],
-                //'username' => $user['full_name'],
-                ];
+    //             $_SESSION['REGISTERED_RECIPE'] = $registeredRecipe;
+    //             //header("Location: ".Functions::getUrl()."?error=none") ; */
+    //             return $registeredRecipe;
+    //             /* $registeredRecipe = [
+    //                     'email' => $this->getData['title'],
+    //                     //'username' => $user['full_name'],
+    //                     ]; */
+    //             /* setcookie(
+    //                         'REGISTERED_USER',
+    //                         $this->getData['email'],
+    //                         [
+    //                             'expires' => time() + 0 * 0 * 10,
+    //                             'secure' => true,
+    //                             'httponly' => true,
+    //                         ]
+    //             );  */
+    //             //session_start();
+    //             //$_SESSION['REGISTERED_RECIPE'] = $registeredRecipe;
+    //             //header("Location: ".Functions::getUrl()."?error=none") ; */
+    //             //return $registeredRecipe;
+    //         }
+    //         /* if ($this->emailTaken()) {
+    //             $registeredUser = [
+    //             'email' => $this->getData['email'],
+    //             //'username' => $user['full_name'],
+    //             ];
 
-                //header('Location: index.php');
-                //session_start();
+    //             //header('Location: index.php');
+    //             //session_start();
 
-            } */
+    //         } */
 
-            //$db = null;
-        } catch (Error $e) {
-            die('Erreur : '. $e->getMessage() . ' , Insertion de la recette dans la DB impossible') ;
-        }
-    }
+    //         //$db = null;
+    //     } catch (Error $e) {
+    //         die('Erreur : '. $e->getMessage() . ' , Insertion de la recette dans la DB impossible') ;
+    //     }
+    // }
 
+    /**
+     * Supprime une recette
+     * @return void
+     */
     protected function deleteRecipes()
     {
         try {
-            $this->getRecipesId($this->getData);
-            $deletingRecipe = [
-                'id' => $this->getData
-            ];
-            $_SESSION['DELETING_RECIPE'] = $deletingRecipe;
-            if (isset($deletingRecipe)) {
-                $this->deleteRecipeId($this->getData);
-                unset($deletingRecipe);
-            }
+            $this->deleteRecipeId($this->getData);
+            $this->deleteImageId($this->getData);
+            // $this->getRecipesId($this->getData);
+            // $deletingRecipe = [
+            //     'id' => $this->getData
+            // ];
+            // $_SESSION['DELETING_RECIPE'] = $deletingRecipe;
+            // if (isset($deletingRecipe)) {
+            //     $this->deleteRecipeId($this->getData);
+            //     unset($deletingRecipe);
+            // }
         } catch (Error $e) {
             die('Erreur : ' . $e->getMessage() . "Nous n'avons pas pu supprimer cette recette ");
         }
@@ -213,47 +249,66 @@ class RecipeController extends Recipe
          }
      } */
 
-    protected function fetchesRecipeId()
-    {
-        try {
-            if (!isset($recipeId)) {
+    /**
+     * Récupère le TITRE et ID de la recette
+     * en utilisant le nombre passé en paramètre
+     * @return mixed
+     */
+    // protected function fetchesRecipeAuthorAndTitle()
+    // {
+    //     try {
+    //         if (!isset($recipeId)) {
+    //             // Checks if a correct ID type is passed
+    //             $this->checkIds();
+    //             $recipeId = [
+    //                 'recipeId' => $this->getData
+    //             ];
+    //             $_SESSION['ID_RECIPE'] = $recipeId;
+    //             // Fetch datas
+    //             return $this->getRecipesId($this->getData);
+    //         }
+    //         unset($recipeId);
+    //     } catch (Error $e) {
+    //         die('Erreur : ' . $e->getMessage() . " Nous n'avons pas pu récupérer cette recette ");
+    //     }
+    // }
 
-                $this->checkIds();
-                $recipeId = [
-                    'recipeId' => $this->getData
-                ];
-                $_SESSION['ID_RECIPE'] = $recipeId;
-                return $this->getRecipesId($this->getData);
-            }
-            unset($recipeId);
-        } catch (Error $e) {
-            die('Erreur : ' . $e->getMessage() . "Nous n'avons pas pu récupérer cette recette ");
-        }
-    }
+    /**
+     * Vérifie qu'une ID de recette a bien été passée
+     * Récupère les informations de recettes
+     * @return mixed
+     */
+    // protected function fetchesRecipeInfosById()
+    // {
+    //     try {
+    //         if (!isset($recipeId)) {
 
-    protected function fetchesRecipeInfosById()
-    {
-        try {
-            if (!isset($recipeId)) {
-                // echo 'test';
+    //             // Check if the ID is set
+    //             $this->checkIds();
+    //             // Saves the ID in Session
+    //             $recipeId = [
+    //                 'recipeInfos' => $this->getData
+    //             ];
+    //             $_SESSION['INFO_RECIPE'] = $recipeId;
+    //             // Calls for the recipe infos
+    //             return $this->getRecipesInfosById($this->getData);
 
-                $this->checkIds();
-                $recipeId = [
-                    'recipeInfos' => $this->getData
-                ];
-                $_SESSION['INFO_RECIPE'] = $recipeId;
-                return $this->getRecipesInfosById($this->getData);
-            }
-            unset($recipeId);
-        } catch (Error $e) {
-            die('Erreur : ' . $e->getMessage() . "Nous n'avons pas pu récupérer cette recette");
-        }
-    }
+    //         }
+    //         unset($recipeId);
+    //     } catch (Error $e) {
+    //         die('Erreur : ' . $e->getMessage() . " Nous n'avons pas pu récupérer cette recette");
+    //     }
+    // }
 
+    /**
+     * Récupère les ingrédients personnalisés de la recette
+     * @return void
+     */
     protected function fetchesIngredientsInfosById()
     {
         try {
             if (!isset($recipeId)) {
+                // Checks if an ID is present in the request
                 $this->checkIds();
                 $recipeId = [
                     'recipeInfos' => $this->getData
@@ -276,6 +331,7 @@ class RecipeController extends Recipe
                 throw new Error("LGGDUSROFF  : Veuillez vous identifier avant de pouvoir mettre à jour une recette.") ;
             }
             if (!isset($recipeId)) {
+                $id = [];
                 // Checks if the content is legit
                 // TO BE FIXED
                 $this->checkIds();
@@ -289,7 +345,7 @@ class RecipeController extends Recipe
                     $sanitized_Datas[$key] = $checkInput->test_input($value);
                 }
                 $checkInput->checkInputs();
-                
+
                 if (empty($checkInput->getErrorsArray())) {
                     $update_Status = $this->updateRecipes($sanitized_Datas);
                     $update_Status['update_status'] === 'success' ?
@@ -300,10 +356,10 @@ class RecipeController extends Recipe
                             'query_type' => 'update'
                         ];
                     // echo json_encode(['update_status' => 'success']);
+                    
                 } else {
                     echo json_encode($checkInput->getErrorsArray());
                 }
-
                 // Sets infos inside the User Session
                 $recipeId = [
                     'updatedRecipeInfos' => $this->getData
