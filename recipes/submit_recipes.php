@@ -72,7 +72,7 @@ ob_start();
 
 <?php elseif (isset($_SESSION['REGISTERED_RECIPE'])):?>
     <?php //require_once('signup_success.php')?>
-    <?php $setRecipe->displayShareSuccess($getDatas, $loggedUser)?>
+    <?php // $setRecipe->displayShareSuccess($getDatas, $loggedUser)?>
     <?php unset($_SESSION['REGISTERED_RECIPE'])?>
     <?php //header('refresh:10, ../index.php?error=none')?>
     <?php else:?>
