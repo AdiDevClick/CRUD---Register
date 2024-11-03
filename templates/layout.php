@@ -8,8 +8,8 @@ header('Cache-Control: private, must-revalidate');
 
 $dev = true;
 // $dev = false;
-$vite = false;
-// $vite = true;
+// $vite = false;
+$vite = true;
 
 // Menu items for unregistered users
 $unregisteredItems = [
@@ -69,9 +69,9 @@ if (!$dev) {
     //     $manifest = json_decode(file_get_contents('./public/assets/.vite/manifest.json'), true);
     //     // var_dump($manifest);
     ?>
-        <script src="<?= $rootUrl . $clicServer?>/public/assets/<?= $manifest['resources/main.js']['file']?>" type="module"></script>
+        <script src="<?= strip_tags($rootUrl) . $clicServer?>/public/assets/<?= $manifest['resources/main.js']['file']?>" type="module"></script>
         <!-- <script src="./public/assets/<?php //$manifest['resources/main.js']['file']?>" type="module"></script> -->
-        <script src="<?= $rootUrl . $clicServer?>/public/assets/<?= $manifest['scripts/toaster.js']['file']?>" type="module"></script>
+        <script src="<?= strip_tags($rootUrl) . $clicServer?>/public/assets/<?= $manifest['scripts/toaster.js']['file']?>" type="module"></script>
         <!-- <link rel="stylesheet" href="./public/assets/<?php //$manifest['resources/main.js']['css'][0]?>"> -->
         <link rel="stylesheet" href="<?= strip_tags($rootUrl) . $clicServer?>/public/assets/<?= $manifest['resources/main.js']['css'][0]?>">
 <?php
@@ -96,7 +96,7 @@ if (!$dev) {
     <script <?= $script ?? '' ?>></script>
     <script <?= $script2 ?? '' ?>></script>
     <title>
-        <?= $title ?? "Clic'Répare" ?>
+        <?= 'We Love Food - ' . strip_tags($title) ?? 'We Love Food' ?>
     </title>
 </head>
 <body>
