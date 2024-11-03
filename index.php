@@ -50,7 +50,7 @@ ob_start()
     </div>
         
 <!-- Insertion du login form pour les non-connectés -->
-<?php require_once('login.php')?>
+<?php require_once 'login.php' ?>
 <!-- Fin du Form -->
 
 <!-- Si l'utilisateur est bien connecté il peut voir les recettes -->
@@ -63,16 +63,16 @@ ob_start()
         <?php echo display_recipe($recipe); ?>
             <article class="article">
             <h3><a href="./recipes/read.php?id=<?php echo($recipe['recipe_id']) ?>"><?php echo($recipe['title']) ?></a></h3>
-                <h3><?php echo $recipe['title']; ?></h3>
-                <div><?php echo $recipe['recipe']; ?></div>
+                <h3><?= $recipe['title'] ?></h3>
+                <div><?= $recipe['recipe'] ?></div>
                 <i><?php echo displayAuthor($recipe["author"]) ?></i>
                 <?php //print_r($loggedUser)?>
                 <?php //print_r($recipe)?>
                 <?php if (isset($loggedUser['email']) && $recipe['author'] === $loggedUser['email']) : ?>
                 <!-- <?php //if (isset($loggedUser) && $recipe['author'] === $loggedUser['email'][0]) :?> -->
                     <ul class="list-group">
-                        <li class="list-group-item"><a class="link-warning" href="./recipes/update_recipes.php?id=<?php echo($recipe['recipe_id']) ?>">Editer l'article</a></li>
-                        <li class="list-group-item"><a class="link-danger" href="./recipes/delete_recipes.php?id=<?php echo($recipe['recipe_id']) ?>">Supprimer l'article</a></li>
+                        <li class="list-group-item"><a class="link-warning" href="./recipes/update_recipes.php?id=<?= $recipe['recipe_id'] ?>">Editer l'article</a></li>
+                        <li class="list-group-item"><a class="link-danger" href="./recipes/delete_recipes.php?id=<?= $recipe['recipe_id'] ?>">Supprimer l'article</a></li>
                     </ul>
                 <?php endif ?>
                 <hr />
