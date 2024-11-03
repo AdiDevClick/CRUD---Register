@@ -87,7 +87,7 @@ $loggedUser = LoginController::checkLoggedStatus();
             </div>
         </form>
     </div>
-<!-- 
+<!--
     Si l'utilisateur est bien loggé, on affiche le message de succès
 -->
 <?php else: ?>
