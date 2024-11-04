@@ -21,7 +21,7 @@ class CheckInput extends Validate
         // print_r(self::$messages);
     }
 
-    /***
+    /**
      * Check each inputs - space is not allowed in Username
      */
     public function checkInputs()
@@ -38,6 +38,7 @@ class CheckInput extends Validate
         //$value1 = self::test_input($this->input1);
         //$value2 = self::test_input($this->input2);
         if (isset($this->getDatas)) {
+
             /* $url = explode("/", parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));
             $url = array_pop($url); */
             foreach ($this->getDatas as $key => $value) {
