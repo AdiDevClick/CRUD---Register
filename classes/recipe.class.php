@@ -87,128 +87,6 @@ class Recipe extends Mysql
         return $recipeInfos;
     }
 
-
-    /**
-     * Insère les données dans la TABLE recipes
-     * @param string $user Email de l'utilisateur.
-     * @param array $data Un tableau de données à faire passer à la TABLE recipes
-     * @throws \Error
-     * @return bool|string
-     */
-    protected function setRecipes(string $user, array $data): bool|string
-    {
-        // Valeurs par défaut pour les étapes non présentes dans le tableau
-        $steps = ['step_3', 'step_4', 'step_5', 'step_6'];
-        foreach ($steps as $step) {
-            if (!isset($data[$step])) {
-                $data[$step] = '';
-            }
-        }
-
-        $data['is_enabled'] = 1;
-        $data['author'] = $user;
-
-        $sqlQuery =
-        'INSERT INTO recipes(
-            title,
-            description,
-            step_1,
-            step_2,
-            step_3,
-            step_4,
-            step_5,
-            step_6,
-            total_time,
-            total_time_length,
-            resting_time,
-            resting_time_length,
-            oven_time,
-            oven_time_length,
-            ingredient_1,
-            ingredient_2,
-            ingredient_3,
-            ingredient_4,
-            ingredient_5,
-            ingredient_6,
-            persons,
-            custom_ingredients,
-            author,
-            is_enabled)
-        VALUES (
-            :title,
-            :description,
-            :step_1,
-            :step_2,
-            :step_3,
-            :step_4,
-            :step_5,
-            :step_6,
-            :total_time,
-            :total_time_length,
-            :resting_time,
-            :resting_time_length,
-            :oven_time,
-            :oven_time_length,
-            :ingredient_1,
-            :ingredient_2,
-            :ingredient_3,
-            :ingredient_4,
-            :ingredient_5,
-            :ingredient_6,
-            :persons,
-            :custom_ingredients,
-            :author,
-            :is_enabled);';
-        $PDO_Instance = $this->connect();
-        $insertRecipe = $PDO_Instance->prepare($sqlQuery);
-
-        if (!$insertRecipe->execute($data)) {
-            $insertRecipe = null;
-            throw new Error(message: "stmt Failed");
-        }
-
-        // Retrieve the newly created recipe_ID and returns it
-        $id = $PDO_Instance->lastInsertId();
-        return $id;
-    }
-
-    /**
-     * Summary of setRecipes
-     * @param string $title
-     * @param string $recipe
-     * @throws Error
-     * @return array
-     */
-    // protected function setRecipesTest(string $title, string $step_1, string $step_2, string $step_3, string $step_4, string $step_5, string $step_6, string $loggedUser): void
-    // {
-    //     $sqlQuery =
-    //     'INSERT INTO recipes(title, step_1, step_2, step_3, step_4, step_5, step_6, author, is_enabled)
-    //     VALUES (:title, :step_1, :step_2, :step_3, :step_4, :step_5, :step_6, :author, :is_enabled);';
-
-    //     $insertRecipe = $this->connect()->prepare($sqlQuery);
-
-    //     if (!$insertRecipe->execute([
-    //         'title' => $title,
-    //         'step_1' => $step_1,
-    //         'step_2' => $step_2,
-    //         'step_3' => $step_3,
-    //         'step_4' => $step_4,
-    //         'step_5' => $step_5,
-    //         'step_6' => $step_6,
-    //         'author' => $loggedUser,
-    //         'is_enabled' => 1,
-    //     ])) {
-    //         $insertRecipe = null;
-    //         //throw new Error((string)header("Location: ".Functions::getUrl()."?error=stmt-failed"));
-    //         throw new Error("stmt Failed");
-    //         //header("Location : ".$url->getThisUrl(). "?error=user-not-found");
-    //     }
-    //     /* $usersStatement = null;
-    //     header("Location : ".Functions::getUrl(). "?error=stmt-failed");
-    //     exit(); */
-    //     exit;
-    // }
-
     /**
      * Summary of getRecipes
      * @return array
@@ -227,105 +105,11 @@ class Recipe extends Mysql
         if ($recipesStatement->rowCount() == 0) {
             $recipesStatement = null;
             //echo strip_tags("Il n'existe aucune recette à ce jour. Soyez le premier à partager la votre !");
-            //throw new Error((string)header("Location: ".Functions::getUrl()."?error=recipe-not-found"));
             throw new Error("Il n'existe aucune recette à ce jour. Soyez le premier à partager la votre !");
             //header("Location :" .Functions::getUrl(). "?error=recipe-not-found");
-            //exit();
         }
         $recipes = $recipesStatement->fetchAll();
         return $recipes;
-    }
-
-    /**
-     * Récupère le TITLE et AUTHOR de la recette
-     * @param int $recipeId ID de la recette
-     * @throws \Error
-     * @return mixed
-     */
-    protected function getRecipesId(int $recipeId)
-    {
-        $sqlRecipe = 'SELECT title, author FROM recipes WHERE recipe_id = :id;';
-        $getRecipesIdStatement = $this->connect()->prepare($sqlRecipe);
-        if (!$getRecipesIdStatement->execute([
-            'id' => $recipeId,
-        ])) {
-            $getRecipesIdStatement = null;
-            //throw new Error((string)header("Location: ".Functions::getUrl()."?error=stmt-failed"));
-            throw new Error("stmt Failed");
-        }
-        if ($getRecipesIdStatement->rowCount() == 0) {
-            $getRecipesIdStatement = null;
-            //echo strip_tags("Cette recette n'existe pas.");
-            //throw new Error((string)header("Location: ".Functions::getUrl()."?error=recipeid-not-found"));
-            throw new Error("Cette recette n'existe pas");
-            //header("Location :" .Functions::getUrl(). "?error=recipe-not-found");
-            //exit();
-        }
-        $recipe = $getRecipesIdStatement->fetch(PDO::FETCH_ASSOC);
-        return $recipe;
-    }
-
-    /**
-     * Recherche la recette avec TOUTES ses informations grâce à l'ID
-     * @param int $recipeId ID de la recette
-     * @throws \Error
-     * @return mixed
-     */
-    protected function getRecipesInfosById(int $recipeId)
-    {
-        // $sqlRecipe = 'SELECT title, recipe_id, step_1, step_2, step_3, step_4, step_5, step_6,
-        // is_enabled, ingredient_1, ingredient_1, ingredient_2, ingredient_3, ingredient_4, ingredient_5, ingredient_6,
-        // total_time, total_time_length, resting_time, resting_time_length, oven_time, oven_time_length, persons, custom_ingredients
-        // FROM recipes WHERE recipe_id = :recipe_id;';
-        $sqlRecipe =
-        'SELECT *, DATE_FORMAT(i.created_at, "%d/%m/%Y") as image_date
-        FROM recipes r
-        LEFT JOIN images i
-        ON r.recipe_id = i.recipe_id
-        WHERE r.recipe_id = :recipe_id;';
-        $getRecipesIdStatement = $this->connect()->prepare($sqlRecipe);
-        if (!$getRecipesIdStatement->execute([
-            'recipe_id' => $recipeId,
-        ])) {
-            $getRecipesIdStatement = null;
-            //throw new Error((string)header("Location: ".Functions::getUrl()."?error=stmt-failed"));
-            throw new Error("stmt Failed");
-        }
-        /* if ($getRecipesIdStatement->rowCount() == 0) {
-            $getRecipesIdStatement = null;
-            echo strip_tags("Cette recette n'existe pas.");
-            throw new Error((string)header("Location: ".Functions::getUrl()."?error=recipeid-not-found"));
-            //header("Location :" .Functions::getUrl(). "?error=recipe-not-found");
-            //exit();
-        } */
-        $recipe = $getRecipesIdStatement->fetch(PDO::FETCH_ASSOC);
-        return $recipe;
-    }
-
-    /**
-     * Récupère les ingrédients personnalisés
-     * @param int $recipeId
-     * @return never
-     */
-    protected function getIngredientsInfosById(int $recipeId)
-    {
-        $sqlRecipe = 'SELECT custom_ingredients
-        FROM recipes WHERE recipe_id = :recipe_id;';
-        $getRecipesIdStatement = $this->connect()->prepare($sqlRecipe);
-        if (!$getRecipesIdStatement->execute([
-            'recipe_id' => $recipeId,
-        ])) {
-            $getRecipesIdStatement = null;
-            //throw new Error((string)header("Location: ".Functions::getUrl()."?error=stmt-failed"));
-            echo json_encode(['status' => 'failed']);
-        }
-        $recipe = $getRecipesIdStatement->fetch(PDO::FETCH_ASSOC);
-        echo json_encode($recipe);
-        // echo json_encode(['status' => 'failed']);
-        die();
-        // print_r($recipe);
-        // exit;
-        // return json_encode($recipe);
     }
 
     protected function getRecipesTitles(string $recipes, array $optionnal): array
@@ -435,8 +219,6 @@ class Recipe extends Mysql
             //header("Location :" .Functions::getUrl(). "?error=recipe-not-found");
             //exit();
         }
-        //header('Location: ../index.php');
-        // exit;
     }
 
     /**
