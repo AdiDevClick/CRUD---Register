@@ -815,12 +815,14 @@ export class IngredientsFrom {
                 if (this.options.get) {
                     if (this.#ingredientList.status === 'success') window.location.assign('../index.php?success=recipe-updated')
                     if (this.#ingredientList.update_status === 'success') window.location.assign('../index.php?success=recipe-updated')
-                    if (this.#ingredientList.status === 'RCPUPDTSTMTEXECNT') {
+                    if (this.#ingredientList.status === 'RCPUPDTSTMTEXECNT' && !this.#ingredientList.img_status) {
                         if (!confirm('Aucune modification n\'a été faite, souhaitez-vous continuer vers l\'accueil ?')) {
                             // no
                             return
                         }
                         window.location.assign('../index.php?success=recipe-unchanged')
+                    } else if (this.#ingredientList.status === 'RCPUPDTSTMTEXECNT' && this.#ingredientList.img_status) {
+                        window.location.assign('../index.php?success=recipe-updated')
                     }
                 }
                 if (this.options.post) {
