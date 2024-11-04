@@ -11,11 +11,19 @@ class Process_Ajax
         private array $Post_Data,
         private array $Post_Files,
         private bool $is_Post,
+        private string $session,
         private $Get_Id,
     ) {
 
         if ($this->Post_Data) {
-
+            // die(var_dump($_SESSION));
+            // die(var_dump($this->Get_Id, $this->session, $this->is_Post, json_encode([
+            //     'status' => $this->send_Status,
+            //     'img_status' => $this->isImageSent,
+            //     'is_on_server' => $this->isImageAlreadyOnServer,
+            //     'default_image' => $default ?? false
+            // ]), $_SESSION));
+            // die(var_dump( $is_Post, $_SESSION, $this));
             // Setting array ready for DB insertion
             foreach ($this->Post_Data as $key => $value) {
                 $this->getDatas[$key] = $value;
@@ -32,10 +40,11 @@ class Process_Ajax
             // 'persons' => json_encode($dataTest)
             // ];
             $setRecipe = new RecipeView($this->getDatas, 'creation');
-
+            $this->send_Status = 'success';
             // POST(true) ?
-            // Insert file in DB
-            if ($this->is_Post) {
+            // Insert file and recipe in DB
+            if ($this->is_Post && ($this->session !== 'UPDATED_RECIPE') && !isset($_SESSION['UPDATED_RECIPE'])) {
+                // Database INSERT
                 $recipeId = $setRecipe->setRecipe();
                 // If no picture is chosen by the user during creation, one is added by default
                 if (empty($this->Post_Files['file']['name'])) {
@@ -50,7 +59,8 @@ class Process_Ajax
 
             // POST(false) ?
             // This is an update request => Update DB from the recipe_id
-            if (!$this->is_Post) {
+            if (!$this->is_Post && $this->session === 'UPDATED_RECIPE' || isset($_SESSION['UPDATED_RECIPE'])) {
+                // Database UPDATE
                 $recipeId = $setRecipe->updateRecipeInfoById();
                 // Insert File in Table
                 if ($this->Post_Files['file'] && $this->Post_Files['file']['error'] == 0) {
@@ -64,12 +74,19 @@ class Process_Ajax
                 // $this->send_Status = 'RCPUPDTSTMTEXECNT';
                 $recipeId = $recipeId['recipe_id'];
             }
-
+            
             // Insert File in Table
             // if ($this->Post_Files['file'] && $this->Post_Files['file']['error'] == 0) {
             //     // die(print_r($recipeId));
             //     $this->insert_File($setRecipe, $this->Post_Files, $recipeId);
             // }
+            
+            // die(var_dump($this->Get_Id, $this->session, $this->is_Post, json_encode([
+            //     'status' => $this->send_Status,
+            //     'img_status' => $this->isImageSent,
+            //     'is_on_server' => $this->isImageAlreadyOnServer,
+            //     'default_image' => $default ?? false
+            // ]), $_SESSION));
             echo json_encode([
                 'status' => $this->send_Status,
                 'img_status' => $this->isImageSent,
