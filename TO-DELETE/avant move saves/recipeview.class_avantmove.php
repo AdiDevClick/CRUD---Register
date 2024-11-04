@@ -38,9 +38,9 @@ class RecipeView extends RecipeController
         return $recipe;
     }
 
-    public function getRecipeId()
+    public function getRecipeAuthoAndTitle()
     {
-        return $this->fetchesRecipeId();
+        return $this->fetchRecipeAuthoAndTitle();
     }
 
     public function getRecipeInfoById()
