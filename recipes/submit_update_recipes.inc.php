@@ -16,40 +16,35 @@
 $data = $_SERVER['REQUEST_METHOD'] === 'GET';
 $err = [];
 $loggedUser = LoginController::checkLoggedStatus();
-
-// if (!isset($loggedUser['email'])) {
-
-// }
+$sessionName = 'INFO_RECIPE';
+$params = [
+    'fields' => ['*'],
+    'table'=> ['recipes r'],
+    'join' => ['images i' => 'r.recipe_id = i.recipe_id']
+];
 
 /**
  * Grabbing URL ID from index page and fetching rows datas
  */
 if($data && isset($_GET['id']) && is_numeric($_GET['id'])) {
+    // Grab ID from the url
+    $getID = $_GET['id'];
+    $id = new RecipeView($getID);
 
-    $getDatas = $_GET['id'];
-    $checkId = new RecipeView($getDatas);
-
-    $getInfos = $checkId->getRecipeInfoById();
-    // echo $getInfos['custom_ingredients'];
-    // echo '<pre>';
-    // print_r($getInfos);
-    // echo '</pre>';
+    // Retrieve all recipe infos
+    $getInfos = $id->retrieveFromTable($params, $sessionName);
+    // After this point, 'submit' event is handled by JavaScript
 } else {
-    // echo ('pas did');
-    // echo $_GET['id'] . 'test';
-    // print_r($_GET);
     header('Location: ../index.php?error=no-update-id');
     exit("Il n'y a malheureusement plus rien à voir !");
 }
 
-// echo json_encode($getInfos);
-echo $getInfos['author'];
-
+// Check for errors
 $err = CheckInput::getErrorMessages();
+// Show errors
 $errorMessage = CheckInput::showErrorMessage();
 ob_start()
 
-//&& $getInfos['author'] === $loggedUser['email'] 
 ?>
 <?php if ((isset($loggedUser['email']) || isset($_SESSION['LOGGED_USER'])) && $getInfos['author'] === $loggedUser['email'] && !isset($_SESSION['UPDATED_RECIPE'])):?>
     <h1>Recette à éditer : <?= htmlspecialchars($getInfos['title'])?></h1>
@@ -57,7 +52,6 @@ ob_start()
     <?php include '../templates/recipe_layout.php'?>
     <?php include '../templates/recipe_creation_menu.html'?>
     
-<?php // endif?>
 <!-- start of success message -->
 
 <?php elseif (isset($_SESSION['UPDATED_RECIPE'])):?>
