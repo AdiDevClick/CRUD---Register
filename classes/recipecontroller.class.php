@@ -35,9 +35,13 @@ class RecipeController extends Recipe
             die('Erreur : ' . $e->getMessage() . " Nous n'avons pas pu récupérer cette recette ");
         }
     }
-    public function getSelfData() {
-        return (int) $this->getData;
-    }
+    // public function getSelfData() {
+    //     return (int) $this->getData;
+    // }
+
+    // protected function setOptionnalData($param) {
+    //     $this->optionnalData = $param;
+    // }
 
     protected function insertRecipe()
     {
@@ -54,6 +58,7 @@ class RecipeController extends Recipe
                 $checkInput = new CheckInput(
                     $this->getData
                 );
+                // die(var_dump($this->getData));
 
                 foreach ($this->getData as $key => $value) {
                     if ($key !== 'video_link') {
@@ -62,7 +67,6 @@ class RecipeController extends Recipe
                 }
 
                 $checkInput->checkInputs();
-
                 if (empty($checkInput->getErrorsArray())) {
                     $id = $this->setRecipes($loggedUser['email'], $sanitized_Datas);
                     $data = $id;
@@ -331,10 +335,10 @@ class RecipeController extends Recipe
                 throw new Error("LGGDUSROFF  : Veuillez vous identifier avant de pouvoir mettre à jour une recette.") ;
             }
             if (!isset($recipeId)) {
-                $id = [];
                 // Checks if the content is legit
                 // TO BE FIXED
                 $this->checkIds();
+                // die(var_dump($this->getData)) ;
 
                 $checkInput = new CheckInput(
                     $this->getData
@@ -347,6 +351,7 @@ class RecipeController extends Recipe
                 $checkInput->checkInputs();
 
                 if (empty($checkInput->getErrorsArray())) {
+                    $id = [];
                     $update_Status = $this->updateRecipes($sanitized_Datas);
                     $update_Status['update_status'] === 'success' ?
                         null :
@@ -356,17 +361,16 @@ class RecipeController extends Recipe
                             'query_type' => 'update'
                         ];
                     // echo json_encode(['update_status' => 'success']);
-                    
+                    // Sets infos inside the User Session
+                    $recipeId = [
+                        'updatedRecipeInfos' => $this->getData
+                        // 'updatedRecipeInfos' => $id
+                    ];
+                    $_SESSION['UPDATED_RECIPE'] = $recipeId;
+                    return $id;
                 } else {
                     echo json_encode($checkInput->getErrorsArray());
                 }
-                // Sets infos inside the User Session
-                $recipeId = [
-                    'updatedRecipeInfos' => $this->getData
-                    // 'updatedRecipeInfos' => $id
-                ];
-                $_SESSION['UPDATED_RECIPE'] = $recipeId;
-                return $id;
             }
         } catch (Error $e) {
             die('Erreur : ' . $e->getMessage() . " Nous n'avons pas pu mettre à jour cette recette ");
