@@ -17,7 +17,7 @@ include_once('../includes/functions.inc.php');
 
 $fetchData = $_SERVER['REQUEST_METHOD'] === 'GET';
 $data = $_SERVER['REQUEST_METHOD'] === 'POST';
-$getIdDatas;
+$id;
 $is_Post = true;
 $session = 'REGISTERED_RECIPE';
 
@@ -85,26 +85,46 @@ if (isset($_GET['query'])) {
 
 }
 
-/**
- * LORS D'UNE MISE A JOUR :
- * Récupère et renvoi l'ID de la recette au script JS 'RecipePreparation.js'
- * Cela permet d'afficher les ingrédients dynamiques liés à la recette
- */
-if ($fetchData && isset($_GET['id'])) {
-    $getIdDatas = $_GET['id'];
-    $setRecipe = new RecipeView($getIdDatas);
-    $setRecipe->fetchIngredientsById();
-}
 
-/**
- * IMPORTANT !!
- * LORS DE L'ENVOI DU FORMULAIRE POUR UNE MISE A JOUR :
- * Récupère à nouveau l'ID de la recette pour la passer au serveur
- */
-if (isset($_GET['id'])) {
-    $getIdDatas = $_GET['id'];
+if (isset($_GET['id']) && is_numeric($_GET['id'])) {
+    /**
+     * LORS D'UNE MISE A JOUR :
+     * Récupère et renvoi l'ID de la recette au script JS 'RecipePreparation.js'.
+     * Cela permet d'afficher les ingrédients dynamiques liés à la recette.
+     * L'ID de la recette DOIT être le même que lors de l'initialisation de la page.
+     */
+    if ($fetchData && $_SESSION['INFO_RECIPE']['INFO_RECIPE'] === $_GET['id']) {
+        // Destroy previews Session cookie
+        unset($_SESSION['INFO_RECIPE']);
+        // Prepare the new SQL params
+        $getID = $_GET['id'];
+        $sessionName = 'CUSTOM_INGREDIENTS';
+        $params = [
+            'fields' => ['custom_ingredients'],
+            'table'=> ['recipes r'],
+        ];
+        // Prepare the controller for JavaScript submit handler
+        $id = new RecipeView($getID, 'reply_Client');
+        // Send the SQL request
+        $getInfos = $id->retrieveFromTable($params, $sessionName);
+        //Destroy previews session cookie
+        unset($_SESSION['CUSTOM_INGREDIENTS']);
+        // Send the datas to JavaScript in JSON then kills the script
+        die($getInfos);
+    }
+    /**
+     * IMPORTANT !!
+     * LORS DE L'ENVOI DU FORMULAIRE POUR UNE MISE A JOUR :
+     * Récupère à nouveau l'ID de la recette pour la passer au serveur
+     */
+    // Grab ID from url
+    $id = $_GET['id'];
+    // Setting the UPDATE RECIPE intention from the user
     $is_Post = false;
+    // Setting information to pass inside the SESSION Cookie
+    // This will allow the server to display the page content
     $session = 'UPDATED_RECIPE';
+    $_SESSION[$session] = $session;
 }
 
 /**
@@ -112,12 +132,14 @@ if (isset($_GET['id'])) {
  */
 // if (!isset($_SESSION[$session]) && $data && isset($_POST)) {
 if ($data && isset($_POST)) {
+    // Sets the type of header content type to talk to JavaScript
     header('Content-Type: application/json; charset=utf-8');
-    $content = file_get_contents("php://input");
-    $dataTest = json_decode($content, true);
-    // voir si on récupère les fichiers du dessus
-    $process_Ingredients = new Process_Ajax($dataTest ?? $_POST, $_FILES, $is_Post, $getIdDatas ?? null);
-    
+    // Grab all input datas
+    $client_Side_Datas = file_get_contents("php://input");
+    // Decoding JSON data
+    $data = json_decode($client_Side_Datas, true);
+    // Voir si on récupère les fichiers du dessus
+    $process_Ingredients = new Process_Ajax($data ?? $_POST, $_FILES, $is_Post, $session, $id ?? null);
     // Remove session user cookies
     unset($_SESSION[$session]);
 
