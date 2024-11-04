@@ -483,31 +483,18 @@ class Recipe extends Mysql
             WHERE recipes.recipe_id = :recipe_id;';
 
         $updateRecipeStatement = $this->connect()->prepare($sqlQuery);
-        // try {
-        //     //code...
-        // } catch (\Throwable $th) {
-        //     //throw $th;
-        // }
 
         if (!$updateRecipeStatement->execute($data)) {
             $updateRecipeStatement = null;
-            // echo('fauked');
-            //throw new Error((string)header("Location: ".Functions::getUrl()."?error=stmt-failed"));
             throw new Error("stmt Failed");
         }
-
         $status = 'success';
+
         if ($updateRecipeStatement->rowCount() == 0) {
             $updateRecipeStatement = null;
-            //echo strip_tags("Cette recette ne peut pas être mise à jour, elle n'existe pas.");
-            //throw new Error((string)header("Location: ".Functions::getUrl()."?error=uprecipeid-not-found"));
-            // echo json_encode(['update_status' => 'RCPUPDTSTMTEXECNT']);
             $status = 'RCPUPDTSTMTEXECNT';
-            // throw new Error("RCPUPDTSTMTEXECNT - Vous n'avez fait aucun changement.");
-            // throw new Error("Cette recette ne peut pas être mise à jour, elle n'existe pas.");
-            //header("Location :" .Functions::getUrl(). "?error=recipe-not-found");
-            //exit();
         }
+
         return ['update_status' => $status];
     }
 
