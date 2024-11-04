@@ -1,0 +1,40 @@
+# Ignore the .env file containing environment variables
+.env
+
+# Ignore directories for temporary files
+/tmp
+/logs
+/cache
+/storage
+
+# Ignore uploaded files
+uploads/
+
+# Ignore Composer dependency files
+/vendor
+
+# Ignore OS-specific files
+.DS_Store
+Thumbs.db
+
+# Ignore IDE-specific files
+.idea
+.vscode
+
+# Ignore node_modules if you use JavaScript dependencies
+/node_modules
+
+# Ignore PHPStorm specific files
+/.phpstorm.meta.php
+
+# Ignore other misc files
+*.log
+*.lock
+*.sql
+*.sqlite
+
+# Ignore error log file
+error_log.txt
+
+# Ignore TO-DELETE folder at the root
+/TO-DELETE/
