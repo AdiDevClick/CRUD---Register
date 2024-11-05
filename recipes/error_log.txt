@@ -1,0 +1,2 @@
+Errors : [2] Undefined array key "description" - C:\xampp\htdocs\recettes\templates\recipe_layout.php:70
+Errors : [2] Undefined array key "description" - C:\xampp\htdocs\recettes\templates\recipe_layout.php:70
