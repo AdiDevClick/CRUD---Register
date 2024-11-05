@@ -5,7 +5,6 @@ declare(strict_types=1);
 if(session_status() !== PHP_SESSION_ACTIVE || session_status() === PHP_SESSION_NONE) {
     session_start();
 }
-// $_SESSION['LAST_ID'] !== 0 || null ? null : $_SESSION['LAST_ID'] = 0;
 
 // Sets last search index in database
 $_SESSION['LAST_ID'] ?? $_SESSION['LAST_ID'] = 0;
@@ -102,6 +101,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
         $params = [
             'fields' => ['custom_ingredients'],
             'table'=> ['recipes r'],
+            'error' => ["Erreur dans la récupération d'ingrédients"],
         ];
         // Prepare the controller for JavaScript submit handler
         $id = new RecipeView($getID, 'reply_Client');
