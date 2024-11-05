@@ -159,6 +159,14 @@ Compréhension des types d'erreurs
 
 <br>
 
+### Les erreurs de suppression de données dans la database :
+1. `Delete => DLT`
+	- `Delete recipe => RCP`
+	- `Delete image => IMG`
+	- `Delete user => USR`
+
+<br>
+
 
 ### Les codes erreur :
 
@@ -179,6 +187,8 @@ Compréhension des types d'erreurs
 	- RCPLGGDUSROFF - Veuillez vous identifier avant de partager une recette.
 	- RCPDATACHK - Vous n'avez pas sélectionné la bonne recette
 	- RCPUPDTSTMTEXECNT - Aucun changement opéré
+	- DLTRCP - Impossible de supprimer la recette
+	- DLTIMG - Impossible de supprimer l'image
 
 
 URL utiles :
