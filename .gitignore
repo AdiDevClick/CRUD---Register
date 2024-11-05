@@ -34,7 +34,7 @@ Thumbs.db
 *.sqlite
 
 # Ignore error log file
-*error_log.txt
+*/error_log.txt
 
 # Ignore TO-DELETE folder at the root
 /TO-DELETE/
