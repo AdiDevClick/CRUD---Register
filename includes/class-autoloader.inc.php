@@ -6,6 +6,18 @@ class Autoloader
     {
         spl_autoload_register(function ($class) {
             $file = dirname(__DIR__) . DIRECTORY_SEPARATOR . 'classes' . DIRECTORY_SEPARATOR . str_replace('\\', DIRECTORY_SEPARATOR, $class).'.class.php';
+            
+            if (!file_exists($file)) {
+                // Recherche récursive des fichiers dans les sous-dossiers
+                $files = glob(dirname(__DIR__) . DIRECTORY_SEPARATOR . 'classes' . DIRECTORY_SEPARATOR . '**' . DIRECTORY_SEPARATOR . '*.class.php');
+                foreach ($files as $f) {
+                    if (strpos($f, str_replace('\\', DIRECTORY_SEPARATOR, $class) . '.class.php') !== false) {
+                        $file = $f;
+                        break;
+                    }
+                }
+            }
+            
             if (file_exists($file)) {
                 require $file;
                 return true;
@@ -14,6 +26,7 @@ class Autoloader
         });
     }
 }
+
 
 Autoloader::register();
 
