@@ -539,6 +539,7 @@ export class SearchBar
         this.#loading = true
         try {
             this.#createOrUpdateNewUrl('update', null, null, this.#page, this.#limit)
+            // Lancer la recherche
             this.#searchResults = await fetchJSON(this.#url)
 
             if (this.#searchResults.length <= 0) {
