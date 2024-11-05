@@ -20,7 +20,8 @@ $sessionName = 'INFO_RECIPE';
 $params = [
     'fields' => ['*'],
     'table'=> ['recipes r'],
-    'join' => ['images i' => 'r.recipe_id = i.recipe_id']
+    'join' => ['images i' => 'r.recipe_id = i.recipe_id'],
+    'error' => ["Erreur dans la récupération de la recette"],
 ];
 
 /**
