@@ -1,5 +1,5 @@
 import { fetchJSON } from "../functions/api.js"
-import { createElement, debounce, wait, waitAndFail } from "../functions/dom.js"
+import { createElement, debounce, importThisModule, wait, waitAndFail } from "../functions/dom.js"
 import { resetURL } from "../functions/url.js"
 import { closeMenu } from "../script.js"
 // import { Carousel } from "./Carousel.js"
@@ -623,8 +623,9 @@ export class SearchBar
         // document.addEventListener("DOMContentLoaded", async (e) => {
             if (!updateStyle) {
                 try {
-                    const module = await import('./Carousel.js')
-                    const Carousel = module.Carousel
+                    // const module = await import('./Carousel.js')
+                    // const Carousel = module.Carousel
+                    const Carousel = await importThisModule('Carousel')
                     // this.#carousel = new Carousel("", "")
                     // this.#carousel = new Carousel(document.querySelector('#carousel1'), {
                     //     visibleSlides: 3,
