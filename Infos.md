@@ -223,3 +223,25 @@ TODO : fix l'échappement de ' dans la db pour les ingrédients
 TODO : Enlever de l'historique la page d'update une fois que c'est validé ou non
 TODO : Fix la barre de navigation; l'espace entre accueil et l'icone search n'est pas raccord
 TODO : créer une page de compte utilisateur
+
+Voici un équivalent de requête possible :
+// $limit = $optionnal['limit'];
+// $optionnal['resetState'] == 1 ? $_SESSION['LAST_ID'] = 0 : null;
+// $sqlRecipe = "SELECT r.recipe_id, r.title, r.author, i.img_path, i.youtubeID,
+//         MATCH title
+//             AGAINST(:word IN BOOLEAN MODE) AS score
+//         FROM recipes r
+//         LEFT JOIN images i
+//             ON i.recipe_id = r.recipe_id
+//         WHERE r.is_enabled = 1 AND r.recipe_id > :id
+//         HAVING score > 0
+//         ORDER BY r.recipe_id ASC
+//         LIMIT $limit;";
+// $getRecipesIdStatement = $this->connect()->prepare($sqlRecipe);
+// if (!$getRecipesIdStatement->execute([
+//     'word' => $recipes . '*',
+//     'id' => $_SESSION['LAST_ID'],
+// ])) {
+//     $getRecipesIdStatement = null;
+//     throw new Error("stmt Failed");
+// }
