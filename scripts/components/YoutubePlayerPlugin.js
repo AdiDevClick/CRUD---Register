@@ -19,6 +19,7 @@ export class YoutubePlayerPlugin
      * @param {Carousel} carousel
      */
     constructor(carousel) {
+        console.log('YOUTUBE LOADED')
         this.#carousel = carousel
         this.#videoContainer = carousel.container
         // Transformation de la div en iFrame
@@ -32,6 +33,7 @@ export class YoutubePlayerPlugin
      * les informations essentielles de l'API -
      */
     #identifyPlayers() {
+        let empty = false
         const containers = this.#videoContainer.querySelectorAll('.player')
         for (const container of containers) {
             if (!this.#player[container.id] && container.tagName !== 'IFRAME') {
@@ -40,7 +42,9 @@ export class YoutubePlayerPlugin
                     id: container.id
                 }
             }
+            !container.id ? empty = true : false
         }
+        return empty
     }
 
     /**
@@ -159,7 +163,9 @@ export class YoutubePlayerPlugin
      * Sauvegarde de l'objet dans "this.#player"
      */
     #onYouTubeIframeAPIReady() {
-        this.#identifyPlayers()
+        const empty = this.#identifyPlayers()
+        // if (!this.#player.id) return
+        if (empty) return
         for (const container in this.#player) {
             const player = new YT.Player(container, {
                 // width: '360',
