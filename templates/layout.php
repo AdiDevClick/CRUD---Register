@@ -6,8 +6,8 @@ require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . "includes" . DIRECTORY_SEP
 
 header('Cache-Control: private, must-revalidate');
 
-$dev = true;
-// $dev = false;
+// $dev = true;
+$dev = false;
 $vite = false;
 // $vite = true;
 
@@ -113,9 +113,11 @@ if (!$dev) {
                 <div class="dropdown-menu">
                     <?php
                         if(!isset($_COOKIE['EMAIL'])) {
+                            // $unregisteredItems['register.php'] = ['value' => 'S\'enregistrer'];
+                            // $unregisteredItems['contact.php'] = ['value' => 'Contact'];
                             echo createMenuItems($url, $unregisteredItems);
                         } else {
-                            echo createMenuItems($url, $registeredItems);
+                            echo createMenuItems($url, $registeredItems, 'mobile registered');
                         }
                     ?>
                 </div>
@@ -172,8 +174,10 @@ if (!$dev) {
                     <?php
     if (!isset($_COOKIE['EMAIL'])) {
         echo createMenuItems($url, $unregisteredItems, 'desktop');
+        // echo createMenuItems($url, $unregisteredItems, 'mobile');
     } else {
         echo createMenuItems($url, $registeredItems, 'desktop');
+        // echo createMenuItems($url, $registeredItems, 'mobile');
     }
 ?>
                 </ul>
