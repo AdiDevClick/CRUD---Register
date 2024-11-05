@@ -27,9 +27,6 @@ class Recipe extends Mysql
             throw new Error((string)header("Location: ".Functions::getUrl()."?error=stmt-failed"));
             //header("Location : ".$url->getThisUrl(). "?error=user-not-found");
         }
-        /* $usersStatement = null;
-        header("Location : ".Functions::getUrl(). "?error=stmt-failed");
-        exit(); */
     }
 
     /**

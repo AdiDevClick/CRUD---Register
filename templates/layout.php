@@ -117,7 +117,7 @@ if (!$dev) {
                         } else {
                             echo createMenuItems($url, $registeredItems);
                         }
-?>
+                    ?>
                 </div>
             <!-- </div> -->
             <div class="logo">
@@ -245,9 +245,9 @@ if(!isset($_COOKIE['EMAIL'])) {
         <div class="">
             <p>© 2023 Copyright <a class="" href="https://github.com/AdiDevClick/">Adi Dev Click</a></p>
             <?php
-echo createMenuItems($url, null, 'footer');
-require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . "templates" . DIRECTORY_SEPARATOR . "light_dark_theme_button.html"
-?>
+                echo createMenuItems($url, null, 'footer');
+                require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . "templates" . DIRECTORY_SEPARATOR . "light_dark_theme_button.html"
+            ?>
         </div>
     </footer>
     <!-- end of footer -->
