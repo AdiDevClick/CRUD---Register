@@ -448,7 +448,12 @@ export async function importThisModule(className, object = {}, pathName = classN
             if (typeof ModuleClass !== 'function') {
                 throw new Error(`La classe importée n'est pas une fonction constructeur : ${ModuleClass}`);
             }
+
+            if (className === 'Carousel') {
+                return ModuleClass
+            }
             const module = new ModuleClass(object)
+            // console.log(module)
             return module
         } catch (error) {
             // Continue to the next path if the module is not found
