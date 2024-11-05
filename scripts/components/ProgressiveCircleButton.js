@@ -92,10 +92,10 @@ export class ProgressiveCircleButton {
         this.#setStyle()
 
         // Events
-        window.addEventListener('DOMContentLoaded', e => {
-            this.#mutationObserver = new MutationObserver(this.#handleMutation)
-            this.#mutationObserver.observe(this.#buttonContainer, { attributes: true, subtree: true, attributeOldValue: true })
-        })
+        // window.addEventListener('DOMContentLoaded', e => {
+        this.#mutationObserver = new MutationObserver(this.#handleMutation)
+        this.#mutationObserver.observe(this.#buttonContainer, { attributes: true, subtree: true, attributeOldValue: true })
+        // })
     }
 
     /**
