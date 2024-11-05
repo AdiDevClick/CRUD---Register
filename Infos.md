@@ -219,12 +219,24 @@ Fonction: importThisModule(className, object = {})
 ```
 <br>
 
-TODO : fix l'échappement de ' dans la db pour les ingrédients
-TODO : Enlever de l'historique la page d'update une fois que c'est validé ou non
-TODO : Fix la barre de navigation; l'espace entre accueil et l'icone search n'est pas raccord
-TODO : créer une page de compte utilisateur
+#TODO : fix l'échappement de ' dans la db pour les ingrédients
+#TODO : Enlever de l'historique la page d'update une fois que c'est validé ou non
+#TODO : Fix la barre de navigation; l'espace entre accueil et l'icone search n'est pas raccord
+#TODO : créer une page de compte utilisateur
+#TODO : séparer dans une fonction secondaire la gestion des boutons d'envoi
+#TODO : Faire en sorte que le bouton d'envoi en mode desktop fonctionne
 
-Voici un équivalent de requête possible :
+
+
+
+
+
+
+
+
+
+
+# Voici un équivalent de requête SQL possible :
 // $limit = $optionnal['limit'];
 // $optionnal['resetState'] == 1 ? $_SESSION['LAST_ID'] = 0 : null;
 // $sqlRecipe = "SELECT r.recipe_id, r.title, r.author, i.img_path, i.youtubeID,
