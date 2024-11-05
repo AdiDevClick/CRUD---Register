@@ -33,37 +33,26 @@ class Recipe extends Mysql
         return $SQLData;
     }
 
-
-    // protected function getddFromTable(string $sqlQuery, int $recipeId, bool $silentMode = false)
-    // {
-    //     // Prepare Statement
-    //     $getRecipeStatement = $this->connect()->prepare($sqlQuery);
-        
-    //     // Execute SQLRequest searching by the ID from params
-    //     if (!$getRecipeStatement->execute(['recipe_id' => $recipeId])) {
-    //         $getRecipeStatement = null;
-    //         throw new Error("stmt Failed");
-    //     }
-
-    //     // If no row exists, fail
-    //     if (!$silentMode && $getRecipeStatement->rowCount() == 0) {
-    //         $getRecipeStatement = null;
-    //         // if ($this->optionnalData === 'reply_Client') echo json_encode(['recipe_id' => $recipeId]);
-    //         // Send a first Error
-    //         throw new Error("Cette recette n'existe pas");
-    //     }
-        
-    //     // Grab results
-    //     $recipeInfos = $getRecipeStatement->fetch(PDO::FETCH_ASSOC);
-        
-    //     // If it's an UPDATE RECIPE Request - JS Client submit handler
-    //     if ($this->optionnalData === 'reply_Client') return json_encode($recipeInfos);
-        
-    //     return $recipeInfos;
-    // }
-
+    /**
+     * Récupère les titres des recettes en fonction d'un mot clé et des options fournies.
+     *
+     * Cette fonction construit dynamiquement une requête SQL pour rechercher des recettes correspondant à un mot clé.
+     * Les résultats peuvent inclure plusieurs champs et utiliser des jointures, des clauses MATCH, des conditions WHERE dynamiques, et des options de pagination.
+     *
+     * @param string $recipes Le mot clé à rechercher dans les titres de recettes.
+     * @param array $optionnal Options supplémentaires pour la requête, y compris la limite et l'état de réinitialisation.
+     * ```php
+     * Exemple :
+     *  $optionnal = [
+     *      'limit' => 10,
+     *      'resetState' => 1
+     *  ];
+     * ```
+     * @return array Un tableau associatif contenant les informations des recettes trouvées.
+     */
     protected function getRecipesTitles(string $recipes, array $optionnal): array
     {
+        // Paramètres de la requête SQL
         $params = [
             "limit"=> $optionnal['limit'],
             "fields" => ['r.recipe_id', 'r.title', 'r.author', 'i.img_path', 'i.youtubeID'],
@@ -87,50 +76,52 @@ class Recipe extends Mysql
             "error" => ['Fetch Error']
         ];
 
-        // die(var_dump($this->optionnalData()));
+        // Instancie la classe Database avec les options spécifiées
         $Fetch = new Database($this->optionnalData(), [
             'fetchAll' => true,
             'silentMode'=> true
         ]);
+
+        // Exécute la requête et retourne les résultats
         $SQLData = $Fetch->__createGetQuery($params, null, $this->connect(), $optionnal);
         return $SQLData;
         
-        $limit = $optionnal['limit'];
-        $optionnal['resetState'] == 1 ? $_SESSION['LAST_ID'] = 0 : null;
-        $sqlRecipe = "SELECT r.recipe_id, r.title, r.author, i.img_path, i.youtubeID,
-                MATCH title
-                    AGAINST(:word IN BOOLEAN MODE) AS score
-                FROM recipes r
-                LEFT JOIN images i
-                    ON i.recipe_id = r.recipe_id
-                WHERE r.is_enabled = 1 AND r.recipe_id > :id
-                HAVING score > 0
-                ORDER BY r.recipe_id ASC
-                LIMIT $limit;";
-        $getRecipesIdStatement = $this->connect()->prepare($sqlRecipe);
-        if (!$getRecipesIdStatement->execute([
-            'word' => $recipes . '*',
-            'id' => $_SESSION['LAST_ID'],
-        ])) {
-            $getRecipesIdStatement = null;
-            throw new Error("stmt Failed");
-        }
+        // $limit = $optionnal['limit'];
+        // $optionnal['resetState'] == 1 ? $_SESSION['LAST_ID'] = 0 : null;
+        // $sqlRecipe = "SELECT r.recipe_id, r.title, r.author, i.img_path, i.youtubeID,
+        //         MATCH title
+        //             AGAINST(:word IN BOOLEAN MODE) AS score
+        //         FROM recipes r
+        //         LEFT JOIN images i
+        //             ON i.recipe_id = r.recipe_id
+        //         WHERE r.is_enabled = 1 AND r.recipe_id > :id
+        //         HAVING score > 0
+        //         ORDER BY r.recipe_id ASC
+        //         LIMIT $limit;";
+        // $getRecipesIdStatement = $this->connect()->prepare($sqlRecipe);
+        // if (!$getRecipesIdStatement->execute([
+        //     'word' => $recipes . '*',
+        //     'id' => $_SESSION['LAST_ID'],
+        // ])) {
+        //     $getRecipesIdStatement = null;
+        //     throw new Error("stmt Failed");
+        // }
 
-        if ($getRecipesIdStatement->rowCount() == 0) {
-            $_SESSION['LAST_ID'] = 0;
-            $getRecipesIdStatement = null;
-            return $data = [];
-        }
+        // if ($getRecipesIdStatement->rowCount() == 0) {
+        //     $_SESSION['LAST_ID'] = 0;
+        //     $getRecipesIdStatement = null;
+        //     return $data = [];
+        // }
 
-        if ($getRecipesIdStatement->rowCount() > 0) {
-            while ($recipesArray = $getRecipesIdStatement->fetch(PDO::FETCH_ASSOC)) {
-                if ($recipesArray['recipe_id'] > $_SESSION['LAST_ID']) {
-                    $_SESSION['LAST_ID'] = $recipesArray['recipe_id'];
-                    $data[] = $recipesArray;
-                }
-            }
-            return $data;
-        }
+        // if ($getRecipesIdStatement->rowCount() > 0) {
+        //     while ($recipesArray = $getRecipesIdStatement->fetch(PDO::FETCH_ASSOC)) {
+        //         if ($recipesArray['recipe_id'] > $_SESSION['LAST_ID']) {
+        //             $_SESSION['LAST_ID'] = $recipesArray['recipe_id'];
+        //             $data[] = $recipesArray;
+        //         }
+        //     }
+        //     return $data;
+        // }
     }
 
     /**
