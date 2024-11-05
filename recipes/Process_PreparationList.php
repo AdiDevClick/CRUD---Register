@@ -86,13 +86,14 @@ if (isset($_GET['query'])) {
 
 
 if (isset($_GET['id']) && is_numeric($_GET['id'])) {
+
     /**
      * LORS D'UNE MISE A JOUR :
      * Récupère et renvoi l'ID de la recette au script JS 'RecipePreparation.js'.
      * Cela permet d'afficher les ingrédients dynamiques liés à la recette.
      * L'ID de la recette DOIT être le même que lors de l'initialisation de la page.
      */
-    if ($fetchData && $_SESSION['INFO_RECIPE']['INFO_RECIPE'] === $_GET['id']) {
+    if ($fetchData && isset($_SESSION['INFO_RECIPE']) && $_SESSION['INFO_RECIPE']['INFO_RECIPE'] === $_GET['id']) {
         // Destroy previews Session cookie
         unset($_SESSION['INFO_RECIPE']);
         // Prepare the new SQL params
@@ -109,6 +110,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
         $getInfos = $id->retrieveFromTable($params, $sessionName);
         //Destroy previews session cookie
         unset($_SESSION['CUSTOM_INGREDIENTS']);
+
         // Send the datas to JavaScript in JSON then kills the script
         die($getInfos);
     }
@@ -125,6 +127,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
     // This will allow the server to display the page content
     $session = 'UPDATED_RECIPE';
     $_SESSION[$session] = $session;
+
 }
 
 /**
@@ -132,6 +135,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
  */
 // if (!isset($_SESSION[$session]) && $data && isset($_POST)) {
 if ($data && isset($_POST)) {
+
     // Sets the type of header content type to talk to JavaScript
     header('Content-Type: application/json; charset=utf-8');
     // Grab all input datas
