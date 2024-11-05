@@ -12,7 +12,8 @@ $loggedUser = LoginController::checkLoggedStatus();
 $sessionName = 'DELETE_RECIPE';
 $params = [
     'fields' => ['r.title', 'r.author'],
-    'table'=> ['recipes r']
+    'table'=> ['recipes r'],
+    'error' => ["STMTGETRCP"],
 ];
 // unset($_SESSION[$sessionName]);
 /**
@@ -49,7 +50,7 @@ if ($serverData && isset($_POST['submit'])) {
             header('Location: ../index.php?delete=error');
             exit("Il n'y a malheureusement plus rien à voir !");
         }
-    } catch (\Throwable $th) {
+    } catch (\Throwable $e) {
         unset($_SESSION[$sessionName]);
         die('Erreur : '. $e->getMessage()) . ' Nous ne pouvons pas supprimer cette recette. ';
     }
