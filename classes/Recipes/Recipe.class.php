@@ -24,11 +24,10 @@ class Recipe extends Mysql
             'silentMode' => $silentMode
             ]
         );
-        // $Fetch = new Database($this->optionnalData());
-        
+
         // Génère et exécute la requête SQL pour récupérer les données
         $SQLData = $Fetch->__createGetQuery($params, $recipeId, $this->connect());
-        // die(var_dump($SQLData));
+        
         // Retourne les données SQL récupérées
         return $SQLData;
     }
