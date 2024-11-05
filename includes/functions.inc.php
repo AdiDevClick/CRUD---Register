@@ -72,6 +72,11 @@ function createMenuItems(string $page, array $items = null, string $menuType = '
         $list_Items['register.php'] = ['value' => 'S\'enregistrer'];
     }
 
+    if ($menuType === 'mobile registered') {
+        $list_Items['contact.php'] = ['value' => 'Contact'];
+        // $list_Items['register.php'] = ['value' => 'S\'enregistrer'];
+    }
+
     if ($menuType === 'footer') {
         $list_Items = [
             'contact.php' => ['value' => 'Contact'],
@@ -91,6 +96,7 @@ function createMenuItems(string $page, array $items = null, string $menuType = '
         $class = ((isset($value['page']) && $page === $value['page']) || $page === $key ? $active . ' ' : '') . ($value['class'] ?? '');
         $menuItems .= '<li><a class="' . $class . '" href=" '. $rootUrl . $clicServer . '/' . $key . '">' . $value['value'] . '</a></li>';
     }
+    // return var_dump($list_Items);
     return $menuItems;
 }
 
