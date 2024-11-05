@@ -220,4 +220,6 @@ Fonction: importThisModule(className, object = {})
 <br>
 
 TODO : fix l'échappement de ' dans la db pour les ingrédients
-TODO : fix l'image doit être insérée par défaut pour pouvoir update la recette convenablement
+TODO : Enlever de l'historique la page d'update une fois que c'est validé ou non
+TODO : Fix la barre de navigation; l'espace entre accueil et l'icone search n'est pas raccord
+TODO : créer une page de compte utilisateur
