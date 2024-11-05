@@ -91,13 +91,23 @@ export class Carousel
      */
     #handleResize = debounce( (entries, observer) => {
         entries.forEach(entry => {
-            let mobile = window.innerWidth < 800
+            let tablet = window.innerWidth < 800
+            if (tablet !== this.#isTablet) {
+                this.#isTablet = tablet
+                // this.setStyle()
+                // this.#moveCallbacks.forEach(cb => cb(this.currentItem))
+                // return
+            }
+            let mobile = window.innerWidth < 577
             if (mobile !== this.#isMobile) {
                 this.#isMobile = mobile
-                this.setStyle()
-                this.#moveCallbacks.forEach(cb => cb(this.currentItem))
-                return
+                // this.setStyle()
+                // this.#moveCallbacks.forEach(cb => cb(this.currentItem))
+                // return
             }
+            this.setStyle()
+            this.#moveCallbacks.forEach(cb => cb(this.currentItem))
+            return
         })
         return
     }, 50)
@@ -106,6 +116,8 @@ export class Carousel
     #moveCallbacks = []
     /** @type {Boolean} */
     #isMobile = false
+    /** @type {Boolean} */
+    #isTablet = false
     /** @type {HTMLElement} */
     #loadingBar
     /** @type {Number} */
@@ -146,7 +158,6 @@ export class Carousel
      * @param {boolean} [options.grid=false] Permet de définir un affichage de type "GRID" - par défaut : false
      */
     constructor(element, options = {}) {
-        console.log('je tente la création');
         if (!Carousel.#isInternalConstructing) {
             throw new TypeError("Carousel PrivateConstructor is not constructable");
         }
@@ -241,19 +252,23 @@ export class Carousel
      * Charge les plugins quand nécessaires seulement -
      * Les plugins : Hover / Touch / Youtube iFrame
      */
-    #loadModules() {
+    async #loadModules() {
         try {
             if (this.options.automaticScrolling) {
-                importThisModule('CarouselHoverPlugin', this)
+                const HoverPlugin = await importThisModule('CarouselHoverPlugin', this)
+                // console.log(HoverPlugin)
+
                 // new CarouselHoverPlugin(this)
                 // CarouselHoverPlugin.create
             }
-            importThisModule('YoutubePlayerPlugin', this)
+            const YoutubePlugin = await importThisModule('YoutubePlayerPlugin', this)
+            // console.log(YoutubePlugin)
             if (!this.options.grid) {
-                importThisModule('CarouselTouchPlugin', this)
+                const TouchPlugin = await importThisModule('CarouselTouchPlugin', this)
+                // console.log(TouchPlugin)
             }
         } catch (error) {
-            console.log(error)
+            console.log('Etrange...', error)
         }
     }
 
@@ -303,7 +318,9 @@ export class Carousel
         this.#moveCallbacks.forEach(cb => cb(this.currentItem))
         let ratio = this.items.length / this.#visibleSlides
         // this.container.style.width = (100) + "%"
-        
+        // if (this.#isMobile) this.options.grid = false
+        // If grid = true, container will always take 100% of available space
+        // If not, it will overflow to let user know it can be slid
         this.options.grid === true ?
             this.container.style.width = "100%" :
             this.container.style.width = (ratio * 100) + "%"
@@ -313,15 +330,28 @@ export class Carousel
         // this.container.style.gridTemplateColumns = 'repeat(5, 1fr)'
         // this.container.style.display = 'flex'
 
-
         // this.container.style.height = (ratio * 100)
         this.items.forEach(item => {
+            // if (this.options.grid === true ) {
+            //     // item.style.width = (100 / this.#visibleSlides)+ "%"
+            //     if (this.#isMobile) {
+            //         item.style.width = ((100) + "%")
+            //     } else {
+            //         item.style.width = (100 / this.#visibleSlides)+ "%"
+            //     }
+            //     // if (this.#isMobile) item.style.width = ((100) + "%")
+            // } else {
+            //     item.style.width = ((100 / this.#visibleSlides) / ratio) + "%"
+            // }
+            
             this.options.grid === true ?
                 item.style.width = (100 / this.#visibleSlides)+ "%" :
                 item.style.width = ((100 / this.#visibleSlides) / ratio) + "%"
-            
-            // item.style.width = "20%"
-            //
+            // console.log(this.container)
+            // console.log(item)
+            // console.log(((100 / this.#visibleSlides) / ratio) + "%")
+            // // item.style.width = "20%"
+            // item.style.width = ((100) + "%")
         })
     }
 
@@ -807,12 +837,31 @@ export class Carousel
 
     /** @returns {number} */
     get #slidesToScroll() {
+        // if (this.#isMobile) {
+        //     return 1
+        // }
+        // if (this.#isTablet) {
+        //     return 2
+        // }
         return this.#isMobile ? 1 : this.options.slidesToScroll
     }
 
     /** @returns {number} */
     get #visibleSlides() {
-        return this.#isMobile ? (this.options.grid ? 2 : 1) : this.options.visibleSlides
+        if (this.#isMobile) {
+            if (this.options.grid) {
+                return 1
+            } else {
+                return 1
+            }
+        }
+        if (this.#isTablet) {
+            if (this.options.grid) {
+                return 2
+            }
+        }
+        return this.options.visibleSlides
+        // return this.#isMobile ? (this.options.grid ? 2 : 1) : this.options.visibleSlides
     }
 
     /** @returns {number} */
@@ -842,7 +891,7 @@ export class Carousel
      * Si une vidéo est trouvée, elle sera automatiquement transformée en iFrame -
      * @param {HTMLElement} item Une nouvelle carte à display
      */
-    appendToContainer(item) {
+    async appendToContainer(item) {
         // Sauvegarde de l'item
         // this.initialItemsArray.push(item)
         // Fin de sauvegarde
@@ -857,7 +906,7 @@ export class Carousel
 
         // this.#player.deleteIFrames
         // this.#player.APIReady
-        this.#player = importThisModule('YoutubePlayerPlugin', this)
+        this.#player = await importThisModule('YoutubePlayerPlugin', this, 'test')
         // this.setStyle()
     }
 
