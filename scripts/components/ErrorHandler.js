@@ -924,6 +924,7 @@ export class ErrorHandler {
      * @returns
      */
     #isInputChecked(event) {
+        console.log(event)
         // event.preventDefault()
         let isArray = false
         let target = []
@@ -975,14 +976,11 @@ export class ErrorHandler {
         // console.log(arrayKey)
         // console.log(event)
         
-        console.log(target)
-
         for (const key in arrayKey) {
             let element
             if (isArray) {
                 for (const el of target) {
                     element = Array.from(el.querySelector(arrayKey[key].id)).filter(t => t)
-                    console.log(element)
                 }
                 // target.forEach(el => {
                 //     element = el.querySelector(arrayKey[key].id)
@@ -1042,7 +1040,6 @@ export class ErrorHandler {
      * @returns
      */
     #checkBatchOfInputs(array) {
-        console.log(array)
         const arrayKey = []
         const errors = []
         const data = new FormData(this.#form)
@@ -1069,37 +1066,38 @@ export class ErrorHandler {
                 }
             }
         }
-        // for (const elem of array) {
-            for (const key in arrayKey) {
-                array.forEach(elems => {
-                    let element
-
-                    // elems.childNodes.forEach(el => {
-                        for (const el in elems.childNodes) {
-                            console.log(el)
-                            if (!arrayKey[key].id) return
-                            if (el.id !== arrayKey[key].id.split('#')[1]) return
-                                element = el
-                            return
-                        }
-                        // if (!arrayKey[key].id) return
-                        // if (el.id !== arrayKey[key].id.split('#')[1]) return
-                        //     element = el
-                        // return
-                    // })
-
-                    if (element) {
-                        const validation = this.#dynamicCheck(element)
-                        errors.push(validation)
-                    }
-                })
+        for (const key in arrayKey) {
+            if (!arrayKey[key].id) continue
+            for (const element of array) {
+                if (!element) continue
+                let elementToCheck = this.#findElement(element, arrayKey[key].id.split('#')[1])
+                // console.log(elementToCheck)
+                if (elementToCheck) {
+                    const validation = this.#dynamicCheck(elementToCheck)
+                    errors.push(validation)
+                }
             }
-            if (errors.includes(false)) {
-                return false
-            } else {
-                return true
+        }
+        if (errors.includes(false)) {
+            return false
+        } else {
+            return true
+        }
+    }
+
+    // Fonction récursive pour trouver l'élément avec l'ID correspondant
+    #findElement(node, id) {
+        if (node.id === id) {
+            return node
+        }
+        
+        for (const child of node.childNodes) {
+            const found = this.#findElement(child, id)
+            if (found) {
+                return found
             }
-        // }
+        }
+        return null
     }
     // #isInputChecked() {
     //     let arrayKey = []
