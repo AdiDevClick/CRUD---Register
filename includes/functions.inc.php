@@ -131,15 +131,22 @@ function createDivWithSelectAndInputs(array $data, array $getInfos = null): stri
 }
 
 /**
- * Renvoi une DIV contenant un TEXTAREA et son LABEL
+ * Renvoi une DIV contenant un TEXTAREA et son LABEL.
+ * En dessous de 6 étapes, le bouton d'ajout d'étapes sera créé.
+ * Au dessus, il ne sera pas inclus.
+ * Par défaut : 2 étapes de créées.
+ * Nombre maximum d'étapes : 6
  * @param array $getInfos Si existant, l'array d'informations à récupérer du serveur
  * @return string
  */
 function createDivWithTextArea(array $getInfos = null): string
 {
+    $insertAddButton = true;
     $divItems = '';
     if (isset($getInfos)) {
+        // If we can retrieve data from Database
         foreach ($getInfos as $key => $value) {
+            // Insert steps depending on the data from the TABLE
             if (str_starts_with($key ,'step_') && !empty($value)) {
                 $textareaValue = htmlspecialchars((string)$getInfos[$key]);
                 // Extraire le chiffre de la chaîne $value
@@ -158,6 +165,7 @@ function createDivWithTextArea(array $getInfos = null): string
                     $step = 'cinquième';
                 } else if ($stepNumber == '6') {
                     $step = 'sixième';
+                    $insertAddButton = false;
                 }
                 
                 $divItems .= '<div class="js-form-recipe">';
@@ -166,7 +174,11 @@ function createDivWithTextArea(array $getInfos = null): string
                 $divItems .= '</div>';
             }
         }
+        // Under 6 steps, create the add button
+        if ($insertAddButton) $divItems .= insertAddButton();
+
     } else {
+        // Default steps
         $step = '';
         for ($i=1; $i < 3 ; $i++) { 
             if ($i == '1') {
@@ -179,8 +191,22 @@ function createDivWithTextArea(array $getInfos = null): string
             $divItems .= '<textarea id="step_' . strip_tags($i) . '" cols="60" rows="3" name="step_' . strip_tags($i) .'" placeholder="Renseignez votre ' . $step . ' étape"></textarea>';
             $divItems .= '</div>';
         }
+        $divItems .= insertAddButton();
     }
     return $divItems;
+}
+
+/**
+ * Retourne un lien contenant un span.
+ * Ce lien servira à rajouter des étapes pour le partage de recettes.
+ * @return
+ */
+function insertAddButton() {
+    $link = '';
+    $link .= '<a href="#step_2" class="plus three-columns">';
+    $link .= '<span></span>';
+    $link .= '</a>';
+    return $link;
 }
 
 /**
