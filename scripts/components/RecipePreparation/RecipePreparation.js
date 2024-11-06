@@ -113,12 +113,12 @@ export class IngredientsFrom {
         this.options.get ? this.options.post = false : null
 
         // Evènements
-        let count = 0
+        // let count
         this.#addStepsButton.addEventListener('click', e => {
             e.preventDefault()
-            count = this.#addSteps(e, count)
+            let count = this.#addSteps(e)
             if (count >= 5) {
-                e.preventDefault()
+                console.log(count)
                 this.#addStepsButton.disabled = true
                 this.#addStepsButton.classList.add('hidden')
                 this.#addStepsButton.remove()
@@ -334,8 +334,6 @@ export class IngredientsFrom {
 
         // Loading plugins
         if (this.#gridContainer) this.#importPlugin()
-        // if (this.#gridContainer) this.#touchPlugin = new DrawerTouchPlugin(this.#gridContainer)
-        // if (mobileGrid) this.#touchPlugin = new DrawerTouchPlugin(mobileGrid)
     }
 
     /**
@@ -506,13 +504,16 @@ export class IngredientsFrom {
      * @param {Number} count Permet de définir le nombre de textareas rajoutés -
      * @returns
      */
-    #addSteps(event, count) {
+    #addSteps(event) {
         const recipeStepsTemplate = this.#gridContainer.querySelector('#recipe-input-template').content.firstElementChild.cloneNode(true)
         const forAttribute = event.currentTarget.previousElementSibling.firstElementChild.htmlFor
+        // if (count >= 5) return count
+        let newIdNumber = forAttribute.split('_')[1]
+        let count = newIdNumber
+        console.log(count, newIdNumber)
+
         while (count < 6) {
-            let newIdNumber = forAttribute.split('_')[1]
             console.log(count, newIdNumber)
-            count = newIdNumber
 
             if (newIdNumber) newIdNumber++
             
@@ -544,6 +545,7 @@ export class IngredientsFrom {
             // count++
             return count
         }
+        return count
         // this.#addStepsButton.disabled = true
         // this.#addStepsButton.classList.add('hidden')
     }
