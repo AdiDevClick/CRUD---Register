@@ -100,67 +100,29 @@ export class IngredientsFrom {
         this.#addStepsButton = this.#gridContainer.querySelector('.plus')
         // this.#recipeStepsTemplate = document.querySelector(document.dataset.steps_template)
 
-        // const mobileGrid = document.querySelector('.mobile-only')
-        // const grid = document.querySelector('.mobile-only')
-
         this.options = Object.assign ({}, {
             post: true,
             get: false
         }, options)
-        // if (this.options.post === true) {
-        //     options
-        // }
+
         this.options.get ? this.options.post = false : null
 
+        // Create elements
+        this.#createNextAndPreviewsButtons()
+
         // Evènements
-        // let count
         this.#addStepsButton.addEventListener('click', e => {
             e.preventDefault()
+            // Hide the button if needed
             let count = this.#addSteps(e)
             if (count >= 5) {
-                console.log(count)
                 this.#addStepsButton.disabled = true
                 this.#addStepsButton.classList.add('hidden')
                 this.#addStepsButton.remove()
             }
         })
-        
-        this.#previewsButton = new ProgressiveCircleButton('left-corner', {
-            progressStart: 25,
-            flip: 'flip'
-        })
-        this.#nextButton = new ProgressiveCircleButton('right-corner', {
-            progressStart: 0
-        })
 
-        this.#previewsButton.button.style.display = 'none'
-
-        const target = this.#gridContainer.querySelector('.js-four')
-        // const target = document.querySelector('.plus')
-        target.insertAdjacentElement("afterend", this.#nextButton.button)
-        target.insertAdjacentElement("afterend", this.#previewsButton.button)
-
-        // target.append(this.#previewsButton.button, this.#nextButton.button)
-            // this.options.get ? this.options.post = false : this.options.post = true
-        // this.#template = document.querySelector('#ingredient-template')
-        // this.#target = document.querySelector(".js-ingredient-group")
-        // this.#previewsButton.button.addEventListener('mousemove', debounce( (e) => {
-        //     X = e.clientX
-        //     // if (X !== e.clientX) {
-        //     //     console.log(X)
-        //     //     return X = e.clientX
-        //     // }
-        //     console.log(X)
-        //     this.#previewsButton.progressBar = 100
-        // }, (1000)))
-        // this.#previewsButton.button.addEventListener('mouseenter', e => {
-        //     this.#previewsButton.progressBar = 0
-        //     e.currentTarget.addEventListener('click', e => {
-
-        //     })
-        // })
-
-        // On hovering the SVG
+        // On hovering the previews button
         this.#previewsButton.button.addEventListener('mouseenter', e => {
             e.preventDefault()
             const controller = new AbortController()
@@ -174,6 +136,7 @@ export class IngredientsFrom {
             // On click event
             e.target.addEventListener('click', e => {
                 e.preventDefault()
+                // Query tab items to highlight
                 const activeStep = this.#tabulation.querySelector(this.#datas[this.#submitionStep-1].class)
                 const previewslyActiveStep = this.#tabulation.querySelector(this.#datas[this.#submitionStep-2].class)
 
@@ -193,43 +156,23 @@ export class IngredientsFrom {
                 // 1 - Hide the current step content
                 if (hideNextStep) {
                     hideNextStep.forEach(element => {
-                        // this.#content[key].forEach(element => {
-                        element.classList.add('hidden')
-                        // document.querySelector('#recipe_creation').prepend(element)
-                        element.addEventListener('animationend', e => {
-                            element.style.display = 'none'
-                        }, { once: true } )
-                        // this.#previewsContent.splice(index, 1)
+                        this.#hideElement(element)
                     })
                 }
-                        // this.#content[key] = null
-                    // }
-                // 2 - Display the previews step content
-                showPreviewsStep.forEach(element => {
-                    element.classList.remove('hidden')
-                    // document.querySelector('#recipe_creation').prepend(element)
-                    element.classList.add('show')
-                    element.removeAttribute('style')
-                    element.addEventListener('animationend', e => {
-                        element.classList.remove('show')
-                    }, { once: true } )
-                })
-                        
-                        // this.#content[key] = null
-                    // }
+
+                // 2 - Display the previews step content to the user
+                this.#elementsToDisplay(showPreviewsStep)     
                     
-                // }
                 // 3 - We can now instanciate the new Step counter
                 if (this.#submitionStep > 1) {
                     this.#submitionStep--
-                    console.log('avant de toggle => ',this.#submitionStep)
-                    console.log(this.#datas)
                     // 3.1 - Show the active step in the tabulation
+                    // It will grey out the previews steps
                     // Modify the arrow / text behaviour
                     if (this.#submitionStep < 4) {
-                        // Show the arrow
+                        // Show the arrow until the last step
                         this.#nextButton.showArrow = null
-                        // Hide the share text
+                        // Hide the share text until the last step
                         this.#nextButton.showText = 'none'
                         previewslyActiveStep.classList.toggle('active')
                         activeStep.classList.toggle('active')
@@ -239,38 +182,20 @@ export class IngredientsFrom {
                 
                 // 4 - If we get back to the first step, hide the previews button
                 if (this.#submitionStep < 2) {
-                    // this.#tabulation.querySelector('.js-one').classList.toggle('greyed')
-                    // this.#tabulation.querySelector('.js-one').classList.add('active')
                     this.#previewsButton.button.style.display = 'none'
                     this.#previewsButton.button.disabled = true
-                    // this.#nextButton.progressBar = this.#nextButton.getCurrentProgress
                 }
-                
-                // const reversedArray = this.#previewsContent.reverse()
-                // reversedArray.forEach(element => {
-                //     element.classList.remove('hidden')
-                //     // document.querySelector('#recipe_creation').prepend(element)
-                //     element.classList.add('show')
-                //     element.removeAttribute('style')
-                //     element.addEventListener('animationend', e => {
-                //         element.classList.remove('show')
-                //     }, { once: true } )
-                //     // this.#previewsContent.splice(index, 1)
-                // })
-                // this.#previewsContent = []
                 
             }, { once: true, signal: controller.signal } )
             
-            // When user exits the SVG
-            this.#previewsButton.button.addEventListener('mouseleave', e => {
-                this.#previewsButton.progressBar = this.#previewsButton.oldOffsetValue
-                controller.abort()
-            }, { once: true })
+            // When user exits cursor from the button
+            this.#onMouseLeaveResetButtonProgressBarValue(this.#previewsButton.button, this.#previewsButton, controller)
         })
         
-        // On hovering the SVG
+        // On hovering the next button
         this.#nextButton.button.addEventListener('mouseenter', e => {
             e.preventDefault()
+            // Disable submit button
             document.querySelector('#submit').disabled = true;
             const controller = new AbortController()
 
@@ -279,36 +204,12 @@ export class IngredientsFrom {
             if (this.#submitionStep == 2) this.#nextButton.progressBar = 50
             if (this.#submitionStep == 3) this.#nextButton.progressBar = 75
             if (this.#submitionStep == 4) this.#nextButton.progressBar = 100
+            
             // On click event
             this.#displayThisSubmitStep(e.target, this.#datas, controller)
 
-        // }, { once: true, signal: controller.signal } )
-            // e.target.addEventListener('click', e => {
-            //     this.#submitionStep++
-            //     document.querySelectorAll('.js-one').forEach(item => {
-            //         this.#previewsContent.push(item)
-            //         item.classList.add('hidden')
-            //         item.addEventListener('animationend', e => {
-            //             // item.remove()
-            //             item.style.display = 'none'
-            //         }, { once:true } )
-            //     })
-            //     console.log(this.#submitionStep)
-            // }, { once: true })
-
-            // When user exits the SVG
-            this.#nextButton.button.addEventListener('mouseleave', e => {
-                e.preventDefault()
-                console.log('Hover : ' ,
-                    'step => ', this.#submitionStep,
-                    'progress => ', this.#nextButton.progressBar,
-                    'old offset value => ', this.#nextButton.oldOffsetValue
-                )
-
-                // Resets progress bar value to the same one applyed when hover started
-                this.#nextButton.progressBar = this.#nextButton.oldOffsetValue
-                controller.abort()
-            }, { once: true })
+            // When user exits cursor from the button
+            this.#onMouseLeaveResetButtonProgressBarValue(this.#nextButton.button, this.#nextButton, controller)
         })
 
         // const secondarySubmit = document.querySelector('#step-button-right-corner')
@@ -346,6 +247,64 @@ export class IngredientsFrom {
     }
 
     /**
+     * Reset la valeur de la progress bar en utilisant l'oldOffsetValue
+     * sauvegardé pa le mutator de la classeObject
+     * @param {HTMLElement} HTMLbuttonElement 
+     * @param {Object} buttonClassObject 
+     * @param {AbortSignal} controller 
+     */
+    #onMouseLeaveResetButtonProgressBarValue(HTMLbuttonElement, buttonClassObject, controller) {
+        HTMLbuttonElement.addEventListener('mouseleave', e => {
+            e.preventDefault()
+            // Resets progress bar value to the same one applyed when hover started
+            buttonClassObject.progressBar = buttonClassObject.oldOffsetValue
+            controller.abort()
+        }, { once: true })
+    }
+
+    /**
+     * Parcours le tableau et display chaque élément
+     * @param {array} elements 
+     */
+    #elementsToDisplay(elements) {
+        elements.forEach(element => {
+            // Display new elements
+            element.classList.remove('hidden')
+            element.classList.add('show')
+            element.removeAttribute('style')
+            element.addEventListener('animationend', e => {
+                element.classList.remove('show')
+            }, { once:true } )
+        })
+    }
+
+    /**
+     * Crer les boutons Next et Previews pour la création / édition
+     * de recettes.
+     */
+    #createNextAndPreviewsButtons() {
+        // DOM target
+        const target = this.#gridContainer.querySelector('.js-four')
+
+        // Create previews step button
+        this.#previewsButton = new ProgressiveCircleButton('left-corner', {
+            progressStart: 25,
+            flip: 'flip'
+        })
+        // Hide previews button by default
+        this.#previewsButton.button.style.display = 'none'
+
+        // Create next step button
+        this.#nextButton = new ProgressiveCircleButton('right-corner', {
+            progressStart: 0
+        })
+
+        // Insert buttons into the DOM
+        target.insertAdjacentElement("afterend", this.#nextButton.button)
+        target.insertAdjacentElement("afterend", this.#previewsButton.button)
+    }
+
+    /**
      * 
      * @param {MouseEvent < EventTarget >} eventTarget - Elément qui a été cliqué
      * @param {DataItem[]} datas -
@@ -355,8 +314,10 @@ export class IngredientsFrom {
     #displayThisSubmitStep(eventTarget, datas, controller) {
         if (!datas[this.#submitionStep]) return
 
+        // Tab items to highlight
         const activeStep = this.#tabulation.querySelector(datas[this.#submitionStep].class)
         const previewslyActiveStep = this.#tabulation.querySelector(datas[this.#submitionStep-1].class)
+        // Steps elements to retrieve
         const nextStepElements = this.#gridContainer.querySelectorAll(datas[this.#submitionStep].class)
         const previewsStepElements = this.#gridContainer.querySelectorAll(datas[this.#submitionStep-1].class)
         
@@ -376,8 +337,8 @@ export class IngredientsFrom {
                     this.#errorHandler.triggerToolTip()
                     return
                 }
-                // return console.log('test')
             }
+
             if (this.#submitionStep === 4) {
                 if (!this.#errorHandler.checkInputs(e)) {
                     // Si une erreur est détectée lors de l'envoi en mode mobile
@@ -390,30 +351,22 @@ export class IngredientsFrom {
                 }
                 this.#onSubmit(this.#form)
             }
-            // 3.1 - Previews step - Getting individual elements
-            previewsStepElements.forEach(item => {
-                // 1 - Save elements
-                this.#previewsContent.push(item)
-                this.#pushContent(item)
-                // this.pushContent = item
 
-                // 2 - Hide elements
-                item.classList.add('hidden')
-                item.addEventListener('animationend', e => {
-                    item.style.display = 'none'
-                }, { once:true } )
-            })
+            // 3.1 - Previews step - Getting individual elements
+            // if (this.#submitionStep < 4) {
+                previewsStepElements.forEach(item => {
+                    // 1 - Save elements
+                    this.#previewsContent.push(item)
+                    this.#pushContent(item)
+
+                    // 2 - Hide elements
+                    this.#hideElement(item)
+                })
+            // }
 
             // 3.2 - Next step - Getting individual elements
-            nextStepElements.forEach(item => {
-                // Display new elements
-                item.classList.remove('hidden')
-                item.classList.add('show')
-                item.removeAttribute('style')
-                item.addEventListener('animationend', e => {
-                    item.classList.remove('show')
-                }, { once:true } )
-            })
+            // Display elements to the user
+            this.#elementsToDisplay(nextStepElements)
 
             // 4 - We can now instanciate the new Step counter
             if (this.#submitionStep <= 4) {
@@ -431,44 +384,6 @@ export class IngredientsFrom {
                 // Show the share text
                 this.#nextButton.showText = null
             }
-
-        //     this.#nextButton.button.addEventListener('submit', e => {
-        //         e.preventDefault()
-        //         console.log(this.#submitionStep)
-        //         console.log(e)
-        //         return
-            
-        //     if (this.#submitionStep === 5) {
-        //         if (!this.#errorHandler.checkInputs(e)) {
-        //             // Si une erreur est détectée lors de l'envoi en mode mobile
-        //             // et que le drawer est ouvert, il sera fermé.
-        //             this.#touchPlugin.resetStates
-        //             // Afficher le tooltip en fonction du paramétrage :
-        //             // Si une input de type INT est en erreur ou empty
-        //             this.#errorHandler.triggerToolTip(e)
-        //             return
-        //         }
-        //         this.#onSubmit(e)
-        //     }
-        // })
-
-            // if (this.#submitionStep === 4) {
-            //     this.#nextButton.button.addEventListener('submit', e => {
-            //         e.preventDefault()
-            //         console.log(e)
-            //         if (!this.#errorHandler.checkInputs(e)) {
-            //             // Si une erreur est détectée lors de l'envoi en mode mobile
-            //             // et que le drawer est ouvert, il sera fermé.
-            //             this.#touchPlugin.resetStates
-            //             // Afficher le tooltip en fonction du paramétrage :
-            //             // Si une input de type INT est en erreur ou empty
-            //             this.#errorHandler.triggerToolTip(e)
-            //             return
-            //         }
-            //         this.#onSubmit(e)
-            //     })
-
-            // }
 
             // 5 - If we advance to the 2nd step at least, we display the previews button
             if (this.#submitionStep > 0) this.#previewsButton.button.removeAttribute('style')
@@ -961,6 +876,19 @@ export class IngredientsFrom {
         } else {
             return true
         }
+    }
+
+    /**
+     * Applique la classe .hidden à un élément pour le cacher
+     * Puis ajoute un style display='none'
+     * pour laisser la fade out s'opérer
+     * @param {HTMLElement} element 
+     */
+    #hideElement(element) {
+        element.classList.add('hidden')
+        element.addEventListener('animationend', e => {
+            element.style.display = 'none'
+        }, { once: true } )
     }
 
     /**
