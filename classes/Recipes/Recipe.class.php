@@ -222,6 +222,7 @@ class Recipe extends Mysql
                 $data[$step] = null;
             }
         }
+          
         $sqlQuery = 'UPDATE recipes
             JOIN images ON recipes.recipe_id = images.recipe_id
             SET
