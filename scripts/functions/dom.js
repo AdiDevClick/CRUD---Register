@@ -24,6 +24,43 @@ export function createElement(tagName, attributes = {}) {
     return element
 }
 
+// Fonction récursive pour trouver l'élément avec l'ID correspondant
+/**
+ * Trouve l'élément avec l'ID correspondant de manière récursive.
+ * @param {Node} node - Le nœud à partir duquel commencer la recherche.
+ * @param {string} id - L'ID de l'élément à trouver.
+ * @returns {Node|null} - Retourne le nœud trouvé ou null si aucun nœud correspondant n'est trouvé.
+ */
+export function findElement(node, id) {
+    if (node.id === id) {
+        return node
+    }
+    // nodeType === 1 signifie que c'est un élément
+    const children = Array.from(node.childNodes).filter(child => child.nodeType === 1)
+
+    for (const child of children) {
+    // for (const child of node.children) {
+        const found = findElement(child, id)
+        if (found) {
+            return found
+        }
+    }
+    return null
+}
+// Fonction itérative pour trouver l'élément avec l'ID correspondant
+// avec boucle et un stack
+
+function findElementIterative(node, id) {
+    const stack = [node]
+    while (stack.length > 0) {
+        const current = stack.pop()
+        if(current.id === id) {
+            return current
+        } stack.push(...Array.from(current.childNodes).filter(child => child.nodeType === 1))
+    }
+    return null;
+}
+
 /**
  * Permet de récupérer les caractères qui ne sont pas autorisés -
  * La fonction s'assure que les caractères renvoyés soient uniques -
@@ -62,7 +99,7 @@ export function filterArrayToRetrieveUniqueValues(arr, objects, property = null)
         // value !== object &&
         // index === self.findIndex( (v) => v === value
         // )
-
+        // console.log(value, index, self)
         (property ? objects.every((object) => object !== value[property]) : objects.every((object) => value !== object)) &&
             index === self.findIndex( (v) => v === value
         )
