@@ -224,8 +224,8 @@ Fonction: importThisModule(className, object = {})
 #TODO : Fix la barre de navigation; l'espace entre accueil et l'icone search n'est pas raccord
 #TODO : créer une page de compte utilisateur
 #TODO : séparer dans une fonction secondaire la gestion des boutons d'envoi
-#TODO : Faire en sorte que le bouton d'envoi en mode desktop fonctionne
-
+#TODO : Animation en mode desktop quand on change d'étape
+#TODO : Faire en sorte que l'envoi ne crer pas un blanc en desktop
 
 
 
