@@ -279,11 +279,9 @@ export class IngredientsFrom {
             if (this.#submitionStep == 2) this.#nextButton.progressBar = 50
             if (this.#submitionStep == 3) this.#nextButton.progressBar = 75
             if (this.#submitionStep == 4) this.#nextButton.progressBar = 100
-
             // On click event
             this.#displayThisSubmitStep(e.target, this.#datas, controller)
 
-            
         // }, { once: true, signal: controller.signal } )
             // e.target.addEventListener('click', e => {
             //     this.#submitionStep++
@@ -301,6 +299,12 @@ export class IngredientsFrom {
             // When user exits the SVG
             this.#nextButton.button.addEventListener('mouseleave', e => {
                 e.preventDefault()
+                console.log('Hover : ' ,
+                    'step => ', this.#submitionStep,
+                    'progress => ', this.#nextButton.progressBar,
+                    'old offset value => ', this.#nextButton.oldOffsetValue
+                )
+
                 // Resets progress bar value to the same one applyed when hover started
                 this.#nextButton.progressBar = this.#nextButton.oldOffsetValue
                 controller.abort()
@@ -374,10 +378,10 @@ export class IngredientsFrom {
                     this.#errorHandler.triggerToolTip()
                     return
                 }
-                console.log(previewsStepElements)
+                // return console.log('test')
             }
             if (this.#submitionStep === 4) {
-                if (!this.#errorHandler.checkInputs(this.#form)) {
+                if (!this.#errorHandler.checkInputs(e)) {
                     // Si une erreur est détectée lors de l'envoi en mode mobile
                     // et que le drawer est ouvert, il sera fermé.
                     this.#touchPlugin.resetStates
