@@ -186,7 +186,6 @@ if (queryString.toString().includes("update_recipes.php")) {
     } catch (error) {
         new Toaster(error, 'Erreur')
         console.log(error)
-
     }
 }
 

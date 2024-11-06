@@ -97,7 +97,7 @@ export class IngredientsFrom {
         this.#list = list
         this.#list = this.#list.filter((k, v) => k !== '')
         this.#gridContainer = document.querySelector('.card_container')
-        this.#addStepsButton = this.#gridContainer.querySelector('.plus')
+        this.#addStepsButton = this.#gridContainer?.querySelector('.plus')
         // this.#recipeStepsTemplate = document.querySelector(document.dataset.steps_template)
 
         this.options = Object.assign ({}, {
@@ -161,7 +161,7 @@ export class IngredientsFrom {
                 }
 
                 // 2 - Display the previews step content to the user
-                this.#elementsToDisplay(showPreviewsStep)     
+                this.#elementsToDisplay(showPreviewsStep)
                     
                 // 3 - We can now instanciate the new Step counter
                 if (this.#submitionStep > 1) {
@@ -312,6 +312,7 @@ export class IngredientsFrom {
      * un conflit avec le mouseenter event.
      */
     #displayThisSubmitStep(eventTarget, datas, controller) {
+        console.log(this.#submitionStep)
         if (!datas[this.#submitionStep]) return
 
         // Tab items to highlight
@@ -353,7 +354,7 @@ export class IngredientsFrom {
             }
 
             // 3.1 - Previews step - Getting individual elements
-            // if (this.#submitionStep < 4) {
+            // if (this.#submitionStep < 5) {
                 previewsStepElements.forEach(item => {
                     // 1 - Save elements
                     this.#previewsContent.push(item)
@@ -370,6 +371,8 @@ export class IngredientsFrom {
 
             // 4 - We can now instanciate the new Step counter
             if (this.#submitionStep <= 4) {
+            console.log(this.#submitionStep)
+
                 this.#submitionStep++
                 // 4.1 - Sets tabulation active
                 if (this.#submitionStep <= 4) {
