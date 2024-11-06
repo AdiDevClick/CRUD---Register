@@ -77,9 +77,9 @@
                     echo createDivWithTextArea($getInfos);
                 ?>
                 <!-- ADD STEPS BUTTON -->
-                <a href="#step_2" class="plus three-columns" >
+                <!-- <a href="#step_2" class="plus three-columns" >
                     <span></span>
-                </a>
+                </a> -->
                 <?php include '../templates/recipe_step_template.html'?>
             </div>
             <!-- DRAWER BUTTONS -->
