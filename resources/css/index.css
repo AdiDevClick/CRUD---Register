@@ -1513,6 +1513,7 @@ form {
     > input {
         width: 40px;
         place-self: center;
+        padding: 10px 0;
         /* margin-inline: unset; */
     }
     > select {
