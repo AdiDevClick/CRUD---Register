@@ -178,14 +178,18 @@ if (queryString.toString().includes("update_recipes.php")) {
             const ingredients = new IngredientsFrom(returnedIngredients, {
                 get: true
             })
+            console.log('jai cree')
             ingredients.setUpdateAdress = url
             // console.log(ingredients)
             // return
             ingredients.appendTo(document.querySelector('.js-form-fetch'))
+            console.log('je suis apres')
+
         // }
     } catch (error) {
         new Toaster(error, 'Erreur')
         console.log(error)
+
     }
 }
 
