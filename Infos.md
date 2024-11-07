@@ -225,10 +225,8 @@ Fonction: importThisModule(className, object = {})
 #TODO : créer une page de compte utilisateur
 #TODO : séparer dans une fonction secondaire la gestion des boutons d'envoi
 #TODO : Animation en mode desktop quand on change d'étape
-#TODO : Faire en sorte que l'envoi ne crer pas un blanc en desktop
-
-
-
+#TODO : check ipad useragent for subgrid & mouseenter
+#TODO : faire un touchstart / touchend event / touchcancel pour les boutons steps - Voir à utiliser le touch plugin ?
 
 
 
