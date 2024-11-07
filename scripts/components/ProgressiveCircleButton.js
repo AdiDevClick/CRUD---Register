@@ -48,7 +48,7 @@ export class ProgressiveCircleButton {
      * @param {String} [options.progressStart=0] - Default = 0. Permet de définir un #progress sur
      * une valeur définie lors de la création.
      */
-    constructor(positionClass, options = {}) {
+    constructor(positionClass, options = {}, container) {
         this.options = Object.assign ({}, {
             progressStart: 0,
             flip: 'none'
@@ -56,7 +56,7 @@ export class ProgressiveCircleButton {
 
         this.#progress = this.options.progressStart
         // Main element container
-        this.#buttonContainer = document.querySelector('#circular-progress-button').content.firstElementChild.cloneNode(true)
+        this.#buttonContainer = container.querySelector('#circular-progress-button').content.firstElementChild.cloneNode(true)
         // this.#buttonContainer = this.#buttonTemplate
 
         // Setting IDs & Class
