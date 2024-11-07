@@ -107,6 +107,9 @@ export class IngredientsFrom {
 
         this.options.get ? this.options.post = false : null
 
+        // Loading plugin
+        if (this.#gridContainer) this.#importPlugin()
+
         // Create elements
         this.#createNextAndPreviewsButtons()
 
@@ -233,8 +236,6 @@ export class IngredientsFrom {
         // // }, { once: true, signal: controller.signal } )
         // })
 
-        // Loading plugins
-        if (this.#gridContainer) this.#importPlugin()
     }
 
     /**
@@ -284,20 +285,20 @@ export class IngredientsFrom {
      */
     #createNextAndPreviewsButtons() {
         // DOM target
-        const target = this.#gridContainer.querySelector('.js-four')
+        const target = this.#gridContainer?.querySelector('.js-four')
 
         // Create previews step button
         this.#previewsButton = new ProgressiveCircleButton('left-corner', {
             progressStart: 25,
             flip: 'flip'
-        })
+        }, this.#gridContainer)
         // Hide previews button by default
         this.#previewsButton.button.style.display = 'none'
 
         // Create next step button
         this.#nextButton = new ProgressiveCircleButton('right-corner', {
             progressStart: 0
-        })
+        }, this.#gridContainer)
 
         // Insert buttons into the DOM
         target.insertAdjacentElement("afterend", this.#nextButton.button)
@@ -322,73 +323,148 @@ export class IngredientsFrom {
         const nextStepElements = this.#gridContainer.querySelectorAll(datas[this.#submitionStep].class)
         const previewsStepElements = this.#gridContainer.querySelectorAll(datas[this.#submitionStep-1].class)
         
+        // eventTarget.addEventListener('click', e => {
+        //     e.preventDefault()
+        //     // 1 - Reset previews step datas before saving the new ones
+        //     this.#content[datas[this.#submitionStep-1].data] = null
+
+        //     // 2 - Sets progressBar's progress on each buttons
+        //     this.#previewsButton.progressBar = this.#nextButton.getCurrentProgress
+        //     this.#nextButton.progressBar = this.#nextButton.getCurrentProgress
+            
+        //     if (this.#submitionStep < 4) {
+        //         // Check the current page step possible errors
+        //         if (!this.#errorHandler.checkBatchOfInputs(previewsStepElements)) {
+        //             // Afficher le tooltip en fonction du paramétrage :
+        //             // Si une input de type INT est en erreur ou empty
+        //             this.#errorHandler.triggerToolTip()
+        //             return
+        //         }
+        //     }
+
+        //     if (this.#submitionStep === 4) {
+        //         // Check all form inputs for possible errors
+        //         // before submit
+        //         if (!this.#errorHandler.checkInputs(e)) {
+        //             // Si une erreur est détectée lors de l'envoi en mode mobile
+        //             // et que le drawer est ouvert, il sera fermé.
+        //             this.#touchPlugin.resetStates
+        //             // Afficher le tooltip en fonction du paramétrage :
+        //             // Si une input de type INT est en erreur ou empty
+        //             this.#errorHandler.triggerToolTip()
+        //             return
+        //         }
+        //         this.#onSubmit(this.#form)
+        //     }
+
+        //     // 3.1 - Previews step - Getting individual elements
+        //     // if (this.#submitionStep < 5) {
+        //         previewsStepElements.forEach(item => {
+        //             // 1 - Save elements
+        //             this.#previewsContent.push(item)
+        //             this.#pushContent(item)
+
+        //             // 2 - Hide elements
+        //             this.#hideElement(item)
+        //         })
+        //     // }
+
+        //     // 3.2 - Next step - Getting individual elements
+        //     // Display elements to the user
+        //     this.#elementsToDisplay(nextStepElements)
+
+        //     // 4 - We can now instanciate the new Step counter
+        //     if (this.#submitionStep <= 4) {
+        //     console.log(this.#submitionStep)
+
+        //         this.#submitionStep++
+        //         // 4.1 - Sets tabulation active
+        //         if (this.#submitionStep <= 4) {
+        //             activeStep.classList.toggle('active')
+        //             activeStep.classList.toggle('greyed')
+        //             previewslyActiveStep.classList.toggle('active')
+        //         }
+        //     } 
+        //     if (this.#submitionStep === 4) {
+        //         // Hide the arrow
+        //         this.#nextButton.showArrow = 'none'
+        //         // Show the share text
+        //         this.#nextButton.showText = null
+        //     }
+
+        //     // 5 - If we advance to the 2nd step at least, we display the previews button
+        //     if (this.#submitionStep > 0) this.#previewsButton.button.removeAttribute('style')
+
+        // }, { once: true, signal: controller.signal } )
         eventTarget.addEventListener('click', e => {
             e.preventDefault()
-            // 1 - Reset previews step datas before saving the new ones
-            this.#content[datas[this.#submitionStep-1].data] = null
 
-            // 2 - Sets progressBar's progress on each buttons
+            // 1 - Sets progressBar's progress on each buttons
             this.#previewsButton.progressBar = this.#nextButton.getCurrentProgress
             this.#nextButton.progressBar = this.#nextButton.getCurrentProgress
             
-            if (this.#submitionStep < 4) {
+            // 2 - Until we reach step 4
+            if (this.#submitionStep <= 4) {
+                // 1 - Check the current page step possible errors
                 if (!this.#errorHandler.checkBatchOfInputs(previewsStepElements)) {
                     // Afficher le tooltip en fonction du paramétrage :
                     // Si une input de type INT est en erreur ou empty
                     this.#errorHandler.triggerToolTip()
                     return
                 }
-            }
-
-            if (this.#submitionStep === 4) {
-                if (!this.#errorHandler.checkInputs(e)) {
-                    // Si une erreur est détectée lors de l'envoi en mode mobile
-                    // et que le drawer est ouvert, il sera fermé.
-                    this.#touchPlugin.resetStates
-                    // Afficher le tooltip en fonction du paramétrage :
-                    // Si une input de type INT est en erreur ou empty
-                    this.#errorHandler.triggerToolTip()
-                    return
+                // 2 - After final step
+                if (this.#submitionStep === 4) {
+                    // Check all form inputs for possible errors before submit
+                    if (!this.#errorHandler.checkInputs(e)) {
+                        // Si une erreur est détectée lors de l'envoi en mode mobile
+                        // et que le drawer est ouvert, il sera fermé.
+                        this.#touchPlugin.resetStates
+                        // Afficher le tooltip en fonction du paramétrage :
+                        // Si une input de type INT est en erreur ou empty
+                        this.#errorHandler.triggerToolTip()
+                        return
+                    }
+                    // No error found
+                    this.#onSubmit(this.#form)
                 }
-                this.#onSubmit(this.#form)
-            }
 
-            // 3.1 - Previews step - Getting individual elements
-            // if (this.#submitionStep < 5) {
-                previewsStepElements.forEach(item => {
-                    // 1 - Save elements
-                    this.#previewsContent.push(item)
-                    this.#pushContent(item)
+                // 3 - Handle the previews steps
+                if (this.#submitionStep < 4) {
+                    // 1 - Reset previews step datas before saving the new ones
+                    this.#content[datas[this.#submitionStep-1].data] = null
 
-                    // 2 - Hide elements
-                    this.#hideElement(item)
-                })
-            // }
+                    // 2 - Getting individual elements from PREVIEWS STEP
+                    previewsStepElements.forEach(item => {
+                        // 1 - Save elements
+                        this.#previewsContent.push(item)
+                        this.#pushContent(item)
 
-            // 3.2 - Next step - Getting individual elements
-            // Display elements to the user
-            this.#elementsToDisplay(nextStepElements)
+                        // 2 - Hide elements
+                        this.#hideElement(item)
+                    })
+                    // 3 - We can now instanciate the new STEP COUNTER
+                    this.#submitionStep++
 
-            // 4 - We can now instanciate the new Step counter
-            if (this.#submitionStep <= 4) {
-            console.log(this.#submitionStep)
-
-                this.#submitionStep++
-                // 4.1 - Sets tabulation active
-                if (this.#submitionStep <= 4) {
+                    // 4 - Sets tabulation active
                     activeStep.classList.toggle('active')
                     activeStep.classList.toggle('greyed')
                     previewslyActiveStep.classList.toggle('active')
                 }
-            } 
+
+                // 4 - Getting individual elements from NEXT STEP
+                // and display elements to the user
+                this.#elementsToDisplay(nextStepElements)
+            }
+
+            // At the final step
             if (this.#submitionStep === 4) {
                 // Hide the arrow
                 this.#nextButton.showArrow = 'none'
                 // Show the share text
                 this.#nextButton.showText = null
             }
-
-            // 5 - If we advance to the 2nd step at least, we display the previews button
+            
+            // If we advance to the 2nd step at least, we display the previews button
             if (this.#submitionStep > 0) this.#previewsButton.button.removeAttribute('style')
 
         }, { once: true, signal: controller.signal } )
