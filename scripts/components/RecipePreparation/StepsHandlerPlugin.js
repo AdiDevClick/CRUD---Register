@@ -2,6 +2,8 @@ import { ProgressiveCircleButton } from "../ProgressiveCircleButton.js"
 
 export class StepsHandlerPlugin {
 
+    /** @type {Ingredient} */
+    #preparation
     /** @type {HTMLElement} */
     #gridContainer
     /** @type {Object} */
@@ -39,11 +41,18 @@ export class StepsHandlerPlugin {
 
     constructor(preparation) {
         console.log('STEP LOADED')
-        this.#gridContainer = preparation.gridContainer
-        this.#errorHandler = preparation.errorHandler
-        this.#touchPlugin = preparation.touchPlugin
-        this.#form = preparation.form
-        // Create elements
+        this.#preparation = preparation
+        this.#gridContainer = this.#preparation.gridContainer
+        this.#errorHandler = this.#preparation.errorHandler
+        this.#touchPlugin = this.#preparation.touchPlugin
+        this.#form = this.#preparation.form
+
+        // console.log('les variables : \n')
+        // console.log('grid => ', this.#gridContainer)
+        // console.log('errorHandler => ', this.#errorHandler)
+        // console.log('touchPlugin => ', this.#touchPlugin)
+        // console.log('form => ', this.#form)
+        // // Create elements
         this.#createNextAndPreviewsButtons()
 
         // On hovering the previews button
@@ -109,7 +118,7 @@ export class StepsHandlerPlugin {
                     return
                 }
                 // No error found
-                this.preparation.onSubmit(this.#form)
+                this.#preparation.onSubmit(this.#form)
                 // this.#onSubmit(this.#form)
             }
 
@@ -125,7 +134,7 @@ export class StepsHandlerPlugin {
                     this.#pushContent(item)
 
                     // 2 - Hide elements
-                    this.#hideElement(item)
+                    this.#preparation.hideElem(item)
                 })
                 // 3 - We can now instanciate the new STEP COUNTER
                 this.#submitionStep++
@@ -181,7 +190,7 @@ export class StepsHandlerPlugin {
         // 1 - Hide the current step content
         if (hideNextStep) {
             hideNextStep.forEach(element => {
-                this.#hideElement(element)
+                this.#preparation.hideElem(element)
             })
         }
 
@@ -360,12 +369,12 @@ export class StepsHandlerPlugin {
      * pour laisser la fade out s'opérer
      * @param {HTMLElement} element 
      */
-    #hideElement(element) {
-        element.classList.add('hidden')
-        element.addEventListener('animationend', e => {
-            element.style.display = 'none'
-        }, { once: true } )
-    }
+    // #hideElement(element) {
+    //     element.classList.add('hidden')
+    //     element.addEventListener('animationend', e => {
+    //         element.style.display = 'none'
+    //     }, { once: true } )
+    // }
 
     /**
      * Sauvegarde chaque élément trouvé dans l'Array #content sous forme d'objet
@@ -384,5 +393,13 @@ export class StepsHandlerPlugin {
 
     get getPreviewsButton() {
         return this.#previewsButton.button
+    }
+
+    /**
+     * Récupère l'étape à laquelle l'utilisateur s'est arrêté
+     * @type {Number}
+     */
+    get currentSubmitionStep() {
+        return this.#submitionStep
     }
 }

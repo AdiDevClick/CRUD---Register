@@ -100,10 +100,12 @@ export class DrawerTouchPlugin {
                         section.append(el)
                     })
                 })
+                console.log('current state dans le getter => ', this.preparation.currentSubmitionStep)
 
                 // 6 - Verify which step the user was at in the previews desktop / tablet mode
+                // const currentStep = this.preparation.currentSubmitionStep
                 const currentStep = this.preparation.currentSubmitionStep-1
-
+                console.log('currentstep mutator => ', currentStep)
                 // 7 - Retrieve datas for each steps
                 const datas = this.preparation.datas
                 const elementsToHide = datas.filter( ( t,i ) => i != currentStep)
@@ -195,32 +197,137 @@ export class DrawerTouchPlugin {
      * Ajoute ou supprime des classes pour que l'UI s'applique correctement.
      */
     #checkDisplay() {
+        
+        const firstGroupElements = [
+            '.js-two',
+            '.js-three',
+            '.js-four'
+        ]
+
+        const elementsToShow = '.js-one'
+
         this.#onMove(index => {
             if (index === 0) {
-                this.#card?.classList.remove('open')
-                this.#card?.removeAttribute('style')
-                this.#steps?.classList.contains('card') ? this.#steps.classList.remove('card') : null
-                this.#isMobile = true
-                this.#isTablet = false
-                this.#isDesktop = false
+                this.#removeStyle(this.#card, 'open')
+                this.#steps?.classList.contains('card') ? this.#steps.classList.remove('card') : null  // not same
+                this.#setDeviceType('isMobile', true)
+                
+                if (!this.container.classList.contains('mobile')) {
+                    this.container.classList.add('mobile')
+                    // When we enter mobile mode, display the hidden elements from firstGroupElements
+                    firstGroupElements.forEach(element => {
+                        const target = this.container.querySelector(element)
+                        this.#removeStyle(target, 'hidden')
+                    })
+
+                    // Additionnaly, we display the elementsToShow
+                    this.container.querySelectorAll(elementsToShow).forEach(element => {
+                        this.#removeStyle(element, 'hidden')
+                    })
+                }
+                
             }
-            if (index === 1) {
-                this.#card?.classList.remove('opened')
-                this.#card?.removeAttribute('style')
-                this.#steps?.classList.contains('card') ? null : this.#steps?.classList.add('card')
-                this.#isMobile = false
-                this.#isTablet = true
-                this.#isDesktop = false
+            if (index === 1 || index === 2) {
+                if (index === 1) this.#setDeviceType('isTablet', true)
+                if (index === 2) this.#setDeviceType('isDesktop', true)
+                
+                this.#removeStyle(this.#card, ('open', 'opened'))
+                this.#steps?.classList.contains('card') ? null : this.#steps?.classList.add('card') // same  1 / 2
+                
+                if (this.container.classList.contains('mobile')) {
+                    this.container.classList.remove('mobile')
+                
+                    firstGroupElements.forEach(element => {
+                    const target = this.container.querySelector(element)
+                    // Calling Recipe getter
+                    console.log(element)
+                    this.#hideElement(target)
+                    // if (!target.classList.contains('hidden')) target.classList.add('hidden')
+                    // target.style.display = 'none'
+                    })
+                }
+                // this.#card?.classList.remove('open', 'opened')
             }
-            if (index === 2) {
-                this.#card?.classList.remove('opened', 'open')
-                this.#card?.removeAttribute('style')
-                this.#steps?.classList.contains('card') ? null : this.#steps?.classList.add('card')
-                this.#isMobile = false
-                this.#isTablet = false
-                this.#isDesktop = true
-            }
+            // if (index === 2) {
+            //     // this.#removeStyle(this.#card, ('opened', 'open'))
+
+            //     // this.#card?.classList.remove('opened', 'open') // same 0 / 1 / 2
+            //     // this.#card?.removeAttribute('style') // same 0 / 1 / 2
+            //     // this.#steps?.classList.contains('card') ? null : this.#steps?.classList.add('card') // same  1 / 2
+            //     // this.#setDeviceType('isDesktop', true)
+
+                
+            //     // if (this.container.classList.contains('mobile')) this.container.classList.remove('mobile')
+
+            //     firstGroupElements.forEach(element => {
+            //         const target = this.container.querySelector(element)
+            //         // Calling Recipe getter
+            //         console.log('je demande à hide')
+            //         this.#hideElement(target)
+            //         // if (!target.classList.contains('hidden')) target.classList.add('hidden')
+            //         // target.style.display = 'none'
+            //     })
+
+            //     // this.#card?.classList.remove('open', 'opened')
+            // }
+
+            console.log('mobile => ', this.#isMobile)
+            console.log('isTablet => ', this.#isTablet)
+            console.log('isDesktop => ', this.#isDesktop)
         })
+    }
+
+    /**
+     * Applique la classe .hidden à un élément pour le cacher
+     * Puis ajoute un style display='none'
+     * pour laisser la fade out s'opérer
+     * @param {HTMLElement} element 
+     */
+    #hideElement(element) {
+        element.classList.add('hidden')
+        element.style.display = 'none'
+    }
+
+    /**
+     * Permet de spécifier le type de display en fonction
+     * du changement de la taille de la fenêtre
+     */
+    #onWindowResize() {
+        let mobile = window.innerWidth <= 576
+        let tablet = window.innerWidth <= 996 && window.innerWidth > 576
+        let desktop = window.innerWidth > 996
+
+
+        if (mobile !== this.#isMobile) {
+            this.#index = 0
+            this.#moveCallbacks.forEach(cb => cb(this.#index))
+        }
+
+        if (tablet !== this.#isTablet) {
+            this.#index = 1
+            this.#moveCallbacks.forEach(cb => cb(this.#index))
+        }
+
+        if (desktop !== this.#isDesktop) {
+            this.#index = 2
+            this.#moveCallbacks.forEach(cb => cb(this.#index))
+        }
+    }
+
+    #removeStyle(target, className) {
+        if (target && target.classList.contains(className)) {
+            target.classList.remove(className)
+            target.removeAttribute('style')
+        }  
+    }
+
+    #setDeviceType(device, isActive) {
+        this.#isMobile = this.#isTablet = this.#isDesktop = false
+        if (isActive) {
+            if (device === 'isMobile') this.#isMobile = true
+            if (device === 'isTablet') this.#isTablet = true
+            if (device === 'isDesktop') this.#isDesktop = true
+        }
     }
 
     #onOpen(e) {
@@ -682,83 +789,6 @@ export class DrawerTouchPlugin {
     #saveLastTranslate(lastTranslate) {
         for (const [key, value] of Object.entries(lastTranslate)) {
             this.#savedPosition[key] = value
-        }
-    }
-    
-    /**
-     * Permet de spécifier le type de display en fonction
-     * du changement de la taille de la fenêtre
-     */
-    #onWindowResize() {
-        let mobile = window.innerWidth <= 576
-        let tablet = window.innerWidth <= 996 && window.innerWidth > 576
-        let desktop = window.innerWidth > 996
-
-        const firstGroupElements = [
-            '.js-two',
-            '.js-three',
-            '.js-four'
-        ]
-
-        const elementsToShow = '.js-one'
-
-        if (mobile !== this.#isMobile) {
-            this.#isMobile = mobile
-            this.#index = 0
-            this.container.classList.add('mobile')
-            this.#card?.classList.remove('open', 'opened')
-            // this.#card?.classList.remove('opened')
-            this.#moveCallbacks.forEach(cb => cb(this.#index))
-            
-            // When we enter mobile mode, display the hidden elements from firstGroupElements
-            firstGroupElements.forEach(element => {
-                const target = this.container.querySelector(element)
-                if (target.classList.contains('hidden')) {
-                    target.classList.remove('hidden')
-                    target.removeAttribute('style')
-                }
-            })
-
-            // Additionnaly, we display the elementsToShow
-            this.container.querySelectorAll(elementsToShow).forEach(element => {
-                if (element.classList.contains('hidden')) {
-                    element.classList.remove('hidden')
-                    element.removeAttribute('style')
-                }
-            })
-        }
-
-        if (tablet !== this.#isTablet) {
-            this.#isTablet = tablet
-            this.#index = 1
-
-            if (this.container.classList.contains('mobile')) this.container.classList.remove('mobile')
-            
-                firstGroupElements.forEach(element => {
-                const target = this.container.querySelector(element)
-                if (!target.classList.contains('hidden')) target.classList.add('hidden')
-                target.style.display = 'none'
-            })
-
-            this.#card?.classList.remove('open', 'opened')
-            this.#moveCallbacks.forEach(cb => cb(this.#index))
-        }
-
-        if (desktop !== this.#isDesktop) {
-            this.#isDesktop = desktop
-            this.#isTablet = tablet
-
-            if (this.container.classList.contains('mobile')) this.container.classList.remove('mobile')
-
-                firstGroupElements.forEach(element => {
-                const target = this.container.querySelector(element)
-                if (!target.classList.contains('hidden')) target.classList.add('hidden')
-                target.style.display = 'none'
-            })
-
-            this.#index = 2
-            this.#card?.classList.remove('open', 'opened')
-            this.#moveCallbacks.forEach(cb => cb(this.#index))
         }
     }
 
