@@ -1,6 +1,7 @@
 <?php
 
-class Database {
+class Database
+{
     private bool $includeDateFormat = false;
     private string $joinClause = '';
     private string $limitClause = '';
@@ -9,37 +10,44 @@ class Database {
     private string $orderByClause = '';
     private bool $silentMode;
     private bool $fetchAll;
+    private bool $searchMode;
 
     public function __construct(
         private mixed $optionnalData = null,
         private array $options = []
-        )
-    {
-        
+    ) {
+
         // Valeurs par défaut des options
         $defaults = [
             'silentMode' => false,
-            'fetchAll' => false
+            'fetchAll' => false,
+            'searchMode' => false
         ];
         // Fusionner les options par défaut avec les options fournies
         $this->options = array_merge($defaults, $options);
 
+        // No errors will be thrown to not kill the script
         $this->silentMode = $this->options['silentMode'];
+        // SearchBar fetch : It will keep continue searching by limit until it reaches the maximum requests
+        $this->searchMode = $this->options['searchMode'];
+        // Recipe read page : gets ALL datas; comments will all be append as array
         $this->fetchAll = $this->options['fetchAll'];
-
+        // var_dump($this->options);
         // die(var_dump($this->silentMode, $this->optionnal));
     }
 
-    public function __createGetQuery(array $params, int|null $id, PDO $database, array $optionnal = null) {
-        return $this->createGetQuery( $params, $id, $database, $optionnal);
+    public function __createGetQuery(array $params, int|null $id, PDO $database, array $optionnal = null)
+    {
+        return $this->createGetQuery($params, $id, $database, $optionnal);
     }
-    public function __createDeleteQuery(array $params, int $id, PDO $database) {
-        return $this->createDeleteQuery( $params, $id, $database );
+    public function __createDeleteQuery(array $params, int $id, PDO $database)
+    {
+        return $this->createDeleteQuery($params, $id, $database);
     }
 
     /**
      * Récupère dynamiquement une ou plusieurs ROWS depuis la TABLE 'Recipes'
-     * 
+     *
      * @param array $params Tableau contenant les champs, les jointures et la table.
      * ```php
      * Exemple :
@@ -79,14 +87,14 @@ class Database {
      * @throws \Error si la requête échoue ou si aucune ligne n'est trouvée
      * @return mixed Tableau associatif contenant les informations de la recette
      */
-    private function createGetQuery(array $params, int $recipeId = null, PDO $database, array $optionnal = null) 
+    private function createGetQuery(array $params, int $recipeId = null, PDO $database, array $optionnal = null)
     {
         // Handle state reset
         // $limit = intval($optionnal['limit'] ?? 10);
         if (isset($optionnal['resetState']) && $optionnal['resetState'] == 1) {
             $_SESSION['LAST_ID'] = 0;
         }
-
+        // die(var_dump($params));
         // Extract array $params's fields
         $fields = implode(', ', $params['fields']);
         $fromTable = implode(', ', $params['table']);
@@ -99,8 +107,11 @@ class Database {
         }
 
         // Adds DATE_FORMAT to the request if 'images i' is set
-        if ($this->includeDateFormat) {
-            $fields .= ", DATE_FORMAT(i.created_at, '%d/%m/%Y') as image_date";
+        if (!empty($params['date'])) {
+            $date = implode(', ', $params['date']);
+            $fields .= ", $date";
+            // if ($this->includeDateFormat) {
+            // $fields .= ", DATE_FORMAT(i.created_at, '%d/%m/%Y') as image_date";
         }
 
         // Construct dynamic WHERE clause
@@ -135,7 +146,7 @@ class Database {
             $this->orderByClause = 'ORDER BY ' . $params['order_by'];
         }
         // $orderBy = !empty($params['order_by']) ? 'ORDER BY ' . $params['order_by'] : 'ORDER BY r.recipe_id ASC';
-        
+
         // SQL Request Construction
         $sqlQuery = "SELECT $fields
             FROM $fromTable
@@ -155,13 +166,17 @@ class Database {
 
         if (!empty($params['word'])) {
             $executeParams['word'] = $params['word'] . '*';
-            if (isset($_SESSION['LAST_ID'])) $executeParams['recipe_id'] = $_SESSION['LAST_ID'];
+            if (isset($_SESSION['LAST_ID'])) {
+                $executeParams['recipe_id'] = $_SESSION['LAST_ID'];
+            }
         }
+        // die(var_dump($getRecipeStatement));
 
-        // die(var_dump($executeParams));
 
         // Execute SQLRequest
         if (!$getRecipeStatement->execute($executeParams)) {
+            // die(var_dump($getRecipeStatement));
+
             $getRecipeStatement = null;
             // require_once(dirname(__DIR__, 2).'/config/altertable.sql')
             throw new Error("stmt Failed");
@@ -169,7 +184,9 @@ class Database {
 
         // If no row exists, fail
         if ($getRecipeStatement->rowCount() == 0) {
-            if (isset($_SESSION['LAST_ID'])) $_SESSION['LAST_ID'] = 0;
+            if (isset($_SESSION['LAST_ID'])) {
+                $_SESSION['LAST_ID'] = 0;
+            }
             $getRecipeStatement = null;
             if ($this->silentMode) {
                 // Return empty
@@ -180,7 +197,7 @@ class Database {
             throw new Error($error);
         }
 
-        if ($this->fetchAll) {
+        if ($this->searchMode) {
             // Grab all results from the searchbar
             $data = [];
             // if ($getRecipeStatement->rowCount() > 0) {
@@ -195,13 +212,28 @@ class Database {
             }
             return $data;
             // }
-        } else {
+        }
+
+        if ($this->fetchAll) {
             // Grab 1 entry result
-            $data = $getRecipeStatement->fetch(PDO::FETCH_ASSOC);
+            $data = $getRecipeStatement->fetchAll(PDO::FETCH_ASSOC);
             // If it's an UPDATE RECIPE Request - JS Client submit handler
-            if ($this->optionnalData === 'reply_Client') return json_encode($data);
+            if ($this->optionnalData === 'reply_Client') {
+                return json_encode($data);
+            }
+            // die(var_dump($data));
             return $data;
         }
+
+        // Grab 1 entry result
+        $data = $getRecipeStatement->fetch(PDO::FETCH_ASSOC);
+        // If it's an UPDATE RECIPE Request - JS Client submit handler
+        if ($this->optionnalData === 'reply_Client') {
+            return json_encode($data);
+        }
+        // die(var_dump($data));
+        return $data;
+
     }
 
     /**
@@ -217,10 +249,13 @@ class Database {
      * ```
      * @return void
      */
-    private function addJoinClause(array $params) {
+    private function addJoinClause(array $params)
+    {
         foreach ($params as $table => $condition) {
             $this->joinClause .= "LEFT JOIN $table ON $condition ";
-            if ($table === 'images i') $this->includeDateFormat = true;
+            // if ($table === 'images i') {
+            //     $this->includeDateFormat = true;
+            // }
         }
     }
 
@@ -242,7 +277,8 @@ class Database {
      * ```
      * @return string La clause WHERE construite.
      */
-    private function addWhereClause(array $params) {
+    private function addWhereClause(array $params)
+    {
         $conditions = [];
         foreach ($params['where']['conditions'] as $column => $value) {
             $conditions[] = "$column $value";
@@ -263,7 +299,8 @@ class Database {
      * @param PDO $database Fonction connect() de la database
      * @throws Error Si la requête SQL échoue ou si aucune ligne n'est affectée par la suppression.
      */
-    private function createDeleteQuery(array $params, int $id, PDO $database) {
+    private function createDeleteQuery(array $params, int $id, PDO $database)
+    {
         // Extraction des champs du tableau $params
         $fromTable = implode(', ', $params['table']);
         $error = implode(', ', $params['error']);
@@ -271,7 +308,7 @@ class Database {
         $sqlQuery = "DELETE
             FROM $fromTable
             WHERE recipe_id = :recipe_id;";
-        
+
         // Préparation de la requête
         $deleteStatement = $database->prepare($sqlQuery);
 
