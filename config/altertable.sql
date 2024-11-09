@@ -28,3 +28,6 @@ ALTER TABLE recipes  ADD FULLTEXT INDEX full_text_idx (title, author);
 ALTER TABLE images  ADD IF NOT EXISTS `video_name` text NOT NULL;
 ALTER TABLE images  ADD IF NOT EXISTS `video_path` text NOT NULL;
 ALTER TABLE images  ADD IF NOT EXISTS `youtubeID` text NOT NULL;
+
+-- Récupérer toutes les entrées qui n'ont aucun match avec la recipe_id
+SELECT recipe_id FROM comments WHERE recipe_id NOT IN (SELECT recipe_id FROM recipes);
