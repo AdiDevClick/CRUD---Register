@@ -19,7 +19,7 @@ $loggedUser = LoginController::checkLoggedStatus();
 $sessionName = 'INFO_RECIPE';
 $params = [
     'fields' => ['*'],
-    'table'=> ['recipes r'],
+    'table' => ['recipes r'],
     'join' => ['images i' => 'r.recipe_id = i.recipe_id'],
     'error' => ["Erreur dans la récupération de la recette"],
 ];
@@ -51,7 +51,7 @@ ob_start()
     <h1>Recette à éditer : <?= htmlspecialchars($getInfos['title'])?></h1>
     
     <?php include '../templates/recipe_layout.php'?>
-    <?php include '../templates/recipe_creation_menu.html'?>
+    <?php // include '../templates/recipe_creation_menu.html'?>
     
 <!-- start of success message -->
 

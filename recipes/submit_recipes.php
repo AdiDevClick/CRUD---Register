@@ -67,7 +67,7 @@ ob_start();
 
     </script> -->
     <?php include '../templates/recipe_layout.php'?>
-    <?php include '../templates/recipe_creation_menu.html'?>
+    <?php // include '../templates/recipe_creation_menu.html'?>
 <!-- start of success message -->
 
 <?php elseif (isset($_SESSION['REGISTERED_RECIPE'])):?>
