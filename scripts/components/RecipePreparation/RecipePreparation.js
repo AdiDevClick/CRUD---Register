@@ -278,7 +278,7 @@ export class IngredientsFrom {
 
         // if (bubbleMenu) this.#bubbleCreativeMenu = new BubbleCreativePlugin(this)
 
-        // this.#formButton.addEventListener('click', this.#addNewIngredient.bind(this))
+        this.#formButton.addEventListener('click', this.#addNewIngredient.bind(this))
     }
 
     /**
@@ -578,7 +578,7 @@ export class IngredientsFrom {
     #isInputChecked(input) {
         const body = this.#form.querySelector('.js-ingredient-input')
         const inputValue = input.value.toString().trim()
-        
+
         if (inputValue === '') {
             const message = "Veuillez renseigner l'ingrédient à ajouter"
             body.classList.add("error")
