@@ -1,4 +1,0 @@
-Errors : [2] Undefined array key "description" - C:\xampp\htdocs\recettes\templates\recipe_layout.php:70
-Errors : [2] Undefined array key "description" - C:\xampp\htdocs\recettes\templates\recipe_layout.php:70
-Errors : [2] Undefined variable $data - C:\xampp\htdocs\Recettes\classes\Recipes\RecipeController.class.php:107
-Errors : [2] Undefined array key "email" - C:\xampp\htdocs\recettes\recipes\submit_update_recipes.inc.php:50
