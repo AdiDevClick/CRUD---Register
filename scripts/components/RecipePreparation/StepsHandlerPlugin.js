@@ -134,7 +134,8 @@ export class StepsHandlerPlugin {
                     this.#pushContent(item)
 
                     // 2 - Hide elements
-                    this.#preparation.hideElem(item)
+                    this.#hideElement(item)
+                    // this.#preparation.hideElem(item)
                 })
                 // 3 - We can now instanciate the new STEP COUNTER
                 this.#submitionStep++
@@ -190,7 +191,8 @@ export class StepsHandlerPlugin {
         // 1 - Hide the current step content
         if (hideNextStep) {
             hideNextStep.forEach(element => {
-                this.#preparation.hideElem(element)
+                this.#hideElement(element)
+                // this.#preparation.hideElem(element)
             })
         }
 
@@ -369,12 +371,12 @@ export class StepsHandlerPlugin {
      * pour laisser la fade out s'opérer
      * @param {HTMLElement} element 
      */
-    // #hideElement(element) {
-    //     element.classList.add('hidden')
-    //     element.addEventListener('animationend', e => {
-    //         element.style.display = 'none'
-    //     }, { once: true } )
-    // }
+    #hideElement(element) {
+        element.classList.add('hidden')
+        element.addEventListener('animationend', e => {
+            element.style.display = 'none'
+        }, { once: true } )
+    }
 
     /**
      * Sauvegarde chaque élément trouvé dans l'Array #content sous forme d'objet
