@@ -222,6 +222,7 @@ export function transformToComment(targetSelector) {
 export function appendToAnotherLocation(targetSelector, container , isClass = 'js-form-recipe') {
     let newCardRecipeSection = container.querySelector('.card.recipe')
     const parentElement = container.querySelector(targetSelector)
+
     let newCardFormRecipeSection = container.querySelector('.form-recipe')
     
     // Creates recipe steps container
@@ -239,71 +240,52 @@ export function appendToAnotherLocation(targetSelector, container , isClass = 'j
         })
     }
 
-    // Retrieve every recipe steps
-    const firstContentToMoveToNewCardFormRecipeSection = Array.from(parentElement.childNodes)
-        .find(node => {
-        // .filter(node => {
-            // if (node.tagName === 'DIV' || node.tagName === 'A') {
-            //     return (node.classList.contains('js-one'))
-            //     // return (node.classList.contains('js-one')) ||
-            //     // (node.classList.contains('circular-progress-button-container'))
-            // }
-            if (node.tagName === 'DIV') {
-                return (node.classList.contains('js-one'))
-                // return (node.classList.contains('js-one')) ||
-                // (node.classList.contains('circular-progress-button-container'))
+    try {
+        // Retrieve every recipe steps
+        const firstContentToMoveToNewCardFormRecipeSection = Array.from(parentElement.childNodes)
+            .find(node => {
+                if (node.tagName === 'DIV') {
+                    return (node.classList.contains('js-one'))
+                }
             }
-        }
-    )
+        )
 
-    // 
-    const secondContentToMoveToNewCardRecipeSection = Array.from(parentElement.childNodes)
-        .find(node => {
-            if (node.tagName === 'DIV') {
-                return (node.classList.contains('js-two'))
+        const secondContentToMoveToNewCardRecipeSection = Array.from(parentElement.childNodes)
+            .find(node => {
+                if (node.tagName === 'DIV') {
+                    return (node.classList.contains('js-two'))
+                }
             }
-        }
-    )
+        )
 
-    //
-    const thirdContentToMoveToNewCardRecipeSection = Array.from(parentElement.childNodes)
-        .find(node => {
-            if (node.tagName === 'DIV') {
-                return (node.classList.contains('js-four'))
+        //
+        const thirdContentToMoveToNewCardRecipeSection = Array.from(parentElement.childNodes)
+            .find(node => {
+                if (node.tagName === 'DIV') {
+                    return (node.classList.contains('js-four'))
+                }
             }
-            // node.className === 'js-three'
-            // node.className === 'img_preview' || node.className === 'add_ingredient'
+        )
+
+        // Retrieve the submit button
+        const fourthContentToMoveToNewCardRecipeSection = parentElement.querySelector('#submit-recipe')
+
+        if (firstContentToMoveToNewCardFormRecipeSection) {
+            const drawer = parentElement.querySelector('.show_drawer')
+
+            newCardFormRecipeSection.append(firstContentToMoveToNewCardFormRecipeSection)
+
+            drawer.prepend(secondContentToMoveToNewCardRecipeSection)
+            drawer.append(thirdContentToMoveToNewCardRecipeSection, fourthContentToMoveToNewCardRecipeSection)
+
+            newCardRecipeSection.append(parentElement.querySelector('.js-recipe'))
+            newCardRecipeSection.append(parentElement.querySelector('.show_drawer'))
+
+            parentElement.prepend(newCardFormRecipeSection)
+            parentElement.append(newCardRecipeSection)
         }
-    )
-
-    // Retrieve the submit button
-    const fourthContentToMoveToNewCardRecipeSection = parentElement.querySelector('#submit-recipe')
-
-    if (firstContentToMoveToNewCardFormRecipeSection) {
-        const drawer = parentElement.querySelector('.show_drawer')
-        // firstContentToMoveToNewCardFormRecipeSection.forEach(element => {
-        //     newCardFormRecipeSection.append(element)
-        // })
-
-        newCardFormRecipeSection.append(firstContentToMoveToNewCardFormRecipeSection)
-
-
-        drawer.prepend(secondContentToMoveToNewCardRecipeSection)
-        drawer.append(thirdContentToMoveToNewCardRecipeSection, fourthContentToMoveToNewCardRecipeSection)
-        // parentElement.querySelector('.show_drawer').append(fourthContentToMoveToNewCardRecipeSection)
-
-
-        newCardRecipeSection.append(parentElement.querySelector('.js-recipe'))
-        newCardRecipeSection.append(parentElement.querySelector('.show_drawer'))
-
-        parentElement.prepend(newCardFormRecipeSection)
-        parentElement.append(newCardRecipeSection)
-
-        // thirdContentToMoveToNewCardRecipeSection.forEach(element => {
-        //     document.querySelector('.show_drawer').append(element)
-        // })
-    } else {
-        console.error('Node not found')
+    } catch (error) {
+        console.error(error)
     }
 }
 
