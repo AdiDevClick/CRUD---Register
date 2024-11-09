@@ -2,7 +2,6 @@
 
 class Recipe extends Mysql
 {
-
     /**
      * Récupère les données d'une table de la base de données en fonction de l'ID de la recette.
      *
@@ -15,19 +14,22 @@ class Recipe extends Mysql
      * @return array Les données SQL récupérées.
      * @throws Error Si la recette n'existe pas.
      */
-    protected function getFromTable(array $params, int $recipeId, bool $silentMode = false) {
+    protected function getFromTable(array $params, int $recipeId, bool $silentMode = false)
+    {
         // Ajoute un message d'erreur aux paramètres si la recette n'existe pas
         // $params['error'] = ["Cette recette n'existe pas"];
-        
+
         // Crée une instance de la classe Database avec des données optionnelles
-        $Fetch = new Database($this->optionnalData(), [
+        $Fetch = new Database(
+            $this->optionnalData(),
+            [
             'silentMode' => $silentMode
             ]
         );
 
         // Génère et exécute la requête SQL pour récupérer les données
         $SQLData = $Fetch->__createGetQuery($params, $recipeId, $this->connect());
-        
+
         // Retourne les données SQL récupérées
         return $SQLData;
     }
@@ -53,7 +55,7 @@ class Recipe extends Mysql
     {
         // Paramètres de la requête SQL
         $params = [
-            "limit"=> $optionnal['limit'],
+            "limit" => $optionnal['limit'],
             "fields" => ['r.recipe_id', 'r.title', 'r.author', 'i.img_path', 'i.youtubeID'],
             "match" => [
                 'fields' => 'title',
@@ -78,13 +80,13 @@ class Recipe extends Mysql
         // Instancie la classe Database avec les options spécifiées
         $Fetch = new Database($this->optionnalData(), [
             'fetchAll' => true,
-            'silentMode'=> true
+            'silentMode' => true
         ]);
 
         // Exécute la requête et retourne les résultats
         $SQLData = $Fetch->__createGetQuery($params, null, $this->connect(), $optionnal);
         return $SQLData;
-        
+
         // $limit = $optionnal['limit'];
         // $optionnal['resetState'] == 1 ? $_SESSION['LAST_ID'] = 0 : null;
         // $sqlRecipe = "SELECT r.recipe_id, r.title, r.author, i.img_path, i.youtubeID,
@@ -222,8 +224,7 @@ class Recipe extends Mysql
                 $data[$step] = null;
             }
         }
-        
-        // die(var_dump($data));
+
         $sqlQuery = 'UPDATE recipes
             JOIN images ON recipes.recipe_id = images.recipe_id
             SET
@@ -347,16 +348,10 @@ class Recipe extends Mysql
             'comment' => $comment,
             'recipe_id' => $recipeId,
             'user_id' => $userId
-            //'user_id' => retrieve_id_from_user_mail($loggedUser['email'], $users),
         ])) {
             $insertCommentsStatment = null;
-            //throw new Error((string)header("Location: ".Functions::getUrl()."?error=stmt-failed"));
             throw new Error("stmt Failed");
-
-            //header("Location :" .Functions::getUrl(). "?error=recipe-not-found");
-            //exit();
         }
-        // exit;
     }
 
     /**
@@ -371,16 +366,10 @@ class Recipe extends Mysql
             'user_id' => $userId,
             'img_name' => $imgName,
             'img_path' => $imgPath
-            // 'user_id' => retrieve_id_from_user_mail($loggedUser['email'], $users),
         ])) {
             $insertCommentsStatment = null;
-            //throw new Error((string)header("Location: ".Functions::getUrl()."?error=stmt-failed"));
             throw new Error("stmt Failed");
-
-            //header("Location :" .Functions::getUrl(). "?error=recipe-not-found");
-            //exit();
         }
-        // exit;
     }
 
     /**
@@ -402,13 +391,14 @@ class Recipe extends Mysql
         ];
 
         $image = $this->getFromTable($params, $recipeId, $silentMode);
-        
+
         if (isset($image['img_path']) && $image !== false && file_exists(dirname(__DIR__, 2) .'/'. $image['img_path'])) {
+
             // Suppression du fichier
             if (!unlink(dirname(__DIR__, 2) .'/'. $image['img_path'])) {
                 throw new Error("Failed to delete image file.");
             }
-            
+
             // Suppression du dossier
             $dirPath = dirname(__DIR__, 2) .'/'. dirname($image['img_path']);
             if (is_dir($dirPath) && count(scandir($dirPath)) == 2) {
@@ -416,17 +406,14 @@ class Recipe extends Mysql
                     throw new Error("Failed to delete directory.");
                 }
             }
-
         }
-        
+
         $params = [
-            "table"=> ["images"],
+            "table" => ["images"],
             "error" => ["La suppression de cette image est impossible"]
         ];
         // Suppression de l'entrée dans la table
         $this->deleteFromTable($params, $recipeId, $silentMode);
-        // die(var_dump($image));
-
     }
 
     /**
@@ -439,12 +426,13 @@ class Recipe extends Mysql
      * @param int $id L'identifiant de la recette.
      * @throws Error Si la requête SQL échoue ou si aucune ligne n'est affectée par la suppression.
      */
-    protected function deleteFromTable(array $params, int $id, bool $silentMode = false) {
+    protected function deleteFromTable(array $params, int $id, bool $silentMode = false)
+    {
         // Crée une instance de la classe Database avec des données optionnelles
         $Fetch = new Database(null, [
             'silentMode' => $silentMode
         ]);
-        
+
         // Génère et exécute la requête SQL pour récupérer les données
         $Fetch->__createDeleteQuery($params, $id, $this->connect());
     }
@@ -468,16 +456,11 @@ class Recipe extends Mysql
             'recipe_id' => $recipeId,
         ])) {
             $retrieveRecipeWithCommentsStatement = null;
-            //throw new Error((string)header("Location: ".Functions::getUrl()."?error=stmt-failed"));
             throw new Error("stmt Failed");
         }
         if ($retrieveRecipeWithCommentsStatement->rowCount() == 0) {
             $retrieveRecipeWithCommentsStatement = null;
-            //echo strip_tags("Cette recette n'existe pas.");
-            //throw new Error((string)header("Location: ".Functions::getUrl()."?error=recipeid-not-found"));
             throw new Error("Cette recette n'existe pas");
-            //header("Location :" .Functions::getUrl(). "?error=recipe-not-found");
-            //exit();
         }
         $recipe = $retrieveRecipeWithCommentsStatement->fetchAll(PDO::FETCH_ASSOC);
         return $recipe;
