@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS `images` (
   `created_at` DATETIME NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`image_id`),
   FOREIGN KEY (`recipe_id`) REFERENCES recipes(recipe_id)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=innoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- -------------------------------------------------------
 
@@ -50,7 +50,7 @@ CREATE TABLE IF NOT EXISTS `comments` (
   `ranking` int(11) NOT NULL,
   PRIMARY KEY (`comment_id`),
   FOREIGN KEY (`recipe_id`) REFERENCES recipes(recipe_id)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=innoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -101,7 +101,7 @@ CREATE TABLE IF NOT EXISTS `recipes` (
   `persons` int(11) NOT NULL,
   `custom_ingredients` json NOT NULL,
   PRIMARY KEY (`recipe_id`),
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=innoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
