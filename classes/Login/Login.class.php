@@ -3,47 +3,61 @@
 class Login extends Mysql
 {
     /**
+     * Récupère les données d'une table de la base de données en fonction de l'ID de la recette.
+     *
+     * Cette méthode génère une requête SQL pour obtenir des données à partir de la table spécifiée,
+     * utilise une instance de la classe `Database` pour exécuter la requête et retourne les résultats.
+     *
+     * @param array $params Tableau contenant les paramètres de la requête, y compris les champs et les tables.
+     * @param int|string $recipeId L'identifiant de la recette.
+     * @param bool $silentMode Mode silencieux pour la récupération des données (par défaut : false).
+     * @return array Les données SQL récupérées.
+     * @throws Error Si la recette n'existe pas.
+     */
+    protected function getFromTable(array $params, int|string $recipeId)
+    {
+        // Option du constructeur
+        $options = [
+            "fetchAll" => $params["fetchAll"] ?? false,
+            "searchMode" => $params["searchMode"] ?? false,
+            "silentMode" => $params["silentMode"] ?? false,
+            "silentExecute" => $params["silentExecute"] ?? false
+        ];
+        // Crée une instance de la classe Database avec des données optionnelles
+        $Fetch = new Database($options);
+
+        // Génère et exécute la requête SQL pour récupérer les données
+        $SQLData = $Fetch->__createGetQuery($params, $recipeId, $this->connect());
+
+        // Retourne les données SQL récupérées
+        return $SQLData;
+    }
+
+    /**
      * Summary of getUsers
      *
      */
     protected function getUsers(string $email): array
     {
         $params = [
-            "fields"=> ['*'],
+            "fields" => ['*'],
             "table" => ['users'],
             "error" => ["STMTLGNGETUSR - Failed"],
             "where" => [
                 'conditions' => [
-                    'r.full_name' => ':full_name',
-                    'r.email' => ':email'
+                    'full_name' => '= :full_name',
+                    'email' => '= :email'
                 ],
                 'logic' => 'OR'
-            ]
+            ],
+            "login" => true,
+            "silentMode" => true,
         ];
-        $sqlUsersQuery =
-        'SELECT * FROM `users`
-        WHERE full_name = :full_name OR email = :email;';
-        /* 'SELECT * FROM `users`;'; */
 
-        $usersStatement = $this->connect()->prepare($sqlUsersQuery);
 
-        if (!$usersStatement->execute([
-            'email' => $email,
-            'full_name' => $email
-        ])) {
-            $usersStatement = null;
-            //throw new Error((string)header("Location: ".Functions::getUrl()."?error=stmt-failed"));
-            throw new Error("STMTLGNGETUSR - Failed");
-            //header("Location : ".$url->getThisUrl(). "?error=user-not-found");
-        }
-        /* if ($usersStatement->rowCount() == 0) {
-            $usersStatement = null;
-            //throw new Error((string)header("Location: ".Functions::getUrl()."?error=user-not-found"));
-            //header("Location : ".Functions::getUrl()."?error=user-not-found");
-            throw new Error("L'utilisateur n'a pas été trouvé");
-            //exit();
-        } */ //else {
-        $users = $usersStatement->fetchAll(PDO::FETCH_ASSOC);
+        // $users = $usersStatement->fetchAll(PDO::FETCH_ASSOC);
+        $users = $this->getFromTable($params, $email);
+
         // header($_SERVER["SERVER_PROTOCOL"] . " 404 Not Found");
         // http_response_code(404);
         // header("HTTP/1.1 404 Not Found");
