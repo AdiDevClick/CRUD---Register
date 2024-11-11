@@ -2,7 +2,6 @@
 
 class Database
 {
-    private bool $includeDateFormat = false;
     private string $joinClause = '';
     private string $limitClause = '';
     private mixed $whereClause = '';
@@ -11,17 +10,19 @@ class Database
     private bool $silentMode;
     private bool $fetchAll;
     private bool $searchMode;
+    private bool $silentExecute;
 
     public function __construct(
+        private array $options = [],
         private mixed $optionnalData = null,
-        private array $options = []
     ) {
 
         // Valeurs par défaut des options
         $defaults = [
             'silentMode' => false,
             'fetchAll' => false,
-            'searchMode' => false
+            'searchMode' => false,
+            'silentExecute' => false
         ];
         // Fusionner les options par défaut avec les options fournies
         $this->options = array_merge($defaults, $options);
@@ -32,13 +33,16 @@ class Database
         $this->searchMode = $this->options['searchMode'];
         // Recipe read page : gets ALL datas; comments will all be append as array
         $this->fetchAll = $this->options['fetchAll'];
-        // var_dump($this->options);
+        // In the case where no conditions are needed, execute an SQLQuery without executeParams
+        // Exemple :    "fields" => ["*"],
+        //              "table" => ["comments"],
+        $this->silentExecute = $this->options['silentExecute'];
         // die(var_dump($this->silentMode, $this->optionnal));
     }
 
-    public function __createGetQuery(array $params, int|null $id, PDO $database, array $optionnal = null)
+    public function __createGetQuery(array $params, int|string|null $id, PDO $database)
     {
-        return $this->createGetQuery($params, $id, $database, $optionnal);
+        return $this->createGetQuery($params, $id, $database);
     }
     public function __createDeleteQuery(array $params, int $id, PDO $database)
     {
@@ -81,26 +85,25 @@ class Database
      *      ]
      *  ];
      * ```
-     * @param int $recipeId ID de la recette (peut être ignoré si non nécessaire)
+     * @param int|string $recipeId ID / Titre de la recette (peut être ignoré si non nécessaire)
      * @param bool $silentMode Permet de ne pas renvoyer d'erreur si nécessaire (par défaut : false)
      * @param PDO $database Objet PDO pour la connexion à la base de données
      * @throws \Error si la requête échoue ou si aucune ligne n'est trouvée
      * @return mixed Tableau associatif contenant les informations de la recette
      */
-    private function createGetQuery(array $params, int $recipeId = null, PDO $database, array $optionnal = null)
+    private function createGetQuery(array $params, int|string $recipeId = null, PDO $database)
     {
-        // Handle state reset
-        // $limit = intval($optionnal['limit'] ?? 10);
-        if (isset($optionnal['resetState']) && $optionnal['resetState'] == 1) {
+        // Handle request reset state
+        if (!empty($params['resetState']) && $params['resetState'] == 1) {
             $_SESSION['LAST_ID'] = 0;
         }
-        // die(var_dump($params));
+
         // Extract array $params's fields
         $fields = implode(', ', $params['fields']);
         $fromTable = implode(', ', $params['table']);
         $error = !empty($params['error']) ? implode(', ', $params['error']) : "Cette $fromTable n'existe pas";
         // Extract alias from the table name (assuming only one table in 'table' array)
-        $tableAlias = explode(' ', $params['table'][0])[1];
+        // $tableAlias = explode(' ', $params['table'][0])[1];
         // Construct JOIN dynamic clause if $params['join'] is NOT NULL
         if (!empty($params['join'])) {
             $this->addJoinClause($params['join']);
@@ -110,16 +113,15 @@ class Database
         if (!empty($params['date'])) {
             $date = implode(', ', $params['date']);
             $fields .= ", $date";
-            // if ($this->includeDateFormat) {
-            // $fields .= ", DATE_FORMAT(i.created_at, '%d/%m/%Y') as image_date";
         }
 
         // Construct dynamic WHERE clause
         if (!empty($params['where']['conditions'])) {
             $this->whereClause = $this->addWhereClause($params);
-        } elseif ($recipeId !== null) {
-            $this->whereClause = "WHERE $tableAlias.recipe_id = :recipe_id";
         }
+        // elseif ($recipeId !== null) {
+        //     $this->whereClause = "WHERE $tableAlias.recipe_id = :recipe_id";
+        // }
 
         // Add a MATCH to the request if set
         if (!empty($params['match'])) {
@@ -145,7 +147,6 @@ class Database
         if (!empty($params['order_by'])) {
             $this->orderByClause = 'ORDER BY ' . $params['order_by'];
         }
-        // $orderBy = !empty($params['order_by']) ? 'ORDER BY ' . $params['order_by'] : 'ORDER BY r.recipe_id ASC';
 
         // SQL Request Construction
         $sqlQuery = "SELECT $fields
@@ -154,32 +155,60 @@ class Database
             $this->whereClause
             $this->orderByClause
             $this->limitClause;";
+        // $sqlQuery = " SELECT r.recipe_id, r.title, r.author, i.img_path, i.youtubeID, DATE_FORMAT(i.created_at, '%d/%m/%Y') as image_date, MATCH (r.title) AGAINST (:word IN BOOLEAN MODE) AS score FROM recipes r LEFT JOIN images i ON i.recipe_id = r.recipe_id WHERE r.is_enabled = 1 AND r.recipe_id > :recipe_id HAVING score > 0 ORDER BY r.recipe_id ASC LIMIT 5;";
 
         // Prepare Statement
         $getRecipeStatement = $database->prepare($sqlQuery);
         // die(var_dump($getRecipeStatement));
-        // Préparation des paramètres pour l'exécution de la requête
-        // $executeParams = $params['where']['conditions'] ?? [];
-        if ($recipeId !== null) {
+
+        // Prepare execute parameters
+
+        // If number $recipeId
+        if ($recipeId !== null && is_numeric($recipeId)) {
+            // !! IMPORTANT !! Force int on the ID
+            $recipeId = (int) $recipeId;
             $executeParams['recipe_id'] = $recipeId;
         }
 
-        if (!empty($params['word'])) {
-            $executeParams['word'] = $params['word'] . '*';
+        // If string $recipeId
+        if ($recipeId !== null && is_string($recipeId)) {
+            // Construct clause MATCH if a keyword is found
+            $executeParams['word'] = strip_tags($recipeId) . '*';
             if (isset($_SESSION['LAST_ID'])) {
                 $executeParams['recipe_id'] = $_SESSION['LAST_ID'];
             }
         }
+
+        if ($this->silentExecute) {
+            $executeParams = [];
+        }
+
+        if (!empty($params['login']) && $params['login']) {
+            $executeParams = [];
+            $executeParams['email'] = $recipeId;
+            $executeParams['full_name'] = $recipeId;
+        }
+        // if (!empty($params['word'])) {
+        //     $executeParams['word'] = $params['word'] . '*';
+        //     if (isset($_SESSION['LAST_ID'])) {
+        //         $executeParams['recipe_id'] = $_SESSION['LAST_ID'];
+        //     }
+        // }
         // die(var_dump($getRecipeStatement));
-
-
+        // $executeParams = [
+        //     'word' => 'test',
+        //     'recipe_id' => '0'
+        // ];
+        // $getRecipeStatement->execute($executeParams);
+        // $results = $getRecipeStatement->fetchAll(PDO::FETCH_ASSOC);
+        // die(var_dump($getRecipeStatement));
         // Execute SQLRequest
-        if (!$getRecipeStatement->execute($executeParams)) {
-            // die(var_dump($getRecipeStatement));
+        // die(var_dump($executeParams));
 
+        if (!$getRecipeStatement->execute($executeParams)) {
             $getRecipeStatement = null;
             // require_once(dirname(__DIR__, 2).'/config/altertable.sql')
-            throw new Error("stmt Failed");
+            throw new Error("STMTGET - Failed");
         }
 
         // If no row exists, fail
@@ -191,7 +220,6 @@ class Database
             if ($this->silentMode) {
                 // Return empty
                 return [];
-                // return $data = [];
             }
             // Send a first Error that will be caught
             throw new Error($error);
@@ -200,7 +228,6 @@ class Database
         if ($this->searchMode) {
             // Grab all results from the searchbar
             $data = [];
-            // if ($getRecipeStatement->rowCount() > 0) {
             while ($recipeInfos = $getRecipeStatement->fetch(PDO::FETCH_ASSOC)) {
                 if (is_array($recipeInfos) && isset($recipeInfos['recipe_id']) && $recipeInfos['recipe_id'] > $_SESSION['LAST_ID']) {
                     // $lastItem = end($recipeInfos);
@@ -211,18 +238,17 @@ class Database
                 }
             }
             return $data;
-            // }
         }
 
         if ($this->fetchAll) {
             // Grab 1 entry result
-            $data = $getRecipeStatement->fetchAll(PDO::FETCH_ASSOC);
+            $datas = $getRecipeStatement->fetchAll(PDO::FETCH_ASSOC);
             // If it's an UPDATE RECIPE Request - JS Client submit handler
             if ($this->optionnalData === 'reply_Client') {
-                return json_encode($data);
+                return json_encode($datas);
             }
-            // die(var_dump($data));
-            return $data;
+            // die(var_dump($datas));
+            return $datas;
         }
 
         // Grab 1 entry result
@@ -231,7 +257,9 @@ class Database
         if ($this->optionnalData === 'reply_Client') {
             return json_encode($data);
         }
+        // print(var_dump($data));
         // die(var_dump($data));
+
         return $data;
 
     }
@@ -253,9 +281,6 @@ class Database
     {
         foreach ($params as $table => $condition) {
             $this->joinClause .= "LEFT JOIN $table ON $condition ";
-            // if ($table === 'images i') {
-            //     $this->includeDateFormat = true;
-            // }
         }
     }
 
@@ -315,13 +340,12 @@ class Database
         // Exécution de la requête SQL en recherchant l'ID à partir des paramètres
         if (!$deleteStatement->execute(['recipe_id' => $id])) {
             $deleteStatement = null;
-            throw new Error("stmt Failed");
+            throw new Error("STMTDLT - Failed");
         }
         // Si aucune ligne n'existe, lancer une exception
         if (!$this->silentMode && $deleteStatement->rowCount() == 0) {
             $deleteStatement = null;
             throw new Error($error);
-            // throw new Error("Cette $fromTable ne peut pas être supprimée, elle n'existe pas.");
         }
     }
 }
