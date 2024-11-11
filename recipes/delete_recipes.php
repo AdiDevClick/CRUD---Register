@@ -12,7 +12,12 @@ $loggedUser = LoginController::checkLoggedStatus();
 $sessionName = 'DELETE_RECIPE';
 $params = [
     'fields' => ['r.title', 'r.author'],
-    'table'=> ['recipes r'],
+    'table' => ['recipes r'],
+    "where" => [
+        "conditions" => [
+            'r.recipe_id' => '= :recipe_id'
+        ],
+    ],
     'error' => ["STMTGETRCP"],
 ];
 // unset($_SESSION[$sessionName]);
@@ -32,7 +37,7 @@ if ($serverData && isset($_POST['submit'])) {
     $postID = $_POST['id'];
     // Retrieve session data
     $sessionID = $_SESSION[$sessionName][$sessionName] ?? null;
-    
+
     // Grab author & title
     if (is_numeric($postID) && (is_numeric($sessionID) && $sessionID == $postID)) {
         $id = new RecipeView($postID);
