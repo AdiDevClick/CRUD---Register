@@ -46,7 +46,7 @@ class Process_Ajax
                 }
                 // Insert File in Table
                 if ($this->Post_Files['file'] && $this->Post_Files['file']['error'] == 0) {
-                    $this->insert_File( $this->Post_Files, (int) $recipeId);
+                    $this->insert_File($this->Post_Files, (int) $recipeId);
                 }
             }
 
@@ -97,7 +97,7 @@ class Process_Ajax
             $allowedExtensions = ['jpg', 'jpeg', 'gif', 'png'];
             // Création du path qui sera utilisé dans la table
             $data = $this->setPath(time() . '.' . $extension, $id, $loggedUser['email']);
-            
+
             try {
                 if (isset($id) && in_array($extension, $allowedExtensions)) {
                     // Création du dossier si besoin
@@ -172,7 +172,7 @@ class Process_Ajax
      *
      * Cette fonction crée les chemins pour le stockage du fichier sur le disque et dans la base de données.
      * Elle crée également le dossier de destination sur le disque si celui-ci n'existe pas déjà.
-     * 
+     *
      * @param string $name Le nom du fichier image.
      * @param int $id L'identifiant de la recette.
      * @param string $user Le nom d'utilisateur.
@@ -182,7 +182,8 @@ class Process_Ajax
      * - 'disk_dir_path' : Le chemin complet du fichier sur le disque.
      * - 'name' : Le nom du fichier.
      * */
-    private function setPath(string $name, int $id, string $user): array {
+    private function setPath(string $name, int $id, string $user): array
+    {
         // Création du path qui sera utilisé dans la table
         $new_name = $name;
         $database_Dir = 'uploads/'. $user . '/recipes_images/' . $id;
@@ -191,7 +192,7 @@ class Process_Ajax
         // Création du path qui sera utilisé pour déplacer le fichier
         $file_Upload_Dir = '../uploads/'. $user . '/recipes_images/' . $id . '/';
         $file_In_Upload_Dir = $file_Upload_Dir . '/' . $new_name;
-        
+
         // Vérifie si le dossier existe, sinon le crée
         if (!file_exists($file_Upload_Dir)) {
             makeDir($file_Upload_Dir);
@@ -199,9 +200,9 @@ class Process_Ajax
 
         // Retourne les informations sur les chemins créés
         $datas = [
-            'database_dir'=> $file_In_Database,
-            'disk_dir'=> $file_Upload_Dir,
-            'disk_dir_path'=> $file_In_Upload_Dir,
+            'database_dir' => $file_In_Database,
+            'disk_dir' => $file_Upload_Dir,
+            'disk_dir_path' => $file_In_Upload_Dir,
             'name' => $new_name
         ];
 
