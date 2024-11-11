@@ -55,7 +55,7 @@
                     <p class="alert-error"><?= strip_tags($errorMessage) ?></p>
                 </div>
             <?php endif ?>
-            <div class="full js-one">
+            <div class="full js-one" id="js-mutator-obs">
                 <div class="three-columns">
                     <p>Renseignez le titre ainsi qu’une courte description.</p>
                 </div>
@@ -75,7 +75,7 @@
                 <!-- STEPS 1 TO 6 -->
                 <?php
                     echo createDivWithTextArea($getInfos);
-                ?>
+?>
                 <!-- ADD STEPS BUTTON -->
                 <!-- <a href="#step_2" class="plus three-columns" >
                     <span></span>
