@@ -41,7 +41,7 @@ $loggedUser = LoginController::checkLoggedStatus();
 <?php if (!isset($loggedUser['email'])): ?> 
     <div class="contact">
         <?php if (!empty($err) && (isset($err['userError']) || isset($err['userTaken']))):?>
-            <?php $errorMessage = $err['userError'] ?? $err['emailTaken'] ?>
+            <?php $errorMessage = $err['userError'] ?? $err['emailTaken'] ?? $err['invalidID']?>
             <div>
                 <p class="alert-error"><?php echo strip_tags($errorMessage) ?></p>
             </div>
