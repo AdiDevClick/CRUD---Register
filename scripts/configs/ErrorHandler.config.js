@@ -113,7 +113,7 @@ export const inputsCanBeEmpty = ['step_3', 'step_4', 'step_5', 'step_6', 'file',
  * force new ones when you construct inside the options object -
  * @type {Array < String >}
  */
-export const inputsCanContainSpecialChars = ['Mot de Passe', 'Mot de Passe de confirmation', 'Email', 'file', 'video_file']
+export const inputsCanContainSpecialChars = ['Mot de Passe', 'Mot de Passe de confirmation', 'Email', 'file', 'video_file', 'username']
 
 ////////////////////////////////////////////////////////////
                 /** INPUTS NOT TO LISTEN TO */
@@ -134,7 +134,8 @@ export const defaultInput = 'input, textarea'
  * check newly created inputs values -
  * @type {String}
  */
-export const sectionToWatch = '.form-recipe'
+export const sectionToWatch = '#js-mutator-obs'
+// export const sectionToWatch = '.form-recipe'
 
 ////////////////////////////////////////////////////////////
                     /** REGEX */

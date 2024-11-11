@@ -206,7 +206,9 @@ export class ErrorHandler {
                         // Creating valid / invalid icon for each inputs
                         this.#createIconContainer(node)
                         // Main dynamic checker
-                        this.#dynamicCheck(node)
+                        node.addEventListener('input', debounce((e) => {
+                            this.#dynamicCheck(e.target)
+                        }, (this.debounceDelay)))
                     }
                 }
             }
@@ -328,7 +330,7 @@ export class ErrorHandler {
      * @param {HTMLInputElement} element 
      */
     #dynamicCheck(input) {
-        // console.log(input)
+        // console.log(input.allowSpecialCharacters)
         // Checking if input is empty
         this.isEmptyInputs(input)
         // Checking if the password matches validation regex
@@ -612,7 +614,8 @@ export class ErrorHandler {
      * @returns 
      */
     #charsNotAllowed(input) {
-        if (!input.allowSpecialCharacters && !this.#allowedSpecialChars.test(input.value)) {
+        console.log(input)
+        if ((!input.allowSpecialCharacters || input.allowSpecialCharacters == undefined) && !this.#allowedSpecialChars.test(input.value)) {
             // Retrieve every character that isn't allowed and only unique entries
             console.log(input)
             this.#wrongInput = retrieveUniqueNotAllowedCharFromRegex(input.value, this.#allowedSpecialChars)
@@ -621,6 +624,7 @@ export class ErrorHandler {
             return
         }
         input.isCharAllowed = true
+        console.log(input.allowSpecialCharacters)
             // this.#isCharAllowed = true
         return
     }
