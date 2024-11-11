@@ -20,12 +20,6 @@ $id;
 $is_Post = true;
 $session = 'REGISTERED_RECIPE';
 
-// header('Content-Type: application/json; charset=utf-8');
-// $content = file_get_contents("php://input");
-// $dataTest = json_decode($content, true);
-// print_r(isset($_GET)) ;
-// print_r ($dataTest);
-
 /**
  * Dans le cas d'une recherche, on utilise $_SESSION['LAST_ID'] pour sauvegarder l'état de la recherche -
  * Script JS : 'SearchBar.js' -
@@ -40,18 +34,42 @@ $session = 'REGISTERED_RECIPE';
  * query :  Est défini dans les searchParams par JS dès que l'utilisateur effectue une recherche -
  *          N'est pas modifiable -
  */
-if (isset($_GET['query'])) {
+if (isset($_GET['query']) && !isset($_SESSION['SEARCH_QUERY'])) {
     // header('Content-Type: application/json; charset=utf-8');
     // $content = file_get_contents("php://input");
     // $dataTest = json_decode($content, true);
 
     $getSearchRequest = $_GET['query'];
-    $optionnalData = [
-        'limit' => $_GET['_limit'],
-        // 'query' => $_GET['query'],
-        'resetState' => $_GET['_reset']
+    $sessionName = 'SEARCH_QUERY';
+
+    $query = new RecipeView($getSearchRequest);
+    $params = [
+        "limit" => $_GET["_limit"],
+        // "query" => $_GET["query"],
+        "resetState" => $_GET["_reset"],
+        "fields" => ["r.recipe_id", "r.title", "r.author", "i.img_path", "i.youtubeID"],
+        "date" => ["DATE_FORMAT(i.created_at, '%d/%m/%Y') as image_date"],
+        "match" => [
+            "fields" => "r.title",
+            "against" => ":word"
+        ],
+        "join" => [
+            "images i" => "i.recipe_id = r.recipe_id"
+        ],
+        "where" => [
+            "conditions" => [
+                "r.is_enabled" => "= 1",
+                "r.recipe_id" => "> :recipe_id"
+            ],
+            "logic" => "AND"
+        ],
+        "order_by" => "r.recipe_id ASC",
+        // "word" => $getSearchRequest,
+        "table" => ["recipes r"],
+        "searchMode" => true,
+        "silentMode" => true,
+        "error" => ["Fetch search Error"]
     ];
-    $getRecipe = new RecipeView($getSearchRequest, $optionnalData);
     // Retourne un array d'objets contenant :
     // author: "email",
     // img_path: "img/path/to/images"
@@ -59,8 +77,16 @@ if (isset($_GET['query'])) {
     // score: int
     // title: "titre de ma recette"
     // youtubeID: "idvideoyoutube"
-    $recipe = $getRecipe->getRecipesTitle();
-    echo json_encode($recipe);
+    // $recipe = $query->getRecipesTitle();
+    $recipe = $query->retrieveFromTable($params, $sessionName);
+
+    if (isset($_SESSION[$sessionName])) {
+        echo json_encode($recipe);
+        unset($_SESSION[$sessionName]);
+        exit();
+    } else {
+        die(json_encode(['error' => $params['error'][0]]));
+    }
 }
 
 
@@ -71,32 +97,45 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
      * Cela permet d'afficher les ingrédients dynamiques liés à la recette.
      * L'ID de la recette DOIT être le même que lors de l'initialisation de la page.
      */
-    if ($fetchData && isset($_SESSION['INFO_RECIPE']) && $_SESSION['INFO_RECIPE']['INFO_RECIPE'] === $_GET['id']) {
+    if ($fetchData && isset($_SESSION['INFO_RECIPE']) &&
+        $_SESSION['INFO_RECIPE']['INFO_RECIPE'] === $_GET['id'] &&
+        !isset($_SESSION['CUSTOM_INGREDIENTS'])) {
+
         // Destroy previews Session cookie
         unset($_SESSION['INFO_RECIPE']);
+
         // Prepare the new SQL params
         $getID = $_GET['id'];
         $sessionName = 'CUSTOM_INGREDIENTS';
         $params = [
             'fields' => ['custom_ingredients'],
             'table' => ['recipes r'],
+            "where" => [
+                "conditions" => [
+                    'r.is_enabled' => '= 1',
+                    'r.recipe_id' => '= :recipe_id'
+                ],
+            ],
             'error' => ["Erreur dans la récupération d'ingrédients"],
         ];
         // Prepare the controller for JavaScript submit handler
         $id = new RecipeView($getID, 'reply_Client');
+
         // Send the SQL request
         $getInfos = $id->retrieveFromTable($params, $sessionName);
-        //Destroy previews session cookie
-        unset($_SESSION['CUSTOM_INGREDIENTS']);
-
-        // Send the datas to JavaScript in JSON then kills the script
-        die($getInfos);
+        if (isset($_SESSION[$sessionName])) {
+            //Destroy previews session cookie
+            unset($_SESSION[$sessionName]);
+            // Send the datas to JavaScript in JSON then kills the script
+            die($getInfos);
+        }
     }
     /**
      * IMPORTANT !!
      * LORS DE L'ENVOI DU FORMULAIRE POUR UNE MISE A JOUR :
      * Récupère à nouveau l'ID de la recette pour la passer au serveur
      */
+
     // Grab ID from url
     $id = $_GET['id'];
     // Setting the UPDATE RECIPE intention from the user

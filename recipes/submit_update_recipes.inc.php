@@ -21,6 +21,11 @@ $params = [
     'fields' => ['*'],
     'table' => ['recipes r'],
     'join' => ['images i' => 'r.recipe_id = i.recipe_id'],
+    "where" => [
+        "conditions" => [
+            "r.recipe_id" => "= :recipe_id"
+        ],
+    ],
     'error' => ["Erreur dans la récupération de la recette"],
 ];
 
@@ -30,6 +35,7 @@ $params = [
 if($data && isset($_GET['id']) && is_numeric($_GET['id'])) {
     // Grab ID from the url
     $getID = $_GET['id'];
+    // passing recipe ID to the constructor
     $id = new RecipeView($getID);
 
     // Retrieve all recipe infos
