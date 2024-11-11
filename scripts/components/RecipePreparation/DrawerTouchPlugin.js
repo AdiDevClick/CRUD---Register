@@ -90,6 +90,8 @@ export class DrawerTouchPlugin {
                 this.container.querySelectorAll(elementsToShow).forEach(element => {
                     this.#removeStyle(element, 'hidden')
                 })
+                // Enabling submit button
+                document.querySelector('#submit').disabled = false
                 return
             } else if (mutation.attributeName === 'class' &&
                 this.#mutationOldValue !== '' &&
