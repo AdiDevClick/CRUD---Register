@@ -147,7 +147,7 @@ function createDivWithTextArea(array $getInfos = null): string
         // If we can retrieve data from Database
         foreach ($getInfos as $key => $value) {
             // Insert steps depending on the data from the TABLE
-            if (str_starts_with($key ,'step_') && !empty($value)) {
+            if (str_starts_with($key, 'step_') && !empty($value)) {
                 $textareaValue = htmlspecialchars((string)$getInfos[$key]);
                 // Extraire le chiffre de la chaîne $value
                 preg_match('/step_(\d+)/', $key, $matches);
@@ -155,19 +155,19 @@ function createDivWithTextArea(array $getInfos = null): string
                 $step = '';
                 if ($stepNumber == '1') {
                     $step = 'première';
-                } else if ($stepNumber == '2') {
+                } elseif ($stepNumber == '2') {
                     $step = 'deuxième';
-                } else if ($stepNumber == '3') {
+                } elseif ($stepNumber == '3') {
                     $step = 'troisième';
-                } else if ($stepNumber == '4') {
+                } elseif ($stepNumber == '4') {
                     $step = 'quatrième';
-                } else if ($stepNumber == '5') {
+                } elseif ($stepNumber == '5') {
                     $step = 'cinquième';
-                } else if ($stepNumber == '6') {
+                } elseif ($stepNumber == '6') {
                     $step = 'sixième';
                     $insertAddButton = false;
                 }
-                
+
                 $divItems .= '<div class="js-form-recipe">';
                 $divItems .= '<label for="' . strip_tags($key) . '" class="label">Etape ' . $stepNumber . '</label>';
                 $divItems .= '<textarea id="' . strip_tags($key) . '" cols="60" rows="3" name="' . strip_tags($key) .'" placeholder="Renseignez votre ' . $step . ' étape">' . strip_tags($textareaValue) . '</textarea>';
@@ -175,15 +175,17 @@ function createDivWithTextArea(array $getInfos = null): string
             }
         }
         // Under 6 steps, create the add button
-        if ($insertAddButton) $divItems .= insertAddButton();
+        if ($insertAddButton) {
+            $divItems .= insertAddButton();
+        }
 
     } else {
         // Default steps
         $step = '';
-        for ($i=1; $i < 3 ; $i++) { 
+        for ($i = 1; $i < 3 ; $i++) {
             if ($i == '1') {
                 $step = 'première';
-            } else if ($i == '2') {
+            } elseif ($i == '2') {
                 $step = 'deuxième';
             }
             $divItems .= '<div class="js-form-recipe">';
@@ -201,7 +203,8 @@ function createDivWithTextArea(array $getInfos = null): string
  * Ce lien servira à rajouter des étapes pour le partage de recettes.
  * @return
  */
-function insertAddButton() {
+function insertAddButton()
+{
     $link = '';
     $link .= '<a href="#step_2" class="plus three-columns">';
     $link .= '<span></span>';
@@ -223,14 +226,18 @@ function displayAuthor(string $authorEmail)
     //require_once("includes/class-autoloader.inc.php");
     $users = new LoginView('');
     // $users = new LoginView('', '', '', '');
-    foreach ($users->displayUsers($authorEmail) as $user) {
+    $user = $users->displayUsers($authorEmail);
+    // var_dump($test['email']);
+
+    // foreach ($users->displayUsers($authorEmail) as $user) {
+        // var_dump($user);
         if ($authorEmail === $user['email']) {
-            return $user["full_name"];
+            return  ucfirst($user["full_name"]);
             // return $user["full_name"] . '(' . $user["age"] . 'ans)';
         } else {
-            return $authorEmail . ' Annonyme';
+            return ' Annonyme';
         }
-    }
+    // }
 }
 
 function display_recipe(array $recipe): string
@@ -379,3 +386,37 @@ function display_user(int $userId, array $users): string
         }
     }
 }
+
+/**
+ * Récupère les données d'une table de la base de données en fonction de l'ID de la recette.
+ *
+ * Cette méthode génère une requête SQL pour obtenir des données à partir de la table spécifiée,
+ * utilise une instance de la classe `Database` pour exécuter la requête et retourne les résultats.
+ *
+ * @param array $params Tableau contenant les paramètres de la requête, y compris les champs et les tables.
+ * @param int|string $recipeId L'identifiant de la recette.
+ * @param bool $silentMode Mode silencieux pour la récupération des données (par défaut : false).
+ * @return array Les données SQL récupérées.
+ * @throws Error Si la recette n'existe pas.
+ */
+// function getFromTable(array $params, int|string $recipeId)
+// {
+//     // Ajoute un message d'erreur aux paramètres si la recette n'existe pas
+//     // $params['error'] = ["Cette recette n'existe pas"];
+//     // die(var_dump($params));
+
+//     $options = [
+//         "fetchAll" => $params["fetchAll"] ?? false,
+//         "searchMode" => $params["searchMode"] ?? false,
+//         "silentMode" => $params["silentMode"] ?? false,
+//         "silentExecute" => $params["silentExecute"] ?? false
+//     ];
+//     // Crée une instance de la classe Database avec des données optionnelles
+//     $Fetch = new Database($this->optionnalData(), $options);
+
+//     // Génère et exécute la requête SQL pour récupérer les données
+//     $SQLData = $Fetch->__createGetQuery($params, $recipeId, $this->connect());
+
+//     // Retourne les données SQL récupérées
+//     return $SQLData;
+// }

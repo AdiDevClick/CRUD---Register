@@ -22,14 +22,6 @@ if (!isset($loggedUser)) {
     echo('Vous devez être authentifié pour soumettre un commentaire');
     return;
 }
-/* echo $loggedUser ['user'][1] . 'test';
-
-foreach($postData as $recipes => $value) {
-    echo($recipes .' => '. $value . '<br>');
-} */
-
-/* $comment = $postData['comment'];
-$recipeId = $postData['recipe_id']; */
 
 $getDatas = [
     'comment' => $postData['comment'],
