@@ -6,7 +6,8 @@ class RecipeView extends RecipeController
     // {
     //     return $this->insertRecipes();
     // }
-    public function optionnalData() {
+    public function optionnalData()
+    {
         return $this->getOptionnalData();
     }
 
@@ -26,10 +27,10 @@ class RecipeView extends RecipeController
         return $this->getAverageRatingCommentsById($getDatas);
     }
 
-    public function fetchRecipesWithCommentsById($getDatas)
-    {
-        return $this->getRecipesWithCommentsById($getDatas);
-    }
+    // public function fetchRecipesWithCommentsById($getDatas)
+    // {
+    //     return $this->getRecipesWithCommentsById($getDatas);
+    // }
 
     public function insertImage($getDatas)
     {
@@ -73,11 +74,11 @@ class RecipeView extends RecipeController
     // {
     //     return $this->fetchesRecipeInfosById();
     // }
-    public function fetchIngredientsById()
-    {
-        $result = $this->fetchesIngredientsInfosById();
-        return $result;
-    }
+    // public function fetchIngredientsById()
+    // {
+    //     $result = $this->fetchesIngredientsInfosById();
+    //     return $result;
+    // }
 
     //public function updateRecipeInfoById($title, $recipe, $id)
     public function updateRecipeInfoById()
@@ -91,10 +92,10 @@ class RecipeView extends RecipeController
         return $this->getAverageRatingById();
     }
 
-    public function fetchCommentsById()
-    {
-        return $this->getCommentsById();
-    }
+    // public function fetchCommentsById()
+    // {
+    //     return $this->getCommentsById();
+    // }
 
     public function checkId()
     {
@@ -231,13 +232,46 @@ class RecipeView extends RecipeController
 
     public function display_user($userId)
     {
-        $users = $this->getUsersById();
-        foreach($users as $user) {
-            if ($user['user_id'] === $userId) {
-                return $user['full_name'];
-                // return $user['full_name'] . '(' . $user['age'] . ' ans)';
+        $sessionName = 'GET_USERS';
+        // var_dump($_SESSION);
+        if (!isset($_SESSION[$sessionName])) {
+            // $params = [
+            //     "fields" => ["*"],
+            //     "table" => ["users"],
+            //     "error" => ["STMTRCPGETPWCNT - L'utilisateur n'a pas été trouvé"],
+            //     "fetchAll" => true,
+            //     "silentExecute" => true,
+            // ];
+            $params = [
+                "fields" => ["u.user_id", "u.full_name"],
+                "join"=> [
+                    "users u" => "u.user_id = c.user_id"
+                ],
+                "table" => ["comments c"],
+                "where" => [
+                    "conditions" => [
+                        'c.recipe_id' => '= :recipe_id'
+                    ],
+                ],
+                "error" => ["STMTRCPGETPWCNT - L'utilisateur n'a pas été trouvé"],
+                "fetchAll" => true,
+                // "silentExecute" => true,
+            ];
+            // var_dump($params);
+            $users = $this->fetchFromTable($params, $sessionName);
+            // $users = $this->getUsersById();
+            // die(var_dump($users));
+        }
+        if (isset($_SESSION[$sessionName])) {
+            unset ($_SESSION[$sessionName]);
+            foreach($users as $user) {
+                if ($user['user_id'] === $userId) {
+                    return $user['full_name'];
+                    // return $user['full_name'] . '(' . $user['age'] . ' ans)';
+                }
             }
         }
+        unset ($_SESSION[$sessionName]);
         return 'Annonyme';
     }
 }

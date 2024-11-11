@@ -9,120 +9,28 @@ class Recipe extends Mysql
      * utilise une instance de la classe `Database` pour exécuter la requête et retourne les résultats.
      *
      * @param array $params Tableau contenant les paramètres de la requête, y compris les champs et les tables.
-     * @param int $recipeId L'identifiant de la recette.
+     * @param int|string $recipeId L'identifiant de la recette.
      * @param bool $silentMode Mode silencieux pour la récupération des données (par défaut : false).
      * @return array Les données SQL récupérées.
      * @throws Error Si la recette n'existe pas.
      */
-    protected function getFromTable(array $params, int $recipeId, bool $silentMode = false)
+    protected function getFromTable(array $params, int|string $recipeId)
     {
-        // Ajoute un message d'erreur aux paramètres si la recette n'existe pas
-        // $params['error'] = ["Cette recette n'existe pas"];
-
+        // Option du constructeur
+        $options = [
+            "fetchAll" => $params["fetchAll"] ?? false,
+            "searchMode" => $params["searchMode"] ?? false,
+            "silentMode" => $params["silentMode"] ?? false,
+            "silentExecute" => $params["silentExecute"] ?? false
+        ];
         // Crée une instance de la classe Database avec des données optionnelles
-        $Fetch = new Database(
-            $this->optionnalData(),
-            [
-            'silentMode' => $silentMode
-            ]
-        );
+        $Fetch = new Database($options, $this->optionnalData());
 
         // Génère et exécute la requête SQL pour récupérer les données
         $SQLData = $Fetch->__createGetQuery($params, $recipeId, $this->connect());
 
         // Retourne les données SQL récupérées
         return $SQLData;
-    }
-
-    /**
-     * Récupère les titres des recettes en fonction d'un mot clé et des options fournies.
-     *
-     * Cette fonction construit dynamiquement une requête SQL pour rechercher des recettes correspondant à un mot clé.
-     * Les résultats peuvent inclure plusieurs champs et utiliser des jointures, des clauses MATCH, des conditions WHERE dynamiques, et des options de pagination.
-     *
-     * @param string $recipes Le mot clé à rechercher dans les titres de recettes.
-     * @param array $optionnal Options supplémentaires pour la requête, y compris la limite et l'état de réinitialisation.
-     * ```php
-     * Exemple :
-     *  $optionnal = [
-     *      'limit' => 10,
-     *      'resetState' => 1
-     *  ];
-     * ```
-     * @return array Un tableau associatif contenant les informations des recettes trouvées.
-     */
-    protected function getRecipesTitles(string $recipes, array $optionnal): array
-    {
-        // Paramètres de la requête SQL
-        $params = [
-            "limit" => $optionnal['limit'],
-            "fields" => ['r.recipe_id', 'r.title', 'r.author', 'i.img_path', 'i.youtubeID'],
-            "match" => [
-                'fields' => 'title',
-                'against' => ':word'
-            ],
-            "join" => [
-                'images i' => 'i.recipe_id = r.recipe_id'
-            ],
-            "where" => [
-                "conditions" => [
-                    'r.is_enabled' => '= 1',
-                    'r.recipe_id' => '> :recipe_id'
-                ],
-                "logic" => 'AND'
-            ],
-            "order_by" => "r.recipe_id ASC",
-            "word" => $recipes,
-            "table" => ["recipes r"],
-            "error" => ['Fetch Error']
-        ];
-
-        // Instancie la classe Database avec les options spécifiées
-        $Fetch = new Database($this->optionnalData(), [
-            'fetchAll' => true,
-            'silentMode' => true
-        ]);
-
-        // Exécute la requête et retourne les résultats
-        $SQLData = $Fetch->__createGetQuery($params, null, $this->connect(), $optionnal);
-        return $SQLData;
-
-        // $limit = $optionnal['limit'];
-        // $optionnal['resetState'] == 1 ? $_SESSION['LAST_ID'] = 0 : null;
-        // $sqlRecipe = "SELECT r.recipe_id, r.title, r.author, i.img_path, i.youtubeID,
-        //         MATCH title
-        //             AGAINST(:word IN BOOLEAN MODE) AS score
-        //         FROM recipes r
-        //         LEFT JOIN images i
-        //             ON i.recipe_id = r.recipe_id
-        //         WHERE r.is_enabled = 1 AND r.recipe_id > :id
-        //         HAVING score > 0
-        //         ORDER BY r.recipe_id ASC
-        //         LIMIT $limit;";
-        // $getRecipesIdStatement = $this->connect()->prepare($sqlRecipe);
-        // if (!$getRecipesIdStatement->execute([
-        //     'word' => $recipes . '*',
-        //     'id' => $_SESSION['LAST_ID'],
-        // ])) {
-        //     $getRecipesIdStatement = null;
-        //     throw new Error("stmt Failed");
-        // }
-
-        // if ($getRecipesIdStatement->rowCount() == 0) {
-        //     $_SESSION['LAST_ID'] = 0;
-        //     $getRecipesIdStatement = null;
-        //     return $data = [];
-        // }
-
-        // if ($getRecipesIdStatement->rowCount() > 0) {
-        //     while ($recipesArray = $getRecipesIdStatement->fetch(PDO::FETCH_ASSOC)) {
-        //         if ($recipesArray['recipe_id'] > $_SESSION['LAST_ID']) {
-        //             $_SESSION['LAST_ID'] = $recipesArray['recipe_id'];
-        //             $data[] = $recipesArray;
-        //         }
-        //     }
-        //     return $data;
-        // }
     }
 
     /**
@@ -270,43 +178,6 @@ class Recipe extends Mysql
     }
 
     /**
-     * Summary of getRecipesWithCommentsById
-     * @param mixed $recipeId
-     * @throws \Error
-     * @return array
-     */
-    public function getRecipesWithCommentsById($recipeId)
-    {
-        $sqlRecipe =
-        'SELECT *, DATE_FORMAT(c.created_at, "%d/%m/%Y") as comment_date 
-        FROM recipes r
-        LEFT JOIN images i
-            ON i.recipe_id = r.recipe_id
-        LEFT JOIN comments c
-            ON c.recipe_id = r.recipe_id
-        WHERE r.recipe_id = :recipe_id;';
-        $retrieveRecipeWithCommentsStatement = $this->connect()->prepare($sqlRecipe);
-        if (!$retrieveRecipeWithCommentsStatement->execute([
-            'recipe_id' => $recipeId,
-        ])) {
-            $retrieveRecipeWithCommentsStatement = null;
-            //throw new Error((string)header("Location: ".Functions::getUrl()."?error=stmt-failed"));
-            throw new Error("stmt Failed");
-        }
-        if ($retrieveRecipeWithCommentsStatement->rowCount() == 0) {
-            $retrieveRecipeWithCommentsStatement = null;
-            //echo strip_tags("Cette recette n'existe pas.");
-            //throw new Error((string)header("Location: ".Functions::getUrl()."?error=recipeid-not-found"));
-            throw new Error("Cette recette n'existe pas");
-            //header("Location :" .Functions::getUrl(). "?error=recipe-not-found");
-            //exit();
-        }
-        $recipe = $retrieveRecipeWithCommentsStatement->fetchAll(PDO::FETCH_ASSOC);
-        // print_r($recipe);
-        return $recipe;
-    }
-
-    /**
      * Fetching reviews and rounding them by average
      */
     public function getAverageRatingCommentsById($recipeId)
@@ -322,16 +193,11 @@ class Recipe extends Mysql
             'id' => $recipeId,
         ])) {
             $averageRatingStatment = null;
-            //throw new Error((string)header("Location: ".Functions::getUrl()."?error=stmt-failed"));
-            throw new Error("stmt Failed");
+            throw new Error("STMT Failed");
         }
         if ($averageRatingStatment->rowCount() == 0) {
             $averageRatingStatment = null;
-            //echo strip_tags("Cette recette n'existe pas.");
-            //throw new Error((string)header("Location: ".Functions::getUrl()."?error=recipeid-not-found"));
             throw new Error("Cette recette n'existe pas.");
-            //header("Location :" .Functions::getUrl(). "?error=recipe-not-found");
-            //exit();
         }
         $recipe = $averageRatingStatment->fetch(PDO::FETCH_ASSOC);
         return $recipe;
@@ -350,7 +216,7 @@ class Recipe extends Mysql
             'user_id' => $userId
         ])) {
             $insertCommentsStatment = null;
-            throw new Error("stmt Failed");
+            throw new Error("STMTCMT Failed");
         }
     }
 
@@ -385,12 +251,19 @@ class Recipe extends Mysql
     protected function deleteImageId(int $recipeId, bool $silentMode = false)
     {
         $params = [
-            'fields' => ['img_path'],
-            'table' => ['images i'],
-            'error' => ["Impossible de récupérer cette image, elle n'existe pas"]
+            "fields" => ["img_path"],
+            "table" => ["images i"],
+            "date" => ["DATE_FORMAT(i.created_at, '%d/%m/%Y') as image_date"],
+            "where" => [
+                "conditions" => [
+                    "i.recipe_id" => "= :recipe_id"
+                ],
+            ],
+            "error" => ["Impossible de récupérer cette image, elle n'existe pas"],
+            "silentMode" => $silentMode
         ];
 
-        $image = $this->getFromTable($params, $recipeId, $silentMode);
+        $image = $this->getFromTable($params, $recipeId);
 
         if (isset($image['img_path']) && $image !== false && file_exists(dirname(__DIR__, 2) .'/'. $image['img_path'])) {
 
@@ -410,7 +283,8 @@ class Recipe extends Mysql
 
         $params = [
             "table" => ["images"],
-            "error" => ["La suppression de cette image est impossible"]
+            "error" => ["La suppression de cette image est impossible"],
+            'silentMode' => $silentMode
         ];
         // Suppression de l'entrée dans la table
         $this->deleteFromTable($params, $recipeId, $silentMode);
@@ -428,42 +302,14 @@ class Recipe extends Mysql
      */
     protected function deleteFromTable(array $params, int $id, bool $silentMode = false)
     {
+        $options = [
+            'silentMode' => $params['silentMode'] ?? false
+        ];
         // Crée une instance de la classe Database avec des données optionnelles
-        $Fetch = new Database(null, [
-            'silentMode' => $silentMode
-        ]);
+        $Fetch = new Database($options);
 
         // Génère et exécute la requête SQL pour récupérer les données
         $Fetch->__createDeleteQuery($params, $id, $this->connect());
-    }
-
-
-    /**
-     * Find the Image assiociated by the recipe ID
-     * @param array $recipeId
-     * @return array
-     */
-    public function getRecipesWithImagesById($recipeId)
-    {
-        $sqlRecipe =
-        'SELECT *, DATE_FORMAT(c.created_at, "%d/%m/%Y") as image_date
-        FROM recipes r
-        LEFT JOIN images c
-        ON r.recipe_id = c.recipe_id
-        WHERE r.recipe_id = :recipe_id;';
-        $retrieveRecipeWithCommentsStatement = $this->connect()->prepare($sqlRecipe);
-        if (!$retrieveRecipeWithCommentsStatement->execute([
-            'recipe_id' => $recipeId,
-        ])) {
-            $retrieveRecipeWithCommentsStatement = null;
-            throw new Error("stmt Failed");
-        }
-        if ($retrieveRecipeWithCommentsStatement->rowCount() == 0) {
-            $retrieveRecipeWithCommentsStatement = null;
-            throw new Error("Cette recette n'existe pas");
-        }
-        $recipe = $retrieveRecipeWithCommentsStatement->fetchAll(PDO::FETCH_ASSOC);
-        return $recipe;
     }
 
     protected function getRecipesTitles2(string $recipes, array $optionnal): array
