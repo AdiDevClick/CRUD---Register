@@ -54,7 +54,7 @@ class CheckInput extends Validate
                 if ($key === 'email' && (!filter_var($key === 'email', FILTER_VALIDATE_EMAIL)) && !preg_match("/([a-z0-9A-Z._-]+)@([a-z0-9A-Z_-]+)\.([a-z\.]{2,6})$/", $value)) {
                     array_push(self::$errorsArray, "Veuillez saisir un email valide");
                 }
-                if ($key === 'username' && !preg_match("/^[a-zA-Z0-9]*$/", $value)) { // With space allowed
+                if ($key === 'username' && !preg_match("/^[a-zA-Z0-9._-]+(@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})?$/", $value)) { // With space allowed
                     array_push(self::$errorsArray, 'invalidID - Votre identifiant est invalide');
                 }
                 if ($result && !empty($key === 'title') && $key === 'title' && !preg_match($regex, $value)) { // With space allowed
@@ -204,8 +204,8 @@ class CheckInput extends Validate
                 $key === 'userTaken' ||
                 $key === 'pwMatch' ||
                 $key === 'invalidComment'
-                ) {
-                    $errorMessage = $value;
+            ) {
+                $errorMessage = $value;
             } elseif ($key === 'errorEmail') {
                 $errorMessage = 'Cet email est invalide';
             } elseif (str_contains($value, 'vide')) {
@@ -245,4 +245,38 @@ class CheckInput extends Validate
         />';
         return $errorMessage;
     }
+
+    /**
+     * Sanitize les données passée en paramètre
+     * @param array $datas Les données à sanitize
+     * @param string $option Une clé à ne pas intégrer dans l'array
+     * @return string[]
+     */
+    public function sanitizeData(string $option = null)
+    {
+        $this->getDatas = is_array($this->getDatas) ? $this->getDatas : [$this->getDatas];
+
+        foreach ($this->getDatas as $key => $value) {
+            if ($option) {
+                if ($key !== $option) {
+                    $sanitized_Datas[$key] = $this->test_input($value);
+                }
+            } else {
+                $sanitized_Datas[$key] = $this->test_input($value);
+            }
+        }
+
+        $this->checkInputs();
+
+        if (empty($this->getErrorsArray())) {
+            $status = true;
+            $_SESSION['SANITIZED'] = $status;
+        } else {
+            $status = false;
+            $_SESSION['SANITIZED'] = $this->getErrorsArray();
+        }
+
+        return $sanitized_Datas;
+    }
+
 }
