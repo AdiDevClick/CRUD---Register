@@ -9,6 +9,42 @@ include_once '../logs/customErrorHandlers.php';
 include_once '../includes/variables.inc.php';
 include_once '../includes/functions.inc.php';
 
+// Paramètres de la requête SQL pour récupérer la recette
+$sessionName = 'GET_RECIPE';
+$recipeParams = [
+    "fields" => ['*'],
+    "join" => [
+        'images i' => 'i.recipe_id = r.recipe_id',
+    ],
+    "where" => [
+        "conditions" => [
+            'r.is_enabled' => '= 1',
+            'r.recipe_id' => '= :recipe_id'
+        ],
+    ],
+    "table" => ["recipes r"],
+    "error" => ["Cette recette n'existe pas"]
+];
+
+// Paramètres de la requête SQL pour récupérer les commentaires
+$sessionCommentName = 'GET_COMMENT';
+$commentParams = [
+    "fields" => ['comment_id', 'comment', 'user_id'],
+    "date" => ['DATE_FORMAT(c.created_at, "%d/%m/%Y") as comment_date'],
+    "join" => [
+        'comments c' => 'c.recipe_id = r.recipe_id',
+    ],
+    "where" => [
+        "conditions" => [
+            'r.is_enabled' => '= 1',
+            'r.recipe_id' => '= :recipe_id'
+        ],
+    ],
+    "table" => ["recipes r"],
+    "error" => ["Ce commentaire n'existe pas"],
+    "fetchAll" => true
+];
+
 /**
  * Permet de filtrer quelles clés de l'array getInfos
  * ne seront pas renvoyées à l'array $recipe
@@ -18,94 +54,65 @@ $filterKeysToRemove = [
     'comment_id', 'comment', 'rating', 'user_id',
     'review', 'ranking', 'comment_date'
 ];
-// $array;
+$filterCommentKeys = [
+    'comment_id', 'comment', 'comment_date', 'user_id'
+];
 
 /**
  * Grabing URL ID from index page and fetching rows datas
  */
 if(isset($_GET['id']) && is_numeric($_GET['id'])) {
-    $getDatas = $_GET['id'];
-    $checkId = new RecipeView($getDatas);
-    //$idDatas->checkId();
-    //$getInfos = $idDatas->getRecipeInfoById();
-    $averageRating = $checkId->fetchAverageRatingCommentsById($getDatas);
-    $getInfos = $checkId->fetchRecipesWithCommentsById($getDatas);
+    $getID = $_GET['id'];
+    $id = new RecipeView($getID);
+    $averageRating = $id->fetchAverageRatingCommentsById($getID);
 
-    /**
-     * Création d'un array $recipe :
-     * Contient toutes les informations de $getInfos
-     * et utilise $filterKeysToRemove pour retirer certaines clés
-     * Puis modifie la clé 'rating' pour l'arrondir
-     */
-    foreach ($getInfos[0] as $key => $value) {
-        if (!in_array($key, $filterKeysToRemove)) {
-            $recipe[$key] = $value;
+    try {
+        /**
+         * Création d'un array $recipe :
+         * Contient toutes les informations de $getInfos
+         * et utilise $filterKeysToRemove pour retirer certaines clés
+         * Puis modifie la clé 'rating' pour l'arrondir
+         */
+        // Retrieve all recipe infos
+        $getInfos = $id->retrieveFromTable($recipeParams, $sessionName);
+        if (isset($_SESSION[$sessionName])) {
+            foreach ($getInfos as $key => $value) {
+                if (!in_array($key, $filterKeysToRemove)) {
+                    $recipe[$key] = $value;
+                }
+            }
+            unset($_SESSION[$sessionName]);
+        } else {
+            throw new Error("Quelque chose d'anormal s'est produit lors de la récupération de la recette");
         }
-        // if ($keys !== $key) {
-        //     echo '<pre>';
-        //     echo $keys . ' => ' . $key;
-        //     echo '</pre>';
-        //     // $recipe[$key] = $value;
-        // }
 
+        /**
+         * Récupère toutes les itérations de commentaires données par $getComments
+         * Puis rajoute chaque itérations au tableau $recipe
+         */
+        // Retrieve all comments related to the recipe
+        $getComments = $id->retrieveFromTable($commentParams, $sessionCommentName);
+
+        if (isset($_SESSION[$sessionCommentName])) {
+            foreach($getComments as $comment) {
+                if (!is_null($comment['comment_id'])) {
+                    $recipe['comments'][] = [
+                        'comment_id' => $comment['comment_id'],
+                        'comment' => $comment['comment'],
+                        'user_id' => $comment['user_id'],
+                        'created_at' => $comment['comment_date'],
+                    ];
+                }
+            }
+            unset($_SESSION[$sessionCommentName]);
+        } else {
+            throw new Error("Impossible d'afficher les commentaires");
+        }
+    } catch (\Throwable $error) {
+        echo $error->getMessage();
     }
-    // }
+
     $recipe['rating'] = $averageRating['rating'];
-    // $array = array_diff_key($filterKey, $getInfos[0]);
-    // Append comments array into the recipe array
-    foreach($getInfos as $comment => $data) {
-        // print_r($getInfos[0]) . '<br>';
-        // print_r($getInfos)  . '<br>';
-        // print_r($getInfos) ;
-        // print_r($comment) ;
-        // print_r($data);
-        // if ($comment === in_array($comment, $filterKey)) {
-        //     echo 'hello';
-        // }
-        // $recipe = array_filter($filterKey, fn ($key, $value) => $value);
-        // $recipe[$comment] ?? $recipe = array_filter($filterKey, fn ($key, $value) => $key == $comment || $value = $data);
-        // $recipe = array_filter($filterKey, function ($key, $value) {
-        //     $key == '4' || $value == '2';
-        // });
-
-
-        // if (empty($array)) return;
-        // print_r($key) ;
-        // $recipe[$comment] = $data;
-        // $recipe['rating'] ?? $recipe['rating'] = $averageRating['rating'];
-        // $recipe['comments'][0] ?? $recipe['comments'][0];
-
-        // print_r($data['comment_id']) ;
-        // if (!is_null(['comment_id'])) {
-        // // // if ($comment === 'comment_id' && !is_null($data)) {
-        //     // echo $comment;
-        //     $recipe['comments'][0] ?? $recipe['comments'][] = [
-        //         'comment_id' => ['comment_id'][0][$data],
-        //         'comment' => ['comment'][0][$data],
-        //         'user_id' => ['user_id'][0][$data],
-        //         'created_at' => ['comment_date'][0][$data],
-        //     ];
-        // }
-    }
-
-    /**
-     * Récupère toutes les itérations de commentaires données par $getInfos
-     * Puis rajoute chaque itérations au tableau $recipe
-     */
-    foreach($getInfos as $comment) {
-        if (!is_null($comment['comment_id'])) {
-            $recipe['comments'][] = [
-                'comment_id' => $comment['comment_id'],
-                'comment' => $comment['comment'],
-                'user_id' => $comment['user_id'],
-                'created_at' => $comment['comment_date'],
-            ];
-        }
-    }
-    // echo "<pre>";
-    // print_r($recipe);
-    // echo "</pre>";
-    // print_r($array);
 
     /* $loggedUser = LoginController::checkLoggedStatus();
     print_r  ($loggedUser); */
@@ -117,18 +124,21 @@ if(isset($_GET['id']) && is_numeric($_GET['id'])) {
     header('Location: ../index.php?error=noId');
 }
 
-$title = "Site de Recettes - " . htmlspecialchars($recipe['title']);
+$title = htmlspecialchars($recipe['title']);
 $script = 'src="../scripts/typeWriter.js" type="module" defer';
 ob_start()
 
 ?>
 <header>
+    <?php // if ($error) :?>
+        <?php // $error?>
+    <?php // endif?>
     <div class="read_header">
         <img class="read_header__bg-img" src="<?= '../' . $recipe['img_path'] ?>" alt="">
         <div class="read_header__side-bg"></div>
         <img class="read_header__inner-poster" src="<?= '../' . $recipe['img_path'] ?>" alt="">
         <h1 class="read_header__title"><?= htmlspecialchars($recipe['title']) ?></h1>
-        <div class="read_header__description">Voici ma description rapide</div>
+        <div class="read_header__description"><?= htmlspecialchars($recipe['description']) ?></div>
         <div class="read_header__preview">
             <div class="read_header__preview__time"><?= $recipe['total_time'] . ' ' . $recipe['total_time_length'] ?></div>
             <div class="dot"></div>
@@ -244,9 +254,10 @@ ob_start()
         <div class="row">>
             <?php foreach($recipe['comments'] as $comment): ?>
                 <div class="comment">
-                    <p><?php echo strip_tags($checkId->display_user($comment['user_id'])) ?></p>
+                    <p><?php echo strip_tags($id->display_user($comment['user_id']))?></p>
                     <p><?php echo strip_tags($comment['comment']) ?></p>
                     <i>(Le : <?php echo strip_tags($comment['created_at']) ?>)</i>
+                    <p><?php // print_r($_SESSION)?></p>
                 </div>
             <?php endforeach ?>
         </div>
@@ -254,6 +265,9 @@ ob_start()
         <hr />
         <?php $loggedUser = LoginController::checkLoggedStatus()?>
         <?php if (isset($loggedUser)): ?>
+            <?php //if ($errorComment) :?>
+                <?php // $errorComment?>
+            <?php // endif?>
             <?php include_once('../comments/comments.php') ?>
             <?php //$checkId->displayCommentForm($recipe)?>
             <?php //$checkId->displayCommentSuccess()?>
