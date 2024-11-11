@@ -157,7 +157,7 @@ export function setObjectPropertyTo(arr, objectToModify, objectProperty, propert
             //     console.log('cest test qui est setup')
             // }
 
-            console.log("ca match, je rajoute ", keys)
+            console.log("ca match, je rajoute ", keys, propertyToSet)
             // console.log(objectToModify, propertyToSet)
             objectToModify[propertyToSet] = value
         }
