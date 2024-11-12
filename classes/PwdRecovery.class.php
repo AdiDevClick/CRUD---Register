@@ -19,7 +19,6 @@ class PwdRecovery extends Mysql
             //header("Location :" .Functions::getUrl(). "?error=recipe-not-found");
             //exit();
         }
-        //header('Location: ../index.php');
     }
 
     public function pwdInsert(string $email, string $selector, string $token, int $expires): void
@@ -42,8 +41,7 @@ class PwdRecovery extends Mysql
             //header("Location : ".$url->getThisUrl(). "?error=user-not-found");
         }
         $insertPwd = null;
-        /* header("Location : ".Functions::getUrl(). "?error=stmt-failed");
-        exit(); */
+        /* header("Location : ".Functions::getUrl(). "?error=stmt-failed");*/
     }
 
     public function updatePwd(string $password, string $email): void
@@ -108,14 +106,11 @@ class PwdRecovery extends Mysql
             $userEmailStatement = null;
             throw new Error((string)header("Location: ".Functions::getUrl()."?pwdreset=stmt-failed"));
             //header("Location : ".getUrl(). "?error=stmt-failed");
-            //exit();
         }
         if ($userEmailStatement->rowCount() == 0) {
             $userEmailStatement = null;
             //echo strip_tags("Il n'existe aucune recette à ce jour. Soyez le premier à partager la votre !");
             throw new Error((string)header("Location: ".Functions::getUrl()."?pwdreset=selector-not-found"));
-            //header("Location :" .Functions::getUrl(). "?error=recipe-not-found");
-            //exit();
         }
         $grabUserEmail = $userEmailStatement->fetchAll();
         return $grabUserEmail;
