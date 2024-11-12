@@ -5,13 +5,9 @@
 class SignupController extends Signup
 {
     public function __construct(
-        /* private $nom,
-        private $email,
-        private $password,
-        private $pwdRepeat,
-        private $age, */
         protected $getDatas
     ) {
+        //
     }
 
     protected function signupUsers()
@@ -25,9 +21,9 @@ class SignupController extends Signup
             $password = $checkInput->test_input($this->getDatas["password"]);
             $repeatPassword = $checkInput->test_input($this->getDatas["pwdRepeat"]);
             $age = $checkInput->test_input($this->getDatas["age"]);
-            
+
             $checkInput->checkInputs();
-            
+
             if  ($this->emailTaken($email, $username) || !$this->pwMatch($password, $repeatPassword) || !isset($this->getDatas)) {
                 //if  (!$this->pwMatch()) {
                 CheckInput::insertErrorMessageInArray("SGNTKN : On n'a pas pu check les inputs");
@@ -104,7 +100,7 @@ class SignupController extends Signup
     {
         $resultCheck = '' ;
         if (!$this->checkUser($email, $username)) {
-        // if (!$this->checkUser($this->getDatas['email'], $this->getDatas['username'])) {
+            // if (!$this->checkUser($this->getDatas['email'], $this->getDatas['username'])) {
             $resultCheck = true;
         } else {
             $resultCheck = false;
@@ -116,7 +112,7 @@ class SignupController extends Signup
     {
         $resultCheck = '' ;
         if ($password !== $repeatPassword) {
-        // if ($this->getDatas['password'] !== $this->getDatas['pwdRepeat']) {
+            // if ($this->getDatas['password'] !== $this->getDatas['pwdRepeat']) {
             $resultCheck = false;
             CheckInput::insertErrorMessageInArray('SGNPWM : Les mots de passes ne sont pas identiques');
             // new Error("SGNPWM : Les mots de passes ne sont pas identiques");
