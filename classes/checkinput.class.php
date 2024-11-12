@@ -54,7 +54,8 @@ class CheckInput extends Validate
                 if ($key === 'email' && (!filter_var($key === 'email', FILTER_VALIDATE_EMAIL)) && !preg_match("/([a-z0-9A-Z._-]+)@([a-z0-9A-Z_-]+)\.([a-z\.]{2,6})$/", $value)) {
                     array_push(self::$errorsArray, "Veuillez saisir un email valide");
                 }
-                if ($key === 'username' && !preg_match("/^[a-zA-Z0-9._-]+(@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})?$/", $value)) { // With space allowed
+                if ($key === 'username' && !preg_match("/^[a-zA-Z0-9._@-]+$/", $value)) { // With space allowed
+                    // if ($key === 'username' && !preg_match("/^[a-zA-Z0-9._-]+(@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})?$/", $value)) { // With space allowed
                     array_push(self::$errorsArray, 'invalidID - Votre identifiant est invalide');
                 }
                 if ($result && !empty($key === 'title') && $key === 'title' && !preg_match($regex, $value)) { // With space allowed
