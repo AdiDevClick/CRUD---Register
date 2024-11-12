@@ -323,10 +323,7 @@ class LoginController extends Login
                 $errorMessage = sprintf(
                     'Veuillez vous identifier'
                 );
-                //echo strip_tags('Veuillez vous identifier');
             }
-            // echo ($loggedUser);
-            // print_r($loggedUser);
             return $loggedUser;
 
         } catch (Error $errorMessage) {
