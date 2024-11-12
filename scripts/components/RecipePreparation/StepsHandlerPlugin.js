@@ -44,9 +44,7 @@ export class StepsHandlerPlugin {
         this.#preparation = preparation
         this.#gridContainer = this.#preparation.gridContainer
         this.#errorHandler = this.#preparation.errorHandler
-        this.#touchPlugin = this.#preparation.touchPlugin
         this.#form = this.#preparation.form
-
         // console.log('les variables : \n')
         // console.log('grid => ', this.#gridContainer)
         // console.log('errorHandler => ', this.#errorHandler)
@@ -67,10 +65,12 @@ export class StepsHandlerPlugin {
         
         // On hovering the next button
         this.#nextButton.button.addEventListener('mouseenter', e => {
+            if (!this.#touchPlugin) this.#touchPlugin = this.#preparation.touchPlugin
             e.preventDefault()
             this.#onHover(e, this.#nextButton, 1, 25, 25)
         })
         this.#nextButton.button.addEventListener('touchstart', e => {
+            if (!this.#touchPlugin) this.#touchPlugin = this.#preparation.touchPlugin
             e.preventDefault()
             this.#onHover(e, this.#nextButton, 1, 25, 25)
         })
@@ -134,7 +134,9 @@ export class StepsHandlerPlugin {
                     this.#pushContent(item)
 
                     // 2 - Hide elements
-                    this.#hideElement(item)
+                    console.log(this.#touchPlugin)
+                    this.#touchPlugin.getDisableScrollBehavior
+                    this.#hideElement(item, 'fromRight')
                     // this.#preparation.hideElem(item)
                 })
                 // 3 - We can now instanciate the new STEP COUNTER
@@ -148,7 +150,7 @@ export class StepsHandlerPlugin {
 
                 // 4 - Getting individual elements from NEXT STEP
                 // and display elements to the user
-                this.#elementsToDisplay(nextStepElements)
+                this.#elementsToDisplay(nextStepElements, 'fromRight')
         }
 
         // At the final step
@@ -190,14 +192,16 @@ export class StepsHandlerPlugin {
 
         // 1 - Hide the current step content
         if (hideNextStep) {
+            this.#touchPlugin.getDisableScrollBehavior
+
             hideNextStep.forEach(element => {
-                this.#hideElement(element)
+                this.#hideElement(element, 'fromLeft')
                 // this.#preparation.hideElem(element)
             })
         }
 
         // 2 - Display the previews step content to the user
-        this.#elementsToDisplay(showPreviewsStep)
+        this.#elementsToDisplay(showPreviewsStep, 'fromLeft')
         
         // 3 - We can now instanciate the new Step counter
         if (this.#submitionStep > 1) {
@@ -302,11 +306,13 @@ export class StepsHandlerPlugin {
         const previewsStepElements = this.#gridContainer.querySelectorAll(datas[this.#submitionStep-1].class)
         
         // Event for mobile/desktop
+        // Will display new step
         eventTarget.addEventListener('click', e => {
             e.preventDefault()
             this.#onNextClick(e, previewsStepElements, nextStepElements, activeStep, previewslyActiveStep, datas)
         }, { once: true, signal: controller.signal } )
         // Event for tablet/ipad
+        // Will display new step
         eventTarget.addEventListener('touchend', e => {
             e.preventDefault()
             this.#onNextClick(e, previewsStepElements, nextStepElements, activeStep, previewslyActiveStep, datas)
@@ -353,14 +359,22 @@ export class StepsHandlerPlugin {
      * Parcours le tableau et display chaque élément
      * @param {array} elements 
      */
-    #elementsToDisplay(elements) {
+    #elementsToDisplay(elements, type) {
         elements.forEach(element => {
             // Display new elements
+            element.removeAttribute('style')
+            element.style.position = "absolute"
+
             element.classList.remove('hidden')
             element.classList.add('show')
-            element.removeAttribute('style')
+            // element.classList.add('show', 'slideToRight')
+
+            if (type === 'fromRight') element.style.animation = 'slideStepFromTheRight 0.3s ease'
+            if (type === 'fromLeft') element.style.animation = 'slideStepFromTheLeft 0.3s ease'
+
             element.addEventListener('animationend', e => {
                 element.classList.remove('show')
+                element.removeAttribute('style')
             }, { once:true } )
         })
     }
@@ -371,9 +385,14 @@ export class StepsHandlerPlugin {
      * pour laisser la fade out s'opérer
      * @param {HTMLElement} element 
      */
-    #hideElement(element) {
+    #hideElement(element, type) {
+        element.removeAttribute('style')
+        element.style.position = "absolute"
         element.classList.add('hidden')
+        if (type === 'fromRight') element.style.animation = 'slideStepFromTheLeft 0.1s ease reverse forwards'
+        if (type === 'fromLeft') element.style.animation = 'slideStepFromTheRight reverse 0.1s ease'
         element.addEventListener('animationend', e => {
+            element.removeAttribute('style')
             element.style.display = 'none'
         }, { once: true } )
     }
