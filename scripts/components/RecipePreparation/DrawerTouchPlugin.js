@@ -753,6 +753,10 @@ export class DrawerTouchPlugin {
         return
     }
 
+    get getDisableScrollBehavior() {
+        return this.#disableScrollBehavior()
+    }
+
     /**
      * Récupère le conteneur HTML du constructeur
      * @return

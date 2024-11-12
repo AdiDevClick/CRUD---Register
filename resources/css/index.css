@@ -754,6 +754,7 @@ form {
             /* transform: translateX(-70px); */
         }
         .js-append-to-drawer {
+            /* animation: slideStepToTheRight 0.3s ease; */
             display: grid;
             row-gap: 45px;
             & .card-header-section {
@@ -1408,6 +1409,7 @@ form {
         transform: translate3d(0, 75%, 0);
     }
 }
+
 @keyframes slideToRight {
     from {
         /* scale: 0.8; */
@@ -2652,5 +2654,32 @@ hr {
     100% {
         transform: translateY(70px);
         /* clip-path: inset(0 0 100% 0); */
+    }
+}
+
+@keyframes slideStepFromTheRight {
+    from {
+        transform: translate3d(100%, 0%, 0);
+        /* transform-origin: 0% 50%; */
+        scale: 1;
+        opacity: 0;
+    }
+    to {
+        transform: translate3d(0%, 0%, 0);
+        /* transform-origin: 50% 0%; */
+        scale: 1.02;
+    }
+}
+
+@keyframes slideStepFromTheLeft {
+    from {
+        transform: translate3d(-100%, 0%, 0);
+        scale: 1.02;
+    }
+    to {
+        transform: translate3d(0, 0%, 0);
+        scale: 1;
+        opacity: 0;
+        /* transform-origin: 50% 0%; */
     }
 }

@@ -56,6 +56,7 @@ export class IngredientsFrom {
     #imagePreview
     /** @type {Object} */
     #previewsButton
+    #stepCarousel
 
     /** @type {Object} */
     #nextButton
@@ -145,7 +146,12 @@ export class IngredientsFrom {
         // do {
         //    break
         // } while (this.form == undefined)
-
+        // const Carousel = await importThisModule('Carousel')
+        // this.#stepCarousel =  Carousel.create(document.querySelector('#recipe_creation'), {
+        //     visibleSlides: 1,
+        //     automaticScrolling: false,
+        //     pagination: false,
+        // })
         // Handle desktop/tablet and next/previews buttons step creation and submit
         this.#stepHandlerPlugin = await importThisModule('StepsHandlerPlugin', this, 'RecipePreparation')
         // Handle mobile touch and DOM refactor on resize
