@@ -744,7 +744,7 @@ form {
     grid-template-columns: repeat(2, 1fr);
     /* grid-template-columns: repeat(2, 50%);
     /* position: relative; */
-
+    position: relative;
     align-items: center;
     align-content: center;
     justify-items: end;
@@ -764,6 +764,22 @@ form {
                     margin: unset;
                 }
             }
+        }
+        :is(.js-one, .js-two, .js-three, .js-four) {
+            /* position: sticky; */
+            /* top: 0; */
+            transform-origin: 50% 50%;
+            will-change: transform;
+            transform: translate3d(0, 0, 0);
+            &::after {
+                content: '';
+                clear: both;
+                display: block;
+            }
+            /* -webkit-backface-visibility: hidden;
+            -moz-backface-visibility:    hidden;
+            -ms-backface-visibility:     hidden;
+            backface-visibility: hidden; */
         }
     }
 
@@ -2156,16 +2172,20 @@ hr {
     }
     & > .navbar {
         position: relative;
-        display: grid;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
         grid-column: search-start / burger-end;
         grid-row: center;
-        grid-template-columns: subgrid;
-        grid-template-rows: subgrid;
+        /* grid-template-columns: subgrid;
+        grid-template-rows: subgrid; */
+        width: 100%;
+        height: 80px;
         /* gap: 5rem; */
         align-items: center;
         gap: .5rem;
         position: sticky;
-        padding: 2rem 3rem;
+        /* padding: 2rem 3rem; */
         border-radius: 100vh;
         /* border: 0.5px rgb(196, 186, 186) solid; */
         border: 0.5px var(--button-color) solid;
@@ -2177,18 +2197,22 @@ hr {
             overflow: hidden;
         }
         & > .action-btn {
+            display: flex;
             grid-column: register;
         }
         & > .account {
+            display: flex;
             grid-column: burger;
             margin-inline: 0;
         }
         & > .toggle_btn-box {
+            display: flex;
             grid-column: register;
             justify-self: end;
             top: 0;
         }
         & > .search-form {
+            display: flex;
             grid-column: search;
         }
         & > .links {
@@ -2659,27 +2683,31 @@ hr {
 
 @keyframes slideStepFromTheRight {
     from {
+        /* transform: translate3d(100%, 0%, 0px); */
         transform: translate3d(100%, 0%, 0);
-        /* transform-origin: 0% 50%; */
-        scale: 1;
+        transform-origin: 50% 50%;
         opacity: 0;
+        scale: 0.6;
     }
     to {
-        transform: translate3d(0%, 0%, 0);
-        /* transform-origin: 50% 0%; */
-        scale: 1.02;
+        /* transform: translate3d(0%, 0%, 0); */
+        transform-origin: 50% 0%;
+        scale: 1;
+        opacity: 1;
     }
 }
 
 @keyframes slideStepFromTheLeft {
     from {
-        transform: translate3d(-100%, 0%, 0);
-        scale: 1.02;
+        /* transform: translate3d(-100%, 0%, 0px); */
+        transform: translate3d(-100%, 50%, 0);
+        scale: 0.6;
+        opacity: 0;
     }
     to {
-        transform: translate3d(0, 0%, 0);
+        /* transform: translate3d(0, 0%, 0); */
         scale: 1;
-        opacity: 0;
-        /* transform-origin: 50% 0%; */
+        opacity: 1;
+        transform-origin: 50% 0%;
     }
 }
