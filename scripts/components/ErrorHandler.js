@@ -403,7 +403,7 @@ export class ErrorHandler {
             this.#count = filterArrayToRetrieveUniqueValues(this.#count, input, 'input')
 
         }
-        console.log(this.#count)
+        console.log('le count => ', this.#count)
         console.log("text alert => ", this.#alertText)
         console.log("innerText => ", this.#alert.innerText)
 
@@ -624,7 +624,6 @@ export class ErrorHandler {
             return
         }
         input.isCharAllowed = true
-        console.log(input.allowSpecialCharacters)
             // this.#isCharAllowed = true
         return
     }
@@ -1083,10 +1082,15 @@ export class ErrorHandler {
             }
         }
         if (errors.includes(false)) {
+            this.#count = []
             return false
         } else {
             return true
         }
+    }
+
+    get resetCount() {
+        return this.#count = []
     }
 
     // Fonction récursive pour trouver l'élément avec l'ID correspondant

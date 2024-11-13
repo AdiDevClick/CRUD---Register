@@ -102,6 +102,7 @@ export class StepsHandlerPlugin {
             if (!this.#errorHandler.checkBatchOfInputs(previewsStepElements)) {
                 // Afficher le tooltip en fonction du paramétrage :
                 // Si une input de type INT est en erreur ou empty
+                window.scrollTo(0, 100)
                 this.#errorHandler.triggerToolTip()
                 return
             }
@@ -114,6 +115,7 @@ export class StepsHandlerPlugin {
                     this.#touchPlugin.resetStates
                     // Afficher le tooltip en fonction du paramétrage :
                     // Si une input de type INT est en erreur ou empty
+                    window.scrollTo(0, 100)
                     this.#errorHandler.triggerToolTip()
                     return
                 }
@@ -134,8 +136,7 @@ export class StepsHandlerPlugin {
                     this.#pushContent(item)
 
                     // 2 - Hide elements
-                    console.log(this.#touchPlugin)
-                    this.#touchPlugin.getDisableScrollBehavior
+                    // this.#touchPlugin.getDisableScrollBehavior
                     this.#hideElement(item, 'fromRight')
                     // this.#preparation.hideElem(item)
                 })
@@ -192,7 +193,7 @@ export class StepsHandlerPlugin {
 
         // 1 - Hide the current step content
         if (hideNextStep) {
-            this.#touchPlugin.getDisableScrollBehavior
+            // this.#touchPlugin.getDisableScrollBehavior
 
             hideNextStep.forEach(element => {
                 this.#hideElement(element, 'fromLeft')
@@ -202,7 +203,7 @@ export class StepsHandlerPlugin {
 
         // 2 - Display the previews step content to the user
         this.#elementsToDisplay(showPreviewsStep, 'fromLeft')
-        
+        this.#errorHandler.resetCount
         // 3 - We can now instanciate the new Step counter
         if (this.#submitionStep > 1) {
             this.#submitionStep--
@@ -362,19 +363,23 @@ export class StepsHandlerPlugin {
     #elementsToDisplay(elements, type) {
         elements.forEach(element => {
             // Display new elements
-            element.removeAttribute('style')
-            element.style.position = "absolute"
+            window.scrollTo(0, 100)
 
+            element.removeAttribute('style')
+            // element.style.position = "absolute"
+            // element.style.position = "sticky"
+            // element.style.display = "block"
+            element.style.top = '0px'
             element.classList.remove('hidden')
-            element.classList.add('show')
+            // element.classList.add('show')
             // element.classList.add('show', 'slideToRight')
 
             if (type === 'fromRight') element.style.animation = 'slideStepFromTheRight 0.3s ease'
             if (type === 'fromLeft') element.style.animation = 'slideStepFromTheLeft 0.3s ease'
 
             element.addEventListener('animationend', e => {
-                element.classList.remove('show')
                 element.removeAttribute('style')
+                // element.classList.remove('show')
             }, { once:true } )
         })
     }
@@ -388,9 +393,14 @@ export class StepsHandlerPlugin {
     #hideElement(element, type) {
         element.removeAttribute('style')
         element.style.position = "absolute"
-        element.classList.add('hidden')
-        if (type === 'fromRight') element.style.animation = 'slideStepFromTheLeft 0.1s ease reverse forwards'
-        if (type === 'fromLeft') element.style.animation = 'slideStepFromTheRight reverse 0.1s ease'
+        // element.style.position = "sticky"
+        // element.style.display = "block"
+        // element.style.top = '0px'
+        // element.style.zIndex = '100000'
+
+        // element.classList.add('hidden')
+        if (type === 'fromRight') element.style.animation = 'slideStepFromTheLeft 0.2s ease reverse forwards'
+        if (type === 'fromLeft') element.style.animation = 'slideStepFromTheRight reverse 0.2s ease'
         element.addEventListener('animationend', e => {
             element.removeAttribute('style')
             element.style.display = 'none'
