@@ -208,7 +208,6 @@ from the local website :
 
 /* BODY */
 html, body {
-    
     margin: 0;
     padding: 0;
     scroll-behavior: smooth;
@@ -924,10 +923,12 @@ nav.nav {
 /* FOOTER */
 footer {
     /* width: 100%; */
-    /* position: fixed; */
     display: flex;
     background: red;
-    /* bottom: 0; */
+    /* inset: 100% 0 10%0 0; */
+    transition: all 1.5s ease;
+    /* transform: translate3d(0, 0, 0); */
+    /* bottom: -100%; */
     /* margin: 0 auto; */
     /* left: 0; */
     /* justify-content: center; */
@@ -936,14 +937,29 @@ footer {
     /* position: relative; */
     /* margin-inline: auto; */
     /* align-content: space-around; */
+    /* float: left!important; */
     /* overflow: hidden; */
-    /* width: 100%;
-    height: 60px; */
+    width: 100%;
+    /* height: 600px; */
     /* top: 0; */
-    /* left: 0; */
-    /* right: 0; */
+    /* left: 0;
+    bottom: 0; */
     /* width: min(var(--max-width-content),100%,calc(100% - (var(--width-crop) * 2))); */
     /* max-width: 100%; */
+    /* &::after {
+        content: '';
+        clear: both;
+        display: block;
+    }*/
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility:    hidden;
+    -ms-backface-visibility:     hidden;
+    backface-visibility: hidden;
+    &::after {
+        content: '';
+        clear: both;
+        display: block;
+    }
 }
 
 .footer p {
