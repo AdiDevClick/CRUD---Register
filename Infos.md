@@ -221,7 +221,6 @@ Fonction: importThisModule(className, object = {})
 
 #TODO : fix l'échappement de ' dans la db pour les ingrédients
 #TODO : Enlever de l'historique la page d'update une fois que c'est validé ou non
-#TODO : Fix la barre de navigation; l'espace entre accueil et l'icone search n'est pas raccord
 #TODO : créer une page de compte utilisateur
 #TODO : check ipad useragent for subgrid & mouseenter
 #TODO : faire un touchstart / touchend event / touchcancel pour les boutons steps - Voir à utiliser le touch plugin ?
