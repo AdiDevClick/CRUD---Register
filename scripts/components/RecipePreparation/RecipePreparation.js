@@ -1,9 +1,9 @@
 import { fetchJSON } from "../../functions/api.js"
 import { createElement, importThisModule } from "../../functions/dom.js"
-import { BubbleCreativePlugin } from "../BubbleCreativePlugin.js"
+// import { BubbleCreativePlugin } from "../BubbleCreativePlugin.js"
 import { ErrorHandler } from "../ErrorHandler.js"
 import { Toaster } from "../Toaster.js"
-import { DrawerTouchPlugin } from "./DrawerTouchPlugin.js"
+// import { DrawerTouchPlugin } from "./DrawerTouchPlugin.js"
 
 /**
  * @typedef {object} Ingredient
@@ -719,7 +719,7 @@ class Ingredient {
             this.#newModifierButtons.container.offsetWidth
             // End of repaint
             this.#elementStyle(this.#newModifierButtons.element)
-            this.#elementZStyle(100000)
+            this.#elementZStyle(2)
         }
     }
 
@@ -938,6 +938,12 @@ class AttachmentToThis {
         this.#element.append(this.#deleter)
         this.#element.append(this.#closeButton)
         this.#element.prepend(this.#modifier)
+        // this.#element.style.zIndex = "1000"
+        // this.#element.style.position = "sticky"
+        // do {
+            // let styles = window.getComputedStyle(this.#element);
+            // console.log(styles.zIndex, this.#element);
+        // } while(this.#element.parentElement && (this.#element = this.#element.parentElement));
 
         this.#isCreated = true
 

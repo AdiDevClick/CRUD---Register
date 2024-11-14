@@ -224,6 +224,7 @@ Fonction: importThisModule(className, object = {})
 #TODO : créer une page de compte utilisateur
 #TODO : check ipad useragent for subgrid & mouseenter
 #TODO : faire un touchstart / touchend event / touchcancel pour les boutons steps - Voir à utiliser le touch plugin ?
+#TODO : Terminer le lightmode
 
 
 

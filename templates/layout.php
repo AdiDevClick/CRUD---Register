@@ -8,8 +8,8 @@ header('Cache-Control: private, must-revalidate');
 
 $dev = true;
 // $dev = false;
-// $vite = false;
-$vite = true;
+$vite = false;
+// $vite = true;
 
 // Menu items for unregistered users
 $unregisteredItems = [
