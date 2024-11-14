@@ -719,7 +719,7 @@ class Ingredient {
             this.#newModifierButtons.container.offsetWidth
             // End of repaint
             this.#elementStyle(this.#newModifierButtons.element)
-            this.#elementZStyle(2)
+            this.#elementZStyle(100000)
         }
     }
 
