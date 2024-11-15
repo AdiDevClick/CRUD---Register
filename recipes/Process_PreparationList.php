@@ -142,6 +142,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
     $is_Post = false;
     // Setting information to pass inside the SESSION Cookie
     // This will allow the server to display the page content
+    // die(var_dump($_SESSION));
     $session = 'UPDATED_RECIPE';
     $_SESSION[$session] = $session;
 
@@ -159,6 +160,7 @@ if ($data && isset($_POST)) {
     $client_Side_Datas = file_get_contents("php://input");
     // Decoding JSON data
     $data = json_decode($client_Side_Datas, true);
+
     // Voir si on récupère les fichiers du dessus
     $process_Ingredients = new Process_Ajax($data ?? $_POST, $_FILES, $is_Post, $session, $id ?? null);
     // Remove session user cookies

@@ -461,6 +461,7 @@ export class IngredientsFrom {
         //     return
         // }
         if (!this.#modifyFormDataValues(form, data)) return
+        // return
         try {
             if (!this.#isSentAlready) {
                 this.#ingredientList = await fetchJSON(url, {
@@ -530,7 +531,7 @@ export class IngredientsFrom {
     }
 
     /**
-     * Si l'utilisateur ajout un fichier ou un ingrédient personnalisé :
+     * Si l'utilisateur ajoute un fichier ou un ingrédient personnalisé :
      * Vérifie si le type de fichier et la taille sont acceptés.
      * Les ingrégients personnalisés seront toujours sauvegardé dans le localstorage -
      * @param {HTMLElement} form
@@ -541,6 +542,11 @@ export class IngredientsFrom {
         let status = true
         for (let [key, value] of formData) {
             if (key === 'custom_ingredients') {
+                // this.#list.forEach(element => {
+                //     if (element.includes("'")) {
+                //         element = element.replace("'", "\\\'")
+                //     }
+                // })
                 formData.set('custom_ingredients', this.#list)
             }
             if (key === 'file' && value.name) {
@@ -612,7 +618,7 @@ export class IngredientsFrom {
      * @param {JSON} items
      */
     onUpdate(storageName, items) {
-        debugger
+        // debugger
         localStorage.setItem(storageName, JSON.stringify(items))
     }
 

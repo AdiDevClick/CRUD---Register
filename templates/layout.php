@@ -8,8 +8,8 @@ header('Cache-Control: private, must-revalidate');
 
 $dev = true;
 // $dev = false;
-// $vite = false;
-$vite = true;
+$vite = false;
+// $vite = true;
 
 // Menu items for unregistered users
 $unregisteredItems = [
@@ -119,7 +119,7 @@ if (!$dev) {
                         } else {
                             echo createMenuItems($url, $registeredItems, 'mobile registered');
                         }
-                    ?>
+?>
                 </div>
             <!-- </div> -->
             <div class="logo">
@@ -250,8 +250,8 @@ if(!isset($_COOKIE['EMAIL'])) {
             <p>© 2023 Copyright <a class="" href="https://github.com/AdiDevClick/">Adi Dev Click</a></p>
             <?php
                 echo createMenuItems($url, null, 'footer');
-                require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . "templates" . DIRECTORY_SEPARATOR . "light_dark_theme_button.html"
-            ?>
+require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . "templates" . DIRECTORY_SEPARATOR . "light_dark_theme_button.html"
+?>
         </div>
     </footer>
     <!-- end of footer -->

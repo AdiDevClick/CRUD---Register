@@ -18,7 +18,8 @@ class Validate
         }
         $getData = trim($getData);
         $getData = stripslashes($getData);
-        $getData = htmlspecialchars($getData);
+        $getData = str_replace("'", "\\'", $getData);
+        $getData = htmlspecialchars($getData, ENT_QUOTES, 'UTF-8');
         return $getData;
     }
 

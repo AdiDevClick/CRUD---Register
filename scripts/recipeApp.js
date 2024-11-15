@@ -173,8 +173,15 @@ if (queryString.toString().includes("update_recipes.php")) {
 
         // if (fetchedIngredients.custom_ingredients) {
             // console.log(fetchedIngredients.custom_ingredients.split(","))
+            // const ingredientsInStorage = localStorage.getItem('ingredients')?.toString()
+            // if (ingredientsInStorage) {
+            //     list = JSON.parse(ingredientsInStorage)
+            // }
+            // const returnedIngredients = JSON.parse(fetchedIngredients.custom_ingredients)
+            // console.log(returnedIngredients)
             const returnedIngredients = fetchedIngredients.custom_ingredients.split(",")
-            localStorage.setItem('update-ingredients', JSON.stringify(returnedIngredients))
+            localStorage.setItem('update-ingredients', JSON.stringify(fetchedIngredients))
+            // localStorage.setItem('update-ingredients', JSON.stringify(returnedIngredients))
             const ingredients = new IngredientsFrom(returnedIngredients, {
                 get: true
             })

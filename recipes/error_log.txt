@@ -154,3 +154,5 @@ Errors : [2] Trying to access array offset on value of type int - C:\xampp\htdoc
 Errors : [2] Trying to access array offset on value of type int - C:\xampp\htdocs\Recettes\includes\functions.inc.php:230
 Errors : [2] Undefined variable $users - C:\xampp\htdocs\Recettes\classes\Recipes\RecipeView.class.php:267
 Errors : [2] foreach() argument must be of type array|object, null given - C:\xampp\htdocs\Recettes\classes\Recipes\RecipeView.class.php:267
+Errors : [2] Array to string conversion - C:\xampp\htdocs\Recettes\classes\Ajax\Process_Ajax.class.php:52
+Errors : [2] Array to string conversion - C:\xampp\htdocs\Recettes\classes\Ajax\Process_Ajax.class.php:25

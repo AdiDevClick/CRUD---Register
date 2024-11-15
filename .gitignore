@@ -40,3 +40,4 @@ error_log.txt
 # Ignore TO-DELETE folder at the root
 /TO-DELETE/
 error_log.txt
+node_modules/
