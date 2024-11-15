@@ -1,3 +1,5 @@
+import { removeClassesAndStyle } from "../../functions/dom.js"
+import { isIPad } from "../../functions/userAgent.js"
 import { ProgressiveCircleButton } from "../ProgressiveCircleButton.js"
 
 export class StepsHandlerPlugin {
@@ -53,27 +55,34 @@ export class StepsHandlerPlugin {
         // // Create elements
         this.#createNextAndPreviewsButtons()
 
+        // Events //
         // On hovering the previews button
-        this.#previewsButton.button.addEventListener('mouseenter', e => {
-            e.preventDefault()
-            this.#onHover(e, this.#previewsButton, 2, 0, 25)
-        })
-        this.#previewsButton.button.addEventListener('touchstart', e => {
-            e.preventDefault()
-            this.#onHover(e, this.#previewsButton, 2, 0, 25)
-        })
+        if (isIPad()) {
+            this.#previewsButton.button.addEventListener('touchstart', e => {
+                e.preventDefault()
+                this.#onHover(e, this.#previewsButton, 2, 0, 25)
+            })
+        } else {
+            this.#previewsButton.button.addEventListener('mouseenter', e => {
+                e.preventDefault()
+                this.#onHover(e, this.#previewsButton, 2, 0, 25)
+            })
+        }
         
         // On hovering the next button
-        this.#nextButton.button.addEventListener('mouseenter', e => {
-            if (!this.#touchPlugin) this.#touchPlugin = this.#preparation.touchPlugin
-            e.preventDefault()
-            this.#onHover(e, this.#nextButton, 1, 25, 25)
-        })
-        this.#nextButton.button.addEventListener('touchstart', e => {
-            if (!this.#touchPlugin) this.#touchPlugin = this.#preparation.touchPlugin
-            e.preventDefault()
-            this.#onHover(e, this.#nextButton, 1, 25, 25)
-        })
+        if (isIPad()) {
+            this.#nextButton.button.addEventListener('touchstart', e => {
+                if (!this.#touchPlugin) this.#touchPlugin = this.#preparation.touchPlugin
+                e.preventDefault()
+                this.#onHover(e, this.#nextButton, 1, 25, 25)
+            })
+        } else {
+            this.#nextButton.button.addEventListener('mouseenter', e => {
+                if (!this.#touchPlugin) this.#touchPlugin = this.#preparation.touchPlugin
+                e.preventDefault()
+                this.#onHover(e, this.#nextButton, 1, 25, 25)
+            })
+        }
     }
 
     /**
@@ -306,18 +315,20 @@ export class StepsHandlerPlugin {
         const nextStepElements = this.#gridContainer.querySelectorAll(datas[this.#submitionStep].class)
         const previewsStepElements = this.#gridContainer.querySelectorAll(datas[this.#submitionStep-1].class)
         
-        // Event for mobile/desktop
         // Will display new step
-        eventTarget.addEventListener('click', e => {
-            e.preventDefault()
-            this.#onNextClick(e, previewsStepElements, nextStepElements, activeStep, previewslyActiveStep, datas)
-        }, { once: true, signal: controller.signal } )
         // Event for tablet/ipad
-        // Will display new step
-        eventTarget.addEventListener('touchend', e => {
-            e.preventDefault()
-            this.#onNextClick(e, previewsStepElements, nextStepElements, activeStep, previewslyActiveStep, datas)
-        }, { once: true, signal: controller.signal } )
+        if (isIPad()) {
+            eventTarget.addEventListener('touchend', e => {
+                e.preventDefault()
+                this.#onNextClick(e, previewsStepElements, nextStepElements, activeStep, previewslyActiveStep, datas)
+            }, { once: true, signal: controller.signal } )
+        } else {
+            // Event for mobile/desktop
+            eventTarget.addEventListener('click', e => {
+                e.preventDefault()
+                this.#onNextClick(e, previewsStepElements, nextStepElements, activeStep, previewslyActiveStep, datas)
+            }, { once: true, signal: controller.signal } )
+        }
     }
 
     /**
@@ -328,16 +339,19 @@ export class StepsHandlerPlugin {
      * @param {AbortSignal} controller
      */
     #handleThisPreviewsStep(eventTarget, datas, controller) {
-        // Event for mobile/dekstop
-        eventTarget.addEventListener('click', e => {
-            e.preventDefault()
-            this.#onPreviewsClick(datas)
-        }, { once: true, signal: controller.signal } )
         // Event for tablet/ipad
-        eventTarget.addEventListener('touchend', e => {
-            e.preventDefault()
-            this.#onPreviewsClick(datas)
-        }, { once: true, signal: controller.signal } )
+        if (isIPad()) {
+            eventTarget.addEventListener('touchend', e => {
+                e.preventDefault()
+                this.#onPreviewsClick(datas)
+            }, { once: true, signal: controller.signal } )
+        } else {
+            // Event for mobile/dekstop
+            eventTarget.addEventListener('click', e => {
+                e.preventDefault()
+                this.#onPreviewsClick(datas)
+            }, { once: true, signal: controller.signal } )
+        }
     }
 
     /**
@@ -363,14 +377,12 @@ export class StepsHandlerPlugin {
     #elementsToDisplay(elements, type) {
         elements.forEach(element => {
             // Display new elements
+            // Scrolling to the title
             window.scrollTo(0, 100)
 
-            element.removeAttribute('style')
-            // element.style.position = "absolute"
-            // element.style.position = "sticky"
-            // element.style.display = "block"
+            removeClassesAndStyle(element, 'hidden')
             element.style.top = '0px'
-            element.classList.remove('hidden')
+
             // element.classList.add('show')
             // element.classList.add('show', 'slideToRight')
 
@@ -393,12 +405,7 @@ export class StepsHandlerPlugin {
     #hideElement(element, type) {
         element.removeAttribute('style')
         element.style.position = "absolute"
-        // element.style.position = "sticky"
-        // element.style.display = "block"
-        // element.style.top = '0px'
-        // element.style.zIndex = '100000'
 
-        // element.classList.add('hidden')
         if (type === 'fromRight') element.style.animation = 'slideStepFromTheLeft 0.2s ease reverse forwards'
         if (type === 'fromLeft') element.style.animation = 'slideStepFromTheRight reverse 0.2s ease'
         element.addEventListener('animationend', e => {

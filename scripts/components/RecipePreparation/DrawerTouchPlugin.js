@@ -1,4 +1,4 @@
-import { appendToAnotherLocation, restoreToDefaultPosition } from "../../functions/dom.js"
+import { appendToAnotherLocation, removeAttributeFrom, removeClassesAndStyle, restoreToDefaultPosition } from "../../functions/dom.js"
 
 /**
  * Permet de rajouter la navigation tactile pour le drawer
@@ -83,12 +83,12 @@ export class DrawerTouchPlugin {
                 // When we enter mobile mode, display the hidden elements from firstGroupElements
                 firstGroupElements.forEach(element => {
                     const target = this.container.querySelector(element)
-                    this.#removeStyle(target, 'hidden')
+                    removeClassesAndStyle(target, 'hidden')
                 })
 
                 // Additionnaly, we display the elementsToShow
                 this.container.querySelectorAll(elementsToShow).forEach(element => {
-                    this.#removeStyle(element, 'hidden')
+                    removeClassesAndStyle(element, 'hidden')
                 })
                 // Enabling submit button
                 document.querySelector('#submit').disabled = false
@@ -144,7 +144,7 @@ export class DrawerTouchPlugin {
                 }
                 for (const element of elementsToShow) {
                     this.container.querySelectorAll(element.class).forEach(element => {
-                        this.#removeStyle(element, 'hidden')
+                        removeClassesAndStyle(element, 'hidden')
                     })
                 }
             }
@@ -224,7 +224,7 @@ export class DrawerTouchPlugin {
         this.#onMove(index => {
             // Mobile true
             if (index === 0) {
-                this.#removeStyle(this.#card, 'open')
+                removeClassesAndStyle(this.#card, 'open')
                 this.#steps?.classList.contains('card') ? this.#steps.classList.remove('card') : null  // not same
                 this.#setDeviceType('isMobile', true)
             }
@@ -236,7 +236,7 @@ export class DrawerTouchPlugin {
                 if (index === 2) {
                     this.#setDeviceType('isDesktop', true)
                 }
-                this.#removeStyle(this.#card, ['open', 'opened'])
+                removeClassesAndStyle(this.#card, ['open', 'opened'])
                 this.#steps?.classList.contains('card') ? null : this.#steps?.classList.add('card')
             }
         })
@@ -292,31 +292,31 @@ export class DrawerTouchPlugin {
         }
     }
 
-    /**
-     * Supprime un attribute de plusieurs élément à la fois
-     * @param {Array} elements
-     * @param {String} attributeName
-     */
-    #removeAttributeFrom(elements, attributeName) {
-        elements.forEach(element => {
-            if (element) {
-                element.removeAttribute(attributeName)
-            }
-        })
-    }
+    // /**
+    //  * Supprime un attribute de plusieurs élément à la fois
+    //  * @param {Array} elements
+    //  * @param {String} attributeName
+    //  */
+    // #removeAttributeFrom(elements, attributeName) {
+    //     elements.forEach(element => {
+    //         if (element) {
+    //             element.removeAttribute(attributeName)
+    //         }
+    //     })
+    // }
 
-    /**
-     * Supprime une classe ou une liste de classes puis supprime l'attribut 'style'
-     * @param {HTMLElement} target
-     * @param {String|Array<String>} className
-     */
-    #removeStyle(target, className) {
-        className = Array.isArray(className) ? className : [className]
-        if (target) {
-            target.classList.remove(...className)
-            target.removeAttribute('style')
-        }
-    }
+    // /**
+    //  * Supprime une classe ou une liste de classes puis supprime l'attribut 'style'
+    //  * @param {HTMLElement} target
+    //  * @param {String|Array<String>} className
+    //  */
+    // #removeClassesAndStyle(target, className) {
+    //     className = Array.isArray(className) ? className : [className]
+    //     if (target) {
+    //         target.classList.remove(...className)
+    //         target.removeAttribute('style')
+    //     }
+    // }
 
     /**
      * Ajoute une classe au container principal en fonction du type de
@@ -383,7 +383,7 @@ export class DrawerTouchPlugin {
                     this.#isOpened = true
 
                     this.#card.classList.add('opened')
-                    this.#removeStyle(this.#card, 'open')
+                    removeClassesAndStyle(this.#card, 'open')
 
                     this.#drawerBarButton.style.display = 'block'
                 }, {once: true})
@@ -403,7 +403,7 @@ export class DrawerTouchPlugin {
 
                         this.#isOpened = true
 
-                        this.#removeStyle(this.#steps, 'open')
+                        removeClassesAndStyle(this.#steps, 'open')
                         this.#steps.classList.add('opened')
                     }, {once: true})
                     this.#card.addEventListener('click', this.#onClose.bind(this))
@@ -417,12 +417,12 @@ export class DrawerTouchPlugin {
      */
     #resetStatusAndStyle() {
         this.#drawerBarButton.classList.contains('fullyOpened') ? this.#drawerBarButton.classList.remove('fullyOpened') : null
-        this.#removeStyle(this.#card, ['open', 'opened', 'fullyOpened', 'hidden'])
+        removeClassesAndStyle(this.#card, ['open', 'opened', 'fullyOpened', 'hidden'])
         this.#isOpened ? this.#isOpened = false : null
         this.#isFullyOpened ? this.#isFullyOpened = false : null
         // this.#isScrolledAtTop ? this.#isScrolledAtTop = false : null
         // this.#isFullyOpened ? this.#isFullyOpened : null
-        this.#removeAttributeFrom([this.drawer, this.#steps], 'style')
+        removeAttributeFrom([this.drawer, this.#steps], 'style')
         // this.drawer?.style.display === 'block' ? this.drawer?.removeAttribute('style') : null
 
         this.#classRemoveFromAndAdd(this.#showDrawerButton, 'hidden', 'show')
@@ -490,7 +490,7 @@ export class DrawerTouchPlugin {
                     this.#steps.addEventListener('animationend', e => {
                         if (e.animationName === 'scaleOutSteps') {
                             this.#card.classList.remove('open')
-                            this.#removeStyle(this.#steps, 'opened')
+                            removeClassesAndStyle(this.#steps, 'opened')
                             this.#isOpened = false
                             this.#grid.removeAttribute('style')
                             this.#enableScrollBehavior()
@@ -540,7 +540,7 @@ export class DrawerTouchPlugin {
                     this.#card.classList.add('open')
                     this.drawer.style.display = 'block'
                     this.#drawerBarButton.style.display = 'none'
-                    this.#removeAttributeFrom([this.#card, this.#closeButton], 'style')
+                    removeAttributeFrom([this.#card, this.#closeButton], 'style')
                     this.#card.style.width = '550px'
                 }, {once: true})
                 this.#steps.addEventListener('click', this.#onClose.bind(this), {once: true})
@@ -656,13 +656,13 @@ export class DrawerTouchPlugin {
                     this.#card.style.animation = 'slideToBottom 0.5s forwards'
                     this.#card.classList.add('hidden')
                     this.#card.addEventListener('animationend', () => {
-                        this.#removeStyle(this.#card, ['open', 'opened', 'hidden'])
+                        removeClassesAndStyle(this.#card, ['open', 'opened', 'hidden'])
                         this.#card.style.display = 'none'
 
                         this.#isOpened = false
 
                         this.#classRemoveFromAndAdd(this.#showDrawerButton, 'hidden', 'show')
-                        this.#removeAttributeFrom([this.drawer, this.#steps], 'style')
+                        removeAttributeFrom([this.drawer, this.#steps], 'style')
 
                         this.#enableScrollBehavior()
                     }, {once: true})
@@ -675,7 +675,7 @@ export class DrawerTouchPlugin {
                     this.#card.style.animation = 'slideFromTop 0.5s forwards'
                     
                     this.#card.addEventListener('animationend', (e) => {
-                        this.#removeStyle(this.#card, 'fullyOpened')
+                        removeClassesAndStyle(this.#card, 'fullyOpened')
 
                         this.#isFullyOpened = false
 
