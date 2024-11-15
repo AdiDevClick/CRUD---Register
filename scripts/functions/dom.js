@@ -24,6 +24,32 @@ export function createElement(tagName, attributes = {}) {
     return element
 }
 
+/**
+ * Supprime une classe ou une liste de classes puis supprime l'attribut 'style'
+ * @param {HTMLElement} target
+ * @param {String|Array<String>} className
+ */
+export function removeClassesAndStyle(target, className) {
+    className = Array.isArray(className) ? className : [className]
+    if (target) {
+        target.classList.remove(...className)
+        target.removeAttribute('style')
+    }
+}
+
+/**
+ * Supprime un attribut de plusieurs élément à la fois
+ * @param {Array} elements
+ * @param {String} attributeName
+ */
+export function removeAttributeFrom(elements, attributeName) {
+    elements.forEach(element => {
+        if (element) {
+            element.removeAttribute(attributeName)
+        }
+    })
+}
+
 // Fonction récursive pour trouver l'élément avec l'ID correspondant
 /**
  * Trouve l'élément avec l'ID correspondant de manière récursive.
