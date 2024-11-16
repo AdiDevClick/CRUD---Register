@@ -250,20 +250,26 @@ class CheckInput extends Validate
     /**
      * Sanitize les données passée en paramètre
      * @param array $datas Les données à sanitize
-     * @param string $option Une clé à ne pas intégrer dans l'array
+     * @param array $options Une clé à ne pas intégrer dans l'array ou un htmlspecialchar à ne pas réaliser
      * @return string[]
      */
-    public function sanitizeData(string $option = null)
+    public function sanitizeData(array $options = null)
     {
         $this->getDatas = is_array($this->getDatas) ? $this->getDatas : [$this->getDatas];
 
+        $convert = true;
+
+        if (isset($options['convert'])) {
+            $convert = $options['convert'];
+        }
+        // die(var_dump($convert));
         foreach ($this->getDatas as $key => $value) {
-            if ($option) {
-                if ($key !== $option) {
-                    $sanitized_Datas[$key] = $this->test_input($value);
+            if (isset($options['key'])) {
+                if ($key !== $options['key']) {
+                    $sanitized_Datas[$key] = $this->test_input($value, $convert);
                 }
             } else {
-                $sanitized_Datas[$key] = $this->test_input($value);
+                $sanitized_Datas[$key] = $this->test_input($value, $convert);
             }
         }
 
