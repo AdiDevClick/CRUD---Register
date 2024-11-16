@@ -64,7 +64,13 @@ class RecipeController extends Recipe
 
                 // $sanitized_Datas = $this->sanitizeData($this->getData, 'video_link');
                 $checker = new CheckInput($this->getData);
-                $sanitized_Datas = $checker->sanitizeData('video_link');
+                $options = [
+                    'key' => 'video_link',
+                    'convert' => false
+                ];
+                // die('je suis ici');
+                $sanitized_Datas = $checker->sanitizeData($options);
+                // die('je suis passé ici');
 
                 // $checkInput = new CheckInput(
                 //     $this->getData
@@ -136,7 +142,11 @@ class RecipeController extends Recipe
 
                 // $sanitized_Datas = $this->sanitizeData($this->getData);
                 $checker = new CheckInput($this->getData);
-                $sanitized_Datas = $checker->sanitizeData();
+
+                $options = [
+                    'convert' => false
+                ];
+                $sanitized_Datas = $checker->sanitizeData($options);
                 // $checkInput = new CheckInput(
                 //     $this->getData
                 // );
@@ -320,7 +330,10 @@ class RecipeController extends Recipe
 
             // $sanitized_Datas = $this->sanitizeData($getData);
             $checker = new CheckInput($this->getData);
-            $sanitized_Datas = $checker->sanitizeData();
+            $options = [
+                'convert' => false
+            ];
+            $sanitized_Datas = $checker->sanitizeData($options);
 
             if (isset($_SESSION['SANITIZED']) && $_SESSION['SANITIZED'] === true) {
                 $message = $sanitized_Datas['comment'];
