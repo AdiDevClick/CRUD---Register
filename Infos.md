@@ -219,13 +219,17 @@ Fonction: importThisModule(className, object = {})
 ```
 <br>
 
-#TODO : fix l'échappement de ' dans la db pour les ingrédients
+#TODO : créer un bouton retour pour l'update
 #TODO : Enlever de l'historique la page d'update une fois que c'est validé ou non
 #TODO : créer une page de compte utilisateur
 #TODO : check ipad useragent for subgrid
 #TODO : faire un touchstart / touchend event / touchcancel pour les boutons steps - Voir à utiliser le touch plugin ?
 #TODO : Terminer le lightmode
-
+#TODO : créer la maquette pour la splashscreen
+#TODO : créer la maquette pour read page
+#TODO : créer la maquette pour la page contact
+#TODO : créer la maquette pour la page register
+#TODO : créer la maquette pour la page password recovery
 
 
 
