@@ -11,18 +11,28 @@ class Validate
         //$this->data = $data;
     } */
 
-    public function test_input($getData)
+    public function test_input($getData, $convert = true)
     {
         if(is_null($getData) || is_array($getData)) {
             $getData = '';
         }
         $getData = trim($getData);
         $getData = stripslashes($getData);
-        $getData = str_replace("'", "\\'", $getData);
-        $getData = htmlspecialchars($getData, ENT_QUOTES, 'UTF-8');
+        // $getData = str_replace("'", "\\'", $getData);
+        if ($convert) {
+            $getData = $this->custom_htmlspecialchars($getData);
+        }
         return $getData;
     }
 
+    private function custom_htmlspecialchars($string)
+    {
+        $string = htmlspecialchars($string, ENT_NOQUOTES, 'UTF-8');
+        // Éviter d'échapper les guillemets simples
+        $string = str_replace(['<', '>', '&'], ['&lt;', '&gt;', '&amp;'], $string);
+        // Remplacer manuellement les caractères spéciaux
+        return $string;
+    }
     /* private function checkMessage($message)
     {
         $message = '';
