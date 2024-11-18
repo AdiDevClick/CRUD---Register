@@ -993,6 +993,8 @@ class AttachmentToThis {
     #onModify(e) {
         e.preventDefault()
         this.#item.firstElementChild.setAttribute('contenteditable', true)
+        this.#item.firstElementChild.style.userSelect = 'text'
+        this.#item.firstElementChild.style.WebkitUserSelect = 'text'
         const modifierEvent = new CustomEvent('modify', {
             detail: this.#item,
             cancelable: true,

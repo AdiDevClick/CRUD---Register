@@ -6,8 +6,8 @@ require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . "includes" . DIRECTORY_SEP
 
 header('Cache-Control: private, must-revalidate');
 
-$dev = true;
-// $dev = false;
+// $dev = true;
+$dev = false;
 $vite = false;
 // $vite = true;
 
