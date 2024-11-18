@@ -13,9 +13,9 @@ class Mysql
     {
         try {
             $db = new PDO(
-                sprintf('mysql:host=%s;dbname=%s;post=%s', self::$MYSQL_HOST, self::getUrl(self::$MYSQL_DB), self::$MYSQL_PORT),
-                self::getUrl(self::$MYSQL_USER),
-                self::getUrl(self::$MYSQL_PASS)
+                sprintf('mysql:host=%s;dbname=%s;post=%s', self::$MYSQL_HOST, self::$MYSQL_DB, self::$MYSQL_PORT),
+                self::$MYSQL_USER,
+                self::$MYSQL_PASS
             );
             $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             return $db;
@@ -25,24 +25,24 @@ class Mysql
         }
     }
 
-    private static function getUrl($sqlData)
-    {
-        $rootUrl = Functions::getRootUrl();
-        // $rootUrl = (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . '/';
-        if ($rootUrl === 'https://adi.ezaya.fr/') {
-            if ($sqlData === self::$MYSQL_HOST) {
-                self::$MYSQL_DB = "adi_we_love_food";
-            }
-            if ($sqlData === self::$MYSQL_USER) {
-                self::$MYSQL_DB = "adi_clicrepare";
-            }
-            if ($sqlData === self::$MYSQL_PASS) {
-                self::$MYSQL_DB = "Funnyspac3#";
-            }
-        } else {
-            return $sqlData;
-        }
-    }
+    // private static function getUrl($sqlData)
+    // {
+    //     $rootUrl = Functions::getRootUrl();
+    //     // $rootUrl = (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . '/';
+    //     if ($rootUrl === 'https://adi.ezaya.fr/') {
+    //         if ($sqlData === self::$MYSQL_HOST) {
+    //             self::$MYSQL_DB = "adi_we_love_food";
+    //         }
+    //         if ($sqlData === self::$MYSQL_USER) {
+    //             self::$MYSQL_DB = "adi_clicrepare";
+    //         }
+    //         if ($sqlData === self::$MYSQL_PASS) {
+    //             self::$MYSQL_DB = "Funnyspac3#";
+    //         }
+    //     } else {
+    //         return $sqlData;
+    //     }
+    // }
 }
 
 /* const MYSQL_HOST = "localhost";
