@@ -9,12 +9,13 @@ const userAgent = navigator.userAgent
  */
 export function isIPadWithiOSVersion(maxVersion) {
     // Vérifiez si c'est un iPad
-    const isIPad = /iPad/.test(userAgent)
+    const isIPadBrowser = /iPad/.test(userAgent)
+    const isIPadDevice = /Macintosh/i.test(navigator.userAgent)
     // Vérifiez la version d'iOS
     const iOSVersionMatch = userAgent.match(/OS (\d+)_\d+/)
     if (iOSVersionMatch) {
         const iOSVersion = parseInt(iOSVersionMatch[1], 10)
-        return isIPad && (iOSVersion <= maxVersion)
+        return (isIPadBrowser || isIPadDevice) && (iOSVersion <= maxVersion)
     }
     return false
 }
