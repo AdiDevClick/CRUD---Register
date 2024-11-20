@@ -1,3 +1,5 @@
+import { Toaster } from "../components/Toaster.js"
+
 const userAgent = navigator.userAgent
 
 /**
@@ -23,8 +25,9 @@ export function isIPadWithiOSVersion(maxVersion) {
  */
 export function isIPad() {
     // Vérifiez si c'est un iPad
-    const isIPad = /iPad/.test(userAgent)
-    if (isIPad) {
+    const isIPadBrowser = /iPad/.test(userAgent)
+    const isIPadDevice = /Macintosh/i.test(navigator.userAgent)
+    if ((isIPadDevice || isIPadBrowser) && navigator.maxTouchPoints) {
         return true
     }
     return false
