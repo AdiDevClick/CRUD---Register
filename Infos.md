@@ -230,7 +230,6 @@ Fonction: importThisModule(className, object = {})
 #TODO : créer la maquette pour la page contact
 #TODO : créer la maquette pour la page register
 #TODO : créer la maquette pour la page password recovery
-#TODO : Faire en sorte que l'utilisateur puisse éditer l'ingrédient sur iPad
 
 
 
