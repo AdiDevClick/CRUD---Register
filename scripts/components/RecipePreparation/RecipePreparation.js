@@ -995,6 +995,7 @@ class AttachmentToThis {
         this.#item.firstElementChild.setAttribute('contenteditable', true)
         this.#item.firstElementChild.style.userSelect = 'text'
         this.#item.firstElementChild.style.webkitUserSelect = 'text'
+        this.#item.firstElementChild.style.webkitUserModify = 'read-write'
         const modifierEvent = new CustomEvent('modify', {
             detail: this.#item,
             cancelable: true,
@@ -1017,6 +1018,7 @@ class AttachmentToThis {
         })
         this.#item.dispatchEvent(closeEvent)
         this.#item.firstElementChild.setAttribute('contenteditable', false)
+        this.#item.firstElementChild.removeAttribute('style')
         this.#container.remove()
         this.#stop.remove()
     }
@@ -1112,6 +1114,7 @@ class UserValidations {
     #onCancel(e) {
         e.preventDefault()
         this.#item.firstElementChild.setAttribute('contenteditable', false)
+        this.#item.firstElementChild.removeAttribute('style')
         const cancelEvent = new CustomEvent('canceled', {
             detail: this.#item,
             cancelable: true,
@@ -1128,6 +1131,7 @@ class UserValidations {
     #onValidation(e) {
         e.preventDefault()
         this.#item.firstElementChild.setAttribute('contenteditable', false)
+        this.#item.firstElementChild.removeAttribute('style')
         const validateEvent = new CustomEvent('validate', {
             detail: this.#item,
             cancelable: true,
