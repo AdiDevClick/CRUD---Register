@@ -141,3 +141,31 @@ WHERE
 ALTER TABLE produits ADD FULLTEXT(nom);
 ALTER TABLE categories_traductions ADD FULLTEXT(nom);
 
+
+
+-- Créer une gestion des permissions
+CREATE TABLE user_attributes (
+    user_id INT,
+    attribute_name VARCHAR(50),
+    attribute_value VARCHAR(50),
+    FOREIGN KEY (user_id) REFERENCES users(user_id),
+    PRIMARY KEY (user_id, attribute_name)
+);
+-- Ajouter un index pour améliorer la performance des requêtes 
+CREATE INDEX idx_user_attributes ON user_attributes(user_id, attribute_name);
+
+CREATE TABLE rules (
+    rule_id INT AUTO_INCREMENT PRIMARY KEY,
+    description TEXT,
+    condition LONGTEXT -- Utilise LONGTEXT pour stocker les conditions JSON
+);
+
+INSERT INTO user_attributes (user_id, attribute_name, attribute_value) VALUES (1, 'role', 'admin');
+INSERT INTO user_attributes (user_id, attribute_name, attribute_value) VALUES (2, 'role', 'user');
+INSERT INTO user_attributes (user_id, attribute_name, attribute_value) VALUES (2, 'department', 'sales');
+
+
+INSERT INTO rules (description, condition) VALUES (
+    'Admins can create, update, and delete comments',
+    '{"role": "admin"}'
+);
