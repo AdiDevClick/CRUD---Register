@@ -230,6 +230,9 @@ Fonction: importThisModule(className, object = {})
 #TODO : créer la maquette pour la page contact
 #TODO : créer la maquette pour la page register
 #TODO : créer la maquette pour la page password recovery
+#TODO : spcifier dans la doc qu'il faut utiliser composer :
+	installer composer
+	composer require vlucas/phpdotenv
 
 
 

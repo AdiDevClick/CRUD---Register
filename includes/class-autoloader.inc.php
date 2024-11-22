@@ -4,12 +4,18 @@ class Autoloader
 {
     public static function register()
     {
+        // Charger l'autoloader de Composer
+        require_once ROOT_PATH . "vendor" . DIRECTORY_SEPARATOR . "autoload.php";
+        // require_once dirname(__DIR__, 2) . DIRECTORY_SEPARATOR . "vendor" . DIRECTORY_SEPARATOR . "autoload.php";
+
         spl_autoload_register(function ($class) {
-            $file = dirname(__DIR__) . DIRECTORY_SEPARATOR . 'classes' . DIRECTORY_SEPARATOR . str_replace('\\', DIRECTORY_SEPARATOR, $class).'.class.php';
-            
+            $file =  ROOT_PATH . 'classes' . DIRECTORY_SEPARATOR . str_replace('\\', DIRECTORY_SEPARATOR, $class).'.class.php';
+            // $file = dirname(__DIR__) . DIRECTORY_SEPARATOR . 'classes' . DIRECTORY_SEPARATOR . str_replace('\\', DIRECTORY_SEPARATOR, $class).'.class.php';
+
             if (!file_exists($file)) {
                 // Recherche récursive des fichiers dans les sous-dossiers
-                $files = glob(dirname(__DIR__) . DIRECTORY_SEPARATOR . 'classes' . DIRECTORY_SEPARATOR . '**' . DIRECTORY_SEPARATOR . '*.class.php');
+                $files = glob(ROOT_PATH . 'classes' . DIRECTORY_SEPARATOR . '**' . DIRECTORY_SEPARATOR . '*.class.php');
+                // $files = glob(dirname(__DIR__) . DIRECTORY_SEPARATOR . 'classes' . DIRECTORY_SEPARATOR . '**' . DIRECTORY_SEPARATOR . '*.class.php');
                 foreach ($files as $f) {
                     if (strpos($f, str_replace('\\', DIRECTORY_SEPARATOR, $class) . '.class.php') !== false) {
                         $file = $f;
@@ -17,7 +23,7 @@ class Autoloader
                     }
                 }
             }
-            
+
             if (file_exists($file)) {
                 require $file;
                 return true;
@@ -26,7 +32,6 @@ class Autoloader
         });
     }
 }
-
 
 Autoloader::register();
 

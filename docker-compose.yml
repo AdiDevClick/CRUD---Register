@@ -1,0 +1,12 @@
+version: '3.8'
+
+services:
+  db:
+    image: mysql:5.7
+    environment:
+      MYSQL_DATABASE: ${MYSQL_DB:-we_love_food}
+      MYSQL_USER: ${MYSQL_USER:-root}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-}
+      MYSQL_HOST: ${MYSQL_HOST:-localhost}
+    ports:
+      - "3306:3306"

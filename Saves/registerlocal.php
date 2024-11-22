@@ -8,7 +8,7 @@ if(session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-//include_once("includes/class-autoloader.inc.php");
+//include_once("vendor/class-autoloader.inc.php");
 include_once('logs/customErrorHandlers.php');
 //include_once('config/mysql.php');
 //include_once("config/user.php");
@@ -41,7 +41,7 @@ $errorRecipe = ''; */
     $email = '';
     $age = '';
 
-    require_once("includes/class-autoloader.inc.php");
+    require_once("vendor/class-autoloader.inc.php");
     $getData = $_POST;
 
     $checkInput = new CheckInput(

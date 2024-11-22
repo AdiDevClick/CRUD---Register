@@ -1,7 +1,9 @@
 <?php declare(strict_types=1);
 
-require_once(__DIR__ . "/includes/class-autoloader.inc.php");
-require_once(__DIR__ . "/logs/customErrorHandlers.php");
+require_once __DIR__ . DIRECTORY_SEPARATOR . "includes" . DIRECTORY_SEPARATOR ."common.php";
+
+// require_once(__DIR__ . "/vendor/class-autoloader.inc.php");
+// require_once(__DIR__ . "/logs/customErrorHandlers.php");
 
 $script = 'type="module" src="scripts/errorApp.js" defer';
 $title = "We Love Food - Réinitialisation de mot de passe";

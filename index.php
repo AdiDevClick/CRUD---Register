@@ -4,23 +4,29 @@ if(session_status() !== PHP_SESSION_ACTIVE || session_status() === PHP_SESSION_N
     session_start();
 }
 
+// Charger la configuration
+// require_once dirname(__DIR__, 2) . '/config/config.php';
+// require_once ROOT_PATH . "includes" . DIRECTORY_SEPARATOR ."class-autoloader.inc.php";
+// Charger le fichier commun
+require_once __DIR__ . "/includes/common.php";
+require_once __DIR__ . "/includes/functions.inc.php";
+
 // if(session_status() === PHP_SESSION_NONE) {
 //     session_start();
 // }
 
 // include_once('includes/functions.inc.php');
 // include_once('logs/customErrorHandlers.php');
-// require_once("includes/class-autoloader.inc.php");
-require_once(__DIR__ . "/includes/class-autoloader.inc.php");
-require_once(__DIR__ . "/logs/customErrorHandlers.php");
-require_once(__DIR__ . "/includes/functions.inc.php");
+// require_once("vendor/class-autoloader.inc.php");
+// require_once(__DIR__ . "/vendor/class-autoloader.inc.php");
+// require_once(__DIR__ . "/logs/customErrorHandlers.php");
 
-$day = date("d");
-$month = date("m");
-$year = date("Y");
-$hour = date("H");
-$minut = date("i");
-$seconds = date("s");
+// $day = date("d");
+// $month = date("m");
+// $year = date("Y");
+// $hour = date("H");
+// $minut = date("i");
+// $seconds = date("s");
 
 
 //echo 'Bonjour ! Nous sommes le ' . $day . '/' . $month . '/' . $year . ' et il est ' . $hour. ' h ' . $minut .  ' et ' .  $seconds . ' secondes';
@@ -56,7 +62,7 @@ ob_start()
 <!-- Si l'utilisateur est bien connecté il peut voir les recettes -->
 <?php if (isset($loggedUser['user'][0]) || isset($loggedUser['email'])): ?>
     <?php //header_remove('Location: index.php?login=success')?>
-    <?php // require_once("includes/class-autoloader.inc.php");?>
+    <?php // require_once("vendor/class-autoloader.inc.php");?>
     <?php $recipes = new LoginView([]); ?>
     <?php foreach ($recipes->displayRecipes() as $recipe) : ?>
             <article class="article">

@@ -9,10 +9,13 @@ if(session_status() !== PHP_SESSION_ACTIVE || session_status() === PHP_SESSION_N
 // Sets last search index in database
 $_SESSION['LAST_ID'] ?? $_SESSION['LAST_ID'] = 0;
 
-include_once("../includes/class-autoloader.inc.php");
-include_once('../logs/customErrorHandlers.php');
-include_once('../includes/variables.inc.php');
-include_once('../includes/functions.inc.php');
+require_once dirname(__DIR__, 1) . DIRECTORY_SEPARATOR . "includes" . DIRECTORY_SEPARATOR ."common.php";
+require_once dirname(__DIR__, 1) . DIRECTORY_SEPARATOR . "includes" . DIRECTORY_SEPARATOR ."variables.inc.php";
+require_once dirname(__DIR__, 1) . DIRECTORY_SEPARATOR . "includes" . DIRECTORY_SEPARATOR ."functions.inc.php";
+// include_once("../vendor/class-autoloader.inc.php");
+// include_once('../logs/customErrorHandlers.php');
+// include_once('../includes/variables.inc.php');
+// include_once('../includes/functions.inc.php');
 
 $fetchData = $_SERVER['REQUEST_METHOD'] === 'GET';
 $data = $_SERVER['REQUEST_METHOD'] === 'POST';

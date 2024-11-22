@@ -4,8 +4,9 @@ if(session_status() !== PHP_SESSION_ACTIVE || session_status() === PHP_SESSION_N
     session_start();
 }
 
-include_once("../includes/class-autoloader.inc.php");
-include_once('../logs/customErrorHandlers.php');
+require_once dirname(__DIR__, 1) . DIRECTORY_SEPARATOR . "includes" . DIRECTORY_SEPARATOR ."common.php";
+// include_once("../vendor/class-autoloader.inc.php");
+// include_once('../logs/customErrorHandlers.php');
 
 $serverData = $_SERVER['REQUEST_METHOD'] === 'POST';
 $loggedUser = LoginController::checkLoggedStatus();

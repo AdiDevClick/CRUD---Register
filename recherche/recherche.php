@@ -4,8 +4,9 @@ if(session_status() !== PHP_SESSION_ACTIVE || session_status() === PHP_SESSION_N
     session_start();
 }
 
-include_once("../includes/class-autoloader.inc.php");
-include_once('../logs/customErrorHandlers.php');
+require_once dirname(__DIR__, 2) . DIRECTORY_SEPARATOR . "includes" . DIRECTORY_SEPARATOR ."common.php";
+// include_once("../vendor/class-autoloader.inc.php");
+// include_once('../logs/customErrorHandlers.php');
 
 // $protocol = ((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
 // $path = $protocol.$_SERVER['HTTP_HOST'].dirname($_SERVER['PHP_SELF']);

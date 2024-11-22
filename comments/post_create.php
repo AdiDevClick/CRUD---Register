@@ -4,8 +4,10 @@ if(session_status() !== PHP_SESSION_ACTIVE || session_status() === PHP_SESSION_N
     session_start();
 }
 
-include_once("../includes/class-autoloader.inc.php");
-include_once('../logs/customErrorHandlers.php');
+require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . "includes" . DIRECTORY_SEPARATOR ."common.php";
+
+// include_once("../vendor/class-autoloader.inc.php");
+// include_once('../logs/customErrorHandlers.php');
 
 $postData = $_POST;
 

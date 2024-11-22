@@ -4,7 +4,7 @@ if(session_status() !== PHP_SESSION_ACTIVE || session_status() === PHP_SESSION_N
     session_start();
 }
 
-include_once("../includes/class-autoloader.inc.php");
+include_once("../vendor/class-autoloader.inc.php");
 include_once('../logs/customErrorHandlers.php');
 //include_once('../includes/functions.inc.php');
 

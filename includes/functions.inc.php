@@ -223,20 +223,20 @@ function makeDir($path)
 }
 function displayAuthor(string $authorEmail)
 {
-    //require_once("includes/class-autoloader.inc.php");
+    //require_once("vendor/class-autoloader.inc.php");
     $users = new LoginView('');
     // $users = new LoginView('', '', '', '');
     $user = $users->displayUsers($authorEmail);
     // var_dump($test['email']);
 
     // foreach ($users->displayUsers($authorEmail) as $user) {
-        // var_dump($user);
-        if ($authorEmail === $user['email']) {
-            return  ucfirst($user["full_name"]);
-            // return $user["full_name"] . '(' . $user["age"] . 'ans)';
-        } else {
-            return ' Annonyme';
-        }
+    // var_dump($user);
+    if ($authorEmail === $user['email']) {
+        return  ucfirst($user["full_name"]);
+        // return $user["full_name"] . '(' . $user["age"] . 'ans)';
+    } else {
+        return ' Annonyme';
+    }
     // }
 }
 

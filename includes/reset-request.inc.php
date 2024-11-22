@@ -1,7 +1,11 @@
-<?php declare(strict_types=1);
+<?php
 
-include_once("includes/class-autoloader.inc.php");
-// include_once("../includes/class-autoloader.inc.php");
+declare(strict_types=1);
+
+require_once __DIR__ . DIRECTORY_SEPARATOR . "includes" . DIRECTORY_SEPARATOR ."common.php";
+
+// include_once("includes/class-autoloader.inc.php");
+// include_once("../vendor/class-autoloader.inc.php");
 
 $data = $_SERVER['REQUEST_METHOD'] === 'POST';
 $err = [];

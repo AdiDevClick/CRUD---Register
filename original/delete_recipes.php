@@ -8,6 +8,9 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 if(session_status() === PHP_SESSION_NONE) {
     session_start();
 }
+
+require_once dirname(__DIR__, 2) . DIRECTORY_SEPARATOR . "includes" . DIRECTORY_SEPARATOR ."common.php";
+
 include_once("../includes/class-autoloader.inc.php");
 
 $data = $_SERVER['REQUEST_METHOD'] == 'POST';
@@ -15,7 +18,7 @@ $getDatas = (int)$_GET['id'];
 
 if ($data && isset($_POST['submit'])) {
     $getDatas = $_POST['id'];
-    $checkId = new RecipeView($getDatas);    
+    $checkId = new RecipeView($getDatas);
     try {
         if ($checkId->checkId()) {
             $checkId->deleteRecipe();

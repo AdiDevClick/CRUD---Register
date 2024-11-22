@@ -9,7 +9,7 @@ if(session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-include_once("includes/class-autoloader.inc.php");
+include_once("vendor/class-autoloader.inc.php");
 include_once("config/mysql.php");
 //include_once("config/user.php");
 //display_erreurLogin();

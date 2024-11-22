@@ -1,8 +1,8 @@
 <?php declare(strict_types=1);
 
-// include_once("../includes/class-autoloader.inc.php");
-// require_once(__DIR__ . '../includes/class-autoloader.inc.php');
-include_once("../includes/class-autoloader.inc.php");
+// include_once("../vendor/class-autoloader.inc.php");
+// require_once(__DIR__ . '../vendor/class-autoloader.inc.php');
+include_once("../vendor/class-autoloader.inc.php");
 include_once('../logs/customErrorHandlers.php');
 
 $data = $_SERVER['REQUEST_METHOD'] == 'POST';

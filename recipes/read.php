@@ -3,11 +3,13 @@
 if(session_status() !== PHP_SESSION_ACTIVE || session_status() === PHP_SESSION_NONE) {
     session_start();
 }
-
-include_once '../includes/class-autoloader.inc.php';
-include_once '../logs/customErrorHandlers.php';
-include_once '../includes/variables.inc.php';
-include_once '../includes/functions.inc.php';
+require_once dirname(__DIR__, 1) . DIRECTORY_SEPARATOR . "includes" . DIRECTORY_SEPARATOR ."common.php";
+require_once dirname(__DIR__, 1) . DIRECTORY_SEPARATOR . "includes" . DIRECTORY_SEPARATOR ."variables.inc.php";
+require_once dirname(__DIR__, 1) . DIRECTORY_SEPARATOR . "includes" . DIRECTORY_SEPARATOR ."functions.inc.php";
+// include_once '../vendor/class-autoloader.inc.php';
+// include_once '../logs/customErrorHandlers.php';
+// include_once '../includes/variables.inc.php';
+// include_once '../includes/functions.inc.php';
 
 // Paramètres de la requête SQL pour récupérer la recette
 $sessionName = 'GET_RECIPE';

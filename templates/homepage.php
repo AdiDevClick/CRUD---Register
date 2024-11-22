@@ -31,11 +31,11 @@ echo 'Bonjour ! Nous sommes le ' . $day . '/' . $month . '/' . $year . ' et il e
 <?php include_once('login.php')?>
     <div class="container">
         <h1>Site de recettes !</h1>
-    <?php //require_once("includes/class-autoloader.inc.php");?>
+    <?php //require_once("vendor/class-autoloader.inc.php");?>
     
 <!-- Si l'utilisateur est bien connecté il peut voir les recettes -->  
 <?php if (isset($loggedUser)):?> 
-        <?php require_once("includes/class-autoloader.inc.php"); ?>
+        <?php require_once("vendor/class-autoloader.inc.php"); ?>
         <?php $recipes = new LoginView([]); ?>
         <!-- <?php //$recipes = new LoginView()?> -->
         <?php foreach ($recipes->displayRecipes() as $recipe) : ?>

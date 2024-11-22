@@ -10,7 +10,7 @@ if(session_status() !== PHP_SESSION_ACTIVE || session_status() === PHP_SESSION_N
 
 include_once('includes/functions.inc.php');
 include_once('logs/customErrorHandlers.php');
-require_once("includes/class-autoloader.inc.php");
+require_once("vendor/class-autoloader.inc.php");
 
 $day = date("d");
 $month = date("m");
@@ -49,12 +49,12 @@ $url = Functions::getUrl();
             <h1>Profitez de nos recettes !</h1>
         </div>
         
-    <?php //require_once("includes/class-autoloader.inc.php");?>
+    <?php //require_once("vendor/class-autoloader.inc.php");?>
 
 <?php //ob_start()?>
 <?php //header_remove()?>
 <?php //print_r($loggedUser)?>
-<?php //if (!isset($loggedUser)): ?>
+<?php //if (!isset($loggedUser)):?>
 <?php require_once('login.php')?>
 
 <!--
@@ -106,7 +106,7 @@ $url = Functions::getUrl();
     </div>
 <?php endif ?>
 <?php //print_r($loggedUser)?>
-<?php //endif; ?>
+<?php //endif;?>
 <?php //header_remove()?>
 <?php //ob_get_status()?>
 <?php //ob_get_contents()?>
@@ -117,7 +117,7 @@ $url = Functions::getUrl();
     Si l'utilisateur est bien connecté il peut voir les recettes
 -->
     <?php if (isset($loggedUser['user']) || isset($loggedUser['email'])):?> 
-        <?php require_once("includes/class-autoloader.inc.php"); ?>
+        <?php require_once("vendor/class-autoloader.inc.php"); ?>
         <?php $recipes = new LoginView([]); ?>
         <?php foreach ($recipes->displayRecipes() as $recipe) : ?>
             <?php echo display_recipe($recipe); ?>
