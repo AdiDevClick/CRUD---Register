@@ -42,20 +42,14 @@ export class StepsHandlerPlugin {
     ]
 
     constructor(preparation) {
-        console.log('STEP LOADED')
         this.#preparation = preparation
         this.#gridContainer = this.#preparation.gridContainer
         this.#errorHandler = this.#preparation.errorHandler
         this.#form = this.#preparation.form
-        // console.log('les variables : \n')
-        // console.log('grid => ', this.#gridContainer)
-        // console.log('errorHandler => ', this.#errorHandler)
-        // console.log('touchPlugin => ', this.#touchPlugin)
-        // console.log('form => ', this.#form)
-        // // Create elements
+        // Create elements
         this.#createNextAndPreviewsButtons()
 
-        // Events //
+        // Events
         // On hovering the previews button
         if (isIPad()) {
             this.#previewsButton.button.addEventListener('touchstart', e => {
