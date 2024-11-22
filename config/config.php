@@ -3,8 +3,17 @@
 // Définir le chemin racine du projet
 define('ROOT_PATH', dirname(__DIR__) . DIRECTORY_SEPARATOR);
 
-// Définir l'environnement en développement pour cet exemple (à adapter selon vos besoins)
+// Définir l'environnement en développement (dev / prod)
 putenv('APP_ENV=dev');
+
+// Définir si vite est utilisé
+// true or false
+const VITE = false;
+
+// Définir si nous somme dans une configuration de développement
+// true or false
+const DEV = false;
+
 class Config
 {
     private string $website_title = "Maxi Recettes";

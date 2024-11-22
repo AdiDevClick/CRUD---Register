@@ -1,14 +1,15 @@
 <?php declare(strict_types=1);
 
-require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . "classes" . DIRECTORY_SEPARATOR ."Functions.class.php";
+// require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . "classes" . DIRECTORY_SEPARATOR ."Functions.class.php";
+require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . "includes" . DIRECTORY_SEPARATOR ."common.php";
 require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . "includes" . DIRECTORY_SEPARATOR ."variables.inc.php";
 require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . "includes" . DIRECTORY_SEPARATOR ."functions.inc.php";
 
 header('Cache-Control: private, must-revalidate');
 
 // $dev = true;
-$dev = false;
-$vite = false;
+// $dev = false;
+// $vite = false;
 // $vite = true;
 
 // Menu items for unregistered users
@@ -63,7 +64,8 @@ $registeredItems = [
 // print_r($manifest);
 // echo $manifest;
 // var_dump($manifest);
-if (!$dev) {
+if (!DEV) {
+    // if (!$dev) {
     $manifest = json_decode(file_get_contents(dirname(__DIR__) . DIRECTORY_SEPARATOR ."public" . DIRECTORY_SEPARATOR ."assets" . DIRECTORY_SEPARATOR .".vite". DIRECTORY_SEPARATOR ."manifest.json"), true);
 
     //     $manifest = json_decode(file_get_contents('./public/assets/.vite/manifest.json'), true);
@@ -75,7 +77,9 @@ if (!$dev) {
         <!-- <link rel="stylesheet" href="./public/assets/<?php //$manifest['resources/main.js']['css'][0]?>"> -->
         <link rel="stylesheet" href="<?= strip_tags($rootUrl) . $clicServer?>/public/assets/<?= $manifest['resources/main.js']['css'][0]?>">
 <?php
-} elseif ($dev && $vite) {
+} elseif (DEV && VITE) {
+    // } elseif ($dev && defined('VITE') && VITE === true) {
+    // } elseif ($dev && $vite) {
     ?>
     <script type="module" src="http://localhost:5173/assets/@vite/client"></script>
     <script type="module" src="http://localhost:5173/assets/resources/main.js"></script>
@@ -85,7 +89,8 @@ if (!$dev) {
 }
 ?>
 
-<?php if (!$vite) : ?>
+<?php if (defined('VITE') && VITE === false) : ?>
+<!-- <?php // if (!$vite) :?> -->
         <link rel="stylesheet" href="<?= strip_tags($rootUrl) . $clicServer?>/resources/css/main.css"/>
         <link rel="stylesheet" href="<?= strip_tags($rootUrl) . $clicServer?>/resources/css/index.css"/>
         <script type="module" src="<?= strip_tags($rootUrl) . $clicServer?>/scripts/toaster.js" defer></script>

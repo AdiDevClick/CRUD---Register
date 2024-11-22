@@ -6,7 +6,6 @@
 @import "bubbleMenu.css";
 @import "stepButton.css";
 
-
 /**
 * Root part // Custom colors and fonts
 */
@@ -951,10 +950,10 @@ footer {
         clear: both;
         display: block;
     }*/
-    -webkit-backface-visibility: hidden;
+    /* -webkit-backface-visibility: hidden;
     -moz-backface-visibility:    hidden;
     -ms-backface-visibility:     hidden;
-    backface-visibility: hidden;
+    backface-visibility: hidden; */
     &::after {
         content: '';
         clear: both;
