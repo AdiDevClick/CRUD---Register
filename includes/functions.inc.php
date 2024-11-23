@@ -254,8 +254,33 @@ function display_recipe(array $recipe): string
         return $recipe_content;
     } catch (Exception $e) {
         return "Y'a erreur". $e->getMessage() .'...PHP_EOL' ;
-
     }
+}
+
+function display_5_stars(string $avg,  int $id){
+    $decimal = str_split($avg, 2);
+    $width = '0%';
+    $done = false;
+    $i = 1;
+    $star = null;
+    for ($i; $i < 6; $i++) {
+        if ($avg >= $i) {
+            $width = '100%';
+        } else if ($avg <= $i) {
+            if ($done) {
+                $width = '0%';
+            } else {
+                $width = ($decimal[1] ?? 0) * 10 . '%';
+                $done = true;
+            }
+        }
+        $id ? $itemId = $id . '-' . $i : $itemId = $i;
+        $star = include '../templates/stars_template.php';
+    }
+    while ($i < 6) {
+        return $star;
+    }
+    return;
 }
 
 function isRecipeEnabled(array $recipes): bool

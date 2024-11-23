@@ -25,8 +25,6 @@ class LoginController extends Login
                 $checkInput = new CheckInput($this->getDatas);
                 $sanitized_Datas = $checkInput->sanitizeData();
 
-                // $password = $checkInput->test_input($this->getDatas["password"]);
-                // $username = $checkInput->test_input($this->getDatas["username"]);
                 $password = $sanitized_Datas["password"];
                 $username = $sanitized_Datas["username"];
 
@@ -62,16 +60,6 @@ class LoginController extends Login
      */
     protected function login(string $pwd, string $email)
     {
-        // die(var_dump($users));
-        // die(var_dump($user));
-        // echo($this->getUsers($email)['email']);
-        // $userEmail = $this->getUsers($email)[0]['email'] ?? null;
-        // $username = $this->getUsers($email)[0]['full_name'] ?? null;
-        // $userID = $this->getUsers($email)[0]['user_id'] ?? null;
-        // $userEmail = $this->getUsers($email)['email'] ?? null;
-        // $username = $this->getUsers($email)['full_name'] ?? null;
-        // $userID = $this->getUsers($email)['user_id'] ?? null;
-
 
         // $script = <<< JS
         // include_once("templates/toaster_template.html");
@@ -114,6 +102,7 @@ class LoginController extends Login
                 // CheckInput::insertErrorMessageInArray($_SESSION['SANITIZED'][0]);
                 throw new Error("LGNGETPWSNTZ - Mot de passe et/ou Login incorrects");
             }
+
             if ($this->getPwd($pwd, $email) &&
                 (($userEmail === $email) ||
                 ($username === strtolower($email)))) {
@@ -134,13 +123,6 @@ class LoginController extends Login
                     $userID,
                     $userEmail
                 ];
-                // $_SESSION['USER_NAME'] = $this->getUsers($email)[0]['full_name'];
-                // $_SESSION['USER_ID'] = $this->getUsers($email)[0]['user_id'];
-                // $_SESSION['LOGGED_USER'] = [
-                //     $this->getUsers($email)[0]['full_name'],
-                //     $this->getUsers($email)[0]['user_id'],
-                //     $this->getUsers($email)[0]['email']
-                // ];
             } else {
                 // $errorMessage = sprintf(
                 //     'Les informations envoyées ne permettent pas de vous identifier : (%s/%s)',
@@ -149,6 +131,7 @@ class LoginController extends Login
                 // );
                 throw new Error("LGNGETPW - Mot de passe et/ou Login incorrects");
             }
+
         } catch (Error $errorMessage) {
             // die("". $errorMessage->getMessage());
             CheckInput::insertErrorMessageInArray($errorMessage->getMessage());

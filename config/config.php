@@ -8,11 +8,11 @@ putenv('APP_ENV=dev');
 
 // Définir si vite est utilisé
 // true or false
-const VITE = false;
+const VITE = true;
 
 // Définir si nous somme dans une configuration de développement
 // true or false
-const DEV = false;
+const DEV = true;
 
 class Config
 {

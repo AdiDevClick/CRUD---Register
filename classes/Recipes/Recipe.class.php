@@ -263,7 +263,9 @@ class Recipe extends Mysql
             "silentMode" => $silentMode
         ];
 
-        $image = $this->getFromTable($params, $recipeId);
+        $image = Functions::getFromTable($params, $recipeId, $this->connect(), $this->optionnalData());
+
+        // $image = $this->getFromTable($params, $recipeId);
 
         if (isset($image['img_path']) && $image !== false && file_exists(dirname(__DIR__, 2) .'/'. $image['img_path'])) {
 

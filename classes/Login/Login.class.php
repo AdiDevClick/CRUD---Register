@@ -14,24 +14,24 @@ class Login extends Mysql
      * @return array Les données SQL récupérées.
      * @throws Error Si la recette n'existe pas.
      */
-    protected function getFromTable(array $params, int|string $recipeId)
-    {
-        // Option du constructeur
-        $options = [
-            "fetchAll" => $params["fetchAll"] ?? false,
-            "searchMode" => $params["searchMode"] ?? false,
-            "silentMode" => $params["silentMode"] ?? false,
-            "silentExecute" => $params["silentExecute"] ?? false
-        ];
-        // Crée une instance de la classe Database avec des données optionnelles
-        $Fetch = new Database($options);
+    // protected function getFromTable(array $params, int|string $recipeId)
+    // {
+    //     // Option du constructeur
+    //     $options = [
+    //         "fetchAll" => $params["fetchAll"] ?? false,
+    //         "searchMode" => $params["searchMode"] ?? false,
+    //         "silentMode" => $params["silentMode"] ?? false,
+    //         "silentExecute" => $params["silentExecute"] ?? false
+    //     ];
+    //     // Crée une instance de la classe Database avec des données optionnelles
+    //     $Fetch = new Database($options);
 
-        // Génère et exécute la requête SQL pour récupérer les données
-        $SQLData = $Fetch->__createGetQuery($params, $recipeId, $this->connect());
+    //     // Génère et exécute la requête SQL pour récupérer les données
+    //     $SQLData = $Fetch->__createGetQuery($params, $recipeId, $this->connect());
 
-        // Retourne les données SQL récupérées
-        return $SQLData;
-    }
+    //     // Retourne les données SQL récupérées
+    //     return $SQLData;
+    // }
 
     /**
      * Summary of getUsers
@@ -53,10 +53,8 @@ class Login extends Mysql
             "login" => true,
             "silentMode" => true,
         ];
-
-
-        // $users = $usersStatement->fetchAll(PDO::FETCH_ASSOC);
-        $users = $this->getFromTable($params, $email);
+        $users = Functions::getFromTable($params, $email, $this->connect());
+        // $users = $this->getFromTable($params, $email);
 
         // header($_SERVER["SERVER_PROTOCOL"] . " 404 Not Found");
         // http_response_code(404);

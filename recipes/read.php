@@ -27,7 +27,7 @@ $recipeParams = [
 // Paramètres de la requête SQL pour récupérer les commentaires
 $sessionCommentName = 'GET_COMMENT';
 $commentParams = [
-    "fields" => ['comment_id', 'comment', 'user_id'],
+    "fields" => ['comment_id', 'comment', 'user_id', 'c.title', 'review'],
     "date" => ['DATE_FORMAT(c.created_at, "%d/%m/%Y") as comment_date'],
     "join" => [
         'comments c' => 'c.recipe_id = r.recipe_id',
@@ -49,7 +49,7 @@ $commentParams = [
  * @var mixed
  */
 $filterKeysToRemove = [
-    'comment_id', 'comment', 'rating', 'user_id',
+    'comment_id', 'comment', 'rating',
     'review', 'ranking', 'comment_date'
 ];
 $filterCommentKeys = [
@@ -99,6 +99,8 @@ if(isset($_GET['id']) && is_numeric($_GET['id'])) {
                         'comment' => $comment['comment'],
                         'user_id' => $comment['user_id'],
                         'created_at' => $comment['comment_date'],
+                        'review' => $comment['review'],
+                        'title' => $comment['title'],
                     ];
                 }
             }
@@ -124,6 +126,9 @@ if(isset($_GET['id']) && is_numeric($_GET['id'])) {
 
 $title = htmlspecialchars($recipe['title']);
 $script = 'src="../scripts/typeWriter.js" type="module" defer';
+
+$starId = 0;
+
 ob_start()
 
 ?>
@@ -247,29 +252,57 @@ ob_start()
 </div>
         <?php //$checkId->displayComments($recipe, $getInfos)?>
         <?php if(isset($recipe['comments']) && count($recipe['comments']) > 0): ?>
-        <hr />
-        <h2>Commentaires</h2>
-        <div class="row">>
-            <?php foreach($recipe['comments'] as $comment): ?>
-                <div class="comment">
-                    <p><?php echo strip_tags($id->display_user($comment['user_id']))?></p>
-                    <p><?php echo strip_tags($comment['comment']) ?></p>
-                    <i>(Le : <?php echo strip_tags($comment['created_at']) ?>)</i>
-                    <p><?php // print_r($_SESSION)?></p>
+            
+            <hr />
+            
+            <div class="comment-grid">
+                <div class="note_container">
+                    <h3>Note des utilisateurs</h3>
+                    <div class="note__stars">
+                        <?php
+                            echo display_5_stars($recipe['rating'], $recipe['recipe_id']);
+                        ?>
+                    </div>
+                    <p>Filtrer par notes</p>
                 </div>
-            <?php endforeach ?>
-        </div>
+                <div class="comment_container">
+                    <h2>Vos commentaires</h2>
+                    <?php foreach($recipe['comments'] as $comment): ?>
+                        <div class="comment">
+                            <div class="comment__header">
+                                <?php include '../templates/profile_picture.html' ?>
+                                <i>Par <?php echo strip_tags($id->display_user($comment['user_id']))?>, le <?php echo strip_tags($comment['created_at']) ?></i>
+                            </div>
+                            <div class="comment__title">
+                                <?php
+                                    echo display_5_stars((string)$comment['review'], $comment['user_id']);
+                                ?>
+                                <p class="comment__title-text"><?= strip_tags($comment['title']) ?></p>
+                            </div>
+                            <p class="comment__body"><?php echo strip_tags($comment['comment']) ?></p>
+                        </div>
+                    <?php endforeach ?>
+                </div>
+            </div>
         <?php endif ?>
+        
         <hr />
+        
         <?php $loggedUser = LoginController::checkLoggedStatus()?>
+        
         <?php if (isset($loggedUser)): ?>
             <?php //if ($errorComment) :?>
                 <?php // $errorComment?>
             <?php // endif?>
-            <?php include_once('../comments/comments.php') ?>
+            <div class="comment-form_container">
+                <h4>Postez un commentaire</h4>
+                <?php include_once '../comments/comments.php' ?>
+            </div>
+            
             <?php //$checkId->displayCommentForm($recipe)?>
             <?php //$checkId->displayCommentSuccess()?>
         <?php endif ?>
+
     <!-- </div> -->
 <!-- </body> -->
 

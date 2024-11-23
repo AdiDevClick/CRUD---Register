@@ -23,7 +23,9 @@ class RecipeController extends Recipe
                 // Checks if a correct ID type is passed
                 $this->checkIds();
                 //  Create SQL Query
-                $datas = $this->getFromTable($params, $this->getData);
+                $datas = Functions::getFromTable($params, $this->getData, $this->connect(), $this->optionnalData());
+
+                // $datas = $this->getFromTable($params, $this->getData);
                 // Saves the ID in Session
                 $id = [
                     $sessionName => $this->getData

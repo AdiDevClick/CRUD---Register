@@ -2,27 +2,33 @@
 <?php
     require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . "includes" . DIRECTORY_SEPARATOR ."functions.inc.php";
 ?>
-<ul class="tabulation">
-    <li>
-        <a href=#><?= $pageTitle ?></a>
-    </li>
-    <li class="li-arrow"></li>
-    <li>
-        <a class="active js-one" href="http://">Recette</a>
-    </li>
-    <li class="li-arrow"></li>
-    <li>
-        <a class="greyed js-two" href="http://">Préparation</a>
-    </li>
-    <li class="li-arrow"></li>
-    <li>
-        <a class="greyed js-three" href="http://">Ingrédient</a>
-    </li>
-    <li class="li-arrow"></li>
-    <li>
-        <a class="greyed js-four" href="http://">Images</a>
-    </li>
-</ul>
+
+
+<div class="tabulation_container">
+    <ul class="tabulation">
+        <li>
+            <a href=#><?= $pageTitle ?></a>
+        </li>
+        <li class="li-arrow"></li>
+        <li>
+            <a class="active js-one" href="http://">Recette</a>
+        </li>
+        <li class="li-arrow"></li>
+        <li>
+            <a class="greyed js-two" href="http://">Préparation</a>
+        </li>
+        <li class="li-arrow"></li>
+        <li>
+            <a class="greyed js-three" href="http://">Ingrédient</a>
+        </li>
+        <li class="li-arrow"></li>
+        <li>
+            <a class="greyed js-four" href="http://">Images</a>
+        </li>
+    </ul>
+    <a href="{$url}">Retour</a>
+    <!-- <img src="../img/close.svg" alt="image représentant une fermeture"> -->
+</div>
 
 <section class="card_container container">
     <form
