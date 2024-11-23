@@ -157,7 +157,7 @@ if (queryString.toString().includes("create_recipes.php")) {
         }
     } catch (error) {
         new Toaster(error, 'Erreur')
-        console.log(error)
+        console.log('create', error)
     }
 }
 
@@ -170,8 +170,8 @@ if (queryString.toString().includes("update_recipes.php")) {
             method: 'GET'
         })
         if (fetchedIngredients.status === 'failed') window.location.assign('../index.php?update=failed')
-
-        // if (fetchedIngredients.custom_ingredients) {
+        
+            // if (fetchedIngredients.custom_ingredients) {
             // console.log(fetchedIngredients.custom_ingredients.split(","))
             // const ingredientsInStorage = localStorage.getItem('ingredients')?.toString()
             // if (ingredientsInStorage) {
@@ -194,9 +194,8 @@ if (queryString.toString().includes("update_recipes.php")) {
 
         // }
     } catch (error) {
-        new Toaster(error, 'Erreur')
-        console.log(error)
-
+        window.location.assign('../index.php?failed=fetch')
+        console.log('update', error)
     }
 }
 

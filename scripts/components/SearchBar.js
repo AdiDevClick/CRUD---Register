@@ -224,6 +224,7 @@ export class SearchBar
                 this.#onReady("1")
             }
             console.log('else popstate')
+            console.log(this.#oldUrl)
         }
 
         //           //

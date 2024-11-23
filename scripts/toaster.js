@@ -157,6 +157,13 @@ if (failed === 'update-recipe') {
     resetURL('register.php', 'failed', urlParams)
 }
 
+if (failed === 'fetch') {
+    errAlert = true
+    type = 'Erreur'
+    message = 'Une erreur est survenue lors de la récupération de votre recette'
+    resetURL('index.php', 'failed', urlParams)
+}
+
 if (errAlert) {
     new Toaster(message, type)
 }
