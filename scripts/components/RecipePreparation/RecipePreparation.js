@@ -1,5 +1,6 @@
 import { fetchJSON } from "../../functions/api.js"
 import { createElement, importThisModule } from "../../functions/dom.js"
+import { resetURL } from "../../functions/url.js"
 // import { BubbleCreativePlugin } from "../BubbleCreativePlugin.js"
 import { ErrorHandler } from "../ErrorHandler.js"
 import { Toaster } from "../Toaster.js"
@@ -103,6 +104,8 @@ export class IngredientsFrom {
         this.#importPlugin()
 
         // // Evènements
+        new Toaster(this.#addStepsButton)
+
         this.#addStepsButton.addEventListener('click', e => {
             e.preventDefault()
             // Hide the button if needed
@@ -134,6 +137,15 @@ export class IngredientsFrom {
         //     }
         // // }, { once: true, signal: controller.signal } )
         // })
+        // window.onpopstate = (e) => {
+        //     e.preventDefault()
+        //     if (window.location.hash === '#username' || window.location.hash.startsWith('#')) {
+        //         closeMenu(e)
+        //         console.log('closing menu cause username || #  recipe')
+        //         return
+        //     }
+        //     console.log('else popstate recipe')
+        // }
     }
 
     /**
@@ -480,17 +492,29 @@ export class IngredientsFrom {
                             // no
                             return
                         }
-                        window.location.assign('../index.php?success=recipe-unchanged')
+                        resetURL('../index.php?success=recipe-unchanged')
+                        location.reload()
+                        // console.log(window.history)
+                        // window.history.replaceState({}, document.title, page);
+                        // window.location.assign('../index.php?success=recipe-unchanged')
                     } else if (this.#ingredientList.status === 'RCPUPDTSTMTEXECNT' && this.#ingredientList.img_status) {
-                        window.location.assign('../index.php?success=recipe-updated')
+                        // window.location.assign('../index.php?success=recipe-updated')
+                        resetURL('../index.php?success=recipe-updated')
+                        location.reload()
                     }
                 }
                 if (this.options.post) {
-                    if (this.#ingredientList.status === 'success') window.location.assign('../index.php?success=recipe-shared')
+                    if (this.#ingredientList.status === 'success') {
+                        // window.location.assign('../index.php?success=recipe-shared')
+                        resetURL('../index.php?success=recipe-shared')
+                        location.reload()
+                    }
                 }
                 this.#saveIngredientListToStorage()
             } else {
-                window.location.assign('../index.php?success=recipe-shared')
+                // window.location.assign('../index.php?success=recipe-shared')
+                resetURL('../index.php?success=recipe-shared')
+                location.reload()
                 new Toaster('Un envoi a déjà été effectué', 'Erreur')
             }
         } catch (error) {
@@ -522,7 +546,11 @@ export class IngredientsFrom {
                 body: data,
             })
             
-            if (this.#ingredientList.status === 'success') window.location.assign('../index.php?success=recipe-updated')
+            if (this.#ingredientList.status === 'success') {
+                // window.location.assign('../index.php?success=recipe-updated')
+                resetURL('../index.php?success=recipe-updated')
+                location.reload()
+            }
             
             this.#saveIngredientListToStorage()
         } catch (error) {
