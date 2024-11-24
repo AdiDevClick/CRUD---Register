@@ -20,13 +20,13 @@ if(session_status() !== PHP_SESSION_ACTIVE || session_status() === PHP_SESSION_N
             ?>
         </div>
     </div>
-    <div class="comment-form__title">
+    <!-- <div class="comment-form__title"> -->
         <label for="title" class="form-label">Titre rapide</label>
         <input id="title" class="form-control" type="text" name="title" placeholder="Description rapide" />
-    </div>
-    <div class="comment-form__body">
+    <!-- </div> -->
+    <!-- <div class="comment-form__body"> -->
         <label for="comment" class="form-label">Votre commentaire</label>
         <textarea class="form-control" placeholder="Soyez respectueux/se, nous sommes humain(e)s." id="comment" name="comment"></textarea>
-    </div>
+    <!-- </div> -->
     <button type="submit" class="btn btn-primary">Envoyer</button>
 </form>
