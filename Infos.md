@@ -232,7 +232,7 @@ Fonction: importThisModule(className, object = {})
 #TODO : spcifier dans la doc qu'il faut utiliser composer :
 	installer composer
 	composer require vlucas/phpdotenv
-
+#TODO : Terminer la partie CSS pour la zone commentaire de la read page
 
 
 
