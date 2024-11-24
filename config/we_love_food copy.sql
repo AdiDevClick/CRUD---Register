@@ -16,41 +16,7 @@ USE `we_love_food`;
 
 -- -------------------------------------------------------
 
---
--- Structure de la table `images`
---
 
-CREATE TABLE IF NOT EXISTS `images` (
-  `image_id` int(11) NOT NULL AUTO_INCREMENT,
-  `user_id` int(11) NOT NULL,
-  `recipe_id` int(11) NOT NULL,
-  `img_path` text NOT NULL,
-  `img_name` text NOT NULL,
-  `video_path` text NOT NULL,
-  `video_name` text NOT NULL,
-  `created_at` DATETIME NOT NULL DEFAULT current_timestamp(),
-  PRIMARY KEY (`image_id`),
-  FOREIGN KEY (`recipe_id`) REFERENCES recipes(recipe_id)
-) ENGINE=innoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- -------------------------------------------------------
-
---
--- Structure de la table `comments`
---
-
-CREATE TABLE IF NOT EXISTS `comments` (
-  `comment_id` int(11) NOT NULL AUTO_INCREMENT,
-  `user_id` int(11) NOT NULL,
-  `recipe_id` int(11) NOT NULL,
-  `comment` text NOT NULL,
-  `created_at` DATETIME NOT NULL DEFAULT current_timestamp(),
-  `rating` int(11) NOT NULL,
-  `review` int(11) NOT NULL DEFAULT 3,
-  `ranking` int(11) NOT NULL,
-  PRIMARY KEY (`comment_id`),
-  FOREIGN KEY (`recipe_id`) REFERENCES recipes(recipe_id)
-) ENGINE=innoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -65,7 +31,7 @@ CREATE TABLE IF NOT EXISTS `pwdreset` (
   `pwdReset_token` longtext NOT NULL,
   `pwdReset_expires` text NOT NULL,
   PRIMARY KEY (`pwdReset_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=innoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -99,8 +65,64 @@ CREATE TABLE IF NOT EXISTS `recipes` (
   `oven_time` int(11) NOT NULL,
   `oven_time_length` varchar(6) NOT NULL,
   `persons` int(11) NOT NULL,
-  `custom_ingredients` json NOT NULL,
-  PRIMARY KEY (`recipe_id`),
+  `custom_ingredients` LONGTEXT NOT NULL,
+  PRIMARY KEY (`recipe_id`)
+) ENGINE=innoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+
+ALTER TABLE recipes  ADD FULLTEXT INDEX full_text_title_idx (title);
+-- -------------------------------------------------------
+
+--
+-- Structure de la table `comments`
+--
+
+CREATE TABLE IF NOT EXISTS `comments` (
+  `comment_id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `recipe_id` int(11) NOT NULL,
+  `comment` text NOT NULL,
+  `created_at` DATETIME NOT NULL DEFAULT current_timestamp(),
+  `rating` int(11) NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `review` int(11) NOT NULL DEFAULT 3,
+  `ranking` int(11) NOT NULL,
+  PRIMARY KEY (`comment_id`),
+  FOREIGN KEY (`recipe_id`) REFERENCES recipes(recipe_id)
+) ENGINE=innoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+ALTER TABLE comments ADD CONSTRAINT `fk_recipe_id` FOREIGN KEY (recipe_id) REFERENCES recipes(recipe_id) ON DELETE CASCADE;
+
+
+--
+-- Structure de la table `images`
+--
+
+-- CREATE TABLE IF NOT EXISTS `images` (
+--   `image_id` int(11) NOT NULL AUTO_INCREMENT,
+--   `user_id` int(11) NOT NULL,
+--   `recipe_id` int(11) NOT NULL,
+--   `img_path` text NOT NULL,
+--   `img_name` text NOT NULL,
+--   `video_path` text NOT NULL,
+--   `video_name` text NOT NULL,
+--   `created_at` DATETIME NOT NULL DEFAULT current_timestamp(),
+--   PRIMARY KEY (`image_id`),
+--   FOREIGN KEY (`recipe_id`) REFERENCES recipes(recipe_id)
+-- ) ENGINE=innoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+CREATE TABLE IF NOT EXISTS `images` (
+  `image_id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `recipe_id` int(11) NOT NULL,
+  `img_path` text NOT NULL,
+  `img_name` text NOT NULL,
+  `video_path` text NOT NULL,
+  `video_name` text NOT NULL,
+  `youtubeID` text NOT NULL;
+  `created_at` DATETIME NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`image_id`),
+  FOREIGN KEY (`recipe_id`) REFERENCES recipes(recipe_id)
 ) ENGINE=innoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -116,7 +138,34 @@ CREATE TABLE IF NOT EXISTS `users` (
   `password` varchar(512) NOT NULL,
   `age` int(11) NOT NULL,
   PRIMARY KEY (`user_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=innoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- Créer une table catégories 
+CREATE TABLE IF NOT EXISTS categories (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nom VARCHAR(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- Créer une table produits 
+CREATE TABLE IF NOT EXISTS produits (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nom VARCHAR(255) NOT NULL,
+    description TEXT,
+    prix DECIMAL(10, 2),
+    categorie_id INT,
+    FOREIGN KEY (categorie_id) REFERENCES categories(id) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+
+-- Pour gérer les traductions, créer une table catégorie traductions 
+CREATE TABLE IF NOT EXISTS categories_traductions (
+    categorie_id INT,
+    langue VARCHAR(10),
+    nom VARCHAR(255),
+    description TEXT,
+    PRIMARY KEY (categorie_id, langue),
+    FOREIGN KEY (categorie_id) REFERENCES categories(id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 

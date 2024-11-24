@@ -112,7 +112,7 @@ if(isset($_GET['id']) && is_numeric($_GET['id'])) {
         echo $error->getMessage();
     }
 
-    $recipe['rating'] = $averageRating['rating'];
+    $recipe['rating'] = $averageRating['rating'] ?? "0";
 
     /* $loggedUser = LoginController::checkLoggedStatus();
     print_r  ($loggedUser); */
@@ -126,8 +126,6 @@ if(isset($_GET['id']) && is_numeric($_GET['id'])) {
 
 $title = htmlspecialchars($recipe['title']);
 $script = 'src="../scripts/typeWriter.js" type="module" defer';
-
-$starId = 0;
 
 ob_start()
 
@@ -251,7 +249,6 @@ ob_start()
     </article>
 </div>
         <?php //$checkId->displayComments($recipe, $getInfos)?>
-        <?php if(isset($recipe['comments']) && count($recipe['comments']) > 0): ?>
             
             <hr />
             
@@ -260,12 +257,14 @@ ob_start()
                     <h3>Note des utilisateurs</h3>
                     <div class="note__stars">
                         <?php
+                        // die(var_dump($recipe['rating']));
                             echo display_5_stars($recipe['rating'], $recipe['recipe_id']);
                         ?>
                     </div>
                     <p>Filtrer par notes</p>
                 </div>
-                <div class="comment_container">
+                <?php if(isset($recipe['comments']) && count($recipe['comments']) > 0): ?>
+                    <div class="comment_container">
                     <h2>Vos commentaires</h2>
                     <?php foreach($recipe['comments'] as $comment): ?>
                         <div class="comment">
@@ -282,9 +281,11 @@ ob_start()
                             <p class="comment__body"><?php echo strip_tags($comment['comment']) ?></p>
                         </div>
                     <?php endforeach ?>
-                </div>
+                    </div>
+                <?php else :?>
+                    <p>Soyez le premier à poster un commentaire !</p>
+                <?php endif ?>
             </div>
-        <?php endif ?>
         
         <hr />
         

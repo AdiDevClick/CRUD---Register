@@ -2528,7 +2528,9 @@ hr {
     grid-template-columns: 1fr 2fr;
     gap: 0;
     row-gap: 45px;
-
+    > p {
+        align-content: center;
+    }
     h2, h3 {
         /* grid-column: 2 / 2; */
         place-self: center;
