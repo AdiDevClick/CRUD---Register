@@ -206,15 +206,15 @@ class Recipe extends Mysql
     /**
      * Insert comments
      */
-    protected function insertComments($comment, $recipeId, $userId)
+    protected function insertComments($datas, $userId)
     {
-        $sqlRecipe = 'INSERT INTO comments(comment, recipe_id, user_id) VALUES (:comment, :recipe_id, :user_id);';
+        $datas['user_id'] = $userId;
+
+        $sqlRecipe = 'INSERT INTO comments(comment, recipe_id, user_id, title) VALUES (:comment, :recipe_id, :user_id, :title);';
+        
         $insertCommentsStatment = $this->connect()->prepare($sqlRecipe);
-        if (!$insertCommentsStatment->execute([
-            'comment' => $comment,
-            'recipe_id' => $recipeId,
-            'user_id' => $userId
-        ])) {
+        
+        if (!$insertCommentsStatment->execute($datas)) {
             $insertCommentsStatment = null;
             throw new Error("STMTCMT Failed");
         }

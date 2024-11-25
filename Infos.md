@@ -233,6 +233,7 @@ Fonction: importThisModule(className, object = {})
 	installer composer
 	composer require vlucas/phpdotenv
 #TODO : Terminer la partie CSS pour la zone commentaire de la read page
+#TODO : Permettre l'intégration des titres et notes de commentaires
 
 
 

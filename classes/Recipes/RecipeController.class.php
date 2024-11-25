@@ -249,7 +249,7 @@ class RecipeController extends Recipe
      * Insère les commentaires dans la TABLE comment
      * @param array $getData
      * @throws \Error
-     * @return array
+     * @return mixed
      */
     protected function setComments($getData)
     {
@@ -257,6 +257,7 @@ class RecipeController extends Recipe
         if  (!isset($loggedUser)) {
             throw new Error("RCPLGGDUSROFF - Veuillez vous identifier avant de partager une recette.") ;
         } else {
+
             $checker = new CheckInput($this->getData);
             $options = [
                 'convert' => false
@@ -264,16 +265,18 @@ class RecipeController extends Recipe
             $sanitized_Datas = $checker->sanitizeData($options);
 
             if (isset($_SESSION['SANITIZED']) && $_SESSION['SANITIZED'] === true) {
-                $message = $sanitized_Datas['comment'];
-                $recipeId = $sanitized_Datas['recipeId'];
 
                 unset($_SESSION['SANITIZED']);
-                $this->insertComments($message, $recipeId, $loggedUser['userId']);
+
+                $this->insertComments($sanitized_Datas, $loggedUser['userId']);
+
                 $registeredComment = [
-                    'email' => $loggedUser['email']
+                    'body' => $sanitized_Datas['comment']
                 ];
                 $_SESSION['REGISTERED_COMMENT'] = $registeredComment;
+
                 return $registeredComment;
+                
             } else {
                 echo json_encode($_SESSION['SANITIZED']);
                 unset($_SESSION['SANITIZED']);
@@ -297,6 +300,7 @@ class RecipeController extends Recipe
             $sanitized_Datas = $checker->sanitizeData();
 
             if (isset($_SESSION['SANITIZED']) && $_SESSION['SANITIZED'] === true) {
+
                 $fileName = $sanitized_Datas['fileName'];
                 $filePath = $sanitized_Datas['filePath'];
                 $recipeId = $sanitized_Datas['recipeId'];

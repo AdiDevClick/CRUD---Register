@@ -1,4 +1,6 @@
 <div class="star">
+    <label for="box"></label>
+    <input name="<?= $itemId ?>" id="box-<?= $itemId ?>" type="checkbox">
     <svg id="<?= $itemId ?>" width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
         <!-- Définit un masque de découpage -->
         <defs>
