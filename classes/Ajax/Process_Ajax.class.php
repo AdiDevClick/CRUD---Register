@@ -30,9 +30,10 @@ class Process_Ajax
             // de réencoder en JSON si nécessaire
             // 'persons' => json_encode($dataTest)
             // ];
+            
             $this->Recipe = new RecipeView($this->getDatas, 'creation');
-            // $setRecipe = new RecipeView($this->getDatas, 'creation');
             $this->send_Status = 'success';
+
             // POST(true) ?
             // Insert file and recipe in DB
             if ($this->is_Post && ($this->session !== 'UPDATED_RECIPE') && !isset($_SESSION['UPDATED_RECIPE'])) {
@@ -48,7 +49,7 @@ class Process_Ajax
                     $this->insert_File($this->Post_Files, (int) $recipeId);
                 }
             }
-            // die(var_dump($_SESSION));
+
             // POST(false) ?
             // This is an update request => Update DB from the recipe_id
             if (!$this->is_Post && $this->session === 'UPDATED_RECIPE' || isset($_SESSION['UPDATED_RECIPE'])) {
