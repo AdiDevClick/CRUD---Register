@@ -265,7 +265,6 @@ class RecipeController extends Recipe
             $sanitized_Datas = $checker->sanitizeData($options);
 
             if (isset($_SESSION['SANITIZED']) && $_SESSION['SANITIZED'] === true) {
-
                 unset($_SESSION['SANITIZED']);
 
                 $this->insertComments($sanitized_Datas, $loggedUser['userId']);
@@ -276,7 +275,7 @@ class RecipeController extends Recipe
                 $_SESSION['REGISTERED_COMMENT'] = $registeredComment;
 
                 return $registeredComment;
-                
+
             } else {
                 echo json_encode($_SESSION['SANITIZED']);
                 unset($_SESSION['SANITIZED']);

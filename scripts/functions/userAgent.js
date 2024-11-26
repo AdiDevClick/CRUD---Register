@@ -1,6 +1,4 @@
-import { Toaster } from "../components/Toaster.js"
-
-const userAgent = navigator.userAgent
+const userAgent = navigator.userAgent;
 
 /**
  * Vérifie que l'utilisateur est sur iPad et si sa version est compatible
@@ -9,15 +7,15 @@ const userAgent = navigator.userAgent
  */
 export function isIPadWithiOSVersion(maxVersion) {
     // Vérifiez si c'est un iPad
-    const isIPadBrowser = /iPad/.test(userAgent)
-    const isIPadDevice = /Macintosh/i.test(navigator.userAgent)
+    const isIPadBrowser = /iPad/.test(userAgent);
+    const isIPadDevice = /Macintosh/i.test(navigator.userAgent);
     // Vérifiez la version d'iOS
-    const iOSVersionMatch = userAgent.match(/OS (\d+)_\d+/)
+    const iOSVersionMatch = userAgent.match(/OS (\d+)_\d+/);
     if (iOSVersionMatch) {
-        const iOSVersion = parseInt(iOSVersionMatch[1], 10)
-        return (isIPadBrowser || isIPadDevice) && (iOSVersion <= maxVersion)
+        const iOSVersion = parseInt(iOSVersionMatch[1], 10);
+        return (isIPadBrowser || isIPadDevice) && iOSVersion <= maxVersion;
     }
-    return false
+    return false;
 }
 
 /**
@@ -26,10 +24,10 @@ export function isIPadWithiOSVersion(maxVersion) {
  */
 export function isIPad() {
     // Vérifiez si c'est un iPad
-    const isIPadBrowser = /iPad/.test(userAgent)
-    const isIPadDevice = /Macintosh/i.test(navigator.userAgent)
+    const isIPadBrowser = /iPad/.test(userAgent);
+    const isIPadDevice = /Macintosh/i.test(navigator.userAgent);
     if ((isIPadDevice || isIPadBrowser) && navigator.maxTouchPoints) {
-        return true
+        return true;
     }
-    return false
+    return false;
 }

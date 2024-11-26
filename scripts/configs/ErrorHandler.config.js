@@ -3,7 +3,7 @@
  **************  ERROR HANDLER CONFIG FILE
  */
 ////////////////////////////////////////////////////////////
-                    /** FORM */
+/** FORM */
 ////////////////////////////////////////////////////////////
 
 /**
@@ -11,15 +11,15 @@
  * @module ErrorHandler
  * @type {String}
  */
-export const formIDToAvoidChecking = 'search-form'
+export const formIDToAvoidChecking = "search-form";
 /**
  * Configurate form submit button ID to target and listen
  * @type {String}
  */
-export const formButton = '#submit'
+export const formButton = "#submit";
 
 ////////////////////////////////////////////////////////////
-                    /** MESSAGES */
+/** MESSAGES */
 ////////////////////////////////////////////////////////////
 
 /**
@@ -27,51 +27,54 @@ export const formButton = '#submit'
  * @type {String}
  */
 export const invalidEmailMessage = `Votre email est invalide 
-                exemple valide : monEmail@mail.fr`
+                exemple valide : monEmail@mail.fr`;
 /**
  * Configurate password invalid error message
  * @type {String}
  */
-export const invalidPwMessage = "Votre mot de passe n'est pas assez fort"
+export const invalidPwMessage = "Votre mot de passe n'est pas assez fort";
 /**
 /**
  * Configurate password invalid error message
  * @type {String}
  */
-export const notIdenticalPasswords = 'Vos mots de passes ne sont pas identiques'
+export const notIdenticalPasswords =
+    "Vos mots de passes ne sont pas identiques";
 /**
  * Configurate password cannot be same as username message
  * @type {String}
  */
-export const pwCannotBeUsername = 'Pour des raisons de sécurité, votre mot de passe doit être différent de votre identifiant'
+export const pwCannotBeUsername =
+    "Pour des raisons de sécurité, votre mot de passe doit être différent de votre identifiant";
 /**
  * Configurate password security breached message
  * @type {String}
  */
-export const pwIsTooCommon = 'Ce mot de passe a été identifié lors d\'une faille de sécurité. Pour votre sécurité, veuiller en créer un nouveau'
+export const pwIsTooCommon =
+    "Ce mot de passe a été identifié lors d'une faille de sécurité. Pour votre sécurité, veuiller en créer un nouveau";
 /**
  * Configurate no space allowed error message
  * @type {String}
  */
-export const noSpaceAllowedMessage = 'Veuillez ne pas utiliser d\'espace'
+export const noSpaceAllowedMessage = "Veuillez ne pas utiliser d'espace";
 /**
  * Configurate only integer allowed error message
  * @type {String}
  */
-export const notANumberError = 'Seuls les nombres sont autorisés'
+export const notANumberError = "Seuls les nombres sont autorisés";
 /**
  * Configurate only integer allowed error message
  * @type {String}
  */
-export const wrongNumber = 'Seuls les nombres au-dessus de 0 sont autorisés'
+export const wrongNumber = "Seuls les nombres au-dessus de 0 sont autorisés";
 /**
  * Configurate empty inputs error message
  * @type {String}
  */
-export const emptyAlert = 'Un ou plusieurs champs doivent être renseignés'
+export const emptyAlert = "Un ou plusieurs champs doivent être renseignés";
 
 ////////////////////////////////////////////////////////////
-                /** INPUTS TO LISTEN TO */
+/** INPUTS TO LISTEN TO */
 ////////////////////////////////////////////////////////////
 
 /**
@@ -80,20 +83,21 @@ export const emptyAlert = 'Un ou plusieurs champs doivent être renseignés'
  * Default inputs configuration -
  * @type {String}
  */
-export const inputsToListen = 'input, textarea'
+export const inputsToListen = "input, textarea";
 /**
  * Configurate elements that should be INTEGERS only -
  * Separate them with commas -
  * Default inputs configuration -
  * @type {String}
  */
-export const thisInputShouldBeInt = '#persons, #total_time, #resting_time, #oven_time'
+export const thisInputShouldBeInt =
+    "#persons, #total_time, #resting_time, #oven_time";
 /**
  * Configurate elements that will not receive the check / wrong icons
  * Separate them with commas
  * @type {String}
  */
-export const inputsNotToAppend = '#custom_ingredient'
+export const inputsNotToAppend = "#custom_ingredient";
 /**
  * Configurate elements that can be Empty -
  * !! ATTENTION !! All elements MUST refer to the attribute name of each inputs -
@@ -103,7 +107,16 @@ export const inputsNotToAppend = '#custom_ingredient'
  * force new ones when you construct inside the options object -
  * @type {Array < String >}
  */
-export const inputsCanBeEmpty = ['step_3', 'step_4', 'step_5', 'step_6', 'file', 'video_file', 'video_link', 'resting_time']
+export const inputsCanBeEmpty = [
+    "step_3",
+    "step_4",
+    "step_5",
+    "step_6",
+    "file",
+    "video_file",
+    "video_link",
+    "resting_time",
+];
 /**
  * Configurate elements that can contain special chars -
  * !! ATTENTION !! All elements MUST refer to the attribute name of each inputs -
@@ -113,20 +126,27 @@ export const inputsCanBeEmpty = ['step_3', 'step_4', 'step_5', 'step_6', 'file',
  * force new ones when you construct inside the options object -
  * @type {Array < String >}
  */
-export const inputsCanContainSpecialChars = ['Mot de Passe', 'Mot de Passe de confirmation', 'Email', 'file', 'video_file', 'username']
+export const inputsCanContainSpecialChars = [
+    "Mot de Passe",
+    "Mot de Passe de confirmation",
+    "Email",
+    "file",
+    "video_file",
+    "username",
+];
 
 ////////////////////////////////////////////////////////////
-                /** INPUTS NOT TO LISTEN TO */
+/** INPUTS NOT TO LISTEN TO */
 ////////////////////////////////////////////////////////////
 // TODO
 /**
  * Configurate elements to be checked
  * @type {String}
  */
-export const defaultInput = 'input, textarea'
+export const defaultInput = "input, textarea";
 
 ////////////////////////////////////////////////////////////
-                /** DYNAMIC SECTION TO WATCH */
+/** DYNAMIC SECTION TO WATCH */
 ////////////////////////////////////////////////////////////
 
 /**
@@ -134,31 +154,35 @@ export const defaultInput = 'input, textarea'
  * check newly created inputs values -
  * @type {String}
  */
-export const sectionToWatch = '#js-mutator-obs'
+export const sectionToWatch = "#js-mutator-obs";
 // export const sectionToWatch = '.form-recipe'
 
 ////////////////////////////////////////////////////////////
-                    /** REGEX */
+/** REGEX */
 ////////////////////////////////////////////////////////////
 /**
  * Configurate which characters are allowed
  * @type {RegExp}
  */
-export const allowedSpecialChars = new RegExp('^[\\w\\s,.:;_?\'!\\"*()~&éèêëàâäôöûüùçÀ-]*$')
+export const allowedSpecialChars = new RegExp(
+    "^[\\w\\s,.:;_?'!\\\"*()~&éèêëàâäôöûüùçÀ-]*$"
+);
 // export const allowedSpecialChars = new RegExp('^[\\w\\s,.:;_?\'!\\"*()~&éèêëàâäôöûüùçÀ-]+$')
 /**
  * Configurate Email : Can only be email@email.co
  * @type {RegExp}
  */
-export const emailInputRegex = new RegExp("([a-z0-9A-Z._-]+)@([a-z0-9A-Z_-]+)\\.([a-z\.]{2,6})$")
+export const emailInputRegex = new RegExp(
+    "([a-z0-9A-Z._-]+)@([a-z0-9A-Z_-]+)\\.([a-z.]{2,6})$"
+);
 /**
  * Configurate Username : Can only be : my-user_name99 / myusername99 / my-username99 / my_user_name_99 - no space
  * @type {RegExp}
  */
-export const userInputRegex = new RegExp('^[a-zA-Z0-9_-]{1,32}$')
+export const userInputRegex = new RegExp("^[a-zA-Z0-9_-]{1,32}$");
 
 ////////////////////////////////////////////////////////////
-                    /** PASSWORD */
+/** PASSWORD */
 ////////////////////////////////////////////////////////////
 /**
  * Configurate Password and checks that at least :
@@ -171,59 +195,60 @@ export const userInputRegex = new RegExp('^[a-zA-Z0-9_-]{1,32}$')
  * @type {RegExp}
  */
 // export const strongPasswordInputRegex = new RegExp(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\[\]{};':"\\|,.<>\/?~`]).{8,128}$/)
-export const strongPwLowerCaseInputRegex = /(?=.*[a-z])/
-export const strongPwUpperCaseInputRegex = /(?=.*[A-Z])/
-export const strongPwDigitInputRegex = /(?=.*\d)/
-export const strongPwSpecialCharInputRegex = /(?=.*[!@#$%^&*()_+\[\]{};':"\\|,.<>\/?~`])/
-export const strongPwLengthInputRegex = /.{8,128}/
+export const strongPwLowerCaseInputRegex = /(?=.*[a-z])/;
+export const strongPwUpperCaseInputRegex = /(?=.*[A-Z])/;
+export const strongPwDigitInputRegex = /(?=.*\d)/;
+export const strongPwSpecialCharInputRegex =
+    /(?=.*[!@#$%^&*()_+[\]{};':"\\|,.<>/?~`])/;
+export const strongPwLengthInputRegex = /.{8,128}/;
 
 /** Set the input name and ID of your password */
-export const passwordInputName = 'Mot de Passe'
-export const passwordInputID = 'password'
+export const passwordInputName = "Mot de Passe";
+export const passwordInputID = "password";
 /** Set the input name and ID of your password repeat */
-export const pwRepeatInputName = 'Mot de Passe de confirmation'
-export const pwRepeatInputID = 'pwdRepeat'
+export const pwRepeatInputName = "Mot de Passe de confirmation";
+export const pwRepeatInputID = "pwdRepeat";
 
 ////////////////////////////////////////////////////////////
-                    /** ALERT */
+/** ALERT */
 ////////////////////////////////////////////////////////////
 
 /**
  * Configurate alert element class when created with hidden class
  * @type {String}
  */
-export const hiddenAlertClass = 'alert-error hidden'
+export const hiddenAlertClass = "alert-error hidden";
 /**
  * Configurate alert element class to target
  * @type {String}
  */
-export const alertClass = 'alert-error'
+export const alertClass = "alert-error";
 /**
  * Configurate alert element id to target
  * @type {String}
  */
-export const alertID = '#alert-error'
+export const alertID = "#alert-error";
 /**
  * Configurate input element error class when an error occurs
  * @type {String}
  */
-export const inputErrorClass = 'input_error'
+export const inputErrorClass = "input_error";
 /**
  * Configurate input element valid class when input is correctly set
  * @type {String}
  */
-export const inputValidClass = 'valid_input'
+export const inputValidClass = "valid_input";
 /**
  * Configurate hidden class name for alert to be removed / added
  * @type {String}
  */
-export const hiddenClass = 'hidden'
+export const hiddenClass = "hidden";
 /**
  * Configurate tooltip class name for tooltip to be shown
  * @type {String}
  */
-export const tooltip = '.tooltiptext'
+export const tooltip = ".tooltiptext";
 
 ////////////////////////////////////////////////////////////
-                    /** END OF CONFIG */
+/** END OF CONFIG */
 ////////////////////////////////////////////////////////////

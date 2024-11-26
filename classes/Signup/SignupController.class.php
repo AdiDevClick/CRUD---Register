@@ -16,65 +16,34 @@ class SignupController extends Signup
             $checkInput = new CheckInput(
                 $this->getDatas
             );
-            $username = $checkInput->test_input($this->getDatas["username"]);
-            $email = $checkInput->test_input($this->getDatas["email"]);
-            $password = $checkInput->test_input($this->getDatas["password"]);
-            $repeatPassword = $checkInput->test_input($this->getDatas["pwdRepeat"]);
-            $age = $checkInput->test_input($this->getDatas["age"]);
 
-            $checkInput->checkInputs();
+            $sanitized_Datas = $checkInput->sanitizeData();
 
-            if  ($this->emailTaken($email, $username) || !$this->pwMatch($password, $repeatPassword) || !isset($this->getDatas)) {
-                //if  (!$this->pwMatch()) {
-                CheckInput::insertErrorMessageInArray("SGNTKN : On n'a pas pu check les inputs");
-                // throw new Error("SGNTKN : On n'a pas pu check les inputs") ;
-                return;
-            } else {
-                // $checkInput = new CheckInput(
-                //     $this->getDatas
-                // );
-                // $checkInput->checkInputs();
+            if (isset($_SESSION['SANITIZED']) && $_SESSION['SANITIZED'] === true) {
+                unset($_SESSION['SANITIZED']);
 
-                if (empty($checkInput->getErrorsArray())) {
-                    $this->insertUser($username, $email, $password, $age);
-                    // $this->insertUser($this->getDatas['username'], $this->getDatas['email'], $this->getDatas['password'], $this->getDatas['age']);
-                } else {
-                    $checkInput->getErrorsArray();
+                if  ($this->emailTaken($sanitized_Datas["email"], $sanitized_Datas["username"]) ||
+                    !$this->pwMatch($sanitized_Datas["password"], $sanitized_Datas["pwdRepeat"]) ||
+                    !isset($this->getDatas)) {
+                    CheckInput::insertErrorMessageInArray("SGNTKN : On n'a pas pu check les inputs");
+                    // throw new Error("SGNTKN : On n'a pas pu check les inputs") ;
                     return;
-                    // die('test');
+                } else {
+
+                    if (empty($checkInput->getErrorsArray())) {
+                        $this->insertUser($sanitized_Datas["username"], $sanitized_Datas["email"], $sanitized_Datas["password"], $sanitized_Datas["age"]);
+                    } else {
+                        return $checkInput->getErrorsArray();
+                    }
+
+                    $registeredUser = [
+                        'email' => $this->getDatas['email'],
+                    ];
+                    $_SESSION['REGISTERED_USER'] = $registeredUser;
+
+                    return $registeredUser;
                 }
-                //$this->insertUser($this->nom, $this->email, $this->password, $this->age);
-                // $this->insertUser($this->getData['username'], $this->getData['email'], $this->getData['password'], $this->getData['age']);
-                $registeredUser = [
-                            'email' => $this->getDatas['email'],
-                            //'username' => $user['full_name'],
-                            ];
-                /* setcookie(
-                            'REGISTERED_USER',
-                            $this->getData['email'],
-                            [
-                                'expires' => time() + 0 * 0 * 10,
-                                'secure' => true,
-                                'httponly' => true,
-                            ]
-                );  */
-                //session_start();
-                $_SESSION['REGISTERED_USER'] = $registeredUser;
-                //header("Location: ".Functions::getUrl()."?error=none") ; */
-                return $registeredUser;
             }
-            /* if ($this->emailTaken()) {
-                $registeredUser = [
-                'email' => $this->getData['email'],
-                //'username' => $user['full_name'],
-                ];
-
-                //header('Location: index.php');
-                //session_start();
-
-            } */
-
-            //$db = null;
         } catch (Error $e) {
             CheckInput::insertErrorMessageInArray($e->getMessage());
             // $errormsg = CheckInput::getErrorsArray();

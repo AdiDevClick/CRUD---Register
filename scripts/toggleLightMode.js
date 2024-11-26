@@ -2,42 +2,36 @@
  * Light / Dark Theme toggle
  */
 
-const rootAttribute = document.documentElement
-const toggleButton = document.querySelector('#lightmode-toggle')
+const rootAttribute = document.documentElement;
+const toggleButton = document.querySelector("#lightmode-toggle");
 
 // Get the user's preference from localStorage
-const userPreference = localStorage.getItem("light-theme")
+const userPreference = localStorage.getItem("light-theme");
 
 if (!userPreference) {
-    removeAttribute()
+    removeAttribute();
 } else {
-    setAttribute()
+    setAttribute();
 }
 
-const onClick = (e) => {
-    if (rootAttribute.attributes.getNamedItem('light-theme')) {
-        removeAttribute()
-        localStorage.removeItem("light-theme")
+const onClick = () => {
+    if (rootAttribute.attributes.getNamedItem("light-theme")) {
+        removeAttribute();
+        localStorage.removeItem("light-theme");
     } else {
-        setAttribute()
-        localStorage.setItem("light-theme", true)
+        setAttribute();
+        localStorage.setItem("light-theme", true);
     }
-}
+};
 
-toggleButton.addEventListener('change', onClick)
+toggleButton.addEventListener("change", onClick);
 
 function removeAttribute() {
-    toggleButton.removeAttribute('checked')
-    rootAttribute.removeAttribute('light-theme')
+    toggleButton.removeAttribute("checked");
+    rootAttribute.removeAttribute("light-theme");
 }
 
 function setAttribute() {
-    rootAttribute.setAttribute('light-theme', "")
-    toggleButton.setAttribute('checked', "")
+    rootAttribute.setAttribute("light-theme", "");
+    toggleButton.setAttribute("checked", "");
 }
-
-
-
-
-
-

@@ -53,7 +53,7 @@
  */
 function createMenuItems(string $page, array $items = null, string $menuType = 'mobile'): string
 {
-    include dirname(__DIR__) . DIRECTORY_SEPARATOR . "includes" . DIRECTORY_SEPARATOR ."variables.inc.php";
+    include dirname(__DIR__) . DIRECTORY_SEPARATOR . "includes" . DIRECTORY_SEPARATOR . "variables.inc.php";
 
     $menuItems = '';
     $active = strip_tags("active");
@@ -94,7 +94,7 @@ function createMenuItems(string $page, array $items = null, string $menuType = '
 
     foreach ($list_Items as $key => $value) {
         $class = ((isset($value['page']) && $page === $value['page']) || $page === $key ? $active . ' ' : '') . ($value['class'] ?? '');
-        $menuItems .= '<li><a class="' . $class . '" href=" '. $rootUrl . $clicServer . '/' . $key . '">' . $value['value'] . '</a></li>';
+        $menuItems .= '<li><a class="' . $class . '" href=" ' . $rootUrl . $clicServer . '/' . $key . '">' . $value['value'] . '</a></li>';
     }
     // return var_dump($list_Items);
     return $menuItems;
@@ -105,7 +105,7 @@ function createMenuItems(string $page, array $items = null, string $menuType = '
  * @param array $data Un array correspondant à :
  * - La clé : ID de l'input.
  * - La valeur : Le texte du label visible pour l'utilisateur.
-* @param array $getInfos Si existant, l'array d'informations à récupérer du serveur
+ * @param array $getInfos Si existant, l'array d'informations à récupérer du serveur
  * @return string
  */
 function createDivWithSelectAndInputs(array $data, array $getInfos = null): string
@@ -113,15 +113,15 @@ function createDivWithSelectAndInputs(array $data, array $getInfos = null): stri
     $divItems = '';
     foreach ($data as $key => $value) {
         $inputValue = $getInfos !== null ? htmlspecialchars((string)$getInfos[$key]) : '';
-        $inputLength = strip_tags($key).'_length';
+        $inputLength = strip_tags($key) . '_length';
 
         $selectedMin = ($getInfos !== null && $getInfos[$inputLength] === 'min') ? 'selected' : '';
         $selectedHours = ($getInfos !== null && $getInfos[$inputLength] === 'heures') ? 'selected' : '';
 
         $divItems .= '<div class="time">';
         $divItems .= '<label for="' . strip_tags($key) . '" class="label first-column-bottom-border">' . strip_tags($value) . '</label>';
-        $divItems .= '<input id="' . strip_tags($key) . '" type="text" name="' . strip_tags($key) .'" class="input" value="' . strip_tags($inputValue) . '">';
-        $divItems .= '<select class="select" name="' . strip_tags($inputLength) . '" id="' . strip_tags($inputLength) .'" aria-placeholder="temps">';
+        $divItems .= '<input id="' . strip_tags($key) . '" type="text" name="' . strip_tags($key) . '" class="input" value="' . strip_tags($inputValue) . '">';
+        $divItems .= '<select class="select" name="' . strip_tags($inputLength) . '" id="' . strip_tags($inputLength) . '" aria-placeholder="temps">';
         $divItems .= '<option value="min" ' . strip_tags($selectedMin) . '>min</option>';
         $divItems .= '<option value="heures" ' .  strip_tags($selectedHours) . '>heures</option>';
         $divItems .= '</select>';
@@ -170,7 +170,7 @@ function createDivWithTextArea(array $getInfos = null): string
 
                 $divItems .= '<div class="js-form-recipe">';
                 $divItems .= '<label for="' . strip_tags($key) . '" class="label">Etape ' . $stepNumber . '</label>';
-                $divItems .= '<textarea id="' . strip_tags($key) . '" cols="60" rows="3" name="' . strip_tags($key) .'" placeholder="Renseignez votre ' . $step . ' étape">' . strip_tags($textareaValue) . '</textarea>';
+                $divItems .= '<textarea id="' . strip_tags($key) . '" cols="60" rows="3" name="' . strip_tags($key) . '" placeholder="Renseignez votre ' . $step . ' étape">' . strip_tags($textareaValue) . '</textarea>';
                 $divItems .= '</div>';
             }
         }
@@ -178,11 +178,10 @@ function createDivWithTextArea(array $getInfos = null): string
         if ($insertAddButton) {
             $divItems .= insertAddButton();
         }
-
     } else {
         // Default steps
         $step = '';
-        for ($i = 1; $i < 3 ; $i++) {
+        for ($i = 1; $i < 3; $i++) {
             if ($i == '1') {
                 $step = 'première';
             } elseif ($i == '2') {
@@ -190,7 +189,7 @@ function createDivWithTextArea(array $getInfos = null): string
             }
             $divItems .= '<div class="js-form-recipe">';
             $divItems .= '<label for="step_' . strip_tags($i) . '" class="label">Etape ' . strip_tags($i) . '</label>';
-            $divItems .= '<textarea id="step_' . strip_tags($i) . '" cols="60" rows="3" name="step_' . strip_tags($i) .'" placeholder="Renseignez votre ' . $step . ' étape"></textarea>';
+            $divItems .= '<textarea id="step_' . strip_tags($i) . '" cols="60" rows="3" name="step_' . strip_tags($i) . '" placeholder="Renseignez votre ' . $step . ' étape"></textarea>';
             $divItems .= '</div>';
         }
         $divItems .= insertAddButton();
@@ -253,35 +252,45 @@ function display_recipe(array $recipe): string
         }
         return $recipe_content;
     } catch (Exception $e) {
-        return "Y'a erreur". $e->getMessage() .'...PHP_EOL' ;
+        return "Y'a erreur" . $e->getMessage() . '...PHP_EOL';
     }
 }
 
-function display_5_stars(string $avg,  int $id){
-    $decimal = str_split($avg, 2);
+/**
+ * Ajoute des étoiles et remplit le centre en fonction de la review
+ * utilisateur
+ * @param string $review La note utilisateur sous forme de chaîne de caractères (ex. '4.5')
+ * @param int|null $id (Optionnel) L'identifiant unique de l'élément pour lequel les étoiles sont générées
+ * @return string Le code HTML généré pour afficher les étoiles
+ */
+function display_5_stars(string $review, ?int $id = null): string
+{
+    $decimal = str_split($review, 2);
     $width = '0%';
     $done = false;
-    $i = 1;
-    $star = null;
-    for ($i; $i < 6; $i++) {
-        if ($avg >= $i) {
+    $starHtml = '';
+
+    for ($i = 1; $i <= 5; $i++) {
+        if ($review >= $i) {
             $width = '100%';
-        } else if ($avg <= $i) {
-            if ($done) {
-                $width = '0%';
-            } else {
-                $width = ($decimal[1] ?? 0) * 10 . '%';
-                $done = true;
-            }
+        } else if ($review < $i && !$done) {
+            $width = ($decimal[1] ?? 0) * 10 . '%';
+            $done = true;
+        } else {
+            $width = '0%';
         }
-        $id ? $itemId = $id . '-' . $i : $itemId = $i;
-        $star = include '../templates/stars_template.php';
+
+        $itemId = $id ? $id . '-' . $i : (string)$i;
+
+        // Capture le contenu de l'inclusion
+        ob_start();
+        include '../templates/stars_template.php';
+        $starHtml .= ob_get_clean();
     }
-    while ($i < 6) {
-        return $star;
-    }
-    return;
+
+    return $starHtml;
 }
+
 
 function isRecipeEnabled(array $recipes): bool
 {
@@ -313,9 +322,11 @@ function display_erreurMessageContact()
     $erreurMessage = 'Il faut un email et un message pour soumettre le formulaire.';
     $isDisplayed = false;
 
-    if (!isset($_POST['submit']) || !isset($email) ||
+    if (
+        !isset($_POST['submit']) || !isset($email) ||
         !isset($message) || empty($message) ||
-        !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        !filter_var($email, FILTER_VALIDATE_EMAIL)
+    ) {
         echo $erreurMessage;
         $isDisplayed = true;
         // Arrête l'exécution de PHP
@@ -400,9 +411,11 @@ function retrieve_id_from_user_mail(string $userEmail, array $users): int
 
 function display_user(int $userId, array $users): string
 {
-    for ($i = 0;
+    for (
+        $i = 0;
         $i < count($users);
-        $i++) {
+        $i++
+    ) {
         $user = $users[$i];
         if ($userId === $user["user_id"]) {
             return $user['full_name'] . '(' . $user['age'] . ' ans)';

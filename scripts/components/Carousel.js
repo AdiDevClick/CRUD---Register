@@ -1,55 +1,58 @@
 // import { CarouselTouchPlugin } from "./CarouselTouchPlugin.js"
 // import { CarouselHoverPlugin } from "./CarouselHoverPlugin.js"
 // import { YoutubePlayer } from "./YoutubePlayerPlugin.js"
-import { createElement, debounce, importThisModule, wait, waitAndFail } from "../functions/dom.js"
+import {
+    createElement,
+    debounce,
+    importThisModule,
+    wait,
+    waitAndFail,
+} from "../functions/dom.js";
 
-
-export class Carousel
-{
-
+export class Carousel {
     /**
      * This callback type is called `requestCallback` and is displayed as a global symbol.
      * @callback moveCallback
      * @param {number} index
      */
     /** @type {Array} In order to save the inital HTML elements before manipulation for future use */
-    initialItemsArray = []
+    initialItemsArray = [];
     /** @type {HTMLElement} */
-    #paginationButton
+    #paginationButton;
     /** @type {Boolean} */
-    #click = false
+    #click = false;
     /** @type {Boolean} */
-    #scrolling = false
+    #scrolling = false;
     /** @type {String} */
-    #status
+    #status;
     /** @type {Boolean} */
-    #hovered = false
+    #hovered = false;
     /** @type {Number} */
-    #currentTime
+    #currentTime;
     /** @type {HTMLElement} Boutton "précédent" du carousel */
-    #prevButton
+    #prevButton;
     /** @type {HTMLElement} Boutton "suivant" du carousel */
-    #nextButton
+    #nextButton;
     /** @type {Number} */
-    #endTime = 0
+    #endTime = 0;
     /** @type {Number} */
-    #startTime = 0
+    #startTime = 0;
     /** @type {Boolean} */
-    #reverseAnimation
-    /** 
+    #reverseAnimation;
+    /**
      * @type {IntersectionObserver}
      */
-    #observer
+    #observer;
     /** @type {Boolean} */
-    #intersect
+    #intersect;
     /** @type {Number} Threshold for intersection obs */
-    #ratio = .6
+    #ratio = 0.6;
     /** @type {Object} Intersection Observer options */
     #options = {
         root: null,
-        rootMargin: '0px',
-        threshold: this.#ratio
-    }
+        rootMargin: "0px",
+        threshold: this.#ratio,
+    };
     /**
      * Intersection Obs Handler -
      * When intersect, calls the main function
@@ -58,29 +61,29 @@ export class Carousel
      * is in place (not mandatory) -
      * @type {IntersectionObserverCallback}
      */
-    #intersectHandler = debounce( (entries) => {
-        entries.forEach(entry => {
-            if (entry.intersectionRatio > this.#ratio & !this.#intersect) {
-                this.#intersect = true
-                this.#animate()
-                this.#autoSlide()
-                this.#showLoadingBar()
-                this.startTime
-                return
+    #intersectHandler = debounce((entries) => {
+        entries.forEach((entry) => {
+            if ((entry.intersectionRatio > this.#ratio) & !this.#intersect) {
+                this.#intersect = true;
+                this.#animate();
+                this.#autoSlide();
+                this.#showLoadingBar();
+                this.startTime;
+                return;
             } else {
-                !this.#reverseAnimation ? this.#bubbleAnimation() : null
-                this.#intersect = false
-                this.#hovered = false
-                return
+                !this.#reverseAnimation ? this.#bubbleAnimation() : null;
+                this.#intersect = false;
+                this.#hovered = false;
+                return;
             }
-        })
-        return
-    }, 50)
+        });
+        return;
+    }, 50);
 
     /**
      * @type {ResizeObserver}
      */
-    #resizeObserver
+    #resizeObserver;
     /**
      * Resize Obs Handler -
      * When resizing, calls the restyle function
@@ -89,62 +92,61 @@ export class Carousel
      * is in place (mandatory) -
      * @type {ResizeObserverCallback}
      */
-    #handleResize = debounce( (entries, observer) => {
-        entries.forEach(entry => {
-            let tablet = window.innerWidth < 800
+    #handleResize = debounce((entries, observer) => {
+        entries.forEach((entry) => {
+            let tablet = window.innerWidth < 800;
             if (tablet !== this.#isTablet) {
-                this.#isTablet = tablet
+                this.#isTablet = tablet;
                 // this.setStyle()
                 // this.#moveCallbacks.forEach(cb => cb(this.currentItem))
                 // return
             }
-            let mobile = window.innerWidth < 577
+            let mobile = window.innerWidth < 577;
             if (mobile !== this.#isMobile) {
-                this.#isMobile = mobile
+                this.#isMobile = mobile;
                 // this.setStyle()
                 // this.#moveCallbacks.forEach(cb => cb(this.currentItem))
                 // return
             }
-            this.setStyle()
-            this.#moveCallbacks.forEach(cb => cb(this.currentItem))
-            return
-        })
-        return
-    }, 50)
+            this.setStyle();
+            this.#moveCallbacks.forEach((cb) => cb(this.currentItem));
+            return;
+        });
+        return;
+    }, 50);
 
     /** @type {Array.Callback} */
-    #moveCallbacks = []
+    #moveCallbacks = [];
     /** @type {Boolean} */
-    #isMobile = false
+    #isMobile = false;
     /** @type {Boolean} */
-    #isTablet = false
+    #isTablet = false;
     /** @type {HTMLElement} */
-    #loadingBar
+    #loadingBar;
     /** @type {Number} */
-    #offset = 0
+    #offset = 0;
     /** @type {Array} Promises array */
-    #resolvedPromisesArray = []
+    #resolvedPromisesArray = [];
     // #eventAction
-    #myIndex
+    #myIndex;
     /** @type {Boolean} */
-    #reverseMode = false
+    #reverseMode = false;
     /** @type {Array} Youtube API players array */
-    #player = []
+    #player = [];
     /** @type {Boolean} */
-    #alreadyHovered
+    #alreadyHovered;
     /** @type {Number} */
-    #alreadyHoveredStartTime = 0
+    #alreadyHoveredStartTime = 0;
     /** @type {Number} */
-    #alreadyHoveredEndTime = 0
-    #case
+    #alreadyHoveredEndTime = 0;
+    #case;
     static #isInternalConstructing = false;
 
-
     /**
-     * @param {HTMLElement} element 
-     * @param {Object} options 
-     * @param {Object} [options.slidesToScroll=1] Permet de définir le nombre d'éléments à faire défiler 
-     * @param {Object} [options.visibleSlides=1] Permet de définir le nombre d'éléments visibles dans un slide 
+     * @param {HTMLElement} element
+     * @param {Object} options
+     * @param {Object} [options.slidesToScroll=1] Permet de définir le nombre d'éléments à faire défiler
+     * @param {Object} [options.visibleSlides=1] Permet de définir le nombre d'éléments visibles dans un slide
      * @param {boolean} [options.loop=false] Permet de définir si l'on souhaite boucler en fin de slide
      * @param {boolean} [options.pagination=false] Permet de définir une pagination
      * @param {boolean} [options.navigation=true] Permet de définir la navigation
@@ -159,81 +161,99 @@ export class Carousel
      */
     constructor(element, options = {}) {
         if (!Carousel.#isInternalConstructing) {
-            throw new TypeError("Carousel PrivateConstructor is not constructable");
+            throw new TypeError(
+                "Carousel PrivateConstructor is not constructable"
+            );
         }
-        Carousel.#isInternalConstructing = false
-        console.log('Carousel initialisé');
+        Carousel.#isInternalConstructing = false;
+        console.log("Carousel initialisé");
 
-        this.element = element
-        this.options = Object.assign({}, {
-            slidesToScroll: 1,
-            visibleSlides: 1,
-            loop: false,
-            pagination: false,
-            navigation: true,
-            infinite: false,
-            automaticScrolling: true,
-            autoSlideDuration: 3000,
-            afterClickDelay: 10000,
-            grid: false
-        }, options)
-        this.currentItem = 0
+        this.element = element;
+        this.options = Object.assign(
+            {},
+            {
+                slidesToScroll: 1,
+                visibleSlides: 1,
+                loop: false,
+                pagination: false,
+                navigation: true,
+                infinite: false,
+                automaticScrolling: true,
+                autoSlideDuration: 3000,
+                afterClickDelay: 10000,
+                grid: false,
+            },
+            options
+        );
+        this.currentItem = 0;
 
         if (options.loop && options.infinite) {
-            throw new Error(`Vous ne pouvez pas être à la fois en boucle ET en infini`)
+            throw new Error(
+                `Vous ne pouvez pas être à la fois en boucle ET en infini`
+            );
         }
-        let children = [].slice.call(element.children)
+        let children = [].slice.call(element.children);
         // this.initialItemsArray = children
         // Modification du DOM
-        this.root = createElement('div', {class: 'carousel'})
-        this.container = createElement('div', {class: 'carousel__container'})
-        this.root.setAttribute('tabindex', 0)
-        this.root.append(this.container)
-        this.element.append(this.root)
-        this.items = children.map(child => {
-            const item = this.#constructNewCarouselItem(child)
-            return item
-        })
+        this.root = createElement("div", { class: "carousel" });
+        this.container = createElement("div", { class: "carousel__container" });
+        this.root.setAttribute("tabindex", 0);
+        this.root.append(this.container);
+        this.element.append(this.root);
+        this.items = children.map((child) => {
+            const item = this.#constructNewCarouselItem(child);
+            return item;
+        });
 
         if (this.options.infinite) {
-            this.#offset = this.#slidesToScroll + this.#visibleSlides
+            this.#offset = this.#slidesToScroll + this.#visibleSlides;
             if (this.#offset > children.length) {
-                console.error(`Vous n'avez pas assez d'éléments dans le carousel`, element);
+                console.error(
+                    `Vous n'avez pas assez d'éléments dans le carousel`,
+                    element
+                );
             }
             this.items = [
-                ...this.items.slice(this.items.length - this.#offset).map(item => item.cloneNode(true)),
+                ...this.items
+                    .slice(this.items.length - this.#offset)
+                    .map((item) => item.cloneNode(true)),
                 ...this.items,
-                ...this.items.slice(0, this.#offset).map(item => item.cloneNode(true))
-            ]
-            this.goToItem(this.#offset, false)
+                ...this.items
+                    .slice(0, this.#offset)
+                    .map((item) => item.cloneNode(true)),
+            ];
+            this.goToItem(this.#offset, false);
 
-            this.items.forEach(item => {
-                this.container.append(item)
-            })
+            this.items.forEach((item) => {
+                this.container.append(item);
+            });
         }
 
-        this.setStyle()
+        this.setStyle();
 
         if (this.options.navigation && !this.options.grid) {
-            this.#createNavigation()
+            this.#createNavigation();
         }
         if (this.options.pagination && !this.options.grid) {
-            this.#createPagination()
+            this.#createPagination();
         }
         // Evènements
-        this.#moveCallbacks.forEach(cb => cb(this.currentItem))
+        this.#moveCallbacks.forEach((cb) => cb(this.currentItem));
         if (this.options.automaticScrolling) {
-            this.observe(this.element)
+            this.observe(this.element);
         }
-        this.#onWindowResize()
+        this.#onWindowResize();
         // window.addEventListener('resize', this.#onWindowResize.bind(this))
-        this.root.addEventListener('keyup', e => this.#accessibilityKeys(e))
+        this.root.addEventListener("keyup", (e) => this.#accessibilityKeys(e));
         if (this.options.infinite) {
-            this.container.addEventListener('transitionend', this.#resetInfinite.bind(this))
+            this.container.addEventListener(
+                "transitionend",
+                this.#resetInfinite.bind(this)
+            );
         }
         // if (this.options.automaticScrolling) {
         // Plugins loader
-        this.#loadModules()
+        this.#loadModules();
         //     // new CarouselHoverPlugin(this)
         //     // CarouselHoverPlugin.create
         // }
@@ -243,9 +263,9 @@ export class Carousel
     }
 
     static create(element, options = {}) {
-        Carousel.#isInternalConstructing = true
-        const instance = new Carousel(element, options)
-        return instance
+        Carousel.#isInternalConstructing = true;
+        const instance = new Carousel(element, options);
+        return instance;
     }
 
     /**
@@ -255,20 +275,29 @@ export class Carousel
     async #loadModules() {
         try {
             if (this.options.automaticScrolling) {
-                const HoverPlugin = await importThisModule('CarouselHoverPlugin', this)
+                const HoverPlugin = await importThisModule(
+                    "CarouselHoverPlugin",
+                    this
+                );
                 // console.log(HoverPlugin)
 
                 // new CarouselHoverPlugin(this)
                 // CarouselHoverPlugin.create
             }
-            const YoutubePlugin = await importThisModule('YoutubePlayerPlugin', this)
+            const YoutubePlugin = await importThisModule(
+                "YoutubePlayerPlugin",
+                this
+            );
             // console.log(YoutubePlugin)
             if (!this.options.grid) {
-                const TouchPlugin = await importThisModule('CarouselTouchPlugin', this)
+                const TouchPlugin = await importThisModule(
+                    "CarouselTouchPlugin",
+                    this
+                );
                 // console.log(TouchPlugin)
             }
         } catch (error) {
-            console.log('Etrange...', error)
+            console.log("Etrange...", error);
         }
     }
 
@@ -276,14 +305,14 @@ export class Carousel
      * Désactive la transition du conteneur
      */
     disableTransition() {
-        this.container.style.transition = 'none'
+        this.container.style.transition = "none";
     }
 
     /**
      * Réactive la transition du conteneur
      */
     enableTransition() {
-        this.container.style.transition = ''
+        this.container.style.transition = "";
     }
 
     /**
@@ -291,22 +320,22 @@ export class Carousel
      * Le promise Array est réinitialisé
      */
     activateClickStatus() {
-        this.#status = 'clicked'
-        this.#resolvedPromisesArray = []
-        this.#scrolling = true
-        this.#click = true
+        this.#status = "clicked";
+        this.#resolvedPromisesArray = [];
+        this.#scrolling = true;
+        this.#click = true;
     }
 
     /**
      * Permet l'accessibilité
-     * @param {KeyboardEvent} e 
+     * @param {KeyboardEvent} e
      */
     #accessibilityKeys(e) {
-        if (e.key === 'Right' || e.key === 'ArrowRight') {
-            this.next()
-        } 
-        if (e.key === 'Left' || e.key === 'ArrowLeft') {
-            this.prev()
+        if (e.key === "Right" || e.key === "ArrowRight") {
+            this.next();
+        }
+        if (e.key === "Left" || e.key === "ArrowLeft") {
+            this.prev();
         }
     }
 
@@ -315,15 +344,15 @@ export class Carousel
      * Permet de prendre en compte une grille
      */
     setStyle() {
-        this.#moveCallbacks.forEach(cb => cb(this.currentItem))
-        let ratio = this.items.length / this.#visibleSlides
+        this.#moveCallbacks.forEach((cb) => cb(this.currentItem));
+        let ratio = this.items.length / this.#visibleSlides;
         // this.container.style.width = (100) + "%"
         // if (this.#isMobile) this.options.grid = false
         // If grid = true, container will always take 100% of available space
         // If not, it will overflow to let user know it can be slid
-        this.options.grid === true ?
-            this.container.style.width = "100%" :
-            this.container.style.width = (ratio * 100) + "%"
+        this.options.grid === true
+            ? (this.container.style.width = "100%")
+            : (this.container.style.width = ratio * 100 + "%");
         // this.container.style.display = 'flex'
         // this.container.style.flexDirection = 'row'
         // this.container.style.flexWrap = 'wrap'
@@ -331,7 +360,7 @@ export class Carousel
         // this.container.style.display = 'flex'
 
         // this.container.style.height = (ratio * 100)
-        this.items.forEach(item => {
+        this.items.forEach((item) => {
             // if (this.options.grid === true ) {
             //     // item.style.width = (100 / this.#visibleSlides)+ "%"
             //     if (this.#isMobile) {
@@ -343,16 +372,16 @@ export class Carousel
             // } else {
             //     item.style.width = ((100 / this.#visibleSlides) / ratio) + "%"
             // }
-            
-            this.options.grid === true ?
-                item.style.width = (100 / this.#visibleSlides)+ "%" :
-                item.style.width = ((100 / this.#visibleSlides) / ratio) + "%"
+
+            this.options.grid === true
+                ? (item.style.width = 100 / this.#visibleSlides + "%")
+                : (item.style.width = 100 / this.#visibleSlides / ratio + "%");
             // console.log(this.container)
             // console.log(item)
             // console.log(((100 / this.#visibleSlides) / ratio) + "%")
             // // item.style.width = "20%"
             // item.style.width = ((100) + "%")
-        })
+        });
     }
 
     /**
@@ -360,26 +389,31 @@ export class Carousel
      */
     #showLoadingBar() {
         if (this.#loadingBar) {
-            this.#loadingBar.style.animationPlayState === 'paused' ? this.#loadingBar.style.animationPlayState = 'running' : null
-            this.#loadingBar.style.display = 'none'
-            this.#loadingBar.style.display = 'block'
+            this.#loadingBar.style.animationPlayState === "paused"
+                ? (this.#loadingBar.style.animationPlayState = "running")
+                : null;
+            this.#loadingBar.style.display = "none";
+            this.#loadingBar.style.display = "block";
         }
     }
 
     /**
-     * @param {NodeListOf.<HTMLElement>} elements 
+     * @param {NodeListOf.<HTMLElement>} elements
      */
     observe(elements) {
         if (this.#observer) {
-            this.#observer.unobserve(elements)
-            this.#observer.disconnect()
-            this.#intersect = false
+            this.#observer.unobserve(elements);
+            this.#observer.disconnect();
+            this.#intersect = false;
         }
         if (this.options.automaticScrolling) {
-            this.#observer = new IntersectionObserver(this.#intersectHandler, this.#options)
-            this.#observer.observe(elements)
+            this.#observer = new IntersectionObserver(
+                this.#intersectHandler,
+                this.#options
+            );
+            this.#observer.observe(elements);
         }
-        return
+        return;
     }
 
     /**
@@ -388,280 +422,355 @@ export class Carousel
      * @returns
      */
     #animate() {
-        if (this.#loadingBar && this.#reverseAnimation && this.#intersect || this.#status === 'inverseComplete') {
-            this.#reverseAnimation = false
-            this.#loadingBar.classList.remove('carousel__pagination__loadingBar--fade')
-            this.#loadingBar.removeAttribute('style')
-            return
+        if (
+            (this.#loadingBar && this.#reverseAnimation && this.#intersect) ||
+            this.#status === "inverseComplete"
+        ) {
+            this.#reverseAnimation = false;
+            this.#loadingBar.classList.remove(
+                "carousel__pagination__loadingBar--fade"
+            );
+            this.#loadingBar.removeAttribute("style");
+            return;
         }
     }
 
     /**
      * Reverse l'animation des bulles quand les items n'intersectent pas à l'écran
-     * @returns 
+     * @returns
      */
     async #bubbleAnimation() {
         if (!this.#reverseAnimation && this.#loadingBar) {
             try {
-                this.#reverseAnimation = true
-                this.#status = 'inverseAnimation'
-                this.#loadingBar.classList.add('carousel__pagination__loadingBar--fade')
-                this.#loadingBar.style.animationDirection = 'reverse'
-                this.#resolvedPromisesArray.push(await wait(2000, "je souhaite voir l'animation en reverse"))
+                this.#reverseAnimation = true;
+                this.#status = "inverseAnimation";
+                this.#loadingBar.classList.add(
+                    "carousel__pagination__loadingBar--fade"
+                );
+                this.#loadingBar.style.animationDirection = "reverse";
+                this.#resolvedPromisesArray.push(
+                    await wait(2000, "je souhaite voir l'animation en reverse")
+                );
 
-                const r = await this.getStates
-                if (r.status === 'rejected') {
-                    throw new Error(`Promesse ${r.reason} non tenable`, {cause: r.reason})
+                const r = await this.getStates;
+                if (r.status === "rejected") {
+                    throw new Error(`Promesse ${r.reason} non tenable`, {
+                        cause: r.reason,
+                    });
                 }
-                this.#loadingBar.style.display = 'none' 
-                this.#status = 'inverseComplete'
+                this.#loadingBar.style.display = "none";
+                this.#status = "inverseComplete";
             } catch (error) {
-                null
+                null;
             }
         }
-        return
+        return;
     }
-    
+
     /**
      * Passe un array de promesse définit
      */
     get getStates() {
-        return this.#promiseState(this.#resolvedPromisesArray)
+        return this.#promiseState(this.#resolvedPromisesArray);
     }
 
     /**
-     * Permet de RACE un array de promesse en retournant 
+     * Permet de RACE un array de promesse en retournant
      * le status et la value/reason associée à la promesse qui arrive en première
-     * @param {Promise} promise 
-     * @returns 
+     * @param {Promise} promise
+     * @returns
      */
     #promiseState(promise) {
         const pendingState = { status: "pending" };
-        
-        return Promise.race(promise, pendingState)
-            .then(
-                (value) =>
-                    value === pendingState ? value : { status: "fulfilled", value },
-                (reason) => ({ status: "rejected", reason }),
-        )
+
+        return Promise.race(promise, pendingState).then(
+            (value) =>
+                value === pendingState ? value : { status: "fulfilled", value },
+            (reason) => ({ status: "rejected", reason })
+        );
     }
-    
+
     /**
      * Fonction principale de l'auto-scrolling
-     * @returns 
+     * @returns
      */
     async #autoSlide() {
-        console.log('callback')
+        console.log("callback");
 
-        if (this.#scrolling || !this.#intersect) return
+        if (this.#scrolling || !this.#intersect) return;
 
-        this.#alreadyHovered ? this.startTime : null
+        this.#alreadyHovered ? this.startTime : null;
         try {
-
             if (this.#click) {
-                this.#resolvedPromisesArray.push(await waitAndFail(100, "j'ai clic"))
-                array = this.#resolvedPromisesArray.length 
+                this.#resolvedPromisesArray.push(
+                    await waitAndFail(100, "j'ai clic")
+                );
+                array = this.#resolvedPromisesArray.length;
             }
 
-            if (this.#hovered && this.#status === 'hoveredCompleted' || this.#status === 'hovered' && !this.#status === 'clickComplete'  ) {
-                this.#hovered = false
-                this.#resolvedPromisesArray.push(await wait(this.#currentTime, "J'ai demandé un slide après un hover"))
+            if (
+                (this.#hovered && this.#status === "hoveredCompleted") ||
+                (this.#status === "hovered" &&
+                    !this.#status === "clickComplete")
+            ) {
+                this.#hovered = false;
+                this.#resolvedPromisesArray.push(
+                    await wait(
+                        this.#currentTime,
+                        "J'ai demandé un slide après un hover"
+                    )
+                );
             } else {
-                this.#resolvedPromisesArray.push(await wait(this.#autoSlideDuration, "J'ai demandé un slide normal"))
+                this.#resolvedPromisesArray.push(
+                    await wait(
+                        this.#autoSlideDuration,
+                        "J'ai demandé un slide normal"
+                    )
+                );
             }
 
-            let array = this.#resolvedPromisesArray.length
-            const r = await this.getStates
+            let array = this.#resolvedPromisesArray.length;
+            const r = await this.getStates;
 
-            if (r.status === 'rejected') {
-                throw new Error(`Promesse ${r.reason} non tenable`, {cause: r.reason})
+            if (r.status === "rejected") {
+                throw new Error(`Promesse ${r.reason} non tenable`, {
+                    cause: r.reason,
+                });
             }
 
-            this.#currentTime = 0
+            this.#currentTime = 0;
 
-            if (!this.#click || this.#status === 'hoveredCompleted' || this.#status === 'canResume') {
-                this.#scrolling = true
-                this.#onFulfilled(array)
+            if (
+                !this.#click ||
+                this.#status === "hoveredCompleted" ||
+                this.#status === "canResume"
+            ) {
+                this.#scrolling = true;
+                this.#onFulfilled(array);
             }
-            return
+            return;
         } catch (error) {
-            this.#onReject()
+            this.#onReject();
         }
     }
-    
+
     /**
      * Permet de passer au next Slide si les conditions sont réunies
-     * @param {[number]} arrayLength 
-     * @returns 
+     * @param {[number]} arrayLength
+     * @returns
      */
     #onFulfilled(arrayLength) {
         if (!this.#click && this.#intersect && !this.#reverseAnimation) {
-            this.#scrolling ? this.#scrolling = false : null
+            this.#scrolling ? (this.#scrolling = false) : null;
 
-            this.#case = null
-            if (arrayLength <= this.#resolvedPromisesArray.length && this.#reverseMode) this.prev()
-            if (arrayLength <= this.#resolvedPromisesArray.length && !this.#reverseMode) this.next()
+            this.#case = null;
+            if (
+                arrayLength <= this.#resolvedPromisesArray.length &&
+                this.#reverseMode
+            )
+                this.prev();
+            if (
+                arrayLength <= this.#resolvedPromisesArray.length &&
+                !this.#reverseMode
+            )
+                this.next();
 
-            this.#resolvedPromisesArray = []
-            this.#status = 'completed'
+            this.#resolvedPromisesArray = [];
+            this.#status = "completed";
 
-            if (this.#status === 'completed') return this.observe(this.element)
+            if (this.#status === "completed") return this.observe(this.element);
         }
-        this.#scrolling ? this.#scrolling = false : null
-        return
+        this.#scrolling ? (this.#scrolling = false) : null;
+        return;
     }
 
     /**
      * Permet de blocker le script en cas de clic utilisateur sur les boutons
-     * Il reviendra à la fonction 
-     * @returns 
+     * Il reviendra à la fonction
+     * @returns
      */
     #onReject() {
         if (this.#click) {
-            this.#resolvedPromisesArray = []
-            this.#click = false
-            this.#scrolling ? this.#scrolling = false : null
-            this.#status = 'clickComplete'
-            if (this.#status === 'clickComplete') return this.observe(this.element)
+            this.#resolvedPromisesArray = [];
+            this.#click = false;
+            this.#scrolling ? (this.#scrolling = false) : null;
+            this.#status = "clickComplete";
+            if (this.#status === "clickComplete")
+                return this.observe(this.element);
         }
-        return
+        return;
     }
-    
+
     /**
      * Crer les flèches de navigation
      */
     #createNavigation() {
-        this.#nextButton = createElement('div', {
-            class: 'carousel__next'
-        })
-        this.#prevButton = createElement('div', {
-            class: 'carousel__prev'
-        })
+        this.#nextButton = createElement("div", {
+            class: "carousel__next",
+        });
+        this.#prevButton = createElement("div", {
+            class: "carousel__prev",
+        });
 
-        this.root.append(this.#nextButton)
-        this.root.append(this.#prevButton)
-        this.#createEventListenerFromClick(this.#nextButton, 'click', 'next', true, this.next.bind(this))
-        this.#createEventListenerFromClick(this.#prevButton, 'click', 'prev', true, this.prev.bind(this))
-        this.debounce(this.#nextButton, 'next')
-        this.debounce(this.#prevButton, 'prev')
+        this.root.append(this.#nextButton);
+        this.root.append(this.#prevButton);
+        this.#createEventListenerFromClick(
+            this.#nextButton,
+            "click",
+            "next",
+            true,
+            this.next.bind(this)
+        );
+        this.#createEventListenerFromClick(
+            this.#prevButton,
+            "click",
+            "prev",
+            true,
+            this.prev.bind(this)
+        );
+        this.debounce(this.#nextButton, "next");
+        this.debounce(this.#prevButton, "prev");
 
-        if (this.options.loop === true || this.options.infinite === true) return
-        this.#onMove(index => {
+        if (this.options.loop === true || this.options.infinite === true)
+            return;
+        this.#onMove((index) => {
             if (index === 0) {
-                this.#prevButton.classList.add('carousel__prev--hidden')
-                this.#prevButton.disabled = true
+                this.#prevButton.classList.add("carousel__prev--hidden");
+                this.#prevButton.disabled = true;
             } else {
-                this.#prevButton.classList.remove('carousel__prev--hidden')
-                this.#prevButton.disabled = false
+                this.#prevButton.classList.remove("carousel__prev--hidden");
+                this.#prevButton.disabled = false;
             }
 
-            if (this.items[this.currentItem + this.#visibleSlides] === undefined) {
-                this.#nextButton.classList.add('carousel__next--hidden')
-                this.#nextButton.disabled = true
-                this.#reverseMode = true
+            if (
+                this.items[this.currentItem + this.#visibleSlides] === undefined
+            ) {
+                this.#nextButton.classList.add("carousel__next--hidden");
+                this.#nextButton.disabled = true;
+                this.#reverseMode = true;
             } else {
-                this.#nextButton.classList.remove('carousel__next--hidden')
-                this.#nextButton.disabled = false
+                this.#nextButton.classList.remove("carousel__next--hidden");
+                this.#nextButton.disabled = false;
             }
-        })
+        });
     }
 
     /**
      * Crer un timer
      */
     get startTime() {
-        return this.#startTime = performance.now()
+        return (this.#startTime = performance.now());
     }
 
     /**
      * Crer un timer secondaire après un premier hover
      */
     get startTimeAlreadyHovered() {
-        return this.#alreadyHoveredStartTime = performance.now()
+        return (this.#alreadyHoveredStartTime = performance.now());
     }
 
     /**
      * Crer un timer
      */
     get endTime() {
-        return this.#endTime = performance.now()
+        return (this.#endTime = performance.now());
     }
 
     /**
      * Crer un timer secondaire après un premier hover
      */
     get endTimeAlreadyHovered() {
-        return this.#alreadyHoveredEndTime = performance.now()
+        return (this.#alreadyHoveredEndTime = performance.now());
     }
 
     /**
      * Permet de vérifier le temps entre le hover et le début du timer
      */
     get currentTime() {
-        let time
-        time = this.#endTime - this.#startTime
+        let time;
+        time = this.#endTime - this.#startTime;
         if (this.#alreadyHovered && !this.#click) {
-            time = this.#currentTime - (this.#alreadyHoveredEndTime - this.#alreadyHoveredStartTime)
-            return this.#currentTime = time
-        } 
-        if (this.#case === 2) {
-            return this.#currentTime = this.#autoSlideDuration + this.afterClickDelay - time
+            time =
+                this.#currentTime -
+                (this.#alreadyHoveredEndTime - this.#alreadyHoveredStartTime);
+            return (this.#currentTime = time);
         }
-        return this.#currentTime = this.#autoSlideDuration - time
+        if (this.#case === 2) {
+            return (this.#currentTime =
+                this.#autoSlideDuration + this.afterClickDelay - time);
+        }
+        return (this.#currentTime = this.#autoSlideDuration - time);
     }
-    
+
     /**
      * Permet de créer un EventListener contenant un CustomEvent
-     * @param {HTMLElement} object 
-     * @param {EventListenerOptions} eventToListen 
-     * @param {CustomElementConstructor} customEvent 
-     * @param {number} animationDelay 
+     * @param {HTMLElement} object
+     * @param {EventListenerOptions} eventToListen
+     * @param {CustomElementConstructor} customEvent
+     * @param {number} animationDelay
      * @function funct une fonction associée à l'évènement
      * @param {FunctionStringCallback} args Les arguments de la fonction si nécessaire
      */
-    #createEventListenerFromClick(object, eventToListen , customEvent, animationDelay = false, funct = null, args) {
+    #createEventListenerFromClick(
+        object,
+        eventToListen,
+        customEvent,
+        animationDelay = false,
+        funct = null,
+        args
+    ) {
         object.addEventListener(eventToListen, (e) => {
-            if (funct) funct(args)
-            this.activateClickStatus()
-            let newEvent = new CustomEvent(`${customEvent}`, {
-                bubbles: false,
-                detail: this.e
-            }, {once: true})
-            object.dispatchEvent(newEvent)
-            animationDelay ? this.getAnimationDelay : null
-        })
+            if (funct) funct(args);
+            this.activateClickStatus();
+            let newEvent = new CustomEvent(
+                `${customEvent}`,
+                {
+                    bubbles: false,
+                    detail: this.e,
+                },
+                { once: true }
+            );
+            object.dispatchEvent(newEvent);
+            animationDelay ? this.getAnimationDelay : null;
+        });
     }
 
     /**
      * Debounce le clic de la pagination ou des boutons droite et gauche
-     * @param {HTMLElement} object 
-     * @param {AddEventListenerOptions} event 
+     * @param {HTMLElement} object
+     * @param {AddEventListenerOptions} event
      * @fires [debounce] <this.afterClickDelay>
      */
     debounce(object, event) {
-        object.addEventListener(event, debounce( () => {
-            let array = this.#resolvedPromisesArray.length
-            if (this.#status === 'clicked' || this.#click && this.#intersect) {
-                if (array > this.#resolvedPromisesArray.length) {
-                    this.#resolvedPromisesArray = []
-                    return
-                } else {
-                    this.#scrolling = false
-                    return this.observe(this.element)
+        object.addEventListener(
+            event,
+            debounce(() => {
+                let array = this.#resolvedPromisesArray.length;
+                if (
+                    this.#status === "clicked" ||
+                    (this.#click && this.#intersect)
+                ) {
+                    if (array > this.#resolvedPromisesArray.length) {
+                        this.#resolvedPromisesArray = [];
+                        return;
+                    } else {
+                        this.#scrolling = false;
+                        return this.observe(this.element);
+                    }
                 }
-            }
-        }, (this.afterClickDelay)))
+            }, this.afterClickDelay)
+        );
     }
 
     /**
      * Permet de modifier la durée d'animation de la loadingBar
-     * @param {number} duration 
+     * @param {number} duration
      */
     #delayAnimation(duration) {
         if (this.#loadingBar && this.#intersect) {
-            this.#showLoadingBar()
-            this.#animate()
-            this.#loadingBar.style.animationDuration = `${duration}ms`
+            this.#showLoadingBar();
+            this.#animate();
+            this.#loadingBar.style.animationDuration = `${duration}ms`;
         }
     }
 
@@ -674,132 +783,169 @@ export class Carousel
      */
     get getAnimationDelay() {
         if (!this.#click) {
-            return this.#delayAnimation(this.#autoSlideDuration)
+            return this.#delayAnimation(this.#autoSlideDuration);
         }
-        return this.#delayAnimation(this.afterClickDelay + this.#autoSlideDuration)
+        return this.#delayAnimation(
+            this.afterClickDelay + this.#autoSlideDuration
+        );
     }
 
     /**
      * Crer les boutons de pagination
-     * @param {number} i 
+     * @param {number} i
      */
     #paginate(i) {
-        this.#paginationButton = createElement('div', {class: 'carousel__pagination__button'})
-            this.#createEventListenerFromClick(this.#paginationButton, 'click', 'paginationButton', true, this.goToItem.bind(this), i + this.#offset)
-            this.pagination.append(this.#paginationButton)
-            this.buttons.push(this.#paginationButton)
-            this.debounce(this.#paginationButton, 'paginationButton')
+        this.#paginationButton = createElement("div", {
+            class: "carousel__pagination__button",
+        });
+        this.#createEventListenerFromClick(
+            this.#paginationButton,
+            "click",
+            "paginationButton",
+            true,
+            this.goToItem.bind(this),
+            i + this.#offset
+        );
+        this.pagination.append(this.#paginationButton);
+        this.buttons.push(this.#paginationButton);
+        this.debounce(this.#paginationButton, "paginationButton");
     }
 
     /**
      * Crer la pagination dans le DOM
      */
     #createPagination() {
-        this.pagination = createElement('div', {class: 'carousel__pagination'})
+        this.pagination = createElement("div", {
+            class: "carousel__pagination",
+        });
         if (this.options.automaticScrolling) {
-            this.#loadingBar = createElement('div', {class: 'carousel__pagination__loadingBar'})
+            this.#loadingBar = createElement("div", {
+                class: "carousel__pagination__loadingBar",
+            });
         }
-        this.buttons = []
-        this.root.append(this.pagination)
+        this.buttons = [];
+        this.root.append(this.pagination);
         if (!this.options.infinite) {
             for (let i = 0; i < this.items.length / this.#visibleSlides; i++) {
-                this.#paginate(i)
+                this.#paginate(i);
             }
         } else {
-            for (let i = 0; i < this.items.length - 2 * this.#offset; i = i + this.#slidesToScroll) {
-                this.#paginate(i)
+            for (
+                let i = 0;
+                i < this.items.length - 2 * this.#offset;
+                i = i + this.#slidesToScroll
+            ) {
+                this.#paginate(i);
             }
         }
-        this.buttons.push(this.#paginationButton)
-        let activeButton
-        this.#onMove(index => {
-            let count = this.items.length - 2 * this.#offset
-            
+        this.buttons.push(this.#paginationButton);
+        let activeButton;
+        this.#onMove((index) => {
+            let count = this.items.length - 2 * this.#offset;
+
             if (this.options.infinite) {
-                activeButton = this.buttons[Math.floor((index % count) / this.#slidesToScroll) ]
+                activeButton =
+                    this.buttons[
+                        Math.floor((index % count) / this.#slidesToScroll)
+                    ];
             } else {
-                activeButton = this.buttons[Math.round(index / this.#slidesToScroll)]
+                activeButton =
+                    this.buttons[Math.round(index / this.#slidesToScroll)];
             }
 
             if (activeButton) {
-                this.buttons.forEach(button => {
-                    button.classList.remove('carousel__pagination__button--active')
-                    this.#loadingBar ? this.#loadingBar.remove() : null
-                })
-                activeButton.classList.add('carousel__pagination__button--active')
-                this.#loadingBar ? activeButton.append(this.#loadingBar) : null
-                this.getAnimationDelay
-                this.#intersect ? this.startTime : null
+                this.buttons.forEach((button) => {
+                    button.classList.remove(
+                        "carousel__pagination__button--active"
+                    );
+                    this.#loadingBar ? this.#loadingBar.remove() : null;
+                });
+                activeButton.classList.add(
+                    "carousel__pagination__button--active"
+                );
+                this.#loadingBar ? activeButton.append(this.#loadingBar) : null;
+                this.getAnimationDelay;
+                this.#intersect ? this.startTime : null;
             }
-        })
+        });
     }
 
     next() {
-        this.#alreadyHovered = false
-        this.goToItem(this.currentItem + this.#slidesToScroll)
+        this.#alreadyHovered = false;
+        this.goToItem(this.currentItem + this.#slidesToScroll);
     }
 
     prev() {
-        this.#alreadyHovered = false
-        this.goToItem(this.currentItem - this.#slidesToScroll)
+        this.#alreadyHovered = false;
+        this.goToItem(this.currentItem - this.#slidesToScroll);
     }
 
     /**
      * Déplace le carousel vers l'élément ciblé
-     * @param {number} index 
+     * @param {number} index
      * @param {boolean} [animation = true]
      */
     goToItem(index, animation = true) {
         if (index < 0) {
-            let ratio = Math.floor(this.items.length / this.#slidesToScroll)
-            let modulo = this.items.length % this.#slidesToScroll
+            let ratio = Math.floor(this.items.length / this.#slidesToScroll);
+            let modulo = this.items.length % this.#slidesToScroll;
             if (this.options.loop) {
-                
                 if (index + this.#slidesToScroll !== 0) {
-                    index = 0
+                    index = 0;
                 }
                 if (ratio - modulo === this.#slidesToScroll && modulo !== 0) {
-                    index = this.items.length - this.#visibleSlides
-                    this.#myIndex = 1
-                } else if (ratio + modulo === this.#visibleSlides && ratio === this.#slidesToScroll) {
-                    index = this.items.length - this.#visibleSlides
-                    this.#myIndex = 2
+                    index = this.items.length - this.#visibleSlides;
+                    this.#myIndex = 1;
+                } else if (
+                    ratio + modulo === this.#visibleSlides &&
+                    ratio === this.#slidesToScroll
+                ) {
+                    index = this.items.length - this.#visibleSlides;
+                    this.#myIndex = 2;
                 } else if (ratio - modulo !== this.#slidesToScroll) {
                     if (index + this.#slidesToScroll !== 0) {
-                        index = 0
+                        index = 0;
                     } else {
-                        index = this.items.length - this.#visibleSlides
+                        index = this.items.length - this.#visibleSlides;
                     }
                 } else {
-                    for (let i = 0; i < this.items.length; i = i + this.#slidesToScroll) {
-                        index = i
+                    for (
+                        let i = 0;
+                        i < this.items.length;
+                        i = i + this.#slidesToScroll
+                    ) {
+                        index = i;
                     }
                 }
             } else {
-                return this.#reverseMode = false
+                return (this.#reverseMode = false);
             }
-        } else if ((index >= this.items.length) || (this.items[this.currentItem + this.#visibleSlides] === undefined) && index > this.currentItem) {
+        } else if (
+            index >= this.items.length ||
+            (this.items[this.currentItem + this.#visibleSlides] === undefined &&
+                index > this.currentItem)
+        ) {
             if (this.options.loop && !this.#reverseMode) {
-                index = 0
+                index = 0;
             } else {
-                return
+                return;
             }
         } else if (index + this.#slidesToScroll > this.items.length) {
-            index = this.items.length - this.#visibleSlides
+            index = this.items.length - this.#visibleSlides;
         }
-        let translateX = index * (-100 / this.items.length)
+        let translateX = index * (-100 / this.items.length);
         if (!animation) {
-            this.disableTransition()
+            this.disableTransition();
         }
-        this.translate(translateX)
+        this.translate(translateX);
         // Force Repaint
-        this.container.offsetHeight
+        this.container.offsetHeight;
         // End of Force Repaint
         if (!animation) {
-            this.enableTransition()
+            this.enableTransition();
         }
-        this.currentItem = index
-        this.#moveCallbacks.forEach(cb => cb(index))
+        this.currentItem = index;
+        this.#moveCallbacks.forEach((cb) => cb(index));
     }
 
     /**
@@ -807,32 +953,38 @@ export class Carousel
      */
     #resetInfinite() {
         if (this.currentItem <= this.#slidesToScroll) {
-            this.goToItem(this.currentItem + (this.items.length - 2 * this.#offset), false)
-            return
-        } 
-        if (this.currentItem >= this.items.length - this.#offset) {
-            this.goToItem(this.currentItem - (this.items.length - 2 * this.#offset), false)
-            return
+            this.goToItem(
+                this.currentItem + (this.items.length - 2 * this.#offset),
+                false
+            );
+            return;
         }
-        return
+        if (this.currentItem >= this.items.length - this.#offset) {
+            this.goToItem(
+                this.currentItem - (this.items.length - 2 * this.#offset),
+                false
+            );
+            return;
+        }
+        return;
     }
 
     /** @param {moveCallback} */
     #onMove(callback) {
-        this.#moveCallbacks.push(callback)
+        this.#moveCallbacks.push(callback);
     }
-    
+
     /**
-     * Permet de définir un reStyle en fonction 
+     * Permet de définir un reStyle en fonction
      * du changement de la taille de lafenêtre
      */
     #onWindowResize() {
-        this.#resizeObserver = new ResizeObserver(this.#handleResize)
-        this.#resizeObserver.observe(this.root)
+        this.#resizeObserver = new ResizeObserver(this.#handleResize);
+        this.#resizeObserver.observe(this.root);
     }
 
     translate(percent) {
-        this.container.style.transform = 'translate3d('+ percent + '%,  0, 0)'
+        this.container.style.transform = "translate3d(" + percent + "%,  0, 0)";
     }
 
     /** @returns {number} */
@@ -843,45 +995,45 @@ export class Carousel
         // if (this.#isTablet) {
         //     return 2
         // }
-        return this.#isMobile ? 1 : this.options.slidesToScroll
+        return this.#isMobile ? 1 : this.options.slidesToScroll;
     }
 
     /** @returns {number} */
     get #visibleSlides() {
         if (this.#isMobile) {
             if (this.options.grid) {
-                return 1
+                return 1;
             } else {
-                return 1
+                return 1;
             }
         }
         if (this.#isTablet) {
             if (this.options.grid) {
-                return 2
+                return 2;
             }
         }
-        return this.options.visibleSlides
+        return this.options.visibleSlides;
         // return this.#isMobile ? (this.options.grid ? 2 : 1) : this.options.visibleSlides
     }
 
     /** @returns {number} */
     get #autoSlideDuration() {
-        return this.options.autoSlideDuration
+        return this.options.autoSlideDuration;
     }
 
     /** @returns {@param | options.afterClickDelay} */
     get afterClickDelay() {
-        return this.options.afterClickDelay
+        return this.options.afterClickDelay;
     }
 
     /** @returns {number} */
     get containerWidth() {
-        return this.container.offsetWidth
+        return this.container.offsetWidth;
     }
 
     /** @returns {number} */
     get carouselWidth() {
-        return this.root.offsetWidth
+        return this.root.offsetWidth;
     }
 
     /**
@@ -898,15 +1050,19 @@ export class Carousel
         // const newItem = createElement('div', {class: 'carousel__item'})
         // newItem.append(item)
         // this.container.append(newItem)
-        const newItem = this.#constructNewCarouselItem(item)
-        this.items.push(newItem)
+        const newItem = this.#constructNewCarouselItem(item);
+        this.items.push(newItem);
         // for (let i = 0; i < this.items.length - 2 * this.#offset; i = i + this.#slidesToScroll) {
         //     this.#paginate(i)
         // }
 
         // this.#player.deleteIFrames
         // this.#player.APIReady
-        this.#player = await importThisModule('YoutubePlayerPlugin', this, 'test')
+        this.#player = await importThisModule(
+            "YoutubePlayerPlugin",
+            this,
+            "test"
+        );
         // this.setStyle()
     }
 
@@ -918,33 +1074,33 @@ export class Carousel
      */
     #constructNewCarouselItem(item) {
         // Sauvegarde de l'item dans l'Array initial du constructeur
-        this.initialItemsArray.push(item)
+        this.initialItemsArray.push(item);
         // Fin de sauvegarde
-        const newItem = createElement('div', { class: 'carousel__item' })
-        newItem.append(item)
-        this.container.append(newItem)
-        return newItem
+        const newItem = createElement("div", { class: "carousel__item" });
+        newItem.append(item);
+        this.container.append(newItem);
+        return newItem;
     }
 
     get getScrollingStatus() {
-        return this.#scrolling
+        return this.#scrolling;
     }
 
     /** @param {Boolean} status */
     set setScrollingStatus(status) {
-        this.#scrolling = status
+        this.#scrolling = status;
     }
 
     get getClickStatus() {
-        return this.#click
+        return this.#click;
     }
 
     set setClickStatus(status) {
-        this.#click = status
+        this.#click = status;
     }
 
     get getPromiseArray() {
-        return this.#resolvedPromisesArray
+        return this.#resolvedPromisesArray;
     }
 
     /**
@@ -952,41 +1108,41 @@ export class Carousel
      * @param {Array} array
      */
     set setPromiseArray(array) {
-        this.#resolvedPromisesArray = array
+        this.#resolvedPromisesArray = array;
     }
 
     get getLoadingBar() {
-        return this.#loadingBar
+        return this.#loadingBar;
     }
 
     set setLoadingBar(status) {
-        this.#loadingBar = status
+        this.#loadingBar = status;
     }
 
     get getStatus() {
-        return this.#status
+        return this.#status;
     }
 
     /** @param {String} status */
     set setStatus(status) {
-        this.#status = status
+        this.#status = status;
     }
 
     get getHoverStatus() {
-        return this.#hovered
+        return this.#hovered;
     }
 
     /** @param {Boolean} status */
     set setHoverStatus(status) {
-        this.#hovered = status
+        this.#hovered = status;
     }
 
     get getVideoPlayer() {
-        return this.#player
+        return this.#player;
     }
 
     get getIntersectStatus() {
-        return this.#intersect
+        return this.#intersect;
     }
 
     // get getEventAction() {
@@ -994,23 +1150,23 @@ export class Carousel
     // }
 
     get isAlreadyHovered() {
-        return this.#alreadyHovered
+        return this.#alreadyHovered;
     }
 
     /** @param {Boolean} status */
     set thisIsAlreadyHovered(status) {
-        return this.#alreadyHovered = status
+        return (this.#alreadyHovered = status);
     }
 
     get isCase() {
-        return this.#case
+        return this.#case;
     }
 
     set setCase(status) {
-        return this.#case = status
+        return (this.#case = status);
     }
 
     get restyle() {
-        return this.setStyle()
+        return this.setStyle();
     }
 }
