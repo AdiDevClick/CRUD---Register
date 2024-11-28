@@ -165,7 +165,7 @@ export const sectionToWatch = "#js-mutator-obs";
  * @type {RegExp}
  */
 export const allowedSpecialChars = new RegExp(
-    "^[\\w\\s,.:;_?'!\\\"*()~&éèêëàâäôöûüùçÀ-]*$"
+    "^[\\w\\s,.:;_?'!\\\"*()~&éèêëàâäôöûüùçÀîÉ-]*$"
 );
 // export const allowedSpecialChars = new RegExp('^[\\w\\s,.:;_?\'!\\"*()~&éèêëàâäôöûüùçÀ-]+$')
 /**
