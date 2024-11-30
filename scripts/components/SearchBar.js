@@ -173,7 +173,9 @@ export class SearchBar {
          * @param {PopStateEvent} e
          */
         window.onpopstate = (e) => {
-            e.preventDefault();
+            // e.preventDefault();
+
+            // If it's just an href
             if (
                 window.location.hash === "#username" ||
                 window.location.hash.startsWith("#")
@@ -182,21 +184,24 @@ export class SearchBar {
                 console.log("closing menu cause username || #");
                 return;
             }
+
+            // If the pop state is backward
             if (
                 history &&
                 window.location.origin + window.location.pathname ===
                     this.#oldUrl
             ) {
                 if (this.#input) {
-                    console.log("same as old adress");
                     this.#content.innerContent = [];
                     const XMLS = new XMLSerializer();
-                    if (this.#carousel.initialItemsArray > 0) {
+
+                    if (this.#carousel.initialItemsArray.length > 0) {
                         this.#carousel.initialItemsArray.forEach((element) => {
                             const inp_xmls = XMLS.serializeToString(element);
                             this.#content.innerContent.push(inp_xmls);
                         });
                     }
+
                     this.#content.input = this.#input.id;
                     this.#content.newUrl = this.#newUrl;
                     this.#content.searchResultsLength =
@@ -211,10 +216,14 @@ export class SearchBar {
                         "forwardContent",
                         JSON.stringify(this.#content)
                     );
+                    // console.log(this.#content);
+                    // // e.preventDefault();
                     this.#observer.unobserve(this.#loader);
                     location.reload();
                 }
             }
+
+            // If popstate is forward
             if (
                 history !== null &&
                 window.location.origin + window.location.pathname !==
@@ -223,6 +232,8 @@ export class SearchBar {
                 const content = localStorage.getItem("forwardContent");
                 this.#content = JSON.parse(content);
 
+                console.log(this.#content);
+                e.preventDefault();
                 this.#newUrl = this.#content.newUrl;
                 this.#page = this.#content.params._page;
                 this.#limit = this.#content.params._limit;
@@ -282,7 +293,6 @@ export class SearchBar {
                     JSON.stringify(this.#content)
                 );
                 // location.reload()
-                // console.log('je suis dans le beforeunload')
                 // this.#content.innerHTML = this.#wrapper.innerHTML
                 // this.#content.newUrl = this.#newUrl
                 // localStorage.setItem('saved_search_results', JSON.stringify(this.#content))
@@ -589,6 +599,8 @@ export class SearchBar {
                 );
                 return;
             }
+
+            // Display results
             this.#searchResults.forEach((result) => {
                 const elementTemplate =
                     this.#template.content.firstElementChild.cloneNode(true);
