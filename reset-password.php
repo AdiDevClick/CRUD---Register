@@ -1,14 +1,16 @@
-<?php declare(strict_types=1);
+<?php
 
-require_once __DIR__ . DIRECTORY_SEPARATOR . "includes" . DIRECTORY_SEPARATOR ."common.php";
+declare(strict_types=1);
 
+require_once __DIR__ . DIRECTORY_SEPARATOR . "includes" . DIRECTORY_SEPARATOR . "common.php";
+// require_once('includes/common.php');
 // require_once(__DIR__ . "/vendor/class-autoloader.inc.php");
 // require_once(__DIR__ . "/logs/customErrorHandlers.php");
 
 $script = 'type="module" src="scripts/errorApp.js" defer';
-$title = "We Love Food - Réinitialisation de mot de passe";
+$title = "Réinitialisation de mot de passe";
 
-require_once('includes/reset-request.inc.php');
+require_once 'includes/reset-request.inc.php';
 
 $errorMessage = CheckInput::showErrorMessage();
 
@@ -21,7 +23,7 @@ ob_start()
             <img src="https://booking.webestica.com/assets/images/element/forgot-pass.svg" alt="" srcset="">
         </div>
         <div class="card" id="recovery-input">
-        <!-- <div class="card" id="recovery-input" style="width: 80%"> -->
+            <!-- <div class="card" id="recovery-input" style="width: 80%"> -->
             <!-- Header Section -->
             <div class="card-header-section">
                 <!-- Logo -->
@@ -39,17 +41,21 @@ ob_start()
                     <?php endif ?>
                     <!-- <p class="contact-section">Saisissez l'adresse e-mail associée à votre compte.</p> -->
                     <?php
-                        if (isset($_GET["reset"])) {
-                            if ($_GET["reset"] == "success") {
-                                echo '<p style="width: 80%" class="contact-section signupsuccess">Un email vous a été envoyé avec les instructions pour réinitialiser votre mot de passe à l\'adresse fournie </p>';
-                            }
+                    if (isset($_GET["reset"])) {
+                        if ($_GET["reset"] == "success") {
+                            echo '<p style="width: 80%" class="contact-section signupsuccess">Un email vous a été envoyé avec les instructions pour réinitialiser votre mot de passe à l\'adresse fournie </p>';
                         }
-?>
-                    <?php //if (isset($_GET["reset"])) :?>
-                        <?php //if ($_GET["reset"] == "success") :?>
-                            <!-- <p style="width: 80%" class="contact-section signupsuccess">Veuillez vérifier votre boîte mail, un email vous a été envoyé avec les instructions pour réinitialiser votre mot de passe </p> -->
-                        <?php //endif;?>
-                    <?php //endif?>
+                    }
+                    ?>
+                    <?php //if (isset($_GET["reset"])) :
+                    ?>
+                    <?php //if ($_GET["reset"] == "success") :
+                    ?>
+                    <!-- <p style="width: 80%" class="contact-section signupsuccess">Veuillez vérifier votre boîte mail, un email vous a été envoyé avec les instructions pour réinitialiser votre mot de passe </p> -->
+                    <?php //endif;
+                    ?>
+                    <?php //endif
+                    ?>
                 </div>
             </div>
             <div class="contact">
@@ -58,15 +64,15 @@ ob_start()
                 <form class="form-contact js-form" action="reset-password.php" method="post">
                     <?php if (!empty($err)) : ?>
                         <div>
-                            <p class="alert-error"><?php echo(strip_tags($errorMessage)) ?></p>
+                            <p class="alert-error"><?php echo (strip_tags($errorMessage)) ?></p>
                         </div>
                     <?php endif ?>
-                <!-- <form class="form-contact js-form" action="includes/reset-request.inc.php" method="post"> -->
+                    <!-- <form class="form-contact js-form" action="includes/reset-request.inc.php" method="post"> -->
                     <!-- <label for="email">Votre Email</label> -->
                     <!-- Email -->
                     <div class="form form__group">
                         <?php if (array_key_exists('errorEmail', $err) || array_key_exists('emailTaken', $err)) : ?>
-                            <input required class="input_error form__field" type="text" id="email" name="email" placeholder="<?php echo strip_tags($err['errorEmail'] ?? "Votre email...")?>" value="<?php echo strip_tags($getDatas['email']) ?>">
+                            <input required class="input_error form__field" type="text" id="email" name="email" placeholder="<?php echo strip_tags($err['errorEmail'] ?? "Votre email...") ?>" value="<?php echo strip_tags($getDatas['email']) ?>">
                         <?php else: ?>
                             <input required class="input form__field" type="text" id="email" name="email" placeholder="Entrez votre adresse email...">
                         <?php endif ?>
@@ -83,6 +89,6 @@ ob_start()
 </section>
 
 <?php
-    $content = ob_get_clean();
+$content = ob_get_clean();
 require("templates/layout.php")
 ?>

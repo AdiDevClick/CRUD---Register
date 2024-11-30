@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-require_once __DIR__ . DIRECTORY_SEPARATOR . "includes" . DIRECTORY_SEPARATOR ."common.php";
+require_once __DIR__ . DIRECTORY_SEPARATOR . "common.php";
 
 // include_once("includes/class-autoloader.inc.php");
 // include_once("../vendor/class-autoloader.inc.php");
@@ -45,7 +45,7 @@ if ($data && isset($_POST['submit'])) {
     Veuillez cliquer sur le lien pour réinitialiser le mot de passe.
     Si vous n\'êtes pas à l\'origine de cette demande, vous pouvez ignorer cet email.</p>';
     $message .= '<p>Voici votre lien de réinitialisation : </br>';
-    $message .= '<a href="' . $url . '">'. $url .'</a></p>';
+    $message .= '<a href="' . $url . '">' . $url . '</a></p>';
 
     $headers = "From: Clic'Répare <contact@adi.ezaya.fr>\r\n";
     $headers .= "Reply-To: contact@adi.ezaya.fr\r\n";
@@ -55,7 +55,6 @@ if ($data && isset($_POST['submit'])) {
 
     // header('Location: ../reset-password.php?reset=success');
     header('Location: reset-password.php?reset=success');
-
 } else {
     // header('Location: index.php');
     // header('Location: ../index.php');
