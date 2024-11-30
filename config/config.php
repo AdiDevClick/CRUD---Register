@@ -14,6 +14,9 @@ const VITE = true;
 // true or false
 const DEV = true;
 
+// Définir l'adresse de l'AJAX controller
+const AJAXCONTROLLER = "Process_PreparationList.php";
+
 class Config
 {
     private string $website_title = "Maxi Recettes";

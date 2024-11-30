@@ -109,18 +109,18 @@ const onOpen = function (e) {
 
 searchIcon.addEventListener("click", onOpen);
 
-window.addEventListener("DOMContentLoaded", () => {
-    const observer = new MutationObserver(callback);
-    observer.observe(loaded, { attributes: true });
-    newEvent = new CustomEvent(
-        "observer",
-        {
-            bubbles: false,
-            detail: observer,
-        },
-        { once: true }
-    );
-});
+// window.addEventListener("DOMContentLoaded", () => {
+const observer = new MutationObserver(callback);
+observer.observe(loaded, { attributes: true });
+newEvent = new CustomEvent(
+    "observer",
+    {
+        bubbles: false,
+        detail: observer,
+    },
+    { once: true }
+);
+// });
 
 pagination.forEach((element) => {
     new SearchBar(element, {

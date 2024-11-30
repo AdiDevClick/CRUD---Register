@@ -88,9 +88,6 @@ export class IngredientsFrom {
     constructor(list, options = {}) {
         this.#list = list;
         this.#list = this.#list.filter((k, v) => k !== "");
-        this.#gridContainer = document.querySelector(".card_container");
-        this.#addStepsButton = this.#gridContainer?.querySelector(".plus");
-        // this.#recipeStepsTemplate = document.querySelector(document.dataset.steps_template)
         this.options = Object.assign(
             {},
             {
@@ -99,15 +96,16 @@ export class IngredientsFrom {
             },
             options
         );
-
         this.options.get ? (this.options.post = false) : null;
+        this.#gridContainer = document.querySelector(".card_container");
+        this.#addStepsButton = this.#gridContainer.querySelector(".plus");
+        // this.#recipeStepsTemplate = document.querySelector(document.dataset.steps_template)
 
         // Loading plugin and create elements
         this.#importPlugin();
 
-        // // Evènements
-        new Toaster(this.#addStepsButton);
-
+        // Evènements
+        // window.addEventListener("DOMContentLoaded", () => {
         this.#addStepsButton.addEventListener("click", (e) => {
             e.preventDefault();
             // Hide the button if needed
@@ -118,6 +116,7 @@ export class IngredientsFrom {
                 this.#addStepsButton.remove();
             }
         });
+        // });
 
         // const secondarySubmit = document.querySelector('#step-button-right-corner')
         // secondarySubmit.addEventListener('submit', e => {
@@ -496,6 +495,10 @@ export class IngredientsFrom {
      */
     async #onSubmit(e) {
         let form;
+
+        // Si l'on souhaite appelle la méthode depuis
+        // un évènement qui n'utilise pas de "submit" :
+        // On utilise un event target plutôt que le html form
         e instanceof HTMLElement ? (form = e) : (form = e.target);
         let data = new FormData(form);
         let url = this.options.get ? this.#url : "Process_PreparationList.php";

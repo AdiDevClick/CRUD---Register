@@ -2,22 +2,22 @@
 
 declare(strict_types=1);
 
-if(session_status() !== PHP_SESSION_ACTIVE || session_status() === PHP_SESSION_NONE) {
+if (session_status() !== PHP_SESSION_ACTIVE || session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 // require_once __DIR__ . "/includes/common.php";
 // require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . "vendor" . DIRECTORY_SEPARATOR ."class-autoloader.inc.php";
 // require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . "logs" . DIRECTORY_SEPARATOR ."customErrorHandlers.php";
-require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . "includes" . DIRECTORY_SEPARATOR ."common.php";
-require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . "includes" . DIRECTORY_SEPARATOR ."variables.inc.php";
+require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . "includes" . DIRECTORY_SEPARATOR . "common.php";
+require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . "includes" . DIRECTORY_SEPARATOR . "variables.inc.php";
 // include_once("../vendor/class-autoloader.inc.php");
 // include_once('../logs/customErrorHandlers.php');
 // include_once('../includes/variables.inc.php');
 
-$script2 = 'type="module" src="' . strip_tags($rootUrl) . $clicServer .'/scripts/recipeApp.js" defer';
+$script = 'type="module" defer src="' . strip_tags($rootUrl) . $clicServer . '/scripts/recipeApp.js"';
 $pageTitle = "Mise à jour de votre recette";
 
-$title = "We Love Food - $pageTitle";
+$title = $pageTitle;
 
 require_once '../recipes/submit_update_recipes.inc.php';
 

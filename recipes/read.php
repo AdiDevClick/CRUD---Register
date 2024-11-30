@@ -48,7 +48,6 @@ $commentParams = [
 /**
  * Permet de filtrer quelles clés de l'array getInfos
  * ne seront pas renvoyées à l'array $recipe
- * @var mixed
  */
 $filterKeysToRemove = [
     'comment_id',
@@ -134,6 +133,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
 
 $title = htmlspecialchars($recipe['title']);
 $script = 'src="../scripts/typeWriter.js" type="module" defer';
+$script2 = 'src="../scripts/starsPageReader.js" type="module" defer';
 
 ob_start()
 
@@ -164,42 +164,35 @@ ob_start()
         </div>
     </div>
 </header>
+
+<?php
+$recipeSteps = [
+    'step_1' => '<p class="title label"><span> Première étape </span></p>',
+    'step_2' => '<p class="title label"><span> Deuxième étape </span></p>',
+    'step_3' => '<p class="title label"><span> Troisième étape </span></p>',
+    'step_4' => '<p class="title label"><span> Quatrième étape </span></p>',
+    'step_5' => '<p class="title label"><span> Cinquième étape </span></p>',
+    'step_6' => '<p class="title label"><span> Sixième étape </span></p>'
+]
+?>
+
 <div class="read_page">
-    <article>
+    <div class="articles-container">
         <?php foreach ($recipe as $key => $value) : ?>
-            <?php if (str_starts_with($key, 'step_') && !empty($value)) : ?>
-                <div>
-                    <?php
-                    if ($key === 'step_1') {
-                        echo '<p><span> Première étape </span></p>';
-                    }
-                    if ($key === 'step_2') {
-                        echo '<p><span> Deuxième étape </span></p>';
-                    }
-                    if ($key === 'step_3') {
-                        echo '<p><span> Troisième étape </span></p>';
-                    }
-                    if ($key === 'step_4') {
-                        echo '<p><span> Quatrième étape </span></p>';
-                    }
-                    if ($key === 'step_5') {
-                        echo '<p><span> Cinquième étape </span></p>';
-                    }
-                    if ($key === 'step_6') {
-                        echo '<p><span> Sixième étape </span></p>';
-                    }
-                    ?>
-                    <p><?= htmlspecialchars($value) ?></p>
-                </div>
+            <?php if (array_key_exists($key, $recipeSteps) && !empty($value)) : ?>
+                <article class="">
+                    <?= $recipeSteps[$key] ?>
+                    <p class=""><?= nl2br($value) ?></p>
+                </article>
             <?php endif ?>
         <?php endforeach ?>
-    </article>
+    </div>
 
     <!-- </div> -->
     <!-- <body class="d-flex flex-column min-vh-100"> -->
     <aside class="read__aside">
         <h2><?= htmlspecialchars($recipe['title']) ?></h2>
-        <div>
+        <div class="aside__container">
             <div class="read__preparations">
                 <div class="read__aside__item">
                     <span class="read__aside__head">Temps de cuisson :</span>
@@ -220,54 +213,43 @@ ob_start()
             </div>
             <div class="read__credits">
                 <p><i>Contribuée par <span class="read__aside__head"><?= strip_tags(displayAuthor($recipe['author'])) ?></span></i></p>
-                <!-- <p><i>Contribuée par <?php //echo($recipe['author']);
+                <!-- <p><i>Contribuée par <?php //echo($recipe['author']); 
                                             ?></i></p> -->
-                <p><b>Evaluée par la communauté à <?= $recipe['rating'] ?><span class="read__aside__head"> / 5</span></b></p>
+                <p><b>Evaluée par la communauté à <span class="read__aside__head"><?= $recipe['rating'] ?> / 5</span></b></p>
             </div>
+            <?php include '../templates/socials_icons.html' ?>
         </div>
     </aside>
 </div>
+
 <div class="preps">
-    <article>
+    <!-- <article> -->
+    <h5>Les ingrédients</h5>
+    <div class="preps_container">
         <?php foreach ($recipe as $key => $value) : ?>
             <?php if (str_starts_with($key, 'ingredient_') && !empty($value)) : ?>
                 <div>
-                    <?php
-                    if ($key === 'ingredient__1') {
-                        echo '<p><span> Première étape </span></p>';
-                    }
-                    if ($key === 'ingredient__2') {
-                        echo '<p><span> Deuxième étape </span></p>';
-                    }
-                    if ($key === 'ingredient__3') {
-                        echo '<p><span> Troisième étape </span></p>';
-                    }
-                    if ($key === 'ingredient__4') {
-                        echo '<p><span> Quatrième étape </span></p>';
-                    }
-                    if ($key === 'ingredient__5') {
-                        echo '<p><span> Cinquième étape </span></p>';
-                    }
-                    if ($key === 'ingredient__6') {
-                        echo '<p><span> Sixième étape </span></p>';
-                    }
-                    ?>
                     <p><?php echo htmlspecialchars($value) ?></p>
                 </div>
             <?php endif ?>
             <?php if ($key === 'custom_ingredients') : ?>
-                <p><?php $str = explode(',', $value) ?></p>
+                <?php $str = explode(',', $value) ?>
                 <?php foreach ($str as $key) : ?>
-                    <p><?php echo htmlspecialchars($key) ?></p>
+                    <div>
+                        <p><?php echo htmlspecialchars($key) ?></p>
+                    </div>
                 <?php endforeach ?>
             <?php endif ?>
         <?php endforeach ?>
-    </article>
+    </div>
+
+    <!-- </article> -->
 </div>
 <?php //$checkId->displayComments($recipe, $getInfos)
 ?>
 
 <hr />
+<?php $loggedUser = LoginController::checkLoggedStatus() ?>
 
 <div class="comment-grid">
     <div class="note_container">
@@ -284,9 +266,21 @@ ob_start()
             <h2>Vos commentaires</h2>
             <?php foreach ($recipe['comments'] as $comment): ?>
                 <div class="comment">
+                    <?php if (isset($loggedUser) && (int) $loggedUser['userId'] === (int) $comment['user_id']) : ?>
+                        <?php
+                        // Récupérer le contenu du template
+                        $template = file_get_contents("../templates/dynamic_tooltips_template.html");
+                        preg_match('/<template id="dynamic-tooltips">(.*)<\/template>/s', $template, $matches);
+                        $templateContent = $matches[1];
+
+                        // Utiliser le comment_id pour modifier la variable 'id' du template
+                        $comment['id'] = $comment['comment_id'];
+                        echo renderTemplate($templateContent, $comment);
+                        ?>
+                    <?php endif ?>
                     <div class="comment__header">
                         <?php include '../templates/profile_picture.html' ?>
-                        <i>Par <?php echo strip_tags($id->display_user($comment['comment_id'])) ?>, le <?php echo strip_tags($comment['created_at']) ?></i>
+                        <i>Par <?php echo strip_tags($id->display_user($comment['user_id'])) ?>, le <?php echo strip_tags($comment['created_at']) ?></i>
                     </div>
                     <div class="comment__title">
                         <?php
@@ -305,9 +299,8 @@ ob_start()
 
 <hr />
 
-<?php $loggedUser = LoginController::checkLoggedStatus() ?>
 
-<?php if (isset($loggedUser)): ?>
+<?php if (isset($loggedUser['user'])): ?>
     <?php //if ($errorComment) :
     ?>
     <?php // $errorComment
@@ -330,5 +323,5 @@ ob_start()
 
 <?php
 $content = ob_get_clean();
-require('../templates/layout.php')
+require '../templates/layout.php';
 ?>

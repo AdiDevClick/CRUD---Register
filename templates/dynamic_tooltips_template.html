@@ -1,0 +1,10 @@
+<template id="dynamic-tooltips">
+    <div class="interactive-container" id="interactive-container-{{id}}" contenteditable="false">
+        <div class="interactive-container__elements" id="attach-{{id}}" contenteditable="false">
+            <img src="../img/edit.svg" alt="" class="interactive-elements__modify" name="modify" id="modify-{{id}}">
+            <img src="../img/bin.svg" alt="" class="interactive-elements__delete" name="delete" id="delete-{{id}}">
+            <img src="../img/close.svg" alt="" class="interactive-elements__close" name="close" id="close-{{id}}">
+        </div>
+        <div class="js-stops" name="stop" id="stop-{{id}}"></div>
+    </div>
+</template>

@@ -1,6 +1,6 @@
 <!-- <section class="card_container mobile-only"> -->
 <?php
-    require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . "includes" . DIRECTORY_SEPARATOR ."functions.inc.php";
+require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . "includes" . DIRECTORY_SEPARATOR . "functions.inc.php";
 ?>
 
 
@@ -52,8 +52,7 @@
             "ingredient": ".js-value"
         }'
         class="js-form-fetch"
-        method="post"
-    >
+        method="post">
         <section class="contact-grid js-stop-appender" id="recipe_creation">
             <!-- Error Message -->
             <?php if (!empty($err)) : ?>
@@ -80,13 +79,13 @@
                 </div>
                 <!-- STEPS 1 TO 6 -->
                 <?php
-                    echo createDivWithTextArea($getInfos);
-?>
+                echo createDivWithTextArea($getInfos);
+                ?>
                 <!-- ADD STEPS BUTTON -->
                 <!-- <a href="#step_2" class="plus three-columns" >
                     <span></span>
                 </a> -->
-                <?php include '../templates/recipe_step_template.html'?>
+                <?php include '../templates/recipe_step_template.html' ?>
             </div>
             <!-- DRAWER BUTTONS -->
             <div class="opening_drawer_button show">
@@ -115,13 +114,13 @@
                 </div>
                 <div class="total_time full">
                     <?php
-        $inputs = [
-            'total_time' => 'Temps Total',
-            'resting_time' => 'Temps de repos',
-            'oven_time' => 'Temps de cuisson',
-        ];
-echo createDivWithSelectAndInputs($inputs, $getInfos);
-?>
+                    $inputs = [
+                        'total_time' => 'Temps Total',
+                        'resting_time' => 'Temps de repos',
+                        'oven_time' => 'Temps de cuisson',
+                    ];
+                    echo createDivWithSelectAndInputs($inputs, $getInfos);
+                    ?>
                     <div class="persons time">
                         <label for="persons" class="label first-column-bottom-border">Nombre de personnes</label>
                         <input id="persons" type="text" name="persons" class="input" value="<?= $getInfos !== null && $getInfos['persons'] ? htmlspecialchars((string)$getInfos['persons']) : null ?>">
@@ -129,7 +128,7 @@ echo createDivWithSelectAndInputs($inputs, $getInfos);
                 </div>
             </div>
             <!-- FIN DE LA CARTE PREPARATION -->
-            
+
             <!-- DEBUT DE LA CARTE INGREDIENTS -->
             <div id="show_drawer" class="js-three show_drawer three-columns hidden">
                 <div class="three-columns card-header-section">
@@ -142,20 +141,23 @@ echo createDivWithSelectAndInputs($inputs, $getInfos);
                 </div>
                 <div class="full ingredients js-ingredients-list">
                     <div class="full">
-                        <template id="ingredient-template">
+                        <!-- <template id="ingredient-template">
                             <div contenteditable="false" type="text" class="custom-ingredient">
                                 <p contenteditable="false" class="js-value"></p>
                             </div>
-                        </template>
+                        </template> -->
+                        <?php include '../templates/custom_ingredient_template.html' ?>
+                        <?php include '../templates/dynamic_tooltips_template.html' ?>
                         <div class="three-columns">
                             <p>Les ingrédients particuliers que vous ajouterez dans la section du bas apparaîtront ici.
-                            <br>Il est possible de les supprimer ou de les éditer en cliquant dessus.</p>
+                                <br>Il est possible de les supprimer ou de les éditer en cliquant dessus.
+                            </p>
                         </div>
                         <div class="three-columns ingredient-stack js-ingredient-group-all-resolution js-ingredient-group js-modal-stop"></div>
                         <div class="three-columns">
                             <p>Sélectionnez ou ajoutez un ingrédient.</p>
                         </div>
-                        
+
                     </div>
                     <div class="full add_ingredient">
                         <div class="ingredient three-columns">
@@ -213,15 +215,14 @@ echo createDivWithSelectAndInputs($inputs, $getInfos);
                 </div>
                 <div id="img_preview" class="img_preview">
                     <label id="add_image" for="file" class="label"> Ajouter une image</label>
-                    <div class="profile-picture" 
+                    <div class="profile-picture"
                         <?php
-        $getInfos == null ?: print 'style="background-image: url(../'. $getInfos['img_path'].' )"'
-?>
-                        >
+                        $getInfos == null ?: print 'style="background-image: url(../' . $getInfos['img_path'] . ' )"'
+                        ?>>
                         <h1 class="upload-icon">
                             <i class="fa fa-plus fa-2x" aria-hidden="true"></i>
                         </h1>
-                        <input class="file-uploader" type="file" id="file" name="file" class="form"/>
+                        <input class="file-uploader" type="file" id="file" name="file" class="form" />
                     </div>
                     <!-- <hr append en beforeend> -->
                 </div>
@@ -230,15 +231,14 @@ echo createDivWithSelectAndInputs($inputs, $getInfos);
                     <label id="add_video" for="video_file" class="label"> Ajouter une vidéo</label>
                     <div class="profile-picture"
                         <?php
-    $getInfos == null ?: print 'style="background-image: url(../'. $getInfos['video_path'].' )"'
-?>
-                        >
+                        $getInfos == null ?: print 'style="background-image: url(../' . $getInfos['video_path'] . ' )"'
+                        ?>>
                         <h1 class="upload-icon">
                             <i class="fa fa-plus fa-2x" aria-hidden="true"></i>
                         </h1>
-                        <input class="file-uploader" type="file" id="video_file" name="video_file" class="form"/>
+                        <input class="file-uploader" type="file" id="video_file" name="video_file" class="form" />
                     </div>
-                    
+
                 </div>
                 <div class="three-columns">
                     <p>Le cas échéant, définissez un ID Youtube de votre vidéo</p>
@@ -246,7 +246,7 @@ echo createDivWithSelectAndInputs($inputs, $getInfos);
                 <!-- <hr append en beforeend> -->
                 <div class="js-form-recipe">
                     <label id="video_link_label" for="video_link" class="label"> Youtube Vidéo ID</label>
-                    <input type="text" placeholder="Youtube Vidéo ID" id="video_link" name="video_link" class="form" value="<?php $getInfos !== null && $getInfos['youtubeID'] ? print strip_tags($getInfos['youtubeID']) : null ?>"/>
+                    <input type="text" placeholder="Youtube Vidéo ID" id="video_link" name="video_link" class="form" value="<?php $getInfos !== null && $getInfos['youtubeID'] ? print strip_tags($getInfos['youtubeID']) : null ?>" />
                 </div>
             </div>
 
@@ -257,7 +257,7 @@ echo createDivWithSelectAndInputs($inputs, $getInfos);
             </div>
 
             <!-- Next / Preview Buttons -->
-            <?php include '../templates/step_button_template.html'?>
+            <?php include '../templates/step_button_template.html' ?>
             <!-- </section> -->
         </section>
     </form>

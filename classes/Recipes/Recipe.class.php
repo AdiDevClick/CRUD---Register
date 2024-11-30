@@ -54,7 +54,7 @@ class Recipe extends Mysql
         $data['author'] = $user;
 
         $sqlQuery =
-        'INSERT INTO recipes(
+            'INSERT INTO recipes(
             title,
             description,
             step_1,
@@ -183,7 +183,7 @@ class Recipe extends Mysql
     public function getAverageRatingCommentsById($recipeId)
     {
         $sqlRecipe =
-        'SELECT ROUND(AVG(c.review),1) as rating 
+            'SELECT ROUND(AVG(c.review),1) as rating 
         FROM recipes r 
         LEFT JOIN comments c 
             ON r.recipe_id = c.recipe_id 
@@ -210,10 +210,10 @@ class Recipe extends Mysql
     {
         $datas['user_id'] = $userId;
 
-        $sqlRecipe = 'INSERT INTO comments(comment, recipe_id, user_id, title) VALUES (:comment, :recipe_id, :user_id, :title);';
-        
+        $sqlRecipe = 'INSERT INTO comments(comment, recipe_id, user_id, title, review) VALUES (:comment, :recipe_id, :user_id, :title, :review);';
+
         $insertCommentsStatment = $this->connect()->prepare($sqlRecipe);
-        
+
         if (!$insertCommentsStatment->execute($datas)) {
             $insertCommentsStatment = null;
             throw new Error("STMTCMT Failed");
@@ -267,15 +267,15 @@ class Recipe extends Mysql
 
         // $image = $this->getFromTable($params, $recipeId);
 
-        if (isset($image['img_path']) && $image !== false && file_exists(dirname(__DIR__, 2) .'/'. $image['img_path'])) {
+        if (isset($image['img_path']) && $image !== false && file_exists(dirname(__DIR__, 2) . '/' . $image['img_path'])) {
 
             // Suppression du fichier
-            if (!unlink(dirname(__DIR__, 2) .'/'. $image['img_path'])) {
+            if (!unlink(dirname(__DIR__, 2) . '/' . $image['img_path'])) {
                 throw new Error("Failed to delete image file.");
             }
 
             // Suppression du dossier
-            $dirPath = dirname(__DIR__, 2) .'/'. dirname($image['img_path']);
+            $dirPath = dirname(__DIR__, 2) . '/' . dirname($image['img_path']);
             if (is_dir($dirPath) && count(scandir($dirPath)) == 2) {
                 if (!rmdir($dirPath)) {
                     throw new Error("Failed to delete directory.");

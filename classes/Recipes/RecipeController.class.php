@@ -56,8 +56,8 @@ class RecipeController extends Recipe
     {
         try {
             $loggedUser = LoginController::checkLoggedStatus();
-            if  (!isset($loggedUser)) {
-                throw new Error("LGGDUSROFF  : Veuillez vous identifier avant de partager une recette.") ;
+            if (!isset($loggedUser)) {
+                throw new Error("LGGDUSROFF  : Veuillez vous identifier avant de partager une recette.");
             } else {
                 // Delete data recipe_id in case of a recipe creation
                 if ($this->optionnalData === 'creation') {
@@ -89,7 +89,7 @@ class RecipeController extends Recipe
                 // return $registeredRecipe;
             }
         } catch (Error $e) {
-            die('Erreur : '. $e->getMessage() . ' , Insertion de la recette dans la DB impossible') ;
+            die('Erreur : ' . $e->getMessage() . ' , Insertion de la recette dans la DB impossible');
         }
     }
 
@@ -117,8 +117,8 @@ class RecipeController extends Recipe
     {
         try {
             $loggedUser = LoginController::checkLoggedStatus();
-            if  (!isset($loggedUser)) {
-                throw new Error("LGGDUSROFF  : Veuillez vous identifier avant de pouvoir mettre à jour une recette.") ;
+            if (!isset($loggedUser)) {
+                throw new Error("LGGDUSROFF  : Veuillez vous identifier avant de pouvoir mettre à jour une recette.");
             }
             if (!isset($recipeId)) {
                 // Checks if the content is legit
@@ -201,48 +201,11 @@ class RecipeController extends Recipe
                 $this->input2
             ); */
             $status = false;
-            throw new Error("RCPDATACHK - Vous n'avez pas sélectionné la bonne recette") ;
+            throw new Error("RCPDATACHK - Vous n'avez pas sélectionné la bonne recette");
         } else {
             // echo "c'est ok pour l'id" ;
         }
         return $status;
-    }
-
-    /**
-     * Sanitize les données passée en paramètre
-     * @param array $datas Les données à sanitize
-     * @param string $option Une clé à ne pas intégrer dans l'array
-     * @return string[]
-     */
-    private function sanitizeData(array $datas, string $option = null)
-    {
-        $datas = is_array($datas) ? $datas : [$datas];
-
-        $checkDatas = new CheckInput(
-            $datas
-        );
-
-        foreach ($datas as $key => $value) {
-            if ($option) {
-                if ($key !== $option) {
-                    $sanitized_Datas[$key] = $checkDatas->test_input($value);
-                }
-            } else {
-                $sanitized_Datas[$key] = $checkDatas->test_input($value);
-            }
-        }
-
-        $checkDatas->checkInputs();
-
-        if (empty($checkDatas->getErrorsArray())) {
-            $status = true;
-            $_SESSION['SANITIZED'] = $status;
-        } else {
-            $status = false;
-            $_SESSION['SANITIZED'] = $checkDatas->getErrorsArray();
-        }
-
-        return $sanitized_Datas;
     }
 
     /**
@@ -254,8 +217,8 @@ class RecipeController extends Recipe
     protected function setComments($getData)
     {
         $loggedUser = LoginController::checkLoggedStatus();
-        if  (!isset($loggedUser)) {
-            throw new Error("RCPLGGDUSROFF - Veuillez vous identifier avant de partager une recette.") ;
+        if (!isset($loggedUser)) {
+            throw new Error("RCPLGGDUSROFF - Veuillez vous identifier avant de partager une recette.");
         } else {
 
             $checker = new CheckInput($this->getData);
@@ -275,7 +238,6 @@ class RecipeController extends Recipe
                 $_SESSION['REGISTERED_COMMENT'] = $registeredComment;
 
                 return $registeredComment;
-
             } else {
                 echo json_encode($_SESSION['SANITIZED']);
                 unset($_SESSION['SANITIZED']);
@@ -292,8 +254,8 @@ class RecipeController extends Recipe
     protected function setImages($getData)
     {
         $loggedUser = LoginController::checkLoggedStatus();
-        if  (!isset($loggedUser)) {
-            throw new Error("RCPLGGDUSROFF - Veuillez vous identifier avant de partager une recette.") ;
+        if (!isset($loggedUser)) {
+            throw new Error("RCPLGGDUSROFF - Veuillez vous identifier avant de partager une recette.");
         } else {
             $checker = new CheckInput($getData);
             $sanitized_Datas = $checker->sanitizeData();
@@ -311,7 +273,6 @@ class RecipeController extends Recipe
                     'email' => $loggedUser['email']
                 ];
                 $_SESSION['REGISTERED_IMG'] = $registeredImage;
-
             } else {
                 echo json_encode($_SESSION['SANITIZED']);
                 unset($_SESSION['SANITIZED']);

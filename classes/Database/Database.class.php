@@ -174,6 +174,7 @@ class Database
         if ($recipeId !== null && is_string($recipeId)) {
             // Construct clause MATCH if a keyword is found
             $executeParams['word'] = strip_tags($recipeId) . '*';
+            // $executeParams['word'] = strip_tags($recipeId) . '*';
             if (isset($_SESSION['LAST_ID'])) {
                 $executeParams['recipe_id'] = $_SESSION['LAST_ID'];
             }
@@ -203,6 +204,7 @@ class Database
         // $results = $getRecipeStatement->fetchAll(PDO::FETCH_ASSOC);
         // die(var_dump($getRecipeStatement));
         // Execute SQLRequest
+        // die(var_dump($getRecipeStatement));
         // die(var_dump($executeParams));
 
         if (!$getRecipeStatement->execute($executeParams)) {
@@ -210,11 +212,11 @@ class Database
             // require_once(dirname(__DIR__, 2).'/config/altertable.sql')
             throw new Error("STMTGET - Failed");
         }
-
+        // echo json_encode($_SESSION['LAST_ID']);
         // If no row exists, fail
         if ($getRecipeStatement->rowCount() == 0) {
             if (isset($_SESSION['LAST_ID'])) {
-                $_SESSION['LAST_ID'] = 0;
+                unset($_SESSION['LAST_ID']);
             }
             $getRecipeStatement = null;
             if ($this->silentMode) {
@@ -261,7 +263,6 @@ class Database
         // die(var_dump($data));
 
         return $data;
-
     }
 
     /**

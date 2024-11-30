@@ -1,10 +1,12 @@
-<?php declare(strict_types=1);
+<?php
 
-if(session_status() !== PHP_SESSION_ACTIVE || session_status() === PHP_SESSION_NONE) {
+declare(strict_types=1);
+
+if (session_status() !== PHP_SESSION_ACTIVE || session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . "includes" . DIRECTORY_SEPARATOR ."common.php";
+require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . "includes" . DIRECTORY_SEPARATOR . "common.php";
 
 if (
     !isset($_POST['comment']) &&
@@ -20,10 +22,22 @@ if (!isset($loggedUser)) {
     return;
 }
 
+// Trouver la note de l'utilisateur
+$maxKey = array_reduce(array_keys($_POST), function ($max, $key) {
+    if ($max < 0) $max = 0;
+    return is_numeric($key) && $key > $max ? $key : $max;
+}, PHP_INT_MIN);
+
+// Filtrer le tableau pour ne garder que la note de l'utilisateur et toutes les autres clés
+$filteredArray = array_filter($_POST, function ($key) {
+    return !is_numeric($key);
+}, ARRAY_FILTER_USE_KEY);
+
+$filteredArray['review'] = $maxKey;
 $insertComment = new RecipeView(
-    $_POST
+    $filteredArray
 );
-$comment = $insertComment->insertComment($_POST);
+$comment = $insertComment->insertComment($filteredArray);
 
 header('refresh:5, ../index.php?error=none');
 
@@ -36,10 +50,11 @@ $errorMessage = CheckInput::showErrorMessage();
 // <body class="d-flex flex-column min-vh-100">
 //   <div class="container"> -->
 ob_start()
+
 ?>
 
 <h1>Commentaire ajouté avec succès !</h1>
-<p><?php echo $errorMessage?></p>
+<p><?php echo $errorMessage ?></p>
 
 <div class="card">
     <div class="card-body">

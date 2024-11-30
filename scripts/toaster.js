@@ -1,5 +1,5 @@
-import { Toaster } from "./components/Toaster.js"
-import { resetURL } from "./functions/url.js"
+import { Toaster } from "./components/Toaster.js";
+import { resetURL } from "./functions/url.js";
 
 // postcss([
 // 	postcssNesting(/* pluginOptions */)
@@ -40,132 +40,137 @@ import { resetURL } from "./functions/url.js"
 //     })
 // })
 
-let message
-let type
-let errAlert = false
+let message;
+let type;
+let errAlert = false;
 
-const queryString = window.location
-const urlParams = new URLSearchParams(queryString.search)
+const queryString = window.location;
+const urlParams = new URLSearchParams(queryString.search);
 
-const error = urlParams.get('error')
-if (error === 'invalid-input') {
-    errAlert = true
-    message = 'Veuillez modifier votre identifiant'
-    resetURL('index.php', 'error', urlParams)
+const error = urlParams.get("error");
+if (error === "invalid-input") {
+    errAlert = true;
+    message = "Veuillez modifier votre identifiant";
+    resetURL("index.php", "error", urlParams);
 }
-if (error === 'no-update_id') {
-    errAlert = true
-    message = 'La recette à mettre à jour n\'existe pas'
-    resetURL('index.php', 'error', urlParams)
+if (error === "no-update_id") {
+    errAlert = true;
+    message = "La recette à mettre à jour n'existe pas";
+    resetURL("index.php", "error", urlParams);
 }
-if (error === 'no-delete-id') {
-    errAlert = true
-    message = 'La recette que vous tentez de supprimer n\'existe pas'
-    resetURL('index.php', 'error', urlParams)
-}
-
-const deleted = urlParams.get('delete')
-if (deleted === 'success') {
-    errAlert = true
-    type = 'Success'
-    message = 'La recette a été supprimée avec succès'
-    resetURL('index.php', 'delete', urlParams)
+if (error === "no-delete-id") {
+    errAlert = true;
+    message = "La recette que vous tentez de supprimer n'existe pas";
+    resetURL("index.php", "error", urlParams);
 }
 
-if (deleted === 'error') {
-    errAlert = true
-    message = 'Une erreur s\'est produite lors de la suppression de la recette'
-    resetURL('index.php', 'delete', urlParams)
+const deleted = urlParams.get("delete");
+if (deleted === "success") {
+    errAlert = true;
+    type = "Success";
+    message = "La recette a été supprimée avec succès";
+    resetURL("index.php", "delete", urlParams);
+}
+
+if (deleted === "error") {
+    errAlert = true;
+    message = "Une erreur s'est produite lors de la suppression de la recette";
+    resetURL("index.php", "delete", urlParams);
 }
 // error === 'invalid-input' ? message = 'Veuillez modifier votre identifiant' : errAlert = false
 
-const success = urlParams.get('success')
-if (success === 'disconnected') {
-    errAlert = true
-    type = 'Success'
-    message = 'Vous avez été déconnecté avec succès'
-    resetURL('index.php', 'success', urlParams)
+const success = urlParams.get("success");
+if (success === "disconnected") {
+    errAlert = true;
+    type = "Success";
+    message = "Vous avez été déconnecté avec succès";
+    resetURL("index.php", "success", urlParams);
 }
 
-if (success === 'recipe-shared') {
-    errAlert = true
-    type = 'Success'
-    message = 'Votre recette vient d\'être partagée, elle semble excellente !'
-    resetURL('index.php', 'success', urlParams)
+if (success === "recipe-shared") {
+    errAlert = true;
+    type = "Success";
+    message = "Votre recette vient d'être partagée, elle semble excellente !";
+    resetURL("index.php", "success", urlParams);
 }
 
-if (success === 'recipe-updated') {
-    errAlert = true
-    type = 'Success'
-    message = 'Votre recette a bien été mise à jour!'
-    resetURL('index.php', 'success', urlParams)
+if (success === "recipe-updated") {
+    errAlert = true;
+    type = "Success";
+    message = "Votre recette a bien été mise à jour!";
+    resetURL("index.php", "success", urlParams);
 }
 
-if (success === 'recipe-unchanged') {
-    errAlert = true
-    type = 'Success'
-    message = 'Aucune modification apportée à votre recette'
-    resetURL('index.php', 'success', urlParams)
+if (success === "recipe-unchanged") {
+    errAlert = true;
+    type = "Success";
+    message = "Aucune modification apportée à votre recette";
+    resetURL("index.php", "success", urlParams);
 }
 // success === 'disconnected' ? message = 'Vous avez été déconnecté avec succès' : errAlert = false
-const reset = urlParams.get('reset')
-if (reset === 'success') {
-    errAlert = true
-    type = 'Success'
-    message = 'Un email a été envoyé à l\'adresse que vous avez saisie'
-    resetURL('index.php', 'reset', urlParams)
+const reset = urlParams.get("reset");
+if (reset === "success") {
+    errAlert = true;
+    type = "Success";
+    message = "Un email a été envoyé à l'adresse que vous avez saisie";
+    resetURL("index.php", "reset", urlParams);
 }
 
-const login = urlParams.get('login')
-if (login === 'success') {
-    errAlert = true
-    type = 'Success'
-    message = 'Vous êtes connecté avec succès'
-    resetURL('index.php', 'login', urlParams)
+const login = urlParams.get("login");
+if (login === "success") {
+    errAlert = true;
+    type = "Success";
+    message = "Vous êtes connecté avec succès";
+    resetURL("index.php", "login", urlParams);
 }
 // login === 'success' ? message = 'Vous êtes connecté avec succès' : errAlert = false
 
-const register = urlParams.get('register')
-if (register === 'success') {
-    errAlert = true
-    type = 'Success'
-    message = 'Votre compte a été enregistré avec succès, vous pouvez maintenant vous connecter'
-    resetURL('index.php', 'register', urlParams)
+const register = urlParams.get("register");
+if (register === "success") {
+    errAlert = true;
+    type = "Success";
+    message =
+        "Votre compte a été enregistré avec succès, vous pouvez maintenant vous connecter";
+    resetURL("index.php", "register", urlParams);
 }
 
-if (register === 'failed') {
-    errAlert = true
-    type = 'Erreur'
-    message = 'Problème dans la création de votre compte, veuillez vérifier que tous les champs soient correctement remplis'
-    resetURL('register.php', 'failed', urlParams)
+if (register === "failed") {
+    errAlert = true;
+    type = "Erreur";
+    message =
+        "Problème dans la création de votre compte, veuillez vérifier que tous les champs soient correctement remplis";
+    resetURL("register.php", "failed", urlParams);
 }
 
 // const updated = urlParams.get('updated')
-const failed = urlParams.get('failed')
-if (failed === 'recipe-creation') {
-    errAlert = true
-    type = 'Erreur'
-    message = 'Veuillez vous enregistrer ou vous identifier avant de pouvoir partager une recette'
-    resetURL('register.php', 'failed', urlParams)
+const failed = urlParams.get("failed");
+if (failed === "recipe-creation") {
+    errAlert = true;
+    type = "Erreur";
+    message =
+        "Veuillez vous enregistrer ou vous identifier avant de pouvoir partager une recette";
+    resetURL("register.php", "failed", urlParams);
 }
 
 // const updateRecipe = urlParams.get('failed')
-if (failed === 'update-recipe') {
-    errAlert = true
-    type = 'Erreur'
-    message = 'Cette recette ne vous appartient pas, vous ne pouvez la modifier'
-    resetURL('register.php', 'failed', urlParams)
+if (failed === "update-recipe") {
+    errAlert = true;
+    type = "Erreur";
+    message =
+        "Cette recette ne vous appartient pas, vous ne pouvez la modifier";
+    resetURL("register.php", "failed", urlParams);
 }
 
-if (failed === 'fetch') {
-    errAlert = true
-    type = 'Erreur'
-    message = 'Une erreur est survenue lors de la récupération de votre recette'
-    resetURL('index.php', 'failed', urlParams)
+if (failed === "fetch") {
+    errAlert = true;
+    type = "Erreur";
+    message =
+        "Une erreur est survenue lors de la récupération de votre recette";
+    // resetURL("index.php", "failed", urlParams);
 }
 
 if (errAlert) {
-    new Toaster(message, type)
+    new Toaster(message, type);
 }
 
 // const onReady = function() {
