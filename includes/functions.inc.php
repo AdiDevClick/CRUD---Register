@@ -291,6 +291,27 @@ function display_5_stars(string $review, ?int $id = null): string
     return $starHtml;
 }
 
+/**
+ * Affiche un template en remplaçant les placeholders avec les données actuelles.
+ *
+ * This function takes a template string containing placeholders in the format {{key}}
+ * and an associative array of data. It replaces each placeholder in the template with
+ * the corresponding value from the data array.
+ *
+ * @param string $template The template string containing placeholders in the format {{key}}.
+ * @param array $data An associative array where the keys correspond to placeholder names
+ *                    and the values are the values to be inserted into the template.
+ * @return string The template with placeholders replaced by actual data.
+ */
+function renderTemplate($template, $data)
+{
+    foreach ($data as $key => $value) {
+        $template = str_replace("{{" . $key . "}}", $value, $template);
+    }
+    return $template;
+}
+
+
 
 function isRecipeEnabled(array $recipes): bool
 {
