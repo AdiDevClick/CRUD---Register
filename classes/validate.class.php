@@ -13,7 +13,7 @@ class Validate
 
     public function test_input($getData, $convert = true)
     {
-        if(is_null($getData) || is_array($getData)) {
+        if (is_null($getData) || is_array($getData)) {
             $getData = '';
         }
         $getData = trim($getData);
