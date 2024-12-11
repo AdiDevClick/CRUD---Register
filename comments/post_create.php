@@ -8,6 +8,10 @@ if (session_status() !== PHP_SESSION_ACTIVE || session_status() === PHP_SESSION_
 
 require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . "includes" . DIRECTORY_SEPARATOR . "common.php";
 
+// $client_Side_Datas = file_get_contents("php://input");
+// $data = json_decode($client_Side_Datas, true);
+// echo json_encode($data);
+
 if (
     !isset($_POST['comment']) &&
     !isset($_POST['recipe_id']) &&
@@ -21,7 +25,6 @@ if (!isset($loggedUser)) {
     echo 'Vous devez être authentifié pour soumettre un commentaire ';
     return;
 }
-
 // Trouver la note de l'utilisateur
 $maxKey = array_reduce(array_keys($_POST), function ($max, $key) {
     if ($max < 0) $max = 0;
@@ -34,6 +37,8 @@ $filteredArray = array_filter($_POST, function ($key) {
 }, ARRAY_FILTER_USE_KEY);
 
 $filteredArray['review'] = $maxKey;
+$filteredArray['session_name'] = 'REGISTERED_COMMENT';
+
 $insertComment = new RecipeView(
     $filteredArray
 );
