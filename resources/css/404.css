@@ -66,6 +66,10 @@ h1.fourofour {
             scale(1.05) translate3d(0, 12%, -10vmin) translate(calc((var(--swing-x, 0) * 0.05) * 1%),
                 calc((var(--swing-y) * 0.05) * 1%))
     }
+
+    &.no-js:after {
+        content: "JS";
+    }
 }
 
 .cloak__wrapper {
