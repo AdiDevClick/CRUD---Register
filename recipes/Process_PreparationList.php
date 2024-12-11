@@ -219,9 +219,8 @@ class Process_PreparationList
         // $data = json_decode($client_Side_Datas, true);
         // Vider le tampon de sortie et envoyer la réponse JSON 
         // ob_end_clean();
-        // die(json_encode($_GET));
 
-
+        // echo json_encode($_POST);
         if ($this->get && isset($_GET)) {
 
             $this->getUrlParams($_GET);
@@ -231,9 +230,9 @@ class Process_PreparationList
                 $this->newSearch($this->search);
             }
 
-            if ($this->getReviews) {
-                $this->searchReviews($this->search);
-            }
+            // if ($this->getReviews) {
+            //     $this->searchReviews($this->search);
+            // }
             // Default GET behavior
             $this->is_Get();
             return;
@@ -242,8 +241,19 @@ class Process_PreparationList
         if ($this->post && isset($_POST)) {
             // Verify if a searchParam is set to define the update status
             if (isset($_GET)) $this->getUrlParams($_GET);
-
-            $this->is_Post();
+            if ($this->searchMode) {
+                $this->searchReviews($this->search);
+            } else {
+                // die(var_dump($this->id));
+                // Retrieve post Datas
+                $data = $this->retrievePostDatas();
+                if (!empty($data['any_post'])) {
+                    $this->post_This($data);
+                }
+                if (isset($_POST['AJAX']) && $_POST['AJAX']) {
+                    $this->is_Post($data);
+                }
+            }
         }
     }
 
@@ -253,14 +263,15 @@ class Process_PreparationList
         foreach ($urlParams as $param => $value) {
 
             if ($param === 'query') {
+
                 $this->searchMode = true;
                 $this->search = $value;
             }
 
-            if ($param === 'reviews') {
-                $this->getReviews = true;
-                $this->search = $value;
-            }
+            // if ($param === 'reviews') {
+            //     $this->getReviews = true;
+            //     $this->search = $value;
+            // }
 
             if ($param === 'id') {
                 $this->id = $value;
@@ -338,23 +349,34 @@ class Process_PreparationList
     {
         $sessionName = 'REVIEWS_QUERY';
 
-        $params = [
-            "fields" => ['comment_id', 'comment', 'user_id', 'c.title', 'review'],
-            "date" => ['DATE_FORMAT(c.created_at, "%d/%m/%Y") as comment_date'],
-            "join" => [
-                'comments c' => 'c.recipe_id = r.recipe_id',
-            ],
-            "where" => [
-                "conditions" => [
-                    'r.is_enabled' => '= 1',
-                    'r.recipe_id' => '= :recipe_id',
-                    'c.review' => '= ' . $request,
-                ],
-            ],
-            "table" => ["recipes r"],
-            "error" => ["La filtration de commentaire n'a pas fonctionné"],
-            "fetchAll" => true
-        ];
+        $params = $this->retrievePostDatas();
+
+        if (isset($_GET["_limit"])) {
+            $params['limit'] = $_GET["_limit"];
+        }
+
+        if (isset($_GET["_reset"]) && $_GET["_reset"] == 1) {
+            $params['resetState'] = $_GET["_reset"];
+        }
+
+        // die(var_dump($params));
+        // $params = [
+        //     "fields" => ['comment_id', 'comment', 'user_id', 'c.title', 'review'],
+        //     "date" => ['DATE_FORMAT(c.created_at, "%d/%m/%Y") as comment_date'],
+        //     "join" => [
+        //         'comments c' => 'c.recipe_id = r.recipe_id',
+        //     ],
+        //     "where" => [
+        //         "conditions" => [
+        //             'r.is_enabled' => '= 1',
+        //             'r.recipe_id' => '= :recipe_id',
+        //             'c.review' => '= ' . $request,
+        //         ],
+        //     ],
+        //     "table" => ["recipes r"],
+        //     "error" => ["La filtration de commentaire n'a pas fonctionné"],
+        //     "fetchAll" => true
+        // ];
 
         $this->SQLRequest($this->id, $sessionName, $params);
     }
@@ -391,6 +413,7 @@ class Process_PreparationList
             "order_by" => "r.recipe_id ASC",
             // "word" => $getSearchRequest,
             "table" => ["recipes r"],
+            "save_this_last_id" => "recipe_id",
             "searchMode" => true,
             "silentMode" => true,
             "error" => ["Fetch search Error"]
@@ -401,9 +424,55 @@ class Process_PreparationList
 
     /**
      * Renvoi les informations formulaires vers le serveur
+     * @param mixed $data
      * @return void
      */
-    private function is_Post()
+    private function post_This($data)
+    {
+        $loggedUser = LoginController::checkLoggedStatus();
+        if (!isset($loggedUser)) {
+            echo 'Vous devez être authentifié pour soumettre un commentaire ';
+            return;
+        }
+
+        $this->session = $data['session_name'];
+
+        $newView = new RecipeView(
+            $data
+        );
+
+        if ($data['any_post'] === 'insert_comment') $response = $newView->insertComment($data);
+        if ($data['any_post'] === 'update_comment') $response = $newView->updateComment($data);
+        if ($data['any_post'] === 'delete_comment') $response = $newView->deleteComment($data);
+        // echo json_encode($_SESSION);
+
+        // Remove session user cookies
+        unset($_SESSION[$this->session]);
+
+        die(json_encode($response));
+        // $this->displayError();
+    }
+
+    /**
+     * Renvoi les informations formulaires vers le serveur
+     * dans le cas d'une requête avec login obligatoire
+     * @return void
+     */
+    private function is_Post($data)
+    {
+        unset($_SESSION['UPDATED_RECIPE']);
+
+        // Traitement d'une requête avec fichiers pour
+        // la création / mise à jour des recettes
+        $process_Ingredients = new Process_Ajax($data ?? $_POST, $_FILES, $this->is_Post, $this->session, $this->id ?? null);
+
+        // Remove session user cookies
+        unset($_SESSION[$this->session]);
+
+        $this->displayError();
+    }
+
+    private function retrievePostDatas()
     {
         // Sets the type of header content type to talk to JavaScript
         header('Content-Type: application/json; charset=utf-8');
@@ -413,14 +482,7 @@ class Process_PreparationList
 
         // Decoding JSON data
         $data = json_decode($client_Side_Datas, true);
-
-        // Voir si on récupère les fichiers du dessus
-        $process_Ingredients = new Process_Ajax($data ?? $_POST, $_FILES, $this->is_Post, $this->session, $this->id ?? null);
-
-        // Remove session user cookies
-        unset($_SESSION[$this->session]);
-
-        $this->displayError();
+        return $data;
     }
 
     private function displayError()
@@ -447,27 +509,42 @@ class Process_PreparationList
         // title: "titre de ma recette"
         // youtubeID: "idvideoyoutube"
         // $recipe = $query->getRecipesTitle();
+
         $query = new RecipeView($request);
-        // die(var_dump($request));
 
-        $recipe = $query->retrieveFromTable($params, $sessionName);
-
+        $response = $query->retrieveFromTable($params, $sessionName);
         if (isset($_SESSION[$sessionName])) {
-            echo json_encode($recipe);
             unset($_SESSION[$sessionName]);
+
+            $loggedUser = LoginController::checkLoggedStatus();
+
+            foreach ($response as $key => $value) {
+                if (isset($loggedUser["userId"]) && (int) $loggedUser["userId"] === (int) $value["user_id"]) {
+                    // if ($recipe['error']) {
+                    //     // echo (json_encode(['error' => $params['error'][0]]));
+                    //     echo 'test';
+                    // }
+                    $response[$key]["canCreateTooltips"] = true;
+                }
+            }
+
+            echo json_encode($response);
         } else {
             die(json_encode(['error' => $params['error'][0]]));
         }
+        // $query = new RecipeView($request);
+        // // die(var_dump($request));
+
+        // $recipe = $query->retrieveFromTable($params, $sessionName);
+        // // die(json_encode($recipe));
+
+        // if (isset($_SESSION[$sessionName])) {
+        //     echo json_encode($recipe);
+        //     unset($_SESSION[$sessionName]);
+        // } else {
+        //     die(json_encode(['error' => $params['error'][0]]));
+        // }
     }
 }
 
-// if ($fetchData) {
 new Process_PreparationList();
-// }
-// if ($data) {
-    // die(var_dump($data));
-    // $_POST["method"] = "post";
-    // die(var_dump($_POST));
-    // return;
-    // new Process_PreparationList($_POST);
-// }

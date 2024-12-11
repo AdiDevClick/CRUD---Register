@@ -45,6 +45,7 @@ class CheckInput extends Validate
         //$value1 = self::test_input($this->input1);
         //$value2 = self::test_input($this->input2);
         if (isset($this->getDatas)) {
+            // echo json_encode($this->getDatas);
 
             /* $url = explode("/", parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));
             $url = array_pop($url); */
@@ -65,7 +66,7 @@ class CheckInput extends Validate
                     // if ($key === 'username' && !preg_match("/^[a-zA-Z0-9._-]+(@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})?$/", $value)) { // With space allowed
                     array_push(self::$errorsArray, 'invalidID - Votre identifiant est invalide');
                 }
-                if ($result && !empty($key === 'title') && $key === 'title' && !preg_match($regex, $value)) { // With space allowed
+                if ($key === 'title' && !$result && !preg_match($regex, $value)) { // With space allowed
                     array_push(self::$errorsArray, 'invalidTitle - Ce titre est invalide');
                 }
                 if ($result && !empty($key === 'step_1') && $key === 'step_1' && !preg_match($regex, $value)) { // With space allowed "/^[a-zA-Z0-9]*\z/"
@@ -111,7 +112,7 @@ class CheckInput extends Validate
                 } elseif (str_contains($value, 'invalidID')) {
                     self::$errorsArray['invalidID'] = $value;
                 } elseif (str_contains($value, 'invalidTitle')) {
-                    self::$errorsArray['invalidTitle'] = $value;
+                    self::$errorsArray['invalidTitle'] = "Ce titre est invalide";
                 } elseif (str_contains($value, 'pwdRepeat')) {
                     self::$errorsArray['errorPwdRepeat'] = 'Confirmer votre mot de passe';
                 } elseif (str_contains($value, 'age')) {
@@ -136,7 +137,7 @@ class CheckInput extends Validate
                 } elseif (str_contains($value, 'invalidComment')) {
                     self::$errorsArray['invalidComment'] = "Ce commentaire est invalide";
                 } elseif (str_contains($value, 'invalidReview')) {
-                    self::$errorsArray['invalidReview'] = $value;
+                    self::$errorsArray['invalidReview'] = "Veuillez noter le produit pour pouvoir continuer";
                 } else {
                     self::$errorsArray['message'] = $value;
                 }
@@ -179,53 +180,33 @@ class CheckInput extends Validate
      */
     public static function showErrorMessage(): string
     {
+        $keysWillShowValues = [
+            'emailTaken',
+            'invalidRecipeSteps',
+            'userTaken',
+            'pwMatch',
+            'invalidComment',
+            'invalidTitle',
+            'invalidReview',
+            'invalidID',
+        ];
+        $count = 0;
         $errorMessage = '';
         foreach (self::$errorsArray as $key => $value) {
-            // print_r($key . PHP_EOL .' => ' . $value . '<br>');
-            // if ($key === 'emailTaken' && isset(self::$errorsArray ['userTaken']) || $key === 'userTaken' && isset(self::$errorsArray ['emailTaken'])) {
-            //     $errorMessage = 'Cet utilisateur et email sont déjà pris';
-            // } elseif ($key === 'emailTaken') {
-            //     $errorMessage = $value;
-            //     // print_r($key);
-            // } elseif ($key === 'userTaken') {
-            //     $errorMessage = $value;
-            //     // print_r($errorMessage);
-            // } elseif ($key === 'pwMatch') {
-            //     $errorMessage = $value;
-            //     // print_r($errorMessage);
-            // } elseif ($key === 'errorEmail') {
-            //     $errorMessage = 'Cet email est invalide';
-            // } elseif (str_contains($value, 'vide')) {
-            //     $errorMessage = 'Un ou plusieurs champs sont vides';
-            // } elseif ($key === 'invalidID') {
-            //     $errorMessage = 'Votre identifiant est invalide';
-            // } elseif ($key === 'invalidTitle') {
-            //     $errorMessage = 'Le titre de votre recette est invalide';
-            // } elseif ($key === 'invalidRecipeSteps') {
-            //     $errorMessage = $value;
-            // } elseif ($key === 'invalidComment') {
-            //     $errorMessage = $value;
-            // }
             if ($key === 'emailTaken' && isset(self::$errorsArray['userTaken']) || $key === 'userTaken' && isset(self::$errorsArray['emailTaken'])) {
-                $errorMessage = 'Cet utilisateur et email sont déjà pris';
+                $errorMessage .= 'Cet utilisateur et email sont déjà pris';
+            } elseif (!str_contains($value, 'review') && str_contains($value, 'vide') && $count === 0 && $key !== 'message') {
+                $count++;
+                $errorMessage .= 'Un ou plusieurs champs sont vides';
             } elseif (
-                $key === 'emailTaken' ||
-                $key === 'invalidRecipeSteps' ||
-                $key === 'userTaken' ||
-                $key === 'pwMatch' ||
-                $key === 'invalidComment'
+                // If the key is in the array, we display the value set in self::$errorsArray
+                in_array($key, $keysWillShowValues) && $count === 0
             ) {
-                $errorMessage = $value;
+                $errorMessage .= $value;
             } elseif ($key === 'errorEmail') {
-                $errorMessage = 'Cet email est invalide';
-            } elseif (str_contains($value, 'vide')) {
-                $errorMessage = 'Un ou plusieurs champs sont vides';
-            } elseif ($key === 'invalidID') {
-                $errorMessage = 'Votre identifiant est invalide';
-            } elseif ($key === 'invalidTitle') {
-                $errorMessage = 'Le titre de votre recette est invalide';
-            } elseif ($key === 'invalidReview') {
-                $errorMessage = $value;
+                $errorMessage .= 'Cet email est invalide';
+            } elseif ($key === 'invalidID' && $count === 0) {
+                $errorMessage .= 'Votre identifiant est invalide';
             }
         }
         return $errorMessage;
@@ -260,7 +241,6 @@ class CheckInput extends Validate
 
     /**
      * Sanitize les données passée en paramètre
-     * @param array $datas Les données à sanitize
      * @param array $options Une clé à ne pas intégrer dans l'array ou un htmlspecialchar à ne pas réaliser
      * @return string[]
      */
@@ -268,6 +248,7 @@ class CheckInput extends Validate
     {
         $this->getDatas = is_array($this->getDatas) ? $this->getDatas : [$this->getDatas];
 
+        // Converts into HTMLSUPERCHARS
         $convert = true;
 
         if (isset($options['convert'])) {

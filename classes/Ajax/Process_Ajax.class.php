@@ -30,14 +30,15 @@ class Process_Ajax
             // de réencoder en JSON si nécessaire
             // 'persons' => json_encode($dataTest)
             // ];
-            
+            // die(json_encode($this->getDatas));
             $this->Recipe = new RecipeView($this->getDatas, 'creation');
             $this->send_Status = 'success';
 
             // POST(true) ?
             // Insert file and recipe in DB
-            if ($this->is_Post && ($this->session !== 'UPDATED_RECIPE') && !isset($_SESSION['UPDATED_RECIPE'])) {
+            if ($this->is_Post && $this->session === 'REGISTERED_RECIPE' && !isset($_SESSION['UPDATED_RECIPE'])) {
                 // Database INSERT
+
                 $recipeId = $this->Recipe->setRecipe();
                 // If no picture is chosen by the user during creation, one is added by default
                 if (empty($this->Post_Files['file']['name'])) {
@@ -52,7 +53,7 @@ class Process_Ajax
 
             // POST(false) ?
             // This is an update request => Update DB from the recipe_id
-            if (!$this->is_Post && $this->session === 'UPDATED_RECIPE' || isset($_SESSION['UPDATED_RECIPE'])) {
+            if (!$this->is_Post && $this->session === 'UPDATED_RECIPE') {
                 // Database UPDATE
                 $recipeId = $this->Recipe->updateRecipeInfoById();
                 // Insert File in Table
@@ -125,7 +126,6 @@ class Process_Ajax
             } catch (\Throwable $error) {
                 throw $error;
             }
-
         } else {
             $this->isImageAlreadyOnServer = true;
             // echo "Déjà envoyé..";
@@ -186,11 +186,11 @@ class Process_Ajax
     {
         // Création du path qui sera utilisé dans la table
         $new_name = $name;
-        $database_Dir = 'uploads/'. $user . '/recipes_images/' . $id;
+        $database_Dir = 'uploads/' . $user . '/recipes_images/' . $id;
         $file_In_Database = $database_Dir . '/' . $new_name;
 
         // Création du path qui sera utilisé pour déplacer le fichier
-        $file_Upload_Dir = '../uploads/'. $user . '/recipes_images/' . $id . '/';
+        $file_Upload_Dir = '../uploads/' . $user . '/recipes_images/' . $id . '/';
         $file_In_Upload_Dir = $file_Upload_Dir . '/' . $new_name;
 
         // Vérifie si le dossier existe, sinon le crée

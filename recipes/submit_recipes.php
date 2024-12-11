@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 // if(session_status() !== PHP_SESSION_ACTIVE || session_status() === PHP_SESSION_NONE) {
 //     session_start();
@@ -40,13 +42,13 @@ $err = CheckInput::getErrorMessages();
 // }
 $errorMessage = CheckInput::showErrorMessage();
 ob_start();
-//if (isset($loggedUser['email']) && !isset($loggedUser['recipe'])):
 ?>
 
-<?php if (isset($loggedUser['email'])  && !isset($_SESSION['REGISTERED_RECIPE'])): ?> 
-        <?php //(isset($loggedUserState)):?>
+<?php if (isset($loggedUser['email'])  && !isset($_SESSION['REGISTERED_RECIPE'])): ?>
+    <?php //(isset($loggedUserState)):
+    ?>
     <h1>Partagez votre recette</h1>
-        
+
     <!-- <script type="text/javascript">
         if (window.innerWidth <= 576) {
             // fetch('../templates/recipe_layout_mobile_only.php')
@@ -66,19 +68,23 @@ ob_start();
         }
 
     </script> -->
-    <?php include '../templates/recipe_layout.php'?>
-    <?php // include '../templates/recipe_creation_menu.html'?>
-<!-- start of success message -->
+    <?php include '../templates/recipe_layout.php' ?>
+    <?php // include '../templates/recipe_creation_menu.html'
+    ?>
+    <!-- start of success message -->
 
-<?php elseif (isset($_SESSION['REGISTERED_RECIPE'])):?>
-    <?php //require_once('signup_success.php')?>
-    <?php // $setRecipe->displayShareSuccess($getDatas, $loggedUser)?>
-    <?php unset($_SESSION['REGISTERED_RECIPE'])?>
-    <?php //header('refresh:10, ../index.php?error=none')?>
-    <?php else:?>
-        <?php session_destroy()?>
-        <?php header('Location: ../register.php?failed=recipe-creation')?>
-        <?php exit("Il n'y a malheureusement plus rien à voir !") ?>
+<?php elseif (isset($_SESSION['REGISTERED_RECIPE'])): ?>
+    <?php //require_once('signup_success.php')
+    ?>
+    <?php // $setRecipe->displayShareSuccess($getDatas, $loggedUser)
+    ?>
+    <?php unset($_SESSION['REGISTERED_RECIPE']) ?>
+    <?php //header('refresh:10, ../index.php?error=none')
+    ?>
+<?php else: ?>
+    <?php session_destroy() ?>
+    <?php header('Location: ../register.php?failed=recipe-creation') ?>
+    <?php exit("Il n'y a malheureusement plus rien à voir !") ?>
 <?php endif ?>
-<!-- end of success message --> 
-<?php $content = ob_get_clean()?>
+<!-- end of success message -->
+<?php $content = ob_get_clean() ?>

@@ -232,7 +232,6 @@ export class SearchBar {
                 const content = localStorage.getItem("forwardContent");
                 this.#content = JSON.parse(content);
 
-                console.log(this.#content);
                 e.preventDefault();
                 this.#newUrl = this.#content.newUrl;
                 this.#page = this.#content.params._page;
@@ -651,8 +650,6 @@ export class SearchBar {
             // IMPORTANT !!
             // Force the observer to reset in some cases where
             // the loader appears but it's state cannot update
-            // this.#observer.unobserve(this.#loader)
-            // this.#observer.observe(this.#loader)
             this.#disconnectObserver(this.#loader);
             // End of Force
             // console.log('jsuis arrivé à la fin du script => ', ' \\\n // loading => ' + this.#loading, ' \\\n // isCreated => ' + this.#isCreated, ' \\\n // intersect ? => ' + this.#intersect)

@@ -11,6 +11,7 @@ class Database
     private bool $fetchAll;
     private bool $searchMode;
     private bool $silentExecute;
+    private string $lastIdKey;
 
     public function __construct(
         private array $options = [],
@@ -62,6 +63,7 @@ class Database
      *          'i.img_id',
      *          'i.youtubeID'
      *      ],
+     *      "date" => ['DATE_FORMAT(c.created_at, "%d/%m/%Y") as comment_date'],
      *      'join' => [
      *          'images i' => 'r.recipe_id = i.recipe_id'
      *      ],
@@ -78,24 +80,34 @@ class Database
      *      'limit' => 10,
      *      'resetState' => 1,
      *      'order_by' => 'r.recipe_id ASC',
-     *      'word' => 'recipe'
+     *      'word' => 'recipe',
      *      'match' => [
      *          'fields' => 'r.title',
      *          'against' => ':word'
-     *      ]
+     *      ],
+     *      "error" => ["Ce commentaire n'existe pas"],
+     *      "save_this_last_id" => "comment_id",
+     *      "searchMode" => true,
+     *      "silenceMode" => true,
+     *      "fetchAll" => true,
      *  ];
      * ```
-     * @param int|string $recipeId ID / Titre de la recette (peut être ignoré si non nécessaire)
+     * @param int|string $id ID / Titre de la recette (peut être ignoré si non nécessaire)
      * @param bool $silentMode Permet de ne pas renvoyer d'erreur si nécessaire (par défaut : false)
      * @param PDO $database Objet PDO pour la connexion à la base de données
      * @throws \Error si la requête échoue ou si aucune ligne n'est trouvée
      * @return mixed Tableau associatif contenant les informations de la recette
      */
-    private function createGetQuery(array $params, int|string $recipeId = null, PDO $database)
+    private function createGetQuery(array $params, int|string $id = null, PDO $database)
     {
         // Handle request reset state
         if (!empty($params['resetState']) && $params['resetState'] == 1) {
             $_SESSION['LAST_ID'] = 0;
+        }
+
+        // Key to check in order to save the last ID from the SQL Request
+        if (!empty($params['save_this_last_id'])) {
+            $this->lastIdKey = $params['save_this_last_id'];
         }
 
         // Extract array $params's fields
@@ -119,7 +131,7 @@ class Database
         if (!empty($params['where']['conditions'])) {
             $this->whereClause = $this->addWhereClause($params);
         }
-        // elseif ($recipeId !== null) {
+        // elseif ($id !== null) {
         //     $this->whereClause = "WHERE $tableAlias.recipe_id = :recipe_id";
         // }
 
@@ -159,26 +171,33 @@ class Database
 
         // Prepare Statement
         $getRecipeStatement = $database->prepare($sqlQuery);
-        // die(var_dump($getRecipeStatement));
-
+        // echo (var_dump($sqlQuery, $this->searchMode));
         // Prepare execute parameters
-
-        // If number $recipeId
-        if ($recipeId !== null && is_numeric($recipeId)) {
+        // If number $id
+        if ($id !== null && is_numeric($id)) {
             // !! IMPORTANT !! Force int on the ID
-            $recipeId = (int) $recipeId;
-            $executeParams['recipe_id'] = $recipeId;
+
+            $id = (int) $id;
+            $executeParams['recipe_id'] = $id;
         }
 
-        // If string $recipeId
-        if ($recipeId !== null && is_string($recipeId)) {
+        // If string $id
+        if ($id !== null && is_string($id)) {
             // Construct clause MATCH if a keyword is found
-            $executeParams['word'] = strip_tags($recipeId) . '*';
-            // $executeParams['word'] = strip_tags($recipeId) . '*';
-            if (isset($_SESSION['LAST_ID'])) {
-                $executeParams['recipe_id'] = $_SESSION['LAST_ID'];
-            }
+
+            $executeParams['word'] = strip_tags($id) . '*';
+            // $executeParams['word'] = strip_tags($id) . '*';
+            // if (isset($_SESSION['LAST_ID']) && isset($this->lastIdKey)) {
+            //     $executeParams[$this->lastIdKey] = $_SESSION['LAST_ID'];
+            //     // $executeParams['recipe_id'] = $_SESSION['LAST_ID'];
+            // }
         }
+
+        if (isset($_SESSION['LAST_ID']) && isset($this->lastIdKey)) {
+            $executeParams[$this->lastIdKey] = $_SESSION['LAST_ID'];
+        }
+
+        // die(var_dump($executeParams));
 
         if ($this->silentExecute) {
             $executeParams = [];
@@ -186,8 +205,8 @@ class Database
 
         if (!empty($params['login']) && $params['login']) {
             $executeParams = [];
-            $executeParams['email'] = $recipeId;
-            $executeParams['full_name'] = $recipeId;
+            $executeParams['email'] = $id;
+            $executeParams['full_name'] = $id;
         }
         // if (!empty($params['word'])) {
         //     $executeParams['word'] = $params['word'] . '*';
@@ -206,12 +225,16 @@ class Database
         // Execute SQLRequest
         // die(var_dump($getRecipeStatement));
         // die(var_dump($executeParams));
+        // die(var_dump($sqlQuery, $executeParams, $params, $id));
+        // die(var_dump($sqlQuery));
 
         if (!$getRecipeStatement->execute($executeParams)) {
             $getRecipeStatement = null;
+
             // require_once(dirname(__DIR__, 2).'/config/altertable.sql')
             throw new Error("STMTGET - Failed");
         }
+
         // echo json_encode($_SESSION['LAST_ID']);
         // If no row exists, fail
         if ($getRecipeStatement->rowCount() == 0) {
@@ -223,22 +246,40 @@ class Database
                 // Return empty
                 return [];
             }
+            // if ($this->optionnalData === "reply_Client") {
+            //     // return $error;
+            // }
             // Send a first Error that will be caught
             throw new Error($error);
+            // echo json_encode($error);
         }
+        // $this->searchMode = false;
+        // $this->fetchAll = true;
 
         if ($this->searchMode) {
+
             // Grab all results from the searchbar
             $data = [];
+            // echo var_dump($_SESSION['LAST_ID']);
+
             while ($recipeInfos = $getRecipeStatement->fetch(PDO::FETCH_ASSOC)) {
-                if (is_array($recipeInfos) && isset($recipeInfos['recipe_id']) && $recipeInfos['recipe_id'] > $_SESSION['LAST_ID']) {
+                if (is_array($recipeInfos) && isset($recipeInfos[$this->lastIdKey]) && $recipeInfos[$this->lastIdKey] > $_SESSION['LAST_ID']) {
+                    // die($getRecipeStatement);
+
                     // $lastItem = end($recipeInfos);
                     // $_SESSION['LAST_ID'] = $lastItem['recipe_id'];
-                    $_SESSION['LAST_ID'] = $recipeInfos['recipe_id'];
+                    $_SESSION['LAST_ID'] = $recipeInfos[$this->lastIdKey];
                     $data[] = $recipeInfos;
-                    // die(var_dump($recipeInfos['recipe_id'], $_SESSION['LAST_ID']));
                 }
             }
+            // while ($recipeInfos = $getRecipeStatement->fetch(PDO::FETCH_ASSOC)) {
+            //     if (is_array($recipeInfos) && isset($recipeInfos['recipe_id']) && $recipeInfos['recipe_id'] > $_SESSION['LAST_ID']) {
+            //         // $lastItem = end($recipeInfos);
+            //         // $_SESSION['LAST_ID'] = $lastItem['recipe_id'];
+            //         $_SESSION['LAST_ID'] = $recipeInfos['recipe_id'];
+            //         $data[] = $recipeInfos;
+            //     }
+            // }
             return $data;
         }
 
@@ -246,10 +287,11 @@ class Database
             // Grab 1 entry result
             $datas = $getRecipeStatement->fetchAll(PDO::FETCH_ASSOC);
             // If it's an UPDATE RECIPE Request - JS Client submit handler
+            // die(var_dump($params['limit']));
             if ($this->optionnalData === 'reply_Client') {
                 return json_encode($datas);
             }
-            // die(var_dump($datas));
+            // die(var_dump($_SESSION['LAST_ID']));
             return $datas;
         }
 
@@ -330,16 +372,34 @@ class Database
         // Extraction des champs du tableau $params
         $fromTable = implode(', ', $params['table']);
         $error = implode(', ', $params['error']);
+
+        // Construct dynamic WHERE clause
+        if (!empty($params['where']['conditions'])) {
+            $this->whereClause = $this->addWhereClause($params);
+        }
+
         // Construction de la requête SQL
+        // $sqlQuery = "DELETE
+        //     FROM $fromTable
+        //     WHERE recipe_id = :recipe_id;";
         $sqlQuery = "DELETE
             FROM $fromTable
-            WHERE recipe_id = :recipe_id;";
+            $this->whereClause;";
+
+
+        if (!empty($params['where']['conditions']["comment_id"])) {
+            $execParams = ['comment_id' => $id];
+        } else {
+            $execParams = ['recipe_id' => $id];
+        }
+
+        // die(var_dump($execParams));
 
         // Préparation de la requête
         $deleteStatement = $database->prepare($sqlQuery);
 
         // Exécution de la requête SQL en recherchant l'ID à partir des paramètres
-        if (!$deleteStatement->execute(['recipe_id' => $id])) {
+        if (!$deleteStatement->execute($execParams)) {
             $deleteStatement = null;
             throw new Error("STMTDLT - Failed");
         }

@@ -13,12 +13,16 @@ class RecipeView extends RecipeController
 
     public function setRecipe()
     {
-        return $this->insertRecipe();
+        return $this->controllerSetRecipe();
     }
 
     public function insertComment($getDatas)
     {
         return $this->setComments($getDatas);
+    }
+    public function updateComment($getDatas)
+    {
+        return $this->controllerUpdateComment($getDatas);
     }
 
     public function fetchAverageRatingCommentsById($getDatas)
@@ -51,6 +55,11 @@ class RecipeView extends RecipeController
     public function deleteRecipe()
     {
         return $this->deleteRecipes();
+    }
+
+    public function deleteComment($datas)
+    {
+        return $this->controllerDeleteComments($datas);
     }
 
     public function getRecipesTitle()
@@ -197,9 +206,9 @@ class RecipeView extends RecipeController
 
         $formMessage = '';
         //if (isset($_SESSION['REGISTERED_USER'])) {
-        $formMessage  = '<form action=" '.htmlentities($_SERVER['PHP_SELF']).' " method="POST">';
+        $formMessage  = '<form action=" ' . htmlentities($_SERVER['PHP_SELF']) . ' " method="POST">';
         $formMessage .= '<div class="mb-3 visually-hidden">';
-        $formMessage .= '<input class="form-control" type="hidden" name="recipe_id" value=" '.$recipe['recipe_id'].' " />';
+        $formMessage .= '<input class="form-control" type="hidden" name="recipe_id" value=" ' . $recipe['recipe_id'] . ' " />';
         $formMessage .= '</div>';
         $formMessage .= '<div class="mb-3">';
         $formMessage .= '<label for="comment" class="form-label">Postez un commentaire</label>';
@@ -213,16 +222,16 @@ class RecipeView extends RecipeController
     {
         $loggedUser = LoginController::checkLoggedStatus();
         $comments = '';
-        if(count($recipe['comments']) > 0) {
+        if (count($recipe['comments']) > 0) {
             $comments = '<hr />';
             $comments .= '<h2>Commentaires</h2>';
             $comments .= '<div class="row">';
-            foreach($recipe['comments'] as $comment) {
+            foreach ($recipe['comments'] as $comment) {
                 $comments .= '<div class="comment">';
-                $comments .= '<p> '.$comment['created_at'].' </p>';
-                $comments .= '<p> '.($comment['comment']).'</p>';
+                $comments .= '<p> ' . $comment['created_at'] . ' </p>';
+                $comments .= '<p> ' . ($comment['comment']) . '</p>';
                 //$comments .= '<i>( '.$this->display_user($comment['user_id'], $loggedUser).' )</i>';
-                $comments .= '<i>( '.$comment['user_id'].' )</i>';
+                $comments .= '<i>( ' . $comment['user_id'] . ' )</i>';
                 $comments .= '<p> </div>';
             }
             $comments .= '<p> </div>';
@@ -244,7 +253,7 @@ class RecipeView extends RecipeController
             // ];
             $params = [
                 "fields" => ["u.user_id", "u.full_name"],
-                "join"=> [
+                "join" => [
                     "users u" => "u.user_id = c.user_id"
                 ],
                 "table" => ["comments c"],
@@ -263,15 +272,15 @@ class RecipeView extends RecipeController
             // die(var_dump($users));
         }
         if (isset($_SESSION[$sessionName])) {
-            unset ($_SESSION[$sessionName]);
-            foreach($users as $user) {
+            unset($_SESSION[$sessionName]);
+            foreach ($users as $user) {
                 if ($user['user_id'] === $userId) {
                     return $user['full_name'];
                     // return $user['full_name'] . '(' . $user['age'] . ' ans)';
                 }
             }
         }
-        unset ($_SESSION[$sessionName]);
+        unset($_SESSION[$sessionName]);
         return 'Annonyme';
     }
 }

@@ -204,19 +204,74 @@ class Recipe extends Mysql
     }
 
     /**
-     * Insert comments
+     * Insertion de commentaires
+     * @param array $datas Les données d'insertion
+     * @param int $userId L'ID de l'utilisateur
      */
-    protected function insertComments($datas, $userId)
+    protected function insertComments(array $datas, int $userId)
     {
-        $datas['user_id'] = $userId;
+        try {
 
-        $sqlRecipe = 'INSERT INTO comments(comment, recipe_id, user_id, title, review) VALUES (:comment, :recipe_id, :user_id, :title, :review);';
+            $datas['user_id'] = $userId;
 
-        $insertCommentsStatment = $this->connect()->prepare($sqlRecipe);
+            $sqlRecipe = 'INSERT INTO comments(comment, recipe_id, user_id, title, review) VALUES (:comment, :recipe_id, :user_id, :title, :review);';
 
-        if (!$insertCommentsStatment->execute($datas)) {
-            $insertCommentsStatment = null;
-            throw new Error("STMTCMT Failed");
+            $PDO_Instance = $this->connect();
+            $insertCommentsStatment = $PDO_Instance->prepare($sqlRecipe);
+
+            if (!$insertCommentsStatment->execute($datas)) {
+                $insertCommentsStatment = null;
+                throw new Error("STMTCMT Failed");
+            }
+            $commentId = $PDO_Instance->lastInsertId();
+
+            return [
+                'comment_id' => $commentId,
+                'status' => 200,
+                'ok' => true,
+                'canCreateTooltips' => true,
+            ];
+        } catch (\Throwable $th) {
+            throw new Error("STMTCMT Failed - Une erreur a été détectée lors de l'insertion de votre commentaire");
+        }
+    }
+
+    /**
+     * Insertion de commentaires
+     * @param array $datas Les données d'insertion
+     * @param int $userId L'ID de l'utilisateur
+     */
+    protected function updateComments(array $datas, int $userId)
+    {
+        try {
+            $status = '';
+            $datas['user_id'] = $userId;
+            // die(var_dump($datas, $userId));
+
+            $sqlRecipe = 'UPDATE comments SET comment = :comment WHERE comment_id = :comment_id AND user_id = :user_id AND recipe_id = :recipe_id;';
+
+            $updateCommentStatement = $this->connect()->prepare($sqlRecipe);
+
+            if (!$updateCommentStatement->execute($datas)) {
+
+                $updateCommentStatement = null;
+                $status = "STMTCMT Failed";
+                throw new Error($status);
+            }
+
+            if ($updateCommentStatement->rowCount() == 0) {
+
+                $updateCommentStatement = null;
+                $status = "CMTUPDTSTMTEXECNT";
+                throw new Error($status);
+            }
+
+            return [
+                'status' => 200,
+                'ok' => true
+            ];
+        } catch (\Throwable $th) {
+            throw new Error("$status - Une erreur a été détectée lors de la mise à jour de votre commentaire");
         }
     }
 
@@ -226,14 +281,14 @@ class Recipe extends Mysql
     protected function insertImages($recipeId, int $userId, $imgName, $imgPath)
     {
         $sqlRecipe = 'INSERT INTO images(recipe_id, user_id, img_name, img_path) VALUES (:recipe_id, :user_id, :img_name, :img_path);';
-        $insertCommentsStatment = $this->connect()->prepare($sqlRecipe);
-        if (!$insertCommentsStatment->execute([
+        $insertImagesStatment = $this->connect()->prepare($sqlRecipe);
+        if (!$insertImagesStatment->execute([
             'recipe_id' => $recipeId,
             'user_id' => $userId,
             'img_name' => $imgName,
             'img_path' => $imgPath
         ])) {
-            $insertCommentsStatment = null;
+            $insertImagesStatment = null;
             throw new Error("stmt Failed");
         }
     }
@@ -259,8 +314,9 @@ class Recipe extends Mysql
                     "i.recipe_id" => "= :recipe_id"
                 ],
             ],
-            "error" => ["Impossible de récupérer cette image, elle n'existe pas"],
-            "silentMode" => $silentMode
+            "error" => ["Impossible de récupérer cette image, elle n'existe pas. "],
+            "silentMode" => true
+            // "silentMode" => $silentMode
         ];
 
         $image = Functions::getFromTable($params, $recipeId, $this->connect(), $this->optionnalData());
@@ -286,7 +342,13 @@ class Recipe extends Mysql
         $params = [
             "table" => ["images"],
             "error" => ["La suppression de cette image est impossible"],
-            'silentMode' => $silentMode
+            "where" => [
+                "conditions" => [
+                    "recipe_id" => "= :recipe_id"
+                ],
+            ],
+            'silentMode' => true
+            // 'silentMode' => $silentMode
         ];
         // Suppression de l'entrée dans la table
         $this->deleteFromTable($params, $recipeId, $silentMode);
