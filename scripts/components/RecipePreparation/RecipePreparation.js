@@ -1,9 +1,10 @@
 import { fetchJSON } from "../../functions/api.js";
-import { createElement, importThisModule } from "../../functions/dom.js";
+import { importThisModule } from "../../functions/dom.js";
 import { resetURL } from "../../functions/url.js";
 // import { BubbleCreativePlugin } from "../BubbleCreativePlugin.js"
 import { ErrorHandler } from "../ErrorHandler.js";
 import { Toaster } from "../Toaster.js";
+// import { InteractiveToolip } from "../UserInteractions/InteractiveTooltip.js";
 // import { DrawerTouchPlugin } from "./DrawerTouchPlugin.js"
 
 /**
@@ -116,6 +117,7 @@ export class IngredientsFrom {
                 this.#addStepsButton.remove();
             }
         });
+
         // });
 
         // const secondarySubmit = document.querySelector('#step-button-right-corner')
@@ -635,6 +637,7 @@ export class IngredientsFrom {
                 // })
                 formData.set("custom_ingredients", this.#list);
             }
+            formData.set("AJAX", true);
             if (key === "file" && value.name) {
                 // check file type
                 if (!this.#allowedFiles.includes(value.type)) {
@@ -808,15 +811,22 @@ class Ingredient {
      * @param {PointerEvent} e
      * @returns
      */
-    #onClick(e) {
+    async #onClick(e) {
         e.preventDefault();
+
         if (this.#validationStatus || this.#done) {
             this.#validationStatus = false;
             this.#done = false;
             return;
         }
+
         if (!this.#newModifierButtons.element) {
-            this.#newModifierButtons = new AttachmentToThis(this.element);
+            this.#newModifierButtons = await importThisModule(
+                "InteractiveTooltip",
+                this.element,
+                "UserInteractions"
+            );
+            // this.#newModifierButtons = new InteractiveToolip(this.element);
             this.element.append(this.#newModifierButtons.container);
             // Quick repaint - Permet d'avoir un style Right: 0 correct
             this.#newModifierButtons.container.offsetWidth;
@@ -868,7 +878,7 @@ class Ingredient {
      * La zone de texte sera automatiquement focus
      * @param {PointerEvent} e
      */
-    #onModify(e) {
+    async #onModify(e) {
         e.preventDefault();
         // Permet d'instancier les données enregistrées
         this.data = this.element.firstElementChild.innerText;
@@ -877,7 +887,12 @@ class Ingredient {
         valueArea.focus();
         if (!this.#validationItems.element) {
             this.#newModifierButtons.element.remove();
-            this.#validationItems = new UserValidations(this.element);
+            this.#validationItems = await importThisModule(
+                "UserValidations",
+                this.element,
+                "UserInteractions"
+            );
+            // this.#validationItems = new UserValidations(this.element);
             this.element.append(this.#validationItems.element);
             this.#validationStatus = true;
         }
@@ -892,7 +907,7 @@ class Ingredient {
     #onValidate(e) {
         e.preventDefault();
         const item = e.detail.id;
-        let data = this.element.firstElementChild.innerText;
+        let data = this.element.firstElementChild.innerText.toString().trim();
         if (data !== "") {
             this.#setValidation(item);
             this.#ingredientList.listPush = data;
@@ -985,330 +1000,5 @@ class Ingredient {
 
     get onClick() {
         return this.#onClick.bind(this);
-    }
-}
-
-class AttachmentToThis {
-    /** @type {Ingredient} item */
-    #item;
-    /** @type {Array} contient l'élément HTML */
-    #element = [];
-    /** @type {HTMLImageElement} */
-    #modifier;
-    /** @type {HTMLImageElement} */
-    #deleter;
-    /** @type {HTMLImageElement} */
-    #closeButton;
-    /** @type {Array<HTMLDivElement>} */
-    #container = [];
-    /** @type {Boolean} */
-    #isCreated = false;
-    /** @type {HTMLDivElement} */
-    #stop;
-
-    /** @param {Ingredient} item */
-    constructor(item) {
-        this.#item = item;
-        if (this.#element.length > 0) {
-            return;
-        }
-
-        this.#container = document.querySelector(
-            "#interactive-container-" + this.#item.id
-        );
-
-        // this.#container = createElement("div", {
-        //     class: "interactive-container",
-        //     id: "interactive-container-" + this.#item.id,
-        //     contenteditable: false,
-        // });
-        // this.#element = createElement("div", {
-        //     class: "interactive-container__elements",
-        //     id: "attach-" + this.#item.id,
-        //     contenteditable: false,
-        // });
-        // this.#modifier = createElement("img", {
-        //     class: "interactive-elements__modify",
-        //     name: "modify",
-        //     id: "modify-" + this.#item.id,
-        //     src: "../img/edit.svg",
-        // });
-        // this.#deleter = createElement("img", {
-        //     class: "interactive-elements__delete",
-        //     name: "delete",
-        //     id: "delete-" + this.#item.id,
-        //     src: "../img/bin.svg",
-        // });
-        // this.#closeButton = createElement("img", {
-        //     class: "interactive-elements__close",
-        //     name: "close",
-        //     id: "close-" + this.#item.id,
-        //     src: "../img/close.svg",
-        // });
-        // this.#stop = createElement("div", {
-        //     class: "js-stops",
-        //     name: "stop",
-        //     id: "stop-" + this.#item.id,
-        // });
-        // this.#deleter.innerText = " DELETE ";
-        // this.#closeButton.innerText = " CLOSE ";
-
-        // document
-        //     .querySelectorAll(".js-stop-appender")
-        //     .forEach((stop) => stop.prepend(this.#stop));
-        // // document.querySelector('.recipe').prepend(this.#stop)
-        // this.#container.append(this.#element);
-
-        // this.#element.append(this.#deleter);
-        // this.#element.append(this.#closeButton);
-        // this.#element.prepend(this.#modifier);
-        if (!this.#container) {
-            this.#container = document
-                .querySelector("#dynamic-tooltips")
-                .content.firstElementChild.cloneNode(true);
-            this.#container.id = "interactive-container-" + this.#item.id;
-        }
-        this.#element = this.#container.querySelector(
-            ".interactive-container__elements"
-        );
-        this.#element.id = "attach-" + this.#item.id;
-
-        this.#modifier = this.#container.querySelector(
-            ".interactive-elements__modify"
-        );
-        this.#modifier.id = "modify-" + this.#item.id;
-
-        this.#deleter = this.#container.querySelector(
-            ".interactive-elements__delete"
-        );
-        this.#deleter.id = "delete-" + this.#item.id;
-
-        this.#closeButton = this.#container.querySelector(
-            ".interactive-elements__close"
-        );
-        this.#closeButton.id = "close-" + this.#item.id;
-
-        this.#stop = this.#container.querySelector(".js-stops");
-        this.#stop.id = "stop-" + this.#item.id;
-        this.#stop.classList.remove("hide");
-
-        this.#deleter.innerText = " DELETE ";
-        this.#closeButton.innerText = " CLOSE ";
-
-        document
-            .querySelectorAll(".js-stop-appender")
-            .forEach((stop) => stop.prepend(this.#stop));
-
-        // document.querySelector('.recipe').prepend(this.#stop)
-        // this.#container.append(this.#element);
-        // this.#element.style.zIndex = "1000"
-        // this.#element.style.position = "sticky"
-        // do {
-        // let styles = window.getComputedStyle(this.#element);
-        // console.log(styles.zIndex, this.#element);
-        // } while(this.#element.parentElement && (this.#element = this.#element.parentElement));
-
-        this.#isCreated = true;
-
-        this.#deleter.addEventListener("click", this.#onRemove.bind(this), {
-            once: true,
-        });
-        this.#modifier.addEventListener("click", this.#onModify.bind(this));
-        this.#closeButton.addEventListener("click", this.#onClose.bind(this));
-        this.#stop.addEventListener("click", this.#onClose.bind(this), {
-            once: true,
-        });
-        this.#element.addEventListener("click", this.#stopPropagation);
-    }
-
-    /**
-     * @param {EventTarget} e
-     */
-    #stopPropagation(e) {
-        e.stopPropagation();
-    }
-
-    /**
-     * Supprime l'ingrédient et crer a custom Event 'delete'
-     * @param {PointerEvent} e
-     * @type {CustomEvent} delete
-     */
-    #onRemove(e) {
-        e.preventDefault();
-        this.#item.remove();
-        this.#stop.remove();
-        const deleteEvent = new CustomEvent(
-            "delete",
-            {
-                detail: this.#item,
-                cancelable: true,
-                bubbles: false,
-            },
-            { once: true }
-        );
-        this.#item.dispatchEvent(deleteEvent);
-    }
-
-    /**
-     * Permet de rendre éditable la zone 'p' de l'élément
-     * Crer un custom event 'modify' lors de l'event
-     * @param {PointerEvent} e
-     * @type {CustomEvent} delete
-     */
-    #onModify(e) {
-        e.preventDefault();
-        this.#item.firstElementChild.setAttribute("contenteditable", true);
-        this.#item.firstElementChild.style.userSelect = "text";
-        this.#item.firstElementChild.style.webkitUserSelect = "text";
-        this.#item.firstElementChild.style.webkitUserModify = "read-write";
-        const modifierEvent = new CustomEvent("modify", {
-            detail: this.#item,
-            cancelable: true,
-            bubbles: false,
-        });
-        this.#item.dispatchEvent(modifierEvent);
-    }
-
-    /**
-     * Supprime les éléments créés
-     * Crer un custom event 'closeAction' lors de l'event
-     * @param {PointerEvent} e
-     */
-    #onClose(e) {
-        e.preventDefault();
-        const closeEvent = new CustomEvent("closeAction", {
-            detail: this.#item,
-            cancelable: true,
-            bubbles: true,
-        });
-        this.#item.dispatchEvent(closeEvent);
-        this.#item.firstElementChild.setAttribute("contenteditable", false);
-        this.#item.firstElementChild.removeAttribute("style");
-        this.#container.remove();
-        this.#stop.remove();
-    }
-
-    /**
-     * @returns {Number}
-     */
-    get containerWidth() {
-        return this.#element.offsetWidth;
-    }
-
-    /**
-     * @returns {Array} this.#container
-     */
-    get container() {
-        return this.#container;
-    }
-
-    /**
-     * @returns {Array}
-     */
-    get element() {
-        return this.#element;
-    }
-
-    /** @type {HTMLDivElement} removes the stop progatation element */
-    get removeStopElement() {
-        return this.#stop.remove();
-    }
-
-    get creationStatus() {
-        return this.#isCreated;
-    }
-
-    get onClose() {
-        return this.#onClose.bind(this);
-    }
-
-    get stopPropagation() {
-        return this.#stopPropagation.bind(this);
-    }
-}
-
-class UserValidations {
-    #item;
-    /** @type {Array | HTMLElement} */
-    #element = [];
-    /** @type {HTMLElement} */
-    #validate;
-    /** @type {HTMLElement} */
-    #cancel;
-
-    /**
-     * Crer une div contenant des boutons d'intéraction
-     * @param {Object | HTMLElement} item
-     * @returns
-     */
-    constructor(item) {
-        this.#item = item;
-        if (this.#element.length > 0) {
-            return;
-        }
-        const container = item.querySelector(".interactive-container");
-
-        this.#element = createElement("div", {
-            class: "interactive-container__elements",
-        });
-
-        this.#validate = createElement("img", {
-            class: "interactive-elements__validate",
-            name: "validate",
-            id: "validate-" + this.#item.id,
-            src: "../img/check-mark.svg",
-        });
-        this.#cancel = createElement("img", {
-            class: "interactive-elements__cancel",
-            name: "cancel",
-            id: "cancel-" + this.#item.id,
-            src: "../img/cancel.svg",
-        });
-
-        this.#element.append(this.#cancel);
-        this.#element.prepend(this.#validate);
-        container.append(this.#element);
-
-        this.#cancel.addEventListener("click", (e) => this.#onCancel(e));
-        this.#validate.addEventListener("click", (e) => this.#onValidation(e));
-    }
-
-    /**
-     * Annule l'intéraction en cours et dispatch un customEvent "canceled"
-     * Pour une future intéraction
-     * @param {PointerEvent} e
-     */
-    #onCancel(e) {
-        e.preventDefault();
-        this.#item.firstElementChild.setAttribute("contenteditable", false);
-        this.#item.firstElementChild.removeAttribute("style");
-        const cancelEvent = new CustomEvent("canceled", {
-            detail: this.#item,
-            cancelable: true,
-            bubbles: false,
-        });
-        this.#item.dispatchEvent(cancelEvent);
-    }
-
-    /**
-     * Valide l'intéraction en cours et dispatch un customEvent "validate"
-     * Pour une future intéraction
-     * @param {PointerEvent} e
-     */
-    #onValidation(e) {
-        e.preventDefault();
-        this.#item.firstElementChild.setAttribute("contenteditable", false);
-        this.#item.firstElementChild.removeAttribute("style");
-        const validateEvent = new CustomEvent("validate", {
-            detail: this.#item,
-            cancelable: true,
-            bubbles: false,
-        });
-        this.#item.dispatchEvent(validateEvent);
-    }
-
-    /** @returns {NodeListOf.<HTMLElement>} */
-    get element() {
-        return this.#element;
     }
 }
