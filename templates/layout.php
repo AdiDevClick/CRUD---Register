@@ -41,6 +41,9 @@ $registeredItems = [
     <meta charset="UTF-8">
     <!-- <meta content="text/javascript; charset=UTF-8" http-equiv="content-type"> -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <noscript>
+        <meta http-equiv="refresh" content="0;url=<?= strip_tags($rootUrl) . $clicServer ?>/templates/no-js.html" />
+    </noscript>
     <link rel="stylesheet" href="<?= strip_tags($rootUrl) . $clicServer ?>/css/resetfirefox.css">
     <!-- <link rel="stylesheet" href="<?php //echo($rootUrl). $clicServer
                                         ?>/css/resetchromium.css"> -->
@@ -58,6 +61,7 @@ $registeredItems = [
     <script src="<?= strip_tags($rootUrl) . $clicServer ?>/scripts/script.js" type="module" defer></script>
     <script src="<?= strip_tags($rootUrl) . $clicServer ?>/scripts/searchApp.js" type="module" defer></script>
 
+
     <!-- <link rel="stylesheet" href="<?php //echo($rootUrl). $clicServer
                                         ?>/resources/css/main.css"/> -->
     <!-- <link rel="stylesheet" href="<?php //echo($rootUrl). $clicServer
@@ -65,6 +69,7 @@ $registeredItems = [
     <link
         <?= $css ?? '' ?> />
     <?php
+
 
     // $manifest = json_decode(file_get_contents(dirname(__DIR__) . DIRECTORY_SEPARATOR ."public" . DIRECTORY_SEPARATOR ."assets" . DIRECTORY_SEPARATOR .".vite". DIRECTORY_SEPARATOR ."manifest.json"), true);
     // print_r($manifest);
@@ -110,6 +115,7 @@ $registeredItems = [
                                     ?>/scripts/toaster.js" defer></script> -->
     <script <?= $script ?? '' ?>></script>
     <script <?= $script2 ?? '' ?>></script>
+
     <title>
         <?= 'We Love Food - ' . strip_tags($title) ?? 'We Love Food' ?>
     </title>
