@@ -5,6 +5,7 @@
 @import "LightModeToggle.css";
 @import "bubbleMenu.css";
 @import "stepButton.css";
+@import "404.css";
 
 /**
 * Root part // Custom colors and fonts
@@ -346,7 +347,7 @@ header {
     --max-width-content: 2160px;
 
     &:has(.read_header) {
-        --max-width-content: 100vw;
+        --max-width-content: 0;
     }
 
     position: relative;
