@@ -11,17 +11,17 @@
  *      checked: todo.completed ? '' : null,
  * })
  * @param {String} tagName - NodeListOf.<HTMLElement>
- * @param {Object} attributes 
+ * @param {Object} attributes
  * @returns {HTMLElement}
  */
 export function createElement(tagName, attributes = {}) {
-    const element = document.createElement(tagName)
+    const element = document.createElement(tagName);
     for (const [attribute, value] of Object.entries(attributes)) {
         if (value !== null) {
-            element.setAttribute(attribute, value)
+            element.setAttribute(attribute, value);
         }
     }
-    return element
+    return element;
 }
 
 /**
@@ -30,10 +30,10 @@ export function createElement(tagName, attributes = {}) {
  * @param {String|Array<String>} className
  */
 export function removeClassesAndStyle(target, className) {
-    className = Array.isArray(className) ? className : [className]
+    className = Array.isArray(className) ? className : [className];
     if (target) {
-        target.classList.remove(...className)
-        target.removeAttribute('style')
+        target.classList.remove(...className);
+        target.removeAttribute("style");
     }
 }
 
@@ -43,11 +43,11 @@ export function removeClassesAndStyle(target, className) {
  * @param {String} attributeName
  */
 export function removeAttributeFrom(elements, attributeName) {
-    elements.forEach(element => {
+    elements.forEach((element) => {
         if (element) {
-            element.removeAttribute(attributeName)
+            element.removeAttribute(attributeName);
         }
-    })
+    });
 }
 
 // Fonction récursive pour trouver l'élément avec l'ID correspondant
@@ -59,30 +59,37 @@ export function removeAttributeFrom(elements, attributeName) {
  */
 export function findElement(node, id) {
     if (node.id === id) {
-        return node
+        return node;
     }
     // nodeType === 1 signifie que c'est un élément
-    const children = Array.from(node.childNodes).filter(child => child.nodeType === 1)
+    const children = Array.from(node.childNodes).filter(
+        (child) => child.nodeType === 1
+    );
 
     for (const child of children) {
-    // for (const child of node.children) {
-        const found = findElement(child, id)
+        // for (const child of node.children) {
+        const found = findElement(child, id);
         if (found) {
-            return found
+            return found;
         }
     }
-    return null
+    return null;
 }
 // Fonction itérative pour trouver l'élément avec l'ID correspondant
 // avec boucle et un stack
 
 function findElementIterative(node, id) {
-    const stack = [node]
+    const stack = [node];
     while (stack.length > 0) {
-        const current = stack.pop()
-        if(current.id === id) {
-            return current
-        } stack.push(...Array.from(current.childNodes).filter(child => child.nodeType === 1))
+        const current = stack.pop();
+        if (current.id === id) {
+            return current;
+        }
+        stack.push(
+            ...Array.from(current.childNodes).filter(
+                (child) => child.nodeType === 1
+            )
+        );
     }
     return null;
 }
@@ -98,13 +105,15 @@ function findElementIterative(node, id) {
  * @param {RegExp} allowedCharsRegex - Une chaine Regexp normale
  * @returns {Array}
  */
-export function retrieveUniqueNotAllowedCharFromRegex(value, allowedCharsRegex) {
-    return Array.from(value)
-        .filter( (value, index, self) =>
+export function retrieveUniqueNotAllowedCharFromRegex(
+    value,
+    allowedCharsRegex
+) {
+    return Array.from(value).filter(
+        (value, index, self) =>
             !value.match(allowedCharsRegex) &&
-            index === self.findIndex( (v) => v === value
-            )
-        )
+            index === self.findIndex((v) => v === value)
+    );
 }
 
 /**
@@ -118,18 +127,24 @@ export function retrieveUniqueNotAllowedCharFromRegex(value, allowedCharsRegex) 
  * Exemple : 'input' => Array[0]key.input
  * @returns {Array} filtered array
  */
-export function filterArrayToRetrieveUniqueValues(arr, objects, property = null) {
-    objects = Array.isArray(objects) ? objects : [objects]
-    arr = Array.isArray(arr) ? arr : [arr]
-    return arr.filter( (value, index, self) =>
-        // value !== object &&
-        // index === self.findIndex( (v) => v === value
-        // )
-        // console.log(value, index, self)
-        (property ? objects.every((object) => object !== value[property]) : objects.every((object) => value !== object)) &&
-            index === self.findIndex( (v) => v === value
-        )
-    )
+export function filterArrayToRetrieveUniqueValues(
+    arr,
+    objects,
+    property = null
+) {
+    objects = Array.isArray(objects) ? objects : [objects];
+    arr = Array.isArray(arr) ? arr : [arr];
+    return arr.filter(
+        (value, index, self) =>
+            // value !== object &&
+            // index === self.findIndex( (v) => v === value
+            // )
+            // console.log(value, index, self)
+            (property
+                ? objects.every((object) => object !== value[property])
+                : objects.every((object) => value !== object)) &&
+            index === self.findIndex((v) => v === value)
+    );
 }
 
 // function returnValue(arr, property) {
@@ -154,8 +169,14 @@ export function filterArrayToRetrieveUniqueValues(arr, objects, property = null)
  * @param {String} propertyToSet - La nouvelle propriété à ajouter, ex : input.newProperty.
  * @param {Boolean | String} value - La valeur que l'on souhaite associerà la nouvelle propriété.
  */
-export function setObjectPropertyTo(arr, objectToModify, objectProperty, propertyToSet, value) {
-    arr = Array.isArray(arr) ? arr : [arr]
+export function setObjectPropertyTo(
+    arr,
+    objectToModify,
+    objectProperty,
+    propertyToSet,
+    value
+) {
+    arr = Array.isArray(arr) ? arr : [arr];
     // console.log(test === 'test')
     // console.log(objectProperty)
     // if (objectProperty === 'insert') {
@@ -170,22 +191,22 @@ export function setObjectPropertyTo(arr, objectToModify, objectProperty, propert
             //     console.log('Cest un true', value)
             //     console.log(objectToModify)
             //     console.log(propertyToSet)
-            // } 
-            objectToModify[propertyToSet] = value
-            return
+            // }
+            objectToModify[propertyToSet] = value;
+            return;
         }
         if (objectProperty === keys) {
             // console.log(teste)
-            
+
             // if (teste == 'test') {
             //     console.log(objectProperty)
             //     console.log(keys)
             //     console.log('cest test qui est setup')
             // }
 
-            console.log("ca match, je rajoute ", keys, propertyToSet)
+            console.log("ca match, je rajoute ", keys, propertyToSet);
             // console.log(objectToModify, propertyToSet)
-            objectToModify[propertyToSet] = value
+            objectToModify[propertyToSet] = value;
         }
     }
 }
@@ -196,15 +217,17 @@ export function setObjectPropertyTo(arr, objectToModify, objectProperty, propert
  * @param {HTMLElement} commentNode un objet HTML. Il retourne son nodeValue pour récupérer son contenu
  */
 export function removeComment(targetSelector, commentNode) {
-    const targetElement = document.querySelector(targetSelector)
+    const targetElement = document.querySelector(targetSelector);
     if (targetElement) {
-        const comments = Array.from(targetElement.childNodes).filter(node => 
-            node.nodeType === Node.COMMENT_NODE && node.nodeValue.trim() === commentNode.nodeValue.trim()
+        const comments = Array.from(targetElement.childNodes).filter(
+            (node) =>
+                node.nodeType === Node.COMMENT_NODE &&
+                node.nodeValue.trim() === commentNode.nodeValue.trim()
             // node.nodeType === Node.COMMENT_NODE && node.nodeValue.trim() === commentText.trim()
-        )
-        comments.forEach(comment => targetElement.removeChild(comment))
+        );
+        comments.forEach((comment) => targetElement.removeChild(comment));
     } else {
-        console.error('Target element not found')
+        console.error("Target element not found");
     }
 }
 
@@ -219,7 +242,7 @@ export function insertComment(targetSelector, commentText) {
         const commentNode = document.createComment(commentText);
         targetElement.appendChild(commentNode);
     } else {
-        console.error('Target element not found');
+        console.error("Target element not found");
     }
 }
 
@@ -235,7 +258,7 @@ export function transformToComment(targetSelector) {
         const commentNode = document.createComment(commentText);
         targetElement.replaceWith(commentNode);
     } else {
-        console.error('Target element not found');
+        console.error("Target element not found");
     }
 }
 
@@ -245,85 +268,99 @@ export function transformToComment(targetSelector) {
  * @param {HTMLElement} container représente un conteneur. Permet de réduire le champs du querySelector.
  * @param {String} isClass représente un conteneur. Il retourne son nodeValue pour match son contenu.
  */
-export function appendToAnotherLocation(targetSelector, container , isClass = 'js-form-recipe') {
-    let newCardRecipeSection = container.querySelector('.card.recipe')
-    const parentElement = container.querySelector(targetSelector)
+export function appendToAnotherLocation(
+    targetSelector,
+    container,
+    isClass = "js-form-recipe"
+) {
+    let newCardRecipeSection = container.querySelector(".card.recipe");
+    const parentElement = container.querySelector(targetSelector);
 
-    let newCardFormRecipeSection = container.querySelector('.form-recipe')
-    
+    let newCardFormRecipeSection = container.querySelector(".form-recipe");
+
     // Creates recipe steps container
     if (!newCardFormRecipeSection) {
-        newCardFormRecipeSection = createElement('section', {
-        class: "form-recipe"
-        })
+        newCardFormRecipeSection = createElement("section", {
+            class: "form-recipe",
+        });
     }
 
     // Creates drawer steps container
     if (!newCardRecipeSection) {
-        newCardRecipeSection = createElement('section', {
+        newCardRecipeSection = createElement("section", {
             // class: "card recipe"
-            class: "card recipe js-stop-appender"
-        })
+            class: "card recipe js-stop-appender",
+        });
     }
 
     try {
         // Retrieve every recipe steps
-        const firstContentToMoveToNewCardFormRecipeSection = Array.from(parentElement.childNodes)
-            .find(node => {
-                if (node.tagName === 'DIV') {
-                    return (node.classList.contains('js-one'))
-                }
+        const firstContentToMoveToNewCardFormRecipeSection = Array.from(
+            parentElement.childNodes
+        ).find((node) => {
+            if (node.tagName === "DIV") {
+                return node.classList.contains("js-one");
             }
-        )
+        });
 
-        const secondContentToMoveToNewCardRecipeSection = Array.from(parentElement.childNodes)
-            .find(node => {
-                if (node.tagName === 'DIV') {
-                    return (node.classList.contains('js-two'))
-                }
+        const secondContentToMoveToNewCardRecipeSection = Array.from(
+            parentElement.childNodes
+        ).find((node) => {
+            if (node.tagName === "DIV") {
+                return node.classList.contains("js-two");
             }
-        )
+        });
 
         //
-        const thirdContentToMoveToNewCardRecipeSection = Array.from(parentElement.childNodes)
-            .find(node => {
-                if (node.tagName === 'DIV') {
-                    return (node.classList.contains('js-four'))
-                }
+        const thirdContentToMoveToNewCardRecipeSection = Array.from(
+            parentElement.childNodes
+        ).find((node) => {
+            if (node.tagName === "DIV") {
+                return node.classList.contains("js-four");
             }
-        )
+        });
 
         // Retrieve the submit button
-        const fourthContentToMoveToNewCardRecipeSection = parentElement.querySelector('#submit-recipe')
+        const fourthContentToMoveToNewCardRecipeSection =
+            parentElement.querySelector("#submit-recipe");
 
         if (firstContentToMoveToNewCardFormRecipeSection) {
-            const drawer = parentElement.querySelector('.show_drawer')
+            const drawer = parentElement.querySelector(".show_drawer");
 
-            newCardFormRecipeSection.append(firstContentToMoveToNewCardFormRecipeSection)
+            newCardFormRecipeSection.append(
+                firstContentToMoveToNewCardFormRecipeSection
+            );
 
-            drawer.prepend(secondContentToMoveToNewCardRecipeSection)
-            drawer.append(thirdContentToMoveToNewCardRecipeSection, fourthContentToMoveToNewCardRecipeSection)
+            drawer.prepend(secondContentToMoveToNewCardRecipeSection);
+            drawer.append(
+                thirdContentToMoveToNewCardRecipeSection,
+                fourthContentToMoveToNewCardRecipeSection
+            );
 
-            newCardRecipeSection.append(parentElement.querySelector('.js-recipe'))
-            newCardRecipeSection.append(parentElement.querySelector('.show_drawer'))
+            newCardRecipeSection.append(
+                parentElement.querySelector(".js-recipe")
+            );
+            newCardRecipeSection.append(
+                parentElement.querySelector(".show_drawer")
+            );
 
-            parentElement.prepend(newCardFormRecipeSection)
-            parentElement.append(newCardRecipeSection)
+            parentElement.prepend(newCardFormRecipeSection);
+            parentElement.append(newCardRecipeSection);
         }
     } catch (error) {
-        console.error(error)
+        console.error(error);
     }
 }
 
 /**
- * Permet de remonter d'un niveau le contenu de la target 
+ * Permet de remonter d'un niveau le contenu de la target
  * @param {String} target représente une classe/id
  */
 export function unwrap(target) {
-    const content = document.querySelectorAll(target)
-    content.forEach(element => {
+    const content = document.querySelectorAll(target);
+    content.forEach((element) => {
         for (const elements of element.childNodes) {
-            element.parentNode.append(elements)
+            element.parentNode.append(elements);
         }
         // element.replaceWith(element.childNodes)
         // element.outerHTML = element.innerHTML
@@ -331,7 +368,7 @@ export function unwrap(target) {
         //     element.parentElement.append(element.children[i])
         // }
         // element.parentElement.append(element.childNodes)
-    })
+    });
 }
 
 /**
@@ -341,13 +378,13 @@ export function unwrap(target) {
  * @param {String} isClass représente une classe ou un ID. Il retourne ses childNodes
  */
 export function restoreToDefaultPosition(targetToAppendTo, isClass) {
-    const parentElement = document.querySelectorAll(isClass)
+    const parentElement = document.querySelectorAll(isClass);
     // const contentToMove = Array.from(parentElement).map(child => {
     //     return child.childNodes
     // })
-    const contentToMove = Array.from(parentElement).filter(child => child)
+    const contentToMove = Array.from(parentElement).filter((child) => child);
     // const contentToMove = [].slice.call(parentElement)
-    
+
     // while (parentElement.children instanceof HTMLElement) {
     //     section.appendChild(parentElement.children);
     // }
@@ -359,23 +396,23 @@ export function restoreToDefaultPosition(targetToAppendTo, isClass) {
     // const contentToMove = Array.from(parentElement).filter(child => child)
     // let contentToMove
     // parentElement.forEach(element => {
-        
+
     // })
     // let contentToMove = parentElement.forEach(element => {
     //     [].slice.call(element.childNodes)
     //     return element.childNodes
     // })
-        // n.parentNode.closest(targetSelectors) === parent.closest(targetSelectors)
-    
-        //         node.nodeType === Node.ELEMENT_NODE
-        //         // node.nodeType === Node.ELEMENT_NODE && node.classList.contains(`${element}`)
-        //         // node.nodeType === Node.ELEMENT_NODE && node.classList(element)
+    // n.parentNode.closest(targetSelectors) === parent.closest(targetSelectors)
+
+    //         node.nodeType === Node.ELEMENT_NODE
+    //         // node.nodeType === Node.ELEMENT_NODE && node.classList.contains(`${element}`)
+    //         // node.nodeType === Node.ELEMENT_NODE && node.classList(element)
     // let contentToMove = [].slice.call(parentElement[0].children)
     // console.log(contentToMove)
     // contentToMove = parentElement.map(child => {
-        // console.log(child)
-        // Array.from(child.childNodes).filter(node =>
-        // node.nodeType === Node.ELEMENT_NODE
+    // console.log(child)
+    // Array.from(child.childNodes).filter(node =>
+    // node.nodeType === Node.ELEMENT_NODE
     // })
     // parentElement.forEach(element => {
     //     contentToMove = Array.from(element.childNodes).filter(node =>
@@ -393,33 +430,33 @@ export function restoreToDefaultPosition(targetToAppendTo, isClass) {
     //         // node.nodeType === Node.ELEMENT_NODE && node.classList(element)
     //     )
     // })
-    
-        // node.className
-        // targetSelectors.forEach(element => {
-        //     console.log(node.className)
-        // })
-        // targetSelectors.forEach(element => {
-        //     return node.className == element
-        // })
-    
+
+    // node.className
     // targetSelectors.forEach(element => {
-    //     Array.from(document.querySelector(element).childNodes).filter(node => 
+    //     console.log(node.className)
+    // })
+    // targetSelectors.forEach(element => {
+    //     return node.className == element
+    // })
+
+    // targetSelectors.forEach(element => {
+    //     Array.from(document.querySelector(element).childNodes).filter(node =>
     //         contentToMove.push(node)
     //     )
     // })
 
-    // const contentToMoveToNewCardFormRecipeSection = Array.from(parentElement.childNodes).filter(node => 
+    // const contentToMoveToNewCardFormRecipeSection = Array.from(parentElement.childNodes).filter(node =>
     //     console.log(node)
     //     // console.log(document.querySelector(node).childNodes)
     // )
 
     if (contentToMove) {
-        contentToMove.forEach(element => {
+        contentToMove.forEach((element) => {
             while (element.children.length > 0) {
                 targetToAppendTo.appendChild(element.children[0]);
             }
-            element.remove()
-        })
+            element.remove();
+        });
         // contentToMoveToNewCardFormRecipeSection.forEach(element => {
         //     newCardFormRecipeSection.append(element)
         // })
@@ -440,7 +477,7 @@ export function restoreToDefaultPosition(targetToAppendTo, isClass) {
         // contentToMove.replaceWith(restoredElement)
         // parentElement.replaceWith(restoredElement)
     } else {
-        console.error('Comment node not found')
+        console.error("Comment node not found");
     }
 }
 
@@ -448,22 +485,24 @@ export function restoreToDefaultPosition(targetToAppendTo, isClass) {
  * Sélectionne un Node contenant dans une balise commentaire
  * Puis cherche le un commentaire qui match le commentedNode
  * Puis supprime les balises commentaires pour réactiver l'élément -
- * @param {String} targetSelector représente une classe ou un élément HTML 
+ * @param {String} targetSelector représente une classe ou un élément HTML
  * @param {HTMLElement} commentedNode un objet HTML. Il retourne son nodeValue pour match son contenu
  */
-export function restoreFromComment(targetSelector, commentedNode = '') {
-    const parentElement = document.querySelector(targetSelector)
+export function restoreFromComment(targetSelector, commentedNode = "") {
+    const parentElement = document.querySelector(targetSelector);
     // const parentElement = document.querySelector(targetSelector).parentNode
-    const commentNode = Array.from(parentElement.childNodes).find(node => 
-        node.nodeType === Node.COMMENT_NODE && node.nodeValue.trim() === commentedNode.nodeValue.trim()
-    )
+    const commentNode = Array.from(parentElement.childNodes).find(
+        (node) =>
+            node.nodeType === Node.COMMENT_NODE &&
+            node.nodeValue.trim() === commentedNode.nodeValue.trim()
+    );
     if (commentNode) {
-        const parser = new DOMParser()
-        const doc = parser.parseFromString(commentNode.nodeValue, 'text/html')
-        const restoredElement = doc.body.firstChild
-        commentNode.replaceWith(restoredElement)
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(commentNode.nodeValue, "text/html");
+        const restoredElement = doc.body.firstChild;
+        commentNode.replaceWith(restoredElement);
     } else {
-        console.error('Comment node not found')
+        console.error("Comment node not found");
     }
 }
 
@@ -476,89 +515,102 @@ export function restoreFromComment(targetSelector, commentedNode = '') {
  * @throws {Error} Lance une erreur si l'importation ou l'instanciation échoue -
  * @returns {Promise} Une promesse qui se résout lorsque le module est importé et instancié.
  */
-export async function importThisModule(className, object = {}, pathName = className) {
+export async function importThisModule(
+    className,
+    object = {},
+    pathName = className
+) {
     // Sets different possible paths
     const paths = [
         `../components/${className}.js`,
-        `../components/${pathName}/${className}.js`
-    ]
+        `../components/${pathName}/${className}.js`,
+    ];
     // Iterate each path
     for (const path of paths) {
         try {
-            const importedModule = await import(path)
+            const importedModule = await import(path);
             if (!importedModule.ok) {
-                new Error(`Erreur lors du chargement du module : ${className}`, { cause: path })
+                new Error(
+                    `Erreur lors du chargement du module : ${className}`,
+                    { cause: path }
+                );
             }
-            const ModuleClass = importedModule.default || importedModule[className]
-            if (typeof ModuleClass !== 'function') {
-                throw new Error(`La classe importée n'est pas une fonction constructeur : ${ModuleClass}`);
+            const ModuleClass =
+                importedModule.default || importedModule[className];
+            if (typeof ModuleClass !== "function") {
+                throw new Error(
+                    `La classe importée n'est pas une fonction constructeur : ${ModuleClass}`
+                );
             }
-            if (className === 'Carousel') {
-                return ModuleClass
+            if (className === "Carousel") {
+                return ModuleClass;
             }
-            const module = new ModuleClass(object)
-            return module
+            const module = new ModuleClass(object);
+            return module;
         } catch (error) {
             // Continue to the next path if the module is not found
-            if (error.code !== 'MODULE_NOT_FOUND') {
-                console.error(`Erreur lors du chargement du module depuis ${path}:`, { cause: error.message })
+            if (error.code !== "MODULE_NOT_FOUND") {
+                console.error(
+                    `Erreur lors du chargement du module depuis ${path}:`,
+                    { cause: error.message }
+                );
             }
         }
     }
-    throw new Error(`Module non trouvé : ${className}`)
+    throw new Error(`Module non trouvé : ${className}`);
 }
 
 /**
  * Debounce une fonction de manière Asynchrone
  * Il faut spécifier la duration -
- * Cette fonction permet aussi de prendre en compte 
+ * Cette fonction permet aussi de prendre en compte
  * les paramètres de la fonction debounced
- * @param {Function} funct 
+ * @param {Function} funct
  * @param {Number} duration
  * @fires [debounce]
  * @returns {Function}
  */
-export const debounce = function(funct, duration) {
-    let timer
+export const debounce = function (funct, duration) {
+    let timer;
     return (...args) => {
-        let context = this
+        let context = this;
         return new Promise((resolve) => {
-            clearTimeout(timer)
+            clearTimeout(timer);
             timer = setTimeout(() => {
-                funct.apply(context, args)
-                resolve(duration)
-            }, duration)
-        })
-    }
-}
+                funct.apply(context, args);
+                resolve(duration);
+            }, duration);
+        });
+    };
+};
 
 /**
  * Accepte une promesse
- * @param {number} duration 
+ * @param {number} duration
  * @returns {Promise}
  */
 export function wait(duration, message) {
     return new Promise((resolve) => {
         setTimeout(() => {
-            resolve(message)
-        }, duration)
-    })
+            resolve(message);
+        }, duration);
+    });
 }
 /**
  * Rejette une promesse de force
- * @param {number} duration 
+ * @param {number} duration
  * @returns {Promise}
  */
 export function waitAndFail(duration, message) {
     return new Promise((resolve, reject) => {
         setTimeout(() => {
-            reject(message)
-        }, duration)
-    })
+            reject(message);
+        }, duration);
+    });
 }
 
 /**
- * Crer une alerte en fonction d'un template HTML  id "#alert-layout" 
+ * Crer une alerte en fonction d'un template HTML  id "#alert-layout"
  */
 
 /**
@@ -580,13 +632,13 @@ export function waitAndFail(duration, message) {
  * IMPORTANT :
  * Pour utiliser le toaster, il faut importer la fonction 'alertMessage'
  * Exemple : import { alertMessage } from "./functions/dom.js"
- * 
- * Pour le CSS : 
+ *
+ * Pour le CSS :
  * Importer le toaster.css dans le main css file
  */
 
 /**
- * Exemple d'utilisation : 
+ * Exemple d'utilisation :
  *   const alert = alertMessage(error.message)
  *   const alertContainer = document.querySelector('.toast-container')
  *   alertContainer.insertAdjacentElement(
@@ -595,62 +647,63 @@ export function waitAndFail(duration, message) {
  *   )
  */
 
-/** 
- * @param {string} message 
- * @param {string} type 
+/**
+ * @param {string} message
+ * @param {string} type
  * @returns {HTMLElement}
  */
-export function alertMessage(message, type = 'Erreur') {
-    let toasterDivContainer = document.querySelector('.toast-container')
-    
-    const alert = document.querySelector('#alert-layout').content.firstElementChild.cloneNode(true)
-    const progress = alert.querySelector('.progress')
-    const closeIcon = alert.querySelector('.toggle_btn-box')
+export function alertMessage(message, type = "Erreur") {
+    let toasterDivContainer = document.querySelector(".toast-container");
+
+    const alert = document
+        .querySelector("#alert-layout")
+        .content.firstElementChild.cloneNode(true);
+    const progress = alert.querySelector(".progress");
+    const closeIcon = alert.querySelector(".toggle_btn-box");
     if (!toasterDivContainer) {
-        toasterDivContainer = createElement('div', {
-            class: 'toast-container',
-            role: 'alert'
-        })
-        document.body.append(toasterDivContainer)
+        toasterDivContainer = createElement("div", {
+            class: "toast-container",
+            role: "alert",
+        });
+        document.body.append(toasterDivContainer);
     }
     if (alert) {
-        wait(50)
-            .then(() => alert.classList.add('active'))
-        closeIcon.classList.add('open')
-        alert.classList.add(type)
-        if (type === 'Success') {
-            alert.querySelector('i').classList.add('fa-check')
+        wait(50).then(() => alert.classList.add("active"));
+        closeIcon.classList.add("open");
+        alert.classList.add(type);
+        if (type === "Success") {
+            alert.querySelector("i").classList.add("fa-check");
         } else {
-            alert.querySelector('i').classList.add('fa-info')
+            alert.querySelector("i").classList.add("fa-info");
         }
-        progress.classList.add('active')
-        alert.querySelector('.text-1').innerText = type
-        alert.querySelector('.text-2').innerText = message
+        progress.classList.add("active");
+        alert.querySelector(".text-1").innerText = type;
+        alert.querySelector(".text-2").innerText = message;
 
-        wait(5000)
-            .then(() => alert.classList.remove('active'))
+        wait(5000).then(() => alert.classList.remove("active"));
 
-        wait(5300)
-            .then(() => {
-                progress.classList.remove('active')
-                alert.remove()
-                toasterDivContainer.remove()
-            })
-        
-        closeIcon.addEventListener('click', e => {
-            e.preventDefault()
-            alert.classList.remove('active')
-            alert.classList.add('close')
-            
-            wait(300)
-                .then(() => progress.classList.remove('active'))
-            closeIcon.dispatchEvent(new CustomEvent('delete'))
-            alert.addEventListener('animationend', () => {
-                alert.remove()
-                toasterDivContainer.remove()
-            })
-            
-        }, {once: true})
-        return alert
-    } else return
+        wait(5300).then(() => {
+            progress.classList.remove("active");
+            alert.remove();
+            toasterDivContainer.remove();
+        });
+
+        closeIcon.addEventListener(
+            "click",
+            (e) => {
+                e.preventDefault();
+                alert.classList.remove("active");
+                alert.classList.add("close");
+
+                wait(300).then(() => progress.classList.remove("active"));
+                closeIcon.dispatchEvent(new CustomEvent("delete"));
+                alert.addEventListener("animationend", () => {
+                    alert.remove();
+                    toasterDivContainer.remove();
+                });
+            },
+            { once: true }
+        );
+        return alert;
+    } else return;
 }
