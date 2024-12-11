@@ -1,31 +1,30 @@
-import { removeClassesAndStyle } from "../../functions/dom.js"
-import { isIPad } from "../../functions/userAgent.js"
-import { ProgressiveCircleButton } from "../ProgressiveCircleButton.js"
+import { removeClassesAndStyle } from "../../functions/dom.js";
+import { isIPad } from "../../functions/userAgent.js";
+import { ProgressiveCircleButton } from "../ProgressiveCircleButton.js";
 
 export class StepsHandlerPlugin {
-
     /** @type {Ingredient} */
-    #preparation
+    #preparation;
     /** @type {HTMLElement} */
-    #gridContainer
+    #gridContainer;
     /** @type {Object} */
-    #previewsButton
+    #previewsButton;
     /** @type {Object} */
-    #nextButton
+    #nextButton;
     /** @type {Number} */
-    #submitionStep = 1
+    #submitionStep = 1;
     /** @type {Object} */
-    #content = {}
+    #content = {};
     /** @type {ErrorHandler} */
-    #errorHandler
+    #errorHandler;
     /** @type {DrawerTouchPlugin} */
-    #touchPlugin
+    #touchPlugin;
     /** @type {Array} */
-    #previewsContent = []
+    #previewsContent = [];
     /** @type {HTMLElement} */
-    #tabulation = document.querySelector('.tabulation')
+    #tabulation = document.querySelector(".tabulation_container");
 
-    #form
+    #form;
     /**
      * @typedef {Object} DataItem
      * @property {string} class - La classe CSS associée à l'étape.
@@ -34,48 +33,53 @@ export class StepsHandlerPlugin {
      * @type {DataItem[]}
      */
     #datas = [
-        { class: '.js-one', data: 'step1' },
-        { class: '.js-two', data: 'step2' },
-        { class: '.js-three', data: 'step3' },
-        { class: '.js-four', data: 'step4' },
-        { class: '.js-five', data: 'final' }
-    ]
+        { class: ".js-one", data: "step1" },
+        { class: ".js-two", data: "step2" },
+        { class: ".js-three", data: "step3" },
+        { class: ".js-four", data: "step4" },
+        { class: ".js-five", data: "final" },
+    ];
 
     constructor(preparation) {
-        this.#preparation = preparation
-        this.#gridContainer = this.#preparation.gridContainer
-        this.#errorHandler = this.#preparation.errorHandler
-        this.#form = this.#preparation.form
+        this.#preparation = preparation;
+        this.#gridContainer = this.#preparation.gridContainer;
+        this.#errorHandler = this.#preparation.errorHandler;
+        this.#form = this.#preparation.form;
         // Create elements
-        this.#createNextAndPreviewsButtons()
+        this.#createNextAndPreviewsButtons();
 
         // Events
+        const returnBtn = this.#tabulation.querySelector("#return");
+        returnBtn.addEventListener("click", this.#onReturn);
+
         // On hovering the previews button
         if (isIPad()) {
-            this.#previewsButton.button.addEventListener('touchstart', e => {
-                e.preventDefault()
-                this.#onHover(e, this.#previewsButton, 2, 0, 25)
-            })
+            this.#previewsButton.button.addEventListener("touchstart", (e) => {
+                e.preventDefault();
+                this.#onHover(e, this.#previewsButton, 2, 0, 25);
+            });
         } else {
-            this.#previewsButton.button.addEventListener('mouseenter', e => {
-                e.preventDefault()
-                this.#onHover(e, this.#previewsButton, 2, 0, 25)
-            })
+            this.#previewsButton.button.addEventListener("mouseenter", (e) => {
+                e.preventDefault();
+                this.#onHover(e, this.#previewsButton, 2, 0, 25);
+            });
         }
-        
+
         // On hovering the next button
         if (isIPad()) {
-            this.#nextButton.button.addEventListener('touchstart', e => {
-                if (!this.#touchPlugin) this.#touchPlugin = this.#preparation.touchPlugin
-                e.preventDefault()
-                this.#onHover(e, this.#nextButton, 1, 25, 25)
-            })
+            this.#nextButton.button.addEventListener("touchstart", (e) => {
+                if (!this.#touchPlugin)
+                    this.#touchPlugin = this.#preparation.touchPlugin;
+                e.preventDefault();
+                this.#onHover(e, this.#nextButton, 1, 25, 25);
+            });
         } else {
-            this.#nextButton.button.addEventListener('mouseenter', e => {
-                if (!this.#touchPlugin) this.#touchPlugin = this.#preparation.touchPlugin
-                e.preventDefault()
-                this.#onHover(e, this.#nextButton, 1, 25, 25)
-            })
+            this.#nextButton.button.addEventListener("mouseenter", (e) => {
+                if (!this.#touchPlugin)
+                    this.#touchPlugin = this.#preparation.touchPlugin;
+                e.preventDefault();
+                this.#onHover(e, this.#nextButton, 1, 25, 25);
+            });
         }
     }
 
@@ -94,10 +98,17 @@ export class StepsHandlerPlugin {
      * @param {Array} datas
      * @returns
      */
-    #onNextClick(event, previewsStepElements, nextStepElements, activeStep, previewslyActiveStep, datas) {
+    #onNextClick(
+        event,
+        previewsStepElements,
+        nextStepElements,
+        activeStep,
+        previewslyActiveStep,
+        datas
+    ) {
         // 1 - Sets progressBar's progress on each buttons
-        this.#previewsButton.progressBar = this.#nextButton.getCurrentProgress
-        this.#nextButton.progressBar = this.#nextButton.getCurrentProgress
+        this.#previewsButton.progressBar = this.#nextButton.getCurrentProgress;
+        this.#nextButton.progressBar = this.#nextButton.getCurrentProgress;
 
         // 2 - Until we reach step 4
         if (this.#submitionStep <= 4) {
@@ -105,9 +116,9 @@ export class StepsHandlerPlugin {
             if (!this.#errorHandler.checkBatchOfInputs(previewsStepElements)) {
                 // Afficher le tooltip en fonction du paramétrage :
                 // Si une input de type INT est en erreur ou empty
-                window.scrollTo(0, 100)
-                this.#errorHandler.triggerToolTip()
-                return
+                window.scrollTo(0, 100);
+                this.#errorHandler.triggerToolTip();
+                return;
             }
             // 2 - After final step
             if (this.#submitionStep === 4) {
@@ -115,58 +126,59 @@ export class StepsHandlerPlugin {
                 if (!this.#errorHandler.checkInputs(event)) {
                     // Si une erreur est détectée lors de l'envoi en mode mobile
                     // et que le drawer est ouvert, il sera fermé.
-                    this.#touchPlugin.resetStates
+                    this.#touchPlugin.resetStates;
                     // Afficher le tooltip en fonction du paramétrage :
                     // Si une input de type INT est en erreur ou empty
-                    window.scrollTo(0, 100)
-                    this.#errorHandler.triggerToolTip()
-                    return
+                    window.scrollTo(0, 100);
+                    this.#errorHandler.triggerToolTip();
+                    return;
                 }
                 // No error found
-                this.#preparation.onSubmit(this.#form)
+                this.#preparation.onSubmit(this.#form);
                 // this.#onSubmit(this.#form)
             }
 
             // 3 - Handle the previews steps
             if (this.#submitionStep < 4) {
                 // 1 - Reset previews step datas before saving the new ones
-                this.#content[datas[this.#submitionStep-1].data] = null
+                this.#content[datas[this.#submitionStep - 1].data] = null;
 
                 // 2 - Getting individual elements from PREVIEWS STEP
-                previewsStepElements.forEach(item => {
+                previewsStepElements.forEach((item) => {
                     // 1 - Save elements
-                    this.#previewsContent.push(item)
-                    this.#pushContent(item)
+                    this.#previewsContent.push(item);
+                    this.#pushContent(item);
 
                     // 2 - Hide elements
                     // this.#touchPlugin.getDisableScrollBehavior
-                    this.#hideElement(item, 'fromRight')
+                    this.#hideElement(item, "fromRight");
                     // this.#preparation.hideElem(item)
-                })
+                });
                 // 3 - We can now instanciate the new STEP COUNTER
-                this.#submitionStep++
+                this.#submitionStep++;
 
                 // 4 - Sets tabulation on this new step active
-                activeStep.classList.toggle('active')
-                activeStep.classList.toggle('greyed')
-                previewslyActiveStep.classList.toggle('active')
+                activeStep.classList.toggle("active");
+                activeStep.classList.toggle("greyed");
+                previewslyActiveStep.classList.toggle("active");
             }
 
-                // 4 - Getting individual elements from NEXT STEP
-                // and display elements to the user
-                this.#elementsToDisplay(nextStepElements, 'fromRight')
+            // 4 - Getting individual elements from NEXT STEP
+            // and display elements to the user
+            this.#elementsToDisplay(nextStepElements, "fromRight");
         }
 
         // At the final step
         if (this.#submitionStep === 4) {
             // Hide the arrow
-            this.#nextButton.showArrow = 'none'
+            this.#nextButton.showArrow = "none";
             // Show the share text
-            this.#nextButton.showText = null
+            this.#nextButton.showText = null;
         }
 
         // If we advance to the 2nd step at least, we display the previews button
-        if (this.#submitionStep > 0) this.#previewsButton.button.removeAttribute('style')
+        if (this.#submitionStep > 0)
+            this.#previewsButton.button.removeAttribute("style");
     }
 
     /**
@@ -177,57 +189,64 @@ export class StepsHandlerPlugin {
      */
     #onPreviewsClick(datas) {
         // Select tab items to highlight
-        const activeStep = this.#tabulation.querySelector(datas[this.#submitionStep-1].class)
-        const previewslyActiveStep = this.#tabulation.querySelector(datas[this.#submitionStep-2].class)
+        const activeStep = this.#tabulation.querySelector(
+            datas[this.#submitionStep - 1].class
+        );
+        const previewslyActiveStep = this.#tabulation.querySelector(
+            datas[this.#submitionStep - 2].class
+        );
 
         // Sets the current state of the progress bar
-        this.#nextButton.progressBar = this.#previewsButton.getCurrentProgress
-        this.#previewsButton.progressBar = this.#nextButton.getCurrentProgress
+        this.#nextButton.progressBar = this.#previewsButton.getCurrentProgress;
+        this.#previewsButton.progressBar = this.#nextButton.getCurrentProgress;
 
         // Save the previews step
-        const nextStepData = this.#gridContainer.querySelectorAll(datas[this.#submitionStep-1].class)
-        nextStepData.forEach(element => {
-            this.#pushContent(element)
-        })
+        const nextStepData = this.#gridContainer.querySelectorAll(
+            datas[this.#submitionStep - 1].class
+        );
+        nextStepData.forEach((element) => {
+            this.#pushContent(element);
+        });
 
         // Retrieve datas
-        const hideNextStep = this.#content[datas[this.#submitionStep-1].data]
-        const showPreviewsStep = this.#content[datas[this.#submitionStep-2].data]
+        const hideNextStep = this.#content[datas[this.#submitionStep - 1].data];
+        const showPreviewsStep =
+            this.#content[datas[this.#submitionStep - 2].data];
 
         // 1 - Hide the current step content
         if (hideNextStep) {
             // this.#touchPlugin.getDisableScrollBehavior
 
-            hideNextStep.forEach(element => {
-                this.#hideElement(element, 'fromLeft')
+            hideNextStep.forEach((element) => {
+                this.#hideElement(element, "fromLeft");
                 // this.#preparation.hideElem(element)
-            })
+            });
         }
 
         // 2 - Display the previews step content to the user
-        this.#elementsToDisplay(showPreviewsStep, 'fromLeft')
-        this.#errorHandler.resetCount
+        this.#elementsToDisplay(showPreviewsStep, "fromLeft");
+        this.#errorHandler.resetCount;
         // 3 - We can now instanciate the new Step counter
         if (this.#submitionStep > 1) {
-            this.#submitionStep--
+            this.#submitionStep--;
             // 3.1 - Show the active step in the tabulation
             // It will grey out the previews steps
             // Modify the arrow / text behaviour
             if (this.#submitionStep < 4) {
                 // Show the arrow until the last step
-                this.#nextButton.showArrow = null
+                this.#nextButton.showArrow = null;
                 // Hide the share text until the last step
-                this.#nextButton.showText = 'none'
-                previewslyActiveStep.classList.toggle('active')
-                activeStep.classList.toggle('active')
-                activeStep.classList.toggle('greyed')
+                this.#nextButton.showText = "none";
+                previewslyActiveStep.classList.toggle("active");
+                activeStep.classList.toggle("active");
+                activeStep.classList.toggle("greyed");
             }
         }
-        
+
         // 4 - If we get back to the first step, hide the previews button
         if (this.#submitionStep < 2) {
-            this.#previewsButton.button.style.display = 'none'
-            this.#previewsButton.button.disabled = true
+            this.#previewsButton.button.style.display = "none";
+            this.#previewsButton.button.disabled = true;
         }
     }
 
@@ -237,24 +256,32 @@ export class StepsHandlerPlugin {
      */
     #createNextAndPreviewsButtons() {
         // DOM target
-        const target = this.#gridContainer?.querySelector('.js-four')
+        const target = this.#gridContainer?.querySelector(".js-four");
 
         // Create previews step button
-        this.#previewsButton = new ProgressiveCircleButton('left-corner', {
-            progressStart: 25,
-            flip: 'flip'
-        }, this.#gridContainer)
+        this.#previewsButton = new ProgressiveCircleButton(
+            "left-corner",
+            {
+                progressStart: 25,
+                flip: "flip",
+            },
+            this.#gridContainer
+        );
         // Hide previews button by default
-        this.#previewsButton.button.style.display = 'none'
+        this.#previewsButton.button.style.display = "none";
 
         // Create next step button
-        this.#nextButton = new ProgressiveCircleButton('right-corner', {
-            progressStart: 0
-        }, this.#gridContainer)
+        this.#nextButton = new ProgressiveCircleButton(
+            "right-corner",
+            {
+                progressStart: 0,
+            },
+            this.#gridContainer
+        );
 
         // Insert buttons into the DOM
-        target.insertAdjacentElement("afterend", this.#nextButton.button)
-        target.insertAdjacentElement("afterend", this.#previewsButton.button)
+        target.insertAdjacentElement("afterend", this.#nextButton.button);
+        target.insertAdjacentElement("afterend", this.#previewsButton.button);
     }
 
     /**
@@ -269,26 +296,31 @@ export class StepsHandlerPlugin {
      */
     #onHover(event, button, startStep, startValue, incrementValue) {
         // Disable submit button
-        document.querySelector('#submit').disabled = true
+        document.querySelector("#submit").disabled = true;
 
-        const controller = new AbortController()
-        let progressValue = startValue
+        const controller = new AbortController();
+        let progressValue = startValue;
         // Specify what percentage shows the progress bar on hover
         while (this.#submitionStep !== startStep) {
-            startStep++
-            progressValue += incrementValue
+            startStep++;
+            progressValue += incrementValue;
         }
-        if (this.#submitionStep == startStep) button.progressBar = progressValue
+        if (this.#submitionStep == startStep)
+            button.progressBar = progressValue;
 
         // On click event
         if (button == this.#nextButton) {
-            this.#handleThisNextStep(event.target, this.#datas, controller)
+            this.#handleThisNextStep(event.target, this.#datas, controller);
         } else {
-            this.#handleThisPreviewsStep(event.target, this.#datas, controller)
+            this.#handleThisPreviewsStep(event.target, this.#datas, controller);
         }
 
         // When user exits cursor from the button
-        this.#onMouseLeaveResetButtonProgressBarValue(button.button, button, controller)
+        this.#onMouseLeaveResetButtonProgressBarValue(
+            button.button,
+            button,
+            controller
+        );
     }
 
     /**
@@ -300,28 +332,58 @@ export class StepsHandlerPlugin {
      * un conflit avec le mouseenter event.
      */
     #handleThisNextStep(eventTarget, datas, controller) {
-        if (!datas[this.#submitionStep]) return
+        if (!datas[this.#submitionStep]) return;
 
         // Tab items to highlight
-        const activeStep = this.#tabulation.querySelector(datas[this.#submitionStep].class)
-        const previewslyActiveStep = this.#tabulation.querySelector(datas[this.#submitionStep-1].class)
+        const activeStep = this.#tabulation.querySelector(
+            datas[this.#submitionStep].class
+        );
+        const previewslyActiveStep = this.#tabulation.querySelector(
+            datas[this.#submitionStep - 1].class
+        );
         // Steps elements to retrieve
-        const nextStepElements = this.#gridContainer.querySelectorAll(datas[this.#submitionStep].class)
-        const previewsStepElements = this.#gridContainer.querySelectorAll(datas[this.#submitionStep-1].class)
-        
+        const nextStepElements = this.#gridContainer.querySelectorAll(
+            datas[this.#submitionStep].class
+        );
+        const previewsStepElements = this.#gridContainer.querySelectorAll(
+            datas[this.#submitionStep - 1].class
+        );
+
         // Will display new step
         // Event for tablet/ipad
         if (isIPad()) {
-            eventTarget.addEventListener('touchend', e => {
-                e.preventDefault()
-                this.#onNextClick(e, previewsStepElements, nextStepElements, activeStep, previewslyActiveStep, datas)
-            }, { once: true, signal: controller.signal } )
+            eventTarget.addEventListener(
+                "touchend",
+                (e) => {
+                    e.preventDefault();
+                    this.#onNextClick(
+                        e,
+                        previewsStepElements,
+                        nextStepElements,
+                        activeStep,
+                        previewslyActiveStep,
+                        datas
+                    );
+                },
+                { once: true, signal: controller.signal }
+            );
         } else {
             // Event for mobile/desktop
-            eventTarget.addEventListener('click', e => {
-                e.preventDefault()
-                this.#onNextClick(e, previewsStepElements, nextStepElements, activeStep, previewslyActiveStep, datas)
-            }, { once: true, signal: controller.signal } )
+            eventTarget.addEventListener(
+                "click",
+                (e) => {
+                    e.preventDefault();
+                    this.#onNextClick(
+                        e,
+                        previewsStepElements,
+                        nextStepElements,
+                        activeStep,
+                        previewslyActiveStep,
+                        datas
+                    );
+                },
+                { once: true, signal: controller.signal }
+            );
         }
     }
 
@@ -335,77 +397,112 @@ export class StepsHandlerPlugin {
     #handleThisPreviewsStep(eventTarget, datas, controller) {
         // Event for tablet/ipad
         if (isIPad()) {
-            eventTarget.addEventListener('touchend', e => {
-                e.preventDefault()
-                this.#onPreviewsClick(datas)
-            }, { once: true, signal: controller.signal } )
+            eventTarget.addEventListener(
+                "touchend",
+                (e) => {
+                    e.preventDefault();
+                    this.#onPreviewsClick(datas);
+                },
+                { once: true, signal: controller.signal }
+            );
         } else {
             // Event for mobile/dekstop
-            eventTarget.addEventListener('click', e => {
-                e.preventDefault()
-                this.#onPreviewsClick(datas)
-            }, { once: true, signal: controller.signal } )
+            eventTarget.addEventListener(
+                "click",
+                (e) => {
+                    e.preventDefault();
+                    this.#onPreviewsClick(datas);
+                },
+                { once: true, signal: controller.signal }
+            );
         }
     }
 
     /**
      * Reset la valeur de la progress bar en utilisant l'oldOffsetValue
      * sauvegardé pa le mutator de la classeObject
-     * @param {HTMLElement} HTMLbuttonElement 
-     * @param {Object} buttonClassObject 
-     * @param {AbortSignal} controller 
+     * @param {HTMLElement} HTMLbuttonElement
+     * @param {Object} buttonClassObject
+     * @param {AbortSignal} controller
      */
-    #onMouseLeaveResetButtonProgressBarValue(HTMLbuttonElement, buttonClassObject, controller) {
-        HTMLbuttonElement.addEventListener('mouseleave', e => {
-            e.preventDefault()
-            // Resets progress bar value to the same one applyed when hover started
-            buttonClassObject.progressBar = buttonClassObject.oldOffsetValue
-            controller.abort()
-        }, { once: true })
+    #onMouseLeaveResetButtonProgressBarValue(
+        HTMLbuttonElement,
+        buttonClassObject,
+        controller
+    ) {
+        HTMLbuttonElement.addEventListener(
+            "mouseleave",
+            (e) => {
+                e.preventDefault();
+                // Resets progress bar value to the same one applyed when hover started
+                buttonClassObject.progressBar =
+                    buttonClassObject.oldOffsetValue;
+                controller.abort();
+            },
+            { once: true }
+        );
     }
 
     /**
      * Parcours le tableau et display chaque élément
-     * @param {array} elements 
+     * @param {array} elements
      */
     #elementsToDisplay(elements, type) {
-        elements.forEach(element => {
+        elements.forEach((element) => {
             // Display new elements
             // Scrolling to the title
-            window.scrollTo(0, 100)
+            window.scrollTo(0, 100);
 
-            removeClassesAndStyle(element, 'hidden')
-            element.style.top = '0px'
+            removeClassesAndStyle(element, "hidden");
+            element.style.top = "0px";
 
             // element.classList.add('show')
             // element.classList.add('show', 'slideToRight')
 
-            if (type === 'fromRight') element.style.animation = 'slideStepFromTheRight 0.3s ease'
-            if (type === 'fromLeft') element.style.animation = 'slideStepFromTheLeft 0.3s ease'
+            if (type === "fromRight")
+                element.style.animation = "slideStepFromTheRight 0.3s ease";
+            if (type === "fromLeft")
+                element.style.animation = "slideStepFromTheLeft 0.3s ease";
 
-            element.addEventListener('animationend', e => {
-                element.removeAttribute('style')
-                // element.classList.remove('show')
-            }, { once:true } )
-        })
+            element.addEventListener(
+                "animationend",
+                (e) => {
+                    element.removeAttribute("style");
+                    // element.classList.remove('show')
+                },
+                { once: true }
+            );
+        });
     }
 
     /**
      * Applique la classe .hidden à un élément pour le cacher
      * Puis ajoute un style display='none'
      * pour laisser la fade out s'opérer
-     * @param {HTMLElement} element 
+     * @param {HTMLElement} element
      */
     #hideElement(element, type) {
-        element.removeAttribute('style')
-        element.style.position = "absolute"
+        element.removeAttribute("style");
+        element.style.position = "absolute";
 
-        if (type === 'fromRight') element.style.animation = 'slideStepFromTheLeft 0.2s ease reverse forwards'
-        if (type === 'fromLeft') element.style.animation = 'slideStepFromTheRight reverse 0.2s ease'
-        element.addEventListener('animationend', e => {
-            element.removeAttribute('style')
-            element.style.display = 'none'
-        }, { once: true } )
+        if (type === "fromRight")
+            element.style.animation =
+                "slideStepFromTheLeft 0.2s ease reverse forwards";
+        if (type === "fromLeft")
+            element.style.animation = "slideStepFromTheRight reverse 0.2s ease";
+        element.addEventListener(
+            "animationend",
+            (e) => {
+                element.removeAttribute("style");
+                element.style.display = "none";
+            },
+            { once: true }
+        );
+    }
+
+    #onReturn(event) {
+        event.preventDefault();
+        window.history.back();
     }
 
     /**
@@ -414,17 +511,19 @@ export class StepsHandlerPlugin {
      * @returns
      */
     #pushContent(item) {
-        let step = 'step'+this.#submitionStep
-        this.#content[step] = this.#content[step] ? [...this.#content[step], item] : [item]
-        return this.#content[step]
+        let step = "step" + this.#submitionStep;
+        this.#content[step] = this.#content[step]
+            ? [...this.#content[step], item]
+            : [item];
+        return this.#content[step];
     }
 
     get getNextButton() {
-        return this.#nextButton.button
+        return this.#nextButton.button;
     }
 
     get getPreviewsButton() {
-        return this.#previewsButton.button
+        return this.#previewsButton.button;
     }
 
     /**
@@ -432,6 +531,6 @@ export class StepsHandlerPlugin {
      * @type {Number}
      */
     get currentSubmitionStep() {
-        return this.#submitionStep
+        return this.#submitionStep;
     }
 }
