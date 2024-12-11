@@ -15,7 +15,7 @@ ob_start();
 
     </p>
     <p>Le bouton ci-dessous te ramènera en lieux sûrs</p>
-    <a class="btn fourofour" href="../index.php" rel="noreferrer noopener">Home</a>
+    <a class="btn fourofour" href="../index.php" rel="noreferrer noopener">Accueil</a>
     <!-- <a class="btn fourofour" href="../index.php" target="_blank" rel="noreferrer noopener">Home</a> -->
 </div>
 
