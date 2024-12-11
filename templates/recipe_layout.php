@@ -26,7 +26,7 @@ require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . "includes" . DIRECTORY_SEP
             <a class="greyed js-four" href="http://">Images</a>
         </li>
     </ul>
-    <a href="{$url}">Retour</a>
+    <a id="return" href="../index.php">Retour</a>
     <!-- <img src="../img/close.svg" alt="image représentant une fermeture"> -->
 </div>
 
