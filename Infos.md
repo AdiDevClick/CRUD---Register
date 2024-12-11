@@ -219,7 +219,6 @@ Fonction: importThisModule(className, object = {})
 ```
 <br>
 
-#TODO : créer un bouton retour pour l'update
 #TODO : créer une page de compte utilisateur
 #TODO : check ipad useragent for subgrid
 #TODO : faire un touchstart / touchend event / touchcancel pour les boutons steps - Voir à utiliser le touch plugin ?
@@ -232,8 +231,8 @@ Fonction: importThisModule(className, object = {})
 #TODO : spcifier dans la doc qu'il faut utiliser composer :
 	installer composer
 	composer require vlucas/phpdotenv
-#TODO : Terminer la partie CSS pour la zone commentaire de la read page
-#TODO : Permettre l'intégration des titres et notes de commentaires
+#TODO : Terminer la Read page pour le header et les ingrédients
+#TODO : Faire le like(trending) et share button de la read page
 
 
 
@@ -260,3 +259,9 @@ Fonction: importThisModule(className, object = {})
 //     $getRecipesIdStatement = null;
 //     throw new Error("stmt Failed");
 // }
+
+# Pour utiliser le créateur de Tooltips Dynamique :
+	Il faut créer ou utiliser le template existant avec l'ID : ` #dynamic-tooltips `
+	Le template se trouve dans : templates/dynamic_tooltips_template.html
+	Le nom du script : UserInteractions/InteractiveTooltips.js
+	Il faut définir un .js-stop-appender idéalement à l'extérieur de la div commentaire
