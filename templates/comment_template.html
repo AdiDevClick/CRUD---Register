@@ -1,0 +1,63 @@
+<template id="comment-layout">
+    <div class="comment" autofocus="true">
+        <div class="comment__header">
+            <div class="profile_picture js-profile_picture">
+                <svg width="69" height="68" viewBox="0 0 69 68" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M50.5 52V48C50.5 45.8783 49.6571 43.8434 48.1569 42.3431C46.6566 40.8429 44.6217 40 42.5 40H26.5C24.3783 40 22.3434 40.8429 20.8431 42.3431C19.3429 43.8434 18.5 45.8783 18.5 48V52M42.5 24C42.5 28.4183 38.9183 32 34.5 32C30.0817 32 26.5 28.4183 26.5 24C26.5 19.5817 30.0817 16 34.5 16C38.9183 16 42.5 19.5817 42.5 24Z"
+                        stroke="#B3B3B3" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+            </div>
+            <i>Par <span class="js-user-id">{{user_id}}</span>, le <span class="js-created_at">{{created_at}}</span></i>
+        </div>
+        <div class="comment__title js-stars-target">
+            <!-- <div class="star">
+                <label for="box-{{comment_id}}"></label>
+                <input name="box-{{comment_id}}" id="box-{{comment_id}}" type="checkbox">
+                <svg id="{{comment_id}}" width="25" height="24" viewBox="0 0 25 24" fill="none"
+                    xmlns="http://www.w3.org/2000/svg">
+                    Définit un masque de découpage
+                    <defs>
+                        <clipPath id="clip-{{comment_id}}">
+                            <rect width="25" height="24" fill="none" style="width: {{width}};"></rect>
+                        </clipPath>
+                    </defs>
+                    Étoile en arrière-plan (pour remplir la partie restante si besoin)
+                    <path
+                        d="M6.325 22L7.95 14.975L2.5 10.25L9.7 9.625L12.5 3L15.3 9.625L22.5 10.25L17.05 14.975L18.675 22L12.5 18.275L6.325 22Z"
+                        fill="none" stroke="#FFA500" />
+                    Étoile principale avec découpage
+                    <path
+                        d="M6.325 22L7.95 14.975L2.5 10.25L9.7 9.625L12.5 3L15.3 9.625L22.5 10.25L17.05 14.975L18.675 22L12.5 18.275L6.325 22Z"
+                        fill="#FFA500" clip-path="url(#clip-{{comment_id}})" />
+                </svg>
+            </div> -->
+            <p class="comment__title-text js-title"> {{title}} </p>
+        </div>
+        <p class="comment__body js-comment js-editable"> {{comment}} </p>
+    </div>
+</template>
+
+<template id="star-layout">
+    <div class="star">
+        <label for="box-{{comment_id}}"></label>
+        <input name="box-{{comment_id}}" id="box-{{comment_id}}" type="checkbox">
+        <svg id="{{comment_id}}" width="25" height="24" viewBox="0 0 25 24" fill="none"
+            xmlns="http://www.w3.org/2000/svg">
+            <!-- Définit un masque de découpage -->
+            <defs>
+                <clipPath id="clip-{{comment_id}}">
+                    <rect width="25" height="24" fill="none" style="width: {{width}};"></rect>
+                </clipPath>
+            </defs>
+            <!-- Étoile en arrière-plan (pour remplir la partie restante si besoin) -->
+            <path
+                d="M6.325 22L7.95 14.975L2.5 10.25L9.7 9.625L12.5 3L15.3 9.625L22.5 10.25L17.05 14.975L18.675 22L12.5 18.275L6.325 22Z"
+                fill="none" stroke="#FFA500" />
+            <!-- Étoile principale avec découpage -->
+            <path
+                d="M6.325 22L7.95 14.975L2.5 10.25L9.7 9.625L12.5 3L15.3 9.625L22.5 10.25L17.05 14.975L18.675 22L12.5 18.275L6.325 22Z"
+                fill="#FFA500" clip-path="url(#clip-{{comment_id}})" />
+        </svg>
+    </div>
+</template>
