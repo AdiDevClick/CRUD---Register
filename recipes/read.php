@@ -28,22 +28,41 @@ $recipeParams = [
 
 // Paramètres de la requête SQL pour récupérer les commentaires
 $sessionCommentName = 'GET_COMMENT';
+$_SESSION['LAST_ID'] = 0;
+
 $commentParams = [
     "fields" => ['comment_id', 'comment', 'user_id', 'c.title', 'review'],
     "date" => ['DATE_FORMAT(c.created_at, "%d/%m/%Y") as comment_date'],
-    "join" => [
-        'comments c' => 'c.recipe_id = r.recipe_id',
-    ],
+    "limit" => '10',
     "where" => [
         "conditions" => [
-            'r.is_enabled' => '= 1',
-            'r.recipe_id' => '= :recipe_id'
+            'c.recipe_id' => '= :recipe_id',
+            'c.comment_id' => '> :comment_id'
         ],
+        "logic" => "AND"
     ],
-    "table" => ["recipes r"],
+    "table" => ["comments c"],
     "error" => ["Ce commentaire n'existe pas"],
-    "fetchAll" => true
+    "save_this_last_id" => "comment_id",
+    "searchMode" => true
 ];
+// $commentParams = [
+//     "fields" => ['comment_id', 'comment', 'user_id', 'c.title', 'review'],
+//     "date" => ['DATE_FORMAT(c.created_at, "%d/%m/%Y") as comment_date'],
+//     "limit" => '10',
+//     "join" => [
+//         'comments c' => 'c.recipe_id = r.recipe_id',
+//     ],
+//     "where" => [
+//         "conditions" => [
+//             'r.is_enabled' => '= 1',
+//             'r.recipe_id' => '= :recipe_id'
+//         ],
+//     ],
+//     "table" => ["recipes r"],
+//     "error" => ["Ce commentaire n'existe pas"],
+//     "fetchAll" => true
+// ];
 
 /**
  * Permet de filtrer quelles clés de l'array getInfos
@@ -106,7 +125,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
                         'comment_id' => $comment['comment_id'],
                         'comment' => $comment['comment'],
                         'user_id' => $comment['user_id'],
-                        'created_at' => $comment['comment_date'],
+                        'comment_date' => $comment['comment_date'],
                         'review' => $comment['review'],
                         'title' => $comment['title'],
                     ];
@@ -121,7 +140,6 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
     }
 
     $recipe['rating'] = $averageRating['rating'] ?? "0";
-
     /* $loggedUser = LoginController::checkLoggedStatus();
     print_r  ($loggedUser); */
     /* foreach($getInfos[0] as $recipes => $value) {
@@ -133,7 +151,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
 
 $title = htmlspecialchars($recipe['title']);
 $script = 'src="../scripts/typeWriter.js" type="module" defer';
-$script2 = 'src="../scripts/starsPageReader.js" type="module" defer';
+$script2 = 'src="../scripts/commentApp.js" type="module" defer';
 
 ob_start()
 
@@ -252,6 +270,9 @@ $recipeSteps = [
 <?php $loggedUser = LoginController::checkLoggedStatus() ?>
 
 <div class="comment-grid">
+    <?php include "../templates/comment_template.html" ?>
+    <?php include "../templates/dynamic_tooltips_template.html" ?>
+
     <div class="note_container">
         <h3>Note des utilisateurs</h3>
         <div class="note__stars">
@@ -262,35 +283,67 @@ $recipeSteps = [
         <p>Filtrer par notes</p>
     </div>
     <?php if (isset($recipe['comments']) && count($recipe['comments']) > 0): ?>
-        <div class="comment_container">
+        <div class="comment_section js-stop-appender">
             <h2>Vos commentaires</h2>
-            <?php foreach ($recipe['comments'] as $comment): ?>
-                <div class="comment">
-                    <?php if (isset($loggedUser) && (int) $loggedUser['userId'] === (int) $comment['user_id']) : ?>
-                        <?php
-                        // Récupérer le contenu du template
-                        $template = file_get_contents("../templates/dynamic_tooltips_template.html");
-                        preg_match('/<template id="dynamic-tooltips">(.*)<\/template>/s', $template, $matches);
-                        $templateContent = $matches[1];
+            <div>
+                <div class="comment_container js-comments-target">
+                    <!-- <div class="js-target"> -->
+                    <!-- <?php //foreach ($recipe['comments'] as $comment): 
+                            ?>
+                        <div class="comment" id="<?php // $comment['comment_id'] 
+                                                    ?>">
+                            <?php //if (isset($loggedUser) && (int) $loggedUser['userId'] === (int) $comment['user_id']) : 
+                            ?>
 
-                        // Utiliser le comment_id pour modifier la variable 'id' du template
-                        $comment['id'] = $comment['comment_id'];
-                        echo renderTemplate($templateContent, $comment);
-                        ?>
-                    <?php endif ?>
-                    <div class="comment__header">
-                        <?php include '../templates/profile_picture.html' ?>
-                        <i>Par <?php echo strip_tags($id->display_user($comment['user_id'])) ?>, le <?php echo strip_tags($comment['created_at']) ?></i>
+                                <?php
+                                // Récupérer le contenu du template des tooltips delete/edit
+                                //$template = file_get_contents("../templates/dynamic_tooltips_template.html");
+                                //preg_match('/<template id="dynamic-tooltips">(.*)<\/template>/s', $template, $matches);
+                                //$templateContent = $matches[1];
+
+                                // Utiliser le comment_id pour modifier la variable 'id' du template
+                                //$comment['id'] = $comment['comment_id'];
+                                //echo renderTemplate($templateContent, $comment);
+                                ?>
+                            <?php //endif 
+                            ?>
+                            <div class="comment__header">
+                                <?php //include '../templates/profile_picture.html' 
+                                ?>
+                                <i>Par <?php // echo strip_tags($id->display_user($comment['user_id'])) 
+                                        ?>, le <?php // echo strip_tags($comment['comment_date']) 
+                                                ?></i>
+                            </div>
+                            <div class="comment__title">
+                                <?php
+                                //echo display_5_stars((string)$comment['review'], $comment['comment_id']);
+                                ?>
+                                <p class="comment__title-text"><?php // strip_tags($comment['title']) 
+                                                                ?></p>
+                            </div>
+                            <p class="comment__body"><?php //echo strip_tags($comment['comment']) 
+                                                        ?></p>
+                        </div>
+                    <?php //endforeach 
+                    ?> -->
+                    <!-- </div> -->
+                    <div
+                        data-endpoint='Process_PreparationList.php'
+                        data-template="#comment-layout"
+                        data-target=".js-comments-target"
+                        data-limit="10"
+                        data-elements='{
+                            "comment_date": ".js-created_at",
+                            "title": ".js-title",
+                            "comment": ".js-comment",
+                            "comment_id": ".js-comment-id",
+                            "user_id": ".js-user-id"
+                            }'
+                        class="align-center js-infinite-pagination">
+                        <div class="loader" role="status"></div>
                     </div>
-                    <div class="comment__title">
-                        <?php
-                        echo display_5_stars((string)$comment['review'], $comment['comment_id']);
-                        ?>
-                        <p class="comment__title-text"><?= strip_tags($comment['title']) ?></p>
-                    </div>
-                    <p class="comment__body"><?php echo strip_tags($comment['comment']) ?></p>
                 </div>
-            <?php endforeach ?>
+            </div>
         </div>
     <?php else : ?>
         <p>Soyez le premier à poster un commentaire !</p>
@@ -307,17 +360,21 @@ $recipeSteps = [
     ?>
     <?php // endif
     ?>
+    <?php // ob_start();
+    ?>
     <div class="comment-form_container">
         <h4>Postez un commentaire</h4>
-        <?php include_once '../comments/comments.php' ?>
+        <?php require_once '../comments/comments.php' ?>
     </div>
-
+    <?php // ob_end_clean();
+    ?>
     <?php //$checkId->displayCommentForm($recipe)
     ?>
     <?php //$checkId->displayCommentSuccess()
     ?>
 <?php endif ?>
-
+<?php //die(var_dump($_SESSION)) 
+?>
 <!-- </div> -->
 <!-- </body> -->
 
