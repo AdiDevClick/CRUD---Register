@@ -5,7 +5,7 @@ class Functions
 {
     public static function getUrl()
     {
-        $url = $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+        $url = $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
         $url = explode("/", parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));
         $url = array_pop($url);
         return $url;
@@ -46,6 +46,7 @@ class Functions
     public static function getFromTable(array $params, int|string $recipeId, $pdo, $optionnalData = null)
     {
         // Option du constructeur
+
         $options = [
             "fetchAll" => $params["fetchAll"] ?? false,
             "searchMode" => $params["searchMode"] ?? false,
