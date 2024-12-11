@@ -11,7 +11,6 @@ export async function fetchJSON(url = "", options = {}) {
         Accept: "application/json",
         ...options.headers,
     };
-
     if (options.img) {
         headers["Content-Type"] = "multipart/form-data";
     }
@@ -68,14 +67,24 @@ export async function fetchJSON(url = "", options = {}) {
     // }
     try {
         const response = await fetch(url, { ...options, headers });
+        // Checking server response
         if (!response.ok) {
-            throw new Error("Impossible de récupérer les données serveur", {
-                cause: response,
-            });
+            // Retrieve others parts of the response like the message
+            const errorMessage = await response.json();
+            throw new Error(
+                `Erreur HTTP! Status: ${response.status} - ${errorMessage.message}`,
+                {
+                    cause: {
+                        status: response.status,
+                        message: errorMessage.message,
+                        ok: errorMessage.ok,
+                    },
+                }
+            );
         }
         return response.json();
     } catch (error) {
-        alertMessage(error.message);
+        return error.cause;
     }
 }
 // export async function fetchJSON(url = "", options = {}) {
@@ -142,4 +151,20 @@ export async function fetchTemplate(url, targt) {
         const container = document.querySelector(".toast-container");
         container.insertAdjacentElement("beforeend", alert);
     }
+}
+
+/**
+ * Permet de transformer un objet en search params
+ * pour les inclures dans l'URL du fetchJSON
+ * @param {string} url L'adresse du fichier qui traite la demande SQL
+ * @param {object} params Les search params souhaités
+ * @returns
+ */
+export function retrieveSearchParams(url, params) {
+    if (Object.keys(params).length === 0) {
+        return url;
+    }
+    const constructedParams = new URLSearchParams(params);
+    const target = `${url}?${constructedParams.toString()}`;
+    return target;
 }
