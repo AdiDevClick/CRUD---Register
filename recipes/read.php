@@ -139,12 +139,10 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
         echo $error->getMessage();
     }
 
+    // Récupère l'average des notes
     $recipe['rating'] = $averageRating['rating'] ?? "0";
-    /* $loggedUser = LoginController::checkLoggedStatus();
-    print_r  ($loggedUser); */
-    /* foreach($getInfos[0] as $recipes => $value) {
-        echo($recipes .' => '. $value . '<br>');
-    } */
+    // Récupère le nombre total de reiews
+    $recipe['ratings_count'] = $averageRating['ratings_count'] ?? "0";
 } else {
     header('Location: ../index.php?error=noId');
 }
@@ -157,28 +155,35 @@ ob_start()
 
 ?>
 <header>
-    <?php // if ($error) :
-    ?>
-    <?php // $error
-    ?>
-    <?php // endif
-    ?>
     <div class="read_header">
         <img class="read_header__bg-img" src="<?= '../' . $recipe['img_path'] ?>" alt="">
-        <div class="read_header__side-bg"></div>
+        <!-- <div class="read_header__side"> -->
         <img class="read_header__inner-poster" src="<?= '../' . $recipe['img_path'] ?>" alt="">
-        <h1 class="read_header__title"><?= htmlspecialchars($recipe['title']) ?></h1>
-        <div class="read_header__description"><?= htmlspecialchars($recipe['description']) ?></div>
-        <div class="read_header__preview">
-            <div class="read_header__preview__time"><?= $recipe['total_time'] . ' ' . $recipe['total_time_length'] ?></div>
-            <div class="dot"></div>
-            <div class="read_header__preview__skills">Très facile</div>
-            <div class="dot"></div>
-            <div class="read_header__preview__price">Bon marché</div>
-        </div>
-        <div class="read_header__buttons">
-            <a type="button" class="btn" href="../index.php">add/j'aime</a>
-            <a type="button" class="btn" href="../index.php">partager</a>
+        <div class="read_header__side-bg">
+            <h1 class="read_header__title"><?= htmlspecialchars($recipe['title']) ?></h1>
+            <div class="read_header__description"><?= htmlspecialchars($recipe['description']) ?></div>
+            <div class="read_header__preview">
+                <div class="read_header__preview__time">
+                    <!-- <span class="icon"></span> -->
+                    <?= $recipe['total_time'] . ' ' . $recipe['total_time_length'] ?>
+                </div>
+                <!-- <div class="dot"></div> -->
+                <div class="read_header__preview__skills">
+                    <!-- <span class="icon"></span> -->
+                    Très facile
+                </div>
+                <!-- <div class="dot"></div> -->
+                <div class="read_header__preview__price">
+                    <!-- <span class="icon"></span> -->
+                    Bon marché
+                </div>
+            </div>
+            <div class="read_header__buttons">
+                <?php include '../templates/socials_icons.html' ?>
+
+                <!-- <a type="button" class="btn" href="../index.php">add/j'aime</a>
+                <a type="button" class="btn" href="../index.php">partager</a> -->
+            </div>
         </div>
     </div>
 </header>
@@ -281,6 +286,8 @@ $recipeSteps = [
             ?>
         </div>
         <p>Filtrer par notes</p>
+        <p>Il y a <?= $recipe['ratings_count'] ?> évaluations par la communauté</p>
+
     </div>
     <?php if (isset($recipe['comments']) && count($recipe['comments']) > 0): ?>
         <div class="comment_section js-stop-appender">
@@ -354,29 +361,15 @@ $recipeSteps = [
 
 
 <?php if (isset($loggedUser['user'])): ?>
-    <?php //if ($errorComment) :
-    ?>
-    <?php // $errorComment
-    ?>
-    <?php // endif
-    ?>
-    <?php // ob_start();
-    ?>
     <div class="comment-form_container">
         <h4>Postez un commentaire</h4>
         <?php require_once '../comments/comments.php' ?>
     </div>
-    <?php // ob_end_clean();
-    ?>
     <?php //$checkId->displayCommentForm($recipe)
     ?>
     <?php //$checkId->displayCommentSuccess()
     ?>
 <?php endif ?>
-<?php //die(var_dump($_SESSION)) 
-?>
-<!-- </div> -->
-<!-- </body> -->
 
 <?php
 $content = ob_get_clean();
