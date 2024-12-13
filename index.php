@@ -1,6 +1,8 @@
-<?php declare(strict_types=1);
+<?php
 
-if(session_status() !== PHP_SESSION_ACTIVE || session_status() === PHP_SESSION_NONE) {
+declare(strict_types=1);
+
+if (session_status() !== PHP_SESSION_ACTIVE || session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
@@ -33,8 +35,11 @@ require_once __DIR__ . "/includes/functions.inc.php";
 //print_r($_COOKIE);
 
 //$css = 'rel="stylesheet" href="css/index.css"';
-$script = 'data-name="typewritter" src="scripts/typeWriter.js" type="module" defer';
-$script2 = 'src="scripts/fadeInScroller.js" defer';
+$scripts = [
+    'data-name="typewritter" src="scripts/typeWriter.js" type="module" defer',
+    'src="scripts/fadeInScroller.js" defer'
+];
+
 $title = "Affichage de recettes";
 
 ob_start()
@@ -43,30 +48,32 @@ ob_start()
 <!-- Héro Section -->
 <section class="hero">
     <!-- <div class="type-writter"> -->
-        <img src="img/img3.jpeg" alt="">
-        <p>Une recette <span>Love</span></p>
+    <img src="img/img3.jpeg" alt="">
+    <p>Une recette <span>Love</span></p>
     <!-- </div> -->
 </section>
-    
+
 <!-- Insertion du login form pour les non-connectés -->
 <section class="container">
     <div class="form-hidden">
-    <!-- <div class="form-index form-hidden"> -->
+        <!-- <div class="form-index form-hidden"> -->
         <h1>Profitez de nos recettes !</h1>
     </div>
-        
-<!-- Insertion du login form pour les non-connectés -->
-<?php require_once 'login.php' ?>
-<!-- Fin du Form -->
 
-<!-- Si l'utilisateur est bien connecté il peut voir les recettes -->
-<?php if (isset($loggedUser['user'][0]) || isset($loggedUser['email'])): ?>
-    <?php //header_remove('Location: index.php?login=success')?>
-    <?php // require_once("vendor/class-autoloader.inc.php");?>
-    <?php $recipes = new LoginView([]); ?>
-    <?php foreach ($recipes->displayRecipes() as $recipe) : ?>
+    <!-- Insertion du login form pour les non-connectés -->
+    <?php require_once 'login.php' ?>
+    <!-- Fin du Form -->
+
+    <!-- Si l'utilisateur est bien connecté il peut voir les recettes -->
+    <?php if (isset($loggedUser['user'][0]) || isset($loggedUser['email'])): ?>
+        <?php //header_remove('Location: index.php?login=success')
+        ?>
+        <?php // require_once("vendor/class-autoloader.inc.php");
+        ?>
+        <?php $recipes = new LoginView([]); ?>
+        <?php foreach ($recipes->displayRecipes() as $recipe) : ?>
             <article class="article">
-            <h3><a href="./recipes/read.php?id=<?php echo($recipe['recipe_id']) ?>"><?php echo($recipe['title']) ?></a></h3>
+                <h3><a href="./recipes/read.php?id=<?php echo ($recipe['recipe_id']) ?>"><?php echo ($recipe['title']) ?></a></h3>
                 <div><?= $recipe['recipe'] ?></div>
                 <i><?php echo displayAuthor($recipe["author"]) ?></i>
                 <?php if (isset($loggedUser['email']) && $recipe['author'] === $loggedUser['email']) : ?>
@@ -77,7 +84,7 @@ ob_start()
                 <?php endif ?>
                 <hr />
             </article>
-    <?php endforeach ?>
+        <?php endforeach ?>
         <!-- <div class="searched-recipes"></div> -->
 
         <!-- <template id="search-template">
@@ -90,7 +97,8 @@ ob_start()
         </template> -->
 
         <!-- <div 
-            data-endpoint ="<?php // $rootUrl . $clicServer . '/recipes/Process_PreparationList.php'?>"
+            data-endpoint ="<?php // $rootUrl . $clicServer . '/recipes/Process_PreparationList.php'
+                            ?>"
             data-template="#search-template"
             data-target=".searched-recipes"
             data-limit="10"
@@ -102,7 +110,7 @@ ob_start()
         </div> -->
 </section>
 <?php else: ?>
-    <?php session_unset()?>
+    <?php session_unset() ?>
 <?php endif ?>
 <section class="counter">
     <div class="div">
@@ -141,7 +149,7 @@ ob_start()
             <p>Laissez-vous guider chaques semaine</p>
         </div>
     </div>
-    
+
 </section>
 
 <?php

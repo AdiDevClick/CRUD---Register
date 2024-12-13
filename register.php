@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-if(session_status() !== PHP_SESSION_ACTIVE || session_status() === PHP_SESSION_NONE) {
+if (session_status() !== PHP_SESSION_ACTIVE || session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
@@ -11,8 +11,10 @@ if(session_status() !== PHP_SESSION_ACTIVE || session_status() === PHP_SESSION_N
 
 require_once(__DIR__ . "/logs/customErrorHandlers.php");
 
-$script = 'src="scripts/fadeInScroller.js" defer';
-$script2 = 'type="module" src="scripts/errorApp.js" defer';
+$scripts = [
+    'src="scripts/fadeInScroller.js" defer',
+    'type="module" src="scripts/errorApp.js" defer'
+];
 $title = "Maxi Recettes - S'enregistrer";
 
 ob_start();

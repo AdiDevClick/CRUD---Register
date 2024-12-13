@@ -8,8 +8,10 @@ if (session_status() !== PHP_SESSION_ACTIVE || session_status() === PHP_SESSION_
 require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . "includes" . DIRECTORY_SEPARATOR . "common.php";
 require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . "includes" . DIRECTORY_SEPARATOR . "variables.inc.php";
 
-$script = 'src="' . strip_tags($rootUrl) . $clicServer . '/scripts/fadeInScroller.js" defer';
-$script2 = 'type="module" src="' . strip_tags($rootUrl) . $clicServer . '/scripts/recipeApp.js" async';
+$scripts = [
+    // 'src="' . strip_tags($rootUrl) . $clicServer . '/scripts/fadeInScroller.js" defer',
+    'type="module" src="' . strip_tags($rootUrl) . $clicServer . '/scripts/recipeApp.js" async'
+];
 
 $pageTitle = "Partagez votre recette";
 

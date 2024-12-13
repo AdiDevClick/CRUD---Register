@@ -7,7 +7,7 @@ require_once __DIR__ . DIRECTORY_SEPARATOR . "includes" . DIRECTORY_SEPARATOR . 
 // require_once(__DIR__ . "/vendor/class-autoloader.inc.php");
 // require_once(__DIR__ . "/logs/customErrorHandlers.php");
 
-$script = 'type="module" src="scripts/errorApp.js" defer';
+$scripts = ['type="module" src="scripts/errorApp.js" defer'];
 $title = "Réinitialisation de mot de passe";
 
 require_once 'includes/reset-request.inc.php';

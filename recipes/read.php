@@ -148,8 +148,10 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
 }
 
 $title = htmlspecialchars($recipe['title']);
-$script = 'src="../scripts/typeWriter.js" type="module" defer';
-$script2 = 'src="../scripts/commentApp.js" type="module" defer';
+
+$scripts = [
+    'src="../scripts/commentApp.js" type="module" defer'
+];
 
 ob_start()
 

@@ -113,8 +113,13 @@ $registeredItems = [
 
     <!-- <script type="module" src="<?php //echo($rootUrl). $clicServer
                                     ?>/scripts/toaster.js" defer></script> -->
-    <script <?= $script ?? '' ?>></script>
-    <script <?= $script2 ?? '' ?>></script>
+    <?php
+
+    foreach ($scripts as $key => $script) {
+        echo "<script $script></script>";
+    }
+
+    ?>
 
     <title>
         <?= 'We Love Food - ' . strip_tags($title) ?? 'We Love Food' ?>

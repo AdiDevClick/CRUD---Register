@@ -14,7 +14,7 @@ require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . "includes" . DIRECTORY_SEP
 // include_once('../logs/customErrorHandlers.php');
 // include_once('../includes/variables.inc.php');
 
-$script = 'src="' . strip_tags($rootUrl) . $clicServer . '/scripts/recipeApp.js" type="module" async';
+$scripts = ['src="' . strip_tags($rootUrl) . $clicServer . '/scripts/recipeApp.js" type="module" async'];
 
 $pageTitle = "Mise à jour de votre recette";
 
