@@ -183,24 +183,26 @@ class Recipe extends Mysql
     public function getAverageRatingCommentsById($recipeId)
     {
         $sqlRecipe =
-            'SELECT ROUND(AVG(c.review),1) as rating 
-        FROM recipes r 
-        LEFT JOIN comments c 
-            ON r.recipe_id = c.recipe_id 
-        WHERE r.recipe_id = :id;';
+            'SELECT ROUND(AVG(review),1) AS rating, COUNT(review) AS ratings_count
+        FROM comments
+        WHERE recipe_id = :id;';
+
         $averageRatingStatment = $this->connect()->prepare($sqlRecipe);
+
         if (!$averageRatingStatment->execute([
             'id' => $recipeId,
         ])) {
             $averageRatingStatment = null;
             throw new Error("STMT Failed");
         }
+
         if ($averageRatingStatment->rowCount() == 0) {
             $averageRatingStatment = null;
             throw new Error("Cette recette n'existe pas.");
         }
-        $recipe = $averageRatingStatment->fetch(PDO::FETCH_ASSOC);
-        return $recipe;
+
+        $response = $averageRatingStatment->fetch(PDO::FETCH_ASSOC);
+        return $response;
     }
 
     /**
