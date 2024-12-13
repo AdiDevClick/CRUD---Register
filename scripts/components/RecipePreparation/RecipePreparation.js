@@ -249,8 +249,13 @@ export class IngredientsFrom {
      * Ajoute un Ingrédient de la liste à la cible "element"
      * @param {HTMLElement} element
      */
-    appendTo(element) {
+    async appendTo(element) {
         this.#form = element;
+        if (this.#form) {
+            console.log("j'ai bien mon form");
+        } else {
+            console.error("Formulaire non trouvé");
+        }
         this.#errorHandler = new ErrorHandler(this.#form, {
             whichInputCanBeEmpty: [
                 "custom_ingredients",

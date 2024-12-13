@@ -165,7 +165,7 @@ export const sectionToWatch = "#js-mutator-obs";
  * @type {RegExp}
  */
 export const allowedSpecialChars = new RegExp(
-    "^[\\w\\s,.:;_?'!\\\"*()~&éèêëàâäôöûüùçÀîÉ-]*$"
+    "^[\\w\\s,.:;_?'!\\\"*()°ï~&éèêëàâäôöûüùçÀîÉ-]*$"
 );
 // export const allowedSpecialChars = new RegExp('^[\\w\\s,.:;_?\'!\\"*()~&éèêëàâäôöûüùçÀ-]+$')
 /**
@@ -199,7 +199,7 @@ export const strongPwLowerCaseInputRegex = /(?=.*[a-z])/;
 export const strongPwUpperCaseInputRegex = /(?=.*[A-Z])/;
 export const strongPwDigitInputRegex = /(?=.*\d)/;
 export const strongPwSpecialCharInputRegex =
-    /(?=.*[!@#$%^&*()_+[\]{};':"\\|,.<>/?~`])/;
+    /(?=.*[!@#$%^&*()_+[\]{};':"\\|,.<>/?~°`])/;
 export const strongPwLengthInputRegex = /.{8,128}/;
 
 /** Set the input name and ID of your password */

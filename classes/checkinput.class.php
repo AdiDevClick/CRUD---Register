@@ -26,7 +26,7 @@ class CheckInput extends Validate
      */
     public function checkInputs()
     {
-        $regex = "/^[\w\s,.:_?'!\"*()~&éèêëàâäôöûüùçÀîÉ-]+$/";
+        $regex = "/^[\w\s,.:_?'!\"*()°ï~&éèêëàâäôöûüùçÀîÉ-]+$/";
         // $regex = "/^[\w\s,.:_?'!\"éèêëàâäôöûüçÀîÉ-]+$/";
         $canBeEmpty = [
             'custom_ingredients',

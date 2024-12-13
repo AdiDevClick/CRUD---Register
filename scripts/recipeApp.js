@@ -7,10 +7,9 @@ import { fetchJSON } from "./functions/api.js";
 //     const data = await fetchTemplate(url, target)
 //     return data
 // }
-const onReady = async function () {
+async function onReady() {
     const queryString = document.location;
     const urlParams = new URLSearchParams(queryString.search);
-
     if (queryString.toString().includes("create_recipes.php")) {
         try {
             let list = [];
@@ -65,7 +64,8 @@ const onReady = async function () {
             console.log("update", error);
         }
     }
-};
+}
+// const onReady = async function () {};
 
 // async function fetchIngredients(url) {
 //     const returnedIngredients = await fetchJSON(url);
@@ -105,5 +105,6 @@ const onReady = async function () {
 
 if (window.readyState !== "loading") {
     onReady();
+} else {
+    window.addEventListener("DOMContentLoaded", onReady);
 }
-// window.addEventListener("DOMContentLoaded", onReady);

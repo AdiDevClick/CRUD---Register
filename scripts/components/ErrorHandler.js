@@ -396,19 +396,30 @@ export class ErrorHandler {
         });
 
         // Evènements
-        window.addEventListener("DOMContentLoaded", (e) => {
-            const target = document.querySelector(this.#sectionToWatch);
-            if (target) {
-                this.#observer = new MutationObserver(this.#handleObserver);
-                this.#observer.observe(target, { childList: true });
-            }
-        });
+        if (document.readyState !== "loading") this.#createObs();
+        // if (document.readyState === "complete") {
+        //     this.#createObs();
+        // } else {
+        //     window.addEventListener("load", this.#createObs);
+        // }
+
         // If you want a generic submit checker
         if (this.options.useMyOwnListener) return;
         this.#form.addEventListener("submit", (e) => {
             this.onSubmit(e);
             // e.currentTarget.reset()
         });
+    }
+
+    /**
+     * Crer le MutationObserver quand le DOM est prêt
+     */
+    #createObs() {
+        const target = document.querySelector(this.#sectionToWatch);
+        if (target) {
+            this.#observer = new MutationObserver(this.#handleObserver);
+            this.#observer.observe(target, { childList: true });
+        }
     }
 
     /**

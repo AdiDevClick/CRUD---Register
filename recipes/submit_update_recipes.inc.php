@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 // if(session_status() !== PHP_SESSION_ACTIVE || session_status() === PHP_SESSION_NONE) {
 //     session_start();
@@ -32,7 +34,7 @@ $params = [
 /**
  * Grabbing URL ID from index page and fetching rows datas
  */
-if($data && isset($_GET['id']) && is_numeric($_GET['id'])) {
+if ($data && isset($_GET['id']) && is_numeric($_GET['id'])) {
     // Grab ID from the url
     $getID = $_GET['id'];
     // passing recipe ID to the constructor
@@ -53,21 +55,24 @@ $errorMessage = CheckInput::showErrorMessage();
 ob_start()
 
 ?>
-<?php if ((isset($loggedUser['email']) || isset($_SESSION['LOGGED_USER'])) && $getInfos['author'] === $loggedUser['email'] && !isset($_SESSION['UPDATED_RECIPE'])):?>
-    <h1>Recette à éditer : <?= htmlspecialchars($getInfos['title'])?></h1>
-    
-    <?php include '../templates/recipe_layout.php'?>
-    <?php // include '../templates/recipe_creation_menu.html'?>
-    
-<!-- start of success message -->
+<?php if ((isset($loggedUser['email']) || isset($_SESSION['LOGGED_USER'])) && $getInfos['author'] === $loggedUser['email'] && !isset($_SESSION['UPDATED_RECIPE'])): ?>
+    <h1>Recette à éditer : <?= htmlspecialchars($getInfos['title']) ?></h1>
 
-<?php elseif (isset($_SESSION['UPDATED_RECIPE'])):?>
-    <?php //$setRecipe->displayShareSuccess($getDatas, $loggedUser)?>
-    <?php unset($_SESSION['UPDATED_RECIPE'])?>
-    <?php else: ?>
-        <?php session_destroy()?>
-        <?php header('Location: ../index.php?failed=update-recipe')?>
-        <?php exit("Il n'y a malheureusement plus rien à voir !") ?>
+    <?php include '../templates/recipe_layout.php' ?>
+    <?php // include '../templates/recipe_creation_menu.html'
+    ?>
+
+    <!-- start of success message -->
+
+<?php elseif (isset($_SESSION['UPDATED_RECIPE'])): ?>
+    <?php //$setRecipe->displayShareSuccess($getDatas, $loggedUser)
+    ?>
+    <?php unset($_SESSION['UPDATED_RECIPE']) ?>
+<?php else: ?>
+    <?php session_destroy() ?>
+    <?php header('Location: ../index.php?failed=update-recipe') ?>
+    <?php exit("Il n'y a malheureusement plus rien à voir !") ?>
 <?php endif ?>
-<!-- end of success message --> 
+
+<!-- end of success message -->
 <?php $content = ob_get_clean() ?>
