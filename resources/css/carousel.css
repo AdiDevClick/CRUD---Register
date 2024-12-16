@@ -2,40 +2,52 @@
 STYLING FOR CAROUSEL
 */
 
+.carousel_container {
+    width: calc(100vw - 100px);
+    justify-self: center;
+}
+
 .item_container {
     margin: 40px 5px;
     position: relative;
     /* background-color: white; */
     /* -webkit-box-shadow: -5px 4px 43px -1px rgba(0,0,0,0.5);  */
     /* -webkit-box-shadow: -5px 4px 50px -1px rgba(0,0,0,0.35);  */
-    box-shadow: -5px 4px 50px -1px rgba(0,0,0,0.35);
+    box-shadow: -5px 4px 50px -1px rgba(0, 0, 0, 0.35);
     transition: transform .3s, opacity 1.5s, scale 0.3s;
     transform: translate3d(0, -1px, 0);
     border-radius: 20px;
+
     &:hover {
         z-index: 10;
         transform: translate3d(0, -10px, 0);
+
         & .item__body {
             opacity: 0;
             /* height: 0; */
             /* opacity: 0.05; */
             transition: opacity 0.3s ease;
         }
+
         & .item__image {
             transform: translateY(10px) scale(1.2);
             transition: transform 0.3s;
         }
     }
+
     &:hover:has(iframe) {
         & iframe {
             display: block;
             z-index: 105;
         }
+
         & img {
             display: none;
         }
     }
-    & img, & iframe {
+
+    & img,
+    & iframe {
         width: 100%;
         height: 100%;
         border: none;
@@ -48,29 +60,33 @@ STYLING FOR CAROUSEL
         object-fit: cover;
         display: block;
     }
+
     & iframe {
         display: none;
         overflow: none;
         object-fit: contain;
     }
-    
+
     .item__body {
         transition: opacity 0.5s ease;
         /* opacity: 1; */
         /* padding: 25px; */
         margin: 15px auto;
     }
+
     .item__title {
         /* color: #232323; */
         font-size: var(--fs-title);
         font-weight: 500;
         margin-bottom: 10px;
     }
+
     .item__description {
         /* color: var(--f-color); */
         font-size: var(--fs-description);
         margin: 4px auto;
     }
+
     .item__image {
         transition: transform 0.3s;
     }
@@ -79,28 +95,33 @@ STYLING FOR CAROUSEL
 /* CAROUSEL */
 .carousel {
     position: relative;
+
     .carousel__container {
         transition: transform .3s;
         transform: translate3d(0, 0, 0);
+
         .carousel__item {
             /* float: right; */
-            float: left!important;
+            float: left !important;
         }
     }
+
     .carousel__container::after {
         content: '';
         clear: both;
         display: block;
     }
-    .carousel__next, .carousel__prev {
+
+    .carousel__next,
+    .carousel__prev {
         position: absolute;
-        background: white url(../img/rightsmall.svg) center center no-repeat;
+        background: white url('../recettes/img/rightsmall.svg') center center no-repeat;
         background-size: 70% 70%;
         border-radius: 100vh;
         top: 50%;
         margin-top: -20px;
         right: -20px;
-        box-shadow: -5px 4px 50px -1px rgba(0,0,0,0.35);
+        box-shadow: -5px 4px 50px -1px rgba(0, 0, 0, 0.35);
         cursor: pointer;
         transition: transform .3s, opacity .3s;
         width: 40px;
@@ -108,23 +129,37 @@ STYLING FOR CAROUSEL
         animation: backgroundIMGLeft .8s alternate infinite;
         animation-delay: 2s;
     }
+
     .carousel__next {
         animation: backgroundIMGRight .8s alternate infinite;
         animation-delay: 2s;
     }
+
     .carousel__prev {
-        background-image: url(../img/leftsmall.svg);
+        background-image: url('../recettes/img/leftsmall.svg');
         left: -20px;
     }
-    .carousel__next:hover, > .carousel__prev:hover {
+
+    .carousel__next:hover,
+    >.carousel__prev:hover {
         transform: scale(1.2);
         animation-play-state: paused;
     }
-    .carousel__next:active, .carousel__prev:active {
+
+    .carousel__next:active,
+    .carousel__prev:active {
         transform: scale(0.8);
     }
-    .carousel__prev--hidden, .carousel__next--hidden {
+
+    .carousel__prev--hidden,
+    .carousel__next--hidden {
         opacity: 0;
+        /* display: none;
+
+        &::after {
+            content: '';
+            clear: both;
+        } */
     }
 }
 
@@ -135,25 +170,32 @@ STYLING FOR CAROUSEL
     left: 0;
     text-align: center;
     display: none;
+
     .carousel__pagination__button {
         background-color: white;
-        width: 10px; /* j'ai mis 15px au début */
-        height: 6px; /* j'ai mis 7px au début */
+        width: 10px;
+        /* j'ai mis 15px au début */
+        height: 6px;
+        /* j'ai mis 7px au début */
         border-radius: 100vh;
         display: inline-block;
         margin: 0 3px;
-        box-shadow: -5px 4px 50px -1px rgba(0,0,0,0.35);
-        transition: transform .1s, height .7s cubic-bezier(1, 0, 0, 1), width .5s cubic-bezier(0.755, 0.05, 0.855, 2.06); /* j'ai mis une width de .4s au début */
+        box-shadow: -5px 4px 50px -1px rgba(0, 0, 0, 0.35);
+        transition: transform .1s, height .7s cubic-bezier(1, 0, 0, 1), width .5s cubic-bezier(0.755, 0.05, 0.855, 2.06);
+        /* j'ai mis une width de .4s au début */
         /* transition: transform .1s, height .4s cubic-bezier(1, 0, 0, 1); j'ai mis une width de .4s au début */
         cursor: pointer;
         transform: scale(0.5);
     }
-    .carousel__pagination__button--active, .carousel__pagination__button:hover {
+
+    .carousel__pagination__button--active,
+    .carousel__pagination__button:hover {
         transform: scale(1.4);
         width: 25px;
         margin: 0 8px;
         animation: slideRight .2s ease-out;
     }
+
     .carousel__pagination__button::before {
         content: '';
         position: absolute;
@@ -164,10 +206,12 @@ STYLING FOR CAROUSEL
         margin-left: -15px;
         border: 12px solid transparent;
     }
+
     .carousel__pagination__button::after {
         content: '';
         position: relative;
     }
+
     .carousel__pagination__loadingBar {
         animation: loading 3000ms linear;
         width: 100%;
@@ -177,12 +221,14 @@ STYLING FOR CAROUSEL
 }
 
 @keyframes backgroundIMGRight {
-    100% { 
+    100% {
         background-position: 15px;
     }
-    50%{
+
+    50% {
         background-position: 5px;
     }
+
     0% {
         /* transition: background-position 0.3 both ease-in-out; */
         background-position: 5px;
@@ -190,12 +236,14 @@ STYLING FOR CAROUSEL
 }
 
 @keyframes backgroundIMGLeft {
-    100% { 
+    100% {
         background-position: -3px;
     }
+
     50% {
         background-position: 6px;
     }
+
     0% {
         /* transition: background-position 0.3 both ease-in-out; */
         background-position: 6px;
@@ -240,21 +288,24 @@ STYLING FOR CAROUSEL
         width: 28px;
         /* width: 24px; default */
     }
+
     to {
         /* transform: translateX(5px); */
         height: 5px;
         /* height: 10px; */
         /* height: 8px; */
         width: 20px;
-        /* width: 28px;default */ 
+        /* width: 28px;default */
     }
 }
+
 @keyframes defaultslideRight {
     from {
         /* transform: translateX(0px); */
         height: 12px;
         width: 10px;
     }
+
     to {
         /* transform: translateX(5px); */
         height: 8px;
@@ -267,15 +318,18 @@ STYLING FOR CAROUSEL
         opacity: 1;
         /* width: 150px; */
     }
+
     to {
         opacity: 0;
         /* width: 0px; */
     }
 }
+
 @keyframes fadeIn {
     from {
         opacity: 0;
     }
+
     to {
         opacity: 1;
         width: 150px;
@@ -292,6 +346,7 @@ STYLING FOR CAROUSEL
         opacity: 0;
         border-right: 0px rgb(237, 243, 237) solid;
     }
+
     /* 35% {
         opacity: 0.25;
     } */
@@ -299,6 +354,7 @@ STYLING FOR CAROUSEL
         /* width: 50%; */
         opacity: 0.85;
     }
+
     100% {
         background-color: rgb(255, 72, 50);
         /* background-color: red; */
@@ -311,7 +367,8 @@ STYLING FOR CAROUSEL
     }
 }
 
-button, a[type=button] {
+button,
+a[type=button] {
     /* text-decoration: none; */
     border: 1px solid burlywood;
     /* border-style: dashed; */

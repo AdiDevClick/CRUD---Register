@@ -1,20 +1,20 @@
 <template id="search-template">
     <article class="item_container">
         <div class="item__image">
-            <img class="js-img"  src="" alt="">
+            <img class="js-img" src="" alt="">
             <div class="js-youtube-player" id="UzRY3BsWFYg"></div>
         </div>
         <div class="item__body">
             <div class="item__title js-title">
-                Mon Titre
+                {{ title }}
             </div>
             <div class="item__description">
-                Ici, une description de mon image
+                {{ description }}
             </div>
             <div class="item__author">
-                Partagée par <span class="js-author"></span>
+                Partagée par <span class="js-author">{{ author }}</span>
             </div>
         </div>
-        <a class="file-uploader js-href"></button>
+        <a class="file-uploader js-href"></a>
     </article>
 </template>

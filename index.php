@@ -37,7 +37,8 @@ require_once __DIR__ . "/includes/functions.inc.php";
 //$css = 'rel="stylesheet" href="css/index.css"';
 $scripts = [
     'data-name="typewritter" src="scripts/typeWriter.js" type="module" defer',
-    'src="scripts/fadeInScroller.js" defer'
+    'src="scripts/fadeInScroller.js" defer',
+    'src="scripts/carouselApp.js" type="module" async'
 ];
 
 $title = "Affichage de recettes";
@@ -71,20 +72,48 @@ ob_start()
         <?php // require_once("vendor/class-autoloader.inc.php");
         ?>
         <?php $recipes = new LoginView([]); ?>
-        <?php foreach ($recipes->displayRecipes() as $recipe) : ?>
-            <article class="article">
-                <h3><a href="./recipes/read.php?id=<?php echo ($recipe['recipe_id']) ?>"><?php echo ($recipe['title']) ?></a></h3>
-                <div><?= $recipe['recipe'] ?></div>
-                <i><?php echo displayAuthor($recipe["author"]) ?></i>
-                <?php if (isset($loggedUser['email']) && $recipe['author'] === $loggedUser['email']) : ?>
-                    <ul class="list-group">
-                        <li class="list-group-item"><a class="link-warning" href="./recipes/update_recipes.php?id=<?= $recipe['recipe_id'] ?>">Editer l'article</a></li>
-                        <li class="list-group-item"><a class="link-danger" href="./recipes/delete_recipes.php?id=<?= $recipe['recipe_id'] ?>">Supprimer l'article</a></li>
-                    </ul>
-                <?php endif ?>
-                <hr />
-            </article>
-        <?php endforeach ?>
+        <!-- <article class="article"> -->
+        <?php // print_r($recipe) 
+        ?>
+        <!-- <h3><a href="./recipes/read.php?id=<?php // echo ($recipe['recipe_id']) 
+                                                ?>"><?php // echo ($recipe['title']) 
+                                                    ?></a></h3> -->
+        <!-- <div><?= $recipe['recipe'] ?></div> -->
+        <!-- <i><?php // echo displayAuthor($recipe["author"]) 
+                ?></i> -->
+        <section class="carousel_container">
+            <div id="carousel1" class="full-width">
+                <?php foreach ($recipes->displayRecipes() as $recipe) : ?>
+                    <article class="item_container">
+                        <div class="item__image">
+                            <img class="js-img" src="<?= $recipe['img_path'] ?>" alt="">
+                            <div class="js-youtube-player" id="UzRY3BsWFYg"></div>
+                        </div>
+                        <div class="item__body">
+                            <div class="item__title js-title">
+                                <?= $recipe['recipe'] ?>
+                            </div>
+                            <div class="item__description">
+                                <?= $recipe['description'] ?>
+                            </div>
+                            <div class="item__author">
+                                Partagée par <span class="js-author"><?= displayAuthor($recipe["author"]) ?></span>
+                            </div>
+                        </div>
+                        <?php if (isset($loggedUser['email']) && $recipe['author'] === $loggedUser['email']) : ?>
+                            <ul class="list-group">
+                                <li class="list-group-item"><a class="link-warning" href="./recipes/update_recipes.php?id=<?= $recipe['recipe_id'] ?>">Editer l'article</a></li>
+                                <li class="list-group-item"><a class="link-danger" href="./recipes/delete_recipes.php?id=<?= $recipe['recipe_id'] ?>">Supprimer l'article</a></li>
+                            </ul>
+                        <?php endif ?>
+                        <a class="file-uploader js-href" href="./recipes/read.php?id=<?= $recipe['recipe_id'] ?>"></a>
+                    </article>
+                <?php endforeach ?>
+            </div>
+        </section>
+
+        <hr />
+        <!-- </article> -->
         <!-- <div class="searched-recipes"></div> -->
 
         <!-- <template id="search-template">

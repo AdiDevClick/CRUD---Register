@@ -1,10 +1,12 @@
-<?php declare(strict_types=1);
+<?php
 
-if(session_status() !== PHP_SESSION_ACTIVE || session_status() === PHP_SESSION_NONE) {
+declare(strict_types=1);
+
+if (session_status() !== PHP_SESSION_ACTIVE || session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-require_once dirname(__DIR__, 2) . DIRECTORY_SEPARATOR . "includes" . DIRECTORY_SEPARATOR ."common.php";
+require_once dirname(__DIR__, 2) . DIRECTORY_SEPARATOR . "includes" . DIRECTORY_SEPARATOR . "common.php";
 // include_once("../vendor/class-autoloader.inc.php");
 // include_once('../logs/customErrorHandlers.php');
 
@@ -40,9 +42,6 @@ ob_start();
 </section>
 
 <?php
-    $content = ob_get_clean();
+$content = ob_get_clean();
 require('../templates/layout.php');
 ?>
-
-
-
