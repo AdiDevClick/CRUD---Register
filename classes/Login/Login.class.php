@@ -72,7 +72,13 @@ class Login extends Mysql
      */
     protected function getRecipes(): array
     {
-        $sqlRecipesQuery = 'SELECT * FROM `recipes`';
+        $sqlRecipesQuery = 'SELECT r.title, r.description, r.recipe_id, r.author, i.img_path 
+            FROM recipes r
+            LEFT JOIN images i on i.recipe_id = r.recipe_id
+            WHERE r.is_enabled = 1
+            -- AND r.created_at >= DATE_SUB(NOW(), INTERVAL 7 DAY);
+            ORDER BY recipe_id DESC
+            LIMIT 10';
         $recipesStatement = $this->connect()->prepare($sqlRecipesQuery);
         if (!$recipesStatement->execute()) {
             $recipesStatement = null;
@@ -103,7 +109,7 @@ class Login extends Mysql
     protected function getPwd(string $pwd, string $email): bool
     {
         $sqlUsersQuery =
-        'SELECT `password` FROM `users` 
+            'SELECT `password` FROM `users` 
         WHERE full_name = :full_name OR email = :email;';
         $pwdStatement = $this->connect()->prepare($sqlUsersQuery);
         if (!$pwdStatement->execute([
