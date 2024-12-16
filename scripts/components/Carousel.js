@@ -140,7 +140,15 @@ export class Carousel {
     /** @type {Number} */
     #alreadyHoveredEndTime = 0;
     #case;
+    /** @type {number} */
+    #previewsActiveButton = 0;
     static #isInternalConstructing = false;
+    /** @type {boolean} */
+    #isAlreadyActive = false;
+    /** @type {boolean} */
+    #isPaginationClicked = false;
+    /** @type {boolean} */
+    #isNextClicked = null;
 
     /**
      * @param {HTMLElement} element
@@ -222,6 +230,7 @@ export class Carousel {
                     .slice(0, this.#offset)
                     .map((item) => item.cloneNode(true)),
             ];
+            // debugger;
             this.goToItem(this.#offset, false);
 
             this.items.forEach((item) => {
@@ -234,11 +243,13 @@ export class Carousel {
         if (this.options.navigation && !this.options.grid) {
             this.#createNavigation();
         }
+
         if (this.options.pagination && !this.options.grid) {
             this.#createPagination();
         }
+
         // Evènements
-        this.#moveCallbacks.forEach((cb) => cb(this.currentItem));
+        // this.#moveCallbacks.forEach((cb) => cb(this.currentItem));
         if (this.options.automaticScrolling) {
             this.observe(this.element);
         }
@@ -350,9 +361,11 @@ export class Carousel {
         // if (this.#isMobile) this.options.grid = false
         // If grid = true, container will always take 100% of available space
         // If not, it will overflow to let user know it can be slid
-        this.options.grid === true
-            ? (this.container.style.width = "100%")
-            : (this.container.style.width = ratio * 100 + "%");
+        if (this.options.grid === true) {
+            this.container.style.width = "100%";
+        } else {
+            this.container.style.width = ratio * 100 + "%";
+        }
         // this.container.style.display = 'flex'
         // this.container.style.flexDirection = 'row'
         // this.container.style.flexWrap = 'wrap'
@@ -373,9 +386,11 @@ export class Carousel {
             //     item.style.width = ((100 / this.#visibleSlides) / ratio) + "%"
             // }
 
-            this.options.grid === true
-                ? (item.style.width = 100 / this.#visibleSlides + "%")
-                : (item.style.width = 100 / this.#visibleSlides / ratio + "%");
+            if (this.options.grid === true) {
+                item.style.width = 100 / this.#visibleSlides + "%";
+            } else {
+                item.style.width = 100 / this.#visibleSlides / ratio + "%";
+            }
             // console.log(this.container)
             // console.log(item)
             // console.log(((100 / this.#visibleSlides) / ratio) + "%")
@@ -495,7 +510,7 @@ export class Carousel {
      * @returns
      */
     async #autoSlide() {
-        console.log("callback");
+        // debugger;
 
         if (this.#scrolling || !this.#intersect) return;
 
@@ -539,7 +554,9 @@ export class Carousel {
             }
 
             this.#currentTime = 0;
-
+            console.log("\n", "j'ai autoslide");
+            console.log(this.#resolvedPromisesArray);
+            console.log(r);
             if (
                 !this.#click ||
                 this.#status === "hoveredCompleted" ||
@@ -567,13 +584,18 @@ export class Carousel {
             if (
                 arrayLength <= this.#resolvedPromisesArray.length &&
                 this.#reverseMode
-            )
+            ) {
                 this.prev();
+            }
             if (
                 arrayLength <= this.#resolvedPromisesArray.length &&
                 !this.#reverseMode
-            )
+            ) {
+                console.log("\n", "Je next");
+                console.log(this.#resolvedPromisesArray);
+
                 this.next();
+            }
 
             this.#resolvedPromisesArray = [];
             this.#status = "completed";
@@ -634,10 +656,25 @@ export class Carousel {
         if (this.options.loop === true || this.options.infinite === true)
             return;
         this.#onMove((index) => {
-            if (index === 0) {
+            console.log("Je crer la navigation on Move");
+            // debugger;
+
+            if (index <= 0) {
+                // if (
+                //     index <= 0 ||
+                //     this.items[this.currentItem - this.#visibleSlides] === undefined
+                // ) {
                 this.#prevButton.classList.add("carousel__prev--hidden");
                 this.#prevButton.disabled = true;
+                // console.log(
+                //     "prev disabled dans le 0 => ",
+                //     this.#prevButton.disabled
+                // );
             } else {
+                // console.log(
+                //     "prev disabled dans le else => ",
+                //     this.#prevButton.disabled
+                // );
                 this.#prevButton.classList.remove("carousel__prev--hidden");
                 this.#prevButton.disabled = false;
             }
@@ -645,10 +682,12 @@ export class Carousel {
             if (
                 this.items[this.currentItem + this.#visibleSlides] === undefined
             ) {
+                // console.log("next disabled => ", this.#nextButton.disabled);
                 this.#nextButton.classList.add("carousel__next--hidden");
                 this.#nextButton.disabled = true;
                 this.#reverseMode = true;
             } else {
+                // console.log("next disabled => ", this.#nextButton.disabled);
                 this.#nextButton.classList.remove("carousel__next--hidden");
                 this.#nextButton.disabled = false;
             }
@@ -798,14 +837,29 @@ export class Carousel {
         this.#paginationButton = createElement("div", {
             class: "carousel__pagination__button",
         });
-        this.#createEventListenerFromClick(
-            this.#paginationButton,
-            "click",
-            "paginationButton",
-            true,
-            this.goToItem.bind(this),
-            i + this.#offset
-        );
+        if (this.options.infinite) {
+            this.#createEventListenerFromClick(
+                this.#paginationButton,
+                "click",
+                "paginationButton",
+                true,
+                this.goToItem.bind(this, i + this.#offset, true, true)
+            );
+            // this.#isPaginationClicked = true
+            // this.#moveCallbacks.forEach((cb) => cb(i + this.#offset));
+        } else {
+            this.#createEventListenerFromClick(
+                this.#paginationButton,
+                "click",
+                "paginationButton",
+                true,
+                this.goToItem.bind(this),
+                i * this.#slidesToScroll - this.#offset
+                // i + this.#offset
+            );
+        }
+
+        console.log(this.#offset);
         this.pagination.append(this.#paginationButton);
         this.buttons.push(this.#paginationButton);
         this.debounce(this.#paginationButton, "paginationButton");
@@ -815,6 +869,7 @@ export class Carousel {
      * Crer la pagination dans le DOM
      */
     #createPagination() {
+        console.log("Je suis dans le createPagination");
         this.pagination = createElement("div", {
             class: "carousel__pagination",
         });
@@ -825,32 +880,116 @@ export class Carousel {
         }
         this.buttons = [];
         this.root.append(this.pagination);
+        const itemsCount = this.items.length - 2 * this.#offset;
+
         if (!this.options.infinite) {
-            for (let i = 0; i < this.items.length / this.#visibleSlides; i++) {
+            const slides =
+                Math.ceil(
+                    (this.items.length - this.#visibleSlides) /
+                        this.#slidesToScroll
+                ) + 1;
+            for (let i = 0; i < slides; i++) {
+                // for (let i = 0; i < this.items.length / this.#visibleSlides; i++) {
                 this.#paginate(i);
             }
         } else {
-            for (
-                let i = 0;
-                i < this.items.length - 2 * this.#offset;
-                i = i + this.#slidesToScroll
-            ) {
+            // this.totalPages =
+            //     Math.ceil(
+            //         (itemsCount - this.#visibleSlides) / this.#slidesToScroll
+            //     ) + 1;
+            // console.log(this.totalPages);
+            // for (let i = 0; i < this.totalPages; i++) {
+            //     this.#paginate(i);
+            // }
+            for (let i = 0; i < itemsCount; i = i + this.#slidesToScroll) {
                 this.#paginate(i);
             }
         }
-        this.buttons.push(this.#paginationButton);
+        // this.buttons.push(this.#paginationButton);
         let activeButton;
         this.#onMove((index) => {
-            let count = this.items.length - 2 * this.#offset;
+            debugger;
+            // const count = this.items.length - 2 * this.#offset;
+            // const realIndex =
+            //     (this.currentItem - this.#offset + this.items.length) %
+            //     itemsCount;
+            // const activeItem =
+            //     Math.floor(realIndex / this.#visibleSlides) % this.totalPages;
+            // console.log(activeItem);
+            // console.log("pages => ", this.totalPages);
+            // const activePage = this.#calculateActivePage();
 
-            if (this.options.infinite) {
+            // const activePage = this.#testcalculateActivePage(
+            //     this.currentItem,
+            //     itemsCount,
+            //     this.#slidesToScroll,
+            //     this.#offset
+            // );
+            // const activeItem = Math.floor(
+            //     (this.currentItem + offset) / this.#slidesToScroll
+            // );
+            // console.log("\n modulo => ", (6 % itemsCount) / 3);
+            // console.log("active page => ", activePage);
+            console.log(
+                "index => ",
+                index,
+                " current item => ",
+                this.currentItem
+            );
+            // console.log(
+            //     "\n mon code => ",
+            //     Math.floor(
+            //         ((this.currentItem - this.#offset) % itemsCount) /
+            //             this.#slidesToScroll
+            //     )
+            // );
+            // console.log(index, this.currentItem);
+            if (this.options.infinite && !this.#isAlreadyActive) {
+                // console.log("Je suis entré dans le pagination infinite");
+                const calculatedButton = this.#calculateActivePage(itemsCount);
+                // this.#isAlreadyActive = true;
+                console.log(this.#moveCallbacks);
+                console.log(
+                    "pagination already clicked ? => \n",
+                    this.#isPaginationClicked
+                );
                 activeButton =
+                    // activePage
+                    // Math.floor(
+                    //     (count + this.#offset) / this.#slidesToScroll
+                    // )
+                    //
                     this.buttons[
-                        Math.floor((index % count) / this.#slidesToScroll)
+                        calculatedButton
+                        // this.#calculate(itemsCount)
+                        // Math.floor(
+                        //     ((index - this.#offset) %
+                        //         (this.items.length - 2 * this.#offset)) /
+                        //         this.#slidesToScroll
+                        // )
                     ];
-            } else {
+                // this.buttons[count / this.#slidesToScroll];
+                //     console.log(
+                //         "\n mon code => ",
+                //         Math.floor(
+                //             ((this.currentItem - this.#offset) % itemsCount) /
+                //                 this.#slidesToScroll
+                //         )
+                //     );
+                //     console.log(
+                //         "\n preview avant de le modifier",
+                //         this.#previewsActiveButton
+                //     );
+                //     console.log(
+                //         "\n preview après l'avoir modifier",
+                //         calculatedButton
+                //     );
+                this.#previewsActiveButton = calculatedButton;
+                console.log("\n J'ai terminé le pagination infinite \n");
+            } else if (!this.options.infinite) {
+                // Ceil is used in case of a non fully filled screen in order to still get the next active button
                 activeButton =
-                    this.buttons[Math.round(index / this.#slidesToScroll)];
+                    this.buttons[Math.ceil(index / this.#slidesToScroll)];
             }
 
             if (activeButton) {
@@ -870,12 +1009,162 @@ export class Carousel {
         });
     }
 
+    /**
+     * Permet de calculer la page active en fonction de différent scénarios
+     * dans le cas du Carousel Infini car la position des images n'est pas toujours
+     * fixes d'une passe à une autre.
+     *
+     * @param {number} itemsCount
+     * @returns {number}
+     */
+    #calculateActivePage(itemsCount) {
+        console.log("preview avant => \n", this.#previewsActiveButton);
+        // const minimumSlide = modulo - this.#slidesToScroll;
+        // console.log("Preview active => \n", previewsActiveButton);
+        // console.log("current Item => \n", this.currentItem);
+        // console.log("buttons length => \n", this.buttons.length);
+        // console.log(
+        //     "true ? => \n",
+        //     this.currentItem - itemsCount - this.#offset - this.#slidesToScroll
+        // );
+        // if (modulo < this.#slidesToScroll && minimumSlide !== 0) {
+        const modulo = (this.currentItem - this.#offset) % itemsCount;
+
+        const integer = Math.floor(modulo / this.#slidesToScroll);
+        const decimal = Math.ceil(modulo / this.#slidesToScroll);
+        const buttonsLengths = this.buttons.length - 1;
+        console.log("Je suis un chiffre entier \n", integer);
+        console.log("Je suis un chiffre décimal \n", decimal);
+        console.log(
+            "Je suis un chiffre arrondi au dessus \n",
+            Math.ceil(decimal)
+        );
+        // if (Number.isInteger(modulo / this.#slidesToScroll)) {
+        //     // if (this.currentItem - this.#offset - this.#slidesToScroll < 0) {
+        //     // console.log(
+        //     //     "Je suis un chiffre entier \n",
+        //     //     Math.floor(modulo / this.#slidesToScroll)
+        //     // );
+        //     return Math.floor(modulo / this.#slidesToScroll);
+
+        //     // return previewsActiveButton + 1;
+        // }
+        // if (
+        //     !Number.isInteger(modulo / this.#slidesToScroll) &&
+        //     Math.floor(modulo / this.#slidesToScroll) !== 0
+        // ) {
+        //     const modulo = (this.currentItem + 1 - this.#offset) % itemsCount;
+        //     // console.log(
+        //     //     "Je suis un chiffre décimal \n",
+        //     //     modulo / this.#slidesToScroll,
+        //     //     "\n Voici le math Floor => ",
+        //     //     Math.floor(modulo / this.#slidesToScroll)
+        //     // );
+        //     console.log(
+        //         "\n nouveau calcul => ",
+        //         this.currentItem / this.#slidesToScroll - this.#slidesToScroll
+        //     );
+        //     return (
+        //         this.currentItem / this.#slidesToScroll - this.#slidesToScroll
+        //     );
+        //     return Math.floor(modulo / this.#slidesToScroll);
+        // }
+        // if (this.#previewsActiveButton + 1 === buttonsLengths)
+        //     return this.#previewsActiveButton + 1;
+
+        // if (decimal === integer || integer === 0)
+        //     return Math.floor(modulo / this.#slidesToScroll);
+        // // console.log(
+        // //     Math.floor(
+        // //         ((this.currentItem - this.#offset) % itemsCount) /
+        // //             this.#slidesToScroll
+        // //     )
+        // // ) else {
+        // if (this.#previewsActiveButton + 1 === integer)
+        //     return Math.floor(modulo / this.#slidesToScroll);
+
+        // return Math.ceil(decimal);
+        // }
+        console.log(this.#isPaginationClicked);
+        if (!this.#isPaginationClicked && this.#isNextClicked !== null) {
+            if (this.#isNextClicked) {
+                if (this.#previewsActiveButton + 1 === integer) {
+                    console.log("Je donne integer");
+                    return integer;
+                }
+                if (this.#previewsActiveButton + 1 > buttonsLengths) {
+                    console.log("Je retourne 0");
+                    return 0;
+                }
+                if (this.#previewsActiveButton === buttonsLengths - 1) {
+                    // if (this.#previewsActiveButton + 1 !== integer || Math.ceil(decimal)) {
+                    console.log("Je fais preview + 1");
+                    return this.#previewsActiveButton + 1;
+                }
+                if (this.#previewsActiveButton === (integer && decimal)) {
+                    console.log(this.#previewsActiveButton, integer, decimal);
+                    console.log("tout est egal");
+                    return integer;
+                }
+                if (this.#previewsActiveButton + 1 !== integer || decimal) {
+                    console.log("Je return un +1 car on a sauté un ligne");
+                    return this.#previewsActiveButton + 1;
+                }
+            } else {
+                if (
+                    this.#previewsActiveButton - 1 === integer &&
+                    this.#previewsActiveButton - 1 >= 0
+                ) {
+                    console.log("Je donne integer");
+                    return integer;
+                }
+
+                if (this.#previewsActiveButton - 1 < 0) {
+                    console.log("Je retourne 0");
+                    return buttonsLengths;
+                }
+
+                // if (this.#previewsActiveButton === buttonsLengths - 1) {
+                //     // if (this.#previewsActiveButton + 1 !== integer || Math.ceil(decimal)) {
+                //     console.log("Je fais preview + 1");
+                //     return this.#previewsActiveButton + 1;
+                // }
+                if (this.#previewsActiveButton === (integer && decimal)) {
+                    console.log(this.#previewsActiveButton, integer, decimal);
+                    console.log("tout est egal");
+                    return integer;
+                }
+                if (this.#previewsActiveButton - 1 !== integer || decimal) {
+                    console.log("Je return un +1 car on a sauté un ligne");
+                    return this.#previewsActiveButton - 1;
+                }
+            }
+        }
+        this.#isPaginationClicked = false;
+        // }
+        return integer;
+        // return Math.floor(modulo / this.#slidesToScroll);
+        // return Math.floor(modulo / this.#slidesToScroll);
+        // if (this.#previewsActiveButton + 1 === this.buttons.length) {
+        //     console.log("Je suis à 4");
+        //     this.#previewsActiveButton = 0;
+        //     return (this.#previewsActiveButton = 0);
+        // }
+        // if (this.#previewsActiveButton < this.buttons.length) {
+        //     this.#previewsActiveButton = this.#previewsActiveButton + 1;
+        //     console.log("preview apres \n => ", this.#previewsActiveButton);
+        //     return this.#previewsActiveButton;
+        // }
+    }
+
     next() {
+        this.#isNextClicked = true;
         this.#alreadyHovered = false;
         this.goToItem(this.currentItem + this.#slidesToScroll);
     }
 
     prev() {
+        this.#isNextClicked = false;
         this.#alreadyHovered = false;
         this.goToItem(this.currentItem - this.#slidesToScroll);
     }
@@ -885,67 +1174,173 @@ export class Carousel {
      * @param {number} index
      * @param {boolean} [animation = true]
      */
-    goToItem(index, animation = true) {
+    goToItem(index, animation = true, isPaginationClicked = null) {
+        // debugger;
+        console.log(index, animation, isPaginationClicked);
+        if (isPaginationClicked) {
+            this.#isPaginationClicked = true;
+            // this.#isAlreadyActive = true;
+        }
+        console.log("\n J'entre dans la goItem, index => ", index);
+
+        // console.log("index demandé => ", index, "animation ? => ", animation);
         if (index < 0) {
+            // this.#reverseMode = false;
+            // if (!this.options.loop && index < 0 && this.currentItem === 0) {
+            //     console.log(index);
+            //     console.log(this.currentItem);
+            //     console.log(this.items[this.currentItem - this.#visibleSlides]);
+            //     console.log(this.items.length);
+            //     this.#reverseMode = false;
+            // }
+
+            console.log("\n");
+            console.log("je suis dans le < 0");
+            console.log("\n");
             let ratio = Math.floor(this.items.length / this.#slidesToScroll);
             let modulo = this.items.length % this.#slidesToScroll;
-            if (this.options.loop) {
-                if (index + this.#slidesToScroll !== 0) {
-                    index = 0;
-                }
-                if (ratio - modulo === this.#slidesToScroll && modulo !== 0) {
-                    index = this.items.length - this.#visibleSlides;
-                    this.#myIndex = 1;
-                } else if (
-                    ratio + modulo === this.#visibleSlides &&
-                    ratio === this.#slidesToScroll
-                ) {
-                    index = this.items.length - this.#visibleSlides;
-                    this.#myIndex = 2;
-                } else if (ratio - modulo !== this.#slidesToScroll) {
-                    if (index + this.#slidesToScroll !== 0) {
-                        index = 0;
-                    } else {
-                        index = this.items.length - this.#visibleSlides;
-                    }
-                } else {
-                    for (
-                        let i = 0;
-                        i < this.items.length;
-                        i = i + this.#slidesToScroll
-                    ) {
-                        index = i;
-                    }
-                }
-            } else {
-                return (this.#reverseMode = false);
+            if (!this.options.loop) {
             }
-        } else if (
-            index >= this.items.length ||
-            (this.items[this.currentItem + this.#visibleSlides] === undefined &&
-                index > this.currentItem)
-        ) {
-            if (this.options.loop && !this.#reverseMode) {
+
+            // console.log("\n");
+            // console.log("index demandé => ", index);
+            // console.log("mon ancien index avant demande => ", this.currentItem);
+            // console.log("reverse mode => ", this.#reverseMode);
+            // console.log("\n");
+
+            if (this.currentItem > 0) {
                 index = 0;
-            } else {
-                return;
+                console.log("je reset à 0 et je reverse false");
+                this.#reverseMode = false;
+                // IMPORTANT !! Resets promise array to avoid conflict after reindexing
+                this.#resolvedPromisesArray = [];
             }
-        } else if (index + this.#slidesToScroll > this.items.length) {
-            index = this.items.length - this.#visibleSlides;
+
+            // console.log("\n");
+            // console.log("mon nouvel index => ", index);
+            // console.log("reverse mode => ", this.#reverseMode);
+            // console.log("\n");
+
+            if (this.options.loop && this.currentItem === 0) {
+                index = this.items.length - this.#visibleSlides;
+            }
+
+            // if (this.options.loop) {
+            // if (index + this.#slidesToScroll !== 0) {
+            //     console.log("loop, index = 0");
+            //     index = 0;
+            // }
+            // if (ratio - modulo === this.#slidesToScroll && modulo !== 0) {
+            //     console.log("loop, ratio - modulo");
+            //     index = this.items.length - this.#visibleSlides;
+            //     this.#myIndex = 1;
+            // } else if (
+            //     ratio + modulo === this.#visibleSlides &&
+            //     ratio === this.#slidesToScroll
+            // ) {
+            //     console.log("loop, ratio + modulo");
+            //     index = this.items.length - this.#visibleSlides;
+            //     this.#myIndex = 2;
+            // } else if (ratio - modulo !== this.#slidesToScroll) {
+            //     if (index + this.#slidesToScroll !== 0) {
+            //         console.log("loop, ratio - modulo !== slidetoscroll");
+            //         index = 0;
+            //     } else {
+            //         index = this.items.length - this.#visibleSlides;
+            //     }
+            // } else {
+            //     for (
+            //         let i = 0;
+            //         i < this.items.length;
+            //         i = i + this.#slidesToScroll
+            //     ) {
+            //         index = i;
+            //     }
+            // }
+
+            // } else {
+            //     console.log("else");
+            //     return (this.#reverseMode = false);
+            // }
+            // } else if (
+            //     // In case visible items CANNOT fill the whole screen
+            //     index >= this.items.length ||
+            //     (this.items[index + this.#visibleSlides] === undefined &&
+            //         index > this.currentItem)
+            // ) {
+            //     // If LOOP MODE, instantly goes back to the begining
+            //     if (this.options.loop && !this.#reverseMode) {
+            //         index = 0;
+            //         console.log("index 0");
+            //     } else {
+            //         // Index goes back to max length minus asked visible items
+            //         console.log("else du else if");
+            //         index = this.items.length - this.#visibleSlides;
+            //     }
+            // }
+            if (this.#prevButton.disabled) return;
+        } else {
+            // console.log("je suis dans le > 0");
+            // if (!this.options.loop) {
+            // In case visible items CANNOT fill the whole screen
+            // Index goes back to max length minus asked visible items
+            if (this.items[index + this.#visibleSlides] === undefined) {
+                console.log("j'ai fait -", this.#visibleSlides);
+                index = this.items.length - this.#visibleSlides;
+                // if (index === this.currentItem) return;
+            }
+            // } else {
+            if (
+                // AFTER it gone back to fill the whole screen
+                // If LOOP MODE, slides go back to the begining
+                this.options.loop &&
+                index === this.currentItem &&
+                this.items[index + this.#visibleSlides] === undefined
+            ) {
+                console.log("\n");
+                console.log("je suis dans le < 0");
+                console.log("\n");
+                index = 0;
+            }
+            // this.#reverseMode = true;
+            // } else {
+            //     if (
+            //         index > this.items.length ||
+            //         this.items[index + this.#visibleSlides] === undefined
+            //     ) {
+            //         index = 0;
+            //     }
+            // }
         }
+        console.log("Je suis passé => \n", index, this.currentItem);
+        // if (index + this.#slidesToScroll > this.items.length) {
+        //     console.log("length");
+        //     index = this.items.length - this.#visibleSlides;
+        // }
         let translateX = index * (-100 / this.items.length);
+        // console.log("Mon translate X => ", translateX);
         if (!animation) {
             this.disableTransition();
         }
+
+        // Translate to the new index
         this.translate(translateX);
+
         // Force Repaint
         this.container.offsetHeight;
         // End of Force Repaint
+
         if (!animation) {
             this.enableTransition();
         }
         this.currentItem = index;
+        // this.#isAlreadyActive = false;
         this.#moveCallbacks.forEach((cb) => cb(index));
+        // if (!isPaginationClicked) {
+        //     this.#isPaginationClicked = false;
+        //     this.#isAlreadyActive = false;
+        // }
+        console.log("Fin du GoToItem");
     }
 
     /**
@@ -953,17 +1348,24 @@ export class Carousel {
      */
     #resetInfinite() {
         if (this.currentItem <= this.#slidesToScroll) {
+            this.#isAlreadyActive = true;
+            console.log("J'AI DEMANDE LE RESET +10");
             this.goToItem(
                 this.currentItem + (this.items.length - 2 * this.#offset),
                 false
             );
+            this.#isAlreadyActive = false;
+
             return;
         }
         if (this.currentItem >= this.items.length - this.#offset) {
+            this.#isAlreadyActive = true;
             this.goToItem(
                 this.currentItem - (this.items.length - 2 * this.#offset),
                 false
             );
+            this.#isAlreadyActive = false;
+
             return;
         }
         return;
