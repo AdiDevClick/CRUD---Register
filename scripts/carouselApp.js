@@ -7,7 +7,7 @@ async function onReady(url) {
         const Carousel = await importThisModule("Carousel");
         Carousel.create(document.querySelector("#carousel1"), {
             visibleSlides: 3,
-            slidesToScroll: 3,
+            slidesToScroll: 2,
             automaticScrolling: false,
             infinite: true,
             loop: false,
