@@ -107,7 +107,7 @@ export class CarouselTouchPlugin {
             ) {
                 // Save current item position
                 const currentPosition = this.carousel.currentItem;
-
+                console.log("Jai demandé dans le endrag classique");
                 // Move to this item
                 this.lastTranslate.x < 0
                     ? this.carousel.next()
@@ -122,6 +122,7 @@ export class CarouselTouchPlugin {
                 }
             } else {
                 // No changes, go back to the old position
+                console.log("Jai demandé dans le endrag en else");
                 this.carousel.goToItem(this.carousel.currentItem);
             }
         }

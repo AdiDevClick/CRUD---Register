@@ -149,6 +149,8 @@ export class Carousel {
     #isPaginationClicked = false;
     /** @type {boolean} */
     #isNextClicked = null;
+    /** @type {boolean} */
+    #isNotMoving = false;
 
     /**
      * @param {HTMLElement} element
@@ -206,6 +208,7 @@ export class Carousel {
         this.root = createElement("div", { class: "carousel" });
         this.container = createElement("div", { class: "carousel__container" });
         this.root.setAttribute("tabindex", 0);
+        // this.container.setAttribute("tabindex", 1);
         this.root.append(this.container);
         this.element.append(this.root);
         this.items = children.map((child) => {
@@ -257,10 +260,12 @@ export class Carousel {
         // window.addEventListener('resize', this.#onWindowResize.bind(this))
         this.root.addEventListener("keyup", (e) => this.#accessibilityKeys(e));
         if (this.options.infinite) {
-            this.container.addEventListener(
-                "transitionend",
-                this.#resetInfinite.bind(this)
-            );
+            this.container.addEventListener("transitionend", (e) => {
+                if (e.target === e.currentTarget) {
+                    this.#resetInfinite();
+                }
+                // this.#resetInfinite.bind(this);
+            });
         }
         // if (this.options.automaticScrolling) {
         // Plugins loader
@@ -343,9 +348,14 @@ export class Carousel {
      */
     #accessibilityKeys(e) {
         if (e.key === "Right" || e.key === "ArrowRight") {
+            console.log("J'appuie sur next ?");
+
             this.next();
         }
+
         if (e.key === "Left" || e.key === "ArrowLeft") {
+            console.log("J'appuie sur prev ?");
+
             this.prev();
         }
     }
@@ -627,10 +637,10 @@ export class Carousel {
      * Crer les flèches de navigation
      */
     #createNavigation() {
-        this.#nextButton = createElement("div", {
+        this.#nextButton = createElement("button", {
             class: "carousel__next",
         });
-        this.#prevButton = createElement("div", {
+        this.#prevButton = createElement("button", {
             class: "carousel__prev",
         });
 
@@ -908,7 +918,6 @@ export class Carousel {
         // this.buttons.push(this.#paginationButton);
         let activeButton;
         this.#onMove((index) => {
-            debugger;
             // const count = this.items.length - 2 * this.#offset;
             // const realIndex =
             //     (this.currentItem - this.#offset + this.items.length) %
@@ -1029,7 +1038,6 @@ export class Carousel {
         // );
         // if (modulo < this.#slidesToScroll && minimumSlide !== 0) {
         const modulo = (this.currentItem - this.#offset) % itemsCount;
-
         const integer = Math.floor(modulo / this.#slidesToScroll);
         const decimal = Math.ceil(modulo / this.#slidesToScroll);
         const buttonsLengths = this.buttons.length - 1;
@@ -1085,7 +1093,6 @@ export class Carousel {
 
         // return Math.ceil(decimal);
         // }
-        console.log(this.#isPaginationClicked);
         if (!this.#isPaginationClicked && this.#isNextClicked !== null) {
             if (this.#isNextClicked) {
                 if (this.#previewsActiveButton + 1 === integer) {
@@ -1181,6 +1188,10 @@ export class Carousel {
             this.#isPaginationClicked = true;
             // this.#isAlreadyActive = true;
         }
+        index === this.currentItem
+            ? (this.#isAlreadyActive = true)
+            : (this.#isAlreadyActive = false);
+
         console.log("\n J'entre dans la goItem, index => ", index);
 
         // console.log("index demandé => ", index, "animation ? => ", animation);
@@ -1319,6 +1330,9 @@ export class Carousel {
         // }
         let translateX = index * (-100 / this.items.length);
         // console.log("Mon translate X => ", translateX);
+
+        console.log("\n");
+
         if (!animation) {
             this.disableTransition();
         }
@@ -1330,6 +1344,10 @@ export class Carousel {
         this.container.offsetHeight;
         // End of Force Repaint
 
+        console.log(
+            "Mon animation devrait être false pour que ça fonctionne => ",
+            animation
+        );
         if (!animation) {
             this.enableTransition();
         }
@@ -1360,6 +1378,9 @@ export class Carousel {
         }
         if (this.currentItem >= this.items.length - this.#offset) {
             this.#isAlreadyActive = true;
+            console.log("J'AI DEMANDE LE RESET -10");
+            // this.currentItem =
+            //     this.currentItem - (this.items.length - 2 * this.#offset);
             this.goToItem(
                 this.currentItem - (this.items.length - 2 * this.#offset),
                 false
