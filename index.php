@@ -78,7 +78,8 @@ ob_start()
         <!-- <h3><a href="./recipes/read.php?id=<?php // echo ($recipe['recipe_id']) 
                                                 ?>"><?php // echo ($recipe['title']) 
                                                     ?></a></h3> -->
-        <!-- <div><?= $recipe['recipe'] ?></div> -->
+        <!-- <div><?php // $recipe['recipe'] 
+                    ?></div> -->
         <!-- <i><?php // echo displayAuthor($recipe["author"]) 
                 ?></i> -->
         <section class="carousel_container">
@@ -91,7 +92,7 @@ ob_start()
                         </div>
                         <div class="item__body">
                             <div class="item__title js-title">
-                                <?= $recipe['recipe'] ?>
+                                <?= $recipe['title'] ?>
                             </div>
                             <div class="item__description">
                                 <?= $recipe['description'] ?>
