@@ -82,9 +82,29 @@ STYLING FOR CAROUSEL
     }
 
     .item__description {
-        /* color: var(--f-color); */
+        --line-height: 1.4em;
+        /* exactly three lines */
+        --max-lines-count: 3;
+        display: -webkit-box;
+        position: relative;
+        /* remove this if height needs to be set - default : auto */
+        /* height: calc(var(--line-height) * var(--max-lines-count)); */
         font-size: var(--fs-description);
-        margin: 4px auto;
+        margin: 10px auto;
+        overflow: hidden;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: var(--max-lines-count);
+
+        &::after {
+            content: "";
+            text-align: right;
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 20%;
+            height: var(--line-height);
+            background: linear-gradient(to right, rgba(241, 240, 240, 0), rgba(22, 21, 21, 0.473) 50%);
+        }
     }
 
     .item__image {
