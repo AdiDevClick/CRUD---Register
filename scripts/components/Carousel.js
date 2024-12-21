@@ -4,6 +4,7 @@
 import {
     createElement,
     debounce,
+    filterArrayToRetrieveUniqueValues,
     importThisModule,
     wait,
     waitAndFail,
@@ -347,16 +348,35 @@ export class Carousel {
      * @param {KeyboardEvent} e
      */
     #accessibilityKeys(e) {
+        console.log(e);
         if (e.key === "Right" || e.key === "ArrowRight") {
-            console.log("J'appuie sur next ?");
-
-            this.next();
+            return this.next();
         }
 
         if (e.key === "Left" || e.key === "ArrowLeft") {
-            console.log("J'appuie sur prev ?");
+            return this.prev();
+        }
 
-            this.prev();
+        if (e.target.classList.contains("item_container")) {
+            let focusedItem;
+            console.log(e.target);
+            this.items.filter((key, value) => {
+                if (
+                    value > 0 + this.#offset - 1 &&
+                    value < this.items.length - this.#offset &&
+                    e.target === key.firstElementChild
+                ) {
+                    // e.target.parentElement.focus();
+                    e.target.focus();
+                    return (focusedItem = value);
+                }
+            });
+            if (focusedItem === undefined) {
+                // console.log(this.items[this.currentItem]);
+                // return this.items[this.currentItem].focus();
+                return this.items[this.currentItem].firstElementChild.focus();
+            }
+            return this.goToItem(focusedItem);
         }
     }
 
@@ -639,9 +659,11 @@ export class Carousel {
     #createNavigation() {
         this.#nextButton = createElement("button", {
             class: "carousel__next",
+            tabindex: -1,
         });
         this.#prevButton = createElement("button", {
             class: "carousel__prev",
+            tabindex: -1,
         });
 
         this.root.append(this.#nextButton);
@@ -869,7 +891,6 @@ export class Carousel {
             );
         }
 
-        console.log(this.#offset);
         this.pagination.append(this.#paginationButton);
         this.buttons.push(this.#paginationButton);
         this.debounce(this.#paginationButton, "paginationButton");
@@ -879,7 +900,6 @@ export class Carousel {
      * Crer la pagination dans le DOM
      */
     #createPagination() {
-        console.log("Je suis dans le createPagination");
         this.pagination = createElement("div", {
             class: "carousel__pagination",
         });
@@ -899,18 +919,9 @@ export class Carousel {
                         this.#slidesToScroll
                 ) + 1;
             for (let i = 0; i < slides; i++) {
-                // for (let i = 0; i < this.items.length / this.#visibleSlides; i++) {
                 this.#paginate(i);
             }
         } else {
-            // this.totalPages =
-            //     Math.ceil(
-            //         (itemsCount - this.#visibleSlides) / this.#slidesToScroll
-            //     ) + 1;
-            // console.log(this.totalPages);
-            // for (let i = 0; i < this.totalPages; i++) {
-            //     this.#paginate(i);
-            // }
             for (let i = 0; i < itemsCount; i = i + this.#slidesToScroll) {
                 this.#paginate(i);
             }
@@ -918,83 +929,10 @@ export class Carousel {
         // this.buttons.push(this.#paginationButton);
         let activeButton;
         this.#onMove((index) => {
-            // const count = this.items.length - 2 * this.#offset;
-            // const realIndex =
-            //     (this.currentItem - this.#offset + this.items.length) %
-            //     itemsCount;
-            // const activeItem =
-            //     Math.floor(realIndex / this.#visibleSlides) % this.totalPages;
-            // console.log(activeItem);
-            // console.log("pages => ", this.totalPages);
-            // const activePage = this.#calculateActivePage();
-
-            // const activePage = this.#testcalculateActivePage(
-            //     this.currentItem,
-            //     itemsCount,
-            //     this.#slidesToScroll,
-            //     this.#offset
-            // );
-            // const activeItem = Math.floor(
-            //     (this.currentItem + offset) / this.#slidesToScroll
-            // );
-            // console.log("\n modulo => ", (6 % itemsCount) / 3);
-            // console.log("active page => ", activePage);
-            console.log(
-                "index => ",
-                index,
-                " current item => ",
-                this.currentItem
-            );
-            // console.log(
-            //     "\n mon code => ",
-            //     Math.floor(
-            //         ((this.currentItem - this.#offset) % itemsCount) /
-            //             this.#slidesToScroll
-            //     )
-            // );
-            // console.log(index, this.currentItem);
             if (this.options.infinite && !this.#isAlreadyActive) {
-                // console.log("Je suis entré dans le pagination infinite");
                 const calculatedButton = this.#calculateActivePage(itemsCount);
-                // this.#isAlreadyActive = true;
-                console.log(this.#moveCallbacks);
-                console.log(
-                    "pagination already clicked ? => \n",
-                    this.#isPaginationClicked
-                );
-                activeButton =
-                    // activePage
-                    // Math.floor(
-                    //     (count + this.#offset) / this.#slidesToScroll
-                    // )
-                    //
-                    this.buttons[
-                        calculatedButton
-                        // this.#calculate(itemsCount)
-                        // Math.floor(
-                        //     ((index - this.#offset) %
-                        //         (this.items.length - 2 * this.#offset)) /
-                        //         this.#slidesToScroll
-                        // )
-                    ];
-                // this.buttons[count / this.#slidesToScroll];
-                //     console.log(
-                //         "\n mon code => ",
-                //         Math.floor(
-                //             ((this.currentItem - this.#offset) % itemsCount) /
-                //                 this.#slidesToScroll
-                //         )
-                //     );
-                //     console.log(
-                //         "\n preview avant de le modifier",
-                //         this.#previewsActiveButton
-                //     );
-                //     console.log(
-                //         "\n preview après l'avoir modifier",
-                //         calculatedButton
-                //     );
+                activeButton = this.buttons[calculatedButton];
                 this.#previewsActiveButton = calculatedButton;
-                console.log("\n J'ai terminé le pagination infinite \n");
             } else if (!this.options.infinite) {
                 // Ceil is used in case of a non fully filled screen in order to still get the next active button
                 activeButton =
@@ -1027,107 +965,47 @@ export class Carousel {
      * @returns {number}
      */
     #calculateActivePage(itemsCount) {
-        console.log("preview avant => \n", this.#previewsActiveButton);
-        // const minimumSlide = modulo - this.#slidesToScroll;
-        // console.log("Preview active => \n", previewsActiveButton);
-        // console.log("current Item => \n", this.currentItem);
-        // console.log("buttons length => \n", this.buttons.length);
-        // console.log(
-        //     "true ? => \n",
-        //     this.currentItem - itemsCount - this.#offset - this.#slidesToScroll
-        // );
-        // if (modulo < this.#slidesToScroll && minimumSlide !== 0) {
         const modulo = (this.currentItem - this.#offset) % itemsCount;
         const integer = Math.floor(modulo / this.#slidesToScroll);
         const decimal = Math.ceil(modulo / this.#slidesToScroll);
         const buttonsLengths = this.buttons.length - 1;
-        console.log("Je suis un chiffre entier \n", integer);
-        console.log("Je suis un chiffre décimal \n", decimal);
-        console.log(
-            "Je suis un chiffre arrondi au dessus \n",
-            Math.ceil(decimal)
-        );
-        // if (Number.isInteger(modulo / this.#slidesToScroll)) {
-        //     // if (this.currentItem - this.#offset - this.#slidesToScroll < 0) {
-        //     // console.log(
-        //     //     "Je suis un chiffre entier \n",
-        //     //     Math.floor(modulo / this.#slidesToScroll)
-        //     // );
-        //     return Math.floor(modulo / this.#slidesToScroll);
-
-        //     // return previewsActiveButton + 1;
-        // }
-        // if (
-        //     !Number.isInteger(modulo / this.#slidesToScroll) &&
-        //     Math.floor(modulo / this.#slidesToScroll) !== 0
-        // ) {
-        //     const modulo = (this.currentItem + 1 - this.#offset) % itemsCount;
-        //     // console.log(
-        //     //     "Je suis un chiffre décimal \n",
-        //     //     modulo / this.#slidesToScroll,
-        //     //     "\n Voici le math Floor => ",
-        //     //     Math.floor(modulo / this.#slidesToScroll)
-        //     // );
-        //     console.log(
-        //         "\n nouveau calcul => ",
-        //         this.currentItem / this.#slidesToScroll - this.#slidesToScroll
-        //     );
-        //     return (
-        //         this.currentItem / this.#slidesToScroll - this.#slidesToScroll
-        //     );
-        //     return Math.floor(modulo / this.#slidesToScroll);
-        // }
-        // if (this.#previewsActiveButton + 1 === buttonsLengths)
-        //     return this.#previewsActiveButton + 1;
-
-        // if (decimal === integer || integer === 0)
-        //     return Math.floor(modulo / this.#slidesToScroll);
-        // // console.log(
-        // //     Math.floor(
-        // //         ((this.currentItem - this.#offset) % itemsCount) /
-        // //             this.#slidesToScroll
-        // //     )
-        // // ) else {
-        // if (this.#previewsActiveButton + 1 === integer)
-        //     return Math.floor(modulo / this.#slidesToScroll);
-
-        // return Math.ceil(decimal);
-        // }
         if (!this.#isPaginationClicked && this.#isNextClicked !== null) {
+            // Next Button/Slide
+            // The order is mandatoryv, shouldn't be changed
             if (this.#isNextClicked) {
+                // Everything match, that's a natural order
                 if (this.#previewsActiveButton + 1 === integer) {
-                    console.log("Je donne integer");
                     return integer;
                 }
+                // We exceed the array.length, we go back at the begining
                 if (this.#previewsActiveButton + 1 > buttonsLengths) {
-                    console.log("Je retourne 0");
                     return 0;
                 }
+                // We arrive at -1 from the array.length.
+                // Since modulo can calculate a lower count, we force +1
                 if (this.#previewsActiveButton === buttonsLengths - 1) {
-                    // if (this.#previewsActiveButton + 1 !== integer || Math.ceil(decimal)) {
-                    console.log("Je fais preview + 1");
                     return this.#previewsActiveButton + 1;
                 }
+                // Everything has the same number; Most likely 0. We do a natural slide order
                 if (this.#previewsActiveButton === (integer && decimal)) {
-                    console.log(this.#previewsActiveButton, integer, decimal);
-                    console.log("tout est egal");
                     return integer;
                 }
+                // If nothing match, it means modulo wants to go back at 0, but it should advance
                 if (this.#previewsActiveButton + 1 !== integer || decimal) {
-                    console.log("Je return un +1 car on a sauté un ligne");
                     return this.#previewsActiveButton + 1;
                 }
+                // Preview Button/Slide
+                // The order is mandatory, shouldn't be changed
             } else {
+                // Natural order slide, we simply go down once
                 if (
                     this.#previewsActiveButton - 1 === integer &&
                     this.#previewsActiveButton - 1 >= 0
                 ) {
-                    console.log("Je donne integer");
                     return integer;
                 }
-
+                // We exceed the array.length, return to the highest position
                 if (this.#previewsActiveButton - 1 < 0) {
-                    console.log("Je retourne 0");
                     return buttonsLengths;
                 }
 
@@ -1136,13 +1014,13 @@ export class Carousel {
                 //     console.log("Je fais preview + 1");
                 //     return this.#previewsActiveButton + 1;
                 // }
+
+                // Everything is equal, most liquely 0, we simply advance normaly
                 if (this.#previewsActiveButton === (integer && decimal)) {
-                    console.log(this.#previewsActiveButton, integer, decimal);
-                    console.log("tout est egal");
                     return integer;
                 }
+                // Natural slide does not match but there is still room for a previews move
                 if (this.#previewsActiveButton - 1 !== integer || decimal) {
-                    console.log("Je return un +1 car on a sauté un ligne");
                     return this.#previewsActiveButton - 1;
                 }
             }
@@ -1182,19 +1060,13 @@ export class Carousel {
      * @param {boolean} [animation = true]
      */
     goToItem(index, animation = true, isPaginationClicked = null) {
-        // debugger;
-        console.log(index, animation, isPaginationClicked);
         if (isPaginationClicked) {
             this.#isPaginationClicked = true;
-            // this.#isAlreadyActive = true;
         }
         index === this.currentItem
             ? (this.#isAlreadyActive = true)
             : (this.#isAlreadyActive = false);
 
-        console.log("\n J'entre dans la goItem, index => ", index);
-
-        // console.log("index demandé => ", index, "animation ? => ", animation);
         if (index < 0) {
             // this.#reverseMode = false;
             // if (!this.options.loop && index < 0 && this.currentItem === 0) {
