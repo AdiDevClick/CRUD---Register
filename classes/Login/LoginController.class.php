@@ -103,14 +103,16 @@ class LoginController extends Login
                 throw new Error("LGNGETPWSNTZ - Mot de passe et/ou Login incorrects");
             }
 
-            if ($this->getPwd($pwd, $email) &&
+            if (
+                $this->getPwd($pwd, $email) &&
                 (($userEmail === $email) ||
-                ($username === strtolower($email)))) {
+                    ($username === strtolower($email)))
+            ) {
                 // (($this->getUsers($email)[0]['email'] === $email) ||
                 // ($this->getUsers($email)[0]['full_name'] === $email))) {
                 //password_verify($pwd, $users[0]['password'])) {
 
-                if(session_status() !== PHP_SESSION_ACTIVE || session_status() === PHP_SESSION_NONE) {
+                if (session_status() !== PHP_SESSION_ACTIVE || session_status() === PHP_SESSION_NONE) {
                     session_start();
                 }
 
@@ -131,7 +133,6 @@ class LoginController extends Login
                 // );
                 throw new Error("LGNGETPW - Mot de passe et/ou Login incorrects");
             }
-
         } catch (Error $errorMessage) {
             // die("". $errorMessage->getMessage());
             CheckInput::insertErrorMessageInArray($errorMessage->getMessage());
@@ -308,9 +309,8 @@ class LoginController extends Login
                 );
             }
             return $loggedUser;
-
         } catch (Error $errorMessage) {
-            die("Erreur : ". $errorMessage->getMessage() . header('refresh:5,../index.php?error=not-loggedin'));
+            die("Erreur : " . $errorMessage->getMessage() . header('refresh:5,../index.php?error=not-loggedin'));
         }
     }
 }
