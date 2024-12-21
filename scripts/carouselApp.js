@@ -8,7 +8,6 @@ async function onReady(url) {
         url.toString().includes("index.php") ||
         url.toString() === "/recettes/"
     ) {
-        console.log("je suis ready");
         const carousel1 = document.querySelector("#carousel1");
         if (carousel1) {
             const Carousel = await importThisModule("Carousel");
@@ -27,8 +26,6 @@ async function onReady(url) {
 
 if (window.readyState !== "loading") {
     onReady(url.pathname);
-    console.log("j'ai call le onready");
 } else {
     window.addEventListener("DOMContentLoaded", onReady);
-    console.log("je suis dans le else");
 }
