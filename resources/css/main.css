@@ -39,6 +39,7 @@
     --global-text-color: #eeeeee;
     --logo-color: drop-shadow(16px 16px 20px rgb(255, 254, 254)) invert(70%);
     --card-color: rgba(243, 243, 243, 0.05);
+    --card-color2: #1f2122;
 
     --border-color: #a391913b;
     --input-focus: #7aa8dd;

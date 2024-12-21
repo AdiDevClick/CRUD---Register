@@ -82,10 +82,12 @@ ob_start()
                     ?></div> -->
         <!-- <i><?php // echo displayAuthor($recipe["author"]) 
                 ?></i> -->
+        <hr>
+        <h2>Les recettes parues cette semaine</h2>
         <section class="carousel_container">
             <div id="carousel1" class="full-width">
                 <?php foreach ($recipes->displayRecipes() as $recipe) : ?>
-                    <article class="item_container">
+                    <article class="item_container" tabindex="0">
                         <div class="item__image">
                             <img class="js-img" src="<?= $recipe['img_path'] ?>" alt="">
                             <div class="js-youtube-player" id="UzRY3BsWFYg"></div>
@@ -103,11 +105,11 @@ ob_start()
                         </div>
                         <?php if (isset($loggedUser['email']) && $recipe['author'] === $loggedUser['email']) : ?>
                             <ul class="list-group">
-                                <li class="list-group-item"><a class="link-warning" href="./recipes/update_recipes.php?id=<?= $recipe['recipe_id'] ?>">Editer l'article</a></li>
-                                <li class="list-group-item"><a class="link-danger" href="./recipes/delete_recipes.php?id=<?= $recipe['recipe_id'] ?>">Supprimer l'article</a></li>
+                                <li class="list-group-item"><a class="link-warning" tabindex="-1" href="./recipes/update_recipes.php?id=<?= $recipe['recipe_id'] ?>">Editer l'article</a></li>
+                                <li class="list-group-item"><a class="link-danger" tabindex="-1" href="./recipes/delete_recipes.php?id=<?= $recipe['recipe_id'] ?>">Supprimer l'article</a></li>
                             </ul>
                         <?php endif ?>
-                        <a class="file-uploader js-href" href="./recipes/read.php?id=<?= $recipe['recipe_id'] ?>"></a>
+                        <a class="file-uploader js-href" tabindex="-1" href="./recipes/read.php?id=<?= $recipe['recipe_id'] ?>"></a>
                     </article>
                 <?php endforeach ?>
             </div>

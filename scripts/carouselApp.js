@@ -3,7 +3,6 @@ import { importThisModule } from "./functions/dom.js";
 const url = window.location;
 
 async function onReady(url) {
-    console.log(url);
     if (
         url.toString().includes("index.php") ||
         url.toString() === "/recettes/"
