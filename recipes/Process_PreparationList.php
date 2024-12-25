@@ -394,7 +394,7 @@ class Process_PreparationList
             "limit" => $_GET["_limit"],
             // "query" => $_GET["query"],
             "resetState" => $_GET["_reset"],
-            "fields" => ["r.recipe_id", "r.title", "r.author", "i.img_path", "i.youtubeID"],
+            "fields" => ["r.recipe_id", "r.title", "r.description", "r.author", "i.img_path", "i.youtubeID"],
             "date" => ["DATE_FORMAT(i.created_at, '%d/%m/%Y') as image_date"],
             "match" => [
                 "fields" => "r.title",
@@ -519,7 +519,7 @@ class Process_PreparationList
             $loggedUser = LoginController::checkLoggedStatus();
 
             foreach ($response as $key => $value) {
-                if (isset($loggedUser["userId"]) && (int) $loggedUser["userId"] === (int) $value["user_id"]) {
+                if (isset($loggedUser["userId"]) && isset($value["user_id"]) && (int) $loggedUser["userId"] === (int) $value["user_id"]) {
                     // if ($recipe['error']) {
                     //     // echo (json_encode(['error' => $params['error'][0]]));
                     //     echo 'test';
