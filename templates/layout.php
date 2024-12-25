@@ -115,8 +115,10 @@ $registeredItems = [
                                     ?>/scripts/toaster.js" defer></script> -->
     <?php
 
-    foreach ($scripts as $key => $script) {
-        echo "<script $script></script>";
+    if (!empty($scripts)) {
+        foreach ($scripts as $key => $script) {
+            echo "<script $script></script>";
+        }
     }
 
     ?>
@@ -262,6 +264,7 @@ $registeredItems = [
             data-id='{"recipe_id": "#id"}'
             data-elements='{
             "title": ".js-title",
+            "description": ".js-description",
             "author": ".js-author",
             "img_path": ".js-img",
             "href": ".js-href",
