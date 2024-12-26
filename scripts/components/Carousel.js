@@ -676,8 +676,22 @@ export class Carousel {
             this.next.bind(this)
         );
         this.#createEventListenerFromClick(
+            this.#nextButton,
+            "touchend",
+            "next",
+            true,
+            this.next.bind(this)
+        );
+        this.#createEventListenerFromClick(
             this.#prevButton,
             "click",
+            "prev",
+            true,
+            this.prev.bind(this)
+        );
+        this.#createEventListenerFromClick(
+            this.#prevButton,
+            "touchend",
             "prev",
             true,
             this.prev.bind(this)
@@ -877,12 +891,28 @@ export class Carousel {
                 true,
                 this.goToItem.bind(this, i + this.#offset, true, true)
             );
+            this.#createEventListenerFromClick(
+                this.#paginationButton,
+                "touchend",
+                "paginationButton",
+                true,
+                this.goToItem.bind(this, i + this.#offset, true, true)
+            );
             // this.#isPaginationClicked = true
             // this.#moveCallbacks.forEach((cb) => cb(i + this.#offset));
         } else {
             this.#createEventListenerFromClick(
                 this.#paginationButton,
                 "click",
+                "paginationButton",
+                true,
+                this.goToItem.bind(this),
+                i * this.#slidesToScroll - this.#offset
+                // i + this.#offset
+            );
+            this.#createEventListenerFromClick(
+                this.#paginationButton,
+                "touchend",
                 "paginationButton",
                 true,
                 this.goToItem.bind(this),
@@ -1293,7 +1323,10 @@ export class Carousel {
         return this.#isMobile ? 1 : this.options.slidesToScroll;
     }
 
-    /** @returns {number} */
+    /**
+     * Retourne un nombre en fonction du type de display
+     * @returns {number}
+     */
     get #visibleSlides() {
         if (this.#isMobile) {
             if (this.options.grid) {
@@ -1306,6 +1339,7 @@ export class Carousel {
             if (this.options.grid) {
                 return 2;
             }
+            return 2;
         }
         return this.options.visibleSlides;
         // return this.#isMobile ? (this.options.grid ? 2 : 1) : this.options.visibleSlides
@@ -1450,7 +1484,7 @@ export class Carousel {
 
     /** @param {Boolean} status */
     set thisIsAlreadyHovered(status) {
-        return (this.#alreadyHovered = status);
+        this.#alreadyHovered = status;
     }
 
     get isCase() {
@@ -1458,7 +1492,7 @@ export class Carousel {
     }
 
     set setCase(status) {
-        return (this.#case = status);
+        this.#case = status;
     }
 
     get restyle() {
