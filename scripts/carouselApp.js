@@ -21,6 +21,21 @@ async function onReady(url) {
             });
         }
     }
+
+    if (
+        url.toString().includes("account.php") ||
+        url.toString() === "/recettes/account"
+    ) {
+        const userRecipes = document.querySelector("#user-recipes");
+        if (userRecipes) {
+            const Carousel = await importThisModule("Carousel");
+            Carousel.create(userRecipes, {
+                visibleSlides: 3,
+                grid: true,
+                automaticScrolling: false,
+            });
+        }
+    }
 }
 
 if (window.readyState !== "loading") {
