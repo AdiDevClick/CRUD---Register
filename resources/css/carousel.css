@@ -10,8 +10,8 @@ STYLING FOR CAROUSEL
 
 
 .carousel_container {
-    width: calc(100vw - 100px);
-    justify-self: center;
+    /* width: calc(100vw - 100px);
+    justify-self: center; */
 }
 
 .item_container {
@@ -35,7 +35,8 @@ STYLING FOR CAROUSEL
         border: var(--button-color-a-hover) 1px solid;
     } */
 
-    &:hover {
+    &:hover,
+    &:has(a.hover) {
         z-index: 10;
         transform: translate3d(0, -10px, 0);
 
@@ -52,7 +53,8 @@ STYLING FOR CAROUSEL
         }
     }
 
-    &:hover:has(iframe) {
+    &:hover:has(iframe),
+    &:has(a.hover):has(iframe) {
         & iframe {
             display: block;
             z-index: 105;
@@ -112,15 +114,11 @@ STYLING FOR CAROUSEL
             right: 0;
             width: 30%;
             height: var(--line-height);
-            background: linear-gradient(to right, rgba(31,
+            background:
+                linear-gradient(to right,
+                    rgba(31,
                         33,
                         34, 0), rgba(31, 33, 34, 1) 100%);
-            /* background: linear-gradient(to right,
-                    rgba(33, 36, 37, 1) 0%,
-                    rgba(11, 13, 13, 1) 90%,
-                    rgba(0, 0, 0, 1) 50%); */
-            /* background: linear-gradient(to right, rgba(241, 240, 240, 0), rgba(243, 243, 243, 0.05) 50%); */
-            /* background: linear-gradient(to right, rgba(241, 240, 240, 0), rgba(22, 21, 21, 0.473) 50%); */
         }
     }
 
@@ -160,6 +158,10 @@ STYLING FOR CAROUSEL
 
     .item__image {
         transition: transform 0.3s;
+    }
+
+    .item__author {
+        padding-bottom: 20px;
     }
 }
 
