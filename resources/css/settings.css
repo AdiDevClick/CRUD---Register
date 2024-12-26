@@ -1,0 +1,12 @@
+.settings-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+
+    & aside {
+        grid-column: span 1;
+    }
+
+    ul:nth-child(n) {
+        max-width: 20px;
+    }
+}

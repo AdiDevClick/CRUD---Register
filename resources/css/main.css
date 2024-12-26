@@ -1174,7 +1174,7 @@ main {
     /* min-height: 100vh; */
     /* margin-top: 60px;
     padding-top: 60px; */
-    max-width: 100%;
+    /* max-width: 100%; */
 
     @media (max-width: 1270px) {
         /* padding-top: 10%;
@@ -1188,7 +1188,7 @@ main {
     /* --max-width-content: 1240px; */
     --max-width-content: 100%;
     /* --max-width-content: 100vh; */
-    --width-crop: 1rem;
+    --width-crop: 1.5rem;
     /* white-space: nowrap; */
     margin-inline: auto;
 
@@ -1215,6 +1215,9 @@ main {
     /* test */
     /* padding: 10px; */
     width: min(var(--max-width-content), 100%, calc(100% - (var(--width-crop) * 2)));
+    max-width: 1500px;
+    /* max-width: 2500px; */
+    margin-inline: auto;
     /* width: calc(100% - 20px); /* devrait etre deactivated */
     /* max-width: 100%;
     @media screen and (max-width: 576px) {

@@ -2556,9 +2556,10 @@ hr {
 /* STATIC CSS */
 
 .container {
-    width: min(100%, 1000px);
+    /* width: min(100%, 1000px); */
     /* margin-inline: auto; */
     margin: 80px auto;
+    display: grid;
 }
 
 .inline-flex {
@@ -3457,6 +3458,138 @@ hr {
     position: relative;
     color: red;
     font-weight: bold;
+}
+
+.settings-grid {
+    width: min(100%, 1500px);
+    margin-top: 80px;
+    display: grid;
+    grid-template-columns: minmax(auto, 100px) 1fr;
+    grid-template-rows: minmax(700px, auto);
+    gap: 1rem;
+    justify-self: center;
+
+    h1 {
+        text-align: center;
+        font-size: var(--fs-title);
+    }
+
+    .card {
+        /* display: grid; */
+        grid-column: 2 / 2;
+        grid-row: 1;
+        /* width: 100%;
+        height: 100%; */
+        /* padding: 20px; */
+        margin: 0;
+        gap: 1rem;
+        justify-content: unset;
+        align-items: unset;
+        /* background-color: #3b3b3b; */
+        /* border-radius: 20px; */
+        /* display: grid; */
+
+        >.parameter {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #3b3b3b;
+            border-radius: 20px;
+            padding: 20px;
+
+            /* height: 100%; */
+            >.toggle {
+                margin: 0;
+
+                >input {
+                    position: absolute;
+                }
+            }
+        }
+    }
+
+    & aside {
+        position: relative;
+        grid-column: auto;
+
+        h2 {
+            display: none;
+        }
+    }
+
+    & .picture {
+        position: relative;
+        display: grid;
+        grid-template-rows: 1fr;
+        grid-template-columns: 1fr;
+        gap: 20px;
+
+        & .profile_picture {
+            grid-row: 1;
+            grid-column: 1;
+            max-width: 120px;
+            border-radius: 50%;
+            background-color: #3b3b3b;
+            padding: 10px;
+            border-radius: 50%;
+            aspect-ratio: 1;
+        }
+
+        & .edit_img {
+            grid-row: 1;
+            grid-column: 1;
+            cursor: pointer;
+            max-width: 15px;
+            max-height: 15px;
+            bottom: 0;
+            justify-self: end;
+            align-self: end;
+            background-color: var(--button-color);
+            border-radius: 50%;
+        }
+
+        & p {
+            text-align: center;
+        }
+    }
+
+    ul {
+        position: relative;
+        display: grid;
+        row-gap: 2rem;
+        justify-self: center;
+        margin-top: 60px;
+
+        &::after {
+            content: "";
+            position: absolute;
+            border-right: 1px solid var(--button-hover-color);
+            top: 0;
+            right: 50%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        &>li:nth-child(n) {
+            cursor: pointer;
+            padding: 10px;
+            overflow: hidden;
+            max-width: 60px;
+            border-radius: 50%;
+            background-color: #3b3b3b;
+            justify-self: center;
+            aspect-ratio: 1;
+            transition: transform 0.3s ease;
+
+            &:hover {
+                transform: scale(1.06);
+            }
+
+            &:active {
+                transform: scale(0.95);
+            }
+        }
+    }
 }
 
 @keyframes slideDown {
