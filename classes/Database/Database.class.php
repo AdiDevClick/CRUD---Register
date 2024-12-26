@@ -197,7 +197,7 @@ class Database
             $executeParams[$this->lastIdKey] = $_SESSION['LAST_ID'];
         }
 
-        // die(var_dump($executeParams));
+        // die(var_dump($sqlQuery));
 
         if ($this->silentExecute) {
             $executeParams = [];
