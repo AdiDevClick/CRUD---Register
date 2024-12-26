@@ -115,7 +115,7 @@ export class SearchBar {
 
         this.#target = createElement("div", {
             class: "searched-recipes",
-            id: "carousel1",
+            id: "search-carousel",
         });
         // this.#target = document.querySelector(element.dataset.target)
         this.#endpoint = this.#searchForm.dataset.endpoint;
@@ -698,7 +698,8 @@ export class SearchBar {
                 //     grid: true
                 // })
                 this.#carousel = Carousel.create(
-                    document.querySelector("#carousel1"),
+                    document.querySelector("#search-carousel"),
+                    // document.querySelector("#carousel1"),
                     {
                         visibleSlides: 3,
                         automaticScrolling: false,
