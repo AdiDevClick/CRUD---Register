@@ -305,6 +305,8 @@ function display_5_stars(string $review, ?int $id = null): string
  */
 function renderTemplate($template, $data)
 {
+    // die(var_dump($template, $data));
+
     foreach ($data as $key => $value) {
         $template = str_replace("{{" . $key . "}}", $value, $template);
     }
