@@ -6,6 +6,13 @@ import { wait } from "../functions/dom.js";
 export class CarouselTouchPlugin {
     /** @type {boolean} */
     #isMoving = false;
+    /** @type {boolean} */
+    #isClick = false;
+    /** @type {number} */
+    #clickCount = 0;
+
+    /** @type {HTMLElement} */
+    #activeItem;
 
     /**
      * @param {Carousel} carousel
@@ -24,14 +31,20 @@ export class CarouselTouchPlugin {
             this.startDrag.bind(this)
         );
 
-        window.addEventListener("mousemove", this.drag.bind(this));
-        window.addEventListener("touchmove", this.drag.bind(this), {
+        carousel.container.addEventListener("mousemove", this.drag.bind(this));
+        carousel.container.addEventListener("touchmove", this.drag.bind(this), {
             passive: false,
         });
 
-        window.addEventListener("touchend", this.endDrag.bind(this));
-        window.addEventListener("mouseup", this.endDrag.bind(this));
-        window.addEventListener("touchcancel", this.endDrag.bind(this));
+        carousel.container.addEventListener(
+            "touchend",
+            this.endDrag.bind(this)
+        );
+        carousel.container.addEventListener("mouseup", this.endDrag.bind(this));
+        carousel.container.addEventListener(
+            "touchcancel",
+            this.endDrag.bind(this)
+        );
 
         carousel.debounce(carousel.container, "touchend");
         carousel.debounce(carousel.container, "mouseup");
@@ -44,6 +57,11 @@ export class CarouselTouchPlugin {
                 if (this.#isMoving) return e.preventDefault();
             });
         });
+
+        window.addEventListener("touchstart", (e) => {
+            if (e.target !== this.#activeItem)
+                this.#activeItem?.classList.remove("hover");
+        });
     }
 
     /**
@@ -51,15 +69,34 @@ export class CarouselTouchPlugin {
      * @param {MouseEvent|TouchEvent} e
      */
     startDrag(e) {
-        e.preventDefault();
+        // if (e.currentTarget === this.carousel.container) e.preventDefault();
         if (this.#isMoving) return;
+        // e.preventDefault();
+
+        // if (this.#isMoving) {
+        //     return;
+        // } else {
+        // e.preventDefault();
+        // }
         if (e.touches) {
             if (e.touches.length > 1) {
                 return;
             } else {
                 e = e.touches[0];
+                // If we touch another item
+                if (e.target !== this.#activeItem) {
+                    this.#activeItem?.classList.remove("hover");
+                    e.preventDefault;
+                }
+
+                // If we touch the same item, it's a click
+                if (e.target === this.#activeItem) this.#isClick = true;
+
+                e.target.classList.add("hover");
+                this.#activeItem = e.target;
             }
         }
+
         this.carousel.activateClickStatus();
         this.origin = { x: e.screenX, y: e.screenY };
         this.carousel.disableTransition();
@@ -72,7 +109,16 @@ export class CarouselTouchPlugin {
      * @param {MouseEvent|TouchEvent} e
      */
     drag(e) {
-        e.preventDefault();
+        // if (e.currentTarget === this.carousel.container) e.preventDefault();
+
+        // if (!this.#isMoving) {
+        //     return;
+        // } else {
+        //     e.preventDefault();
+        // }
+        console.log(this.#isClick);
+        // if (e.currentTarget !== this.carousel.container) return;
+
         if (this.origin) {
             const pressionPoint = e.touches ? e.touches[0] : e;
             const translate = {
@@ -80,9 +126,11 @@ export class CarouselTouchPlugin {
                 y: pressionPoint.screenY - this.origin.y,
             };
             if (e.touches && Math.abs(translate.x) > Math.abs(translate.y)) {
-                if (e.cancelable) e.preventDefault();
+                if (e.cancelable) e.preventDefault;
                 e.stopPropagation();
+                this.#isClick = false;
             }
+            // if (this.#isClick) e.preventDefault();
             const baseTranslate =
                 (this.carousel.currentItem * -100) / this.carousel.items.length;
             this.lastTranslate = translate;
@@ -98,7 +146,14 @@ export class CarouselTouchPlugin {
      * @param {MouseEvent|TouchEvent} e
      */
     async endDrag(e) {
-        e.preventDefault();
+        // if (!this.#isMoving) {
+        //     return;
+        // } else {
+        if (!this.#isClick) e.preventDefault();
+        // }
+        // if (e.currentTarget === this.carousel.container) e.preventDefault();
+
+        // if (this.#clickCount > 0) e.target.classList.add("hover");
         if (this.origin && this.lastTranslate) {
             this.carousel.enableTransition();
             if (
@@ -107,7 +162,6 @@ export class CarouselTouchPlugin {
             ) {
                 // Save current item position
                 const currentPosition = this.carousel.currentItem;
-                console.log("Jai demandé dans le endrag classique");
                 // Move to this item
                 this.lastTranslate.x < 0
                     ? this.carousel.next()
@@ -116,13 +170,9 @@ export class CarouselTouchPlugin {
                 // IMPORTANT !! If no changes we move back to the old position to avoid bugs
                 if (currentPosition === this.carousel.currentItem) {
                     this.carousel.goToItem(this.carousel.currentItem);
-                    console.log(
-                        "Je demande le reset du mouvement dans le touch"
-                    );
                 }
             } else {
                 // No changes, go back to the old position
-                console.log("Jai demandé dans le endrag en else");
                 this.carousel.goToItem(this.carousel.currentItem);
             }
         }
@@ -135,5 +185,6 @@ export class CarouselTouchPlugin {
         await wait(200);
 
         this.#isMoving = false;
+        this.#isClick = false;
     }
 }
