@@ -8,7 +8,7 @@ Default status : Dark Theme
 */
 
 .toggle {
-    --padding : 1px;
+    --padding: 1px;
     --width: 60;
     --height: 30;
     --ratio: calc(var(--width) / var(--height));
@@ -16,18 +16,20 @@ Default status : Dark Theme
     --light: #fff;
     --light-input-background: #ebebeb;
     --dark-input-background: #242424;
-    --light-button-background: linear-gradient(180deg,#ffcc89,#d8860b);
-    --dark-button-background: linear-gradient(180deg,#777,#3a3a3a);
-    --input-shadow: inset 0px 5px 15px rgba(0,0,0,0.4), inset 0px -5px 15px rgba(255,255,255,0.4);
-    --button-shadow: 0px 5px 10px rgba(0,0,0,0.2);
-    
+    --light-button-background: linear-gradient(180deg, #ffcc89, #d8860b);
+    --dark-button-background: linear-gradient(180deg, #777, #3a3a3a);
+    --input-shadow: inset 0px 5px 15px rgba(0, 0, 0, 0.4), inset 0px -5px 15px rgba(255, 255, 255, 0.4);
+    --button-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
+
     /* width: 100%; */
     padding: 5px;
     overflow: hidden;
 
     /* max-height: 40px; */
     margin: 20px auto;
-    > label[for=lightmode-toggle] {
+
+    >label {
+        /* > label[for=lightmode-toggle] { */
         overflow: hidden;
         display: flex;
         justify-content: space-around;
@@ -40,6 +42,7 @@ Default status : Dark Theme
         cursor: pointer;
         position: relative;
         box-shadow: var(--input-shadow);
+
         &:after {
             content: '';
             left: var(--padding);
@@ -51,66 +54,87 @@ Default status : Dark Theme
             box-shadow: var(--button-shadow);
             overflow: hidden;
         }
-        &:active::after, &:hover::after, &:focus::after {
+
+        &:active::after,
+        &:hover::after,
+        &:focus::after {
             width: calc(((var(--width) + (var(--width) * 0.03)) / 2) * 1px);
         }
-        > svg {
+
+        >svg {
             justify-content: center;
             position: relative;
             width: 12px;
             top: 0;
             justify-self: center;
             z-index: 1;
+
             &:hover {
                 &.moon path {
                     fill: var(--dark);
                 }
+
                 &.sun g path {
                     fill: var(--light);
                 }
             }
         }
-        > svg.sun {
+
+        >svg.sun {
             & g path {
                 fill: var(--dark);
                 transition: 0.3s;
             }
         }
-        > svg.moon path {
+
+        >svg.moon path {
             fill: var(--light);
             transition: 0.3s;
         }
-    &, &:after {
+
+        &,
+        &:after {
             transition: 0.3s ease, width 0.2s;
         }
     }
-    > input {
+
+    >input {
         width: 0;
         height: 0;
         visibility: hidden;
-        &:not([checked]) + label[for=lightmode-toggle] {
+
+        &:not([checked])+label {
+            /* &:not([checked])+label[for=lightmode-toggle] { */
             background: var(--dark-input-background);
         }
-        &:is([checked]) + label[for=lightmode-toggle]::after {
+
+        &:is([checked])+label::after {
+            /* &:is([checked])+label[for=lightmode-toggle]::after { */
             left: calc((var(--width) * 1px) - var(--padding));
-            transform: translateX(-100% );
+            transform: translateX(-100%);
             background: var(--light-button-background);
         }
-        &:is([checked]) + label[for=lightmode-toggle] {
-            > svg.sun {
+
+        &:is([checked])+label {
+
+            /* &:is([checked])+label[for=lightmode-toggle] { */
+            >svg.sun {
                 &:hover {
                     g path {
                         fill: var(--dark);
                     }
                 }
+
                 g path {
                     fill: var(--light);
                 }
             }
-            > svg.moon {
+
+            >svg.moon {
                 path {
                     fill: var(--dark);
                 }
+
                 &:hover {
                     path {
                         fill: var(--light);
