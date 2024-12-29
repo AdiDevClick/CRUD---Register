@@ -169,6 +169,7 @@ export class Carousel {
      * // IMPORTANT !! : si GRID = true : l'affichage mobile aura alors 2 items par ligne
      * // Le Carousel Touch Plugin n'étant utile que sur l'axe "X", il ne sera pas actif -
      * @param {boolean} [options.grid=false] Permet de définir un affichage de type "GRID" - par défaut : false
+     * @param {boolean} [options.listModeOnMobile=false] Permet de définir un affichage de type "LIST" pour un affichage mobile - par défaut : false
      */
     constructor(element, options = {}) {
         if (!Carousel.#isInternalConstructing) {
@@ -193,6 +194,7 @@ export class Carousel {
                 autoSlideDuration: 3000,
                 afterClickDelay: 10000,
                 grid: false,
+                listModeOnMobile: false,
             },
             options
         );
@@ -420,6 +422,12 @@ export class Carousel {
                 item.style.width = 100 / this.#visibleSlides + "%";
             } else {
                 item.style.width = 100 / this.#visibleSlides / ratio + "%";
+            }
+
+            if (this.options.listModeOnMobile && this.#isMobile) {
+                item.firstElementChild.classList.add("display-list");
+            } else {
+                item.firstElementChild.classList.remove("display-list");
             }
             // console.log(this.container)
             // console.log(item)
