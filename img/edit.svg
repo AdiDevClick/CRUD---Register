@@ -1,3 +1,12 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24" viewBox="0 0 24 24">
+<!-- <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24" viewBox="0 0 24 24">
   <image id="Calque_1" data-name="Calque 1" x="2" y="2" width="20" height="20" xlink:href="data:img/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAACBklEQVQ4jaWVv4sTQRiGn9k9oltJ2CuSToT8DQp2dlrepQ6kCAG18PAiaf0DbDSYwkJIoUJsrjs9f0CEO229BNQkoqUeNlaKuRt5l5lzWbLxTl8YCLPfPN8733wzMczXSeACcBaoADHwGLiXio6ANeAc8Am4BXzO0paAdWAPsMAv4B2wAzRScctBELw1xhxUKpX9KIpmQRB8B06nYaeAlw70FFhxTrMSbFdx5XLZjsdjOxgMrKDA7bQzwX4Cl3PK4J3tFgqF/VqtpsS22WwmUDkFNnzgunO2CBZ7WK/Xs5PJxFar1QRaKpWstg+0cdvac9vMUxSG4Y6HTafTZAjqnaqmvkSXnLuVBcC7ctDtdg9hGoIriavpsg++6U5z3gFI54GDRqNxJJj0CHifZ80YsxXH8Ww0Gh3COp1OLkx6Amzn8NTUtt1uJ6DhcGjr9XpyAGEYbruG92r4Xl0EvGGMsf1+37ZaLVssFmfuNO/MKdFrYNNv+UMOcENADTk1xmy6qzZPYjxccldr1WX8kQm8b60NgFe6y9bajzkwrT0DPOCIbfM3rTrGRU//Cmz9B/AZ8AU44SeuuwxX/gF21a1dS0+qli/c43AcqGBaI4dh9qOer+cumwL8QWWlOX1TjI/V2rlSFllXTf0Dq1ukHtPQb717+qaaXcs6O85fgPTN9dubVIn+CPgNip7kNCjaNpMAAAAASUVORK5CYII="/>
+</svg> -->
+<svg viewBox="-2.4 -2.4 28.80 28.80" fill="none" xmlns="http://www.w3.org/2000/svg" transform="rotate(0)matrix(1, 0, 0, 1, 0, 0)">
+  <g stroke-width="0"></g>
+  <g stroke-linecap="round" stroke-linejoin="round" stroke="#CCCCCC" stroke-width="0.096"></g>
+  <g>
+    <path fill="white" d="M17.9227 3.52798C18.2607 3.18992 18.7193 3 19.1973 3C19.6754 3 20.134 3.18992 20.472 3.52798C20.8101 3.86605 21 4.32456 21 4.80265C21 5.28075 20.8101 5.73926 20.472 6.07732L12.3991 14.1502L9 15L9.84978 11.6009L17.9227 3.52798Z" stroke="#000000" stroke-width="0.4800000000000001" stroke-linecap="round" stroke-linejoin="round"></path>
+    <path d="M16 6L18 8" stroke="#000000" stroke-width="0.4800000000000001" stroke-linecap="round" stroke-linejoin="round"></path>
+    <path d="M12.5 3H12C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21C16.9706 21 21 16.9706 21 12V11.5" stroke="white" stroke-width="0.4800000000000001" stroke-linecap="round"></path>
+  </g>
 </svg>

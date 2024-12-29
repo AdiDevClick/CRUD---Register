@@ -33,6 +33,7 @@ async function onReady(url) {
                 visibleSlides: 3,
                 grid: true,
                 automaticScrolling: false,
+                listModeOnMobile: true,
             });
         }
     }

@@ -87,6 +87,25 @@ ob_start();
 
     <div class="card">
         <div class="parameter">
+            <article class="item_container display-list">
+                <div class="item__image">
+                    <img class="js-img" src="http://localhost/recettes/uploads/ptitbarba@hotmail.com/recipes_images/976/1733940472.png" alt="">
+                    <div class="js-youtube-player" id="UzRY3BsWFYg"></div>
+                </div>
+                <div class="item__body no-fade">
+                    <div class="item__title js-title">
+                        {{ Mon titre est tr_s tr_s tr_s grand }}
+                    </div>
+                </div>
+                <div class="item__buttons">
+                    <img src="img/edit.svg" alt="" class="item__modify" name="modify" id="modify-{{id}}">
+                    <!-- <img src="img/bin.svg" alt="" class="item__delete" name="delete" id="delete-{{id}}"> -->
+                    <?php include "img/bin.svg" ?>
+                </div>
+            </article>
+
+        </div>
+        <div class="parameter">
             <!-- <div class="theme-selection"> -->
             <p>Activer les notifications</p>
             <!-- <img src="" alt=""> -->
@@ -119,7 +138,7 @@ ob_start();
                 <?php
                 foreach ($response as $data) {
                     // Récupérer le contenu du template des tooltips delete/edit
-                    $template = file_get_contents("./templates/user_recipes_template.html");
+                    $template = file_get_contents("./templates/user_recipes_template.php");
                     preg_match('/<template id="user-recipes-template">(.*)<\/template>/s', $template, $matches);
                     $templateContent = $matches[1];
                     //Utiliser le comment_id pour modifier la variable 'id' du template
@@ -134,11 +153,6 @@ ob_start();
             <button></button> -->
         </div>
 
-    </div>
-
-    <div class="theme-selection">
-        <p>Choisissez votre thème</p>
-        <img src="" alt="">
     </div>
 
 </div>
