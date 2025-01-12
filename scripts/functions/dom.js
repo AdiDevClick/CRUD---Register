@@ -78,21 +78,21 @@ export function findElement(node, id) {
 // Fonction itérative pour trouver l'élément avec l'ID correspondant
 // avec boucle et un stack
 
-function findElementIterative(node, id) {
-    const stack = [node];
-    while (stack.length > 0) {
-        const current = stack.pop();
-        if (current.id === id) {
-            return current;
-        }
-        stack.push(
-            ...Array.from(current.childNodes).filter(
-                (child) => child.nodeType === 1
-            )
-        );
-    }
-    return null;
-}
+// function findElementIterative(node, id) {
+//     const stack = [node];
+//     while (stack.length > 0) {
+//         const current = stack.pop();
+//         if (current.id === id) {
+//             return current;
+//         }
+//         stack.push(
+//             ...Array.from(current.childNodes).filter(
+//                 (child) => child.nodeType === 1
+//             )
+//         );
+//     }
+//     return null;
+// }
 
 /**
  * Permet de récupérer les caractères qui ne sont pas autorisés -
@@ -270,8 +270,8 @@ export function transformToComment(targetSelector) {
  */
 export function appendToAnotherLocation(
     targetSelector,
-    container,
-    isClass = "js-form-recipe"
+    container
+    // isClass = "js-form-recipe"
 ) {
     let newCardRecipeSection = container.querySelector(".card.recipe");
     const parentElement = container.querySelector(targetSelector);
@@ -582,6 +582,18 @@ export const debounce = function (funct, duration) {
             }, duration);
         });
     };
+};
+
+/**
+ * Utilise la fonction debounce pour créer un event
+ * L'event sera manipulé par une fonction qui sera passé au debounce
+ * @param {HTMLElement} object L'élément HTML qui écoute l'event.
+ * @param {EventListener} event L'event qui sera fired.
+ * @param {Function} funct La fonction qui sera exploitée.
+ * @param {number} delay Le délai du debounce
+ */
+export const debounceEvent = function (object, event, funct, delay) {
+    object.addEventListener(event, debounce(funct, delay));
 };
 
 /**

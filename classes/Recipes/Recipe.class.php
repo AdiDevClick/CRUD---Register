@@ -178,6 +178,42 @@ class Recipe extends Mysql
     }
 
     /**
+     * Modifie la valeur de is_enabled pour les recettes
+     * @param array $data
+     * @throws \Error
+     * @return array
+     */
+    protected function enableOrDisableRecipe(array $data): array
+    {
+        $sqlQuery = 'UPDATE recipes
+            SET
+                recipes.is_enabled = :is_enabled
+            WHERE recipes.recipe_id = :recipe_id;';
+
+        $updateRecipeStatement = $this->connect()->prepare($sqlQuery);
+
+        // die(var_dump($data));
+
+        if (!$updateRecipeStatement->execute($data)) {
+            $updateRecipeStatement = null;
+            throw new Error("stmt Failed");
+        }
+
+        if ($updateRecipeStatement->rowCount() == 0) {
+            $updateRecipeStatement = null;
+            $status = 'RCPUPDTSTMTEXECNT';
+        }
+        $status =
+            [
+                'update_status' => 'success',
+                'status' => 200,
+                'ok' => true,
+            ];
+
+        return $status;
+    }
+
+    /**
      * Fetching reviews and rounding them by average
      */
     public function getAverageRatingCommentsById($recipeId)

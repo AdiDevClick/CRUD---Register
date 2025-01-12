@@ -307,6 +307,7 @@ function renderTemplate($template, $data)
 {
     foreach ($data as $key => $value) {
         if (!empty($value)) {
+            // var_dump($value);
             $template = str_replace("{{" . $key . "}}", $value, $template);
         }
     }

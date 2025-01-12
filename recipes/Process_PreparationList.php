@@ -219,7 +219,6 @@ class Process_PreparationList
         // $data = json_decode($client_Side_Datas, true);
         // Vider le tampon de sortie et envoyer la réponse JSON 
         // ob_end_clean();
-
         // echo json_encode($_POST);
         if ($this->get && isset($_GET)) {
 
@@ -234,11 +233,15 @@ class Process_PreparationList
             //     $this->searchReviews($this->search);
             // }
             // Default GET behavior
+            // die(var_dump(
+            //     $_SESSION
+            // ));
             $this->is_Get();
             return;
         }
 
         if ($this->post && isset($_POST)) {
+
             // Verify if a searchParam is set to define the update status
             if (isset($_GET)) $this->getUrlParams($_GET);
             if ($this->searchMode) {
@@ -247,9 +250,11 @@ class Process_PreparationList
                 // die(var_dump($this->id));
                 // Retrieve post Datas
                 $data = $this->retrievePostDatas();
+
                 if (!empty($data['any_post'])) {
                     $this->post_This($data);
                 }
+
                 if (isset($_POST['AJAX']) && $_POST['AJAX']) {
                     $this->is_Post($data);
                 }
@@ -275,9 +280,7 @@ class Process_PreparationList
 
             if ($param === 'id') {
                 $this->id = $value;
-
                 if ($this->post) {
-
                     /**
                      * IMPORTANT !!
                      * LORS DE L'ENVOI DU FORMULAIRE POUR UNE MISE A JOUR :
@@ -316,7 +319,7 @@ class Process_PreparationList
                     'table' => ['recipes r'],
                     "where" => [
                         "conditions" => [
-                            'r.is_enabled' => '= 1',
+                            // 'r.is_enabled' => '= 1',
                             'r.recipe_id' => '= :recipe_id'
                         ],
                     ],
@@ -351,6 +354,12 @@ class Process_PreparationList
 
         $params = $this->retrievePostDatas();
 
+        if (isset($params['session_name'])) {
+            $sessionName = $params['session_name'];
+        } else {
+            $sessionName = 'REVIEWS_QUERY';
+        }
+
         if (isset($_GET["_limit"])) {
             $params['limit'] = $_GET["_limit"];
         }
@@ -377,7 +386,6 @@ class Process_PreparationList
         //     "error" => ["La filtration de commentaire n'a pas fonctionné"],
         //     "fetchAll" => true
         // ];
-
         $this->SQLRequest($this->id, $sessionName, $params);
     }
 
@@ -424,6 +432,7 @@ class Process_PreparationList
 
     /**
      * Renvoi les informations formulaires vers le serveur
+     * Vérifie le param "any_post" pour définir le type de demande à effectuer
      * @param mixed $data
      * @return void
      */
@@ -444,6 +453,7 @@ class Process_PreparationList
         if ($data['any_post'] === 'insert_comment') $response = $newView->insertComment($data);
         if ($data['any_post'] === 'update_comment') $response = $newView->updateComment($data);
         if ($data['any_post'] === 'delete_comment') $response = $newView->deleteComment($data);
+        if ($data['any_post'] === 'enable_recipe') $response = $newView->activateOrDeactivateRecipe();
         // echo json_encode($_SESSION);
 
         // Remove session user cookies
@@ -460,8 +470,9 @@ class Process_PreparationList
      */
     private function is_Post($data)
     {
-        unset($_SESSION['UPDATED_RECIPE']);
+        // die(var_dump($this->post, 'je var DUMP'));
 
+        unset($_SESSION['UPDATED_RECIPE']);
         // Traitement d'une requête avec fichiers pour
         // la création / mise à jour des recettes
         $process_Ingredients = new Process_Ajax($data ?? $_POST, $_FILES, $this->is_Post, $this->session, $this->id ?? null);
@@ -511,8 +522,10 @@ class Process_PreparationList
         // $recipe = $query->getRecipesTitle();
 
         $query = new RecipeView($request);
-
+        // die(var_dump($request));
         $response = $query->retrieveFromTable($params, $sessionName);
+        // die(var_dump($response));
+
         if (isset($_SESSION[$sessionName])) {
             unset($_SESSION[$sessionName]);
 
@@ -530,7 +543,8 @@ class Process_PreparationList
 
             echo json_encode($response);
         } else {
-            die(json_encode(['error' => $params['error'][0]]));
+            echo json_encode($response);
+            // die(json_encode(['error' => $params['error'][0]]));
         }
         // $query = new RecipeView($request);
         // // die(var_dump($request));

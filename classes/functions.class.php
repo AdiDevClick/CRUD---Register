@@ -51,7 +51,8 @@ class Functions
             "fetchAll" => $params["fetchAll"] ?? false,
             "searchMode" => $params["searchMode"] ?? false,
             "silentMode" => $params["silentMode"] ?? false,
-            "silentExecute" => $params["silentExecute"] ?? false
+            "silentExecute" => $params["silentExecute"] ?? false,
+            "permission" => $params["permission"] ?? false
         ];
         // Crée une instance de la classe Database avec des données optionnelles
         $Fetch = new Database($options, $optionnalData);

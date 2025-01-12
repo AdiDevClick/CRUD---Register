@@ -99,6 +99,8 @@ export class IngredientsFrom {
         );
         this.options.get ? (this.options.post = false) : null;
         this.#gridContainer = document.querySelector(".card_container");
+        console.log("LOADED");
+
         this.#addStepsButton = this.#gridContainer.querySelector(".plus");
         // this.#recipeStepsTemplate = document.querySelector(document.dataset.steps_template)
 

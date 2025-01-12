@@ -223,7 +223,7 @@ body {
     scroll-behavior: smooth;
 
     /* overflow-x: hidden; */
-    &:not(:has(.recipe, .read__aside)) {
+    &:not(:has(.recipe, .read__aside, .settings-grid)) {
         overflow-x: hidden;
     }
 

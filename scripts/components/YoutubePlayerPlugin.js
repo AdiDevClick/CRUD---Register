@@ -32,6 +32,7 @@ export class YoutubePlayerPlugin {
     #identifyPlayers() {
         let empty = false;
         const containers = this.#videoContainer.querySelectorAll(".player");
+
         for (const container of containers) {
             if (!this.#player[container.id] && container.tagName !== "IFRAME") {
                 this.#player[container.id] = {
@@ -51,7 +52,6 @@ export class YoutubePlayerPlugin {
         const iframe = document.getElementById("videoIFrame");
         if (!iframe) {
             const tag = document.createElement("script");
-
             tag.src = "https://www.youtube.com/iframe_api";
             tag.setAttribute("id", "videoIFrame");
             tag.type = "text/javascript";
@@ -201,6 +201,7 @@ export class YoutubePlayerPlugin {
                     },
                 },
             });
+
             this.#player[container].player = player;
         }
     }

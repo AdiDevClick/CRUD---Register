@@ -24,7 +24,6 @@ class RecipeController extends Recipe
 
                 // Checks if a correct ID type is passed
                 $this->checkIds();
-
                 //  Create SQL Query
                 $datas = Functions::getFromTable($params, $this->getData, $this->connect(), $this->optionnalData());
                 // $datas = $this->getFromTable($params, $this->getData);
@@ -187,6 +186,70 @@ class RecipeController extends Recipe
             }
         } catch (Error $e) {
             die('Erreur : ' . $e->getMessage() . " Nous n'avons pas pu mettre à jour cette recette ");
+        }
+    }
+
+    protected function controller_enableOrDisableRecipe()
+    {
+        try {
+            $loggedUser = LoginController::checkLoggedStatus();
+            if (!isset($loggedUser)) {
+                throw new Error("LGGDUSROFF  : Veuillez vous identifier avant de pouvoir mettre à jour une recette.");
+            }
+            if (!isset($response)) {
+
+                $filterKeysToRemove = [
+                    "session_name",
+                    "any_post"
+                ];
+
+                foreach ($this->getData as $filterKey => $value) {
+                    if (!in_array($filterKey, $filterKeysToRemove)) {
+                        $newData[$filterKey] = $value;
+                    }
+                }
+
+                $this->getData = $newData;
+
+                $this->checkIds();
+
+                // $checker = new CheckInput($this->getData);
+
+                // $options = [
+                //     'convert' => false
+                // ];
+
+                // die(var_dump($newData));
+                // $sanitized_Datas = $checker->sanitizeData($options);
+                if (is_bool($this->getData["is_enabled"] && $this->getData["recipe_id"])) {
+
+                    // if (isset($_SESSION['SANITIZED']) && $_SESSION['SANITIZED'] === true) {
+                    // unset($_SESSION['SANITIZED']);
+                    $id = [];
+                    $update_Status = $this->enableOrDisableRecipe($this->getData);
+
+                    $update_Status['update_status'] === 'success' ?
+                        null :
+                        $id = [
+                            'recipe_id' => $this->getData['recipe_id'],
+                            'status' => $update_Status['status'],
+                            'query_type' => 'update'
+                        ];
+                    // Sets infos inside the User Session
+                    $response = [
+                        'updatedRecipeInfos' => $this->getData
+                    ];
+                    $_SESSION['ENABLE_RECIPE'] = $response;
+
+                    return $id;
+                } else {
+                    echo json_encode("test");
+                    // echo json_encode($_SESSION['SANITIZED']);
+                    // unset($_SESSION['SANITIZED']);
+                }
+            }
+        } catch (Error $e) {
+            die('Erreur : ' . $e->getMessage() . " Nous n'avons pas pu activer/désactiver cette recette ");
         }
     }
 

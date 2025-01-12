@@ -7,6 +7,7 @@ import { fetchJSON } from "./functions/api.js";
 //     const data = await fetchTemplate(url, target)
 //     return data
 // }
+
 async function onReady() {
     const queryString = document.location;
     const urlParams = new URLSearchParams(queryString.search);
@@ -33,7 +34,7 @@ async function onReady() {
             }
         } catch (error) {
             new Toaster(error, "Erreur");
-            console.log("create", error);
+            // console.log("create", error);
         }
     }
 
@@ -59,9 +60,8 @@ async function onReady() {
             });
             ingredients.setUpdateAdress = url;
             ingredients.appendTo(document.querySelector(".js-form-fetch"));
-        } catch (error) {
+        } catch {
             window.location.assign("../index.php?failed=fetch");
-            console.log("update", error);
         }
     }
 }

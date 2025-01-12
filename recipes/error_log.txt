@@ -1,0 +1,1 @@
+Errors : [2] Trying to access array offset on value of type int - C:\xampp\htdocs\Recettes\recipes\read.php:123

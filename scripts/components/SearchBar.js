@@ -716,6 +716,7 @@ export class SearchBar {
             }
             return;
         } else {
+            // console.log(this.#carousel);
             this.#carousel.restyle;
             return;
         }

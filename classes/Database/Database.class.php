@@ -10,6 +10,8 @@ class Database
     private bool $silentMode;
     private bool $fetchAll;
     private bool $searchMode;
+    private bool $permission;
+    private array $loggedUser = [];
     private bool $silentExecute;
     private string $lastIdKey;
 
@@ -23,7 +25,8 @@ class Database
             'silentMode' => false,
             'fetchAll' => false,
             'searchMode' => false,
-            'silentExecute' => false
+            'silentExecute' => false,
+            'permission' => false,
         ];
         // Fusionner les options par défaut avec les options fournies
         $this->options = array_merge($defaults, $options);
@@ -38,7 +41,12 @@ class Database
         // Exemple :    "fields" => ["*"],
         //              "table" => ["comments"],
         $this->silentExecute = $this->options['silentExecute'];
-        // die(var_dump($this->silentMode, $this->optionnal));
+        // Verify user permissions : user_id MUST MATCH the one inside request
+        $this->permission = $this->options['permission'];
+        // die(var_dump($this->silentMode, $this->silentExecute));
+        if ($this->permission) {
+            $this->loggedUser = LoginController::checkLoggedStatus();
+        }
     }
 
     public function __createGetQuery(array $params, int|string|null $id, PDO $database)
@@ -100,6 +108,10 @@ class Database
      */
     private function createGetQuery(array $params, int|string $id = null, PDO $database)
     {
+        // die(var_dump($this->permission, $id, $this->loggedUser));
+        if ($this->permission) {
+            $id = $this->loggedUser['userId'];
+        }
         // Handle request reset state
         if (!empty($params['resetState']) && $params['resetState'] == 1) {
             $_SESSION['LAST_ID'] = 0;
@@ -160,6 +172,9 @@ class Database
             $this->orderByClause = 'ORDER BY ' . $params['order_by'];
         }
 
+        // die(var_dump($params));
+
+
         // SQL Request Construction
         $sqlQuery = "SELECT $fields
             FROM $fromTable
@@ -168,6 +183,7 @@ class Database
             $this->orderByClause
             $this->limitClause;";
         // $sqlQuery = " SELECT r.recipe_id, r.title, r.author, i.img_path, i.youtubeID, DATE_FORMAT(i.created_at, '%d/%m/%Y') as image_date, MATCH (r.title) AGAINST (:word IN BOOLEAN MODE) AS score FROM recipes r LEFT JOIN images i ON i.recipe_id = r.recipe_id WHERE r.is_enabled = 1 AND r.recipe_id > :recipe_id HAVING score > 0 ORDER BY r.recipe_id ASC LIMIT 5;";
+        // die(var_dump($sqlQuery));
 
         // Prepare Statement
         $getRecipeStatement = $database->prepare($sqlQuery);
@@ -197,7 +213,7 @@ class Database
             $executeParams[$this->lastIdKey] = $_SESSION['LAST_ID'];
         }
 
-        // die(var_dump($sqlQuery));
+        // die(var_dump($params));
 
         if ($this->silentExecute) {
             $executeParams = [];
@@ -227,84 +243,102 @@ class Database
         // die(var_dump($executeParams));
         // die(var_dump($sqlQuery, $executeParams, $params, $id));
         // die(var_dump($sqlQuery));
+        // die(var_dump($getRecipeStatement));
+        try {
+            if (!$getRecipeStatement->execute($executeParams)) {
 
-        if (!$getRecipeStatement->execute($executeParams)) {
-            $getRecipeStatement = null;
-
-            // require_once(dirname(__DIR__, 2).'/config/altertable.sql')
-            throw new Error("STMTGET - Failed");
-        }
-
-        // echo json_encode($_SESSION['LAST_ID']);
-        // If no row exists, fail
-        if ($getRecipeStatement->rowCount() == 0) {
-            if (isset($_SESSION['LAST_ID'])) {
-                unset($_SESSION['LAST_ID']);
+                $getRecipeStatement = null;
+                $errorCode = 403;
+                // require_once(dirname(__DIR__, 2).'/config/altertable.sql')
+                throw new Error("STMTGET - Failed");
             }
-            $getRecipeStatement = null;
-            if ($this->silentMode) {
-                // Return empty
-                return [];
-            }
-            // if ($this->optionnalData === "reply_Client") {
-            //     // return $error;
-            // }
-            // Send a first Error that will be caught
-            throw new Error($error);
-            // echo json_encode($error);
-        }
-        // $this->searchMode = false;
-        // $this->fetchAll = true;
 
-        if ($this->searchMode) {
 
-            // Grab all results from the searchbar
-            $data = [];
-            // echo var_dump($_SESSION['LAST_ID']);
-
-            while ($recipeInfos = $getRecipeStatement->fetch(PDO::FETCH_ASSOC)) {
-                if (is_array($recipeInfos) && isset($recipeInfos[$this->lastIdKey]) && $recipeInfos[$this->lastIdKey] > $_SESSION['LAST_ID']) {
-                    // die($getRecipeStatement);
-
-                    // $lastItem = end($recipeInfos);
-                    // $_SESSION['LAST_ID'] = $lastItem['recipe_id'];
-                    $_SESSION['LAST_ID'] = $recipeInfos[$this->lastIdKey];
-                    $data[] = $recipeInfos;
+            // echo json_encode($_SESSION['LAST_ID']);
+            // If no row exists, fail
+            if ($getRecipeStatement->rowCount() == 0) {
+                // die(var_dump($_SESSION['LAST_ID']));
+                if (isset($_SESSION['LAST_ID'])) {
+                    unset($_SESSION['LAST_ID']);
                 }
-            }
-            // while ($recipeInfos = $getRecipeStatement->fetch(PDO::FETCH_ASSOC)) {
-            //     if (is_array($recipeInfos) && isset($recipeInfos['recipe_id']) && $recipeInfos['recipe_id'] > $_SESSION['LAST_ID']) {
-            //         // $lastItem = end($recipeInfos);
-            //         // $_SESSION['LAST_ID'] = $lastItem['recipe_id'];
-            //         $_SESSION['LAST_ID'] = $recipeInfos['recipe_id'];
-            //         $data[] = $recipeInfos;
-            //     }
-            // }
-            return $data;
-        }
+                $getRecipeStatement = null;
+                if ($this->silentMode) {
+                    // Return empty
+                    return [];
+                }
+                // if ($this->optionnalData === "reply_Client") {
+                //     // return $error;
+                // }
+                // Send a first Error that will be caught
+                // $errorCode = 403;
 
-        if ($this->fetchAll) {
+                throw new Error($error);
+                // echo json_encode($error);
+            }
+            // $this->searchMode = false;
+            // $this->fetchAll = true;
+
+            if ($this->searchMode) {
+
+                // die(var_dump($this->searchMode));
+                // Grab all results from the searchbar
+                $data = [];
+                // echo var_dump($_SESSION['LAST_ID']);
+
+                while ($recipeInfos = $getRecipeStatement->fetch(PDO::FETCH_ASSOC)) {
+                    if (is_array($recipeInfos) && isset($recipeInfos[$this->lastIdKey]) && $recipeInfos[$this->lastIdKey] > $_SESSION['LAST_ID']) {
+                        // die($getRecipeStatement);
+
+                        // $lastItem = end($recipeInfos);
+                        // $_SESSION['LAST_ID'] = $lastItem['recipe_id'];
+                        $_SESSION['LAST_ID'] = $recipeInfos[$this->lastIdKey];
+                        $data[] = $recipeInfos;
+                    }
+                }
+                // while ($recipeInfos = $getRecipeStatement->fetch(PDO::FETCH_ASSOC)) {
+                //     if (is_array($recipeInfos) && isset($recipeInfos['recipe_id']) && $recipeInfos['recipe_id'] > $_SESSION['LAST_ID']) {
+                //         // $lastItem = end($recipeInfos);
+                //         // $_SESSION['LAST_ID'] = $lastItem['recipe_id'];
+                //         $_SESSION['LAST_ID'] = $recipeInfos['recipe_id'];
+                //         $data[] = $recipeInfos;
+                //     }
+                // }
+                return $data;
+            }
+
+            if ($this->fetchAll) {
+
+                // Grab 1 entry result
+                $datas = $getRecipeStatement->fetchAll(PDO::FETCH_ASSOC);
+                // If it's an UPDATE RECIPE Request - JS Client submit handler
+                // die(var_dump($params['limit']));
+                if ($this->optionnalData === 'reply_Client') {
+                    return json_encode($datas);
+                }
+                return $datas;
+            }
+
             // Grab 1 entry result
-            $datas = $getRecipeStatement->fetchAll(PDO::FETCH_ASSOC);
+            $data = $getRecipeStatement->fetch(PDO::FETCH_ASSOC);
             // If it's an UPDATE RECIPE Request - JS Client submit handler
-            // die(var_dump($params['limit']));
             if ($this->optionnalData === 'reply_Client') {
-                return json_encode($datas);
+                return json_encode($data);
             }
-            // die(var_dump($_SESSION['LAST_ID']));
-            return $datas;
-        }
+            // print(var_dump($data));
+            // die(var_dump($data));
 
-        // Grab 1 entry result
-        $data = $getRecipeStatement->fetch(PDO::FETCH_ASSOC);
-        // If it's an UPDATE RECIPE Request - JS Client submit handler
-        if ($this->optionnalData === 'reply_Client') {
-            return json_encode($data);
+            return $data;
+        } catch (\Throwable $th) {
+            $errorCode = 403;
+            $response = [
+                'status' => $errorCode,
+                'message' => "Cette requête ne peut aboutir",
+                // 'message' => $th->getMessage(),
+                'ok' => false
+            ];
+            http_response_code($errorCode);
+            return $response;
         }
-        // print(var_dump($data));
-        // die(var_dump($data));
-
-        return $data;
     }
 
     /**

@@ -94,9 +94,9 @@ $registeredItems = [
         // } elseif ($dev && defined('VITE') && VITE === true) {
         // } elseif ($dev && $vite) {
     ?>
-        <script type="module" src="http://localhost:5173/assets/@vite/client"></script>
-        <script type="module" src="http://localhost:5173/assets/resources/main.js"></script>
-        <script type="module" src="<?= strip_tags($rootUrl) . $clicServer ?>/scripts/toaster.js" defer></script>
+        <script src="http://localhost:5173/assets/@vite/client" type="module"></script>
+        <script src="http://localhost:5173/assets/resources/main.js" type="module"></script>
+        <script src="<?= strip_tags($rootUrl) . $clicServer ?>/scripts/toaster.js" type="module" defer></script>
         <script src="<?= strip_tags($rootUrl) . $clicServer ?>/scripts/toggleLightMode.js" defer></script>
     <?php
     }
@@ -107,7 +107,7 @@ $registeredItems = [
                 ?> -->
         <link rel="stylesheet" href="<?= strip_tags($rootUrl) . $clicServer ?>/resources/css/main.css" />
         <link rel="stylesheet" href="<?= strip_tags($rootUrl) . $clicServer ?>/resources/css/index.css" />
-        <script type="module" src="<?= strip_tags($rootUrl) . $clicServer ?>/scripts/toaster.js" defer></script>
+        <script src="<?= strip_tags($rootUrl) . $clicServer ?>/scripts/toaster.js" type="module" defer></script>
         <script src="<?= strip_tags($rootUrl) . $clicServer ?>/scripts/toggleLightMode.js" defer></script>
     <?php endif ?>
 

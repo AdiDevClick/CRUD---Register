@@ -178,7 +178,6 @@ export class Carousel {
             );
         }
         Carousel.#isInternalConstructing = false;
-        console.log("Carousel initialisé");
 
         this.element = element;
         this.options = Object.assign(
@@ -205,7 +204,9 @@ export class Carousel {
                 `Vous ne pouvez pas être à la fois en boucle ET en infini`
             );
         }
+
         let children = [].slice.call(element.children);
+
         // this.initialItemsArray = children
         // Modification du DOM
         this.root = createElement("div", { class: "carousel" });
@@ -307,7 +308,7 @@ export class Carousel {
                 "YoutubePlayerPlugin",
                 this
             );
-            // console.log(YoutubePlugin)
+            // console.log(YoutubePlugin);
             if (!this.options.grid) {
                 const TouchPlugin = await importThisModule(
                     "CarouselTouchPlugin",
@@ -405,6 +406,7 @@ export class Carousel {
         // this.container.style.display = 'flex'
 
         // this.container.style.height = (ratio * 100)
+        console.log("je suis dans le setStyle");
         this.items.forEach((item) => {
             // if (this.options.grid === true ) {
             //     // item.style.width = (100 / this.#visibleSlides)+ "%"
@@ -419,6 +421,7 @@ export class Carousel {
             // }
 
             if (this.options.grid === true) {
+                // console.log(item);
                 item.style.width = 100 / this.#visibleSlides + "%";
             } else {
                 item.style.width = 100 / this.#visibleSlides / ratio + "%";
@@ -430,7 +433,6 @@ export class Carousel {
                 item.firstElementChild.classList.remove("display-list");
             }
             // console.log(this.container)
-            // console.log(item)
             // console.log(((100 / this.#visibleSlides) / ratio) + "%")
             // // item.style.width = "20%"
             // item.style.width = ((100) + "%")
@@ -1379,6 +1381,7 @@ export class Carousel {
      * Transforme l'élément en paramètre puis l'ajoute au carousel -
      * Si une vidéo est trouvée, elle sera automatiquement transformée en iFrame -
      * @param {HTMLElement} item Une nouvelle carte à display
+     * @param {Boolean} reset Réinitialise l'array actuel pour le remplacer par un nouveau contenu
      */
     async appendToContainer(item) {
         // Sauvegarde de l'item
@@ -1388,7 +1391,10 @@ export class Carousel {
         // newItem.append(item)
         // this.container.append(newItem)
         const newItem = this.#constructNewCarouselItem(item);
+
+        // if (reset) this.items = [];
         this.items.push(newItem);
+        // console.log(this.items);
         // for (let i = 0; i < this.items.length - 2 * this.#offset; i = i + this.#slidesToScroll) {
         //     this.#paginate(i)
         // }
@@ -1504,6 +1510,16 @@ export class Carousel {
     }
 
     get restyle() {
+        console.log("je demande le restyle");
         return this.setStyle();
+    }
+
+    get _resetItemsArray() {
+        return (this.items = []);
+    }
+
+    /** Retourne le conteneur HTML du carousel */
+    get getContainer() {
+        return this.container;
     }
 }

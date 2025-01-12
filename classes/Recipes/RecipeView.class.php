@@ -93,7 +93,13 @@ class RecipeView extends RecipeController
     public function updateRecipeInfoById()
     {
         //return $this->updateRecipesInfosById($title, $recipe, $id);
-        return $this->updateRecipesInfosById();
+        $this->updateRecipesInfosById();
+    }
+
+    public function activateOrDeactivateRecipe(): array
+    {
+        //return $this->updateRecipesInfosById($title, $recipe, $id);
+        return $this->controller_EnableOrDisableRecipe();
     }
 
     public function fetchAverageRatingById()

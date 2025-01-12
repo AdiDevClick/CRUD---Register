@@ -16,6 +16,7 @@ declare(strict_types=1);
 // $rootUrl = Functions::getRootUrl();
 // // echo $rootUrl;
 $data = $_SERVER['REQUEST_METHOD'] === 'GET';
+unset($_SESSION['UPDATED_RECIPE']);
 $err = [];
 $loggedUser = LoginController::checkLoggedStatus();
 $sessionName = 'INFO_RECIPE';
@@ -52,10 +53,12 @@ if ($data && isset($_GET['id']) && is_numeric($_GET['id'])) {
 $err = CheckInput::getErrorMessages();
 // Show errors
 $errorMessage = CheckInput::showErrorMessage();
-ob_start()
+ob_start();
 
 ?>
-<?php if ((isset($loggedUser['email']) || isset($_SESSION['LOGGED_USER'])) && $getInfos['author'] === $loggedUser['email'] && !isset($_SESSION['UPDATED_RECIPE'])): ?>
+<?php if ((isset($loggedUser['email']) || isset($_SESSION['LOGGED_USER'])) && $getInfos['author'] === $loggedUser['email']): ?>
+    <?php // if ((isset($loggedUser['email']) || isset($_SESSION['LOGGED_USER'])) && $getInfos['author'] === $loggedUser['email'] && !isset($_SESSION['UPDATED_RECIPE'])): 
+    ?>
     <h1>Recette à éditer : <?= htmlspecialchars($getInfos['title']) ?></h1>
 
     <?php include '../templates/recipe_layout.php' ?>
@@ -64,10 +67,6 @@ ob_start()
 
     <!-- start of success message -->
 
-<?php elseif (isset($_SESSION['UPDATED_RECIPE'])): ?>
-    <?php //$setRecipe->displayShareSuccess($getDatas, $loggedUser)
-    ?>
-    <?php unset($_SESSION['UPDATED_RECIPE']) ?>
 <?php else: ?>
     <?php session_destroy() ?>
     <?php header('Location: ../index.php?failed=update-recipe') ?>

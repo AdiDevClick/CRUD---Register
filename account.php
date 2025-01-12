@@ -17,7 +17,7 @@ if (!isset($loggedUser['user'])) {
 } else {
     $sessionName = 'ACCOUNT_RECIPES';
     $params = [
-        'fields' => ['r.title', 'i.img_path', 'r.recipe_id'],
+        'fields' => ['r.title', 'i.img_path', 'r.recipe_id', 'i.youtubeID'],
         'table' => ['recipes r'],
         'join' => [
             'images i' => 'r.recipe_id = i.recipe_id',
@@ -57,7 +57,8 @@ if (!isset($loggedUser['user'])) {
 
 $css = "rel='stylesheet' href='$rootUrl/$clicServer/css/settings.css'";
 $scripts = [
-    'src="scripts/carouselApp.js" type="module" async'
+    'src="scripts/carouselApp.js" type="module" async',
+    'src="scripts/settingsApp.js" type="module" async'
 ];
 $title = "Votre compte";
 
@@ -77,16 +78,26 @@ ob_start();
         </div>
 
         <ul class="settings-icons">
-            <li><?php include "./templates/profile_picture.html" ?></li>
-            <li><?php include_once "./templates/settings_icon_template.html" ?></li>
-            <li><?php include_once "./templates/book_icon.html" ?></li>
-            <li><?php include_once "./templates/lock_icon.html" ?></li>
-            <li><?php include_once "./templates/favorite_icon.html" ?></li>
+            <li data-status="active" data-element="profile"><?php include "./templates/profile_picture.html" ?></li>
+            <li data-element="settings"><?php include_once "./templates/settings_icon_template.html" ?></li>
+            <li data-elements='{
+                "title":".js-title",
+                "img_path": ".js-img",
+                "recipe_id": ".js-id",
+                "recipe_date": ".js-date",
+                "href": ".js-href",
+                "youtubeID": ".js-youtube-player",
+                "delete-href": ".js-delete-href",
+                "modify-href": ".js-modify-href"
+            }'
+                data-element="sharedcontent"><?php include_once "./templates/book_icon.html" ?></li>
+            <li data-element="security"><?php include_once "./templates/lock_icon.html" ?></li>
+            <li data-element="favorites"><?php include_once "./templates/favorite_icon.html" ?></li>
         </ul>
     </aside>
 
-    <div class="card">
-        <div class="parameter">
+    <div class=" card">
+        <!-- <div class="parameter">
             <article class="item_container display-list">
                 <div class="item__image">
                     <img class="js-img" src="http://localhost/recettes/uploads/ptitbarba@hotmail.com/recipes_images/976/1733940472.png" alt="">
@@ -99,66 +110,54 @@ ob_start();
                 </div>
                 <div class="item__buttons">
                     <img src="img/edit.svg" alt="" class="item__modify" name="modify" id="modify-{{id}}">
-                    <!-- <img src="img/bin.svg" alt="" class="item__delete" name="delete" id="delete-{{id}}"> -->
-                    <?php include "img/bin.svg" ?>
+                    <?php // include "img/bin.svg" 
+                    ?>
                 </div>
             </article>
-
-        </div>
+        </div> -->
         <div class="parameter">
-            <!-- <div class="theme-selection"> -->
             <p>Activer les notifications</p>
-            <!-- <img src="" alt=""> -->
-            <!-- </div> -->
             <div class="toggle">
                 <input type="checkbox" id="notifications-toggle">
                 <label for="notifications-toggle">
             </div>
         </div>
         <div class="parameter">
-            <!-- <div class="theme-selection"> -->
             <p>Recevoir des newsletters</p>
-            <!-- <img src="" alt=""> -->
-            <!-- </div> -->
             <div class="toggle">
                 <input type="checkbox" id="newsletters-toggle">
                 <label for="newsletters-toggle">
             </div>
         </div>
-        <div class="parameter">
-            <!-- <div class="theme-selection"> -->
-            <p>Mes recettes</p>
+        <!-- <div class="parameter"> -->
+        <!-- <div class="theme-selection"> -->
+        <!-- <p>Mes recettes</p> -->
 
-            <!-- <img src="" alt=""> -->
-            <!-- </div> -->
+        <!-- <img src="" alt=""> -->
+        <!-- </div> -->
 
-        </div>
-        <div class="parameter">
+        <!-- </div> -->
+        <!-- <div class="parameter">
             <div id="user-recipes">
                 <?php
-                foreach ($response as $data) {
-                    // Récupérer le contenu du template des tooltips delete/edit
-                    $template = file_get_contents("./templates/user_recipes_template.php");
-                    preg_match('/<template id="user-recipes-template">(.*)<\/template>/s', $template, $matches);
-                    $templateContent = $matches[1];
-                    //Utiliser le comment_id pour modifier la variable 'id' du template
-                    // $comment['id'] = $comment['comment_id'];
-                    echo renderTemplate($templateContent, $data);
-                }
+                // foreach ($response as $data) {
+                // Récupérer le contenu du template des tooltips delete/edit
+                // $template = file_get_contents("./templates/user_recipes_template.html");
+                // preg_match('/<template id="user-recipes-template">(.*)<\/template>/s', $template, $matches);
+                // $templateContent = $matches[1];
+                // echo renderTemplate($templateContent, $data);
+                // }
                 ?>
             </div>
-            <!-- <img src="" alt="">
-            <p>Titre</p>
-            <button></button>
-            <button></button> -->
-        </div>
-
+        </div> -->
     </div>
-
 </div>
 
 
 <?php
+include 'templates/parameters_template.html';
+include 'templates/user_recipes_template.html';
+include 'templates/searchbar_template.html';
 $content = ob_get_clean();
 require 'templates/layout.php';
 ?>

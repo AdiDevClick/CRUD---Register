@@ -205,6 +205,11 @@ export class CommentList {
             }
         });
     }
+
+    /**
+     *
+     * @param {SubmitEvent} e
+     */
     async #onSubmit(e) {
         e.preventDefault();
         const form = e.currentTarget;
