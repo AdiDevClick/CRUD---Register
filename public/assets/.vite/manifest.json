@@ -1,52 +1,52 @@
 {
   "resources/Fonts/Caveat/Caveat-VariableFont_wght.ttf": {
-    "file": "Caveat-VariableFont_wght-Cd5oCIlo.ttf",
+    "file": "ttf/Caveat-VariableFont_wght-Cd5oCIlo.ttf",
     "src": "resources/Fonts/Caveat/Caveat-VariableFont_wght.ttf"
   },
   "resources/Fonts/Roboto/Roboto-Black.ttf": {
-    "file": "Roboto-Black-qr0G-G-3.ttf",
+    "file": "ttf/Roboto-Black-qr0G-G-3.ttf",
     "src": "resources/Fonts/Roboto/Roboto-Black.ttf"
   },
   "resources/Fonts/Roboto/Roboto-Bold.ttf": {
-    "file": "Roboto-Bold-BKtbn9Wi.ttf",
+    "file": "ttf/Roboto-Bold-BKtbn9Wi.ttf",
     "src": "resources/Fonts/Roboto/Roboto-Bold.ttf"
   },
   "resources/Fonts/Roboto/Roboto-Light.ttf": {
-    "file": "Roboto-Light-y85UWPYz.ttf",
+    "file": "ttf/Roboto-Light-y85UWPYz.ttf",
     "src": "resources/Fonts/Roboto/Roboto-Light.ttf"
   },
   "resources/Fonts/Roboto/Roboto-Medium.ttf": {
-    "file": "Roboto-Medium-CFKDKRMh.ttf",
+    "file": "ttf/Roboto-Medium-CFKDKRMh.ttf",
     "src": "resources/Fonts/Roboto/Roboto-Medium.ttf"
   },
   "resources/Fonts/Roboto/Roboto-Regular.ttf": {
-    "file": "Roboto-Regular-BHeBnKzs.ttf",
+    "file": "ttf/Roboto-Regular-BHeBnKzs.ttf",
     "src": "resources/Fonts/Roboto/Roboto-Regular.ttf"
   },
   "resources/Fonts/Roboto/Roboto-Thin.ttf": {
-    "file": "Roboto-Thin-D4yhO5KI.ttf",
+    "file": "ttf/Roboto-Thin-D4yhO5KI.ttf",
     "src": "resources/Fonts/Roboto/Roboto-Thin.ttf"
   },
   "resources/main.js": {
-    "file": "main-DCofL-Hc.js",
+    "file": "js/main-DRvqCMAR.js",
     "name": "main",
     "src": "resources/main.js",
     "isEntry": true,
     "css": [
-      "main-Bct8eYFW.css"
+      "css/main-BULCsEHn.css"
     ],
     "assets": [
-      "Caveat-VariableFont_wght-Cd5oCIlo.ttf",
-      "Roboto-Regular-BHeBnKzs.ttf",
-      "Roboto-Bold-BKtbn9Wi.ttf",
-      "Roboto-Black-qr0G-G-3.ttf",
-      "Roboto-Thin-D4yhO5KI.ttf",
-      "Roboto-Medium-CFKDKRMh.ttf",
-      "Roboto-Light-y85UWPYz.ttf"
+      "ttf/Caveat-VariableFont_wght-Cd5oCIlo.ttf",
+      "ttf/Roboto-Regular-BHeBnKzs.ttf",
+      "ttf/Roboto-Bold-BKtbn9Wi.ttf",
+      "ttf/Roboto-Black-qr0G-G-3.ttf",
+      "ttf/Roboto-Thin-D4yhO5KI.ttf",
+      "ttf/Roboto-Medium-CFKDKRMh.ttf",
+      "ttf/Roboto-Light-y85UWPYz.ttf"
     ]
   },
   "scripts/toaster.js": {
-    "file": "toaster-DnztCNXB.js",
+    "file": "js/toaster-DnztCNXB.js",
     "name": "toaster",
     "src": "scripts/toaster.js",
     "isEntry": true
