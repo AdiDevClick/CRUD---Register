@@ -9,11 +9,6 @@ require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . "includes" . DIRECTORY_SEP
 
 header('Cache-Control: private, must-revalidate');
 
-// $dev = true;
-// $dev = false;
-// $vite = false;
-// $vite = true;
-
 // Menu items for unregistered users
 $unregisteredItems = [
     'index.php#username' => [
@@ -66,21 +61,14 @@ $registeredItems = [
                                         ?>/resources/css/main.css"/> -->
     <!-- <link rel="stylesheet" href="<?php //echo($rootUrl). $clicServer
                                         ?>/resources/css/index.css"/> -->
+    <!-- CSS personnalisé -->
     <link
         <?= $css ?? '' ?> />
     <?php
 
 
-    // $manifest = json_decode(file_get_contents(dirname(__DIR__) . DIRECTORY_SEPARATOR ."public" . DIRECTORY_SEPARATOR ."assets" . DIRECTORY_SEPARATOR .".vite". DIRECTORY_SEPARATOR ."manifest.json"), true);
-    // print_r($manifest);
-    // echo $manifest;
-    // var_dump($manifest);
     if (!DEV) {
-        // if (!$dev) {
         $manifest = json_decode(file_get_contents(dirname(__DIR__) . DIRECTORY_SEPARATOR . "public" . DIRECTORY_SEPARATOR . "assets" . DIRECTORY_SEPARATOR . ".vite" . DIRECTORY_SEPARATOR . "manifest.json"), true);
-
-        //     $manifest = json_decode(file_get_contents('./public/assets/.vite/manifest.json'), true);
-        //     // var_dump($manifest);
     ?>
         <script src="<?= strip_tags($rootUrl) . $clicServer ?>/public/assets/<?= $manifest['resources/main.js']['file'] ?>" type="module"></script>
         <!-- <script src="./public/assets/<?php //$manifest['resources/main.js']['file']
@@ -91,8 +79,6 @@ $registeredItems = [
         <link rel="stylesheet" href="<?= strip_tags($rootUrl) . $clicServer ?>/public/assets/<?= $manifest['resources/main.js']['css'][0] ?>">
     <?php
     } elseif (DEV && VITE) {
-        // } elseif ($dev && defined('VITE') && VITE === true) {
-        // } elseif ($dev && $vite) {
     ?>
         <script src="http://localhost:5173/assets/@vite/client" type="module"></script>
         <script src="http://localhost:5173/assets/resources/main.js" type="module"></script>
@@ -113,6 +99,7 @@ $registeredItems = [
 
     <!-- <script type="module" src="<?php //echo($rootUrl). $clicServer
                                     ?>/scripts/toaster.js" defer></script> -->
+    <!-- Scripts supplémentaires -->
     <?php
 
     if (!empty($scripts)) {
