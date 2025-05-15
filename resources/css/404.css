@@ -37,8 +37,6 @@ body:has(.fourofour) {
     }
 } */
 
-
-
 h1.fourofour {
     perspective: 1200px;
     transform-style: preserve-3d;
